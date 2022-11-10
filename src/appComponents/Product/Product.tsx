@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line import/no-unresolved
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import config from '../../config';
+
+import config from 'api.config';
 import { GetlAllProductList } from '../../definations/productList.type';
 import Price from '../reusables/Price';
 import Wishlist from '../ui/Wishlist';
