@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { _SeName } from '../../constants/store.constant';
-import { PageResponseType, _Show } from '../../definations/app.type';
+import { _SeName } from 'constants/store.constant';
+import { PageResponseType, _Show } from 'definations/app.type';
 import { showComponents } from 'mock/store.mock';
 import { __domain } from '../../page.config';
 import {

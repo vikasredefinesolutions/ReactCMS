@@ -3,11 +3,11 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
-import { paths, queryParam } from '../../constants/paths.constant';
-import { _Store } from '../../constants/store.constant';
-import { _modals } from '../../definations/product.type';
-import { useActions, useTypedSelector } from '../../hooks';
-import { signInUser } from '../../services/user.service';
+import { paths, queryParam } from 'constants/paths.constant';
+import { _Store } from 'constants/store.constant';
+import { _modals } from 'definations/product.type';
+import { useActions, useTypedSelector } from 'hooks';
+import { signInUser } from 'services/user.service';
 import Input from '../ui/switch/Input';
 
 interface _Props {
@@ -270,7 +270,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                               <button
                                 onClick={() => {
                                   modalHandler(null);
-                                  navigate(
+                                  router.push(
                                     `${paths.SIGN_UP}?_t=${queryParam.INDIVIDUAL}`,
                                   );
                                 }}
@@ -281,7 +281,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                               <button
                                 onClick={() => {
                                   modalHandler(null);
-                                  navigate(
+                                  router.push(
                                     `${paths.SIGN_UP}?_t=${queryParam.TEAM}`,
                                   );
                                 }}

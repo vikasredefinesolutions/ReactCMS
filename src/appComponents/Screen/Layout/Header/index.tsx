@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { _Store } from '../constants/store.constant';
+import { _Store } from 'constants/store.constant';
 import { _Header } from '../definations/header.type';
-import { useTypedSelector } from '../hooks';
+import { useTypedSelector } from 'hooks';
 import { FetchHeaderInformation } from '../../../../services/header.service';
 import BreadCrumb from '../BreadCrumb';
 import Notification from '../Notification';

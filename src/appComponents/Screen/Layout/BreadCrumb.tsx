@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
 
@@ -34,7 +34,7 @@ const BreadCrumb: React.FC = () => {
               className="flex flex-wrap items-center text-sm"
               aria-label="Breadcrumb"
             >
-              <div className="mr-4" onClick={() => navigate(-1)}>
+              <div className="mr-4" onClick={() => router.push(-1)}>
                 &lt;&lt; Back
               </div>
               <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -48,7 +48,7 @@ const BreadCrumb: React.FC = () => {
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
-                      onClick={() => navigate('/')}
+                      onClick={() => router.push('/')}
                     >
                       <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
                     </svg>
@@ -103,7 +103,7 @@ const BreadCrumb: React.FC = () => {
                 {getBreadCrubs().map((item) => (
                   <li aria-current="page">
                     <Link
-                      to={item.url}
+                      href={item.url}
                       className="inline-flex items-center font-medium text-gray-700 hover:text-gray-900"
                     >
                       <div className="flex items-center">

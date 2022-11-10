@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
-import { SubscribeToNewsLetter } from '../../../services/user.service';
+import { SubscribeToNewsLetter } from 'services/user.service';
 
 const NewsLetterBox: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);

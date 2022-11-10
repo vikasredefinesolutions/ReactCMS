@@ -1,9 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
-import { paths } from '../../../../../constants/paths.constant';
-import { _Store } from '../../constants/store.constant';
-import { useTypedSelector } from '../../hooks';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { paths } from 'constants/paths.constant';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 
 const MyCartIcon: React.FC = () => {
   const router = useRouter();
@@ -43,7 +43,7 @@ const MyCartIcon: React.FC = () => {
     return (
       <div className="flow-root">
         <Link
-          to={paths.CART}
+          href={paths.CART}
           className="text-primary hover:text-gray-500 group flex items-center gap-1 relative pr-2"
         >
           <span className="hidden lg:inline-block">my cart</span>
@@ -75,7 +75,7 @@ const MyCartIcon: React.FC = () => {
     return (
       <div className="flow-root">
         <Link
-          to={paths.CART}
+          href={paths.CART}
           className="text-gray-600 hover:text-primary group flex items-center gap-1 relative pr-2"
         >
           <span className="hidden">my cart</span>
@@ -107,7 +107,7 @@ const MyCartIcon: React.FC = () => {
     return (
       <div className="flow-root">
         <Link
-          to={paths.CART}
+          href={paths.CART}
           className="lg:mx-2 py-2 text-white hover:text-white flex items-center gap-1"
         >
           <span className="lg:hidden material-icons-outlined">

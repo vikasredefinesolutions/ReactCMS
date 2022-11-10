@@ -1,7 +1,7 @@
 import React from 'react';
-import { _Store } from '../constants/store.constant';
-import { useTypedSelector } from '../hooks';
-import { footer } from '../mock/footer.mock';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
+import { footer } from 'mock/footer.mock';
 import ContactUs from '../ContactUs';
 import NewsLetterBox from '../NewsLetterBox';
 import CopyRight from './CopyRight';
@@ -32,7 +32,7 @@ const Footer: React.FC<_props> = () => {
                 >
                   <li>
                     {/* <Link
-                  to={paths.SPECIAL_REQUEST}
+                  href={paths.SPECIAL_REQUEST}
                   className="text-base text-gray-200 hover:text-gray-100"
                 >
                   Special Request

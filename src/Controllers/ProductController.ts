@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { _ProductDetailsTransformed } from '../definations/APIs/productDetail.res';
 // import { useNavigate, useSearchParams } from 'react-router-dom';
-// import { paths } from '../../constants/paths.constant';
+// import { paths } from 'constants/paths.constant';
 import { _Reviews } from '../definations/product.type';
-import { useActions, useTypedSelector } from '../hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import {
   FetchColors,
   FetchProductById,
@@ -109,7 +109,7 @@ const ProductController = () => {
   //   }
   //   if (!queries.category || !queries.colorId)
   //     // Need to call when we have to update category and color
-  //     navigate(
+  //     router.push(
   //       `${paths.PRODUCT}?cat=${queries.category || ''}&_pid=${
   //         queries.productId || ''
   //       }&_cl=${queries.colorId || ''}`,
@@ -120,7 +120,7 @@ const ProductController = () => {
 
   // useEffect(() => {
   //   navigateAccordingly();
-  //   navigate(
+  //   router.push(
   //     `${paths.PRODUCT}?cat=${queries.category || ''}&_pid=${
   //       queries.productId || ''
   //     }&_cl=${queries.colorId || ''}`,

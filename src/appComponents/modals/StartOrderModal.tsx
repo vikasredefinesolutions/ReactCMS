@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { _ProductInventoryTransfomed } from '../../definations/APIs/inventory.res';
-import { _ProductDetailsTransformed } from '../../definations/APIs/productDetail.res';
-import { _modals } from '../../definations/product.type';
-import { useActions, useTypedSelector } from '../../hooks';
+import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
+import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import { _modals } from 'definations/product.type';
+import { useActions, useTypedSelector } from 'hooks';
 import AskToLogin from 'Components/ProductDetails/AskToLogin';
 import CalculativeFigure from 'Components/ProductDetails/CalculativeFigure';
 import CustomizeLogoOptions from 'Components/ProductDetails/CustomizeLogoOptions';
@@ -11,8 +11,8 @@ import ProductSKU from 'Components/ProductDetails/ProductSKU';
 import SizePriceQtyTable from 'Components/ProductDetails/SizePriceQtyTable';
 import { FetchInventoryById } from '../../services/product.service';
 // import { AddToCart } from '../../services/user.service';
-import { CartLogoPersonModel, CartReq } from '../../definations/APIs/cart.req';
-import { CartResponse } from '../../definations/APIs/cart.res';
+import { CartLogoPersonModel, CartReq } from 'definations/APIs/cart.req';
+import { CartResponse } from 'definations/APIs/cart.res';
 import getLocation from '../../helpers/getLocation';
 import Image from '../reusables/Image';
 import Price from '../reusables/Price';
@@ -129,7 +129,7 @@ const StartOrderModal: React.FC<_props> = ({
     // .finally(() => console.log('close loader'));
 
     modalHandler(null);
-    // navigate('/cart');
+    // router.push('/cart');
   };
 
   useEffect(() => {

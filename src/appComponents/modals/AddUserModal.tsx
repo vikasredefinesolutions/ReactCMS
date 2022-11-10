@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { addUserMessages } from '../../constant/validationMessages';
-import { User } from '../../pages/MyAccount/Components/UserManagement';
+import { addUserMessages } from 'constants/validationMessages';
+import { User } from 'definations/user.type';
 
 type Props = {
   // eslint-disable-next-line no-unused-vars

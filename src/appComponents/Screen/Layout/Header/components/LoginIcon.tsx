@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { _Store } from '../../constants/store.constant';
-import { _modals } from '../../definations/product.type';
-import { useTypedSelector } from '../../hooks';
+import { _Store } from 'constants/store.constant';
+import { _modals } from 'definations/product.type';
+import { useTypedSelector } from 'hooks';
 import ForgotModal from '../../../../modals/ForgotModal';
 import LoginModal from '../../../../modals/LoginModal';
 
@@ -48,7 +48,7 @@ const LoginIcon: React.FC = () => {
         >
           <ul className="">
             <li className="border-t border-t-gray-300">
-              <Link to={} className="flex p-2 gap-1">
+              <Link href={} className="flex p-2 gap-1">
                 <span className="material-icons-outlined">shopping_cart</span>{' '}
                 <span className="">Order</span>
               </Link>

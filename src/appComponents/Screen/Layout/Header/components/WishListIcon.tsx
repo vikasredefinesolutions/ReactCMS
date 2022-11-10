@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { paths } from '../../../../../constants/paths.constant';
-import { _Store } from '../../constants/store.constant';
-import { useTypedSelector } from '../../hooks';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { paths } from 'constants/paths.constant';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 
 const WishListIcon: React.FC = () => {
   const router = useRouter();
@@ -12,7 +13,7 @@ const WishListIcon: React.FC = () => {
     return (
       <div className="flow-root">
         <Link
-          to={paths.WISHLIST}
+          href={paths.WISHLIST}
           className="text-gray-600 hover:text-primary group flex items-center gap-1 relative pr-2"
         >
           <span className="hidden">Wishlist</span>
@@ -67,7 +68,7 @@ const WishListIcon: React.FC = () => {
     return (
       <div className="flex">
         <Link
-          to={paths.WISHLIST}
+          href={paths.WISHLIST}
           className="text-gray-400 hover:text-gray-500 relative"
         >
           <span className="sr-only">Wishlist</span>

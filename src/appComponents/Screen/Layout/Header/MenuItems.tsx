@@ -1,8 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { paths } from '../../../../constants/paths.constant';
-import { _Store } from '../constants/store.constant';
-import { useActions, useTypedSelector } from '../hooks';
+import { useRouter } from 'next/router';
+import { paths } from 'constants/paths.constant';
+import { _Store } from 'constants/store.constant';
+import { useActions, useTypedSelector } from 'hooks';
 import MenuItem from './MenuItem';
 
 interface _props {

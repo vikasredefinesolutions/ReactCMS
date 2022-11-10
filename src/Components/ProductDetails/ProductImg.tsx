@@ -101,7 +101,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
     return (
       <div className="w-full lg:w-6/12 px-3">
         <div className="relative">
-          <div className="" onClick={() => navigate(-1)}>
+          <div className="" onClick={() => router.push(-1)}>
             &lt;&lt; Back
           </div>
           {/* Display Image */}

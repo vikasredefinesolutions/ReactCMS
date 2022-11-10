@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import config from 'api.config';
-import { GetlAllProductList } from '../../definations/productList.type';
+import { GetlAllProductList } from 'definations/productList.type';
 import Price from '../reusables/Price';
 import Wishlist from '../ui/Wishlist';
 
@@ -71,7 +71,7 @@ const ProductComponent = ({
               <div className="mt-1 text-anchor min-h-[48px]">
                 <Link
                   className="relative underline min-h-[48px]"
-                  to={`${product.sename}.html?v=product-detail`}
+                  href={`${product.sename}.html?v=product-detail`}
                 >
                   <span className="absolute inset-0"></span>
                   {product.name}

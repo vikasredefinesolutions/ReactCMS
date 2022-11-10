@@ -1,5 +1,5 @@
 import React from 'react';
-import { _Store } from '../../constants/store.constant';
+import { _Store } from 'constants/store.constant';
 import ProductDescription from 'Components/ProductDetails/ProductDescription';
 import ProductDetails from 'Components/ProductDetails/ProductDetails';
 import ProductFeatures from 'Components/ProductDetails/ProductFeatures';

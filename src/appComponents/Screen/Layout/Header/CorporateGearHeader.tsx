@@ -3,10 +3,11 @@
 import { KlevuConfig, KlevuFetch, search } from '@klevu/core';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { paths } from '../../../../constants/paths.constant';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { paths } from 'constants/paths.constant';
 import { _Header } from '../definations/header.type';
-import { useTypedSelector } from '../hooks';
+import { useTypedSelector } from 'hooks';
 import LoginIcon from './components/LoginIcon';
 import MyCartIcon from './components/MyCartIcon';
 import SearchBar from './components/SearchBar';
@@ -942,7 +943,7 @@ const CorporateGearHeader: React.FC<_props> = ({ header }) => {
                 <div className="">
                   <div className="py-3 lg:py-4 flex items-center justify-between">
                     <div className="hidden lg:flex lg:items-center">
-                      <Link to={paths.HOME}>
+                      <Link href={paths.HOME}>
                         <img
                           className="h-16 w-auto"
                           src="https://www.corporategear.com/images/logo.svg"

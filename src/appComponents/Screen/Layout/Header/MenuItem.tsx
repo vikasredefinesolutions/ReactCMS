@@ -1,6 +1,6 @@
 import React from 'react';
-import { _Store } from '../constants/store.constant';
-import { useTypedSelector } from '../hooks';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 const MenuItem: React.FC<{ screen: 'MOBILE' | 'DESKTOP' }> = ({ screen }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
 

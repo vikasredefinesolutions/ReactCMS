@@ -18,3 +18,12 @@ export interface _Industry {
   id: number;
   name: string;
 }
+
+export type User = {
+  email: string;
+  createdDate?: Date;
+  role: string;
+  lastLoggedIn?: Date;
+  firstName: string;
+  lastName: string;
+};
