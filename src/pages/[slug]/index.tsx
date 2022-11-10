@@ -12,7 +12,7 @@ export default function Search(props :any) {
     const {data} = await getPageType({
         store_id: 4,
         slug
-    })
+    });
     
     return {
         props: {
