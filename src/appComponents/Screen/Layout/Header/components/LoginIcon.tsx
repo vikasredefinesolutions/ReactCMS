@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { _Store } from '../../constants/store.constant';
-import { _modals } from '../../../../../definations/product.type';
+import { _modals } from '../../definations/product.type';
 import { useTypedSelector } from '../../hooks';
 import ForgotModal from '../../../../modals/ForgotModal';
 import LoginModal from '../../../../modals/LoginModal';

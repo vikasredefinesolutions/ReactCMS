@@ -1,5 +1,5 @@
 import React from 'react';
-import Price from '../../../components/reusables/Price';
+import Price from 'appComponents/reusables/Price';
 import { useTypedSelector } from 'hooks';
 
 const CalculativeFigure: React.FC = () => {

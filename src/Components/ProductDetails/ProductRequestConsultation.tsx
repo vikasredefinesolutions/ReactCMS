@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { paths } from '../../../constants/paths.constant';
+import { paths } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
 

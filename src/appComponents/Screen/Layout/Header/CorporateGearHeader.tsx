@@ -5,7 +5,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '../../../../constants/paths.constant';
-import { _Header } from '../../../../definations/header.type';
+import { _Header } from '../definations/header.type';
 import { useTypedSelector } from '../hooks';
 import LoginIcon from './components/LoginIcon';
 import MyCartIcon from './components/MyCartIcon';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ForgotModal from '../../../components/modals/ForgotModal';
 import LoginModal from '../../../components/modals/LoginModal';
 import { _Store } from 'constants/store.constant';
-import { _modals, _Reviews } from '../../../definations/product.type';
+import { _modals, _Reviews } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
 
 interface _Props {

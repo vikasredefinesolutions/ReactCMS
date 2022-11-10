@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { _Store } from 'constants/store.constant';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
-import { _modals } from '../../../definations/product.type';
+import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
-import { FetchSizeChartById } from '../../../services/product.service';
+import { FetchSizeChartById } from 'services/product.service';
 
 interface _Props {
   modal?: 'NO';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Price from '../../../components/reusables/Price';
+import Price from 'appComponents/reusables/Price';
 import { ShoppingCartItemDetailsViewModel } from 'definations/APIs/cart.res';
 import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
 import { useTypedSelector } from 'hooks';
