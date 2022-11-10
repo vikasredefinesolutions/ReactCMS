@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UserType } from '../../defination/APIs/user.res';
+import { UserType } from 'definations/APIs/user.res';
 import { getStoreCustomer } from '../asyncActions/user.async';
 
 // Define a type for the slice state

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CartReq } from '../../defination/APIs/cart.req';
-import { addToCart, fetchCart } from '../../services/cart.service';
+import { CartReq } from 'definations/APIs/cart.req';
+import { addToCart, fetchCart } from 'services/cart.service';
 
 export const fetchCartDetails = createAsyncThunk(
   'cart/details',

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
-import config from '../../config';
-import { _ProductColor } from '../../defination/APIs/colors.res';
+import config from '../../api.config';
+import { _ProductColor } from '../../definations/APIs/colors.res';
 
 // Define a type for the slice state
 interface _ProductStore {
