@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { _ProductDetailsTransformed } from '../../definations/APIs/productDetail.res';
+import { _ProductDetailsTransformed } from '../definations/APIs/productDetail.res';
 // import { useNavigate, useSearchParams } from 'react-router-dom';
 // import { paths } from '../../constants/paths.constant';
-import { _Reviews } from '../../definations/product.type';
-import { useActions, useTypedSelector } from '../../hooks';
+import { _Reviews } from '../definations/product.type';
+import { useActions, useTypedSelector } from '../hooks';
 import {
   FetchColors,
   FetchProductById,
   FetchReviewsById,
-} from '../../services/product.service';
+} from '../services/product.service';
 
 const ProductController = () => {
   // const [params] = useSearchParams();
