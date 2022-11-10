@@ -1,6 +1,6 @@
+import { useTypedSelector } from 'hooks';
 import React from 'react';
-import { useTypedSelector } from '../../../hooks';
-import { UpdateWishList } from '../../../services/user.service';
+import { UpdateWishList } from 'services/user.service';
 
 interface _props {
   src: string;

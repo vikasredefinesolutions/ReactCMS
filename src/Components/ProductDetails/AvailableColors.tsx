@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Image from '../../../components/reusables/Image';
-import { _Store } from '../../../constants/store.constant';
-import { _ProductColor } from '../../../definations/APIs/colors.res';
-import { _modals } from '../../../definations/product.type';
-import { useActions, useTypedSelector } from '../../../hooks';
-import { __product } from '../../../page.config';
+import { _Store } from 'constants/store.constant';
+import { _ProductColor } from 'definations/APIs/colors.res';
+import { _modals } from 'definations/product.type';
+import { useActions, useTypedSelector } from 'hooks';
+import { __product } from 'page.config';
+import { useState } from 'react';
 import SizeChart from './SizeChartModal';
+import Images from 'appComponents/reusables/Image';
 
 interface _props {
   colors: _ProductColor[] | null;
