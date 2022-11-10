@@ -1,0 +1,27 @@
+export interface _FetchColors {
+  success: boolean;
+  data: _ProductColor[];
+  errors: Errors;
+  otherData: null;
+}
+
+export interface _ProductColor {
+  productId: number;
+  attributeOptionId: number;
+  name: string;
+  imageUrl: string;
+  displayOrder: number;
+  altTag: string;
+  moreImages: _OtherImage[];
+  minQuantity: number;
+  multipleQuantity: number;
+}
+
+export interface _OtherImage {
+  imageUrl: string;
+  displayOrder: number;
+  altTag: string;
+  id: number;
+}
+
+export interface Errors {}
