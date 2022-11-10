@@ -12,7 +12,7 @@ import {
 
 const ProductController = () => {
   // const [params] = useSearchParams();
-  // const navigate = useNavigate();
+  //const router = useRouter();
   const { setColor, storeAllColors, storeDetails } = useActions();
   // States -----------------------------------
   const [product, setProduct] = useState<null | _ProductDetailsTransformed>(
@@ -100,11 +100,11 @@ const ProductController = () => {
 
   // const navigateAccordingly = () => {
   //   if (!queries.productId && queries.category) {
-  //     navigate(paths.PRODUCT_LISTING, { replace: true });
+  //     router.push(paths.PRODUCT_LISTING, { replace: true });
   //     return;
   //   }
   //   if (!queries.productId && !queries.category) {
-  //     navigate(paths.HOME, { replace: true });
+  //     router.push(paths.HOME, { replace: true });
   //     return;
   //   }
   //   if (!queries.category || !queries.colorId)
@@ -131,7 +131,7 @@ const ProductController = () => {
     // if (!'show for test') {
     //   // if (!queries.productId) {
 
-    //   navigate(paths.HOME, { replace: true });
+    //   router.push(paths.HOME, { replace: true });
     //   return;
     // }
     fetchProductById(4);

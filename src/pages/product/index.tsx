@@ -1,11 +1,11 @@
 import React from 'react';
 import { _Store } from '../../constants/store.constant';
-import ProductDescription from './Components/ProductDescription';
-import ProductDetails from './Components/ProductDetails';
-import ProductFeatures from './Components/ProductFeatures';
-import ProductReviews from './Components/ProductReviews';
-import SizeChart from './Components/SizeChartModal';
-import ProductController from './ProductController';
+import ProductDescription from 'Components/ProductDetails/ProductDescription';
+import ProductDetails from 'Components/ProductDetails/ProductDetails';
+import ProductFeatures from 'Components/ProductDetails/ProductFeatures';
+import ProductReviews from 'Components/ProductDetails/ProductReviews';
+import SizeChart from 'Components/ProductDetails/SizeChartModal';
+import ProductController from 'Controllers/ProductController';
 
 const Product: React.FC = () => {
   const { product, reviews, show, storeLayout } = ProductController();
