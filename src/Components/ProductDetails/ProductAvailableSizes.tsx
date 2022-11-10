@@ -1,7 +1,7 @@
 import React from 'react';
-import { _Store } from '../../../constants/store.constant';
-import { extractString } from '../../../helpers/conversions';
-import { useTypedSelector } from '../../../hooks';
+import { _Store } from 'constants/store.constant';
+import { extractString } from 'helpers/conversions';
+import { useTypedSelector } from 'hooks';
 
 interface _props {
   sizes: string[];

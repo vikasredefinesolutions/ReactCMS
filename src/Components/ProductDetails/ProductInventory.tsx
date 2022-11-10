@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Image from '../../../components/reusables/Image';
+import Image from 'appComponents/reusables/Image';
 import Price from '../../../components/reusables/Price';
-import { _Store } from '../../../constants/store.constant';
-import { _ProductInventoryTransfomed } from '../../../definations/APIs/inventory.res';
-import { useActions, useTypedSelector } from '../../../hooks';
+import { _Store } from 'constants/store.constant';
+import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
+import { useActions, useTypedSelector } from 'hooks';
 import { FetchInventoryById } from '../../../services/product.service';
 import InventoryInput from './InventoryInput';
 

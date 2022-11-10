@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import InnerImageZoom from 'react-inner-image-zoom';
-import { useNavigate } from 'react-router-dom';
-import { icons } from '../../../Assets/images.asset';
-import Image from '../../../components/reusables/Image';
-import { _Store } from '../../../constants/store.constant';
-import { _OtherImage } from '../../../definations/APIs/colors.res';
-import { _ProductDetailsTransformed } from '../../../definations/APIs/productDetail.res';
-import { useActions, useTypedSelector } from '../../../hooks';
+import { useRouter } from 'next/router';
+import { icons } from 'Assets/images.asset';
+import Image from 'appComponents/reusables/Image';
+import { _Store } from 'constants/store.constant';
+import { _OtherImage } from 'definations/APIs/colors.res';
+import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import { useActions, useTypedSelector } from 'hooks';
 import AvailableColors from './AvailableColors';
 import HeartIcon from './HeartIcon';
 import ProductCompanion from './ProductCompanion';
@@ -16,7 +16,7 @@ interface _Props {
 }
 
 const ProductImg: React.FC<_Props> = ({ product }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { setImage } = useActions();
 
   // STATES ----------------------------------------

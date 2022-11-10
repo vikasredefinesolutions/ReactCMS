@@ -1,8 +1,8 @@
 import React from 'react';
 import Price from '../../../components/reusables/Price';
-import { ShoppingCartItemDetailsViewModel } from '../../../definations/APIs/cart.res';
-import { _ProductInventoryTransfomed } from '../../../definations/APIs/inventory.res';
-import { useTypedSelector } from '../../../hooks';
+import { ShoppingCartItemDetailsViewModel } from 'definations/APIs/cart.res';
+import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
+import { useTypedSelector } from 'hooks';
 import SelectOrInput from './SelectOrInput';
 
 interface _props {

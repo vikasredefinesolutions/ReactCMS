@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTypedSelector } from '../../hooks';
+import { useTypedSelector } from 'hooks';
 
 interface _props {
   value?: number | string;

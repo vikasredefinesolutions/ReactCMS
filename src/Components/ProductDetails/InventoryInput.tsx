@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { _Store } from '../../../constants/store.constant';
-import { useActions, useTypedSelector } from '../../../hooks';
+import { _Store } from 'constants/store.constant';
+import { useActions, useTypedSelector } from 'hooks';
 interface _props {
   size: string;
   qty: number;

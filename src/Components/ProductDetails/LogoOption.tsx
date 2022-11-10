@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useActions, useTypedSelector } from '../../../hooks';
+import { useActions, useTypedSelector } from 'hooks';
 
 const dummyLogoImage = 'images/logo-to-be-submitted.webp';
 

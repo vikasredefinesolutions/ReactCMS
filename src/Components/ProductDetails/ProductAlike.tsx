@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import Slider from 'react-slick';
-import { _Store } from '../../../constants/store.constant';
+import { _Store } from 'constants/store.constant';
 import { _Product } from '../../../definations/product.type';
-import { useTypedSelector } from '../../../hooks';
+import { useTypedSelector } from 'hooks';
 interface _props {
   products: _Product[];
 }

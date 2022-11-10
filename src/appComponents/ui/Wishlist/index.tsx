@@ -2,7 +2,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useTypedSelector } from '../../../hooks';
+import { useTypedSelector } from 'hooks';
 import {
   AddToWishlist,
   removeWishlist,

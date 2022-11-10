@@ -1,6 +1,6 @@
 import { FieldArray, Form, Formik } from 'formik';
 import React, { useState } from 'react';
-import { useActions, useTypedSelector } from '../../../hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import { IndexLabels, logoPositions } from '../../../mock/startModal.mock';
 import LogoOption from './LogoOption';
 import NextLogoButton from './NextLogoButton';

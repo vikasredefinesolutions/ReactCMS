@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { paths } from '../../../../../constants/paths.constant';
-import { _Store } from '../../../../../constants/store.constant';
-import { useTypedSelector } from '../../../../../hooks';
+import { _Store } from '../../constants/store.constant';
+import { useTypedSelector } from '../../hooks';
 
 interface _props {
   screen: 'DESKTOP' | 'MOBILE';

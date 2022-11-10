@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 import { paths, queryParam } from '../../constants/paths.constant';
 import { _Store } from '../../constants/store.constant';
@@ -16,7 +16,7 @@ interface _Props {
 }
 
 const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { updateUserDetails } = useActions();
 
   const { layout: storeLayout, id: storeId } = useTypedSelector(
@@ -142,7 +142,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             <button
                               onClick={() => {
                                 modalHandler(null);
-                                navigate(paths.SIGN_UP);
+                                router.push(paths.SIGN_UP);
                               }}
                               className="btn btn-lg btn-secondary w-full text-center"
                             >
@@ -409,7 +409,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             <button
                               onClick={() => {
                                 modalHandler(null);
-                                navigate(paths.SIGN_UP);
+                                router.push(paths.SIGN_UP);
                               }}
                               className="btn btn-lg btn-secondary w-full !flex items-center justify-center"
                             >

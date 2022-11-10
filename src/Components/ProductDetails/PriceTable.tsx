@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Price from '../../../components/reusables/Price';
-import { _Store } from '../../../constants/store.constant';
-import { _ProductDiscountTable } from '../../../definations/APIs/discountTable.res';
-import { useTypedSelector } from '../../../hooks';
-import { FetchDiscountTablePrices } from '../../../services/product.service';
+import Price from 'appComponents/reusables/Price';
+import { _Store } from 'constants/store.constant';
+import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
+import { useTypedSelector } from 'hooks';
+import { FetchDiscountTablePrices } from 'services/product.service';
 
 const QtyPriceTable: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);

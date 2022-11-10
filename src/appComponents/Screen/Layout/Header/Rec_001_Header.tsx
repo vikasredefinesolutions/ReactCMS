@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { _Header } from '../../../../definations/header.type';
-import { useTypedSelector } from '../../../../hooks';
+import { useTypedSelector } from '../hooks';
 import LoginIcon from './components/LoginIcon';
 import { default as CompanyLogo, default as Logo } from './components/Logo';
 import MenuIcon from './components/MenuIcon';

@@ -1,7 +1,7 @@
 import React from 'react';
-import { _Store } from '../../../constants/store.constant';
-import { _ProductDetailsTransformed } from '../../../definations/APIs/productDetail.res';
-import { useTypedSelector } from '../../../hooks';
+import { _Store } from 'constants/store.constant';
+import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import { useTypedSelector } from 'hooks';
 import ProductImg from './ProductImg';
 import ProductInfo from './ProductInfo';
 

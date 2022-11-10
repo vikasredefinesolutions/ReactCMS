@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { paths } from '../../../../../constants/paths.constant';
-import { _Store } from '../../../../../constants/store.constant';
-import { useTypedSelector } from '../../../../../hooks';
+import { _Store } from '../../constants/store.constant';
+import { useTypedSelector } from '../../hooks';
 
 const WishListIcon: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
   if (storeLayout === _Store.type3) {
@@ -41,7 +41,7 @@ const WishListIcon: React.FC = () => {
       <div className="flow-root">
         <button
           className="text-gray-600 hover:text-primary group flex items-center gap-1 relative pr-2"
-          onClick={() => navigate(paths.WISHLIST)}
+          onClick={() => router.push(paths.WISHLIST)}
         >
           <span className="hidden">Wishlist</span>
 

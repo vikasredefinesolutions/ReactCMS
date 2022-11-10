@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import { useActions } from '../../../hooks';
+import { useActions } from 'hooks';
 
 interface _props {
   qty: number;

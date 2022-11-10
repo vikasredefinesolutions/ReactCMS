@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
-import ForgotModal from '../../../components/modals/ForgotModal';
-import LoginModal from '../../../components/modals/LoginModal';
-import StartOrderModal from '../../../components/modals/StartOrderModal';
-import Price from '../../../components/reusables/Price';
-import { paths } from '../../../constants/paths.constant';
-import { _Store } from '../../../constants/store.constant';
-import { _ProductDetailsTransformed } from '../../../definations/APIs/productDetail.res';
-import { _modals } from '../../../definations/product.type';
-import { useTypedSelector } from '../../../hooks';
+import ForgotModal from 'appComponents/modals/ForgotModal';
+import LoginModal from 'appComponents/modals/LoginModal';
+import StartOrderModal from 'appComponents/modals/StartOrderModal';
+import Price from 'appComponents/reusables/Price';
+import { paths } from 'constants/paths.constant';
+import { _Store } from 'constants/store.constant';
+import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import { _modals } from 'definations/product.type';
+import { useTypedSelector } from 'hooks';
 import AskToLogin from './AskToLogin';
 import AvailableColors from './AvailableColors';
 import AvailableInventoryModal from './AvailableInventoryModal';
@@ -31,6 +30,7 @@ import ProductRequestConsultation from './ProductRequestConsultation';
 import ProductSKU from './ProductSKU';
 import ProductStarReviews from './ProductStarReviews';
 import SizeChartModal from './SizeChartModal';
+import { useRouter } from 'next/router';
 
 interface _Props {
   product: _ProductDetailsTransformed;
@@ -49,7 +49,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
   } = useTypedSelector((state) => state.product.toCheckout);
 
   // const show = useTypedSelector((state) => state.store.display.footer);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const modalHandler = (param: null | _modals) => {
     if (param) {
@@ -71,7 +71,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         return;
       }
 
-      navigate(`${paths.CUSTOMIZE_LOGO}/${product.id}`);
+      router.push(`${paths.CUSTOMIZE_LOGO}/${product.id}`);
       return;
     }
   };
@@ -167,7 +167,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           </div>
           <div className="mt-5 text-center">
             <button
-              onClick={() => navigate(paths.REQUEST_CONSULTATION)}
+              onClick={() => router.push(paths.REQUEST_CONSULTATION)}
               className="text-indigo-500 text-lg font-semibold underline"
             >
               Or request a free consultation with one of our experts

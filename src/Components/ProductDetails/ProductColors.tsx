@@ -1,8 +1,8 @@
 import React from 'react';
-import Image from '../../../components/reusables/Image';
-import { _Store } from '../../../constants/store.constant';
-import { _ProductColor } from '../../../definations/APIs/colors.res';
-import { useActions, useTypedSelector } from '../../../hooks';
+import Image from 'appComponents/reusables/Image';
+import { _Store } from 'constants/store.constant';
+import { _ProductColor } from 'definations/APIs/colors.res';
+import { useActions, useTypedSelector } from 'hooks';
 
 interface _props {
   colors: _ProductColor[] | null;

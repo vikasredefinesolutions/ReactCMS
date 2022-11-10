@@ -1,6 +1,6 @@
 // import { FieldArrayRenderProps } from 'formik';
 import React from 'react';
-import { useActions, useTypedSelector } from '../../../hooks';
+import { useActions, useTypedSelector } from 'hooks';
 
 interface _props {
   cIndex: {

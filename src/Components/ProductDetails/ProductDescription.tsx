@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { _Store } from '../../../constants/store.constant';
-import { useTypedSelector } from '../../../hooks';
-import { __product } from '../../../page.config';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
+import { __product } from 'page.config';
 interface _props {
   heading: string;
   text: string;

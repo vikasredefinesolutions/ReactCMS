@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Image from '../../../components/reusables/Image';
-import { _ProductInventoryTransfomed } from '../../../definations/APIs/inventory.res';
-import { _modals } from '../../../definations/product.type';
-import { useTypedSelector } from '../../../hooks';
-import { FetchInventoryById } from '../../../services/product.service';
+import Image from 'appComponents/reusables/Image';
+import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
+import { _modals } from 'definations/product.type';
+import { useTypedSelector } from 'hooks';
+import { FetchInventoryById } from 'services/product.service';
 interface _props {
   productId: number;
   // eslint-disable-next-line no-unused-vars

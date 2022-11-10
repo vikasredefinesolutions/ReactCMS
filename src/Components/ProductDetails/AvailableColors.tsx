@@ -5,7 +5,7 @@ import { useActions, useTypedSelector } from 'hooks';
 import { __product } from 'page.config';
 import { useState } from 'react';
 import SizeChart from './SizeChartModal';
-import Images from 'appComponents/reusables/Image';
+import Image from 'appComponents/reusables/Image';
 
 interface _props {
   colors: _ProductColor[] | null;

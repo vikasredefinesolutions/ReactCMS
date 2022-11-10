@@ -1,7 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { _Store } from '../../../constants/store.constant';
-import { useTypedSelector } from '../../../hooks';
+import { useRouter } from 'next/router';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 interface _props {
   name: string | null;
   id: number | null;
@@ -12,12 +12,12 @@ interface _props {
 const ProductCompanion: React.FC<_props> = ({ name, imageUrl, id }) => {
   if (name === null) return <></>;
 
-  const navigate = useNavigate();
+  const router = useRouter();
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
   const goToProduct = (id: number | null) => {
     if (id === null) return;
-    navigate(`/product/${id}`);
+    router.push(`/product/${id}`);
   };
 
   if (storeLayout === _Store.type3) {

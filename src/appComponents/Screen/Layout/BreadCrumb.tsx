@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-import { _Store } from '../../../constants/store.constant';
-import { useTypedSelector } from '../../../hooks';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 
 const BreadCrumb: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   // const show = useTypedSelector((state) => state.store.display.footer);
-  const navigate = useNavigate();
+  const router = useRouter();
   const page = useTypedSelector((state) => state.store.pageType);
   const getBreadCrubs = () => {
     const { slug } = page;

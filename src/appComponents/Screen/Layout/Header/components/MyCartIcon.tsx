@@ -2,18 +2,18 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { paths } from '../../../../../constants/paths.constant';
-import { _Store } from '../../../../../constants/store.constant';
-import { useTypedSelector } from '../../../../../hooks';
+import { _Store } from '../../constants/store.constant';
+import { useTypedSelector } from '../../hooks';
 
 const MyCartIcon: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const storeLayout = useTypedSelector((state) => state.store.layout);
   if (storeLayout === _Store.type2) {
     return (
       <div className="flow-root">
         <button
           className="text-gray-600 hover:text-primary group flex items-center gap-1 relative pr-2"
-          onClick={() => navigate(paths.CART)}
+          onClick={() => router.push(paths.CART)}
         >
           <span className="hidden">my cart</span>
           <svg

@@ -1,6 +1,6 @@
 import React from 'react';
-import { _Store } from '../../../../constants/store.constant';
-import { useTypedSelector } from '../../../../hooks';
+import { _Store } from '../constants/store.constant';
+import { useTypedSelector } from '../hooks';
 import { footer } from '../../../../mock/footer.mock';
 import ContactUs from '../ContactUs';
 import NewsLetterBox from '../NewsLetterBox';
