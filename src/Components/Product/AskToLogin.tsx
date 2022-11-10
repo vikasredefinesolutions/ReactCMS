@@ -1,5 +1,5 @@
 import React from 'react';
-import { _modals } from '../../../definations/product.type';
+import { _modals } from '../../definations/product.type';
 
 interface _props {
   // eslint-disable-next-line no-unused-vars
