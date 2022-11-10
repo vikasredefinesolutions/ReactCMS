@@ -3,12 +3,12 @@ import { _ProductInventoryTransfomed } from '../../definations/APIs/inventory.re
 import { _ProductDetailsTransformed } from '../../definations/APIs/productDetail.res';
 import { _modals } from '../../definations/product.type';
 import { useActions, useTypedSelector } from '../../hooks';
-import AskToLogin from '../../pages/Product/Components/AskToLogin';
-import CalculativeFigure from '../../pages/Product/Components/CalculativeFigure';
-import CustomizeLogoOptions from '../../pages/Product/Components/CustomizeLogoOptions';
-import DiscountPricing from '../../pages/Product/Components/DiscountPricing';
-import ProductSKU from '../../pages/Product/Components/ProductSKU';
-import SizePriceQtyTable from '../../pages/Product/Components/SizePriceQtyTable';
+import AskToLogin from 'Components/ProductDetails/AskToLogin';
+import CalculativeFigure from 'Components/ProductDetails/CalculativeFigure';
+import CustomizeLogoOptions from 'Components/ProductDetails/CustomizeLogoOptions';
+import DiscountPricing from 'Components/ProductDetails/DiscountPricing';
+import ProductSKU from 'Components/ProductDetails/ProductSKU';
+import SizePriceQtyTable from 'Components/ProductDetails/SizePriceQtyTable';
 import { FetchInventoryById } from '../../services/product.service';
 // import { AddToCart } from '../../services/user.service';
 import { CartLogoPersonModel, CartReq } from '../../definations/APIs/cart.req';
