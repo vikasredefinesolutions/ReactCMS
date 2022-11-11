@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { _SeName } from 'constants/store.constant';
+import { _StoreMenu } from 'definations/APIs/header.res';
 import { PageResponseType, _Show } from 'definations/app.type';
+import { storeReturnType } from 'definations/store.type';
 import { showComponents } from 'mock/store.mock';
-import { __domain } from '../../page.config';
+import { __domain } from 'page.config';
 import {
   FetchStoreDetails,
   SetPageType,
@@ -14,10 +16,13 @@ export interface _RedesignStore {
   layout: null | string;
   storeTypeId: number | null;
   display: _Show;
+  pathName: string;
   companyName: string;
   currency: string;
   seName: string;
   pageType: PageResponseType;
+  view: 'DESKTOP' | 'MOBILE';
+  menuItems: _StoreMenu[] | null;
 }
 
 // Define the initial state using that type
@@ -26,16 +31,47 @@ const initialState: _RedesignStore = {
   layout: null,
   storeTypeId: null,
   display: showComponents,
+  pathName: '',
   companyName: '',
   currency: '$',
   seName: _SeName.nike,
   pageType: {} as PageResponseType,
+  view: 'DESKTOP',
+  menuItems: null,
 };
 
 export const storeSlice = createSlice({
   name: 'redesignStore',
   initialState,
-  reducers: {},
+  reducers: {
+    store_storeDetails: (
+      state,
+      action: {
+        payload: {
+          store: storeReturnType;
+          menuItems: _StoreMenu[];
+        };
+      },
+    ) => {
+      const store = action.payload.store;
+
+      state.id = store.storeId;
+      state.layout = store.layout;
+      state.pathName = store.pathName;
+
+      // state.pageType = store.pageType;
+      state.menuItems = action.payload.menuItems;
+    },
+
+    setView: (
+      state,
+      action: {
+        payload: 'DESKTOP' | 'MOBILE';
+      },
+    ) => {
+      state.view = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(FetchStoreDetails.fulfilled, (state, action) => {
       state.id = action.payload.id;

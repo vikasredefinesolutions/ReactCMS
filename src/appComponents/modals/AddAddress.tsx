@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { addressMessages } from 'constant/validationMessages';
 import { AddUpdateAddressRequest } from 'definations/APIs/address.req';
 import { CustomerAddress } from 'definations/APIs/user.res';
-import { getCountryList, getStatesList } from '../../services/address.service';
+import { getCountryList, getStatesList } from 'services/address.service';
 
 const AddAddress = ({
   closePopupHandler,

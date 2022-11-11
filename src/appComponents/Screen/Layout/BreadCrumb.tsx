@@ -8,11 +8,10 @@ const BreadCrumb: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   // const show = useTypedSelector((state) => state.store.display.footer);
   const router = useRouter();
-  const page = useTypedSelector((state) => state.store.pageType);
+  const { pageType: page, pathName } = useTypedSelector((state) => state.store);
   const getBreadCrubs = () => {
     const { slug } = page;
-    const location = window.location.pathname;
-    if (location.includes(slug)) {
+    if (pathName?.includes(slug)) {
       return [
         { name: 'Home', url: '/' },
         { name: slug, url: '#' },
@@ -34,7 +33,7 @@ const BreadCrumb: React.FC = () => {
               className="flex flex-wrap items-center text-sm"
               aria-label="Breadcrumb"
             >
-              <div className="mr-4" onClick={() => router.push(-1)}>
+              <div className="mr-4" onClick={() => router.push('/home')}>
                 &lt;&lt; Back
               </div>
               <ol className="inline-flex items-center space-x-1 md:space-x-3">

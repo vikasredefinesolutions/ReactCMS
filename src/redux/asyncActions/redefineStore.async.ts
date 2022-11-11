@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { PageResponseType } from 'definations/app.type';
-import { GetStoreID } from '../../services/home.service';
+import { GetStoreID } from 'services/home.service';
 
 export const FetchStoreDetails = createAsyncThunk(
   'redefineStore/details',

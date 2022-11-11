@@ -8,7 +8,7 @@ import MenuIcon from './components/MenuIcon';
 import MyCartIcon from './components/MyCartIcon';
 import OnePercentLogo from './components/OnePercentLogo';
 import SearchBar from './components/SearchBar';
-import MenuItems from './MenuItems';
+import MenuItems from './Header/components/Menu/MenuItems';
 
 const DrivingiHeader: React.FC = () => {
   return (

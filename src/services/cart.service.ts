@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { CartReq, CouponReq } from '../definations/APIs/cart.req';
+import { CartReq, CouponReq } from 'definations/APIs/cart.req';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const fetchCart = async (customerId: number) => {

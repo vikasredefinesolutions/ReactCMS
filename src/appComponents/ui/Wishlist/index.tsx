@@ -3,10 +3,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTypedSelector } from 'hooks';
-import {
-  AddToWishlist,
-  removeWishlist,
-} from '../../../services/wishlist.service';
+import { AddToWishlist, removeWishlist } from 'services/wishlist.service';
 const Wishlist = ({
   iswishlist,
   productId,

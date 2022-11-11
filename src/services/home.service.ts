@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { _StoreDetails } from '../definations/APIs/storeDetails.res';
+import { _StoreDetails } from 'definations/APIs/storeDetails.res';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const fetchProducts = async () => {
@@ -18,13 +18,12 @@ export const fetchProductById = async () => {
     url: url,
     method: 'GET',
   });
-
   return res.data;
 };
 
 export const GetStoreID = async (domain: string): Promise<_StoreDetails> => {
   const url = `Store/getstorebydomain.json`;
-  domain;
+
   const res = await SendAsyncV2<_StoreDetails>({
     url: url,
     method: 'POST',

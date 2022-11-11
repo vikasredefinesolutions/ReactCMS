@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
 export interface _ModalState {
-  sideMenu: boolean;
+  sideMenu: 'OPEN' | 'CLOSE';
 }
 
 // Define the initial state using that type
 const initialState: _ModalState = {
-  sideMenu: false,
+  sideMenu: 'CLOSE',
 };
 
 export const modalsSlice = createSlice({
@@ -17,7 +17,7 @@ export const modalsSlice = createSlice({
     toggleSideMenu: (
       state,
       action: {
-        payload: boolean;
+        payload: 'OPEN' | 'CLOSE';
       },
     ) => {
       state.sideMenu = action.payload;
