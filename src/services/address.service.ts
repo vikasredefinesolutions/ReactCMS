@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { AddressAPIRequest } from '../definations/APIs/address.req';
+import { AddressAPIRequest } from 'definations/APIs/address.req';
 
 import { SendAsyncV2 } from '../utils/axios.util';
 

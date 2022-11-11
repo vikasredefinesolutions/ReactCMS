@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { WishlistRequest } from '../definations/wishlist.type';
+import { WishlistRequest } from 'definations/wishlist.type';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const AddToWishlist = async (payload: WishlistRequest) => {

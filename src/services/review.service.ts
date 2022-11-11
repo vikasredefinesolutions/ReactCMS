@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { ProductReviewType } from '../definations/APIs/review.res';
+import { ProductReviewType } from 'definations/APIs/review.res';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const AddProductReview = async (payload: ProductReviewType) => {

@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { _StoreDetails } from '../definations/APIs/storeDetails.res';
+import { _StoreDetails } from 'definations/APIs/storeDetails.res';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const fetchProducts = async () => {

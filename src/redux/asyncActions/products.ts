@@ -1,4 +1,4 @@
-import { fetchProductList } from '../../services/product.service';
+import { fetchProductList } from 'services/product.service';
 
 export const fetchProducts = async (storeId: string) => {
   try {

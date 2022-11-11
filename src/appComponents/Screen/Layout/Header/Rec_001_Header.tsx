@@ -1,7 +1,7 @@
 /* eslint no-use-before-define: 0 */ // --> OFF
 
 import React from 'react';
-import { _Header } from '../definations/header.type';
+import { _Header } from 'definations/header.type';
 import { useTypedSelector } from 'hooks';
 import LoginIcon from './components/LoginIcon';
 import { default as CompanyLogo, default as Logo } from './components/Logo';
@@ -11,19 +11,13 @@ import SearchBar from './components/SearchBar';
 import WishListIcon from './components/WishListIcon';
 import MenuItems from './MenuItems';
 
-interface _props {
-  header: _Header;
-}
+interface _props {}
 
-const CorporateGearHeader: React.FC<_props> = () => {
+const CorporateGearHeader: React.FC = () => {
   const show = useTypedSelector((state) => state.store.display.header);
   return (
     <section className="bg-white sticky top-0 z-20">
-      <div
-        // x-data="{ open: false }"
-        //  @keydown.window.escape="open = false"
-        className="bg-white"
-      >
+      <div className="bg-white">
         {/* <!-- Mobile menu --> */}
         <MenuItems screen="MOBILE" />
 

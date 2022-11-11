@@ -1,21 +1,21 @@
 /* eslint-disable no-unused-vars */
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { _ProductColor } from '../definations/APIs/colors.res';
-import { _ProductDiscountTable } from '../definations/APIs/discountTable.res';
+import { _ProductColor } from 'definations/APIs/colors.res';
+import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import {
   _ProductInventory,
   _ProductInventoryTransfomed,
-} from '../definations/APIs/inventory.res';
+} from 'definations/APIs/inventory.res';
 import {
   _ProductDetails,
   _ProductDetailsTransformed,
-} from '../definations/APIs/productDetail.res';
+} from 'definations/APIs/productDetail.res';
 import {
   _SizeChart,
   _SizeChartTransformed,
-} from '../definations/APIs/sizeChart.res';
-import { _Reviews } from '../definations/product.type';
-import { BrandFilter, FilterApiRequest } from '../definations/productList.type';
+} from 'definations/APIs/sizeChart.res';
+import { _Reviews } from 'definations/product.type';
+import { BrandFilter, FilterApiRequest } from 'definations/productList.type';
 import { productById } from '../mock/product.mock';
 import { SendAsyncV2 } from '../utils/axios.util';
 

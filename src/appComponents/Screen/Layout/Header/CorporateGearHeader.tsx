@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { paths } from 'constants/paths.constant';
-import { _Header } from '../definations/header.type';
+import { _Header } from 'definations/header.type';
 import { useTypedSelector } from 'hooks';
 import LoginIcon from './components/LoginIcon';
 import MyCartIcon from './components/MyCartIcon';

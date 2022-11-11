@@ -9,8 +9,8 @@ import CustomizeLogoOptions from 'Components/ProductDetails/CustomizeLogoOptions
 import DiscountPricing from 'Components/ProductDetails/DiscountPricing';
 import ProductSKU from 'Components/ProductDetails/ProductSKU';
 import SizePriceQtyTable from 'Components/ProductDetails/SizePriceQtyTable';
-import { FetchInventoryById } from '../../services/product.service';
-// import { AddToCart } from '../../services/user.service';
+import { FetchInventoryById } from 'services/product.service';
+// import { AddToCart } from 'services/user.service';
 import { CartLogoPersonModel, CartReq } from 'definations/APIs/cart.req';
 import { CartResponse } from 'definations/APIs/cart.res';
 import getLocation from '../../helpers/getLocation';

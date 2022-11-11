@@ -1,5 +1,5 @@
-import { _BannerRes } from '../definations/APIs/banner.res';
-import { _Header } from '../definations/header.type';
+import { _BannerRes } from 'definations/APIs/banner.res';
+import { _Header } from 'definations/header.type';
 import { headerInfo } from '../mock/header.mock';
 import { SendAsyncV2 } from '../utils/axios.util';
 

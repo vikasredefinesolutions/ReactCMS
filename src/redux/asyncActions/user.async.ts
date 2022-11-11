@@ -1,4 +1,4 @@
-import { getStoreCustomer as getCustomer } from '../../services/user.service';
+import { getStoreCustomer as getCustomer } from 'services/user.service';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
