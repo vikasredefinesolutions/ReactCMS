@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { _SeName } from 'constants/store.constant';
-import { PageResponseType, _Show } from 'definations/app.type';
-import { showComponents } from 'mock/store.mock';
+import { _SeName } from '../../constants/store.constant';
+import { PageResponseType, _Show } from '../../definations/app.type';
+import { showComponents } from '../../mock/store.mock';
 import { __domain } from '../../page.config';
 import {
   FetchStoreDetails,
@@ -18,6 +18,7 @@ export interface _RedesignStore {
   currency: string;
   seName: string;
   pageType: PageResponseType;
+  view: 'DESKTOP' | 'MOBILE';
 }
 
 // Define the initial state using that type
@@ -30,12 +31,22 @@ const initialState: _RedesignStore = {
   currency: '$',
   seName: _SeName.nike,
   pageType: {} as PageResponseType,
+  view: 'DESKTOP',
 };
 
 export const storeSlice = createSlice({
   name: 'redesignStore',
   initialState,
-  reducers: {},
+  reducers: {
+    setView: (
+      state,
+      action: {
+        payload: 'DESKTOP' | 'MOBILE';
+      },
+    ) => {
+      state.view = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(FetchStoreDetails.fulfilled, (state, action) => {
       state.id = action.payload.id;

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { _Store } from 'constants/store.constant';
 import { _Header } from 'definations/header.type';
 import { useTypedSelector } from 'hooks';
-import { FetchHeaderInformation } from 'services/header.service';
 import BreadCrumb from '../BreadCrumb';
 import Notification from '../Notification';
 import Rec_001_Header from './Rec_001_Header';
@@ -14,7 +13,7 @@ const Header: React.FC = () => {
   const show = useTypedSelector((state) => state.store.display.header);
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
-  if (header === null) return <div>Loading...</div>;
+  if (true) return <div>Loading...</div>;
 
   return (
     <>
