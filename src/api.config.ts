@@ -1,4 +1,4 @@
-import { _Config } from './definations/api.type';
+import { _Config } from 'definations/api.type';
 
 const dev = {
   api: {

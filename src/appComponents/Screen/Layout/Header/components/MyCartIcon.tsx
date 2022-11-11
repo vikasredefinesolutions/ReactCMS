@@ -46,26 +46,28 @@ const MyCartIcon: React.FC = () => {
           href={paths.CART}
           className="text-primary hover:text-gray-500 group flex items-center gap-1 relative pr-2"
         >
-          <span className="hidden lg:inline-block">my cart</span>
-          <svg
-            className="flex-shrink-0 h-6 w-6 text-primary group-hover:text-gray-500"
-            x-description="Heroicon name: outline/shopping-cart"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-            ></path>
-          </svg>
-          <span className="absolute right-0 -top-2 w-4 h-4 rounded-full flex items-center justify-center bg-gray-200 text-xs font-medium text-gray-500">
-            0
-          </span>
+          <>
+            <span className="hidden lg:inline-block">my cart</span>
+            <svg
+              className="flex-shrink-0 h-6 w-6 text-primary group-hover:text-gray-500"
+              x-description="Heroicon name: outline/shopping-cart"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+            <span className="absolute right-0 -top-2 w-4 h-4 rounded-full flex items-center justify-center bg-gray-200 text-xs font-medium text-gray-500">
+              0
+            </span>
+          </>
         </Link>
       </div>
     );
