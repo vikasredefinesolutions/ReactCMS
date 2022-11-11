@@ -34,9 +34,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
               x-description="Off-canvas menu backdrop, show/hide based on off-canvas menu state."
               className="fixed inset-0 bg-black bg-opacity-25"
             ></div>
-            <div
-            //  className="fixed inset-0 flex z-"
-            >
+            <div className="fixed inset-0 flex z-">
               <div
                 // x-transition:enter="transition ease-in-out duration-300 transform"
                 // x-transition:enter-start="-translate-x-full"
