@@ -4,4 +4,5 @@ export interface _Config {
   };
   CLIENT_ID: string;
   mediaBaseUrl: string;
+  CMS: string;
 }
