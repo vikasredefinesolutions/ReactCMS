@@ -1,7 +1,6 @@
 import Screen from 'appComponents/Screen';
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
 import { reduxWrapper } from 'redux/store.redux';
-import { FetchHeaderInformation } from 'services/header.service';
 
 type AppOwnProps = { example: string };
 
