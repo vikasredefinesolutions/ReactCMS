@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { _Store } from '../../../../../../constants/store.constant';
-import { useTypedSelector } from '../../../../../../hooks';
+import Link from 'next/link';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 import BrandImage from './Components/BrandImage';
 import SubMenuItem from './Components/SubMenuItem';
 
@@ -43,7 +43,7 @@ const Brand: React.FC<_props> = ({
               <div className="text-anchor">{menuTitle}</div>
             </button>
             <div className="">
-              <Link to={`/${brandUrl}`} className="text-xs">
+              <Link href={`/${brandUrl}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -160,7 +160,7 @@ const Brand: React.FC<_props> = ({
               <div className="text-anchor">{menuTitle}</div>
             </button>
             <div className="">
-              <Link to={`/${brandUrl}`} className="text-xs">
+              <Link href={`/${brandUrl}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -267,7 +267,7 @@ const Brand: React.FC<_props> = ({
               <div className="text-anchor">{menuTitle}</div>
             </button>
             <div className="">
-              <Link to={`/${brandUrl}`} className="text-xs">
+              <Link href={`/${brandUrl}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -358,7 +358,7 @@ const Brand: React.FC<_props> = ({
               <div className="text-gray-800 font-medium">{menuTitle}</div>
             </button>
             <div className="">
-              <Link to={`/${brandUrl}`} className="text-xs">
+              <Link href={`/${brandUrl}`} className="text-xs">
                 Show All
               </Link>
             </div>

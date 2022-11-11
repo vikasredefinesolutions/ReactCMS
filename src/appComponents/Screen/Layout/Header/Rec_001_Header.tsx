@@ -9,11 +9,11 @@ import MenuIcon from './components/MenuIcon';
 import MyCartIcon from './components/MyCartIcon';
 import SearchBar from './components/SearchBar';
 import WishListIcon from './components/WishListIcon';
-import MenuItems from './MenuItems';
+import MenuItems from './Header/components/Menu/MenuItems';
 
 interface _props {}
 
-const CorporateGearHeader: React.FC = () => {
+const Rec_001_Header: React.FC = () => {
   const show = useTypedSelector((state) => state.store.display.header);
   return (
     <section className="bg-white sticky top-0 z-20">
@@ -59,4 +59,4 @@ const CorporateGearHeader: React.FC = () => {
   );
 };
 
-export default CorporateGearHeader;
+export default Rec_001_Header;

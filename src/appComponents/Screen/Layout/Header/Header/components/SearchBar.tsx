@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { _Store } from '../../../../../constants/store.constant';
-import { useTypedSelector } from '../../../../../hooks';
+import { _Store } from '../../../../constants/store.constant';
+import { useTypedSelector } from '../../../../hooks';
 import { SearchFor } from '../../../../../services/header.service';
 
 interface _props {

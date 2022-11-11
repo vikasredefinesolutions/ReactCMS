@@ -3,12 +3,9 @@ import {
   _MenuCategory,
   _MenuTopic,
   _StoreMenu,
-} from '../../../../../../definations/APIs/header.res';
-import { useActions, useTypedSelector } from '../../../../../../hooks';
-import {
-  FetchMenuCategories,
-  FetchMenuTopics,
-} from '../../../../../../services/header.service';
+} from 'definations/APIs/header.res';
+import { useActions, useTypedSelector } from 'hooks';
+import { FetchMenuCategories, FetchMenuTopics } from 'services/header.service';
 import Category from './Category';
 import Custom from './Custom';
 import Topic from './Topic';

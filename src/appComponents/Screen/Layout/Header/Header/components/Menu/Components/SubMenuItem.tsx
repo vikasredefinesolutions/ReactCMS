@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { _Store } from '../../../../../../../constants/store.constant';
-import { useTypedSelector } from '../../../../../../../hooks';
+import Link from 'next/link';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 
 interface _props {
   itemLabel: string;
@@ -23,7 +23,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -38,7 +38,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -56,7 +56,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -72,7 +72,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -89,7 +89,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
         return (
           <li className="flex items-center">
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -106,7 +106,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
         return (
           <li className="flex items-center">
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -121,7 +121,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -135,7 +135,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
         return (
           <li className="flex items-center">
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -150,7 +150,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -170,7 +170,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -186,7 +186,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -203,7 +203,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}
@@ -219,7 +219,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               chevron_right
             </span>
             <Link
-              to={`/${itemUrl}`}
+              href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
             >
               {itemLabel}

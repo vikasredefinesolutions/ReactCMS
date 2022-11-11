@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { _Store } from '../../../../../../constants/store.constant';
-import { useActions, useTypedSelector } from '../../../../../../hooks';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { _Store } from 'constants/store.constant';
+import { useActions, useTypedSelector } from 'hooks';
 
 interface _props {
   menuTitle: string;
@@ -10,7 +11,7 @@ interface _props {
 
 const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
   const { toggleSideMenu } = useActions();
-  const navigate = useNavigate();
+  const router = useRouter();
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const view = useTypedSelector((state) => state.store.view);
 
@@ -29,7 +30,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
               <button
                 onClick={() => {
                   toggleSideMenu('CLOSE');
-                  navigate(`/${menuUrl}`);
+                  router.push(`/${menuUrl}`);
                 }}
                 className=""
               >
@@ -50,7 +51,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
         >
           <div className="">
             <Link
-              to={`/${menuUrl}`}
+              href={`/${menuUrl}`}
               className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 border-t-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary ${
                 focus
                   ? `border-blue-500 text-anchor-hover`
@@ -74,7 +75,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
               <button
                 onClick={() => {
                   toggleSideMenu('CLOSE');
-                  navigate(`/${menuUrl}`);
+                  router.push(`/${menuUrl}`);
                 }}
                 className=""
               >
@@ -94,7 +95,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
         >
           <div className="">
             <Link
-              to={`/${menuUrl}`}
+              href={`/${menuUrl}`}
               type={'button'}
               className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold ${
                 focus
@@ -117,7 +118,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
           className="text-sm border-b border-gray-300"
           onClick={() => {
             toggleSideMenu('CLOSE');
-            navigate(`/${menuUrl}`);
+            router.push(`/${menuUrl}`);
           }}
         >
           <div className="flex items-center justify-between py-3 px-2 pl-8">
@@ -137,7 +138,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
         >
           <div className="">
             <Link
-              to={`/${menuUrl}`}
+              href={`/${menuUrl}`}
               type={'button'}
               className="flex items-center transition-colors ease-out duration-200 text-anchor py-2.5"
             >
@@ -156,7 +157,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
           className="text-sm border-b border-gray-300"
           onClick={() => {
             toggleSideMenu('CLOSE');
-            navigate(`/${menuUrl}`);
+            router.push(`/${menuUrl}`);
           }}
         >
           <div className="flex items-center justify-between py-3 px-2 pl-8">
@@ -176,7 +177,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
         >
           <div className="">
             <Link
-              to={`/${menuUrl}`}
+              href={`/${menuUrl}`}
               className={`relative z-10 flex items-center transition-colors ease-out duration-200 text-md font-medium border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary ${
                 focus
                   ? 'border-blue-500 text-anchor-hover'

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { _Store } from '../../../../../../constants/store.constant';
-import { useTypedSelector } from '../../../../../../hooks';
+import Link from 'next/link';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 import SubMenuItem from './Components/SubMenuItem';
 interface _props {
   menuTitle: string;
@@ -37,7 +37,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               <div className="text-anchor">{menuTitle}</div>
             </button>
             <div className="">
-              <Link to={`/${menuUrl}`} className="text-xs">
+              <Link href={`/${menuUrl}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -68,7 +68,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
 
     if (view === 'DESKTOP') {
       return (
-        <Link to={`/${menuUrl}`} className="flex">
+        <Link href={`/${menuUrl}`} className="flex">
           <div className="relative flex">
             <button
               type="button"
@@ -143,7 +143,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               <div className="text-anchor">{menuTitle}</div>
             </button>
             <div className="">
-              <Link to={`/${menuUrl}`} className="text-xs">
+              <Link href={`/${menuUrl}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -188,7 +188,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     <ul>
                       <li className="flex items-center">
                         <Link
-                          to={`/${menuUrl}`}
+                          href={`/${menuUrl}`}
                           className="text-anchor hover:text-anchor-hover"
                         >
                           All Men's Apparel & Footwear
@@ -200,7 +200,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     <ul>
                       <li className="flex items-center">
                         <Link
-                          to={`/${menuUrl}`}
+                          href={`/${menuUrl}`}
                           className="text-anchor hover:text-anchor-hover"
                         >
                           All Brands
@@ -217,7 +217,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link to={`/${menuUrl}`} className="flex">
+        <Link href={`/${menuUrl}`} className="flex">
           <div className="relative flex">
             <button
               type="button"
@@ -285,7 +285,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                         <ul>
                           <li className="flex items-center">
                             <Link
-                              to={`/${menuUrl}`}
+                              href={`/${menuUrl}`}
                               className="text-anchor hover:text-anchor-hover"
                             >
                               All Men's Apparel & Footwear
@@ -297,7 +297,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                         <ul>
                           <li className="flex items-center">
                             <Link
-                              to={`/${menuUrl}`}
+                              href={`/${menuUrl}`}
                               className="text-anchor hover:text-anchor-hover"
                             >
                               All Brands
@@ -336,7 +336,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               <div className="text-anchor">{menuTitle}</div>
             </button>
             <div className="">
-              <Link to={`/${menuUrl}`} className="text-xs">
+              <Link href={`/${menuUrl}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -404,7 +404,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link to={`/${menuUrl}`} className="flex">
+        <Link href={`/${menuUrl}`} className="flex">
           <div className="relative flex">
             <button
               type="button"
@@ -471,7 +471,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               <div className="text-gray-800 font-medium">{menuTitle}</div>
             </button>
             <div className="">
-              <Link to="product-listing" className="text-xs">
+              <Link href="product-listing" className="text-xs">
                 Show All
               </Link>
             </div>
@@ -501,7 +501,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link to={`/${menuUrl}`} className="flex">
+        <Link href={`/${menuUrl}`} className="flex">
           <div className="relative flex">
             <button
               type="button"

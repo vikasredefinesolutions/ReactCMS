@@ -8,7 +8,7 @@ import MenuIcon from './components/MenuIcon';
 import MyCartIcon from './components/MyCartIcon';
 import SearchBar from './components/SearchBar';
 import WishListIcon from './components/WishListIcon';
-import MenuItems from './MenuItems';
+import MenuItems from './Header/components/Menu/MenuItems';
 
 const GameDayGearHeader: React.FC = () => {
   return (

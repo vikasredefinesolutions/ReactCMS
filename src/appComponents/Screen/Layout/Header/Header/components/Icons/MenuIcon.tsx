@@ -1,6 +1,6 @@
 import React from 'react';
-import { _Store } from '../../../../../../constants/store.constant';
-import { useActions, useTypedSelector } from '../../../../../../hooks';
+import { _Store } from 'constants/store.constant';
+import { useActions, useTypedSelector } from 'hooks';
 
 const MenuIcon: React.FC = () => {
   const { toggleSideMenu } = useActions();
