@@ -33,7 +33,7 @@ export const FetchProductById = async (payload: {
   const transformedData: _ProductDetailsTransformed = {
     ...res.data,
     colors: null,
-    sizes: res.data.sizes.split(','),
+    sizes: res.data?.sizes.split(','),
   };
 
   return transformedData;

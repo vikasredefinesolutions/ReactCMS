@@ -1,4 +1,6 @@
 import { inventory, pricing, productById } from '../mock/product.mock';
+import { _ProductDetailsTransformed } from './APIs/productDetail.res';
+import { storeReturnType } from './store.type';
 
 export type _LogoSteps =
   | 'SELECT_LOCATION'
@@ -31,4 +33,25 @@ export interface _productImage {
 
 export interface _SelectedProduct {
   _uid: string;
+}
+
+export interface _AllColors {
+  id: any;
+  label: any;
+  url: any;
+  alt: any;
+}
+
+// --------------------
+export interface _ProductReturnType {
+  details: null | _ProductDetailsTransformed;
+  colors: null | _AllColors[];
+}
+
+export interface _ExpectedProductProps {
+  product: {
+    details: null | _ProductDetailsTransformed;
+    colors: null | _AllColors[];
+  };
+  store: storeReturnType | null;
 }

@@ -3,7 +3,6 @@ import { __domain } from 'page.config';
 import { store } from 'redux/store.redux';
 import * as HeaderService from 'services/header.service';
 import * as HomeService from 'services/home.service';
-import { string } from 'yup';
 
 export const FetchStoreDetails = async (domain: string, pathName: string) => {
   const store: storeReturnType = {

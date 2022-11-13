@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
 // import { useNavigate, useSearchParams } from 'react-router-dom';
 // import { paths } from 'constants/paths.constant';
-import { _Reviews } from 'definations/product.type';
+import { _AllColors, _Reviews } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
+import { store } from 'redux/store.redux';
 import {
   FetchColors,
   FetchProductById,
   FetchReviewsById,
 } from 'services/product.service';
+import * as ProductServices from 'services/product.service';
+import { _ProductColor } from 'definations/APIs/colors.res';
 
 const ProductController = () => {
   // const [params] = useSearchParams();
@@ -141,3 +144,65 @@ const ProductController = () => {
 };
 
 export default ProductController;
+
+// SERVER SIDE FUNCTIONS ---------------------------------------------
+
+export const FetchProductDetails = async (
+  storeId: number,
+  seName: string,
+): Promise<{
+  details: null | _ProductDetailsTransformed;
+  colors: null | _AllColors[];
+}> => {
+  console.log('store,sot', storeId, seName);
+  let productColors: null | _AllColors[] = null;
+  let productDetails: null | _ProductDetailsTransformed = null;
+
+  await FetchProductById({
+    seName: seName,
+    storeId: storeId,
+  })
+    .then((res) => {
+      productDetails = { ...res };
+      // console.log('res', res);
+      return res.id;
+    })
+    .then((productID) => fetchColorsById(productID))
+    .then((colors) => {
+      productColors = [...colors.allColors];
+      return colors.id;
+    });
+  // .then((id) => fetchProductReviews(id));
+  // .catch((err) => console.log('err', err))
+  // .finally(() => console.log('close loader'));
+
+  return {
+    details: productDetails,
+    colors: productColors,
+  };
+};
+
+const fetchColorsById = async (
+  id: number,
+): Promise<{
+  allColors: _AllColors[];
+  id: number;
+}> => {
+  return await ProductServices.FetchColors({ productId: id }).then((res) => {
+    const colors = res.map((color: _ProductColor) => ({
+      id: color.attributeOptionId,
+      label: color.name,
+      url: color.imageUrl,
+      alt: color.altTag,
+    }));
+
+    return { allColors: colors, id };
+  });
+};
+
+const fetchProductReviews = (id: number) => {
+  FetchReviewsById(id);
+  // .then((res) => setReviews(res))
+  // .catch((err) => console.log('err', err))
+  // .finally(() => console.log('close loader'));
+};
