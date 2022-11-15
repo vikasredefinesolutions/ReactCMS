@@ -49,7 +49,7 @@ RedefineCustomApp.getInitialProps = async (
   const pathName = context.ctx.pathname;
 
   const store = await _AppController.FetchStoreDetails(domain, pathName);
-  const menuItems = await _AppController.FetchMenuItems(store.storeId!);
+  const menuItems = await _AppController.FetchMenuItems(2);
 
   return { ...ctx, store, menuItems };
 };
