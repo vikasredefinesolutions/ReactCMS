@@ -17,7 +17,6 @@ import {
 import { _Reviews } from 'definations/product.type';
 import { BrandFilter, FilterApiRequest } from 'definations/productList.type';
 import { number } from 'yup';
-import { productById } from '../mock/product.mock';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const FetchProductById = async (payload: {
@@ -41,7 +40,6 @@ export const FetchReviewsById = async (payload: number) => {
   //   method: "GET",
   // });
   let res = {} as _Reviews;
-  res = productById;
 
   return res;
 };
@@ -185,13 +183,12 @@ export const FetchProductSEOtags = async ({
   return res.data;
 };
 
-
 export const FetchBrandProductList = async ({
   storeId,
   seName,
 }: {
-  storeId: number,
-  seName: string
+  storeId: number;
+  seName: string;
 }) => {
   const url = `Brand/getbrandseodetails/${storeId}/${seName}.json`;
   const res = await SendAsyncV2<_ProductSEO>({
@@ -200,4 +197,4 @@ export const FetchBrandProductList = async ({
   });
 
   return res.data;
-}
+};

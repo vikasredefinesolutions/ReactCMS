@@ -1965,11 +1965,11 @@ select{
 .font-sub-title{
   font-family: var(--tw-theme-sub-title-font);
 }
-.font-Outfit{
-  font-family: var(--tw-theme-body-font);
-}
 .font-small-title{
   font-family: var(--tw-theme-small-title-font);
+}
+.font-Outfit{
+  font-family: var(--tw-theme-body-font);
 }
 .text-2xl{
   font-size: 1.5rem;

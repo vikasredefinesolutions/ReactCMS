@@ -41,6 +41,8 @@ const Inventory: React.FC<_props> = ({ productId }) => {
     updatePrice({ price: price?.msrp || 0 });
   }, []);
 
+  if (inventory === null) return <></>;
+
   if (storeLayout === _Store.type3) {
     return (
       <div className="mb-4">
@@ -100,7 +102,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
           </div>
           {colors?.map((color) => (
             <div
-              key={color.id}
+              key={color.attributeOptionId}
               className="flex flex-wrap gap-y-5 border-b last:border-b-0 border-b-gray-300 mb-5 md:mb-0"
             >
               <div className="p-2 w-full md:w-2/12 text-center md:text-left">
@@ -109,12 +111,12 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                 </div>
                 <div className="mb-1 text-center w-10 h-10 mx-auto md:m-0 border-gray-300 p-1 bg-white">
                   <Image
-                    src={color.url}
-                    alt={color.alt}
+                    src={color.imageUrl}
+                    alt={color.altTag}
                     className="max-h-full inline-block"
                   />
                 </div>
-                <div className="">{color.label}</div>
+                <div className="">{color.name}</div>
               </div>
               <div className="flex flex-wrap justify-evenly text-center gap-y-5 w-full md:w-10/12">
                 {inventory?.sizes.map((size) => {
@@ -123,8 +125,8 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                       <div className="mb-1">
                         {inventory.inventory.find(
                           (int) =>
-                            int.colorAttributeOptionId === color.id &&
-                            int.name === size,
+                            int.colorAttributeOptionId ===
+                              color.attributeOptionId && int.name === size,
                         )?.inventory || 0}
                       </div>
                       <InventoryInput
@@ -132,8 +134,8 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                         qty={
                           inventory.inventory.find(
                             (int) =>
-                              int.colorAttributeOptionId === color.id &&
-                              int.name === size,
+                              int.colorAttributeOptionId ===
+                                color.attributeOptionId && int.name === size,
                           )?.inventory || 0
                         }
                         price={price?.msrp || 0}

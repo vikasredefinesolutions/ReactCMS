@@ -1,4 +1,3 @@
-import { inventory, pricing, productById } from '../mock/product.mock';
 import { _ProductColor } from './APIs/colors.res';
 import { _ProductDiscountTable } from './APIs/discountTable.res';
 import { _ProductDetails, _ProductSEO } from './APIs/productDetail.res';
@@ -19,10 +18,6 @@ export type _modals =
   | 'personalizationFonts'
   | 'qouteRequest'
   | 'startOrder';
-
-export type _Product = typeof productById;
-export type _Pricing = typeof pricing;
-export type _Inventory = typeof inventory;
 
 export interface _Reviews {}
 
