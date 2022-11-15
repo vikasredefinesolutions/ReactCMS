@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { paths } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
@@ -13,7 +13,7 @@ const MyCartIcon: React.FC = () => {
       <div className="flow-root">
         <button
           className="text-gray-600 hover:text-primary group flex items-center gap-1 relative pr-2"
-          onClick={() => navigate(paths.CART)}
+          onClick={() => router.push(paths.CART)}
         >
           <span className="hidden">my cart</span>
           <svg

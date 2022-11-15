@@ -1,6 +1,6 @@
 import React from 'react';
-import { _Store } from '../../../constants/store.constant';
-import { useTypedSelector } from '../../../hooks';
+import { _Store } from '../constants/store.constant';
+import { useTypedSelector } from '../hooks';
 import Notification from '../Notification';
 import LoginIcon from './components/Icons/LoginIcon';
 import MenuIcon from './components/Icons/MenuIcon';

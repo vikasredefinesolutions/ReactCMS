@@ -5,9 +5,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { paths } from '../../../constants/paths.constant';
+import { paths } from '../constants/paths.constant';
 import { _Header } from '../../../../definations/header.type';
-import { useTypedSelector } from '../../../hooks';
+import { useTypedSelector } from '../hooks';
 import LoginIcon from './components/LoginIcon';
 import MyCartIcon from './components/MyCartIcon';
 import SearchBar from './components/SearchBar';
@@ -114,7 +114,7 @@ const CorporateGearHeader: React.FC<_props> = ({ header }) => {
                       className="flex items-center grow group"
                       //  @click.prevent="open = !open" :aria-expanded="open"
                       // aria-expanded="false"
-                      onClick={() => navigate(paths.PRODUCT_LISTING)}
+                      onClick={() => router.push(paths.PRODUCT_LISTING)}
                     >
                       <svg
                         className="w-8 h-8 shrink-0 fill-current text-anchor"
@@ -969,7 +969,9 @@ const CorporateGearHeader: React.FC<_props> = ({ header }) => {
                             <div className="relative flex">
                               <button
                                 type="button"
-                                onClick={() => navigate(paths.PRODUCT_LISTING)}
+                                onClick={() =>
+                                  router.push(paths.PRODUCT_LISTING)
+                                }
                                 className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover"
                                 onMouseEnter={() => setShowBrands(true)}
                                 onMouseLeave={() => setShowBrands(false)}
@@ -1305,7 +1307,9 @@ const CorporateGearHeader: React.FC<_props> = ({ header }) => {
                                 type="button"
                                 // x-state:on="Item active"
                                 className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover"
-                                onClick={() => navigate(paths.PRODUCT_LISTING)}
+                                onClick={() =>
+                                  router.push(paths.PRODUCT_LISTING)
+                                }
                                 // :className="{ 'border-b-primary text-primary-hover': open, 'border-transparent text-white hover:text-primary-hover': !(open) }"
                                 // @mouseover="open = true" aria-expanded="false" :aria-expanded="open.toString()"
                               >
@@ -1441,7 +1445,9 @@ const CorporateGearHeader: React.FC<_props> = ({ header }) => {
                             <div className="relative flex">
                               <button
                                 type="button"
-                                onClick={() => navigate(paths.PRODUCT_LISTING)}
+                                onClick={() =>
+                                  router.push(paths.PRODUCT_LISTING)
+                                }
                                 // x-state:on="Item active"
                                 className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover"
                                 // :className="{ 'border-b-primary text-primary-hover': open, 'border-transparent text-white hover:text-primary-hover': !(open) }"
