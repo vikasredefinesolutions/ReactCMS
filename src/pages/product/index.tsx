@@ -12,15 +12,16 @@ import * as ProductController from 'Controllers/ProductController';
 import { GetServerSideProps, NextPage } from 'next';
 import { __domain } from 'page.config';
 import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
-import { _AllColors, _ExpectedProductProps } from 'definations/product.type';
+import { _ExpectedProductProps } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
+import { _ProductColor } from 'definations/APIs/colors.res';
 
 interface _props {
   product: {
     details: _ProductDetailsTransformed | null;
-    colors: _AllColors[] | null;
+    colors: _ProductColor[] | null;
     sizes: _SizeChartTransformed | null;
     discount: _ProductDiscountTable | null;
   } | null;

@@ -56,7 +56,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
           {/* Display Image */}
           <div className="main-image max-w-lg mx-auto">
             <InnerImageZoom
-              src={selectedImage?.imageUrl || '/dummyShirtImage.jpg'}
+              src={selectedImage?.imageUrl}
               zoomType={'hover'}
               // alt={selectedImage.label}
               hideHint={true}
@@ -108,7 +108,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
           {/* Display Image */}
           <div className="main-image border border-[#f0f0f0] mb-3">
             <InnerImageZoom
-              src={selectedImage?.imageUrl || '/dummyShirtImage.jpg'}
+              src={selectedImage?.imageUrl}
               zoomType={'hover'}
               // alt={selectedImage.label}
               hideHint={true}
@@ -161,7 +161,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
           <div className="border border-gray-200 mb-3">
             <div className="main-image max-w-xl mx-auto">
               <InnerImageZoom
-                src={selectedImage?.imageUrl || '/dummyShirtImage.jpg'}
+                src={selectedImage?.imageUrl}
                 zoomType={'hover'}
                 // alt={selectedImage.label}
                 hideHint={true}
@@ -220,7 +220,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
             {/* Display Image */}
             <div className="main-image border border-gray-200 mb-3">
               <InnerImageZoom
-                src={selectedImage?.imageUrl || '/dummyShirtImage.jpg'}
+                src={selectedImage?.imageUrl}
                 zoomType={'hover'}
                 // alt={selectedImage.label}
                 hideHint={true}
