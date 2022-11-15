@@ -5,7 +5,7 @@ import { icons } from 'Assets/images.asset';
 import Image from 'appComponents/reusables/Image';
 import { _Store } from 'constants/store.constant';
 import { _OtherImage } from 'definations/APIs/colors.res';
-import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
 import AvailableColors from './AvailableColors';
 import HeartIcon from './HeartIcon';
@@ -13,7 +13,7 @@ import ProductCompanion from './ProductCompanion';
 import { paths } from 'constants/paths.constant';
 
 interface _Props {
-  product: _ProductDetailsTransformed | null;
+  product: _ProductDetails | null;
 }
 
 const ProductImg: React.FC<_Props> = ({ product }) => {

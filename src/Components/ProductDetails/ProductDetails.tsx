@@ -1,12 +1,12 @@
 import React from 'react';
 import { _Store } from 'constants/store.constant';
-import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { useTypedSelector } from 'hooks';
 import ProductImg from './ProductImg';
 import ProductInfo from './ProductInfo';
 
 interface _Props {
-  product: _ProductDetailsTransformed;
+  product: _ProductDetails;
 }
 
 const ProductDetails: React.FC<_Props> = ({ product }) => {

@@ -1,5 +1,5 @@
 import {
-  _ProductDetailsTransformed,
+  _ProductDetails,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _Reviews } from 'definations/product.type';
@@ -18,14 +18,14 @@ export const FetchProductDetails = async (payload: {
   storeId: number;
   seName: string;
 }): Promise<{
-  details: null | _ProductDetailsTransformed;
+  details: null | _ProductDetails;
   colors: null | _ProductColor[];
   sizes: null | _SizeChartTransformed;
   discount: null | _ProductDiscountTable;
   SEO: null | _ProductSEO;
 }> => {
   let productColors: null | _ProductColor[] = null;
-  let productDetails: null | _ProductDetailsTransformed = null;
+  let productDetails: null | _ProductDetails = null;
   let productSizeChart: null | _SizeChartTransformed = null;
   let productDiscountTablePrices: null | _ProductDiscountTable = null;
   let productSEOtags: null | _ProductSEO = null;
@@ -72,7 +72,7 @@ export const FetchProductDetails = async (payload: {
     // Request - 7
     // await ProductServices. ---> Fetch Product Reviews
   } catch (error) {
-    console.log('errr', error);
+    console.log('Error: Product Controller => ', error);
   }
 
   return {

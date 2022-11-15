@@ -11,7 +11,9 @@ interface _Props {
 }
 const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
-  const sizeChart = useTypedSelector((state) => state.product.product.sizes);
+  const sizeChart = useTypedSelector(
+    (state) => state.product.product.sizeChart,
+  );
 
   if (modal === 'NO' && storeLayout === _Store.type3) {
     return (

@@ -1,10 +1,7 @@
 import { inventory, pricing, productById } from '../mock/product.mock';
 import { _ProductColor } from './APIs/colors.res';
 import { _ProductDiscountTable } from './APIs/discountTable.res';
-import {
-  _ProductDetailsTransformed,
-  _ProductSEO,
-} from './APIs/productDetail.res';
+import { _ProductDetails, _ProductSEO } from './APIs/productDetail.res';
 import { _SizeChartTransformed } from './APIs/sizeChart.res';
 import { storeReturnType } from './store.type';
 
@@ -43,13 +40,13 @@ export interface _SelectedProduct {
 
 // --------------------
 export interface _ProductReturnType {
-  details: null | _ProductDetailsTransformed;
+  details: null | _ProductDetails;
   colors: null | _ProductColor[];
 }
 
 export interface _ExpectedProductProps {
   product: {
-    details: null | _ProductDetailsTransformed;
+    details: null | _ProductDetails;
     colors: null | _ProductColor[];
     sizes: null | _SizeChartTransformed;
     discount: null | _ProductDiscountTable;

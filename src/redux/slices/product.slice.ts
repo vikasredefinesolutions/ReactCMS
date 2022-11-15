@@ -18,8 +18,9 @@ interface _ProductStore {
   };
   product: {
     id: number | null;
-    sizes: _SizeChartTransformed | null;
+    sizes: string;
     discounts: _ProductDiscountTable | null;
+    sizeChart: _SizeChartTransformed | null;
     price: {
       msrp: number;
       ourCost: number;
@@ -100,7 +101,8 @@ const initialState: _ProductStore = {
     },
   },
   product: {
-    sizes: null,
+    sizeChart: null,
+    sizes: '',
     colors: null,
     brand: null,
     id: null,
@@ -174,7 +176,8 @@ export const productSlice = createSlice({
               salePrice: number;
             } | null;
             colors: _ProductColor[] | null;
-            sizes: null | _SizeChartTransformed;
+            sizeChart: null | _SizeChartTransformed;
+            sizes: string;
             discounts: null | _ProductDiscountTable;
           };
         };
@@ -185,6 +188,7 @@ export const productSlice = createSlice({
       state.product.name = action.payload.product.name;
       state.product.price = action.payload.product.price;
       state.product.sizes = action.payload.product.sizes;
+      state.product.sizeChart = action.payload.product.sizeChart;
       state.product.discounts = action.payload.product.discounts;
       state.product.colors = action.payload.product.colors;
     },
