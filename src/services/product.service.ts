@@ -9,6 +9,7 @@ import {
 import {
   _ProductDetails,
   _ProductDetailsTransformed,
+  _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import {
   _SizeChart,
@@ -172,4 +173,20 @@ export const fetchProductList = async (storeId: string) => {
     },
   });
   return res;
+};
+
+export const FetchProductSEOtags = async ({
+  storeId,
+  seName,
+}: {
+  storeId: number;
+  seName: string;
+}): Promise<_ProductSEO> => {
+  const url = `StoreProductSeo/GetDetails/${storeId}/${seName}.json`;
+  const res = await SendAsyncV2<_ProductSEO>({
+    url: url,
+    method: 'GET',
+  });
+
+  return res.data;
 };

@@ -11,7 +11,10 @@ import * as ProductController from 'Controllers/ProductController';
 
 import { GetServerSideProps, NextPage } from 'next';
 import { __domain } from 'page.config';
-import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import {
+  _ProductDetailsTransformed,
+  _ProductSEO,
+} from 'definations/APIs/productDetail.res';
 import { _ExpectedProductProps } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
@@ -24,11 +27,13 @@ interface _props {
     colors: _ProductColor[] | null;
     sizes: _SizeChartTransformed | null;
     discount: _ProductDiscountTable | null;
+    SEO: _ProductSEO | null;
   } | null;
 }
 
 const Product: NextPage<_props> = ({ product }) => {
   if (product === null) return <>Product Page Loading... </>;
+  console.log('seo', product.SEO);
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { store_productDetails, setColor } = useActions();
 
@@ -120,21 +125,28 @@ const Product: NextPage<_props> = ({ product }) => {
 
 export default Product;
 
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////// SERVER SIDE FUNCTIONS ---------------------------------------
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const domain = __domain.layout || context.req.rawHeaders[1]!;
-  const pathNames = context.req.url?.split('/')!;
   let expectedProps: _ExpectedProductProps = {
     store: null,
     product: {
       details: null,
       colors: null,
       sizes: null,
+      SEO: null,
       discount: null,
     },
   };
 
   try {
     const seName = _SeName.nike;
+    // const pathNames = context.req.url?.split('/')!;
     // const seName =  pathNames ? pathNames[pathNames?.length - 1] : null;
 
     if (seName) {
@@ -154,19 +166,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     console.log('errr product => ', error);
   }
 
-  // if ('data do not exist') {
-  //   return {
-  //     redirect: {
-  //       destination: '/no-product-exist',
-  //     },
-  //   };
-  // }
-
-  // if ('data not found') {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
   return {
     props: {
       product: expectedProps.product,
