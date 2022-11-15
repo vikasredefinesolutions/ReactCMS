@@ -1,3 +1,4 @@
+import ImageComponent from 'appComponents/reusables/Image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import config from '../../../config';
@@ -34,11 +35,13 @@ const ProductComponent = ({
         <div className="flex text-center lg:w-auto h-full">
           <div className="relative border border-gray-200 pb-4 w-full">
             <div className="w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1">
-              <a href="product-page.html" className="relative">
-                <img
+              <a href="product-page.html">
+                <ImageComponent
                   src={`${config.mediaBaseUrl}${currentProduct.imageName}`}
                   alt=""
                   className="w-auto h-auto m-auto max-h-[400px]"
+                  height={400}
+                  width={350}
                 />
               </a>
               <div className="absolute top-5 right-5 text-gray-800 p-1 z-5">

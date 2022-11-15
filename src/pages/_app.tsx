@@ -1,28 +1,57 @@
-import '../../styles/globals.css'
-import type { AppProps } from 'next/app'
-import Layout from '../component/Product/layout'
-import AppContext from 'Context/AppContext'
+import Screen from 'appComponents/Screen';
+import { _Store } from 'constants/store.constant';
+import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
+import { __domain } from 'page.config';
+import { reduxWrapper } from 'redux/store.redux';
+import * as _AppController from 'Controllers/_AppController';
+import { _StoreMenu } from 'definations/APIs/header.res';
+import { storeReturnType } from 'definations/store.type';
+import { useActions } from 'hooks';
+import '../app.css';
+import Spinner from 'appComponents/ui/spinner';
 
+type AppOwnProps = {
+  store: storeReturnType | null;
+  menuItems: _StoreMenu[];
+};
 
+export function RedefineCustomApp({
+  Component,
+  pageProps,
+  store,
+  menuItems,
+}: AppProps & AppOwnProps) {
+  const { store_storeDetails } = useActions();
 
-function MyApp({ Component, pageProps }: AppProps) {
+  if (store) {
+    store_storeDetails({
+      store: store,
+      menuItems: menuItems,
+    });
+  }
+
+  if (store === null) return <>LOADING STORE DETAILS</>;
+
   return (
-    <AppContext.Provider
-      value={{
-        title: 'husain'
-      }}
-    >
-      <Layout>
+    <Spinner>
+      <Screen>
         <Component {...pageProps} />
-      </Layout>
-    </AppContext.Provider>
-  )
-
+      </Screen>
+    </Spinner>
+  );
 }
 
-export const getInitialProps = () => {
-  console.log("here");
-}
+RedefineCustomApp.getInitialProps = async (
+  context: AppContext,
+): Promise<AppOwnProps & AppInitialProps> => {
+  const ctx = await App.getInitialProps(context);
+  const domain = __domain.layout || context.ctx.req?.rawHeaders[1]!;
+  const pathName = context.ctx.pathname;
 
-export default MyApp
+  const store = await _AppController.FetchStoreDetails(domain, pathName);
+  const menuItems = await _AppController.FetchMenuItems(store.storeId!);
 
+  return { ...ctx, store, menuItems };
+};
+
+export default reduxWrapper.withRedux(RedefineCustomApp);

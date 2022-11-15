@@ -2,7 +2,9 @@ import { ColorChangeHandler, FilterChangeHandler, FilterType, ProductList as Pro
 import Layout1 from "./layouts/layout1";
 import ProductListController from "./ProductListController";
 
-const ProductList = ({filters, products, colorChangeHandler, handleChange}: {filters: FilterType, products: ProductListType, colorChangeHandler: ColorChangeHandler, handleChange: FilterChangeHandler}) => {
-    return <Layout1 filters={filters} products={products} colorChangeHandler={colorChangeHandler} handleChange={handleChange}/>
+const ProductList = ({ pageData, slug }: { pageData: any, slug: string }) => {
+    const { checkedFilters } = pageData;
+    const { product, filters, totalCount ,handleChange, colorChangeHandler, loadMore } = ProductListController(pageData, slug, []);
+    return <Layout1 filters={filters} products={product} colorChangeHandler={colorChangeHandler} handleChange={handleChange} checkedFilters={checkedFilters} totalCount={totalCount} loadMore={loadMore} />
 }
 export default ProductList;

@@ -1,6 +1,6 @@
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
 
-const SideFilter = ({filters, handleChange}: {filters: FilterType, handleChange: FilterChangeHandler}) => (
+const SideFilter = ({filters, handleChange, checkedFilters}: {filters: FilterType, handleChange: FilterChangeHandler, checkedFilters: any}) => (
     <div className="w-full lg:w-3/12 px-4">
       <div className="relative">
         <div className="bg-gray-100 p-4">
@@ -42,6 +42,7 @@ const SideFilter = ({filters, handleChange}: {filters: FilterType, handleChange:
                           id={`${option.name}-${ind}`}
                           name={filter.label}
                           value={option.name}
+                          checked={checkedFilters.findIndex((res: { name: string; value: string; }) => res.name === filter.label && res.value === option.name) > -1}
                           type="checkbox"
                           className="h-4 w-4 border-gray-300 rounded text-indigo-600"
                           onChange={handleChange}

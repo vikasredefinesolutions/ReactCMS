@@ -8,7 +8,6 @@ const Layout = ({children}: any) => {
   }
 
 export const getServerSideProps = () => {
-  console.log("i am here")
   return {
     props: {
       title: 'husain'
