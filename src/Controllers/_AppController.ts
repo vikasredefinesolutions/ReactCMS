@@ -1,9 +1,13 @@
 import { storeReturnType } from 'definations/store.type';
 import { __domain } from 'page.config';
-import { store } from 'redux/store.redux';
 import * as HeaderService from 'services/header.service';
 import * as HomeService from 'services/home.service';
-import { string } from 'yup';
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////// SERVER SIDE FUNCTIONS ---------------------------------------
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 export const FetchStoreDetails = async (domain: string, pathName: string) => {
   const store: storeReturnType = {
@@ -13,14 +17,18 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
     pathName: '',
   };
 
-  await HomeService.GetStoreID(domain)
-    .then((res) => {
-      store.storeId = res.id;
-      store.layout = __domain.layout;
-      store.pathName = pathName;
-      return res.id;
-    })
-    .then((storeId) => 'Page Type API, Call Here, Husain');
+  try {
+    await HomeService.GetStoreID(domain)
+      .then((res) => {
+        store.storeId = res.id;
+        store.layout = __domain.layout;
+        store.pathName = pathName;
+        return res.id;
+      })
+      .then((storeId) => 'Page Type API, Call Here, Husain');
+  } catch (error) {
+    console.log('Error: _app Controller => ', error);
+  }
 
   return store;
 };

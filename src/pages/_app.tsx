@@ -7,7 +7,7 @@ import * as _AppController from 'Controllers/_AppController';
 import { _StoreMenu } from 'definations/APIs/header.res';
 import { storeReturnType } from 'definations/store.type';
 import { useActions } from 'hooks';
-import '../app.css';
+import '../../styles/output.css';
 
 type AppOwnProps = {
   store: storeReturnType | null;

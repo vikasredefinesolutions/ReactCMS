@@ -8,7 +8,7 @@ import {
 } from 'definations/APIs/inventory.res';
 import {
   _ProductDetails,
-  _ProductDetailsTransformed,
+  _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import {
   _SizeChart,
@@ -22,7 +22,7 @@ import { SendAsyncV2 } from '../utils/axios.util';
 export const FetchProductById = async (payload: {
   seName: string;
   storeId: number;
-}): Promise<_ProductDetailsTransformed> => {
+}): Promise<_ProductDetails> => {
   const url = `StoreProduct/getstoreproductbysename/${payload.seName}/${payload.storeId}.json`;
 
   const res = await SendAsyncV2<_ProductDetails>({
@@ -30,13 +30,7 @@ export const FetchProductById = async (payload: {
     method: 'GET',
   });
 
-  const transformedData: _ProductDetailsTransformed = {
-    ...res.data,
-    colors: null,
-    sizes: res.data.sizes.split(','),
-  };
-
-  return transformedData;
+  return res.data;
 };
 
 export const FetchReviewsById = async (payload: number) => {
@@ -172,4 +166,20 @@ export const fetchProductList = async (storeId: string) => {
     },
   });
   return res;
+};
+
+export const FetchProductSEOtags = async ({
+  storeId,
+  seName,
+}: {
+  storeId: number;
+  seName: string;
+}): Promise<_ProductSEO> => {
+  const url = `StoreProductSeo/GetDetails/${storeId}/${seName}.json`;
+  const res = await SendAsyncV2<_ProductSEO>({
+    url: url,
+    method: 'GET',
+  });
+
+  return res.data;
 };

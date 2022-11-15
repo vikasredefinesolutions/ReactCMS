@@ -5,7 +5,7 @@ import StartOrderModal from 'appComponents/modals/StartOrderModal';
 import Price from 'appComponents/reusables/Price';
 import { paths } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
-import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
 import AskToLogin from './AskToLogin';
@@ -33,7 +33,7 @@ import SizeChartModal from './SizeChartModal';
 import { useRouter } from 'next/router';
 
 interface _Props {
-  product: _ProductDetailsTransformed;
+  product: _ProductDetails;
 }
 
 const ProductInfo: React.FC<_Props> = ({ product }) => {
@@ -95,7 +95,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           <ProductRequestConsultation />
         </div>
 
-        <AvailableColors colors={product.colors} />
+        <AvailableColors />
 
         {/* PRICING INFORMATION */}
         <>
@@ -129,7 +129,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
 
         {/* AVAILABLE SIZES */}
         <div className="m-3 flex flex-wrap text-gray-900 justify-between items-center">
-          <ProducAvailableSizes sizes={product.sizes} />
+          <ProducAvailableSizes />
           <div>
             <button
               type="button"
@@ -214,7 +214,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         </div>
         <MinimumQuantity pricingLabel={'Discount Pricing'} />
         <QtyPriceTable />
-        <ProductColors colors={product.colors} />
+        <ProductColors />
         <ColorName />
         <div className="mb-4 flex items-center justify-end gap-2">
           <button
@@ -303,7 +303,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           salePrice={product.salePrice}
         />
         <MinimumQuantity pricingLabel={''} />
-        <AvailableColors colors={product.colors} />
+        <AvailableColors />
         <Inventory productId={product.id} />
         <div className="mb-3">
           <button

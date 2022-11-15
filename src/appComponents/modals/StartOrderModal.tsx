@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
-import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { _modals } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
 import AskToLogin from 'Components/ProductDetails/AskToLogin';
@@ -17,7 +17,7 @@ import getLocation from '../../helpers/getLocation';
 import Image from '../reusables/Image';
 import Price from '../reusables/Price';
 interface _props {
-  product: _ProductDetailsTransformed;
+  product: _ProductDetails;
   // eslint-disable-next-line no-unused-vars
   modalHandler: (val: null | _modals) => void;
   editDetails?: CartResponse;
@@ -40,6 +40,7 @@ const StartOrderModal: React.FC<_props> = ({
     (state) => state.product.selected.color,
   );
   const toCheckout = useTypedSelector((state) => state.product.toCheckout);
+  const colors = useTypedSelector((state) => state.product.product.colors);
   const customerId = useTypedSelector((state) => state.user.customer.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
 
@@ -133,10 +134,10 @@ const StartOrderModal: React.FC<_props> = ({
   };
 
   useEffect(() => {
-    if (product.colors === null) return;
+    if (colors === null) return;
     showInventoryFor({
-      productId: product.colors[0].productId,
-      attributeOptionId: [product.colors[0].attributeOptionId],
+      productId: colors[0].productId,
+      attributeOptionId: [colors[0].attributeOptionId],
     });
 
     return () => {
@@ -202,7 +203,7 @@ const StartOrderModal: React.FC<_props> = ({
                     >
                       {allColors
                         ? 'Show less'
-                        : `See All ${product.colors?.length} Colors`}
+                        : `See All ${colors?.length} Colors`}
                     </button>
                   </div>
 
@@ -215,7 +216,7 @@ const StartOrderModal: React.FC<_props> = ({
                         </span>
                       </div>
                       <div className="flex flex-wrap gap-5 text-sm text-center px-2">
-                        {product.colors?.map((color) => (
+                        {colors?.map((color) => (
                           <div
                             className="w-20"
                             key={color.productId}

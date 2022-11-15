@@ -7,21 +7,18 @@ import { useState } from 'react';
 import SizeChart from './SizeChartModal';
 import Image from 'appComponents/reusables/Image';
 
-interface _props {
-  colors: _ProductColor[] | null;
-}
-
-const AvailableColors: React.FC<_props> = ({ colors }) => {
-  if (colors === null) return <></>;
-
+const AvailableColors: React.FC = () => {
   const { setColor } = useActions();
+  const storeLayout = useTypedSelector((state) => state.store.layout);
+  const colors = useTypedSelector((state) => state.product.product.colors);
   const [showAllColors, setShowAllColors] = useState(false);
   const [showModal, setShowModal] = useState<null | _modals>(null);
-  const colorsCount = colors.length;
   const selectedColor = useTypedSelector(
     (state) => state.product.selected.color,
   );
-  const storeLayout = useTypedSelector((state) => state.store.layout);
+
+  if (colors === null) return <></>;
+  const colorsCount = colors.length;
 
   if (storeLayout === _Store.type1) {
     return (
