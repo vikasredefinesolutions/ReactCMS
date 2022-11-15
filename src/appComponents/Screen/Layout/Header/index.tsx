@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
 import Notification from '../Notification';

@@ -16,7 +16,6 @@ import {
 } from 'definations/APIs/sizeChart.res';
 import { _Reviews } from 'definations/product.type';
 import { BrandFilter, FilterApiRequest } from 'definations/productList.type';
-import { number } from 'yup';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const FetchProductById = async (payload: {
