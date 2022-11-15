@@ -1,24 +1,41 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import RequestConsultationForm from '../../Components/RequestConsultation/RequestConsultationForm';
 import RequestFeatures from 'Components/RequestConsultation/RequestFeatures';
+import { __domain } from 'page.config';
+import { _SeName } from 'constants/store.constant';
+import * as _AppController from 'Controllers/_AppController';
+import { storeReturnType } from 'definations/store.type';
+import Link from 'next/link';
+import { paths } from 'constants/paths.constant';
+import * as ConsultationController from 'Controllers/RequestConsultationController';
+import { _ProductDetails } from 'definations/APIs/productDetail.res';
+import { _ProductColor } from 'definations/APIs/colors.res';
+import Image from 'appComponents/reusables/Image';
 
-const RequestConsultation: NextPage = () => {
+interface _props {
+  product: {
+    details: _ProductDetails | null;
+    colors: _ProductColor[] | null;
+  } | null;
+}
+
+const RequestConsultation: NextPage<_props> = ({ product }) => {
+  if (product === null || product.details === null || product.colors === null)
+    return <></>;
   return (
     <section className="container mx-auto border border-gray-300 p-3">
       <div className="flex flex-wrap items-center -mx-3">
         <div className="w-full lg:w-4/12 px-3 text-center">
           <div className="">
-            <img
-              src="images/1040623_25528_STH.jpg"
-              alt=""
-              className="w-full object-center object-cover sm:rounded-lg"
+            <Image
+              src={product.colors[0].imageUrl}
+              alt={product.details.name}
+              className={''}
             />
           </div>
           <div className="text-lg md:text-xl lg:text-small-title font-small-title">
-            <a href="product-page.html">
-              Patagonia Men's Better Sweater Jacket
-            </a>
+            <Link href={paths.PRODUCT}>{product.details.name}</Link>
           </div>
         </div>
         <RequestConsultationForm />
@@ -29,3 +46,45 @@ const RequestConsultation: NextPage = () => {
 };
 
 export default RequestConsultation;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let expectedProps: {
+    store: null | storeReturnType;
+    product: {
+      details: _ProductDetails | null;
+      colors: _ProductColor[] | null;
+    } | null;
+  } = {
+    store: null,
+    product: null,
+  };
+  try {
+    const domain = __domain.layout || context.req.rawHeaders[1]!;
+    const seName = _SeName.nike;
+    // const pathNames = context.req.url?.split('/')!;
+    // const seName =  pathNames ? pathNames[pathNames?.length - 1] : null;
+
+    if (seName) {
+      expectedProps.store = await _AppController.FetchStoreDetails(
+        domain,
+        seName!,
+      );
+
+      if (expectedProps.store) {
+        expectedProps.product =
+          await ConsultationController.FetchProductDetails({
+            storeId: expectedProps.store.storeId!,
+            seName: seName,
+          });
+      }
+    }
+  } catch (error) {
+    console.log('Error: Request Consultation page => ', error);
+  }
+
+  return {
+    props: {
+      product: expectedProps.product,
+    },
+  };
+};
