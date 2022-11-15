@@ -1,12 +1,13 @@
 import Screen from 'appComponents/Screen';
 import { _Store } from 'constants/store.constant';
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
-import { __domain } from 'page.config';
+import { __domain } from '../page.config';
 import { reduxWrapper } from 'redux/store.redux';
 import * as _AppController from 'Controllers/_AppController';
 import { _StoreMenu } from 'definations/APIs/header.res';
 import { storeReturnType } from 'definations/store.type';
 import { useActions } from 'hooks';
+import Spinner from 'appComponents/ui/spinner';
 import '../../styles/output.css';
 
 type AppOwnProps = {
@@ -32,11 +33,11 @@ export function RedefineCustomApp({
   if (store === null) return <>LOADING STORE DETAILS</>;
 
   return (
-    <>
+    <Spinner>
       <Screen>
         <Component {...pageProps} />
       </Screen>
-    </>
+    </Spinner>
   );
 }
 

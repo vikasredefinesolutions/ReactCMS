@@ -5,6 +5,7 @@ import modalsReducer from './slices/modals.slice';
 import productReducer from './slices/product.slice';
 import redefineStoreReducer from './slices/redefineStore.slice';
 import userReducer from './slices/user.slice';
+import loaderReducer from './slices/loader.slice';
 
 const rootReducer = combineReducers({
   store: redefineStoreReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   modals: modalsReducer,
   compare: compareReducer,
+  loader: loaderReducer
 });
 
 export default rootReducer;
