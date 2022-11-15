@@ -3,7 +3,7 @@ import { _ProductColor } from './APIs/colors.res';
 import { _ProductDiscountTable } from './APIs/discountTable.res';
 import { _ProductDetails, _ProductSEO } from './APIs/productDetail.res';
 import { _SizeChartTransformed } from './APIs/sizeChart.res';
-import { storeReturnType } from './store.type';
+import { _StoreReturnType } from './store.type';
 
 export type _LogoSteps =
   | 'SELECT_LOCATION'
@@ -51,6 +51,6 @@ export interface _ExpectedProductProps {
     sizes: null | _SizeChartTransformed;
     discount: null | _ProductDiscountTable;
     SEO: null | _ProductSEO;
-  };
-  store: storeReturnType | null;
+  } | null;
+  store?: _StoreReturnType | null;
 }

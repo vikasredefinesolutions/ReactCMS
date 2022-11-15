@@ -5,7 +5,7 @@ import RequestFeatures from 'Components/RequestConsultation/RequestFeatures';
 import { __domain } from 'page.config';
 import { _SeName } from 'constants/store.constant';
 import * as _AppController from 'Controllers/_AppController';
-import { storeReturnType } from 'definations/store.type';
+import { _StoreReturnType } from 'definations/store.type';
 import Link from 'next/link';
 import { paths } from 'constants/paths.constant';
 import * as ConsultationController from 'Controllers/RequestConsultationController';
@@ -49,7 +49,7 @@ export default RequestConsultation;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   let expectedProps: {
-    store: null | storeReturnType;
+    store: null | _StoreReturnType;
     product: {
       details: _ProductDetails | null;
       colors: _ProductColor[] | null;

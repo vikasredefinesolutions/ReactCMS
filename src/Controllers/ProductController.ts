@@ -8,6 +8,13 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 
+export const getProductDetailProps = async (payload: {
+  storeId: number;
+  seName: string;
+}) => {
+  return await FetchProductDetails(payload);
+};
+
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 //////// SERVER SIDE FUNCTIONS ---------------------------------------

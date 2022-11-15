@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { _SeName } from 'constants/store.constant';
 import { _StoreMenu } from 'definations/APIs/header.res';
 import { PageResponseType, _Show } from 'definations/app.type';
-import { storeReturnType } from 'definations/store.type';
+import { _StoreReturnType } from 'definations/store.type';
 import { showComponents } from 'mock/store.mock';
 import { __domain } from 'page.config';
 import {
@@ -48,7 +48,7 @@ export const storeSlice = createSlice({
       state,
       action: {
         payload: {
-          store: storeReturnType;
+          store: _StoreReturnType;
           menuItems: _StoreMenu[];
         };
       },

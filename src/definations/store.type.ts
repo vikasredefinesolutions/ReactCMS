@@ -1,4 +1,4 @@
-export interface storeReturnType {
+export interface _StoreReturnType {
   storeId: null | number;
   layout: null | string;
   pageType: string;
