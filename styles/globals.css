@@ -1,18 +1,9 @@
-@import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css');
-html,
-body {
-  /* display: none; */
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@import url('react-inner-image-zoom/lib/InnerImageZoom/styles.css');
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback);
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@import url(https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap);
 
-* {
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

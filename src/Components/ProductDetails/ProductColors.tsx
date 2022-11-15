@@ -4,12 +4,9 @@ import { _Store } from 'constants/store.constant';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { useActions, useTypedSelector } from 'hooks';
 
-interface _props {
-  colors: _ProductColor[] | null;
-}
-
-const ProductColors: React.FC<_props> = ({ colors }) => {
+const ProductColors: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const colors = useTypedSelector((state) => state.product.product.colors);
   const { setColor } = useActions();
 
   if (colors === null) return <></>;

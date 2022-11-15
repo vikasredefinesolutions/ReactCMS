@@ -6,7 +6,6 @@ import Store2LayoutBannd from './Components/Store2Layout';
 import getServerSideProps from './getServerSideProps';
 
 const Brands = (props: any) => {
-  console.log(props);
   const { storeLayout } = BrandController();
 
   if (storeLayout === _Store.type1) {

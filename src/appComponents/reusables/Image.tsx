@@ -4,7 +4,7 @@ import config from 'api.config';
 import { icons as _images } from 'Assets/images.asset';
 import NextImage from 'next/image';
 import { useState } from 'react';
-
+import {icons} from '../../Assets/images.asset';
 interface _props {
   src: string | null;
   alt: string;
@@ -19,7 +19,6 @@ const ImageComponent: React.FC<_props> = ({ src, alt, className, height, width }
   if (src === null) {
     setImageSrc(_images.defaultProduct);
   }
-  console.log(src);
 
   return (
     // <div className='w-auto h-auto m-auto max-h-[400px]'>
@@ -31,6 +30,7 @@ const ImageComponent: React.FC<_props> = ({ src, alt, className, height, width }
       height={height || 1}
       width={width || 1}
       layout="responsive"
+      
     // objectFit='contain'
     />
     // </div>

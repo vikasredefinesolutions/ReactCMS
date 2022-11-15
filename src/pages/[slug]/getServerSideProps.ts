@@ -25,7 +25,6 @@ export const getServerSideProps = async (context: {
     if (context.params['slug-id']) {
       const keys = context.params.slug.split(',');
       const values = context.params['slug-id'][0].split(',');
-      console.log(values);
       keys.forEach((res, index) =>
         values[index].split('~').forEach((val) => {
           filterOptionforfaceteds.push({
@@ -43,7 +42,6 @@ export const getServerSideProps = async (context: {
       customerId: 1,
       filterOptionforfaceteds: filterOptionforfaceteds,
     };
-    console.log(filter);
     pageData = await FetchFiltersJsonByBrand(filter);
     const _filters = [];
     for (const key in pageData) {

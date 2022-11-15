@@ -5,14 +5,15 @@ import { icons } from 'Assets/images.asset';
 import Image from 'appComponents/reusables/Image';
 import { _Store } from 'constants/store.constant';
 import { _OtherImage } from 'definations/APIs/colors.res';
-import { _ProductDetailsTransformed } from 'definations/APIs/productDetail.res';
+import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
 import AvailableColors from './AvailableColors';
 import HeartIcon from './HeartIcon';
 import ProductCompanion from './ProductCompanion';
+import { paths } from 'constants/paths.constant';
 
 interface _Props {
-  product: _ProductDetailsTransformed | null;
+  product: _ProductDetails | null;
 }
 
 const ProductImg: React.FC<_Props> = ({ product }) => {
@@ -55,7 +56,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
           {/* Display Image */}
           <div className="main-image max-w-lg mx-auto">
             <InnerImageZoom
-              src={selectedImage?.imageUrl || '/dummyShirtImage.jpg'}
+              src={selectedImage?.imageUrl}
               zoomType={'hover'}
               // alt={selectedImage.label}
               hideHint={true}
@@ -101,13 +102,13 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
     return (
       <div className="w-full lg:w-6/12 px-3">
         <div className="relative">
-          <div className="" onClick={() => router.push(-1)}>
+          <div className="" onClick={() => router.push(paths.PRODUCT_LISTING)}>
             &lt;&lt; Back
           </div>
           {/* Display Image */}
           <div className="main-image border border-[#f0f0f0] mb-3">
             <InnerImageZoom
-              src={selectedImage?.imageUrl || '/dummyShirtImage.jpg'}
+              src={selectedImage?.imageUrl}
               zoomType={'hover'}
               // alt={selectedImage.label}
               hideHint={true}
@@ -160,7 +161,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
           <div className="border border-gray-200 mb-3">
             <div className="main-image max-w-xl mx-auto">
               <InnerImageZoom
-                src={selectedImage?.imageUrl || '/dummyShirtImage.jpg'}
+                src={selectedImage?.imageUrl}
                 zoomType={'hover'}
                 // alt={selectedImage.label}
                 hideHint={true}
@@ -199,7 +200,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
             className="absolute right-2 top-4 w-6 h-6"
           />
         </div>
-        <AvailableColors colors={product.colors} />
+        <AvailableColors />
         <ProductCompanion
           name={product.companionProductName}
           id={product.companionProductId}
@@ -219,7 +220,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
             {/* Display Image */}
             <div className="main-image border border-gray-200 mb-3">
               <InnerImageZoom
-                src={selectedImage?.imageUrl || '/dummyShirtImage.jpg'}
+                src={selectedImage?.imageUrl}
                 zoomType={'hover'}
                 // alt={selectedImage.label}
                 hideHint={true}
@@ -257,7 +258,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
               className="absolute right-2 top-4 w-6 h-6"
             />
           </div>
-          <AvailableColors colors={product.colors} />
+          <AvailableColors />
         </div>
       </div>
     );
