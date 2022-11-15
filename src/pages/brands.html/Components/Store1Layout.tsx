@@ -1,12 +1,11 @@
 
+import { Brand } from '@type/productList.type';
 import Link from 'next/link';
 import BrandController from '../BrandController';
 
-const Stroe1LayouBrand = () => {
+const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandName: string, seName: string, brandColorImageUrl: string }[], alphabets: string[] }) => {
   const {
-    filteredAlphabets,
-    brands,
-    alphabets,
+    alphabets: alphabts,
     currentTab,
     setCurrentTab,
     getTabColor,
@@ -60,11 +59,10 @@ const Stroe1LayouBrand = () => {
                 <ul className="w-full flex justify-center max-w-4xl mx-auto flex-wrap">
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${
-                        currentTab === 0
+                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 0
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                      }`}
+                        }`}
                       onClick={() => setCurrentTab(0)}
                       href="javascript:void(0);"
                     >
@@ -73,11 +71,10 @@ const Stroe1LayouBrand = () => {
                   </li>
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${
-                        currentTab === 1
+                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 1
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                      }`}
+                        }`}
                       onClick={() => setCurrentTab(1)}
                       href="javascript:void(0);"
                     >
@@ -86,11 +83,10 @@ const Stroe1LayouBrand = () => {
                   </li>
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${
-                        currentTab === 2
+                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 2
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                      }`}
+                        }`}
                       onClick={() => setCurrentTab(2)}
                       href="javascript:void(0);"
                     >
@@ -99,11 +95,10 @@ const Stroe1LayouBrand = () => {
                   </li>
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${
-                        currentTab === 3
+                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 3
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                      }`}
+                        }`}
                       onClick={() => setCurrentTab(3)}
                       href="javascript:void(0);"
                     >
@@ -112,11 +107,10 @@ const Stroe1LayouBrand = () => {
                   </li>
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${
-                        currentTab === 4
+                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 4
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                      }`}
+                        }`}
                       onClick={() => setCurrentTab(4)}
                       href="javascript:void(0);"
                     >
@@ -982,16 +976,15 @@ const Stroe1LayouBrand = () => {
                   >
                     #
                   </a>
-                  {alphabets.map((str) => {
+                  {alphabts.map((str) => {
                     return (
                       <a
                         title="#D"
                         href="javascript:void(0);"
-                        className={`text-sub-title border-b border-white hover:text-primary hover:border-primary${
-                          filteredAlphabets.includes(str)
+                        className={`text-sub-title border-b border-white hover:text-primary hover:border-primary${alphabets.includes(str)
                             ? ''
                             : ' opacity-50 cursor-not-allowed'
-                        }`}
+                          }`}
                       >
                         {str.toUpperCase()}
                       </a>
@@ -1002,7 +995,7 @@ const Stroe1LayouBrand = () => {
             </div>
             <div className="lg:w-8/12 W-full">
               <div className="flex flex-wrap lg:mx-10 bg-gray-100 py-10 lg:px-6 gap-y-10">
-                {alphabets.map((str) => {
+                {alphabts.map((str) => {
                   const brandFiltered = brands.filter(
                     (brand) => brand.brandName[0].toLowerCase() === str,
                   );

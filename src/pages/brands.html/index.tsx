@@ -3,11 +3,14 @@ import BrandController from './BrandController';
 import Stroe1LayouBrand from './Components/Store1Layout';
 import Store2LayoutBannd from './Components/Store2Layout';
 
-const Brands = () => {
+import getServerSideProps from './getServerSideProps';
+
+const Brands = (props: any) => {
+  console.log(props);
   const { storeLayout } = BrandController();
 
   if (storeLayout === _Store.type1) {
-    return <Stroe1LayouBrand />;
+    return <Stroe1LayouBrand {...props}/>;
   }
 
   if (storeLayout === _Store.type2) {
@@ -28,5 +31,7 @@ const Brands = () => {
 
   return <></>;
 };
+
+export { getServerSideProps }
 
 export default Brands;
