@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { _Store } from 'constants/store.constant';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
-import { FetchSizeChartById } from 'services/product.service';
 
 interface _Props {
   modal?: 'NO';
@@ -12,21 +11,7 @@ interface _Props {
 }
 const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
-  const { productId } = useTypedSelector((state) => state.product.selected);
-  const [sizeChart, setSizeChart] = useState<null | _SizeChartTransformed>(
-    null,
-  );
-
-  const fetchSizeChart = () => {
-    FetchSizeChartById(productId)
-      .then((res) => setSizeChart(res))
-      .catch(() => setSizeChart(null))
-      .finally(() => 'Remove Loader');
-  };
-
-  useEffect(() => {
-    fetchSizeChart();
-  }, []);
+  const sizeChart = useTypedSelector((state) => state.product.product.sizes);
 
   if (modal === 'NO' && storeLayout === _Store.type3) {
     return (

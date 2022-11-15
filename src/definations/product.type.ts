@@ -1,5 +1,7 @@
 import { inventory, pricing, productById } from '../mock/product.mock';
+import { _ProductDiscountTable } from './APIs/discountTable.res';
 import { _ProductDetailsTransformed } from './APIs/productDetail.res';
+import { _SizeChartTransformed } from './APIs/sizeChart.res';
 import { storeReturnType } from './store.type';
 
 export type _LogoSteps =
@@ -52,6 +54,8 @@ export interface _ExpectedProductProps {
   product: {
     details: null | _ProductDetailsTransformed;
     colors: null | _AllColors[];
+    sizes: null | _SizeChartTransformed;
+    discount: null | _ProductDiscountTable;
   };
   store: storeReturnType | null;
 }

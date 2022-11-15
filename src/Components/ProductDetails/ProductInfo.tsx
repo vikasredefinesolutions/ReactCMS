@@ -95,7 +95,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           <ProductRequestConsultation />
         </div>
 
-        <AvailableColors colors={product.colors} />
+        <AvailableColors />
 
         {/* PRICING INFORMATION */}
         <>
@@ -214,7 +214,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         </div>
         <MinimumQuantity pricingLabel={'Discount Pricing'} />
         <QtyPriceTable />
-        <ProductColors colors={product.colors} />
+        <ProductColors />
         <ColorName />
         <div className="mb-4 flex items-center justify-end gap-2">
           <button
@@ -303,7 +303,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           salePrice={product.salePrice}
         />
         <MinimumQuantity pricingLabel={''} />
-        <AvailableColors colors={product.colors} />
+        <AvailableColors />
         <Inventory productId={product.id} />
         <div className="mb-3">
           <button

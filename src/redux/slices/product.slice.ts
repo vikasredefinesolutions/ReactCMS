@@ -2,6 +2,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import config from '../../api.config';
 import { _ProductColor } from 'definations/APIs/colors.res';
+import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
+import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 
 // Define a type for the slice state
 interface _ProductStore {
@@ -16,13 +18,15 @@ interface _ProductStore {
   };
   product: {
     id: number | null;
+    sizes: _SizeChartTransformed | null;
+    discounts: _ProductDiscountTable | null;
     price: {
       msrp: number;
       ourCost: number;
       salePrice: number;
     } | null;
     name: string | null;
-    colors: { id: number; label: string; url: string; alt: string }[] | null;
+    colors: _ProductColor[] | null;
     brand: {
       id: number | null;
       name: string | null;
@@ -96,10 +100,12 @@ const initialState: _ProductStore = {
     },
   },
   product: {
+    sizes: null,
     colors: null,
     brand: null,
     id: null,
     price: null,
+    discounts: null,
     name: null,
   },
   toCheckout: {
@@ -149,21 +155,8 @@ export const productSlice = createSlice({
         imageUrl: `${config.mediaBaseUrl}${action.payload.imageUrl}`,
       };
     },
-    storeAllColors: (
-      state,
-      action: {
-        payload: {
-          id: number;
-          label: string;
-          url: string;
-          alt: string;
-        }[];
-      },
-    ) => {
-      state.product.colors = action.payload;
-    },
 
-    storeDetails: (
+    store_productDetails: (
       state,
       action: {
         payload: {
@@ -180,6 +173,9 @@ export const productSlice = createSlice({
               ourCost: number;
               salePrice: number;
             } | null;
+            colors: _ProductColor[] | null;
+            sizes: null | _SizeChartTransformed;
+            discounts: null | _ProductDiscountTable;
           };
         };
       },
@@ -188,6 +184,9 @@ export const productSlice = createSlice({
       state.product.id = action.payload.product.id;
       state.product.name = action.payload.product.name;
       state.product.price = action.payload.product.price;
+      state.product.sizes = action.payload.product.sizes;
+      state.product.discounts = action.payload.product.discounts;
+      state.product.colors = action.payload.product.colors;
     },
 
     toggleNextLogoButton: (state, action: { payload: boolean }) => {

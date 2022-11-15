@@ -21,11 +21,10 @@ const ImageComponent: React.FC<_props> = ({ src, alt, className }) => {
   function checkIfImageExists() {
     const url = `${config.mediaBaseUrl}${src}`;
 
-    const img = new Image();
-    img.onload = () => setImageSrc(url);
-    img.onerror = () => setImageSrc(_images.defaultProduct);
-
-    img.src = url;
+    // const img = new Image();
+    // img.onload = () => setImageSrc(url);
+    // img.onerror = () => setImageSrc(_images.defaultProduct);
+    // img.src = url;
   }
 
   return (

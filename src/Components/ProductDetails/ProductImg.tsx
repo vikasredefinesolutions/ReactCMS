@@ -10,6 +10,7 @@ import { useActions, useTypedSelector } from 'hooks';
 import AvailableColors from './AvailableColors';
 import HeartIcon from './HeartIcon';
 import ProductCompanion from './ProductCompanion';
+import { paths } from 'constants/paths.constant';
 
 interface _Props {
   product: _ProductDetailsTransformed | null;
@@ -101,7 +102,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
     return (
       <div className="w-full lg:w-6/12 px-3">
         <div className="relative">
-          <div className="" onClick={() => router.push(-1)}>
+          <div className="" onClick={() => router.push(paths.PRODUCT_LISTING)}>
             &lt;&lt; Back
           </div>
           {/* Display Image */}
@@ -199,7 +200,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
             className="absolute right-2 top-4 w-6 h-6"
           />
         </div>
-        <AvailableColors colors={product.colors} />
+        <AvailableColors />
         <ProductCompanion
           name={product.companionProductName}
           id={product.companionProductId}
@@ -257,7 +258,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
               className="absolute right-2 top-4 w-6 h-6"
             />
           </div>
-          <AvailableColors colors={product.colors} />
+          <AvailableColors />
         </div>
       </div>
     );
