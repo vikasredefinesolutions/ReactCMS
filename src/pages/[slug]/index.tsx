@@ -19,10 +19,10 @@ export default function Search(props: any) {
                     <title>{seo?.seTitle}</title>
                     <meta
                         name="description"
-                        content={seo.SEO?.seDescription}
+                        content={seo?.seDescription}
                         key="desc"
                     />
-                    <meta name="keywords" content={seo.SEO?.seKeyWords} />
+                    <meta name="keywords" content={seo?.seKeyWords} />
                 </Head>
                 <ProductList pageData={pageData} slug={slug} />
             </>
