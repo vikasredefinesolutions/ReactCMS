@@ -13,7 +13,19 @@ export default function Search(props: any) {
             page = <>'product'</>;
         }
         else if ('brand,category'.includes(pageType)) {
-            page = <ProductList pageData={pageData} slug={slug} />
+            const { seo } = pageData;
+            page = <>
+                <Head>
+                    <title>{seo?.seTitle}</title>
+                    <meta
+                        name="description"
+                        content={seo.SEO?.seDescription}
+                        key="desc"
+                    />
+                    <meta name="keywords" content={seo.SEO?.seKeyWords} />
+                </Head>
+                <ProductList pageData={pageData} slug={slug} />
+            </>
 
         }
         else {
@@ -21,9 +33,6 @@ export default function Search(props: any) {
         }
     }
     return <>
-        <Head>
-            <title>{pageType.slug || 'Corporate Gear'}</title>
-        </Head>
         {page}
     </>;
 }

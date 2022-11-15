@@ -1,5 +1,5 @@
 import { getPageType } from '@services/page.service';
-import { FetchFiltersJsonByBrand } from '@services/product.service';
+import { FetchBrandProductList, FetchFiltersJsonByBrand } from '@services/product.service';
 import { ProductList } from '@type/productList.type';
 export const getServerSideProps = async (context: {
   params: { slug: string; ['slug-id']?: string[] };
@@ -18,6 +18,8 @@ export const getServerSideProps = async (context: {
   let pageData: any = null;
 
   if ('brand,category'.includes(pageType)) {
+    const seo = await FetchBrandProductList({storeId: 4, seName: slug});
+    console.log(seo);
     let filterOptionforfaceteds: Array<{
         name: string;
         value: string;
@@ -60,6 +62,7 @@ export const getServerSideProps = async (context: {
       
       product.push({...pro, name: pro.name + '-' + i});
     }
+    pageData['seo'] = seo;
     pageData['filters'] = _filters;
     pageData['product'] = product;
     pageData['checkedFilters'] = filterOptionforfaceteds;
