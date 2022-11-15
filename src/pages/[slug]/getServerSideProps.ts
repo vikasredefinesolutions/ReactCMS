@@ -48,7 +48,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if ('brand,category'.includes(pageType)) {
     const seo = await FetchBrandProductList({ storeId: 4, seName: slug });
-    console.log(seo);
     let filterOptionforfaceteds: Array<{
       name: string;
       value: string;

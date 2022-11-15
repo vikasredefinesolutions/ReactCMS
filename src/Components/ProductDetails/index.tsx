@@ -32,11 +32,9 @@ interface _props {
 
 const Product: React.FC<_props> = ({ product }) => {
   if (product === null) return <>Product Page Loading... </>;
-  console.log('seo', product);
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { store_productDetails, setColor } = useActions();
 
-  console.log('perou', product);
   if (product?.details === null || product?.details === undefined)
     return <> Product Details not found</>;
 
