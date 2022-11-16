@@ -69,55 +69,57 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     if (view === 'DESKTOP') {
       return (
         <Link href={`/${menuUrl}`} className="flex">
-          <div className="relative flex">
-            <button
-              type="button"
-              onMouseOver={() => setFocus(true)}
-              onMouseLeave={() => setFocus(false)}
-              className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
-                focus
-                  ? `border-b-primary text-primary-hover`
-                  : `border-transparent text-white hover:text-primary-hover`
-              }`}
-            >
-              <span className="uppercase text-primary">{menuTitle}</span>
-            </button>
-          </div>
-          {focus && (
-            <div
-              onMouseOver={() => setFocus(true)}
-              onMouseLeave={() => setFocus(false)}
-              //   x-transition:enter="transition ease-out duration-200"
-              //   x-transition:enter-start="opacity-0"
-              //   x-transition:enter-end="opacity-100"
-              //   x-transition:leave="transition ease-in duration-150"
-              //   x-transition:leave-start="opacity-100"
-              //   x-transition:leave-end="opacity-0"
-              className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
-            >
-              <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
-              <div className="relative bg-gray-100 z-50">
-                <div className="max-w-7xl mx-auto">
-                  <div className="border-t first:border-t-0 py-5 px-5">
-                    <ul
-                      role="list"
-                      aria-labelledby="desktop-featured-heading-1"
-                      className="flex flex-wrap gap-y-2"
-                    >
-                      {menuItems.map((item, index) => (
-                        <SubMenuItem
-                          key={index}
-                          itemLabel={item}
-                          itemUrl={menuUrl}
-                          type={'CATEGORY'}
-                        />
-                      ))}
-                    </ul>
+          <>
+            <div className="relative flex">
+              <button
+                type="button"
+                onMouseOver={() => setFocus(true)}
+                onMouseLeave={() => setFocus(false)}
+                className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
+                  focus
+                    ? `border-b-primary text-primary-hover`
+                    : `border-transparent text-white hover:text-primary-hover`
+                }`}
+              >
+                <span className="uppercase text-primary">{menuTitle}</span>
+              </button>
+            </div>
+            {focus && (
+              <div
+                onMouseOver={() => setFocus(true)}
+                onMouseLeave={() => setFocus(false)}
+                //   x-transition:enter="transition ease-out duration-200"
+                //   x-transition:enter-start="opacity-0"
+                //   x-transition:enter-end="opacity-100"
+                //   x-transition:leave="transition ease-in duration-150"
+                //   x-transition:leave-start="opacity-100"
+                //   x-transition:leave-end="opacity-0"
+                className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
+              >
+                <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
+                <div className="relative bg-gray-100 z-50">
+                  <div className="max-w-7xl mx-auto">
+                    <div className="border-t first:border-t-0 py-5 px-5">
+                      <ul
+                        role="list"
+                        aria-labelledby="desktop-featured-heading-1"
+                        className="flex flex-wrap gap-y-2"
+                      >
+                        {menuItems.map((item, index) => (
+                          <SubMenuItem
+                            key={index}
+                            itemLabel={item}
+                            itemUrl={menuUrl}
+                            type={'CATEGORY'}
+                          />
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </>
         </Link>
       );
     }
@@ -218,99 +220,101 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     if (view === 'DESKTOP') {
       return (
         <Link href={`/${menuUrl}`} className="flex">
-          <div className="relative flex">
-            <button
-              type="button"
-              onMouseOver={() => setFocus(true)}
-              onMouseLeave={() => setFocus(false)}
-              className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold  xl:tracking-widest ${
-                focus
-                  ? `text-primary-hover`
-                  : 'text-white hover:text-primary-hover'
-              }`}
-            >
-              <span className="uppercase text-white">{menuTitle}</span>
-            </button>
-          </div>
-          {focus && (
-            <div
-              onMouseOver={() => setFocus(true)}
-              onMouseLeave={() => setFocus(false)}
-              // x-transition:enter="transition ease-out duration-200"
-              // x-transition:enter-start="opacity-0"
-              // x-transition:enter-end="opacity-100"
-              // x-transition:leave="transition ease-in duration-150"
-              // x-transition:leave-start="opacity-100"
-              // x-transition:leave-end="opacity-0"
-              className="absolute top-full left-0 right-0 text-gray-500 shadow sm:text-md font-medium"
-            >
-              {/* <!-- <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"></div> --> */}
-              <div className="relative bg-gray-100">
-                <div className="max-w-4xl mx-auto">
-                  <div className="border-t first:border-t-0 py-5 px-5">
-                    <div className="flex flex-wrap gap-4">
-                      <div className="w-full lg:w-1/3">
-                        <div className="text-base mb-4 font-semibold text-anchor">
-                          BY CATEGORY
+          <>
+            <div className="relative flex">
+              <button
+                type="button"
+                onMouseOver={() => setFocus(true)}
+                onMouseLeave={() => setFocus(false)}
+                className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold  xl:tracking-widest ${
+                  focus
+                    ? `text-primary-hover`
+                    : 'text-white hover:text-primary-hover'
+                }`}
+              >
+                <span className="uppercase text-white">{menuTitle}</span>
+              </button>
+            </div>
+            {focus && (
+              <div
+                onMouseOver={() => setFocus(true)}
+                onMouseLeave={() => setFocus(false)}
+                // x-transition:enter="transition ease-out duration-200"
+                // x-transition:enter-start="opacity-0"
+                // x-transition:enter-end="opacity-100"
+                // x-transition:leave="transition ease-in duration-150"
+                // x-transition:leave-start="opacity-100"
+                // x-transition:leave-end="opacity-0"
+                className="absolute top-full left-0 right-0 text-gray-500 shadow sm:text-md font-medium"
+              >
+                {/* <!-- <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"></div> --> */}
+                <div className="relative bg-gray-100">
+                  <div className="max-w-4xl mx-auto">
+                    <div className="border-t first:border-t-0 py-5 px-5">
+                      <div className="flex flex-wrap gap-4">
+                        <div className="w-full lg:w-1/3">
+                          <div className="text-base mb-4 font-semibold text-anchor">
+                            BY CATEGORY
+                          </div>
+                          <ul>
+                            {menuItems.map((item, index) => (
+                              <SubMenuItem
+                                key={index}
+                                itemLabel={item}
+                                itemUrl={menuUrl}
+                                type={'CATEGORY'}
+                              />
+                            ))}
+                          </ul>
                         </div>
-                        <ul>
-                          {menuItems.map((item, index) => (
-                            <SubMenuItem
-                              key={index}
-                              itemLabel={item}
-                              itemUrl={menuUrl}
-                              type={'CATEGORY'}
-                            />
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="w-full lg:w-1/3">
-                        <div className="text-base mb-4 font-semibold text-anchor">
-                          BY BRAND
+                        <div className="w-full lg:w-1/3">
+                          <div className="text-base mb-4 font-semibold text-anchor">
+                            BY BRAND
+                          </div>
+                          <ul>
+                            {menuItems.map((item, index) => (
+                              <SubMenuItem
+                                key={index}
+                                itemLabel={item}
+                                itemUrl={menuUrl}
+                                type={'CATEGORY'}
+                              />
+                            ))}
+                          </ul>
                         </div>
-                        <ul>
-                          {menuItems.map((item, index) => (
-                            <SubMenuItem
-                              key={index}
-                              itemLabel={item}
-                              itemUrl={menuUrl}
-                              type={'CATEGORY'}
-                            />
-                          ))}
-                        </ul>
                       </div>
-                    </div>
-                    <div className="flex flex-wrap gap-4">
-                      <div className="w-full lg:w-1/3 border-t border-t-gray-300 pt-2 mt-2">
-                        <ul>
-                          <li className="flex items-center">
-                            <Link
-                              href={`/${menuUrl}`}
-                              className="text-anchor hover:text-anchor-hover"
-                            >
-                              All Men's Apparel & Footwear
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="w-full lg:w-1/3 border-t border-t-gray-300 pt-2 mt-2">
-                        <ul>
-                          <li className="flex items-center">
-                            <Link
-                              href={`/${menuUrl}`}
-                              className="text-anchor hover:text-anchor-hover"
-                            >
-                              All Brands
-                            </Link>
-                          </li>
-                        </ul>
+                      <div className="flex flex-wrap gap-4">
+                        <div className="w-full lg:w-1/3 border-t border-t-gray-300 pt-2 mt-2">
+                          <ul>
+                            <li className="flex items-center">
+                              <Link
+                                href={`/${menuUrl}`}
+                                className="text-anchor hover:text-anchor-hover"
+                              >
+                                All Men's Apparel & Footwear
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="w-full lg:w-1/3 border-t border-t-gray-300 pt-2 mt-2">
+                          <ul>
+                            <li className="flex items-center">
+                              <Link
+                                href={`/${menuUrl}`}
+                                className="text-anchor hover:text-anchor-hover"
+                              >
+                                All Brands
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </>
         </Link>
       );
     }
@@ -405,47 +409,49 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     if (view === 'DESKTOP') {
       return (
         <Link href={`/${menuUrl}`} className="flex">
-          <div className="relative flex">
-            <button
-              type="button"
-              onMouseOver={() => setFocus(true)}
-              onMouseLeave={() => setFocus(false)}
-              className="relative z-10 flex items-center transition-colors ease-out text-base xl:tracking-widest text-anchor py-2.5"
-            >
-              <span className="">{menuTitle}</span>
-            </button>
-          </div>
-          {focus && (
-            <div
-              onMouseOver={() => setFocus(true)}
-              onMouseLeave={() => setFocus(false)}
-              // x-transition:enter="transition ease-out duration-200"
-              // x-transition:enter-start="opacity-0"
-              // x-transition:enter-end="opacity-100"
-              // x-transition:leave="transition ease-in duration-150"
-              // x-transition:leave-start="opacity-100"
-              // x-transition:leave-end="opacity-0"
-              className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
-            >
-              <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
-              <div className="relative bg-gray-200 z-50">
-                <div className="max-w-7xl mx-auto">
-                  <div className="border-t first:border-t-0 py-5 px-5">
-                    <ul role="list" className="flex flex-wrap gap-y-2">
-                      {menuItems.map((item, index) => (
-                        <SubMenuItem
-                          key={index}
-                          itemLabel={item}
-                          itemUrl={menuUrl}
-                          type={'CATEGORY'}
-                        />
-                      ))}
-                    </ul>
+          <>
+            <div className="relative flex">
+              <button
+                type="button"
+                onMouseOver={() => setFocus(true)}
+                onMouseLeave={() => setFocus(false)}
+                className="relative z-10 flex items-center transition-colors ease-out text-base xl:tracking-widest text-anchor py-2.5"
+              >
+                <span className="">{menuTitle}</span>
+              </button>
+            </div>
+            {focus && (
+              <div
+                onMouseOver={() => setFocus(true)}
+                onMouseLeave={() => setFocus(false)}
+                // x-transition:enter="transition ease-out duration-200"
+                // x-transition:enter-start="opacity-0"
+                // x-transition:enter-end="opacity-100"
+                // x-transition:leave="transition ease-in duration-150"
+                // x-transition:leave-start="opacity-100"
+                // x-transition:leave-end="opacity-0"
+                className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
+              >
+                <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
+                <div className="relative bg-gray-200 z-50">
+                  <div className="max-w-7xl mx-auto">
+                    <div className="border-t first:border-t-0 py-5 px-5">
+                      <ul role="list" className="flex flex-wrap gap-y-2">
+                        {menuItems.map((item, index) => (
+                          <SubMenuItem
+                            key={index}
+                            itemLabel={item}
+                            itemUrl={menuUrl}
+                            type={'CATEGORY'}
+                          />
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </>
         </Link>
       );
     }
@@ -502,55 +508,57 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     if (view === 'DESKTOP') {
       return (
         <Link href={`/${menuUrl}`} className="flex">
-          <div className="relative flex">
-            <button
-              type="button"
-              onMouseOver={() => setFocus(true)}
-              onMouseLeave={() => setFocus(false)}
-              className={`relative z-10 flex items-center transition-colors ease-out duration-200 text-md font-medium border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
-                focus
-                  ? 'border-b-primary text-primary-hover'
-                  : 'border-transparent text-white hover:text-primary-hover'
-              }`}
-            >
-              <span className="text-white">{menuTitle}</span>
-            </button>
-          </div>
-          {focus && (
-            <div
-              onMouseOver={() => setFocus(true)}
-              onMouseLeave={() => setFocus(false)}
-              // x-transition:enter="transition ease-out duration-200"
-              // x-transition:enter-start="opacity-0"
-              // x-transition:enter-end="opacity-100"
-              // x-transition:leave="transition ease-in duration-150"
-              // x-transition:leave-start="opacity-100"
-              // x-transition:leave-end="opacity-0"
-              className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
-            >
-              <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
-              <div className="relative bg-white z-50">
-                <div className="max-w-7xl mx-auto">
-                  <div className="border-t first:border-t-0 py-5 px-5">
-                    <ul
-                      role="list"
-                      aria-labelledby="desktop-featured-heading-1"
-                      className="flex flex-wrap gap-y-2"
-                    >
-                      {menuItems.map((item, index) => (
-                        <SubMenuItem
-                          key={index}
-                          itemLabel={item}
-                          itemUrl={menuUrl}
-                          type={'CATEGORY'}
-                        />
-                      ))}
-                    </ul>
+          <>
+            <div className="relative flex">
+              <button
+                type="button"
+                onMouseOver={() => setFocus(true)}
+                onMouseLeave={() => setFocus(false)}
+                className={`relative z-10 flex items-center transition-colors ease-out duration-200 text-md font-medium border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
+                  focus
+                    ? 'border-b-primary text-primary-hover'
+                    : 'border-transparent text-white hover:text-primary-hover'
+                }`}
+              >
+                <span className="text-white">{menuTitle}</span>
+              </button>
+            </div>
+            {focus && (
+              <div
+                onMouseOver={() => setFocus(true)}
+                onMouseLeave={() => setFocus(false)}
+                // x-transition:enter="transition ease-out duration-200"
+                // x-transition:enter-start="opacity-0"
+                // x-transition:enter-end="opacity-100"
+                // x-transition:leave="transition ease-in duration-150"
+                // x-transition:leave-start="opacity-100"
+                // x-transition:leave-end="opacity-0"
+                className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
+              >
+                <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
+                <div className="relative bg-white z-50">
+                  <div className="max-w-7xl mx-auto">
+                    <div className="border-t first:border-t-0 py-5 px-5">
+                      <ul
+                        role="list"
+                        aria-labelledby="desktop-featured-heading-1"
+                        className="flex flex-wrap gap-y-2"
+                      >
+                        {menuItems.map((item, index) => (
+                          <SubMenuItem
+                            key={index}
+                            itemLabel={item}
+                            itemUrl={menuUrl}
+                            type={'CATEGORY'}
+                          />
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </>
         </Link>
       );
     }

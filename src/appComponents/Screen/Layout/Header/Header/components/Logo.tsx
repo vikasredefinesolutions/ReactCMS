@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { paths } from '../../constants/paths.constant';
-import { _Store } from '../../constants/store.constant';
-import { useTypedSelector } from '../../hooks';
+import { paths } from 'constants/paths.constant';
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 
 interface _props {
   screen: 'DESKTOP' | 'MOBILE';
@@ -90,12 +90,14 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
       return (
         <div className="hidden lg:flex lg:items-center">
           <Link href={paths.HOME}>
-            <span className="sr-only">Workflow</span>
-            <img
-              className="h-16 w-auto"
-              src="/images/logo.png"
-              alt="Corporate Gear"
-            />
+            <>
+              <span className="sr-only">Workflow</span>
+              <img
+                className="h-16 w-auto"
+                src="/images/logo.png"
+                alt="Corporate Gear"
+              />
+            </>
           </Link>
         </div>
       );
