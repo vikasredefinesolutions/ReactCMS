@@ -15,7 +15,9 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
-import { highLightError } from 'helpers/common.helper';
+import { highLightError, highLightResponse } from 'helpers/common.helper';
+import { __fileNames } from 'show.config';
+import { conditionalConsoles } from 'helpers/global.console';
 
 export const getProductDetailProps = async (payload: {
   storeId: number;
@@ -52,11 +54,9 @@ export const FetchProductDetails = async (payload: {
 
   try {
     // Request - 1
-    await FetchProductById({
+    productDetails = await FetchProductById({
       seName: payload.seName,
       storeId: payload.storeId,
-    }).then((res) => {
-      productDetails = { ...res };
     });
 
     // Request - 2,3,4,5
@@ -76,6 +76,10 @@ export const FetchProductDetails = async (payload: {
         storeId: payload.storeId,
       }),
     ]).then((values) => {
+      highLightResponse({
+        dataToShow: values,
+        component: 'Product: All settled',
+      });
       productColors = values[0].status === 'fulfilled' ? values[0].value : null;
       productSizeChart =
         values[1].status === 'fulfilled' ? values[1].value : null;
@@ -92,14 +96,25 @@ export const FetchProductDetails = async (payload: {
         (color) => color.attributeOptionId,
       );
 
-      await FetchInventoryById({
+      productInventoryList = await FetchInventoryById({
         productId: productDetails!.id,
         attributeOptionId: allColorAttributes,
-      }).then((Inventory) => (productInventoryList = Inventory));
+      });
     }
 
     // Request - 7
     // await  ---> Fetch Product Reviews
+    conditionalConsoles({
+      data: {
+        details: productDetails,
+        colors: productColors,
+        sizes: productSizeChart,
+        discount: productDiscountTablePrices,
+        SEO: productSEOtags,
+        inventory: productInventoryList,
+      },
+      fileName: __fileNames.productController,
+    });
   } catch (error) {
     highLightError({ error, component: `Product Controller` });
   }

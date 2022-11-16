@@ -11,6 +11,9 @@ import Spinner from 'appComponents/ui/spinner';
 import '../../styles/output.css';
 import '../app.css';
 import { highLightError } from 'helpers/common.helper';
+import { _Expected_AppProps } from 'show.type';
+import { conditionalConsoles } from 'helpers/global.console';
+import { __fileNames } from 'show.config';
 
 type AppOwnProps = {
   store: _StoreReturnType | null;
@@ -49,10 +52,7 @@ RedefineCustomApp.getInitialProps = async (
   const ctx = await App.getInitialProps(context);
   const domain = __domain.layout || context.ctx.req?.rawHeaders[1]!;
   const pathName = context.ctx.pathname;
-  const expectedProps: {
-    store: _StoreReturnType | null;
-    menuItems: _StoreMenu[] | null;
-  } = {
+  const expectedProps: _Expected_AppProps = {
     store: null,
     menuItems: null,
   };
@@ -62,13 +62,12 @@ RedefineCustomApp.getInitialProps = async (
       domain,
       pathName,
     );
-    expectedProps.menuItems = await _AppController.FetchMenuItems(2);
+    // expectedProps.menuItems = await _AppController.FetchMenuItems(2);
   } catch (error) {
     highLightError({ error, component: '_app Page' });
   }
 
-  // alertIfNoDataFound()
-
+  conditionalConsoles({ data: expectedProps, fileName: __fileNames._app });
   return {
     ...ctx,
     store: expectedProps.store,
