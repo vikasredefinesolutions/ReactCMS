@@ -7,6 +7,7 @@ interface _props {
   text: string;
 }
 const ProductDescription: React.FC<_props> = ({ text, heading }) => {
+  if (!text) return <></>;
   const [showExtra, setShowExtra] = useState(false);
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const showExtraButton = text.length >= __product.descriptionLength;

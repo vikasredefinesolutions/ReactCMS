@@ -74,17 +74,15 @@ const ProductComponent = ({
                   key={product.id}
                   href={`${product.sename}.html?v=product-detail`}
                 >
-                  <a>
+                  <>
                     <span className="absolute inset-0"></span>
                     {product.name}
-                  </a>
+                  </>
                 </Link>
               </div>
               <div className="mt-3 text-black text-base tracking-wider">
                 <span className="font-semibold">
-                  <>
-                    {/* MSRP <Price value={product.salePrice} /> */}
-                  </>
+                  <>{/* MSRP <Price value={product.salePrice} /> */}</>
                 </span>
               </div>
               {product.getProductImageOptionList.length > 0 && (
@@ -95,10 +93,11 @@ const ProductComponent = ({
                   {product.getProductImageOptionList.map((subRow, index) =>
                     index < 6 ? (
                       <li
-                        className={`w-7 h-7 border-2${subRow.id === currentProduct.id
+                        className={`w-7 h-7 border-2${
+                          subRow.id === currentProduct.id
                             ? ' border-secondary'
                             : ''
-                          }`}
+                        }`}
                         onClick={() => {
                           colorChangeHandler(
                             product.id,

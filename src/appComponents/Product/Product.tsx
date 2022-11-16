@@ -73,8 +73,10 @@ const ProductComponent = ({
                   className="relative underline min-h-[48px]"
                   href={`${product.sename}.html?v=product-detail`}
                 >
-                  <span className="absolute inset-0"></span>
-                  {product.name}
+                  <>
+                    <span className="absolute inset-0"></span>
+                    {product.name}
+                  </>
                 </Link>
               </div>
               <div className="mt-3 text-black text-base tracking-wider">

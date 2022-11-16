@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
 import Notification from '../Notification';
 import LoginIcon from './components/LoginIcon';
-import { default as CompanyLogo, default as Logo } from './components/Logo';
+import Logo from './components/Logo';
 import MenuIcon from './components/MenuIcon';
 import MyCartIcon from './components/MyCartIcon';
 import SearchBar from './components/SearchBar';
@@ -37,7 +37,7 @@ const Header: React.FC = () => {
                         <SearchBar screen="MOBILE" />
                       </div>
 
-                      <CompanyLogo screen="MOBILE" />
+                      <Logo screen="MOBILE" />
                       <div className="flex items-center justify-end">
                         <div className="flex items-center lg:ml-6">
                           <div className="flex items-center space-x-4">

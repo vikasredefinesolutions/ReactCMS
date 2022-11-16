@@ -1,33 +1,62 @@
 import { getPageType } from '@services/page.service';
-import { FetchBrandProductList, FetchFiltersJsonByBrand } from '@services/product.service';
+import { _StoreReturnType } from 'definations/store.type';
+
+import { __domain } from 'page.config';
+import {
+  FetchBrandProductList,
+  FetchFiltersJsonByBrand,
+} from '@services/product.service';
 import { ProductList } from '@type/productList.type';
-export const getServerSideProps = async (context: {
-  params: { slug: string; ['slug-id']?: string[] };
-}) => {
+import * as _AppController from 'Controllers/_AppController';
+import { GetServerSideProps } from 'next';
+import { _ExpectedProductProps } from '@type/product.type';
+import { getProductDetailProps } from 'Controllers/ProductController';
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const domain = __domain.layout || context.req.rawHeaders[1];
+  let store: _StoreReturnType | null = null;
+  let expectedProps: _ExpectedProductProps = {
+    product: null,
+  };
   let slug = '';
-  if (context.params['slug-id']) {
-    slug = context.params['slug-id'].at(-1)?.replace('.html', '') || '';
+  const slugID = context.params && context.params['slug-id'];
+
+  if (slugID) {
+    slug = slugID.at(-1)?.replace('.html', '') || '';
   } else {
-    slug = context.params.slug.replace('.html', '');
+    const paramsSlug = context.params!;
+    // @ts-ignore: Unreachable code error
+    slug = paramsSlug.slug.replace('.html', '');
   }
+
+  store = await _AppController.FetchStoreDetails(domain, slug!);
   const { data } = await getPageType({
     store_id: 4,
     slug,
   });
   const pageType = data.data.type;
-  let pageData: any = null;
+  let pageData: any | null = null;
+  ////////////////////////////////////////////////
+  /////////// Page Type Checks
+  ////////////////////////////////////////////////
+  if (pageType === 'product') {
+    pageData = await getProductDetailProps({
+      storeId: store.storeId!,
+      seName: slug,
+    });
+  }
 
   if ('brand,category'.includes(pageType)) {
-    const seo = await FetchBrandProductList({storeId: 4, seName: slug});
-    console.log(seo);
+    const seo = await FetchBrandProductList({ storeId: 4, seName: slug });
     let filterOptionforfaceteds: Array<{
-        name: string;
-        value: string;
-      }> = [];
-    if (context.params['slug-id']) {
+      name: string;
+      value: string;
+    }> = [];
+    if (slugID) {
+      // @ts-ignore: Unreachable code error
       const keys = context.params.slug.split(',');
-      const values = context.params['slug-id'][0].split(',');
-      keys.forEach((res, index) =>
+      const values = slugID[0].split(',');
+      keys.forEach((res: string, index: number) =>
         values[index].split('~').forEach((val) => {
           filterOptionforfaceteds.push({
             name: res,
@@ -59,15 +88,14 @@ export const getServerSideProps = async (context: {
     }
     for (let i = 0; i < 6; i++) {
       const pro = product[0];
-      
-      product.push({...pro, name: pro.name + '-' + i});
+
+      product.push({ ...pro, name: pro.name + '-' + i });
     }
     pageData['seo'] = seo;
     pageData['filters'] = _filters;
     pageData['product'] = product;
     pageData['checkedFilters'] = filterOptionforfaceteds;
   }
-
   return {
     props: {
       pageType,

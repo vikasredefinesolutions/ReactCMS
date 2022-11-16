@@ -34,7 +34,7 @@ const AvailableInventoryModal: React.FC<_props> = ({
   useEffect(() => {
     fetchInventory({
       productId: productId,
-      attributeOptionId: colors!.map((color) => color.id),
+      attributeOptionId: colors!.map((color) => color.attributeOptionId),
     });
   }, []);
 
@@ -98,23 +98,27 @@ const AvailableInventoryModal: React.FC<_props> = ({
                   </thead>
                   <tbody className="divide-y divide-slate-200">
                     {colors?.map((color) => (
-                      <tr className="divide-x divide-slate-200" key={color.id}>
+                      <tr
+                        className="divide-x divide-slate-200"
+                        key={color.attributeOptionId}
+                      >
                         <>
                           <td className="px-2 py-3">
                             <div className="w-10 mx-auto mb-1 border border-slate-200">
                               <Image
-                                src={color.url}
-                                alt={color.alt}
+                                src={color.imageUrl}
+                                alt={color.altTag}
                                 className=""
                               />
                             </div>
-                            <div className="">{color.label}</div>
+                            <div className="">{color.name}</div>
                           </td>
                           {inventory?.sizes.map((size) => {
                             const foundIt = inventory.inventory.find(
                               (int) =>
                                 int.name === size &&
-                                int.colorAttributeOptionId === color.id,
+                                int.colorAttributeOptionId ===
+                                  color.attributeOptionId,
                             );
                             if (foundIt) {
                               return (
