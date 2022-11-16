@@ -14,29 +14,12 @@ const AvailableInventoryModal: React.FC<_props> = ({
   modalHandler,
   productId,
 }) => {
-  const [inventory, setInventory] =
-    useState<null | _ProductInventoryTransfomed>(null);
   const {
     colors,
     brand,
     name: productName,
+    inventory,
   } = useTypedSelector((state) => state.product.product);
-
-  const fetchInventory = (payload: {
-    productId: number;
-    attributeOptionId: number[];
-  }) => {
-    FetchInventoryById(payload).then((res) => setInventory(res));
-    // .catch((err) => console.log('err', err))
-    // .finally(() => console.log('stop loader'));
-  };
-
-  useEffect(() => {
-    fetchInventory({
-      productId: productId,
-      attributeOptionId: colors!.map((color) => color.attributeOptionId),
-    });
-  }, []);
 
   return (
     <div

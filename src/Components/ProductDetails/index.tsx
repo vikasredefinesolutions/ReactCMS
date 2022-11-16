@@ -18,6 +18,7 @@ import { _ExpectedProductProps } from 'definations/product.type';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductColor } from 'definations/APIs/colors.res';
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 
 interface _props {
   product: {
@@ -26,6 +27,7 @@ interface _props {
     sizes: _SizeChartTransformed | null;
     discount: _ProductDiscountTable | null;
     SEO: _ProductSEO | null;
+    inventory: null | _ProductInventoryTransfomed;
   } | null;
 }
 
@@ -51,6 +53,7 @@ const Product: React.FC<_props> = ({ product }) => {
         sizes: product.details?.sizes || '',
         sizeChart: product.sizes || null,
         colors: product.colors || null,
+        inventory: product.inventory || null,
         price:
           {
             msrp: product.details!.msrp,
