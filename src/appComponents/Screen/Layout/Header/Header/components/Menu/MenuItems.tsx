@@ -12,14 +12,12 @@ interface _props {
 }
 
 const MenuItems: React.FC<_props> = ({ screen }) => {
-  const {
-    layout: storeLayout,
-    id: storeId,
-    menuItems,
-  } = useTypedSelector((state) => state.store);
+  const { layout: storeLayout, menuItems } = useTypedSelector(
+    (state) => state.store,
+  );
   const showSideMenu = useTypedSelector((state) => state.modals.sideMenu);
 
-  if (screen === 'MOBILE' && showSideMenu === 'CLOSE') {
+  if (menuItems === null || (screen === 'MOBILE' && showSideMenu === 'CLOSE')) {
     return <></>;
   }
 
