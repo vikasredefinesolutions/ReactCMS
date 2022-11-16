@@ -20,19 +20,10 @@ const ImageComponent: React.FC<_props> = ({
   height,
   width,
 }) => {
-  const addingMediaUrl = config.mediaBaseUrl + src;
-  const [imageSrc, setImageSrc] = useState(addingMediaUrl || '');
-
-  useEffect(() => {
-    if (src === null) {
-      setImageSrc(_images.defaultProduct);
-    }
-  }, [src]);
-
   return (
     // <div className='w-auto h-auto m-auto max-h-[400px]'>
     <NextImage
-      src={imageSrc}
+      src={src || _images.defaultProduct}
       alt={alt || ''}
       // layout="fill"
       height={height || 1}
