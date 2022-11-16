@@ -1,7 +1,8 @@
+import SeoHead from 'appComponents/Screen/Layout/Head';
 import Head from 'next/head';
 import ProductList from 'pages/ProductList';
 import ProductListController from 'pages/ProductList/ProductListController';
-import { getServerSideProps } from './getServerSideProps';
+import getServerSideProps from './getServerSideProps';
 export default function Search(props: any) {
     const { pageType, pageData, slug } = props;
     let page = <>Loading ...</>;
@@ -11,22 +12,13 @@ export default function Search(props: any) {
         }
         else if (pageType === 'product') {
             page = <>'product'</>;
-        }
+        }   
         else if ('brand,category'.includes(pageType)) {
             const { seo } = pageData;
             page = <>
-                <Head>
-                    <title>{seo?.seTitle}</title>
-                    <meta
-                        name="description"
-                        content={seo?.seDescription}
-                        key="desc"
-                    />
-                    <meta name="keywords" content={seo?.seKeyWords} />
-                </Head>
+                <SeoHead title={seo?.seTitle} description={seo?.seDescription} keywords={seo?.seKeyWords} />
                 <ProductList pageData={pageData} slug={slug} />
             </>
-
         }
         else {
             page = <>Home</>

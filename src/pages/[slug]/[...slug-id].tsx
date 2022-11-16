@@ -1,5 +1,5 @@
 import ProductList from "pages/ProductList";
-import { getServerSideProps } from "./getServerSideProps";
+import getServerSideProps from "./getServerSideProps";
 const ProductListing = (props: any) => {
     const { pageType, pageData, slug } = props;
     let page = <>Loading ...</>;
@@ -20,7 +20,6 @@ const ProductListing = (props: any) => {
     return <>
         {page}
     </>;
-
 }
 
 export { getServerSideProps }

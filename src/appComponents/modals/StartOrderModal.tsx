@@ -93,8 +93,9 @@ const StartOrderModal: React.FC<_props> = ({
 
     const cartObject: CartReq = {
       addToCartModel: {
-        customerId: customerId,
+        customerId: customerId || 0,
         productId: selectedProduct.productId,
+        storeId: 4,
         shoppingCartItemModel: {
           id: 0,
           price: toCheckout.totalPrice,

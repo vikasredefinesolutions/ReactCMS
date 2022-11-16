@@ -1,7 +1,7 @@
 import { getPageType } from '@services/page.service';
 import { FetchBrandProductList, FetchFiltersJsonByBrand } from '@services/product.service';
 import { ProductList } from '@type/productList.type';
-export const getServerSideProps = async (context: {
+export default async (context: {
   params: { slug: string; ['slug-id']?: string[] };
 }) => {
   let slug = '';
@@ -10,6 +10,9 @@ export const getServerSideProps = async (context: {
   } else {
     slug = context.params.slug.replace('.html', '');
   }
+
+
+
   const { data } = await getPageType({
     store_id: 4,
     slug,
@@ -19,7 +22,6 @@ export const getServerSideProps = async (context: {
 
   if ('brand,category'.includes(pageType)) {
     const seo = await FetchBrandProductList({storeId: 4, seName: slug});
-    console.log(seo);
     let filterOptionforfaceteds: Array<{
         name: string;
         value: string;
@@ -67,6 +69,13 @@ export const getServerSideProps = async (context: {
     pageData['product'] = product;
     pageData['checkedFilters'] = filterOptionforfaceteds;
   }
+  else if(pageType === 'product')
+  {
+    pageData['sd'] = 'abhishek';
+  }
+  // Product
+
+
 
   return {
     props: {
