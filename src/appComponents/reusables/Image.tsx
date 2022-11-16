@@ -1,9 +1,9 @@
 // import axios from 'axios';
 
+import { useState, useEffect } from 'react';
 import config from 'api.config';
 import { icons as _images } from 'Assets/images.asset';
 import NextImage from 'next/image';
-import { useState } from 'react';
 import { icons } from '../../Assets/images.asset';
 interface _props {
   src: string | null;
@@ -22,9 +22,12 @@ const ImageComponent: React.FC<_props> = ({
 }) => {
   const addingMediaUrl = config.mediaBaseUrl + src;
   const [imageSrc, setImageSrc] = useState(addingMediaUrl || '');
-  if (src === null) {
-    setImageSrc(_images.defaultProduct);
-  }
+
+  useEffect(() => {
+    if (src === null) {
+      setImageSrc(_images.defaultProduct);
+    }
+  }, [src]);
 
   return (
     // <div className='w-auto h-auto m-auto max-h-[400px]'>
@@ -36,8 +39,10 @@ const ImageComponent: React.FC<_props> = ({
       width={width || 1}
       layout="responsive"
       className={className}
+      loading={'eager'}
       // objectFit='contain'
     />
+    // <img src={imageSrc} className={className}/>
     // </div>
   );
 };
