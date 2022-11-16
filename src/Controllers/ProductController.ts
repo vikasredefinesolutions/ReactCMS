@@ -60,7 +60,7 @@ export const FetchProductDetails = async (payload: {
     });
 
     // Request - 2,3,4,5
-    Promise.allSettled([
+    await Promise.allSettled([
       FetchColors({
         productId: productDetails!.id,
       }),
