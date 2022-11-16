@@ -12,8 +12,8 @@ import '../../styles/output.css';
 import '../app.css';
 import { highLightError } from 'helpers/common.helper';
 import { _Expected_AppProps } from 'show.type';
-import { conditionalConsoles } from 'helpers/global.console';
-import { __fileNames } from 'show.config';
+import { conditionalLog } from 'helpers/global.console';
+import { _showConsoles, __fileNames } from 'show.config';
 
 type AppOwnProps = {
   store: _StoreReturnType | null;
@@ -67,7 +67,11 @@ RedefineCustomApp.getInitialProps = async (
     highLightError({ error, component: '_app Page' });
   }
 
-  conditionalConsoles({ data: expectedProps, fileName: __fileNames._app });
+  conditionalLog({
+    data: expectedProps,
+    fileName: __fileNames._app,
+    show: _showConsoles._app,
+  });
   return {
     ...ctx,
     store: expectedProps.store,

@@ -3,8 +3,8 @@ import { _ProductDiscountTable } from '@type/APIs/discountTable.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { _ProductDetails, _ProductSEO } from '@type/APIs/productDetail.res';
 import { _SizeChartTransformed } from '@type/APIs/sizeChart.res';
-import { hideAllConsoles, _showConsoles, __fileNames } from 'show.config';
-import { _conditionalConsoles } from 'show.type';
+import { _showConsoles, __fileNames } from 'show.config';
+import { _conditionalLog } from 'show.type';
 
 export function removeDuplicates(arr: any[]) {
   return arr.filter(

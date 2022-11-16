@@ -16,8 +16,8 @@ import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { highLightError, highLightResponse } from 'helpers/common.helper';
-import { __fileNames } from 'show.config';
-import { conditionalConsoles } from 'helpers/global.console';
+import { _showConsoles, __fileNames } from 'show.config';
+import { conditionalLog } from 'helpers/global.console';
 
 export const getProductDetailProps = async (payload: {
   storeId: number;
@@ -104,7 +104,7 @@ export const FetchProductDetails = async (payload: {
 
     // Request - 7
     // await  ---> Fetch Product Reviews
-    conditionalConsoles({
+    conditionalLog({
       data: {
         details: productDetails,
         colors: productColors,
@@ -114,6 +114,7 @@ export const FetchProductDetails = async (payload: {
         inventory: productInventoryList,
       },
       fileName: __fileNames.productController,
+      show: _showConsoles.productController,
     });
   } catch (error) {
     highLightError({ error, component: `Product Controller` });

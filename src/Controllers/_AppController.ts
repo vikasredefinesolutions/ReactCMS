@@ -1,8 +1,10 @@
 import { _StoreReturnType } from 'definations/store.type';
 import { highLightError } from 'helpers/common.helper';
+import { conditionalLog } from 'helpers/global.console';
 import { __domain } from 'page.config';
 import * as HeaderService from 'services/header.service';
 import * as HomeService from 'services/home.service';
+import { _showConsoles, __fileNames } from 'show.config';
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -28,7 +30,11 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
   } catch (error) {
     highLightError({ error, component: '_app Controller' });
   }
-
+  conditionalLog({
+    data: store,
+    fileName: __fileNames.appController,
+    show: _showConsoles.appController,
+  });
   return store;
 };
 

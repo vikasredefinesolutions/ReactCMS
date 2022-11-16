@@ -20,4 +20,7 @@ export type _Expected_AppProps = {
   menuItems: _StoreMenu[] | null;
 };
 
-export type _conditionalConsoles = _productController | _Expected_AppProps;
+export type _conditionalLog =
+  | _productController
+  | _Expected_AppProps
+  | _StoreReturnType;
