@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { icons as _images } from 'Assets/images.asset';
 import NextImage from 'next/image';
+import config from 'api.config';
 interface _props {
   src: string | null;
   alt: string;
@@ -18,18 +19,34 @@ const ImageComponent: React.FC<_props> = ({
   height,
   width,
 }) => {
-  const [imageSrc, setImageSrc] = useState(src);
+  const getMediaURL = (src: string | null) => {
+    let url = '';
+    if (src) {
+      const srcWithHTTPs = src.includes('http');
+      console.log('https exist', srcWithHTTPs);
 
-  useEffect(() => {
-    if (src === null) {
-      setImageSrc(_images.defaultProduct);
+      if (srcWithHTTPs) {
+        url = src;
+      }
+
+      if (srcWithHTTPs === false) {
+        url = `${config.mediaBaseUrl}${src}`;
+      }
     }
-  }, [src]);
+
+    if (src === null) {
+      url = _images.defaultProduct;
+    }
+
+    return url;
+  };
+
+  const mediaURL: string = getMediaURL(src);
 
   return (
     // <div className='w-auto h-auto m-auto max-h-[400px]'>
     <NextImage
-      src={imageSrc ? imageSrc : ''}
+      src={mediaURL}
       alt={alt || ''}
       // layout="fill"
       height={height || 1}
@@ -39,7 +56,7 @@ const ImageComponent: React.FC<_props> = ({
       loading={'eager'}
       // objectFit='contain'
     />
-    // <img src={imageSrc} className={className}/>
+    // <img src={imageSrc} className={className} alt={alt} />
     // </div>
   );
 };
