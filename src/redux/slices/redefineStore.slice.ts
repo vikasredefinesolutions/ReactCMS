@@ -49,7 +49,7 @@ export const storeSlice = createSlice({
       action: {
         payload: {
           store: _StoreReturnType;
-          menuItems: _StoreMenu[];
+          menuItems: _StoreMenu[] | null;
         };
       },
     ) => {

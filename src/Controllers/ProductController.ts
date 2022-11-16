@@ -15,6 +15,7 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
+import { highLightError } from 'helpers/common.helper';
 
 export const getProductDetailProps = async (payload: {
   storeId: number;
@@ -100,7 +101,7 @@ export const FetchProductDetails = async (payload: {
     // Request - 7
     // await  ---> Fetch Product Reviews
   } catch (error) {
-    console.log('Error: Product Controller => ', error);
+    highLightError({ error, component: `Product Controller` });
   }
 
   return {

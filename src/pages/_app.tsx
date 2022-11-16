@@ -10,10 +10,11 @@ import { useActions } from 'hooks';
 import Spinner from 'appComponents/ui/spinner';
 import '../../styles/output.css';
 import '../app.css';
+import { highLightError } from 'helpers/common.helper';
 
 type AppOwnProps = {
   store: _StoreReturnType | null;
-  menuItems: _StoreMenu[];
+  menuItems: _StoreMenu[] | null;
 };
 
 export function RedefineCustomApp({
@@ -48,11 +49,31 @@ RedefineCustomApp.getInitialProps = async (
   const ctx = await App.getInitialProps(context);
   const domain = __domain.layout || context.ctx.req?.rawHeaders[1]!;
   const pathName = context.ctx.pathname;
+  const expectedProps: {
+    store: _StoreReturnType | null;
+    menuItems: _StoreMenu[] | null;
+  } = {
+    store: null,
+    menuItems: null,
+  };
 
-  const store = await _AppController.FetchStoreDetails(domain, pathName);
-  const menuItems = await _AppController.FetchMenuItems(2);
+  try {
+    expectedProps.store = await _AppController.FetchStoreDetails(
+      domain,
+      pathName,
+    );
+    expectedProps.menuItems = await _AppController.FetchMenuItems(2);
+  } catch (error) {
+    highLightError({ error, component: '_app Page' });
+  }
 
-  return { ...ctx, store, menuItems };
+  // alertIfNoDataFound()
+
+  return {
+    ...ctx,
+    store: expectedProps.store,
+    menuItems: expectedProps.menuItems,
+  };
 };
 
 export default reduxWrapper.withRedux(RedefineCustomApp);

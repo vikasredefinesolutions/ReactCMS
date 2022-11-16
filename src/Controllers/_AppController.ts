@@ -1,4 +1,5 @@
 import { _StoreReturnType } from 'definations/store.type';
+import { highLightError } from 'helpers/common.helper';
 import { __domain } from 'page.config';
 import * as HeaderService from 'services/header.service';
 import * as HomeService from 'services/home.service';
@@ -25,7 +26,7 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
       return res.id;
     });
   } catch (error) {
-    console.log('Error: _app Controller => ', error);
+    highLightError({ error, component: '_app Controller' });
   }
 
   return store;

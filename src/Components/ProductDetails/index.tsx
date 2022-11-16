@@ -36,8 +36,9 @@ const Product: React.FC<_props> = ({ product }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { store_productDetails, setColor } = useActions();
 
-  if (product?.details === null || product?.details === undefined)
+  if (product?.details === null || product?.details === undefined) {
     return <> Product Details not found</>;
+  }
 
   useEffect(() => {
     store_productDetails({
