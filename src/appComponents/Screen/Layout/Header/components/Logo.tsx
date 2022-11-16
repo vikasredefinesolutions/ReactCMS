@@ -90,12 +90,14 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
       return (
         <div className="hidden lg:flex lg:items-center">
           <Link href={paths.HOME}>
-            <span className="sr-only">Workflow</span>
-            <img
-              className="h-16 w-auto"
-              src="/images/logo.png"
-              alt="Corporate Gear"
-            />
+            <>
+              <span className="sr-only">Workflow</span>
+              <img
+                className="h-16 w-auto"
+                src="/images/logo.png"
+                alt="Corporate Gear"
+              />
+            </>
           </Link>
         </div>
       );
