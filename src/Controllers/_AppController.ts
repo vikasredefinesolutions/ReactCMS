@@ -18,14 +18,12 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
   };
 
   try {
-    await HomeService.GetStoreID(domain)
-      .then((res) => {
-        store.storeId = res.id;
-        store.layout = __domain.layout;
-        store.pathName = pathName;
-        return res.id;
-      })
-      .then((storeId) => 'Page Type API, Call Here, Husain');
+    await HomeService.GetStoreID(domain).then((res) => {
+      store.storeId = res.id;
+      store.layout = __domain.layout;
+      store.pathName = pathName;
+      return res.id;
+    });
   } catch (error) {
     console.log('Error: _app Controller => ', error);
   }
