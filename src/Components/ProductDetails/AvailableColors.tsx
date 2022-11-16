@@ -166,6 +166,7 @@ const AvailableColors: React.FC = () => {
               product.attributeOptionId === selectedColor?.attributeOptionId
                 ? 'border-secondary'
                 : 'border-gray-300 hover:border-secondary';
+            if (product.imageUrl === null) return <></>;
             return (
               <div
                 key={product.attributeOptionId}

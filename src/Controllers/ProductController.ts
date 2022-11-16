@@ -3,10 +3,21 @@ import {
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _Reviews } from 'definations/product.type';
-import * as ProductServices from 'services/product.service';
+import {
+  FetchColors,
+  FetchDiscountTablePrices,
+  FetchInventoryById,
+  FetchSizeChartById,
+  FetchProductById,
+  FetchProductSEOtags,
+} from 'services/product.service';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
+import { highLightError, highLightResponse } from 'helpers/common.helper';
+import { _showConsoles, __fileNames } from 'show.config';
+import { conditionalLog } from 'helpers/global.console';
 
 export const getProductDetailProps = async (payload: {
   storeId: number;
@@ -30,56 +41,83 @@ export const FetchProductDetails = async (payload: {
   sizes: null | _SizeChartTransformed;
   discount: null | _ProductDiscountTable;
   SEO: null | _ProductSEO;
+  inventory: null | _ProductInventoryTransfomed;
 }> => {
   let productColors: null | _ProductColor[] = null;
   let productDetails: null | _ProductDetails = null;
   let productSizeChart: null | _SizeChartTransformed = null;
   let productDiscountTablePrices: null | _ProductDiscountTable = null;
   let productSEOtags: null | _ProductSEO = null;
-  // let productInventoryList: null;
+  let productInventoryList: null | _ProductInventoryTransfomed = null;
   // let productReviews: null;
   // let productAlikes: null;
 
   try {
     // Request - 1
-    await ProductServices.FetchProductById({
+    productDetails = await FetchProductById({
       seName: payload.seName,
       storeId: payload.storeId,
-    }).then((res) => {
-      productDetails = { ...res };
     });
 
-    // Request - 2
-    await ProductServices.FetchColors({
-      productId: productDetails!.id,
-    }).then((colors) => (productColors = colors));
-
-    // Request - 3
-    await ProductServices.FetchSizeChartById(productDetails!.id).then(
-      (sizeChart) => (productSizeChart = sizeChart),
-    );
-
-    // Request - 4
-    await ProductServices.FetchDiscountTablePrices({
-      seName: payload.seName,
-      storeId: payload.storeId,
-      customerId: 28,
-      attributeOptionId: 1380,
-    }).then((discount) => (productDiscountTablePrices = discount));
-
-    // Request - 5
-    await ProductServices.FetchProductSEOtags({
-      seName: payload.seName,
-      storeId: payload.storeId,
-    }).then((seo) => (productSEOtags = seo));
+    // Request - 2,3,4,5
+    Promise.allSettled([
+      FetchColors({
+        productId: productDetails!.id,
+      }),
+      FetchSizeChartById(productDetails!.id),
+      FetchDiscountTablePrices({
+        seName: payload.seName,
+        storeId: payload.storeId,
+        customerId: 28,
+        attributeOptionId: 1380,
+      }),
+      FetchProductSEOtags({
+        seName: payload.seName,
+        storeId: payload.storeId,
+      }),
+    ]).then((values) => {
+      highLightResponse({
+        dataToShow: values,
+        component: 'Product: All settled',
+      });
+      productColors = values[0].status === 'fulfilled' ? values[0].value : null;
+      productSizeChart =
+        values[1].status === 'fulfilled' ? values[1].value : null;
+      productDiscountTablePrices =
+        values[2].status === 'fulfilled' ? values[2].value : null;
+      productSEOtags =
+        values[3].status === 'fulfilled' ? values[3].value : null;
+    });
 
     // Request - 6
-    // await ProductServices.FetchInventoryById({productId: productDetails!.id, attributeOptionId: [color.attributeOptionId]})
+    if (productColors !== null) {
+      productColors;
+      const allColorAttributes = (productColors as _ProductColor[]).map(
+        (color) => color.attributeOptionId,
+      );
+
+      productInventoryList = await FetchInventoryById({
+        productId: productDetails!.id,
+        attributeOptionId: allColorAttributes,
+      });
+    }
 
     // Request - 7
-    // await ProductServices. ---> Fetch Product Reviews
+    // await  ---> Fetch Product Reviews
+    conditionalLog({
+      data: {
+        details: productDetails,
+        colors: productColors,
+        sizes: productSizeChart,
+        discount: productDiscountTablePrices,
+        SEO: productSEOtags,
+        inventory: productInventoryList,
+      },
+      fileName: __fileNames.productController,
+      show: _showConsoles.productController,
+    });
   } catch (error) {
-    console.log('Error: Product Controller => ', error);
+    highLightError({ error, component: `Product Controller` });
   }
 
   return {
@@ -88,5 +126,6 @@ export const FetchProductDetails = async (payload: {
     sizes: productSizeChart,
     discount: productDiscountTablePrices,
     SEO: productSEOtags,
+    inventory: productInventoryList,
   };
 };

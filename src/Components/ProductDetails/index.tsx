@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import Head from 'next/head';
+import { useActions, useTypedSelector } from 'hooks';
 import { _SeName, _Store } from 'constants/store.constant';
 import ProductDescription from 'Components/ProductDetails/ProductDescription';
 import ProductDetails from 'Components/ProductDetails/ProductDetails';
@@ -7,18 +9,16 @@ import SizeChart from 'Components/ProductDetails/SizeChartModal';
 
 import * as _AppController from 'Controllers/_AppController';
 
-import { GetServerSideProps, NextPage } from 'next';
 import { __domain } from 'page.config';
 import {
   _ProductDetails,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _ExpectedProductProps } from 'definations/product.type';
-import { useActions, useTypedSelector } from 'hooks';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductColor } from 'definations/APIs/colors.res';
-import Head from 'next/head';
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 
 interface _props {
   product: {
@@ -27,6 +27,7 @@ interface _props {
     sizes: _SizeChartTransformed | null;
     discount: _ProductDiscountTable | null;
     SEO: _ProductSEO | null;
+    inventory: null | _ProductInventoryTransfomed;
   } | null;
 }
 
@@ -35,8 +36,9 @@ const Product: React.FC<_props> = ({ product }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { store_productDetails, setColor } = useActions();
 
-  if (product?.details === null || product?.details === undefined)
+  if (product?.details === null || product?.details === undefined) {
     return <> Product Details not found</>;
+  }
 
   useEffect(() => {
     store_productDetails({
@@ -52,6 +54,7 @@ const Product: React.FC<_props> = ({ product }) => {
         sizes: product.details?.sizes || '',
         sizeChart: product.sizes || null,
         colors: product.colors || null,
+        inventory: product.inventory || null,
         price:
           {
             msrp: product.details!.msrp,
