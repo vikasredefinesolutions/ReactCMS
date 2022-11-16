@@ -4,7 +4,7 @@ import config from 'api.config';
 import { icons as _images } from 'Assets/images.asset';
 import NextImage from 'next/image';
 import { useState } from 'react';
-import {icons} from '../../Assets/images.asset';
+import { icons } from '../../Assets/images.asset';
 interface _props {
   src: string | null;
   alt: string;
@@ -13,25 +13,30 @@ interface _props {
   height?: number | string;
 }
 
-
-const ImageComponent: React.FC<_props> = ({ src, alt, className, height, width }) => {
-  const [imageSrc, setImageSrc] = useState(src || '');
+const ImageComponent: React.FC<_props> = ({
+  src,
+  alt,
+  className,
+  height,
+  width,
+}) => {
+  const addingMediaUrl = config.mediaBaseUrl + src;
+  const [imageSrc, setImageSrc] = useState(addingMediaUrl || '');
   if (src === null) {
     setImageSrc(_images.defaultProduct);
   }
 
   return (
     // <div className='w-auto h-auto m-auto max-h-[400px]'>
-      <NextImage
+    <NextImage
       src={imageSrc}
       alt={alt || ''}
-      // className={className}
       // layout="fill"
       height={height || 1}
       width={width || 1}
       layout="responsive"
-      
-    // objectFit='contain'
+      className={className}
+      // objectFit='contain'
     />
     // </div>
   );
