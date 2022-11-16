@@ -9,6 +9,7 @@ import { _StoreReturnType } from 'definations/store.type';
 import { useActions } from 'hooks';
 import Spinner from 'appComponents/ui/spinner';
 import '../../styles/output.css';
+import '../app.css';
 
 type AppOwnProps = {
   store: _StoreReturnType | null;
