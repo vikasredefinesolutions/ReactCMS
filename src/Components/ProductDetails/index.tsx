@@ -34,7 +34,7 @@ interface _props {
 const Product: React.FC<_props> = ({ product }) => {
   if (product === null) return <>Product Page Loading... </>;
   const storeLayout = useTypedSelector((state) => state.store.layout);
-  const { store_productDetails, setColor } = useActions();
+  const { store_productDetails, setColor, setShowLoader } = useActions();
 
   if (product?.details === null || product?.details === undefined) {
     return <> Product Details not found</>;
@@ -66,6 +66,7 @@ const Product: React.FC<_props> = ({ product }) => {
     if (product.colors) {
       setColor(product.colors[0]);
     }
+    setShowLoader(false);
   }, []);
 
   const HeadTag = (

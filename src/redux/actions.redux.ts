@@ -6,6 +6,7 @@ import { productActions } from './slices/product.slice';
 import { redefineStoreActions } from './slices/redefineStore.slice';
 import { userActions } from './slices/user.slice';
 import { loaderActions } from './slices/loader.slice';
+import { successActions } from './slices/success.slice';
 
 const actions = {
   ...redefineStoreActions,
@@ -16,6 +17,7 @@ const actions = {
   ...modalActions,
   ...compareActions,
   ...loaderActions,
+  ...successActions,
 };
 
 export default actions;

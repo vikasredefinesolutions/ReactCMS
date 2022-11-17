@@ -9,7 +9,8 @@ import { _StoreReturnType } from 'definations/store.type';
 import { useActions } from 'hooks';
 import Spinner from 'appComponents/ui/spinner';
 import '../../styles/output.css';
-import '../app.css';
+import '../app.css'
+import SuccessErrorModal from 'appComponents/modals/successErrorModal';
 import { highLightError } from 'helpers/common.helper';
 import { _Expected_AppProps } from 'show.type';
 import { conditionalLog } from 'helpers/global.console';
@@ -39,6 +40,7 @@ export function RedefineCustomApp({
 
   return (
     <Spinner>
+      <SuccessErrorModal />
       <Screen>
         <Component {...pageProps} />
       </Screen>

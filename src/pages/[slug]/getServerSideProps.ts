@@ -86,11 +86,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         product = element;
       }
     }
-    for (let i = 0; i < 6; i++) {
-      const pro = product[0];
-
-      product.push({ ...pro, name: pro.name + '-' + i });
-    }
     pageData['seo'] = seo;
     pageData['filters'] = _filters;
     pageData['product'] = product;

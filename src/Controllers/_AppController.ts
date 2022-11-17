@@ -39,5 +39,7 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
 };
 
 export const FetchMenuItems = async (storeId: number) => {
-  return HeaderService.FetchStoreMenu({ storeId });
+  return [] 
+  
+  // HeaderService.FetchStoreMenu({ storeId });
 };
