@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { _Store } from 'constants/store.constant';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 
 interface _props {
   itemLabel: string;
@@ -13,12 +13,16 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
   const { layout: storeLayout, view } = useTypedSelector(
     (state) => state.store,
   );
+  const { toggleSideMenu } = useActions();
 
   if (storeLayout === _Store.type1) {
     if (type === 'BRAND') {
       if (view === 'MOBILE') {
         return (
-          <li className="w-full flex items-center">
+          <li
+            className="w-full flex items-center"
+            onClick={() => toggleSideMenu('CLOSE')}
+          >
             <span className="material-icons-outlined text-lg">
               chevron_right
             </span>
@@ -51,7 +55,10 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
     if (type === 'CATEGORY') {
       if (view === 'MOBILE') {
         return (
-          <li className="w-full lg:w-1/2 flex items-center">
+          <li
+            className="w-full lg:w-1/2 flex items-center"
+            onClick={() => toggleSideMenu('CLOSE')}
+          >
             <span className="material-icons-outlined text-lg">
               chevron_right
             </span>
@@ -87,7 +94,10 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
     if (type === 'CATEGORY' || type === 'BRAND') {
       if (view === 'MOBILE' || view === 'DESKTOP') {
         return (
-          <li className="flex items-center">
+          <li
+            className="flex items-center"
+            onClick={() => toggleSideMenu('CLOSE')}
+          >
             <Link
               href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
@@ -104,7 +114,10 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
     if (type === 'CATEGORY') {
       if (view === 'MOBILE') {
         return (
-          <li className="flex items-center">
+          <li
+            className="flex items-center"
+            onClick={() => toggleSideMenu('CLOSE')}
+          >
             <Link
               href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
@@ -133,7 +146,10 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
     if (type === 'BRAND') {
       if (view === 'MOBILE') {
         return (
-          <li className="flex items-center">
+          <li
+            className="flex items-center"
+            onClick={() => toggleSideMenu('CLOSE')}
+          >
             <Link
               href={`/${itemUrl}`}
               className="text-anchor hover:text-anchor-hover"
@@ -165,7 +181,10 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
     if (type === 'BRAND') {
       if (view === 'MOBILE') {
         return (
-          <li className="w-full lg:w-1/3 flex items-center">
+          <li
+            className="w-full lg:w-1/3 flex items-center"
+            onClick={() => toggleSideMenu('CLOSE')}
+          >
             <span className="material-icons-outlined text-lg">
               chevron_right
             </span>
@@ -198,7 +217,10 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
     if (type === 'CATEGORY') {
       if (view === 'MOBILE') {
         return (
-          <li className="w-full lg:w-1/3 flex items-center">
+          <li
+            className="w-full lg:w-1/3 flex items-center"
+            onClick={() => toggleSideMenu('CLOSE')}
+          >
             <span className="material-icons-outlined text-lg">
               chevron_right
             </span>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { _Store } from 'constants/store.constant';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import BrandImage from './Components/BrandImage';
 import SubMenuItem from './Components/SubMenuItem';
 
@@ -23,6 +23,7 @@ const Brand: React.FC<_props> = ({
   const { layout: storeLayout, view } = useTypedSelector(
     (state) => state.store,
   );
+  const { toggleSideMenu } = useActions();
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
   const [focus, setFocus] = useState<boolean>(false);
   const [showAllItems, setShowAllItems] = useState<boolean>(false);
@@ -44,7 +45,7 @@ const Brand: React.FC<_props> = ({
               </svg>
               <div className="text-anchor">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={brandPageUrl} className="text-xs">
                 Show All
               </Link>
@@ -167,7 +168,7 @@ const Brand: React.FC<_props> = ({
               </svg>
               <div className="text-anchor">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={brandPageUrl} className="text-xs">
                 Show All
               </Link>
@@ -278,7 +279,7 @@ const Brand: React.FC<_props> = ({
               </svg>
               <div className="text-anchor">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={brandPageUrl} className="text-xs">
                 Show All
               </Link>
@@ -373,7 +374,7 @@ const Brand: React.FC<_props> = ({
               </svg>
               <div className="text-gray-800 font-medium">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={brandPageUrl} className="text-xs">
                 Show All
               </Link>

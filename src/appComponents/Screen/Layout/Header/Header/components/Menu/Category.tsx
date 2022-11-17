@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { _Store } from 'constants/store.constant';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import SubMenuItem from './Components/SubMenuItem';
 interface _props {
   menuTitle: string;
@@ -13,6 +13,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
   const { layout: storeLayout, view } = useTypedSelector(
     (state) => state.store,
   );
+  const { toggleSideMenu } = useActions();
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
   const [focus, setFocus] = useState(false);
   const [showAllItems, setShowAllItems] = useState<boolean>(false);
@@ -36,7 +37,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               </svg>
               <div className="text-anchor">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={`/${menuUrl}`} className="text-xs">
                 Show All
               </Link>
@@ -144,7 +145,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               </svg>
               <div className="text-anchor">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={`/${menuUrl}`} className="text-xs">
                 Show All
               </Link>
@@ -339,7 +340,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               </svg>
               <div className="text-anchor">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={`/${menuUrl}`} className="text-xs">
                 Show All
               </Link>

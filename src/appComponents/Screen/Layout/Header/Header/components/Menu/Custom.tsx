@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { _Store } from 'constants/store.constant';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 
 interface _props {
   menuTitle: string;
@@ -13,6 +13,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
   const { layout: storeLayout, view } = useTypedSelector(
     (state) => state.store,
   );
+  const { toggleSideMenu } = useActions();
   const [focus, setFocus] = useState(false);
   const [showAllItems, setShowAllItems] = useState<boolean>(false);
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
@@ -36,7 +37,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               </svg>
               <div className="text-anchor">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={`/${menuUrl}`} className="text-xs">
                 Show All
               </Link>
@@ -119,7 +120,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               </svg>
               <div className="text-anchor">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={`/${menuUrl}`} className="text-xs">
                 Show All
               </Link>
@@ -203,7 +204,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               </svg>
               <div className="text-anchor">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href={`/${menuUrl}`} className="text-xs">
                 Show All
               </Link>
@@ -282,7 +283,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               </svg>
               <div className="text-gray-800 font-medium">{menuTitle}</div>
             </button>
-            <div className="">
+            <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href="product-listing" className="text-xs">
                 Show All
               </Link>
