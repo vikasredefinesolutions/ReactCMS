@@ -44,7 +44,7 @@ const StartOrderModal: React.FC<_props> = ({
   const colors = useTypedSelector((state) => state.product.product.colors);
   const customerId = useTypedSelector((state) => state.user.customer.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
-
+    console.log(colors);
   const showInventoryFor = (payload: {
     productId: number;
     attributeOptionId: number[];

@@ -132,11 +132,10 @@ const ProductListController = (
   };
 
   const sortProductJson = (type: number) => {
+    // setProduct([]);
     setCurrentCount(perPageCount);
     let newList = [...allProduct];
     if (type === 1) {
-      console.log(allProduct);
-
       newList = newList.sort((pro1, pro2) => (pro1.id > pro2.id ? 1 : -1));
     } else if (type === 2) {
       newList = newList.sort((pro1, pro2) =>

@@ -13,6 +13,8 @@ const Layout1 = ({ filters, products, checkedFilters, totalCount, colorChangeHan
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    // console.log(products);
     return (
         <>
             {/* <ProductDetailsPageBanner /> */}
