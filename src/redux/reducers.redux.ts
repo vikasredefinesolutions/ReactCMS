@@ -6,6 +6,7 @@ import productReducer from './slices/product.slice';
 import redefineStoreReducer from './slices/redefineStore.slice';
 import userReducer from './slices/user.slice';
 import loaderReducer from './slices/loader.slice';
+import successReducer from './slices/success.slice';
 
 const rootReducer = combineReducers({
   store: redefineStoreReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   modals: modalsReducer,
   compare: compareReducer,
-  loader: loaderReducer
+  loader: loaderReducer,
+  success: successReducer,
 });
 
 export default rootReducer;

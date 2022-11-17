@@ -1,0 +1,815 @@
+import HelpIcon from '@mui/icons-material/Help';
+import SeoHead from 'appComponents/Screen/Layout/Head';
+import { Formik } from 'formik';
+import { useState } from 'react';
+import ForgotModal from '../../appComponents/modals/ForgotModal';
+import CheckoutController from './CheckoutController';
+import AddressPopupLayout1 from './components/AdressPopup/AdressPopupLayout1';
+import {CheckoutPage as seoDetails} from 'constants/seo.constant'
+const Checkout = () => {
+  const {
+    creditCardType,
+    setShowEmail,
+    setShowPassword,
+    setShowForgetPassword,
+    setShowShippingScreen,
+    setUseShippingAddress,
+    setCardDetails,
+    setShowCVVHelpCard,
+    setPurchaseOrder,
+    setShowChangeAddressPopup,
+    changeAddres,
+    closeShippingPopup,
+    setShowAddAccount,
+    addressArray,
+    useShippingAddress,
+    cardArray,
+    passwordValidationSchema,
+    newAccountPasswordValidationSchema,
+    showEmail,
+    showPassword,
+    showForgetPassword,
+    billingAdress,
+    showCVVHelpCard,
+    cardDetails,
+    purchaseOrder,
+    showChangeAddressPopup,
+    validationSchema,
+    showShippingScreen,
+    shippingAdress,
+    showAddAccount,
+  } = CheckoutController();
+  const [showReviewOrder, setShowReviewOrder] = useState(false);
+
+  const handleReviewOrder = () => {
+    setShowReviewOrder(!showReviewOrder);
+  };
+
+  return (
+    <>
+    <SeoHead {...seoDetails}/>
+      <div className="container mx-auto mt-5">
+        <div className="flex flex-wrap -mx-3 gap-y-6">
+          <div className="w-full lg:w-9/12 px-3">
+            <div style={{ display: showReviewOrder ? 'none' : '' }}>
+              <div className="flex justify-between items-center bg-gray-100 w-full px-4 py-2">
+                <div className="text-2xl mr-3">Checkout</div>
+                <div className="text-red-500 text-sm">
+                  All fields marked * are required.
+                </div>
+              </div>
+              <div id="LoginMain">
+                {/* Email Box */}
+                <div
+                  className=""
+                  id="LoginEmail"
+                  style={{ display: showEmail ? 'unset' : 'none' }}
+                >
+                  <div className="text-xl my-3 pb-3 border-b border-gray-300">
+                    Email Address
+                  </div>
+                  <div className="text-base font-medium mb-2">
+                    Tell us where to send your order confirmation and tracking
+                    number.
+                  </div>
+                  <div className="max-w-[600px]">
+                    <Formik
+                      onSubmit={() => {
+                        setShowPassword(true);
+                        setShowEmail(false);
+                      }}
+                      initialValues={{ email: '' }}
+                      validationSchema={validationSchema}
+                    >
+                      {({ errors, handleSubmit, handleBlur, handleChange }) => (
+                        <form onSubmit={handleSubmit}>
+                          <div className="relative z-0 w-full mb-6">
+                            <input
+                              name="email"
+                              placeholder="Email Address *"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              className="form-input"
+                            />
+                            <label className="sr-only">Email Address *</label>
+                            {errors.email && (
+                              <p className="text-red-500 text-xs mt-1">
+                                {errors.email}
+                              </p>
+                            )}
+                          </div>
+                          <div className="mb-6">
+                            <button
+                              type="submit"
+                              id="btn-start-checkout"
+                              className="btn btn-primary"
+                            >
+                              START CHECKOUT
+                            </button>
+                          </div>
+                        </form>
+                      )}
+                    </Formik>
+                    <div className="text-xs">
+                      By continuing, you agree to our Terms of Use and consent
+                      to our Privacy Policy.
+                    </div>
+                  </div>
+                </div>
+                {/* Password Box */}
+                <div
+                  className=""
+                  id="LoginPassword"
+                  style={{ display: showPassword ? 'unset' : 'none' }}
+                >
+                  <div className="text-xl my-3 pb-3 border-b border-gray-300">
+                    Welcome Back!
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="grow max-w-[600px]">
+                      <div className="text-base font-medium mb-2">
+                        Please log in to your account.
+                      </div>
+                      <Formik
+                        validationSchema={passwordValidationSchema}
+                        initialValues={{ password: '' }}
+                        onSubmit={() => {
+                          setShowShippingScreen(true);
+                          setShowPassword(false);
+                        }}
+                      >
+                        {({
+                          errors,
+                          handleSubmit,
+                          handleBlur,
+                          handleChange,
+                        }) => (
+                          <>
+                            <form onSubmit={handleSubmit}>
+                              <div className="relative z-0 w-full mb-6">
+                                <input
+                                  type="password"
+                                  name="password"
+                                  placeholder="Enter Password"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  className="form-input"
+                                />
+                                <label className="sr-only">
+                                  Enter Password
+                                </label>
+                                {errors.password && (
+                                  <p className="text-red-500 text-xs mt-1">
+                                    {errors.password}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="mb-6 flex justify-between items-center">
+                                <div>
+                                  <button
+                                    type="submit"
+                                    id="btn-login-password"
+                                    className="btn btn-primary"
+                                  >
+                                    CONTINUE
+                                  </button>
+                                </div>
+                                <div>
+                                  <button
+                                    onClick={() => setShowForgetPassword(true)}
+                                    className="text-anchor"
+                                    data-modal-toggle="forgetpasswordModal"
+                                  >
+                                    Forgot Password?
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </>
+                        )}
+                      </Formik>
+                    </div>
+                    <div className="">
+                      <button className="btn btn-primary">
+                        CHECKOUT AS GUEST
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {/* Password & Confirm Password */}
+                <div id="LoginMain">
+                  <div
+                    className=""
+                    id="LoginPassword"
+                    style={{ display: showAddAccount ? 'unset' : 'none' }}
+                  >
+                    <div className="text-xl my-3 pb-3 border-b border-gray-300">
+                      Create an Account
+                    </div>
+                    <div className="flex flex-wrap -mx-3 gap-y-6">
+                      <div className="w-full lg:w-1/2 px-3">
+                        <div className="text-xl font-medium mb-1">
+                          <em className="font-bold">Welcome!</em> It looks like
+                          you’re new here.
+                        </div>
+                        <div className="text-base font-medium mb-2">
+                          Please log in to your account.
+                        </div>
+                        <Formik
+                          validationSchema={newAccountPasswordValidationSchema}
+                          onSubmit={() => {
+                            setShowShippingScreen(true);
+                            setShowAddAccount(false);
+                          }}
+                          initialValues={{
+                            password: '',
+                            passwordConfirmation: '',
+                          }}
+                        >
+                          {({
+                            errors,
+                            handleSubmit,
+                            handleChange,
+                            handleBlur,
+                          }) => (
+                            <form onSubmit={handleSubmit}>
+                              <div className="relative z-0 w-full mb-6">
+                                <input
+                                  type="password"
+                                  name="password"
+                                  placeholder="Create Password "
+                                  className="form-input"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                />
+                                <label className="sr-only">
+                                  Create Password *
+                                </label>
+                                {errors.password && (
+                                  <p className="text-red-500 text-xs mt-1">
+                                    {errors.password}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="relative z-0 w-full mb-6">
+                                <input
+                                  type="password"
+                                  name="passwordConfirmation"
+                                  placeholder="Verify Password "
+                                  className="form-input"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                />
+                                <label className="sr-only">
+                                  Verify Password *
+                                </label>
+                                {errors.passwordConfirmation && (
+                                  <p className="text-red-500 text-xs mt-1">
+                                    {errors.passwordConfirmation}
+                                  </p>
+                                )}
+                              </div>
+                              <div>
+                                <button
+                                  id="btn-login-password"
+                                  className="btn btn-primary"
+                                  type="submit"
+                                >
+                                  CONTINUE
+                                </button>
+                              </div>
+                            </form>
+                          )}
+                        </Formik>
+                      </div>
+                      <div className="w-full lg:w-1/2 px-3">
+                        <div className="text-right">
+                          <a
+                            href="/"
+                            id="btn-continue-guest"
+                            className="btn btn-primary"
+                          >
+                            CONTINUE AS GUEST
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Shipping Payment Method */}
+              <div
+                id="ShippingPaymentMain"
+                style={{ display: showShippingScreen ? 'unset' : 'none' }}
+              >
+                {shippingAdress && (
+                  <div className="flex flex-wrap -mx-3 -mt-3">
+                    <div className="w-full lg:w-1/2 px-3 mt-3">
+                      <div
+                        className=""
+                        id="ShippingAddress"
+                        style={{
+                          display: showShippingScreen ? 'unset' : 'none',
+                        }}
+                      >
+                        <div className="flex justify-between items-center my-3 pb-3 border-b border-gray-300">
+                          <div className="text-xl">Shipping Address</div>
+                          <div>
+                            <button
+                              onClick={() => setShowChangeAddressPopup(1)}
+                              className="text-anchor"
+                              data-modal-toggle="shippingaddressModal"
+                            >
+                              Change
+                            </button>
+                          </div>
+                        </div>
+                        <div className="text-base mb-3">
+                          {shippingAdress.firstname} {shippingAdress.lastName}
+                          <br />
+                          {/* {shippingAdress.companyName} */}
+                          <br />
+                          {shippingAdress.address1}
+                          <br />
+                          {[
+                            shippingAdress.city,
+                            shippingAdress.state,
+                            shippingAdress.postalCode,
+                          ].join(', ')}
+                          <br />
+                          {shippingAdress.countryName}
+                          <br />
+                          {shippingAdress.phone}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-full lg:w-1/2 px-3 mt-3">
+                      <div
+                        id="PaymentCard"
+                        style={{
+                          display:
+                            showShippingScreen && !purchaseOrder
+                              ? 'unset'
+                              : 'none',
+                        }}
+                      >
+                        <div className="flex justify-between items-center my-3 pb-3 border-b border-gray-300">
+                          <div className="text-xl">Payment</div>
+                          <div>
+                            <button
+                              className="text-anchor"
+                              id="btn-use-purchase-order"
+                              onClick={() => setPurchaseOrder(true)}
+                            >
+                              Use Purchase Order
+                            </button>
+                          </div>
+                        </div>
+                        <div className="relative z-0 w-full mb-6">
+                          <input
+                            name="CreditCardNumber"
+                            placeholder="Credit Card Number "
+                            className="form-input"
+                            maxLength={16}
+                            onChange={(ev) => setCardDetails(ev.target.value)}
+                          />
+                          <label className="sr-only">
+                            Credit Card Number *
+                          </label>
+                          <div className="absolute top-2 right-2 flex items-center">
+                            {cardArray.map((card) => (
+                              <div
+                                key={card.name}
+                                className={`opacity-${
+                                  card.name === creditCardType(cardDetails)
+                                    ? '100'
+                                    : '40'
+                                } ml-1 w-8`}
+                              >
+                                <img src={card.image} alt={card.name} />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap -mx-3 gap-y-6">
+                          <div className="w-3/12 px-3">
+                            <div className="relative z-0 w-full">
+                              <select name="Month" className="form-input">
+                                <option value="">Month</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                              </select>
+                              <label className="sr-only">Month *</label>
+                            </div>
+                          </div>
+                          <div className="w-3/12 px-3">
+                            <div className="relative z-0 w-full">
+                              <select name="Year" className="form-input">
+                                <option value="">Year</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                                <option value="2031">2031</option>
+                                <option value="2032">2032</option>
+                                <option value="2033">2033</option>
+                              </select>
+                              <label className="sr-only">Year *</label>
+                            </div>
+                          </div>
+                          <div className="w-6/12 px-3">
+                            <div className="relative z-0 w-full">
+                              <input
+                                name="SecurityCode"
+                                placeholder="Security Code (CCV) "
+                                className="form-input"
+                              />
+                              <label className="sr-only">
+                                Security Code (CCV) *
+                              </label>
+                              <div className="absolute top-2 right-2">
+                                <div
+                                  className="relative"
+                                  onMouseEnter={() => setShowCVVHelpCard(true)}
+                                  onMouseLeave={() => setShowCVVHelpCard(false)}
+                                  x-data="{ open: false }"
+                                >
+                                  <HelpIcon
+                                    fontSize={'small'}
+                                    className={'text-base'}
+                                  />
+                                  <div className="z-10 absolute bottom-full left-1/2 transform -translate-x-1/2">
+                                    <div
+                                      className={`bg-slate-800 p-2 rounded overflow-hidden mb-2 ${
+                                        showCVVHelpCard
+                                          ? 'transition ease-out duration-200 transform'
+                                          : ''
+                                      }`}
+                                      style={{
+                                        display: showCVVHelpCard
+                                          ? 'block'
+                                          : 'none',
+                                      }}
+                                    >
+                                      <div className="text-xs text-gray-200 font-light whitespace-nowrap">
+                                        The last three digits
+                                        <br />
+                                        displayed on the
+                                        <br />
+                                        back of your card
+                                        <br />
+                                        or first four
+                                        <br />
+                                        digits on the front
+                                        <br />
+                                        of your AMEX.
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        id="PurchaseOrder"
+                        style={{
+                          display:
+                            purchaseOrder && showShippingScreen
+                              ? 'unset'
+                              : 'none',
+                        }}
+                      >
+                        <div className="flex justify-between items-center my-3 pb-3 border-b border-gray-300">
+                          <div className="text-xl">Payment</div>
+                          <div>
+                            <button
+                              onClick={() => setPurchaseOrder(false)}
+                              className="text-anchor"
+                              id="btn-use-credit-card"
+                            >
+                              Use Credit Card
+                            </button>
+                          </div>
+                        </div>
+                        <div className="relative z-0 w-full mb-6">
+                          <input
+                            name="EnterPONumber"
+                            placeholder="Enter PO Number "
+                            className="form-input"
+                          />
+                          <label className="sr-only">Enter PO Number *</label>
+                        </div>
+                        <div className="text-base">
+                          Please enter your PO Number. We will contact you to
+                          confirm details of your payment.
+                        </div>
+                      </div>
+                      <div
+                        id="BillingAddress"
+                        style={{
+                          display: showShippingScreen ? 'unset' : 'none',
+                        }}
+                      >
+                        <div className="flex justify-between items-center my-3 pb-3 border-b border-gray-300 mt-8">
+                          <div className="text-xl">Billing Address</div>
+                          <div></div>
+                        </div>
+                        <div className="mb-3 font-semibold text-lg">
+                          <div>
+                            <input
+                              type="checkbox"
+                              id="UseShippingAddress"
+                              name="UseShippingAddress"
+                              data-modal-toggle="billingaddressModal"
+                              checked={useShippingAddress}
+                              onChange={(e) => {
+                                setUseShippingAddress(e.target.checked);
+                              }}
+                            />
+                            <label>Use Shipping Address</label>
+                          </div>
+                        </div>
+                        {showShippingScreen && billingAdress && (
+                          <div
+                            id="SelectedShippingAddress"
+                            className="text-base mb-3"
+                          >
+                            {billingAdress.firstname} {billingAdress.lastName}
+                            <br />
+                            {/* {billingAdress.companyName} */}
+                            <br />
+                            {billingAdress.address1}
+                            <br />
+                            {[
+                              billingAdress.city,
+                              billingAdress.state,
+                              billingAdress.postalCode,
+                            ].join(', ')}
+                            <br />
+                            {billingAdress.countryName}
+                            <br />
+                            {billingAdress.phone}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {/* Order Review */}
+            </div>
+            <div
+              id="OrderReview"
+              style={{ display: showReviewOrder ? '' : 'none' }}
+            >
+              <div className="mb-3 mt-4">
+                <hr />
+              </div>
+              <ul
+                role="list"
+                className="border-b border-gray-200 divide-y divide-gray-200"
+              >
+                <li className="flex py-6 flex-wrap -mx-3 -mt-3">
+                  <div className="w-full lg:w-4/12 px-3 mt-3">
+                    <img
+                      src="images/1040623_25528_STH.jpg"
+                      alt=""
+                      className="rounded-md object-center object-cover"
+                    />
+                  </div>
+                  <div className="w-full lg:w-8/12 px-3 mt-3">
+                    <div className="text-lg font-semibold">
+                      Patagonia Men's Better Sweater Jacket
+                    </div>
+                    <div className="w-full flex flex-wrap">
+                      <div className="sm:w-2/3 mt-2">
+                        <div className="flex justify-between">
+                          <div className="text-base">
+                            <span className="font-semibold">SKU :</span> 25528
+                          </div>
+                        </div>
+                        <div className="mt-1 flex">
+                          <div className="text-base">
+                            <span className="font-semibold">Color :</span>{' '}
+                            Stonewash
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-2 sm:w-1/3">
+                        <div className="bold text-lg text-right">
+                          <span className="">Item Total: $2,964.00</span>
+                        </div>
+                      </div>
+                      <div className="mt-10 mb-5 w-full">
+                        <div className="text-base font-semibold border-b pb-2">
+                          Item Details
+                        </div>
+                        <div className="flex justify-between py-2">
+                          <div className="text-base font-semibold w-28">
+                            Size
+                          </div>
+                          <div className="text-base font-semibold w-16 text-center">
+                            Qty
+                          </div>
+                          <div className="text-base font-semibold w-20 text-right">
+                            Price
+                          </div>
+                        </div>
+                        <div className="flex justify-between py-2">
+                          <div className="text-base w-28">XS</div>
+                          <div className="text-base w-16 text-center">4</div>
+                          <div className="text-base w-20 text-right">
+                            $494.00
+                          </div>
+                        </div>
+                        <div className="flex justify-between py-2">
+                          <div className="text-base w-28">SM</div>
+                          <div className="text-base w-16 text-center">4</div>
+                          <div className="text-base w-20 text-right">
+                            $494.00
+                          </div>
+                        </div>
+                        <div className="flex justify-between py-2">
+                          <div className="text-base w-28">MD</div>
+                          <div className="text-base w-16 text-center">4</div>
+                          <div className="text-base w-20 text-right">
+                            $494.00
+                          </div>
+                        </div>
+                        <div className="flex justify-between py-2">
+                          <div className="text-base w-28">LG</div>
+                          <div className="text-base w-16 text-center">4</div>
+                          <div className="text-base w-20 text-right">
+                            $494.00
+                          </div>
+                        </div>
+                        <div className="flex justify-between py-2">
+                          <div className="text-base w-28">XL</div>
+                          <div className="text-base w-16 text-center">4</div>
+                          <div className="text-base w-20 text-right">
+                            $494.00
+                          </div>
+                        </div>
+                        <div className="flex justify-between py-2">
+                          <div className="text-base w-28">XXL</div>
+                          <div className="text-base w-16 text-center">4</div>
+                          <div className="text-base w-20 text-right">
+                            $494.00
+                          </div>
+                        </div>
+                        <div className="flex justify-between py-3 border-t border-b">
+                          <div className="text-base w-28">Product Total:</div>
+                          <div className="text-base w-16 text-center">24</div>
+                          <div className="text-base w-20 text-right">
+                            $2,964.00
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex justify-start items-center mb-3">
+                        <div>
+                          <span className="material-icons text-[60px] mr-3">
+                            support_agent
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-lg font-semibold">
+                            Customize Later
+                          </div>
+                          <div className="text-base">
+                            A Gear Expert will contact you to discuss the
+                            customization of this product.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="w-full lg:w-3/12 px-3">
+            <div className="border border-gray-300 bg-white mb-3">
+              <div className="bg-gray-100 w-full text-lg font-medium px-4 py-2">
+                Order Summary
+              </div>
+              <div className="px-4 py-4">
+                <dl className="space-y-2">
+                  <div className="">Products Price</div>
+                  <div className="flex items-center justify-between pt-2">
+                    <dt className="text-base">Subtotal</dt>
+                    <dd className="text-base font-medium text-gray-900">
+                      $4,780.00
+                    </dd>
+                  </div>
+                  <div className="border-t border-gray-200 relative">
+                    <dt className="text-base z-0 w-full promocode">
+                      <input
+                        name="Promo_code1"
+                        id="Promo_code1"
+                        placeholder="Promo code"
+                        className="peer placeholder:opacity-0 block w-full bg-transparent pt-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200 pr-10 relative z-10"
+                      />
+                      <label className="absolute duration-300 -top-3 -z-1 origin-0 text-base bg-white peer-focus:-top-3 peer-placeholder-shown:top-2">
+                        Promo code
+                      </label>
+                      <a className="coupon-code-Apply text-sm absolute right-0 top-2 hidden">
+                        Apply
+                      </a>
+                    </dt>
+                  </div>
+                  <div className="border-t border-gray-200 pt-2 flex items-center justify-between">
+                    <dt className="flex items-center text-base">
+                      <span>Shipping</span>
+                    </dt>
+                    <dd className="text-base font-medium text-gray-900">
+                      FREE
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <dt className="flex items-center text-base">
+                      <span>Tax</span>
+                    </dt>
+                    <dd className="text-base font-medium text-gray-900">
+                      $0.00
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="flex justify-between items-center bg-gray-200 w-full text-lg font-medium px-4 py-1">
+                <div>Total:</div>
+                <div>$4,850.60</div>
+              </div>
+            </div>
+            <div className="text-base text-red-500 font-medium mb-3">
+              Please note that the tax amount on this order is subject to change
+              based on the final invoice, and in accordance with local and state
+              laws
+            </div>
+            <div className="">
+              {!showReviewOrder && (
+                <button
+                  onClick={handleReviewOrder}
+                  className="btn btn-lg !w-full text-center btn-secondary mb-2"
+                  id="btn-review-order"
+                >
+                  REVIEW ORDER
+                </button>
+              )}
+              {showReviewOrder && (
+                <a
+                  href="thankyou-order.html"
+                  className="btn btn-lg !w-full text-center btn-secondary mb-2"
+                >
+                  PLACE ORDER
+                </a>
+              )}
+            </div>
+            <div className="bg-gray-100 p-3 text-center">
+              <div className="text-2xl font-medium mb-4 align-middle">
+                <span className="material-icons text-anchor align-middle">
+                  verified{' '}
+                </span>
+                <span className="align-middle">Order Risk-Free!</span>
+              </div>
+              <div className="text-lg">
+                Cancel your order without penalty anytime before your proof is
+                approved.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {showForgetPassword && (
+        <ForgotModal modalHandler={() => setShowForgetPassword(false)} />
+      )}
+      {Boolean(showChangeAddressPopup) && (
+        <AddressPopupLayout1
+          showChangeAddressPopup={showChangeAddressPopup}
+          addressArray={addressArray}
+          changeAddres={changeAddres}
+          closeShippingPopup={closeShippingPopup}
+        />
+      )}
+    </>
+  );
+};
+
+export default Checkout;

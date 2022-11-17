@@ -13,6 +13,7 @@ const ProductListController = (
   slug: string,
   checkedFilters: any,
 ) => {
+  console.log(checkedFilters);
   const { setShowLoader } = useActions();
   // const location = useLocation();
   const Router = useRouter();
@@ -84,9 +85,13 @@ const ProductListController = (
       const url = `/${nameArray.join(',')}/${valueArray.join(
         ',',
       )}/${brandId}/${slug}.html`;
-      Router.push(url);
+        Router.replace(url)
+
+
+      // Router.repla(url);
+      setShowLoader(true);
     } else {
-      Router.push(`/${slug}.html`);
+      Router.replace(`/${slug}.html`);
     }
 
     setFilterOption(newArray);
@@ -113,7 +118,7 @@ const ProductListController = (
       color,
     };
 
-    if (index > -1) {
+    if (index > -1) { 
       selectedProducts[index] = productObject;
     } else {
       selectedProducts.push(productObject);

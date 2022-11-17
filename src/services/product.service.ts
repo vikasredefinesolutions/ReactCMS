@@ -28,7 +28,7 @@ export const FetchProductById = async (payload: {
     url: url,
     method: 'GET',
   });
-
+  console.log(res.data);
   return res.data;
 };
 

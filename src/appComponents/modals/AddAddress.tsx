@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { addressMessages } from 'constant/validationMessages';
+import { addressMessages } from 'constants/validationMessages';
 import { AddUpdateAddressRequest } from 'definations/APIs/address.req';
 import { CustomerAddress } from 'definations/APIs/user.res';
 import { getCountryList, getStatesList } from 'services/address.service';

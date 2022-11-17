@@ -14,8 +14,7 @@ export const fetchCartDetails = createAsyncThunk(
   },
 );
 
-export const AddToCart = createAsyncThunk(
-  'addToCart',
+export const AddToCart = 
   async (payload: CartReq) => {
     try {
       const cart = await addToCart(payload);
@@ -23,5 +22,4 @@ export const AddToCart = createAsyncThunk(
     } catch (error) {
       throw new Error('Try Again!!!');
     }
-  },
-);
+  };

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { icons as _images } from 'Assets/images.asset';
 import NextImage from 'next/image';
+import config from 'api.config';
 interface _props {
   src: string | null;
   alt: string;
@@ -28,8 +29,8 @@ const ImageComponent: React.FC<_props> = ({
 
   return (
     // <div className='w-auto h-auto m-auto max-h-[400px]'>
-    <NextImage
-      src={imageSrc ? imageSrc : ''}
+      <NextImage
+      src={imageSrc ? config.mediaBaseUrl+imageSrc : ''}
       alt={alt || ''}
       // layout="fill"
       height={height || 1}
