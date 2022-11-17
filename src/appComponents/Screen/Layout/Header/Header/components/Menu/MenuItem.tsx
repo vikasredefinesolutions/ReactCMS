@@ -16,8 +16,7 @@ interface _props {
   type: 'brand' | 'category' | 'topic';
 }
 
-const MenuItem: React.FC<_props> = ({ screen, type }) => {
-  const { setView } = useActions();
+const MenuItem: React.FC<_props> = ({ type }) => {
   // const storeId = useTypedSelector((state) => state.store.id);
   // const [menuItems, setMenuItems] = useState<{
   //   topic: _MenuTopic | null;
@@ -38,10 +37,6 @@ const MenuItem: React.FC<_props> = ({ screen, type }) => {
   //       .catch(() => setMenuItems({ topic: null, category: null }));
   //   }
   // };
-
-  useEffect(() => {
-    setView(screen);
-  }, []);
 
   // if (menu?.type === 'custom') {
   //   if (menu?.category === 'topic') {

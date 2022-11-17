@@ -5,6 +5,10 @@ export const __product = {
   descriptionLength: 500,
 };
 
+export const __Header = {
+  mobileBreakPoint: 1024,
+};
+
 export const __domain = {
   layout: _Store.type1,
 };
