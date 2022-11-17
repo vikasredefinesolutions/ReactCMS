@@ -97,7 +97,7 @@ const MenuItem: React.FC<_props> = ({ screen, type }) => {
     return (
       <Brand
         brandPageUrl="/brands.html"
-        brandUrl={'/nike.html'}
+        brandUrl={'nike.html'}
         menuTitle={'Brands'}
         brandItems={['Nike']}
         brandImages={[]}
@@ -108,14 +108,14 @@ const MenuItem: React.FC<_props> = ({ screen, type }) => {
     return (
       <Category
         menuTitle={'Men'}
-        menuUrl={'/nike.html'}
+        menuUrl={'nike.html'}
         menuItems={['Jacket']}
       />
     );
   }
   if (type === 'topic') {
     return (
-      <Topic menuTitle={'Consultation'} menuUrl={'/request-consultation'} />
+      <Topic menuTitle={'Consultation'} menuUrl={'request-consultation'} />
     );
   }
 
