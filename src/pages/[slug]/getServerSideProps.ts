@@ -12,13 +12,12 @@ import { GetServerSideProps } from 'next';
 import { _ExpectedProductProps } from '@type/product.type';
 import { getProductDetailProps } from 'Controllers/ProductController';
 import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
+import { conditionalLog } from 'helpers/global.console';
+import { __fileNames } from 'show.config';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const domain = __domain.layout || context.req.rawHeaders[1];
   let store: _StoreReturnType | null = null;
-  let expectedProps: _ExpectedProductProps = {
-    product: null,
-  };
   let slug = '';
   const slugID = context.params && context.params['slug-id'];
 
@@ -45,12 +44,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       storeId: store.storeId!,
       seName: slug,
     });
-
-    if (pageData.details.id === null) {
-      pageData = {
-        doNotExist: pageData.details?.productDoNotExist || null,
-      };
-    }
+    conditionalLog({
+      show: true,
+      data: pageData,
+      name: __fileNames.productDetails,
+      type: 'FUNCTION',
+    });
   }
 
   if ('brand,category'.includes(pageType)) {

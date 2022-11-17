@@ -19,15 +19,15 @@ export const conditionalLog = ({
 
   if (show) {
     if (type === 'API') {
-      const message = error ? 'API Failed' : 'No Data Found';
-      highLightError({ error: data, component: `${message}: ${name}` });
+      const errType = error ? 'API Failed' : 'No Data Found';
+      const message = `${errType} : ${name}`;
+      highLightError({ error: data, component: message });
       return;
     }
 
     if (name === __fileNames.productDetails || name === __fileNames._app) {
       const message = `${type} : ${name}`;
-
-      highLightResponse({ dataToShow: data, component: type });
+      highLightResponse({ dataToShow: data, component: message });
     }
   }
 };

@@ -43,7 +43,7 @@ export const FetchProductDetails = async (payload: {
   discount: null | _ProductDiscountTable;
   SEO: null | _ProductSEO;
   inventory: null | _ProductInventoryTransfomed;
-  doNotExist: null;
+  doNotExist: null | { retrunUrlOrCategorySename: string; info: string };
 }> => {
   let productColors: null | _ProductColor[] = null;
   let productDetails: null | _ProductDetails | _ProductDoNotExist = null;
@@ -51,7 +51,8 @@ export const FetchProductDetails = async (payload: {
   let productDiscountTablePrices: null | _ProductDiscountTable = null;
   let productSEOtags: null | _ProductSEO = null;
   let productInventoryList: null | _ProductInventoryTransfomed = null;
-  let doNotExist: null = null;
+  let doNotExist: null | { retrunUrlOrCategorySename: string; info: string } =
+    null;
   // let productReviews: null;
   // let productAlikes: null;
 
@@ -61,6 +62,10 @@ export const FetchProductDetails = async (payload: {
       seName: payload.seName,
       storeId: payload.storeId,
     });
+
+    if (productDetails?.id === null) {
+      doNotExist = productDetails.productDoNotExist;
+    }
 
     if (productDetails?.id) {
       // Request - 2,3,4,5

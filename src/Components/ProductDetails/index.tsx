@@ -22,6 +22,8 @@ import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { useRouter } from 'next/router';
+import { conditionalLog } from 'helpers/global.console';
+import { __fileNames } from 'show.config';
 
 interface _props {
   product: {
@@ -38,6 +40,14 @@ interface _props {
 const Product: React.FC<_props> = ({ product }) => {
   const router = useRouter();
   if (product === null) return <>Product Page Loading... </>;
+
+  conditionalLog({
+    show: true,
+    name: __fileNames.productDetails,
+    type: 'PAGE',
+    data: product,
+  });
+
   if (product.details?.id === null) {
     router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
     return <></>;

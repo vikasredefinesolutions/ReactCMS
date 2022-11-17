@@ -35,13 +35,14 @@ export const FetchProductById = async (payload: {
 
     if (res.data === null) {
       conditionalLog({
-        data: res.data,
+        // @ts-ignore: Unreachable code error
+        data: res.otherData,
         name: 'FetchProductById',
         type: 'API',
         show: res.data === null,
       });
       // @ts-ignore: Unreachable code error
-      return { id: null, productDoNotExist: res.OtherData };
+      return { id: null, productDoNotExist: res.otherData };
     }
 
     return res.data;
