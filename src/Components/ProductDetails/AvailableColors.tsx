@@ -19,6 +19,7 @@ const AvailableColors: React.FC = () => {
 
   if (colors === null) return <></>;
   const colorsCount = colors.length;
+  const showAllColorsButton = colorsCount > __product.imagesInRow;
 
   if (storeLayout === _Store.type1) {
     return (
@@ -55,22 +56,24 @@ const AvailableColors: React.FC = () => {
             );
           })}
         </div>
-        <div className="text-right">
-          <button
-            onClick={() => setShowAllColors((showAll) => !showAll)}
-            className=""
-          >
-            {showAllColors ? (
-              <span className="span1">Show Less</span>
-            ) : (
-              <>
-                <span className="span1">See All</span>
-                <span className="span2"> {colorsCount} </span>
-                <span className="span3">Colors</span>
-              </>
-            )}
-          </button>
-        </div>
+        {showAllColorsButton && (
+          <div className="text-right">
+            <button
+              onClick={() => setShowAllColors((showAll) => !showAll)}
+              className=""
+            >
+              {showAllColors ? (
+                <span className="span1">Show Less</span>
+              ) : (
+                <>
+                  <span className="span1">See All</span>
+                  <span className="span2"> {colorsCount} </span>
+                  <span className="span3">Colors</span>
+                </>
+              )}
+            </button>
+          </div>
+        )}
       </div>
     );
   }
