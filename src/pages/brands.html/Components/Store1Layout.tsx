@@ -9,6 +9,7 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
     currentTab,
     setCurrentTab,
     getTabColor,
+    setShowLoader,
   } = BrandController();
 
   return (
@@ -1010,9 +1011,11 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                             <Link
                               title={brand.brandName}
                               className="text-anchor hover:text-anchor-hover"
-                              href={`/${brand.seName}-collection.html`}
+                              href={`/${brand.seName}.html`}
                             >
+                              <a onClick={() =>setShowLoader(true)}>
                               {brand.brandName}
+                                </a>
                             </Link>
                           </div>
                         ))}

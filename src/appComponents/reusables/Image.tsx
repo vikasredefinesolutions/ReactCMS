@@ -10,6 +10,7 @@ interface _props {
   className: string;
   width?: number | string;
   height?: number | string;
+  key?: number | string
 }
 
 const ImageComponent: React.FC<_props> = ({
@@ -18,6 +19,7 @@ const ImageComponent: React.FC<_props> = ({
   className,
   height,
   width,
+  key,
 }) => {
   const getMediaURL = (src: string | null) => {
     let url = '';
@@ -54,6 +56,7 @@ const ImageComponent: React.FC<_props> = ({
       layout="responsive"
       className={className}
       loading={'eager'}
+      key={key || 0}
       // objectFit='contain'
     />
     // <img src={imageSrc} className={className} alt={alt} />

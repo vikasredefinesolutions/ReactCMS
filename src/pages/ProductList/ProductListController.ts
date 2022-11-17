@@ -13,11 +13,10 @@ const ProductListController = (
   slug: string,
   checkedFilters: any,
 ) => {
-  console.log(checkedFilters);
   const { setShowLoader } = useActions();
   // const location = useLocation();
   const Router = useRouter();
-  const allProduct = data.product;
+  const [allProduct, setAllProduct] = useState(data.product);
   const perPageCount = 3;
   const [currentCount, setCurrentCount] = useState(perPageCount);
   const [filterOption, setFilterOption] = useState<
@@ -27,14 +26,14 @@ const ProductListController = (
     }>
   >(checkedFilters || null);
   const [filters, setFilters] = useState<FilterType>(data.filters || null);
-  const getListingWithPagination = () => {
-    if (allProduct) {
-      return allProduct.slice(0, currentCount);
+  const getListingWithPagination = (data: ProductList) => {
+    if (data) {
+      return data.slice(0, perPageCount);
     }
     return [];
   };
   const [product, setProduct] = useState<ProductList>(
-    getListingWithPagination() || null,
+    getListingWithPagination(data.product) || null,
   );
 
   const storeId = 4;
@@ -85,8 +84,7 @@ const ProductListController = (
       const url = `/${nameArray.join(',')}/${valueArray.join(
         ',',
       )}/${brandId}/${slug}.html`;
-        Router.replace(url)
-
+      Router.replace(url);
 
       // Router.repla(url);
       setShowLoader(true);
@@ -118,7 +116,7 @@ const ProductListController = (
       color,
     };
 
-    if (index > -1) { 
+    if (index > -1) {
       selectedProducts[index] = productObject;
     } else {
       selectedProducts.push(productObject);
@@ -128,10 +126,30 @@ const ProductListController = (
 
   const loadMore = () => {
     const count = currentCount + perPageCount;
-    const products = allProduct.slice(currentCount, count)
+    const products = allProduct.slice(currentCount, count);
     setCurrentCount(count);
-    setProduct((prev) => [...prev, ...products] )
-  }
+    setProduct((prev) => [...prev, ...products]);
+  };
+
+  const sortProductJson = (type: number) => {
+    setCurrentCount(perPageCount);
+    let newList = [...allProduct];
+    if (type === 1) {
+      console.log(allProduct);
+
+      newList = newList.sort((pro1, pro2) => (pro1.id > pro2.id ? 1 : -1));
+    } else if (type === 2) {
+      newList = newList.sort((pro1, pro2) =>
+      pro1.salePrice > pro2.salePrice ? 1 : -1,
+      );
+    } else if (type === 3) {
+      newList = newList.sort((pro1, pro2) =>
+        pro1.salePrice < pro2.salePrice ? 1 : -1,
+      );
+    }
+    setAllProduct(newList);
+    setProduct(getListingWithPagination(newList));
+  };
 
   return {
     filters,
@@ -142,6 +160,7 @@ const ProductListController = (
     setFilters,
     setProduct,
     loadMore,
+    sortProductJson,
   };
 };
 
