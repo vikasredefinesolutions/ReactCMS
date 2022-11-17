@@ -8,6 +8,7 @@ import {
 } from 'definations/APIs/inventory.res';
 import {
   _ProductDetails,
+  _ProductDoNotExist,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import {
@@ -16,20 +17,44 @@ import {
 } from 'definations/APIs/sizeChart.res';
 import { _Reviews } from 'definations/product.type';
 import { BrandFilter, FilterApiRequest } from 'definations/productList.type';
+import { conditionalLog } from 'helpers/global.console';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const FetchProductById = async (payload: {
   seName: string;
   storeId: number;
-}): Promise<_ProductDetails> => {
+}): Promise<_ProductDetails | null | _ProductDoNotExist> => {
   const url = `StoreProduct/getstoreproductbysename/${payload.seName}/${payload.storeId}.json`;
 
-  const res = await SendAsyncV2<_ProductDetails>({
-    url: url,
-    method: 'GET',
-  });
-  console.log(res.data);
-  return res.data;
+  try {
+    const res = await SendAsyncV2<_ProductDetails>({
+      url: url,
+      method: 'GET',
+    });
+
+    if (res.data === null) {
+      conditionalLog({
+        // @ts-ignore: Unreachable code error
+        data: res.otherData,
+        name: 'FetchProductById',
+        type: 'API',
+        show: res.data === null,
+      });
+      // @ts-ignore: Unreachable code error
+      return { id: null, productDoNotExist: res.otherData };
+    }
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchProductById',
+      type: 'API',
+      show: true,
+      error: true,
+    });
+    return null;
+  }
 };
 
 export const FetchReviewsById = async (payload: number) => {
@@ -45,64 +70,117 @@ export const FetchReviewsById = async (payload: number) => {
 
 export const FetchSizeChartById = async (
   payload: number,
-): Promise<_SizeChartTransformed> => {
+): Promise<_SizeChartTransformed | null> => {
   const url = `StoreProduct/getsizechartbyproductid/${payload}.json`;
-  const res = await SendAsyncV2<_SizeChart>({
-    url: url,
-    method: 'GET',
-  });
 
-  const sizeChart: [{ [key: string]: string }] = JSON.parse(
-    res.data?.sizeChartView,
-  );
+  try {
+    const res = await SendAsyncV2<_SizeChart>({
+      url: url,
+      method: 'GET',
+    });
 
-  const transformedData: _SizeChartTransformed = {
-    ...res.data,
-    sizeChartRange: res.data.sizeChartRange.split(','),
-    sizeChartView: sizeChart[0],
-    measurements: res.data.measurements.split(','),
-  };
+    conditionalLog({
+      data: res.data,
+      name: 'FetchSizeChartById',
+      type: 'API',
+      show: res.data === null,
+    });
 
-  return transformedData;
+    const sizeChart: [{ [key: string]: string }] = JSON.parse(
+      res.data?.sizeChartView,
+    );
+
+    const transformedData: _SizeChartTransformed = {
+      ...res.data,
+      sizeChartRange: res.data.sizeChartRange.split(','),
+      sizeChartView: sizeChart[0],
+      measurements: res.data.measurements.split(','),
+    };
+
+    return transformedData;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchSizeChartById',
+      type: 'API',
+      show: true,
+      error: true,
+    });
+    return null;
+  }
 };
 
 export const FetchInventoryById = async (payload: {
   productId: number;
   attributeOptionId: number[];
-}): Promise<_ProductInventoryTransfomed> => {
+}): Promise<_ProductInventoryTransfomed | null> => {
   const url = `StoreProduct/getproductattributesizes.json`;
-
-  const res = await SendAsyncV2<_ProductInventory[]>({
-    url: url,
-    method: 'POST',
-    data: payload,
-  });
-
   function removeDuplicates(arr: string[]) {
     return arr.filter((item, index) => arr.indexOf(item) === index);
   }
 
-  const transformedData: _ProductInventoryTransfomed = {
-    inventory: res.data,
-    sizes: removeDuplicates(res.data.map((int) => int.name)),
-  };
+  try {
+    const res = await SendAsyncV2<_ProductInventory[]>({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
 
-  return transformedData;
+    conditionalLog({
+      data: res.data,
+      name: 'FetchInventoryById',
+      type: 'API',
+      show: res.data === null || res.data.length === 0,
+    });
+
+    const transformedData: _ProductInventoryTransfomed = {
+      inventory: res.data,
+      sizes: removeDuplicates(res.data.map((int) => int.name)),
+    };
+    return transformedData;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchInventoryById',
+      type: 'API',
+      show: true,
+      error: true,
+    });
+    return null;
+  }
 };
 
 export const FetchColors = async ({
   productId,
 }: {
   productId: number;
-}): Promise<_ProductColor[]> => {
+}): Promise<_ProductColor[] | null> => {
   const url = `StoreProduct/getproductattributecolor/${productId}.json`;
 
-  const res = await SendAsyncV2<_ProductColor[]>({
-    url: url,
-    method: 'POST',
-  });
+  try {
+    const res = await SendAsyncV2<_ProductColor[]>({
+      url: url,
+      method: 'POST',
+    });
 
-  return res.data;
+    conditionalLog({
+      data: res.data,
+      name: 'FetchColors',
+      type: 'API',
+      show: res.data === null,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchColors',
+      type: 'API',
+      show: true,
+      error: true,
+    });
+    return null;
+  }
 };
 
 export const FetchFiltersJsonByBrand = async (
@@ -123,16 +201,35 @@ export const FetchDiscountTablePrices = async (payload: {
   seName: string;
   customerId: number;
   attributeOptionId: number;
-}): Promise<_ProductDiscountTable> => {
+}): Promise<_ProductDiscountTable | null> => {
   const url = `StoreProduct/getproductquantitydiscounttabledetail.json`;
 
-  const res = await SendAsyncV2<_ProductDiscountTable>({
-    url: url,
-    method: 'POST',
-    data: payload,
-  });
+  try {
+    const res = await SendAsyncV2<_ProductDiscountTable>({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
 
-  return res.data;
+    conditionalLog({
+      data: res.data,
+      name: 'FetchDiscountTablePrices',
+      type: 'API',
+      show: res.data === null,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchDiscountTablePrices',
+      type: 'API',
+      show: true,
+      error: true,
+    });
+
+    return null;
+  }
 };
 
 export const fetchProductList = async (storeId: string) => {
@@ -172,14 +269,34 @@ export const FetchProductSEOtags = async ({
 }: {
   storeId: number;
   seName: string;
-}): Promise<_ProductSEO> => {
+}): Promise<_ProductSEO | null> => {
   const url = `StoreProductSeo/GetDetails/${storeId}/${seName}.json`;
-  const res = await SendAsyncV2<_ProductSEO>({
-    url: url,
-    method: 'GET',
-  });
 
-  return res.data;
+  try {
+    const res = await SendAsyncV2<_ProductSEO>({
+      url: url,
+      method: 'GET',
+    });
+
+    conditionalLog({
+      data: res.data,
+      name: 'FetchProductSEOtags',
+      type: 'API',
+      show: res.data === null,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchProductSEOtags',
+      type: 'API',
+      show: true,
+      error: true,
+    });
+
+    return null;
+  }
 };
 
 export const FetchBrandProductList = async ({

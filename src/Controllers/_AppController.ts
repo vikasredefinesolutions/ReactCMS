@@ -12,6 +12,12 @@ import { _showConsoles, __fileNames } from 'show.config';
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
+export const FetchMenuItems = async (storeId: number) => {
+  return [];
+
+  // HeaderService.FetchStoreMenu({ storeId });
+};
+
 export const FetchStoreDetails = async (domain: string, pathName: string) => {
   const store: _StoreReturnType = {
     storeId: null,
@@ -32,14 +38,9 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
   }
   conditionalLog({
     data: store,
-    fileName: __fileNames.appController,
-    show: _showConsoles.appController,
+    type: 'CONTROLLER',
+    name: __fileNames._app,
+    show: _showConsoles._app,
   });
   return store;
-};
-
-export const FetchMenuItems = async (storeId: number) => {
-  return [] 
-  
-  // HeaderService.FetchStoreMenu({ storeId });
 };
