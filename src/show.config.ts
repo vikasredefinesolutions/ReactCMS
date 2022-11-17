@@ -7,7 +7,7 @@ export const __fileNames = {
 };
 
 export const _showConsoles = {
-  productController: true,
+  productController: false,
   appController: false,
   _app: false,
 };
