@@ -123,6 +123,7 @@ export const FetchProductDetails = async (payload: {
         discount: productDiscountTablePrices,
         SEO: productSEOtags,
         inventory: productInventoryList,
+        doNotExist: doNotExist,
       },
       type: 'CONTROLLER',
       name: __fileNames.productDetails,
@@ -133,7 +134,7 @@ export const FetchProductDetails = async (payload: {
   }
 
   return {
-    doNotExist: null,
+    doNotExist: doNotExist,
     details: productDetails,
     colors: productColors,
     sizes: productSizeChart,

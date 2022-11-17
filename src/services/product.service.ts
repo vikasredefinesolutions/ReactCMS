@@ -17,7 +17,6 @@ import {
 } from 'definations/APIs/sizeChart.res';
 import { _Reviews } from 'definations/product.type';
 import { BrandFilter, FilterApiRequest } from 'definations/productList.type';
-import { highLightError, highLightResponse } from 'helpers/common.helper';
 import { conditionalLog } from 'helpers/global.console';
 import { SendAsyncV2 } from '../utils/axios.util';
 

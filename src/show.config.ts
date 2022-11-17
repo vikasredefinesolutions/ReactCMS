@@ -6,6 +6,6 @@ export const __fileNames = {
 };
 
 export const _showConsoles = {
-  productDetails: true,
+  productDetails: false,
   _app: false,
 };

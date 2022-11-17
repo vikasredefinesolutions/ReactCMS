@@ -59,7 +59,15 @@ const Product: React.FC<_props> = ({ product }) => {
     return <> Product Details not found</>;
   }
 
+  const addParams = () => {
+    router.query.altview = '1';
+    router.query.v = 'product-detail';
+    router.push(router);
+  };
+
   useEffect(() => {
+    addParams();
+
     if (product.doNotExist === null) {
       store_productDetails({
         brand: {
