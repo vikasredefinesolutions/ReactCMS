@@ -11,6 +11,7 @@ import * as _AppController from 'Controllers/_AppController';
 import { GetServerSideProps } from 'next';
 import { _ExpectedProductProps } from '@type/product.type';
 import { getProductDetailProps } from 'Controllers/ProductController';
+import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const domain = __domain.layout || context.req.rawHeaders[1];
@@ -35,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     slug,
   });
   const pageType = data.data.type;
-  let pageData: any | null = null;
+  let pageData: any | null | _ProductDetailsProps = null;
   ////////////////////////////////////////////////
   /////////// Page Type Checks
   ////////////////////////////////////////////////
@@ -44,6 +45,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       storeId: store.storeId!,
       seName: slug,
     });
+
+    if (pageData.details.id === null) {
+      pageData = {
+        doNotExist: pageData.details?.productDoNotExist || null,
+      };
+    }
   }
 
   if ('brand,category'.includes(pageType)) {

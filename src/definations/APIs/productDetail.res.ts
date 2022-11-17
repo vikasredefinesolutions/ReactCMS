@@ -1,10 +1,28 @@
 import { _ProductColor } from './colors.res';
+import { _ProductDiscountTable } from './discountTable.res';
+import { _ProductInventoryTransfomed } from './inventory.res';
+import { _SizeChartTransformed } from './sizeChart.res';
 
-export interface _FetchProductDetailsRes {
-  success: boolean;
-  data: _ProductDetails;
-  errors: Errors;
-  otherData: null;
+export interface _ProductDetailsProps {
+  details: null | _ProductDetails | _ProductDoNotExist;
+  colors: null | _ProductColor[];
+  sizes: null | _SizeChartTransformed;
+  discount: null | _ProductDiscountTable;
+  SEO: null | _ProductSEO;
+  inventory: null | _ProductInventoryTransfomed;
+}
+
+export interface _ProductDoNotExist {
+  id: null;
+  productDoNotExist: {
+    retrunUrlOrCategorySename: string;
+    info: string;
+  } | null;
+}
+
+export interface _ProductDoNotExistTransformed {
+  retrunUrlOrCategorySename: string;
+  info: string;
 }
 
 export interface _ProductDetails {
