@@ -52,12 +52,13 @@ const Product: React.FC<_props> = ({ product }) => {
     router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
     return <></>;
   }
-  const storeLayout = useTypedSelector((state) => state.store.layout);
-  const { store_productDetails, setColor, setShowLoader } = useActions();
 
   if (product?.details === null || product?.details === undefined) {
-    return <> Product Details not found</>;
+    return <> Product Details not found </>;
   }
+
+  const storeLayout = useTypedSelector((state) => state.store.layout);
+  const { store_productDetails, setColor, setShowLoader } = useActions();
 
   const addParams = () => {
     router.query.altview = '1';
