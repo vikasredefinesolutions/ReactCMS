@@ -39,6 +39,13 @@ interface _props {
 
 const Product: React.FC<_props> = ({ product }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (product?.doNotExist) {
+      router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
+    }
+  }, []);
+
   if (product === null) return <>Product Page Loading... </>;
 
   conditionalLog({
@@ -48,12 +55,12 @@ const Product: React.FC<_props> = ({ product }) => {
     data: product,
   });
 
-  if (product?.details === null || product?.details === undefined) {
-    return <> Product Details not found </>;
-  }
-
   if (product.doNotExist) {
     return <></>;
+  }
+
+  if (product?.details === null || product?.details === undefined) {
+    return <> Product Details not found </>;
   }
 
   const storeLayout = useTypedSelector((state) => state.store.layout);
