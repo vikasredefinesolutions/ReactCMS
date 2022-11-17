@@ -1,25 +1,33 @@
 import { hideAllConsoles, _showConsoles, __fileNames } from 'show.config';
 import { _conditionalLog } from 'show.type';
-import { highLightResponse } from './common.helper';
+import { highLightError, highLightResponse } from './common.helper';
 
 export const conditionalLog = ({
   data,
-  fileName,
+  type,
   show,
+  name,
+  error = false,
 }: {
   show: boolean;
-  fileName: string;
-  data: _conditionalLog;
+  type: 'API' | 'FUNCTION' | 'PAGE' | 'CONTROLLER' | 'NEXTJS PROPS';
+  name: string;
+  data: any;
+  error?: boolean;
 }) => {
   if (hideAllConsoles) return;
 
   if (show) {
-    if (
-      fileName === __fileNames.productController ||
-      fileName === __fileNames.appController ||
-      fileName === __fileNames._app
-    ) {
-      highLightResponse({ dataToShow: data, component: fileName });
+    if (type === 'API') {
+      const message = error ? 'API Failed' : 'No Data Found';
+      highLightError({ error: data, component: `${message}: ${name}` });
+      return;
+    }
+
+    if (name === __fileNames.productDetails || name === __fileNames._app) {
+      const message = `${type} : ${name}`;
+
+      highLightResponse({ dataToShow: data, component: type });
     }
   }
 };

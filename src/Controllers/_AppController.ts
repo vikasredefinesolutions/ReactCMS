@@ -39,8 +39,8 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
   conditionalLog({
     data: store,
     type: 'CONTROLLER',
-    name: __fileNames.appController,
-    show: _showConsoles.appController,
+    name: __fileNames._app,
+    show: _showConsoles._app,
   });
   return store;
 };
