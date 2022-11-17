@@ -13,7 +13,7 @@ import { _ExpectedProductProps } from '@type/product.type';
 import { getProductDetailProps } from 'Controllers/ProductController';
 import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
 import { conditionalLog } from 'helpers/global.console';
-import { __fileNames } from 'show.config';
+import { _showConsoles, __fileNames } from 'show.config';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const domain = __domain.layout || context.req.rawHeaders[1];
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       seName: slug,
     });
     conditionalLog({
-      show: true,
+      show: _showConsoles.productDetails,
       data: pageData,
       name: __fileNames.productDetails,
       type: 'FUNCTION',

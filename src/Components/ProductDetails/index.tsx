@@ -23,7 +23,7 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { useRouter } from 'next/router';
 import { conditionalLog } from 'helpers/global.console';
-import { __fileNames } from 'show.config';
+import { _showConsoles, __fileNames } from 'show.config';
 
 interface _props {
   product: {
@@ -42,7 +42,7 @@ const Product: React.FC<_props> = ({ product }) => {
   if (product === null) return <>Product Page Loading... </>;
 
   conditionalLog({
-    show: true,
+    show: _showConsoles.productDetails,
     name: __fileNames.productDetails,
     type: 'PAGE',
     data: product,

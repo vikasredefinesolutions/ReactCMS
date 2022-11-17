@@ -18,6 +18,7 @@ import {
 import { _Reviews } from 'definations/product.type';
 import { BrandFilter, FilterApiRequest } from 'definations/productList.type';
 import { conditionalLog } from 'helpers/global.console';
+import { _showConsoles } from 'show.config';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const FetchProductById = async (payload: {
@@ -50,7 +51,7 @@ export const FetchProductById = async (payload: {
       data: error,
       name: 'FetchProductById',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
     return null;
@@ -103,7 +104,7 @@ export const FetchSizeChartById = async (
       data: error,
       name: 'FetchSizeChartById',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
     return null;
@@ -143,7 +144,7 @@ export const FetchInventoryById = async (payload: {
       data: error,
       name: 'FetchInventoryById',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
     return null;
@@ -176,7 +177,7 @@ export const FetchColors = async ({
       data: error,
       name: 'FetchColors',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
     return null;
@@ -224,7 +225,7 @@ export const FetchDiscountTablePrices = async (payload: {
       data: error,
       name: 'FetchDiscountTablePrices',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
 
@@ -291,7 +292,7 @@ export const FetchProductSEOtags = async ({
       data: error,
       name: 'FetchProductSEOtags',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
 

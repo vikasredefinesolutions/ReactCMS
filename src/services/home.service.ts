@@ -1,5 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _StoreDetails } from 'definations/APIs/storeDetails.res';
+import { conditionalLog } from 'helpers/global.console';
+import { _showConsoles } from 'show.config';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const fetchProducts = async () => {
@@ -40,11 +42,22 @@ export const FetchPageType = async (payload: {
   storeId: number;
 }) => {
   const url = `/front/get-page-type?store_id=${payload.storeId}&slug=${payload.slug}`;
+  try {
+    const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+      url: url,
+      method: 'POST',
+      data: {},
+    });
 
-  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
-    url: url,
-    method: 'POST',
-    data: {},
-  });
-  return res;
+    conditionalLog({
+      show: _showConsoles.services.store,
+      type: 'API',
+      name: 'FetchPageType',
+      data: res,
+    });
+
+    return res;
+  } catch (error) {
+    return null;
+  }
 };

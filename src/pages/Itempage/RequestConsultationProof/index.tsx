@@ -18,6 +18,8 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import Image from 'appComponents/reusables/Image';
 import { highLightError } from 'helpers/common.helper';
 import { useRouter } from 'next/router';
+import { conditionalLog } from 'helpers/global.console';
+import { _showConsoles, __fileNames } from 'show.config';
 
 interface _props {
   product: {
@@ -106,6 +108,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   } catch (error) {
     highLightError({ error, component: `Request Consultation page` });
   }
+
+  conditionalLog({
+    show: _showConsoles.requestConsultation,
+    data: expectedProps,
+    type: 'CONTROLLER',
+    name: __fileNames.requestConsultation,
+  });
 
   return {
     props: {
