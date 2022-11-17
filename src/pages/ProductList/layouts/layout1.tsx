@@ -1,9 +1,18 @@
+import { Menu, MenuItem } from "@mui/material";
 import { ColorChangeHandler, FilterChangeHandler, FilterType, GetlAllProductList, ProductList } from "@type/productList.type";
 import ProductComponent from "component/Product/Product";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import SideFilter from "../components/Filters/sideFilter";
 
-const Layout1 = ({ filters, products, checkedFilters, totalCount, colorChangeHandler, handleChange, loadMore }: { filters: FilterType, products: ProductList, checkedFilters: any, totalCount: number, colorChangeHandler: ColorChangeHandler, handleChange: FilterChangeHandler, loadMore: () => void }) => {
+const Layout1 = ({ filters, products, checkedFilters, totalCount, colorChangeHandler, handleChange, loadMore, sortProductJson }: { filters: FilterType, products: ProductList, checkedFilters: any, totalCount: number, colorChangeHandler: ColorChangeHandler, handleChange: FilterChangeHandler, loadMore: () => void , sortProductJson: (arg: number) => {}}) => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: any) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     return (
         <>
             {/* <ProductDetailsPageBanner /> */}
@@ -47,7 +56,7 @@ const Layout1 = ({ filters, products, checkedFilters, totalCount, colorChangeHan
                                                                         x-ref="button"
                                                                         aria-expanded="false"
                                                                         aria-haspopup="true"
-                                                                    // onClick={handleClick}
+                                                                        onClick={handleClick}
                                                                     >
                                                                         Sort
                                                                         <svg
@@ -65,31 +74,34 @@ const Layout1 = ({ filters, products, checkedFilters, totalCount, colorChangeHan
                                                                             ></path>
                                                                         </svg>
                                                                     </button>
-                                                                    {/* <Menu
-                                    id="basic-menu"
-                                    anchorEl={anchorEl}
-                                    open={open}
-                                    onClose={handleClose}
-                                    MenuListProps={{
-                                      'aria-labelledby': 'basic-button',
-                                    }}
-                                  >
-                                    <MenuItem onClick={handleClose}>
-                                      Most Popular
-                                    </MenuItem>
-                                    <MenuItem onClick={handleClose}>
-                                      Best Rating
-                                    </MenuItem>
-                                    <MenuItem onClick={handleClose}>
-                                      Newest
-                                    </MenuItem>
-                                    <MenuItem onClick={handleClose}>
-                                      Price: Low to High
-                                    </MenuItem>
-                                    <MenuItem onClick={handleClose}>
-                                      Price: High to Low
-                                    </MenuItem>
-                                  </Menu> */}
+                                                                    <Menu
+                                                                        id="basic-menu"
+                                                                        anchorEl={anchorEl}
+                                                                        open={open}
+                                                                        onClose={handleClose}
+                                                                        MenuListProps={{
+                                                                            'aria-labelledby': 'basic-button',
+                                                                        }}
+                                                                    >
+                                                                        <MenuItem onClick={() => {
+                                                                            sortProductJson(1)
+                                                                            handleClose()
+                                                                        }}>
+                                                                            Newest
+                                                                        </MenuItem>
+                                                                        <MenuItem onClick={() => {
+                                                                            sortProductJson(2)
+                                                                            handleClose()
+                                                                        }}>
+                                                                            Price: Low to High
+                                                                        </MenuItem>
+                                                                        <MenuItem onClick={() => {
+                                                                            sortProductJson(3)
+                                                                            handleClose()
+                                                                        }}>
+                                                                            Price: High to Low
+                                                                        </MenuItem>
+                                                                    </Menu>
                                                                 </div>
 
                                                             </div>

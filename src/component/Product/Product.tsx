@@ -1,9 +1,10 @@
 import ImageComponent from 'appComponents/reusables/Image';
+import Price from 'appComponents/reusables/Price';
 import { useActions } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import config from '../../../config';
+import config from '../../api.config';
 import { GetlAllProductList } from '../../definations/productList.type';
 // import Price from '../reusables/Price';
 // import Wishlist from '../ui/Wishlist';
@@ -40,12 +41,13 @@ const ProductComponent = ({
         <div className="flex text-center lg:w-auto h-full">
           <div className="relative border border-gray-200 pb-4 w-full">
             <div className="w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1">
-              <ImageComponent
-                src={currentProduct.imageName}
+              <img
+                src={config.mediaBaseUrl+currentProduct.imageName}
                 alt=""
                 className="w-auto h-auto m-auto max-h-[400px]"
-                height={400}
-                width={350}
+                // height={400}
+                // width={350}
+                key={currentProduct.id}
               />
               <div className="absolute top-5 right-5 text-gray-800 p-1 z-5">
                 <button className="">
@@ -87,7 +89,7 @@ const ProductComponent = ({
               </div>
               <div className="mt-3 text-black text-base tracking-wider">
                 <span className="font-semibold">
-                  <>{/* MSRP <Price value={product.salePrice} /> */}</>
+                  <>MSRP <Price value={product.salePrice} /></>
                 </span>
               </div>
               {product.getProductImageOptionList.length > 0 && (
