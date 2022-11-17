@@ -62,7 +62,6 @@ const Header: React.FC = () => {
   if (storeLayout === _Store.type2) {
     return (
       <section className="bg-white sticky top-0 z-50">
-        <Notification />
         <div className="container mx-auto">
           <div x-data="{ open: false }" className="bg-white">
             <MenuItems screen="MOBILE" />
@@ -152,7 +151,6 @@ const Header: React.FC = () => {
         className="sticky top-0 z-50 bg-[url('https://www.drivingi.com/images/home-bg.jpg')] bg-cover"
         id="header"
       >
-        <Notification />
         <div className="">
           <MenuItems screen="MOBILE" />
           <header className="relative">

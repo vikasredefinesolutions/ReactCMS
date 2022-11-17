@@ -74,7 +74,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
                     : 'border-slate-200 hover:border-secondary';
                 return (
                   <div
-                    key={img.displayOrder}
+                    key={img.id + img.imageUrl}
                     className={`md:border p-1 mb-1 last:mb-0 ${highlight}`}
                     onClick={() => selectImgHandler(img)}
                   >

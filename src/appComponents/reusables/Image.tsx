@@ -1,10 +1,9 @@
 // import axios from 'axios';
 
-import config from 'api.config';
+import { useState, useEffect } from 'react';
 import { icons as _images } from 'Assets/images.asset';
 import NextImage from 'next/image';
-import { useState } from 'react';
-import {icons} from '../../Assets/images.asset';
+import config from 'api.config';
 interface _props {
   src: string | null;
   alt: string;
@@ -13,26 +12,35 @@ interface _props {
   height?: number | string;
 }
 
+const ImageComponent: React.FC<_props> = ({
+  src,
+  alt,
+  className,
+  height,
+  width,
+}) => {
+  const [imageSrc, setImageSrc] = useState(src);
 
-const ImageComponent: React.FC<_props> = ({ src, alt, className, height, width }) => {
-  const [imageSrc, setImageSrc] = useState(src || '');
-  if (src === null) {
-    setImageSrc(_images.defaultProduct);
-  }
+  useEffect(() => {
+    if (src === null) {
+      setImageSrc(_images.defaultProduct);
+    }
+  }, [src]);
 
   return (
     // <div className='w-auto h-auto m-auto max-h-[400px]'>
       <NextImage
-      src={config.mediaBaseUrl+imageSrc}
+      src={imageSrc ? config.mediaBaseUrl+imageSrc : ''}
       alt={alt || ''}
-      // className={className}
       // layout="fill"
       height={height || 1}
       width={width || 1}
       layout="responsive"
-
-    // objectFit='contain'
+      className={className}
+      loading={'eager'}
+      // objectFit='contain'
     />
+    // <img src={imageSrc} className={className}/>
     // </div>
   );
 };

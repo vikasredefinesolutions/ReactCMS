@@ -1,42 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'appComponents/reusables/Image';
 import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
-import { FetchInventoryById } from 'services/product.service';
+import { highLightResponse } from 'helpers/common.helper';
 interface _props {
-  productId: number;
   // eslint-disable-next-line no-unused-vars
   modalHandler: (val: null | _modals) => void;
 }
 
-const AvailableInventoryModal: React.FC<_props> = ({
-  modalHandler,
-  productId,
-}) => {
-  const [inventory, setInventory] =
-    useState<null | _ProductInventoryTransfomed>(null);
+const AvailableInventoryModal: React.FC<_props> = ({ modalHandler }) => {
   const {
     colors,
     brand,
     name: productName,
+    inventory,
   } = useTypedSelector((state) => state.product.product);
 
-  const fetchInventory = (payload: {
-    productId: number;
-    attributeOptionId: number[];
-  }) => {
-    FetchInventoryById(payload).then((res) => setInventory(res));
-    // .catch((err) => console.log('err', err))
-    // .finally(() => console.log('stop loader'));
-  };
-
-  useEffect(() => {
-    fetchInventory({
-      productId: productId,
-      attributeOptionId: colors!.map((color) => color.attributeOptionId),
-    });
-  }, []);
+  highLightResponse({
+    dataToShow: inventory,
+    component: 'AvailableInventoryModal',
+  });
 
   return (
     <div

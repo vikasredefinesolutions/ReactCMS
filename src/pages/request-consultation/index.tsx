@@ -12,6 +12,7 @@ import * as ConsultationController from 'Controllers/RequestConsultationControll
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import Image from 'appComponents/reusables/Image';
+import { highLightError } from 'helpers/common.helper';
 
 interface _props {
   product: {
@@ -79,7 +80,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
   } catch (error) {
-    console.log('Error: Request Consultation page => ', error);
+    highLightError({ error, component: `Request Consultation page` });
   }
 
   return {

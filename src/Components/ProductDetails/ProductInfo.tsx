@@ -184,10 +184,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           <SizeChartModal modalHandler={modalHandler} />
         )}
         {openModal === 'availableInventory' && (
-          <AvailableInventoryModal
-            modalHandler={modalHandler}
-            productId={product.id}
-          />
+          <AvailableInventoryModal modalHandler={modalHandler} />
         )}
         {openModal === 'startOrder' && (
           <StartOrderModal modalHandler={modalHandler} product={product} />

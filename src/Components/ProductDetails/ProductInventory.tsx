@@ -13,29 +13,12 @@ interface _props {
 
 const Inventory: React.FC<_props> = ({ productId }) => {
   const { updatePrice } = useActions();
-  const [inventory, setInventory] =
-    useState<null | _ProductInventoryTransfomed>(null);
   const storeLayout = useTypedSelector((state) => state.store.layout);
-
-  const { color } = useTypedSelector((state) => state.product.selected);
+  const { color, inventory } = useTypedSelector(
+    (state) => state.product.selected,
+  );
   const { totalPrice } = useTypedSelector((state) => state.product.toCheckout);
   const { price, colors } = useTypedSelector((state) => state.product.product);
-
-  const fetchInventory = (payload: {
-    productId: number;
-    attributeOptionId: number[];
-  }) => {
-    FetchInventoryById(payload).then((res) => setInventory(res));
-    // .catch((err) => console.log('err', err))
-    // .finally(() => console.log('stop loader'));
-  };
-
-  useEffect(() => {
-    fetchInventory({
-      productId: productId,
-      attributeOptionId: [color.attributeOptionId],
-    });
-  }, [color.attributeOptionId]);
 
   useEffect(() => {
     updatePrice({ price: price?.msrp || 0 });

@@ -11,10 +11,14 @@ import Spinner from 'appComponents/ui/spinner';
 import '../../styles/output.css';
 import '../app.css'
 import SuccessErrorModal from 'appComponents/modals/successErrorModal';
+import { highLightError } from 'helpers/common.helper';
+import { _Expected_AppProps } from 'show.type';
+import { conditionalLog } from 'helpers/global.console';
+import { _showConsoles, __fileNames } from 'show.config';
 
 type AppOwnProps = {
   store: _StoreReturnType | null;
-  menuItems: _StoreMenu[];
+  menuItems: _StoreMenu[] | null;
 };
 
 export function RedefineCustomApp({
@@ -50,11 +54,31 @@ RedefineCustomApp.getInitialProps = async (
   const ctx = await App.getInitialProps(context);
   const domain = __domain.layout || context.ctx.req?.rawHeaders[1]!;
   const pathName = context.ctx.pathname;
+  const expectedProps: _Expected_AppProps = {
+    store: null,
+    menuItems: null,
+  };
 
-  const store = await _AppController.FetchStoreDetails(domain, pathName);
-  const menuItems = await _AppController.FetchMenuItems(2);
+  try {
+    expectedProps.store = await _AppController.FetchStoreDetails(
+      domain,
+      pathName,
+    );
+    // expectedProps.menuItems = await _AppController.FetchMenuItems(2);
+  } catch (error) {
+    highLightError({ error, component: '_app Page' });
+  }
 
-  return { ...ctx, store, menuItems };
+  conditionalLog({
+    data: expectedProps,
+    fileName: __fileNames._app,
+    show: _showConsoles._app,
+  });
+  return {
+    ...ctx,
+    store: expectedProps.store,
+    menuItems: expectedProps.menuItems,
+  };
 };
 
 export default reduxWrapper.withRedux(RedefineCustomApp);

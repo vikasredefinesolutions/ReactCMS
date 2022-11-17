@@ -4,6 +4,8 @@ import config from '../../api.config';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
+import { color } from '@mui/system';
 
 // Define a type for the slice state
 interface _ProductStore {
@@ -15,12 +17,14 @@ interface _ProductStore {
       altTag: string;
     };
     color: _ProductColor;
+    inventory: null | _ProductInventoryTransfomed;
   };
   product: {
     id: number | null;
     sizes: string;
     discounts: _ProductDiscountTable | null;
     sizeChart: _SizeChartTransformed | null;
+    inventory: null | _ProductInventoryTransfomed;
     price: {
       msrp: number;
       ourCost: number;
@@ -76,6 +80,7 @@ interface _ProductStore {
 const initialState: _ProductStore = {
   selected: {
     productId: 297,
+    inventory: null,
     image: {
       id: 0,
       imageUrl: '',
@@ -102,6 +107,7 @@ const initialState: _ProductStore = {
   },
   product: {
     sizeChart: null,
+    inventory: null,
     sizes: '',
     colors: null,
     brand: null,
@@ -131,6 +137,19 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     setColor: (state, action) => {
+      if (state.product.inventory) {
+        const inventoryToShow = state.product.inventory?.inventory.find(
+          (int) => int.attributeOptionId === action.payload.attributeOptionId,
+        );
+
+        if (inventoryToShow) {
+          state.selected.inventory = {
+            inventory: [inventoryToShow],
+            sizes: state.selected.inventory!.sizes,
+          };
+        }
+      }
+
       state.selected.color = action.payload;
       state.toCheckout.minQty = action.payload.minQuantity;
       state.selected.productId = action.payload.productId;
@@ -171,6 +190,7 @@ export const productSlice = createSlice({
           product: {
             id: number | null;
             name: string | null;
+            inventory: null | _ProductInventoryTransfomed;
             price: {
               msrp: number;
               ourCost: number;
@@ -192,6 +212,7 @@ export const productSlice = createSlice({
       state.product.sizeChart = action.payload.product.sizeChart;
       state.product.discounts = action.payload.product.discounts;
       state.product.colors = action.payload.product.colors;
+      state.product.inventory = action.payload.product.inventory;
     },
 
     toggleNextLogoButton: (state, action: { payload: boolean }) => {

@@ -53,7 +53,7 @@ export const FetchSizeChartById = async (
   });
 
   const sizeChart: [{ [key: string]: string }] = JSON.parse(
-    res.data.sizeChartView,
+    res.data?.sizeChartView,
   );
 
   const transformedData: _SizeChartTransformed = {
