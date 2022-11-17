@@ -17,7 +17,7 @@ export const paths = {
   BRAND: '/brands.html',
   WISHLIST: '/wishlist',
   WRITEREVIEW: '/writereview',
-  REQUEST_CONSULTATION: '/request_consultation',
+  REQUEST_CONSULTATION: '/itempage/RequestConsultationProof',
   CUSTOMIZE_LOGO: '/customize',
   PRODUCT_COMPARE: '/compare',
 };

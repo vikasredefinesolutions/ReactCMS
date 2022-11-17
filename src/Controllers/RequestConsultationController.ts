@@ -44,6 +44,7 @@ export const FetchProductDetails = async (payload: {
 
     if (expectedProps.productDetails?.id === null) {
       expectedProps.doNotExist = expectedProps.productDetails.productDoNotExist;
+      expectedProps.productDetails = null;
     }
 
     if (expectedProps.productDetails?.id) {

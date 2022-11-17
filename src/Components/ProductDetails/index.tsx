@@ -48,13 +48,12 @@ const Product: React.FC<_props> = ({ product }) => {
     data: product,
   });
 
-  if (product.details?.id === null) {
-    router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
-    return <></>;
-  }
-
   if (product?.details === null || product?.details === undefined) {
     return <> Product Details not found </>;
+  }
+
+  if (product.doNotExist) {
+    return <></>;
   }
 
   const storeLayout = useTypedSelector((state) => state.store.layout);

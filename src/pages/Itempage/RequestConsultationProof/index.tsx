@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
-import React from 'react';
-import RequestConsultationForm from '../../Components/RequestConsultation/RequestConsultationForm';
+import React, { useEffect } from 'react';
+import RequestConsultationForm from 'Components/RequestConsultation/RequestConsultationForm';
 import RequestFeatures from 'Components/RequestConsultation/RequestFeatures';
 import { __domain } from 'page.config';
 import { _SeName } from 'constants/store.constant';
@@ -33,7 +33,6 @@ const RequestConsultation: NextPage<_props> = ({ product }) => {
   if (product === null) return <>Product Page Loading... </>;
 
   if (product?.doNotExist) {
-    router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
     return <></>;
   }
 
@@ -41,6 +40,12 @@ const RequestConsultation: NextPage<_props> = ({ product }) => {
     router.push('/');
     return <></>;
   }
+
+  useEffect(() => {
+    if (product.doNotExist) {
+      router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
+    }
+  }, []);
 
   return (
     <section className="container mx-auto border border-gray-300 p-3">
