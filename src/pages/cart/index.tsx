@@ -3,15 +3,17 @@ import Link from 'next/link';
 import StartOrderModal from '../../appComponents/modals/StartOrderModal';
 import ImageComponent from '../../appComponents/reusables/Image';
 import { CartResponse } from '../../definations/APIs/cart.res';
-import { _ProductDetailsTransformed } from '../../definations/APIs/productDetail.res';
+import { _ProductDetails } from '../../definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from '../../hooks';
 import { checkCoupon, deleteItemCart } from '../../services/cart.service';
 import { FetchColors, FetchProductById } from '../../services/product.service';
-
+import SeoHead from 'appComponents/Screen/Layout/Head';
+import { CartPage as seoDetails } from 'constants/seo.constant';
+import Price from 'appComponents/reusables/Price';
 const CartPage = () => {
-  const { fetchCartDetails, storeDetails, updateCheckoutObject } = useActions();
+  const { fetchCartDetails, storeDetails, updateCheckoutObject, storeProductColor } = useActions();
   const cartProducts = useTypedSelector((state) => state.cart.cart);
-  const customerId = 113;
+  const [customerId, setCustomerId] = useState(0);
   const storeId = 4;
 
   useEffect(() => {
@@ -20,12 +22,22 @@ const CartPage = () => {
     }
   }, [customerId]);
 
+  useEffect(() => {
+    if(localStorage)
+    {
+      const id = localStorage.getItem('tempCustomerId');
+      if(id)
+      setCustomerId(~~id);
+    }
+  }, [])
+
   const [showEdit, setShowEdit] = useState(false);
-  const [product, setProduct] = useState<_ProductDetailsTransformed>();
+  const [product, setProduct] = useState<_ProductDetails>();
   const [currentCartProduct, setCurrentCartProduct] = useState<CartResponse>();
   const [coupon, setCoupon] = useState('');
 
   const loadProduct = (product: CartResponse) => {
+    console.log(product);
     if (storeId) {
       const obj = {
         totalQty: product.totalQty,
@@ -36,11 +48,12 @@ const CartPage = () => {
         })),
         totalPrice: product.totalPrice,
       };
+      console.log(obj)
       updateCheckoutObject(obj);
       setCurrentCartProduct(product);
       FetchProductById({
         // seName : seName || 'Nike-Men-s-Club-Fleece-Sleeve-Swoosh-Pullover-Hoodie',
-        seName: 'Nike-Men-s-Club-Fleece-Sleeve-Swoosh-Pullover-Hoodie',
+        seName: product.seName,
         storeId,
       }).then((res) => {
         setProduct(res);
@@ -59,10 +72,13 @@ const CartPage = () => {
                 ourCost: res.ourCost,
                 salePrice: res.salePrice,
               } || null,
-          },
+          }
         });
         FetchColors({ productId: res.id }).then((res) => {
           if (res) {
+            storeProductColor({
+              colors: res
+            })
             setProduct((pro) => {
               if (pro?.id) {
                 return {
@@ -104,8 +120,17 @@ const CartPage = () => {
     fetchCartDetails(customerId);
   };
 
+  const getTotalPrice = () => {
+  console.log(cartProducts)
+  let totalPrice = 0;
+  cartProducts.forEach((res: any) => { totalPrice += res.totalPrice });
+  console.log(totalPrice)
+  return totalPrice;
+}
+
   return (
     <>
+    <SeoHead {...seoDetails} />
       <section id="" className="mt-5">
         <div className="bg-white">
           <div className="container mx-auto">
@@ -129,17 +154,17 @@ const CartPage = () => {
                     <li className="flex flex-wrap py-5 -mx-3">
                       <div className="w-full lg:w-1/4 px-3">
                         {/* <Link href={`/${product.seName}`} title=""> */}
-                          <ImageComponent
-                            src={product.colorImage}
-                            alt="products"
-                            className=""
-                          />
+                        <ImageComponent
+                          src={product.colorImage}
+                          alt="products"
+                          className=""
+                        />
                         {/* </Link> */}
                       </div>
                       <div className="w-full lg:w-3/4 px-3 flex flex-wrap lg:justify-between">
                         <div className="text-lg font-semibold">
                           <Link
-                          key={product.seName}
+                            key={product.seName}
                             href={`/${product.seName}`}
                             id={product.seName}
                             className="text-black hover:text-anchor-hover"
@@ -477,13 +502,13 @@ const CartPage = () => {
                       <div className="flex items-center justify-between pt-2">
                         <dt className="text-base">Subtotal</dt>
                         <dd className="text-base font-medium text-gray-900">
-                          $4,780.00
+                        <Price value={getTotalPrice()} />
                         </dd>
                       </div>
                       <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                         <dt className="text-base">Estimated Tax</dt>
                         <dd className="text-base font-medium text-gray-900">
-                          $35.60
+                          $00.00
                         </dd>
                       </div>
                       <div className="border-t border-gray-200 flex items-center relative">
@@ -517,27 +542,32 @@ const CartPage = () => {
                           <span>Shipping</span>
                         </dt>
                         <dd className="text-base font-medium text-gray-900">
-                          $35.00
+                          $00.00
                         </dd>
                       </div>
                     </dl>
                   </div>
                   <div className="flex justify-between items-center bg-gray-200 w-full text-lg font-medium px-4 py-1">
                     <div>Total:</div>
-                    <div>$4,850.60</div>
+                    <div><Price value={getTotalPrice()} /></div>
                   </div>
                 </div>
                 <div className="mt-4">
-                  {/* <Link
-                    href="/checkout/a"
-                    className="btn btn-lg btn-secondary !flex items-center justify-center w-full"
-                  > */}
-                    <i
-                      className="fa fa-shopping-cart mr-2"
-                      aria-hidden="true"
-                    ></i>
-                    CHECKOUT NOW
-                  {/* </Link> */}
+                  <Link
+                    id='checkout'
+                    key={'/checkout'}
+                    href="/Checkout"
+                  >
+                    <a
+                      className="btn btn-lg btn-secondary !flex items-center justify-center w-full"
+                    >
+                      <i
+                        className="fa fa-shopping-cart mr-2"
+                        aria-hidden="true"
+                      ></i>
+                      CHECKOUT NOW
+                    </a>
+                  </Link>
                 </div>
                 <div className="mt-4 bg-gray-200 px-4 py-4">
                   <div className="flex items-center justify-center">
@@ -786,7 +816,7 @@ const CartPage = () => {
           </div> */}
         </div>
       </section>
-
+      {console.log(product, showEdit)}
       {showEdit && product && (
         <StartOrderModal
           modalHandler={() => setShowEdit(false)}

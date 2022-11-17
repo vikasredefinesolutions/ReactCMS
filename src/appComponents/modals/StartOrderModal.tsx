@@ -16,6 +16,7 @@ import { CartResponse } from 'definations/APIs/cart.res';
 import getLocation from '../../helpers/getLocation';
 import Image from '../reusables/Image';
 import Price from '../reusables/Price';
+import { addToCart } from '@services/cart.service';
 interface _props {
   product: _ProductDetails;
   // eslint-disable-next-line no-unused-vars
@@ -29,7 +30,7 @@ const StartOrderModal: React.FC<_props> = ({
   editDetails,
 }) => {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
-  const { clearToCheckout, AddToCart } = useActions();
+  const { clearToCheckout, showModal } = useActions();
 
   // ----------------------------STATES ---------------------------------------
   const [allColors, showAllColors] = useState<boolean>(false);
@@ -55,6 +56,7 @@ const StartOrderModal: React.FC<_props> = ({
 
   const addToCartHandler = async () => {
     const location = await getLocation();
+    const tempCustId = localStorage.getItem('tempCustomerId');
     const note = textRef.current?.value;
 
     const cartLogoPersonModel: CartLogoPersonModel[] = [];
@@ -93,7 +95,7 @@ const StartOrderModal: React.FC<_props> = ({
 
     const cartObject: CartReq = {
       addToCartModel: {
-        customerId: customerId || 0,
+        customerId: customerId || (tempCustId ? ~~tempCustId : 0),
         productId: selectedProduct.productId,
         storeId: 4,
         shoppingCartItemModel: {
@@ -124,7 +126,20 @@ const StartOrderModal: React.FC<_props> = ({
       },
     };
     if (cartObject) {
-      AddToCart(cartObject);
+      try {
+        const res = await addToCart(cartObject);
+        if(!customerId)
+        {
+          localStorage.setItem('tempCustomerId', res);
+        }
+        showModal({
+          message: 'Added to cart Successfully',
+          type: 'Success'
+        })
+      } catch (error) {
+        console.log(error);
+      }
+
     }
     // .then((res) => setReviews(res))
     // .catch((err) => console.log('err', err))
@@ -145,7 +160,6 @@ const StartOrderModal: React.FC<_props> = ({
       clearToCheckout();
     };
   }, []);
-
   return (
     <div
       id="startorderModal"

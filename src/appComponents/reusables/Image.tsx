@@ -23,14 +23,14 @@ const ImageComponent: React.FC<_props> = ({ src, alt, className, height, width }
   return (
     // <div className='w-auto h-auto m-auto max-h-[400px]'>
       <NextImage
-      src={imageSrc}
+      src={config.mediaBaseUrl+imageSrc}
       alt={alt || ''}
       // className={className}
       // layout="fill"
       height={height || 1}
       width={width || 1}
       layout="responsive"
-      
+
     // objectFit='contain'
     />
     // </div>

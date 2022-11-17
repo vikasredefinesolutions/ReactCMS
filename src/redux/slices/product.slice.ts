@@ -133,6 +133,7 @@ export const productSlice = createSlice({
     setColor: (state, action) => {
       state.selected.color = action.payload;
       state.toCheckout.minQty = action.payload.minQuantity;
+      state.selected.productId = action.payload.productId;
     },
     setMinQty: (
       state,
@@ -267,6 +268,7 @@ export const productSlice = createSlice({
         };
       },
     ) => {
+      console.log('chance 1');
       const price = action.payload.price === 'FREE' ? 0 : action.payload.price;
       const addOrSubtract = action.payload.type;
 
@@ -332,6 +334,7 @@ export const productSlice = createSlice({
         };
       },
     ) => {
+      console.log('chance 2')
       let productName = action.payload.size;
       let productPrice = action.payload.price;
       let productQty = action.payload.qty;
@@ -472,15 +475,49 @@ export const productSlice = createSlice({
     },
     updateCheckoutObject: (
       state,
+      action
+    ) => {
+      console.log(action);
+      state.toCheckout.totalPrice = action.payload.totalPrice;
+      state.toCheckout.totalQty = action.payload.totalQty;
+      state.toCheckout.sizeQtys = action.payload.sizeQtys;
+    },
+    storeDetails: (
+      state,
       action: {
-        payload: {};
+        payload: {
+          brand: {
+            id: number | null;
+            name: string | null;
+            url: string | null;
+          };
+          product: {
+            id: number | null;
+            name: string | null;
+            price: {
+              msrp: number;
+              ourCost: number;
+              salePrice: number;
+            } | null;
+          };
+        };
       },
     ) => {
-      state.toCheckout = {
-        ...state.toCheckout,
-        ...action.payload,
-      };
+      state.product.brand = action.payload.brand;
+      state.product.id = action.payload.product.id;
+      state.product.name = action.payload.product.name;
+      state.product.price = action.payload.product.price;
     },
+    storeProductColor: (
+      state,
+      action: {
+        payload: {
+          colors: _ProductColor[]
+        };
+      },
+    ) => {
+      state.product.colors = action.payload.colors;
+    }
   },
 });
 

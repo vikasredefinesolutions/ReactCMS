@@ -6,7 +6,6 @@ import ProductFeatures from 'Components/ProductDetails/ProductFeatures';
 import SizeChart from 'Components/ProductDetails/SizeChartModal';
 
 import * as _AppController from 'Controllers/_AppController';
-import * as ProductController from 'Controllers/ProductController';
 
 import { GetServerSideProps, NextPage } from 'next';
 import { __domain } from 'page.config';
@@ -31,11 +30,10 @@ interface _props {
   } | null;
 }
 
-const Product: NextPage<_props> = ({ product }) => {
+const Product: React.FC<_props> = ({ product }) => {
   if (product === null) return <>Product Page Loading... </>;
-  console.log('seo', product);
   const storeLayout = useTypedSelector((state) => state.store.layout);
-  const { store_productDetails, setColor } = useActions();
+  const { store_productDetails, setColor, setShowLoader } = useActions();
 
   if (product?.details === null || product?.details === undefined)
     return <> Product Details not found</>;
@@ -65,6 +63,7 @@ const Product: NextPage<_props> = ({ product }) => {
     if (product.colors) {
       setColor(product.colors[0]);
     }
+    setShowLoader(false);
   }, []);
 
   const HeadTag = (
@@ -149,50 +148,3 @@ const Product: NextPage<_props> = ({ product }) => {
 };
 
 export default Product;
-
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////// SERVER SIDE FUNCTIONS ---------------------------------------
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  let expectedProps: _ExpectedProductProps = {
-    store: null,
-    product: {
-      details: null,
-      colors: null,
-      sizes: null,
-      SEO: null,
-      discount: null,
-    },
-  };
-  try {
-    const domain = __domain.layout || context.req.rawHeaders[1]!;
-    const seName = _SeName.nike;
-    // const pathNames = context.req.url?.split('/')!;
-    // const seName =  pathNames ? pathNames[pathNames?.length - 1] : null;
-
-    if (seName) {
-      expectedProps.store = await _AppController.FetchStoreDetails(
-        domain,
-        seName!,
-      );
-
-      if (expectedProps.store) {
-        expectedProps.product = await ProductController.FetchProductDetails({
-          storeId: expectedProps.store.storeId!,
-          seName: seName,
-        });
-      }
-    }
-  } catch (error) {
-    console.log('Error: Product page => ', error);
-  }
-  // console.log('props: product => ', expectedProps);
-  return {
-    props: {
-      product: expectedProps.product,
-    },
-  };
-};

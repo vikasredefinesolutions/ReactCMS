@@ -1,4 +1,4 @@
-import { storeReturnType } from 'definations/store.type';
+import { _StoreReturnType } from 'definations/store.type';
 import { __domain } from 'page.config';
 import * as HeaderService from 'services/header.service';
 import * as HomeService from 'services/home.service';
@@ -10,7 +10,7 @@ import * as HomeService from 'services/home.service';
 //////////////////////////////////////////////////////////////////////
 
 export const FetchStoreDetails = async (domain: string, pathName: string) => {
-  const store: storeReturnType = {
+  const store: _StoreReturnType = {
     storeId: null,
     layout: null,
     pageType: '',
@@ -34,5 +34,7 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
 };
 
 export const FetchMenuItems = async (storeId: number) => {
-  return HeaderService.FetchStoreMenu({ storeId });
+  return [] 
+  
+  // HeaderService.FetchStoreMenu({ storeId });
 };

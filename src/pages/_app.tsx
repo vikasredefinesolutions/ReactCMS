@@ -5,13 +5,15 @@ import { __domain } from '../page.config';
 import { reduxWrapper } from 'redux/store.redux';
 import * as _AppController from 'Controllers/_AppController';
 import { _StoreMenu } from 'definations/APIs/header.res';
-import { storeReturnType } from 'definations/store.type';
+import { _StoreReturnType } from 'definations/store.type';
 import { useActions } from 'hooks';
 import Spinner from 'appComponents/ui/spinner';
 import '../../styles/output.css';
+import '../app.css'
+import SuccessErrorModal from 'appComponents/modals/successErrorModal';
 
 type AppOwnProps = {
-  store: storeReturnType | null;
+  store: _StoreReturnType | null;
   menuItems: _StoreMenu[];
 };
 
@@ -34,6 +36,7 @@ export function RedefineCustomApp({
 
   return (
     <Spinner>
+      <SuccessErrorModal />
       <Screen>
         <Component {...pageProps} />
       </Screen>
@@ -49,7 +52,7 @@ RedefineCustomApp.getInitialProps = async (
   const pathName = context.ctx.pathname;
 
   const store = await _AppController.FetchStoreDetails(domain, pathName);
-  const menuItems = await _AppController.FetchMenuItems(store.storeId!);
+  const menuItems = await _AppController.FetchMenuItems(2);
 
   return { ...ctx, store, menuItems };
 };

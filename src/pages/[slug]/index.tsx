@@ -1,8 +1,7 @@
 import SeoHead from 'appComponents/Screen/Layout/Head';
-import Head from 'next/head';
+import ProductDetails from 'Components/ProductDetails';
 import ProductList from 'pages/ProductList';
-import ProductListController from 'pages/ProductList/ProductListController';
-import getServerSideProps from './getServerSideProps';
+import {getServerSideProps} from './getServerSideProps';
 export default function Search(props: any) {
     const { pageType, pageData, slug } = props;
     let page = <>Loading ...</>;
@@ -11,7 +10,7 @@ export default function Search(props: any) {
             page = <>Collection</>;
         }
         else if (pageType === 'product') {
-            page = <>'product'</>;
+          page = <ProductDetails product={pageData} />;
         }   
         else if ('brand,category'.includes(pageType)) {
             const { seo } = pageData;
@@ -24,10 +23,7 @@ export default function Search(props: any) {
             page = <>Home</>
         }
     }
-    return <>
-        {page}
-    </>;
+    return <>{page}</>;
 }
 
-
-export { getServerSideProps }
+export { getServerSideProps };
