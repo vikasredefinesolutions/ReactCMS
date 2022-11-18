@@ -11,7 +11,7 @@ export const paths = {
   NOT_FOUND: '/not-found',
   CHECKOUT: '/checkout',
   MY_ACCOUNT: '/my-account',
-  SIGN_UP: '/sign-up',
+  SIGN_UP: '/CreateAccount/SignUp',
   THANK_YOU: '/thank-you',
   CART: '/cart.html',
   BRAND: '/brands.html',
