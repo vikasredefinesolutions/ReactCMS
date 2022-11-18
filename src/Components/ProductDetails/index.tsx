@@ -24,6 +24,7 @@ import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { useRouter } from 'next/router';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles, __fileNames } from 'show.config';
+import ProductReviews from './ProductReviews';
 
 interface _props {
   product: {
@@ -120,7 +121,7 @@ const Product: React.FC<_props> = ({ product }) => {
         <div className={`font-Outfit`}>
           <ProductDetails product={product.details} />
           {/* {show.similarProducts && <ProductAlike products={[product]} />} */}
-          {/* {show.reviews && <ProductReviews reviews={reviews} />} */}
+          <ProductReviews reviews={null} />
         </div>
       </>
     );
@@ -138,7 +139,7 @@ const Product: React.FC<_props> = ({ product }) => {
             heading="DESCRIPTION"
             text={product.details.description}
           />
-          {/* {show.reviews && <ProductReviews reviews={reviews} />} */}
+          <ProductReviews reviews={null} />
         </div>
       </>
     );
@@ -173,7 +174,7 @@ const Product: React.FC<_props> = ({ product }) => {
             text={product.details.description}
           />
           {/* {show.similarProducts && <ProductAlike products={[product]} />} */}
-          {/* {show.reviews && <ProductReviews reviews={reviews} />} */}
+          <ProductReviews reviews={null} />
         </div>
       </>
     );
