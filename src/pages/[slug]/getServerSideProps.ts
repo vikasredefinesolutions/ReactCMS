@@ -11,13 +11,13 @@ import * as _AppController from 'Controllers/_AppController';
 import { GetServerSideProps } from 'next';
 import { _ExpectedProductProps } from '@type/product.type';
 import { getProductDetailProps } from 'Controllers/ProductController';
+import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
+import { conditionalLog } from 'helpers/global.console';
+import { __fileNames } from 'show.config';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const domain = __domain.layout || context.req.rawHeaders[1];
   let store: _StoreReturnType | null = null;
-  let expectedProps: _ExpectedProductProps = {
-    product: null,
-  };
   let slug = '';
   const slugID = context.params && context.params['slug-id'];
 
@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     slug,
   });
   const pageType = data.data.type;
-  let pageData: any | null = null;
+  let pageData: any | null | _ProductDetailsProps = null;
   ////////////////////////////////////////////////
   /////////// Page Type Checks
   ////////////////////////////////////////////////
@@ -43,6 +43,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     pageData = await getProductDetailProps({
       storeId: store.storeId!,
       seName: slug,
+    });
+    conditionalLog({
+      show: true,
+      data: pageData,
+      name: __fileNames.productDetails,
+      type: 'FUNCTION',
     });
   }
 

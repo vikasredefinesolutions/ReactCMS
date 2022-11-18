@@ -9,7 +9,7 @@ import { _StoreReturnType } from 'definations/store.type';
 import { useActions } from 'hooks';
 import Spinner from 'appComponents/ui/spinner';
 import '../../styles/output.css';
-import '../app.css'
+import '../app.css';
 import SuccessErrorModal from 'appComponents/modals/successErrorModal';
 import { highLightError } from 'helpers/common.helper';
 import { _Expected_AppProps } from 'show.type';
@@ -71,7 +71,8 @@ RedefineCustomApp.getInitialProps = async (
 
   conditionalLog({
     data: expectedProps,
-    fileName: __fileNames._app,
+    type: 'NEXTJS PROPS',
+    name: __fileNames._app,
     show: _showConsoles._app,
   });
   return {

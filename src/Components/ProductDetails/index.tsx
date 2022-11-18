@@ -12,6 +12,8 @@ import * as _AppController from 'Controllers/_AppController';
 import { __domain } from 'page.config';
 import {
   _ProductDetails,
+  _ProductDoNotExist,
+  _ProductDoNotExistTransformed,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _ExpectedProductProps } from 'definations/product.type';
@@ -19,9 +21,13 @@ import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
+import { useRouter } from 'next/router';
+import { conditionalLog } from 'helpers/global.console';
+import { __fileNames } from 'show.config';
 
 interface _props {
   product: {
+    doNotExist: _ProductDoNotExistTransformed;
     details: _ProductDetails | null;
     colors: _ProductColor[] | null;
     sizes: _SizeChartTransformed | null;
@@ -32,7 +38,20 @@ interface _props {
 }
 
 const Product: React.FC<_props> = ({ product }) => {
+  const router = useRouter();
   if (product === null) return <>Product Page Loading... </>;
+
+  conditionalLog({
+    show: true,
+    name: __fileNames.productDetails,
+    type: 'PAGE',
+    data: product,
+  });
+
+  if (product.details?.id === null) {
+    router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
+    return <></>;
+  }
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { store_productDetails, setColor, setShowLoader } = useActions();
 
@@ -40,44 +59,58 @@ const Product: React.FC<_props> = ({ product }) => {
     return <> Product Details not found</>;
   }
 
+  const addParams = () => {
+    router.query.altview = '1';
+    router.query.v = 'product-detail';
+    router.push(router);
+  };
+
   useEffect(() => {
-    store_productDetails({
-      brand: {
-        id: product.details!.brandID,
-        name: product.details!.brandName,
-        url: product.details!.brandImage,
-      },
-      product: {
-        id: product.details!.id || null,
-        name: product.details!.name || null,
-        discounts: product.discount || null,
-        sizes: product.details?.sizes || '',
-        sizeChart: product.sizes || null,
-        colors: product.colors || null,
-        inventory: product.inventory || null,
-        price:
-          {
-            msrp: product.details!.msrp,
-            ourCost: product.details!.ourCost,
-            salePrice: product.details!.salePrice,
-          } || null,
-      },
-    });
-    if (product.colors) {
-      setColor(product.colors[0]);
+    addParams();
+
+    if (product.doNotExist === null) {
+      store_productDetails({
+        brand: {
+          id: product.details!.brandID,
+          name: product.details!.brandName,
+          url: product.details!.brandImage,
+        },
+        product: {
+          id: product.details!.id || null,
+          name: product.details!.name || null,
+          discounts: product.discount || null,
+          sizes: product.details?.sizes || '',
+          sizeChart: product.sizes || null,
+          colors: product.colors || null,
+          price:
+            {
+              msrp: product.details!.msrp,
+              ourCost: product.details!.ourCost,
+              salePrice: product.details!.salePrice,
+            } || null,
+          inventory: product.inventory,
+        },
+      });
+      if (product.colors) {
+        setColor(product.colors[0]);
+      }
     }
+
     setShowLoader(false);
   }, []);
 
   const HeadTag = (
     <Head>
-      <title>{product.SEO?.pageTitle}</title>
+      <title>{product.SEO?.pageTitle || product.details.name}</title>
       <meta
         name="description"
-        content={product.SEO?.metaDescription}
+        content={product.SEO?.metaDescription || product.details.description}
         key="desc"
       />
-      <meta name="keywords" content={product.SEO?.metaKeywords} />
+      <meta
+        name="keywords"
+        content={product.SEO?.metaKeywords || product.details.name}
+      />
     </Head>
   );
 
