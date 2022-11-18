@@ -136,6 +136,20 @@ export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
+    setPropertyValues: (
+      state,
+      action: {
+        payload: {
+          propertyName: 'DISCOUNT';
+          data: _ProductDiscountTable | null;
+        };
+      },
+    ) => {
+      const propertyToSet = action.payload.propertyName;
+      if (propertyToSet === 'DISCOUNT') {
+        state.product.discounts = action.payload.data;
+      }
+    },
     setColor: (state, action) => {
       if (state.product.inventory) {
         const inventoryToShow = state.product.inventory?.inventory.find(
@@ -355,7 +369,7 @@ export const productSlice = createSlice({
         };
       },
     ) => {
-      console.log('chance 2')
+      console.log('chance 2');
       let productName = action.payload.size;
       let productPrice = action.payload.price;
       let productQty = action.payload.qty;
@@ -494,10 +508,7 @@ export const productSlice = createSlice({
 
       state.toCheckout.logos = logos;
     },
-    updateCheckoutObject: (
-      state,
-      action
-    ) => {
+    updateCheckoutObject: (state, action) => {
       console.log(action);
       state.toCheckout.totalPrice = action.payload.totalPrice;
       state.toCheckout.totalQty = action.payload.totalQty;
@@ -533,12 +544,12 @@ export const productSlice = createSlice({
       state,
       action: {
         payload: {
-          colors: _ProductColor[]
+          colors: _ProductColor[];
         };
       },
     ) => {
       state.product.colors = action.payload.colors;
-    }
+    },
   },
 });
 

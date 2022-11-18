@@ -13,6 +13,22 @@ export function removeDuplicates(arr: any[]) {
   );
 }
 
+export const getSeName = (component: 'PRODUCT DETAILS' | 'PRODUCT COMPARE') => {
+  const pathName = window.location.pathname;
+  let slug = '';
+
+  if (component === 'PRODUCT DETAILS') {
+    const withoutHTML = pathName.split('.')[0];
+    slug = withoutHTML.split('/')[1];
+  }
+
+  if (component === 'PRODUCT COMPARE') {
+    slug = '';
+  }
+
+  return slug;
+};
+
 export const highLightResponse = ({
   dataToShow,
   component,
