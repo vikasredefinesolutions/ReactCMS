@@ -54,13 +54,15 @@ const StartOrderModal: React.FC<_props> = ({
     // .finally(() => console.log('close loader'));
   };
 
+  console.log(toCheckout);
+
   const addToCartHandler = async () => {
     const location = await getLocation();
     const tempCustId = localStorage.getItem('tempCustomerId');
     const note = textRef.current?.value;
 
     const cartLogoPersonModel: CartLogoPersonModel[] = [];
-
+    
     toCheckout.sizeQtys?.map((res) =>
       cartLogoPersonModel.push({
         attributeOptionId: 0,
