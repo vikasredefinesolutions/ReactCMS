@@ -51,7 +51,16 @@ const AvailableColors: React.FC = () => {
                     className="w-full object-center object-cover"
                   />
                 </div>
-                <div className="">{product.name}</div>
+                <div
+                  className=""
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {product.name}
+                </div>
               </div>
             );
           })}

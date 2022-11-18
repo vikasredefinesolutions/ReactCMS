@@ -1,3 +1,4 @@
+import Image from 'appComponents/reusables/Image';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
 import { UpdateWishList } from 'services/user.service';
@@ -26,7 +27,8 @@ const HeartIcon: React.FC<_props> = (image) => {
       className={image.className}
       onClick={() => addToWishList(selectedColor?.productId || null)}
     >
-      <img src={image.src} title={image.title} alt={image.alt} />
+      HEART
+      <Image src={image.src} alt={image.alt} className={''} />
     </div>
   );
 };
