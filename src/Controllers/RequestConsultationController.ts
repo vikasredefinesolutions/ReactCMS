@@ -1,5 +1,7 @@
 import {
   _ProductDetails,
+  _ProductDoNotExist,
+  _ProductDoNotExistTransformed,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _Reviews } from 'definations/product.type';
@@ -19,15 +21,18 @@ export const FetchProductDetails = async (payload: {
   storeId: number;
   seName: string;
 }): Promise<{
-  details: null | _ProductDetails;
+  details: null | _ProductDetails | _ProductDoNotExist;
   colors: null | _ProductColor[];
+  doNotExist: null | _ProductDoNotExistTransformed;
 }> => {
   const expectedProps: {
     productColors: null | _ProductColor[];
-    productDetails: null | _ProductDetails;
+    productDetails: null | _ProductDetails | _ProductDoNotExist;
+    doNotExist: null | _ProductDoNotExistTransformed;
   } = {
     productColors: null,
     productDetails: null,
+    doNotExist: null,
   };
 
   try {
@@ -37,10 +42,17 @@ export const FetchProductDetails = async (payload: {
       storeId: payload.storeId,
     });
 
-    expectedProps.productColors = await FetchColors({
-      // Request - 2
-      productId: expectedProps.productDetails!.id,
-    });
+    if (expectedProps.productDetails?.id === null) {
+      expectedProps.doNotExist = expectedProps.productDetails.productDoNotExist;
+      expectedProps.productDetails = null;
+    }
+
+    if (expectedProps.productDetails?.id) {
+      expectedProps.productColors = await FetchColors({
+        // Request - 2 based on 1
+        productId: expectedProps.productDetails!.id,
+      });
+    }
   } catch (error) {
     highLightError({ error, component: `Request Consultation Controller` });
   }
@@ -48,5 +60,6 @@ export const FetchProductDetails = async (payload: {
   return {
     details: expectedProps.productDetails,
     colors: expectedProps.productColors,
+    doNotExist: expectedProps.doNotExist,
   };
 };

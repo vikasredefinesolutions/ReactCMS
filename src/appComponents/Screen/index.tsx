@@ -2,7 +2,7 @@ import React from 'react';
 import BreadCrumb from './Layout/BreadCrumb';
 
 import Footer from './Layout/Footer';
-import Header from './Layout/Header';
+import Header from './Layout/Header/index';
 import Notification from './Layout/Notification';
 interface _props {
   children: React.ReactNode;

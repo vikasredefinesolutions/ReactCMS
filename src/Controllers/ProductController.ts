@@ -1,6 +1,7 @@
 import {
   _ProductDetails,
   _ProductDoNotExist,
+  _ProductDoNotExistTransformed,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _Reviews } from 'definations/product.type';
@@ -51,8 +52,7 @@ export const FetchProductDetails = async (payload: {
   let productDiscountTablePrices: null | _ProductDiscountTable = null;
   let productSEOtags: null | _ProductSEO = null;
   let productInventoryList: null | _ProductInventoryTransfomed = null;
-  let doNotExist: null | { retrunUrlOrCategorySename: string; info: string } =
-    null;
+  let doNotExist: null | _ProductDoNotExistTransformed = null;
   // let productReviews: null;
   // let productAlikes: null;
 
@@ -65,6 +65,7 @@ export const FetchProductDetails = async (payload: {
 
     if (productDetails?.id === null) {
       doNotExist = productDetails.productDoNotExist;
+      productDetails = null;
     }
 
     if (productDetails?.id) {
@@ -85,9 +86,11 @@ export const FetchProductDetails = async (payload: {
           storeId: payload.storeId,
         }),
       ]).then((values) => {
-        highLightResponse({
-          dataToShow: values,
-          component: 'Product: All settled',
+        conditionalLog({
+          data: values,
+          type: 'CONTROLLER',
+          name: __fileNames.productDetails,
+          show: _showConsoles.productDetails,
         });
         productColors =
           values[0].status === 'fulfilled' ? values[0].value : null;
