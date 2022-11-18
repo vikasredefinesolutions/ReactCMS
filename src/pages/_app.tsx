@@ -15,6 +15,8 @@ import { highLightError } from 'helpers/common.helper';
 import { _Expected_AppProps } from 'show.type';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles, __fileNames } from 'show.config';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 type AppOwnProps = {
   store: _StoreReturnType | null;
@@ -28,6 +30,20 @@ export function RedefineCustomApp({
   menuItems,
 }: AppProps & AppOwnProps) {
   const { store_storeDetails } = useActions();
+  const router = useRouter();
+  const [pageLoading, setPageLoading] = useState<boolean>(false);
+  useEffect(() => {
+    const handleStart = () => {
+      setPageLoading(true);
+    };
+    const handleComplete = () => {
+      setPageLoading(false);
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+  }, [router]);
 
   if (store) {
     store_storeDetails({
@@ -42,7 +58,15 @@ export function RedefineCustomApp({
     <Spinner>
       <SuccessErrorModal />
       <Screen>
-        <Component {...pageProps} />
+        {pageLoading ? (
+          <div id="root">
+            <div className="loader-wrapper">
+              <div className="loader"></div>
+            </div>
+          </div>
+        ) : (
+          <Component {...pageProps} />
+        )}
       </Screen>
     </Spinner>
   );
