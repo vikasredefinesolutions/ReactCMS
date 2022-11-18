@@ -1,4 +1,4 @@
-export const hideAllConsoles = false;
+export const hideAllConsoles = true;
 
 export const __fileNames = {
   productDetails: 'Product-Details',
