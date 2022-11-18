@@ -247,7 +247,16 @@ const StartOrderModal: React.FC<_props> = ({
                                 className="w-full object-center object-cover"
                               />
                             </div>
-                            <div className="">{color.name}</div>
+                            <div
+                              className=""
+                              style={{
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                              }}
+                            >
+                              {color.name}
+                            </div>
                           </div>
                         ))}
                       </div>

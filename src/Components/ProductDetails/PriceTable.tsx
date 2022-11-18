@@ -18,7 +18,7 @@ const QtyPriceTable: React.FC = () => {
   const { discounts } = useTypedSelector((state) => state.product.product);
 
   useEffect(() => {
-    if (storeId && storeLayout === _Store.type1) {
+    if (storeId && customerId && storeLayout === _Store.type1) {
       FetchDiscountTablePrices({
         storeId: storeId,
         seName: getSeName('PRODUCT DETAILS'),
