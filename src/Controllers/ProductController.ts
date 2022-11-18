@@ -86,9 +86,11 @@ export const FetchProductDetails = async (payload: {
           storeId: payload.storeId,
         }),
       ]).then((values) => {
-        highLightResponse({
-          dataToShow: values,
-          component: 'Product: All settled',
+        conditionalLog({
+          data: values,
+          type: 'CONTROLLER',
+          name: __fileNames.productDetails,
+          show: _showConsoles.productDetails,
         });
         productColors =
           values[0].status === 'fulfilled' ? values[0].value : null;
