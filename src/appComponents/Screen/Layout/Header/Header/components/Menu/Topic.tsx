@@ -44,14 +44,11 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
 
     if (view === 'DESKTOP') {
       return (
-        <Link
-          href={`/${menuUrl}`}
-          className="flex"
-          onMouseOver={() => setFocus(true)}
-          onMouseOut={() => setFocus(false)}
-        >
+        <Link href={`/${menuUrl}`} className="flex">
           <div className="">
             <button
+              onMouseOver={() => setFocus(true)}
+              onMouseOut={() => setFocus(false)}
               type="button"
               className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
                 focus
