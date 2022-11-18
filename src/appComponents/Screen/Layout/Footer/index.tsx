@@ -18,6 +18,7 @@ const Footer: React.FC<_props> = () => {
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
+        <ContactUs />
         <Features features={''} />
         <div className="bg-primary">
           <div className="container mx-auto py-4 lg:py-16">
