@@ -7,7 +7,7 @@ import { paths } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { _modals } from 'definations/product.type';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import AskToLogin from './AskToLogin';
 import AvailableColors from './AvailableColors';
 import AvailableInventoryModal from './AvailableInventoryModal';
@@ -37,6 +37,7 @@ interface _Props {
 }
 
 const ProductInfo: React.FC<_Props> = ({ product }) => {
+  const { setShowLoader } = useActions();
   const [openModal, setOpenModal] = useState<null | _modals>(null);
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
   const { id: userId } = useTypedSelector((state) => state.user);
@@ -159,7 +160,10 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           <div className="mt-10">
             <button
               type="button"
-              onClick={() => setOpenModal('startOrder')}
+              onClick={() => {
+                setOpenModal('startOrder');
+                setShowLoader(true);
+              }}
               className="btn btn-xl btn-secondary !flex items-center justify-center w-full uppercase"
             >
               Start Order

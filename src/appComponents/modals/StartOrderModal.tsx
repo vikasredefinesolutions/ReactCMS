@@ -30,7 +30,7 @@ const StartOrderModal: React.FC<_props> = ({
   editDetails,
 }) => {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
-  const { clearToCheckout, showModal } = useActions();
+  const { clearToCheckout, showModal, setShowLoader } = useActions();
 
   // ----------------------------STATES ---------------------------------------
   const [allColors, showAllColors] = useState<boolean>(false);
@@ -49,9 +49,10 @@ const StartOrderModal: React.FC<_props> = ({
     productId: number;
     attributeOptionId: number[];
   }) => {
-    FetchInventoryById(payload).then((res) => setInventory(res));
-    // .catch((err) => console.log('err', err))
-    // .finally(() => console.log('close loader'));
+    FetchInventoryById(payload)
+      .then((res) => setInventory(res))
+      // .catch((err) => console.log('err', err))
+      .finally(() => setShowLoader(false));
   };
 
   const addToCartHandler = async () => {
@@ -128,18 +129,16 @@ const StartOrderModal: React.FC<_props> = ({
     if (cartObject) {
       try {
         const res = await addToCart(cartObject);
-        if(!customerId)
-        {
+        if (!customerId) {
           localStorage.setItem('tempCustomerId', res);
         }
         showModal({
           message: 'Added to cart Successfully',
-          type: 'Success'
-        })
+          type: 'Success',
+        });
       } catch (error) {
         console.log(error);
       }
-
     }
     // .then((res) => setReviews(res))
     // .catch((err) => console.log('err', err))
@@ -160,6 +159,7 @@ const StartOrderModal: React.FC<_props> = ({
       clearToCheckout();
     };
   }, []);
+
   return (
     <div
       id="startorderModal"
@@ -167,9 +167,7 @@ const StartOrderModal: React.FC<_props> = ({
     >
       <div className="w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
         <div className="relative px-4 w-full max-w-3xl h-full md:h-auto">
-          {inventory === null ? (
-            <div>Loading...</div>
-          ) : (
+          {inventory && (
             <div className="relative bg-white shadow max-h-screen overflow-y-auto">
               <div className="flex justify-between items-start p-5 rounded-t border-b sticky top-0 left-0 bg-white">
                 <h3 className="text-xl font-semibold text-gray-900 lg:text-2xl">
