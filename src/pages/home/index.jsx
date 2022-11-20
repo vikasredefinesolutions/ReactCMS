@@ -39,6 +39,8 @@ const Home = () => {
             .then((data) => {
               if (data.success) {
                  let pageId = data.data.id;
+                 document.title = data.data?.meta_title;
+
                  (async () => {
                      axios.create({
                       baseURL: "https://www.redefinecommerce.net/API/api/",
