@@ -31,6 +31,7 @@ import ProductSKU from './ProductSKU';
 import ProductStarReviews from './ProductStarReviews';
 import SizeChartModal from './SizeChartModal';
 import { useRouter } from 'next/router';
+import TopRatedProducts from './TopRatedProducts';
 
 interface _Props {
   product: _ProductDetails;
@@ -113,7 +114,9 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
                 salePrice: product.salePrice,
               }}
             />
-            <AskToLogin modalHandler={modalHandler} />
+            {!product.isDiscontinue && (
+              <AskToLogin modalHandler={modalHandler} />
+            )}
           </div>
         </>
 
@@ -160,15 +163,22 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           <div className="mt-10">
             <button
               type="button"
+              disabled={product.isDiscontinue}
               onClick={() => {
                 setOpenModal('startOrder');
                 setShowLoader(true);
               }}
               className="btn btn-xl btn-secondary !flex items-center justify-center w-full uppercase"
             >
-              Start Order
+              {product.isDiscontinue ? 'Discontinued' : 'START ORDER'}
             </button>
           </div>
+          {product.isDiscontinue && (
+            <TopRatedProducts
+              title={'Top Rated Alternatives'}
+              suggestedProducts={product.suggestedProducts}
+            />
+          )}
           <div className="mt-5 text-center">
             <button
               onClick={() => router.push(paths.REQUEST_CONSULTATION)}

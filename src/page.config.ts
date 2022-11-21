@@ -12,3 +12,14 @@ export const __Header = {
 export const __domain = {
   layout: _Store.type1,
 };
+
+export const sliderSettings = {
+  topRatedProduct: {
+    dots: false,
+    infinite: false,
+    speed: 0,
+    slidesToShow: 3, // Max --> 3
+    slidesToScroll: 0,
+    draggable: false,
+  },
+};
