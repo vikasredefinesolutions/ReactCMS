@@ -17,6 +17,7 @@ import getLocation from '../../helpers/getLocation';
 import Image from '../reusables/Image';
 import Price from '../reusables/Price';
 import { addToCart } from '@services/cart.service';
+import { highLightError } from 'helpers/common.helper';
 interface _props {
   product: _ProductDetails;
   // eslint-disable-next-line no-unused-vars
@@ -60,7 +61,7 @@ const StartOrderModal: React.FC<_props> = ({
     const note = textRef.current?.value;
 
     const cartLogoPersonModel: CartLogoPersonModel[] = [];
-    
+
     toCheckout.sizeQtys?.map((res) =>
       cartLogoPersonModel.push({
         attributeOptionId: 0,
@@ -136,7 +137,7 @@ const StartOrderModal: React.FC<_props> = ({
           type: 'Success',
         });
       } catch (error) {
-        console.log(error);
+        highLightError({ error, component: 'StartOrderModal' });
       }
     }
     // .then((res) => setReviews(res))

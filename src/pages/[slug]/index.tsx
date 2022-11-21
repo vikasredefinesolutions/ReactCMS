@@ -13,7 +13,6 @@ export default function Search(props: any) {
       page = <ProductDetails product={pageData} />;
     } else if (pageType === 'topic') {
       const { seo } = pageData;
-      console.log(seo);
 
       page = (
         <>
