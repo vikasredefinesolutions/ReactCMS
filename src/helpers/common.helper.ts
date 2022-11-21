@@ -34,10 +34,13 @@ export const c_getSeName = (
 export const highLightResponse = ({
   dataToShow,
   component,
+  display = true,
 }: {
   dataToShow: any;
   component: string;
+  display?: boolean;
 }) => {
+  if (display === false) return;
   console.log(
     `Console.log: Response ======================================================================================================================( ${component} `,
     `)================================================================================================================================================Data>`,
