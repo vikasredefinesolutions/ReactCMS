@@ -133,13 +133,13 @@ const Home = () => {
   return (
    <>
      
-    <div className="font-inter antialiased bg-slate-100 text-gray-500">
+    <div className="">
        <main>
             { componentHtml.length > 0 ? 
                 componentHtml.map((componentValue)=>{
                 const backgroundDefault = loadBackgroundDefault(componentValue);
                 return(
-                    <section className={`mainsection container mx-auto mt-20 text-center ${componentValue.visibility == "off" ? "hidden" : ""}`} style={{ background: backgroundDefault }} id={`div${componentValue.no}`} 
+                    <div className={`commondiv ${componentValue.visibility == "off" ? "hidden" : ""}`} style={{ background: backgroundDefault }} id={`div${componentValue.no}`} 
                     // ref={ref => {
                     //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
                     // }}        
@@ -148,28 +148,28 @@ const Home = () => {
                             <ElementCarouselDisplay bannerArr={componentValue.selectedVal.carousel.value} />
                       </> :
                       <>
+                        <section class="mainsection container mx-auto mt-20">    
                         {Object.keys(componentValue.selectedVal).includes("FullAccordion") ? <>
                           <ul class="mt-4 w-full">
                             <ElementAccordionDisplay acValues={componentValue.selectedVal.FullAccordion.value} />
                           </ul>
                         </> :
                           <>
-                            <div className={`text-center p-5 pt-10 border w-full`}>
-                              <div dangerouslySetInnerHTML={{ __html: componentValue.html }}></div>
-                            </div>
+                            <div className="commondiv" dangerouslySetInnerHTML={{ __html: componentValue.html }}></div>
                           </>
                         }
+                        </section>
                         </>
                       }
-                    </section>
+                    </div>
                     
                     )
                 
                 // return <div key={index} className="text-center p-5 border my-2" dangerouslySetInnerHTML={{ __html: comphtml }}></div>
                 }) : <>
-                <div class="text-center p-5 border my-2"><section classname="mainsection taillwind_content_block_22">
+                <section classname="mainsection taillwind_content_block_22">
                 
-                </section></div></>
+                </section></>
             }
         </main>
       

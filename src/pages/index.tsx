@@ -4,7 +4,6 @@ import { getServerSideProps } from 'pages/[slug]/getServerSideProps';
 export default function Search(props: any) {
     const { pageType, pageData, slug } = props;
 
-    console.log(pageType);
     let page = <>Loading ...</>;
     if (pageType && pageData) {
         if(pageType === 'topic')
