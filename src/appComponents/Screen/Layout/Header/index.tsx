@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { _Store } from 'constants/store.constant';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector, useWindowDimensions } from 'hooks';
 import Notification from '../Notification';
 import LoginIcon from './components/LoginIcon';
 import Logo from './components/Logo';
@@ -10,17 +10,30 @@ import SearchBar from './components/SearchBar';
 import WishListIcon from './components/WishListIcon';
 import MenuItems from './Header/components/Menu/MenuItems';
 import OnePercentLogo from './components/OnePercentLogo';
+import { __Header } from 'page.config';
 
 const Header: React.FC = () => {
   const show = useTypedSelector((state) => state.store.display.header);
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const { width } = useWindowDimensions();
+  const { setView } = useActions();
+  const [mobileView, setMobileView] = useState<boolean>(
+    width <= __Header.mobileBreakPoint,
+  );
+
+  useEffect(() => {
+    const mobile = width <= __Header.mobileBreakPoint;
+    const showMobile = mobile ? 'MOBILE' : 'DESKTOP';
+    setView(showMobile);
+    setMobileView(mobile);
+  }, [width]);
 
   if (storeLayout === _Store.type1) {
     return (
       <section className="bg-white sticky top-0 z-20">
         <div className="bg-white">
           {/* <!-- Mobile menu --> */}
-          <MenuItems screen="MOBILE" />
+          {mobileView && <MenuItems screen="MOBILE" />}
 
           <header className="relative">
             <nav aria-label="Top">
@@ -34,10 +47,10 @@ const Header: React.FC = () => {
 
                       <div className="flex items-center lg:hidden space-x-4 pr-4">
                         <MenuIcon />
-                        <SearchBar screen="MOBILE" />
+                        {mobileView && <SearchBar screen="MOBILE" />}
                       </div>
 
-                      <Logo screen="MOBILE" />
+                      {mobileView && <Logo screen="MOBILE" />}
                       <div className="flex items-center justify-end">
                         <div className="flex items-center lg:ml-6">
                           <div className="flex items-center space-x-4">
@@ -64,7 +77,7 @@ const Header: React.FC = () => {
       <section className="bg-white sticky top-0 z-50">
         <div className="container mx-auto">
           <div x-data="{ open: false }" className="bg-white">
-            <MenuItems screen="MOBILE" />
+            {mobileView && <MenuItems screen="MOBILE" />}
             <header className="relative bg-white border-b border-gray-200">
               <nav aria-label="Top">
                 <div className="">
@@ -72,14 +85,16 @@ const Header: React.FC = () => {
                     <Logo screen="DESKTOP" />
 
                     {/* MOBILE VIEW ---- START */}
-                    <div className="flex items-center lg:hidden space-x-3">
-                      <MenuIcon />
-                      <SearchBar screen="MOBILE" />
-                    </div>
+                    {mobileView && (
+                      <div className="flex items-center lg:hidden space-x-3">
+                        <MenuIcon />
+                        <SearchBar screen="MOBILE" />
+                      </div>
+                    )}
                     {/* MOBILE VIEW ---- END */}
 
                     <SearchBar screen="DESKTOP" />
-                    <Logo screen="MOBILE" />
+                    {mobileView && <Logo screen="MOBILE" />}
                     <div className="flex items-center justify-end">
                       <div className="flex items-center">
                         <div className="flex items-center space-x-3">
@@ -106,7 +121,7 @@ const Header: React.FC = () => {
         id=""
       >
         <div className="container mx-auto">
-          <MenuItems screen="MOBILE" />
+          {mobileView && <MenuItems screen="MOBILE" />}
           <header className="relative border-b border-b-gray-200">
             {/* <!-- <div className="lg:hidden text-center">
                   <a href="index.html" className="inline-block pt-4">
@@ -117,14 +132,16 @@ const Header: React.FC = () => {
               <div className="">
                 <div className="py-3 flex items-center justify-between gap-3">
                   <Logo screen="DESKTOP" />
-                  <div className="flex items-center lg:hidden space-x-3">
-                    <MenuIcon />
-                    <SearchBar screen="MOBILE" />
-                  </div>
+                  {mobileView && (
+                    <div className="flex items-center lg:hidden space-x-3">
+                      <MenuIcon />
+                      <SearchBar screen="MOBILE" />
+                    </div>
+                  )}
 
                   <SearchBar screen="DESKTOP" />
 
-                  <Logo screen="MOBILE" />
+                  {mobileView && <Logo screen="MOBILE" />}
 
                   <div className="flex items-center justify-end">
                     <div className="flex items-center">
@@ -152,7 +169,7 @@ const Header: React.FC = () => {
         id="header"
       >
         <div className="">
-          <MenuItems screen="MOBILE" />
+          {mobileView && <MenuItems screen="MOBILE" />}
           <header className="relative">
             <nav aria-label="Top">
               <div className="">
@@ -161,12 +178,14 @@ const Header: React.FC = () => {
                     <Logo screen="DESKTOP" />
                     <MenuItems screen="DESKTOP" />
 
-                    <div className="flex items-center lg:hidden space-x-4">
-                      <MenuIcon />
-                      <SearchBar screen="MOBILE" />
-                    </div>
+                    {mobileView && (
+                      <div className="flex items-center lg:hidden space-x-4">
+                        <MenuIcon />
+                        <SearchBar screen="MOBILE" />
+                      </div>
+                    )}
 
-                    <Logo screen="MOBILE" />
+                    {mobileView && <Logo screen="MOBILE" />}
                     <div className="flex items-center justify-end">
                       <div className="flex items-center lg:ml-6">
                         <div className="flex items-center space-x-4">

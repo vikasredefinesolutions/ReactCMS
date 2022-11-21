@@ -44,7 +44,6 @@ const StartOrderModal: React.FC<_props> = ({
   const colors = useTypedSelector((state) => state.product.product.colors);
   const customerId = useTypedSelector((state) => state.user.customer.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
-    console.log(colors);
   const showInventoryFor = (payload: {
     productId: number;
     attributeOptionId: number[];
@@ -53,8 +52,6 @@ const StartOrderModal: React.FC<_props> = ({
     // .catch((err) => console.log('err', err))
     // .finally(() => console.log('close loader'));
   };
-
-  console.log(toCheckout);
 
   const addToCartHandler = async () => {
     const location = await getLocation();

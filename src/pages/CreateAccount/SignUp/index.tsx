@@ -6,9 +6,9 @@ import * as Yup from 'yup';
 import { signupPageMessages } from 'constants/validationMessages';
 import { paths, queryParam } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
-import { _SignUpPayload } from '../../definations/APIs/signUp.req';
-import { _Country, _Industry, _State } from '../../definations/user.type';
-import getLocation from '../../helpers/getLocation';
+import { _SignUpPayload } from '../../../definations/APIs/signUp.req';
+import { _Country, _Industry, _State } from '../../../definations/user.type';
+import getLocation from '../../../helpers/getLocation';
 import { useTypedSelector } from 'hooks';
 import {
   CreateNewAccount,

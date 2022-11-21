@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { Seo } from '@type/slug.type';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
@@ -18,6 +19,7 @@ import {
 import { _Reviews } from 'definations/product.type';
 import { BrandFilter, FilterApiRequest } from 'definations/productList.type';
 import { conditionalLog } from 'helpers/global.console';
+import { _showConsoles } from 'show.config';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const FetchProductById = async (payload: {
@@ -50,7 +52,7 @@ export const FetchProductById = async (payload: {
       data: error,
       name: 'FetchProductById',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
     return null;
@@ -103,7 +105,7 @@ export const FetchSizeChartById = async (
       data: error,
       name: 'FetchSizeChartById',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
     return null;
@@ -143,7 +145,7 @@ export const FetchInventoryById = async (payload: {
       data: error,
       name: 'FetchInventoryById',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
     return null;
@@ -176,7 +178,7 @@ export const FetchColors = async ({
       data: error,
       name: 'FetchColors',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
     return null;
@@ -224,7 +226,7 @@ export const FetchDiscountTablePrices = async (payload: {
       data: error,
       name: 'FetchDiscountTablePrices',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
 
@@ -291,7 +293,7 @@ export const FetchProductSEOtags = async ({
       data: error,
       name: 'FetchProductSEOtags',
       type: 'API',
-      show: true,
+      show: _showConsoles.services.productDetails,
       error: true,
     });
 
@@ -307,7 +309,7 @@ export const FetchBrandProductList = async ({
   seName: string;
 }) => {
   const url = `Brand/getbrandseodetails/${storeId}/${seName}.json`;
-  const res = await SendAsyncV2<_ProductSEO>({
+  const res = await SendAsyncV2<Seo>({
     url: url,
     method: 'GET',
   });

@@ -23,7 +23,7 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { useRouter } from 'next/router';
 import { conditionalLog } from 'helpers/global.console';
-import { __fileNames } from 'show.config';
+import { _showConsoles, __fileNames } from 'show.config';
 
 interface _props {
   product: {
@@ -39,35 +39,34 @@ interface _props {
 
 const Product: React.FC<_props> = ({ product }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (product?.doNotExist) {
+      router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
+    }
+  }, []);
+
   if (product === null) return <>Product Page Loading... </>;
 
   conditionalLog({
-    show: true,
+    show: _showConsoles.productDetails,
     name: __fileNames.productDetails,
     type: 'PAGE',
     data: product,
   });
 
-  if (product.details?.id === null) {
-    router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
+  if (product.doNotExist) {
     return <></>;
   }
+
+  if (product?.details === null || product?.details === undefined) {
+    return <> Product Details not found </>;
+  }
+
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { store_productDetails, setColor, setShowLoader } = useActions();
 
-  if (product?.details === null || product?.details === undefined) {
-    return <> Product Details not found</>;
-  }
-
-  const addParams = () => {
-    router.query.altview = '1';
-    router.query.v = 'product-detail';
-    router.push(router);
-  };
-
   useEffect(() => {
-    addParams();
-
     if (product.doNotExist === null) {
       store_productDetails({
         brand: {

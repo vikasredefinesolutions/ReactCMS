@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { _Store } from 'constants/store.constant';
 import { _StoreMenu } from 'definations/APIs/header.res';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import { FetchStoreMenu } from 'services/header.service';
 import Backdrop from '../Backdrop';
 import CloseIcon from '../Icons/CloseIcon';

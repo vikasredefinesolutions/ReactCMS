@@ -1,7 +1,8 @@
+import { ProductListPageData, SlugPropType } from "@type/slug.type";
 import SeoHead from "appComponents/Screen/Layout/Head";
 import ProductList from "pages/ProductList";
 import { getServerSideProps } from "./getServerSideProps";
-const ProductListing = (props: any) => {
+const ProductListing = (props: SlugPropType) => {
     const { pageType, pageData, slug } = props;
     let page = <>Loading ...</>;
     if (pageType) {
@@ -12,10 +13,10 @@ const ProductListing = (props: any) => {
             page = <>'product'</>;
         }
         else if ('brand,category'.includes(pageType)) {
-            const { seo } = pageData;
-            page =
+            const { seo } = pageData as ProductListPageData;
+            page = 
                 <>
-                    <SeoHead title={seo?.seTitle} description={seo?.seDescription} keywords={seo?.seKeyWords} />
+                    {seo && <SeoHead title={seo?.seTitle} description={seo?.seDescription} keywords={seo?.seKeyWords} />}
                     <ProductList pageData={pageData} slug={slug} />
                 </>
         }

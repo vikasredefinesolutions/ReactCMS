@@ -21,8 +21,6 @@ const ProductComponent = ({
     color: string,
   ) => void;
 }) => {
-  console.log(product);
-  const { setShowLoader } = useActions()
   const [origin, setOrigin] = useState('');
   const [currentProduct, setCurrentProduct] = useState(
     product.getProductImageOptionList[0],
@@ -83,12 +81,10 @@ const ProductComponent = ({
               <div className="mt-1 text-anchor min-h-[48px]">
                 <Link
                   key={product.id}
-                  href={`${origin}/${product.sename}.html?v=product-detail`}
+                  href={`${origin}/${product.sename}.html?v=product-detail&altview=1`}
+                  className="relative underline min-h-[48px]"
                 >
-                  <a
-                    onClick={() => setShowLoader(true)}
-                    className="relative underline min-h-[48px]"
-                  >
+                  <a>
                     <span className="absolute inset-0"></span>
                     {product.name}
                   </a>
@@ -96,7 +92,9 @@ const ProductComponent = ({
               </div>
               <div className="mt-3 text-black text-base tracking-wider">
                 <span className="font-semibold">
-                  <>MSRP <Price value={product.salePrice} /></>
+                  <>
+                    MSRP <Price value={product.salePrice} />
+                  </>
                 </span>
               </div>
               {product.getProductImageOptionList.length > 0 && (
@@ -107,10 +105,11 @@ const ProductComponent = ({
                   {product.getProductImageOptionList.map((subRow, index) =>
                     index < 6 ? (
                       <li
-                        className={`w-7 h-7 border-2${subRow.id === currentProduct.id
+                        className={`w-7 h-7 border-2${
+                          subRow.id === currentProduct.id
                             ? ' border-secondary'
                             : ''
-                          }`}
+                        }`}
                         onClick={() => {
                           colorChangeHandler(
                             product.id,

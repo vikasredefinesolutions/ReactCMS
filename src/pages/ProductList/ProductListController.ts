@@ -36,6 +36,10 @@ const ProductListController = (
     getListingWithPagination(data.product) || null,
   );
 
+  const [showSortMenu, setShowSortMenu] = useState(false);
+  const [productView, setProductView] = useState('grid');
+  const [showFilter, setShowFilter] = useState(false);
+
   const storeId = 4;
   const brandId = 169;
   const customerId = 1;
@@ -158,12 +162,18 @@ const ProductListController = (
     filters,
     product,
     totalCount: allProduct.length,
+    showSortMenu,
+    productView,
+    showFilter,
     handleChange,
     colorChangeHandler,
     setFilters,
     setProduct,
     loadMore,
     sortProductJson,
+    setShowSortMenu,
+    setProductView,
+    setShowFilter,
   };
 };
 

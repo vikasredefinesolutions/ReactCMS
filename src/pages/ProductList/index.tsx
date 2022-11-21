@@ -7,6 +7,22 @@ import {
 import Layout1 from './layouts/layout1';
 import ProductListController from './ProductListController';
 
+export type list_FnProps = {
+  filters: FilterType;
+  products: ProductListType;
+  checkedFilters: any;
+  totalCount: number;
+  productView: string,
+  showFilter: boolean,
+  showSortMenu: boolean,
+  colorChangeHandler: ColorChangeHandler;
+  handleChange: FilterChangeHandler;
+  loadMore: () => void;
+  sortProductJson: (arg: number) => void;
+  setShowSortMenu: (arg: boolean) => void;
+  setProductView: (arg: string) => void;
+  setShowFilter: (arg: boolean) => void;
+}
 const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
   const { checkedFilters } = pageData;
   const {
@@ -15,10 +31,9 @@ const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
     totalCount,
     productView,
     showFilter,
+    showSortMenu,
     handleChange,
     colorChangeHandler,
-    setFilters,
-    setProduct,
     loadMore,
     sortProductJson,
     setShowSortMenu,
@@ -27,6 +42,7 @@ const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
   } = ProductListController(pageData, slug, checkedFilters || []);
   return (
     <Layout1
+      showSortMenu={showSortMenu}
       filters={filters}
       products={product}
       colorChangeHandler={colorChangeHandler}
@@ -35,6 +51,11 @@ const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
       totalCount={totalCount}
       loadMore={loadMore}
       sortProductJson={sortProductJson}
+      productView={productView}
+      showFilter={showFilter}
+      setShowSortMenu={setShowSortMenu}
+      setProductView={setProductView}
+      setShowFilter={setShowFilter}
     />
   );
 };

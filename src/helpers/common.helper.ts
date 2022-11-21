@@ -3,6 +3,7 @@ import { _ProductDiscountTable } from '@type/APIs/discountTable.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { _ProductDetails, _ProductSEO } from '@type/APIs/productDetail.res';
 import { _SizeChartTransformed } from '@type/APIs/sizeChart.res';
+import { ParsedUrlQuery } from 'querystring';
 import { _showConsoles, __fileNames } from 'show.config';
 import { _conditionalLog } from 'show.type';
 
@@ -21,7 +22,7 @@ export const highLightResponse = ({
   component: string;
 }) => {
   console.log(
-    `Console.log: Response ===========================================================================================================================================( ${component} `,
+    `Console.log: Response ======================================================================================================================( ${component} `,
     `)================================================================================================================================================Data>`,
     dataToShow,
     `<Data=============================================================================================================================================================================================END>`,
@@ -36,9 +37,26 @@ export const highLightError = ({
   component: string;
 }) => {
   console.log(
-    `Console.log: ERROR ========================================================================================================================================Error( ${component} )`,
+    `Console.log: ERROR ================================================================================================================Error( ${component} )`,
     `================================================================================================================================================Data>`,
     error,
     `<Data===============================================================================================================================================================================================END`,
   );
 };
+
+export const extractSlugName = (contextParam?: ParsedUrlQuery ) => {
+  let slug = '';
+  let slugID: string[] = [];
+  if(contextParam)
+  {
+    slugID = contextParam['slug-id'] as string[];
+    if (slugID) {
+      slug = slugID.at(-1)?.replace('.html', '') || '';
+    } else {
+      const paramsSlug = contextParam!;
+
+      slug = paramsSlug ? (paramsSlug?.slug as string).replace('.html', '') : '';
+    }
+  }
+  return {slug, slugID};
+}
