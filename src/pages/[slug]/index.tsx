@@ -1,6 +1,5 @@
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import ProductDetails from 'Components/ProductDetails';
-import Home from 'pages/Home';
 import ProductList from 'pages/ProductList';
 import {getServerSideProps} from './getServerSideProps';
 import Head from 'next/head';
