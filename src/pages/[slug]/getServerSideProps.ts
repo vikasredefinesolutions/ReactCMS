@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (slugID) {
     slug = slugID.at(-1)?.replace('.html', '') || '';
-  } else {
+  } else if(slug != '') {
     const paramsSlug = context.params!;
     // @ts-ignore: Unreachable code error
     slug = paramsSlug.slug.replace('.html', '');
@@ -36,9 +36,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
   const pageType = data.data.type;
   let pageData: any | null | _ProductDetailsProps = null;
+  let seo: any = null;
   ////////////////////////////////////////////////
   /////////// Page Type Checks
   ////////////////////////////////////////////////
+  if('topic'.includes(pageType))
+  {
+    pageData = [];
+    seo = [];
+    seo['seDescription'] = data.data?.meta_description;
+    seo['seKeyWords'] = data.data.meta_keywords;
+    seo['seTitle'] = data.data.meta_title;
+    pageData['seo'] = seo;
+
+  }
   if (pageType === 'product') {
     pageData = await getProductDetailProps({
       storeId: store.storeId!,
