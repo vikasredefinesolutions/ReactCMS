@@ -33,7 +33,6 @@ const ElementAccordionDisplay = ({acValues}) => {
     return (
        
         <>
-{console.log(acValues)}
         {acValues.length > 0 && <>
             
                 {acValues.map((acValue) =>  { 

@@ -36,6 +36,10 @@ const ProductListController = (
     getListingWithPagination(data.product) || null,
   );
 
+  const [showSortMenu, setShowSortMenu] = useState(false);
+  const [productView, setProductView] = useState('grid');
+  const [showFilter, setShowFilter] = useState(false);
+
   const storeId = 4;
   const brandId = 169;
   const customerId = 1;
@@ -51,6 +55,10 @@ const ProductListController = (
       setShowLoader(false);
     }
   }, [allProduct]);
+
+  useEffect(() => {
+    setShowLoader(false);
+  }, [slug, checkedFilters]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -132,15 +140,14 @@ const ProductListController = (
   };
 
   const sortProductJson = (type: number) => {
+    // setProduct([]);
     setCurrentCount(perPageCount);
     let newList = [...allProduct];
     if (type === 1) {
-      console.log(allProduct);
-
       newList = newList.sort((pro1, pro2) => (pro1.id > pro2.id ? 1 : -1));
     } else if (type === 2) {
       newList = newList.sort((pro1, pro2) =>
-      pro1.salePrice > pro2.salePrice ? 1 : -1,
+        pro1.salePrice > pro2.salePrice ? 1 : -1,
       );
     } else if (type === 3) {
       newList = newList.sort((pro1, pro2) =>
@@ -155,12 +162,18 @@ const ProductListController = (
     filters,
     product,
     totalCount: allProduct.length,
+    showSortMenu,
+    productView,
+    showFilter,
     handleChange,
     colorChangeHandler,
     setFilters,
     setProduct,
     loadMore,
     sortProductJson,
+    setShowSortMenu,
+    setProductView,
+    setShowFilter,
   };
 };
 

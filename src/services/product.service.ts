@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { Seo } from '@type/slug.type';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
@@ -308,7 +309,7 @@ export const FetchBrandProductList = async ({
   seName: string;
 }) => {
   const url = `Brand/getbrandseodetails/${storeId}/${seName}.json`;
-  const res = await SendAsyncV2<_ProductSEO>({
+  const res = await SendAsyncV2<Seo>({
     url: url,
     method: 'GET',
   });

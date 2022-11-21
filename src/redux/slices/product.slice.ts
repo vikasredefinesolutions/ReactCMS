@@ -289,7 +289,6 @@ export const productSlice = createSlice({
         };
       },
     ) => {
-      console.log('chance 1');
       const price = action.payload.price === 'FREE' ? 0 : action.payload.price;
       const addOrSubtract = action.payload.type;
 
@@ -355,7 +354,6 @@ export const productSlice = createSlice({
         };
       },
     ) => {
-      console.log('chance 2')
       let productName = action.payload.size;
       let productPrice = action.payload.price;
       let productQty = action.payload.qty;
@@ -498,7 +496,6 @@ export const productSlice = createSlice({
       state,
       action
     ) => {
-      console.log(action);
       state.toCheckout.totalPrice = action.payload.totalPrice;
       state.toCheckout.totalQty = action.payload.totalQty;
       state.toCheckout.sizeQtys = action.payload.sizeQtys;
