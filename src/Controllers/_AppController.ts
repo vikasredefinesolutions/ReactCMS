@@ -24,6 +24,7 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
     layout: null,
     pageType: '',
     pathName: '',
+    isAttributeSaparateProduct: false,
   };
 
   try {
@@ -31,6 +32,7 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
       store.storeId = res.id;
       store.layout = __domain.layout;
       store.pathName = pathName;
+      store.isAttributeSaparateProduct = res.isAttributeSaparateProduct;
       return res.id;
     });
   } catch (error) {

@@ -3,4 +3,5 @@ export interface _StoreReturnType {
   layout: null | string;
   pageType: string;
   pathName: string;
+  isAttributeSaparateProduct: boolean;
 }

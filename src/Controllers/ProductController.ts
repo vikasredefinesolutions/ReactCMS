@@ -24,6 +24,7 @@ import { conditionalLog } from 'helpers/global.console';
 export const getProductDetailProps = async (payload: {
   storeId: number;
   seName: string;
+  isAttributeSaparateProduct: boolean;
 }) => {
   return await FetchProductDetails(payload);
 };
@@ -37,6 +38,7 @@ export const getProductDetailProps = async (payload: {
 export const FetchProductDetails = async (payload: {
   storeId: number;
   seName: string;
+  isAttributeSaparateProduct: boolean;
 }): Promise<{
   details: null | _ProductDetails | _ProductDoNotExist;
   colors: null | _ProductColor[];
@@ -73,6 +75,8 @@ export const FetchProductDetails = async (payload: {
       await Promise.allSettled([
         FetchColors({
           productId: productDetails!.id,
+          storeId: payload.storeId,
+          isAttributeSaparateProduct: payload.isAttributeSaparateProduct,
         }),
         FetchSizeChartById(productDetails!.id),
         FetchDiscountTablePrices({
