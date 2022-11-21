@@ -25,6 +25,7 @@ import { useRouter } from 'next/router';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles, __fileNames } from 'show.config';
 import ProductReviews from './ProductReviews';
+import ProductAlike from './ProductAlike';
 
 interface _props {
   product: {
@@ -41,7 +42,26 @@ interface _props {
 const Product: React.FC<_props> = ({ product }) => {
   const router = useRouter();
 
+  const addParams = () => {
+    router.query.altview = '1';
+    router.query.v = 'product-detail';
+    router.push(router);
+  };
+
+  const addHtml = () => {
+    console.log(router.pathname);
+  };
+
   useEffect(() => {
+    if (!window.location.pathname.includes('.html')) {
+      addHtml();
+    } else if (
+      router.query.altview === undefined ||
+      router.query.v === undefined
+    ) {
+      addParams();
+    }
+
     if (product?.doNotExist) {
       router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
     }
@@ -111,6 +131,17 @@ const Product: React.FC<_props> = ({ product }) => {
         name="keywords"
         content={product.SEO?.metaKeywords || product.details.name}
       />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        charSet="UTF-8"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+      />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+      />
     </Head>
   );
 
@@ -120,8 +151,8 @@ const Product: React.FC<_props> = ({ product }) => {
         {HeadTag}
         <div className={`font-Outfit`}>
           <ProductDetails product={product.details} />
-          {/* {show.similarProducts && <ProductAlike products={[product]} />} */}
           <ProductReviews reviews={null} />
+          <ProductAlike />
         </div>
       </>
     );
@@ -133,13 +164,13 @@ const Product: React.FC<_props> = ({ product }) => {
         {HeadTag}
         <div className={`font-Outfit tracking-wider`}>
           <ProductDetails product={product.details} />
-          {/* {show.similarProducts && <ProductAlike products={[product]} />} */}
           <ProductFeatures fewFeatures />
           <ProductDescription
             heading="DESCRIPTION"
             text={product.details.description}
           />
           <ProductReviews reviews={null} />
+          <ProductAlike />
         </div>
       </>
     );
@@ -156,8 +187,7 @@ const Product: React.FC<_props> = ({ product }) => {
             text={product.details.description}
           />
           <SizeChart modalHandler={() => 'Do nothing'} modal={'NO'} />
-
-          {/* {show.similarProducts && <ProductAlike products={[product]} />} */}
+          <ProductAlike />
         </div>
       </>
     );
@@ -173,7 +203,7 @@ const Product: React.FC<_props> = ({ product }) => {
             heading="Description"
             text={product.details.description}
           />
-          {/* {show.similarProducts && <ProductAlike products={[product]} />} */}
+          <ProductAlike />
           <ProductReviews reviews={null} />
         </div>
       </>
