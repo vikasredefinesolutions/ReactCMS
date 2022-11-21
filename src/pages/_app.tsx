@@ -31,7 +31,7 @@ export function RedefineCustomApp({
 }: AppProps & AppOwnProps) {
   const { store_storeDetails } = useActions();
   const router = useRouter();
-  const [pageLoading, setPageLoading] = useState<boolean>(false);
+  const [pageLoading, setPageLoading] = useState<boolean>(true);
   useEffect(() => {
     const handleStart = () => {
       setPageLoading(true);
@@ -45,14 +45,18 @@ export function RedefineCustomApp({
     router.events.on('routeChangeError', handleComplete);
   }, [router]);
 
+  useEffect(() => {
+    if (store) {
+      setPageLoading(false);
+    }
+  }, []);
+
   if (store) {
     store_storeDetails({
       store: store,
       menuItems: menuItems,
     });
   }
-
-  if (store === null) return <>LOADING STORE DETAILS</>;
 
   return (
     <Spinner>
