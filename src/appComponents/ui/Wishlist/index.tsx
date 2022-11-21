@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTypedSelector } from 'hooks';
 import { AddToWishlist, removeWishlist } from 'services/wishlist.service';
+import LoginModal from 'appComponents/modals/LoginModal';
+import ForgotModal from 'appComponents/modals/ForgotModal';
+import { _modals } from '@type/product.type';
 const Wishlist = ({
   iswishlist,
   productId,
@@ -19,9 +22,14 @@ const Wishlist = ({
   name: string;
   wishlistId?: number;
 }) => {
+  const [showModal, setShowModal] = useState<null | string>(null)
   const [wishlist, setWishlist] = useState(false);
-  const customerId = useTypedSelector((state) => state.user.id);
+  const customerId = null;
   const wishlistHandler = async () => {
+    if (!customerId) {
+      setShowModal('login');
+      return;
+    }
     const { data } = await axios.get('https://geolocation-db.com/json/');
     const requestObject = {
       storeproductWishListModel: {
@@ -55,11 +63,23 @@ const Wishlist = ({
     setWishlist(iswishlist);
   }, [iswishlist]);
 
-  return wishlist ? (
+  const modalHandler = (arg: _modals | null) => {
+    setShowModal(arg);
+  }
+
+  const wishlistHtml = wishlist ? (
     <FavoriteIcon sx={{ color: 'orange' }} onClick={removeWishlistHandler} />
   ) : (
     <FavoriteBorderOutlinedIcon onClick={wishlistHandler} />
   );
+
+  return (
+    <>
+      {showModal === 'login' && <LoginModal modalHandler={modalHandler} />}
+        {showModal === 'forgot' && <ForgotModal modalHandler={modalHandler} />}
+      {wishlistHtml}
+    </>
+  )
 };
 
 export default Wishlist;

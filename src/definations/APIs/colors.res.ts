@@ -7,8 +7,8 @@ export interface _FetchColors {
 
 export interface _ProductColor {
   productId: number;
-  productName: string;
-  productSEName: string;
+  productName?: string;
+  productSEName?: string;
   attributeOptionId: number;
   name: string;
   imageUrl: string;

@@ -44,7 +44,6 @@ const StartOrderModal: React.FC<_props> = ({
   const colors = useTypedSelector((state) => state.product.product.colors);
   const customerId = useTypedSelector((state) => state.user.customer.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
-
   const showInventoryFor = (payload: {
     productId: number;
     attributeOptionId: number[];
@@ -61,7 +60,7 @@ const StartOrderModal: React.FC<_props> = ({
     const note = textRef.current?.value;
 
     const cartLogoPersonModel: CartLogoPersonModel[] = [];
-
+    
     toCheckout.sizeQtys?.map((res) =>
       cartLogoPersonModel.push({
         attributeOptionId: 0,

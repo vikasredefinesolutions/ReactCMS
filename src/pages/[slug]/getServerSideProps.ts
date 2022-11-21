@@ -6,7 +6,7 @@ import {
   FetchBrandProductList,
   FetchFiltersJsonByBrand,
 } from '@services/product.service';
-import { ProductList } from '@type/productList.type';
+import { BrandFilter, ProductList } from '@type/productList.type';
 import * as _AppController from 'Controllers/_AppController';
 import { GetServerSideProps } from 'next';
 import { _ExpectedProductProps } from '@type/product.type';
@@ -14,40 +14,40 @@ import { getProductDetailProps } from 'Controllers/ProductController';
 import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles, __fileNames } from 'show.config';
+import {
+  Filter,
+  FilterOption,
+  Product,
+  ProductListPageData,
+  TopicProps,
+} from '@type/slug.type';
+import { extractSlugName } from 'helpers/common.helper';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const domain = __domain.layout || context.req.rawHeaders[1];
   let store: _StoreReturnType | null = null;
-  let slug = '';
-  const slugID = context.params && context.params['slug-id'];
-
-  if (slugID) {
-    slug = slugID.at(-1)?.replace('.html', '') || '';
-  } else if (slug != '') {
-    const paramsSlug = context.params!;
-    // @ts-ignore: Unreachable code error
-    slug = paramsSlug.slug.replace('.html', '');
-  }
-
+  const { slug, slugID } = extractSlugName(context.params);
   store = await _AppController.FetchStoreDetails(domain, slug!);
   const { data } = await getPageType({
     store_id: 4,
     slug,
   });
   const pageType = data.data.type;
-  let pageData: any | null | _ProductDetailsProps = null;
+  let pageData: ProductListPageData | null | _ProductDetailsProps | TopicProps =
+    null;
   let seo: any = null;
   ////////////////////////////////////////////////
   /////////// Page Type Checks
   ////////////////////////////////////////////////
-  if ('topic'.includes(pageType)) {
-    pageData = [];
-    seo = [];
+  if (pageType === 'topic') {
+    seo = {};
+    pageData = {} as TopicProps;
     seo['seDescription'] = data.data?.meta_description;
     seo['seKeyWords'] = data.data.meta_keywords;
     seo['seTitle'] = data.data.meta_title;
     pageData['seo'] = seo;
   }
+
   if (pageType === 'product') {
     pageData = await getProductDetailProps({
       storeId: store.storeId!,
@@ -82,30 +82,33 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       );
     }
 
-    let product: ProductList = [];
+    let product: Product[] = [];
     const filter = {
       storeID: 4,
       brandId: 169,
       customerId: 1,
       filterOptionforfaceteds: filterOptionforfaceteds,
     };
-    pageData = await FetchFiltersJsonByBrand(filter);
-    const _filters = [];
-    for (const key in pageData) {
-      const element = pageData[key];
+    const BrandFilt: BrandFilter = await FetchFiltersJsonByBrand(filter);
+    const _filters: Filter[] = [];
+    for (const key in BrandFilt) {
+      const element = BrandFilt[key];
       if (element.length > 0 && key !== 'getlAllProductList') {
         _filters.push({
-          label: element[0].label,
-          options: element,
+          label: element[0].label || '',
+          options: element as FilterOption[],
         });
       } else if (key === 'getlAllProductList') {
-        product = element;
+        product = element as Product[];
       }
     }
-    pageData['seo'] = seo;
-    pageData['filters'] = _filters;
-    pageData['product'] = product;
-    pageData['checkedFilters'] = filterOptionforfaceteds;
+    const page = {} as ProductListPageData;
+    pageData = {} as ProductListPageData;
+    page['seo'] = seo;
+    page['filters'] = _filters;
+    page['product'] = product as Product[];
+    page['checkedFilters'] = filterOptionforfaceteds;
+    pageData = page;
   }
   return {
     props: {
