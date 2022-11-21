@@ -49,7 +49,7 @@ const Product: React.FC<_props> = ({ product }) => {
   };
 
   const addHtml = () => {
-    console.log(router.pathname);
+    // console.log(router.pathname);
   };
 
   useEffect(() => {
@@ -152,7 +152,7 @@ const Product: React.FC<_props> = ({ product }) => {
         <div className={`font-Outfit`}>
           <ProductDetails product={product.details} />
           <ProductReviews reviews={null} />
-          <ProductAlike />
+          <ProductAlike title="YOU MAY ALSO LIKE" />
         </div>
       </>
     );
@@ -170,7 +170,7 @@ const Product: React.FC<_props> = ({ product }) => {
             text={product.details.description}
           />
           <ProductReviews reviews={null} />
-          <ProductAlike />
+          <ProductAlike title="YOU MAY ALSO LIKE" />
         </div>
       </>
     );
@@ -187,7 +187,7 @@ const Product: React.FC<_props> = ({ product }) => {
             text={product.details.description}
           />
           <SizeChart modalHandler={() => 'Do nothing'} modal={'NO'} />
-          <ProductAlike />
+          <ProductAlike title="YOU MAY ALSO LIKE" />
         </div>
       </>
     );
@@ -203,7 +203,7 @@ const Product: React.FC<_props> = ({ product }) => {
             heading="Description"
             text={product.details.description}
           />
-          <ProductAlike />
+          <ProductAlike title="YOU MAY ALSO LIKE" />
           <ProductReviews reviews={null} />
         </div>
       </>

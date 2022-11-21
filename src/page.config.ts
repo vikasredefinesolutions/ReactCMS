@@ -22,4 +22,11 @@ export const sliderSettings = {
     slidesToScroll: 0,
     draggable: false,
   },
+  similarProducts: {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+  },
 };
