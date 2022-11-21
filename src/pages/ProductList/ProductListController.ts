@@ -52,6 +52,10 @@ const ProductListController = (
     }
   }, [allProduct]);
 
+  useEffect(() => {
+    setShowLoader(false);
+  }, [slug, checkedFilters]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -139,7 +143,7 @@ const ProductListController = (
       newList = newList.sort((pro1, pro2) => (pro1.id > pro2.id ? 1 : -1));
     } else if (type === 2) {
       newList = newList.sort((pro1, pro2) =>
-      pro1.salePrice > pro2.salePrice ? 1 : -1,
+        pro1.salePrice > pro2.salePrice ? 1 : -1,
       );
     } else if (type === 3) {
       newList = newList.sort((pro1, pro2) =>

@@ -21,6 +21,7 @@ const ProductComponent = ({
     color: string,
   ) => void;
 }) => {
+  console.log(product);
   const { setShowLoader } = useActions()
   const [origin, setOrigin] = useState('');
   const [currentProduct, setCurrentProduct] = useState(
@@ -128,20 +129,6 @@ const ProductComponent = ({
                       </li>
                     ) : null,
                   )}
-                  {/* 
-                  {product.subRows.length > 6 && (
-                    <li className="w-7 h-7 border-2 border-light-gray hover:border-secondary relative">
-                      <img
-                        src="https://www.corporategear.com/Resources/parsonskellogg/Product/color/197285_5696313_color_nkfg.jpg"
-                        alt=""
-                        title=""
-                        className=""
-                      />
-                      <span className="absolute inset-0 bg-primary text-xs font-semibold flex items-center justify-center text-white">
-                        +{product.subRows.length - 6}
-                      </span>
-                    </li>
-                  )} */}
                 </ul>
               )}
             </div>
