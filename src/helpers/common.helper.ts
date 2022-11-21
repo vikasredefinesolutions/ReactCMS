@@ -13,7 +13,9 @@ export function removeDuplicates(arr: any[]) {
   );
 }
 
-export const getSeName = (component: 'PRODUCT DETAILS' | 'PRODUCT COMPARE') => {
+export const c_getSeName = (
+  component: 'PRODUCT DETAILS' | 'PRODUCT COMPARE',
+) => {
   const pathName = window.location.pathname;
   let slug = '';
 

@@ -4,7 +4,7 @@ import { _Store } from 'constants/store.constant';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { useActions, useTypedSelector } from 'hooks';
 import { FetchDiscountTablePrices } from '@services/product.service';
-import { getSeName } from 'helpers/common.helper';
+import { c_getSeName } from 'helpers/common.helper';
 
 const QtyPriceTable: React.FC = () => {
   const { setPropertyValues } = useActions();
@@ -21,7 +21,7 @@ const QtyPriceTable: React.FC = () => {
     if (storeId && customerId && storeLayout === _Store.type1) {
       FetchDiscountTablePrices({
         storeId: storeId,
-        seName: getSeName('PRODUCT DETAILS'),
+        seName: c_getSeName('PRODUCT DETAILS'),
         customerId: customerId || 0,
         attributeOptionId: selectedColor.attributeOptionId,
       }).then((res) =>
