@@ -1,5 +1,6 @@
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import ProductDetails from 'Components/ProductDetails';
+import Home from 'pages/Home';
 import ProductList from 'pages/ProductList';
 import {getServerSideProps} from './getServerSideProps';
 import Head from 'next/head';
@@ -20,16 +21,8 @@ export default function Search(props: any) {
                         console.log(seo);
 
             page = <>
-                <Head>
-                    <title>{seo?.seTitle}</title>
-                    <meta
-                        name="description"
-                        content={seo?.seDescription}
-                        key="desc"
-                    />
-                    <meta name="keywords" content={seo?.seKeyWords} />
-                </Head>
-                <Home pageData={pageData} />
+                <SeoHead title={seo?.seTitle} description={seo?.seDescription} keywords={seo?.seKeyWords} />
+                <Home />
             </>
         }   
         else if ('brand,category'.includes(pageType)) {
@@ -40,7 +33,11 @@ export default function Search(props: any) {
             </>
         }
         else {
-            page = <>Home</>
+            const { seo } = pageData;
+            page =<>
+             <SeoHead title={seo?.seTitle} description={seo?.seDescription} keywords={seo?.seKeyWords} />
+            <Home />
+            </>
         }
     }
     return <>{page}</>;

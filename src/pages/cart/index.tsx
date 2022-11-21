@@ -37,7 +37,6 @@ const CartPage = () => {
   const [coupon, setCoupon] = useState('');
 
   const loadProduct = (product: CartResponse) => {
-    console.log(product);
     if (storeId) {
       const obj = {
         totalQty: product.totalQty,
@@ -48,7 +47,6 @@ const CartPage = () => {
         })),
         totalPrice: product.totalPrice,
       };
-      console.log(obj)
       updateCheckoutObject(obj);
       setCurrentCartProduct(product);
       FetchProductById({
@@ -121,10 +119,8 @@ const CartPage = () => {
   };
 
   const getTotalPrice = () => {
-  console.log(cartProducts)
   let totalPrice = 0;
   cartProducts.forEach((res: any) => { totalPrice += res.totalPrice });
-  console.log(totalPrice)
   return totalPrice;
 }
 
@@ -816,7 +812,6 @@ const CartPage = () => {
           </div> */}
         </div>
       </section>
-      {console.log(product, showEdit)}
       {showEdit && product && (
         <StartOrderModal
           modalHandler={() => setShowEdit(false)}

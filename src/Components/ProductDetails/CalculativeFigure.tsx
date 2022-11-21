@@ -5,7 +5,6 @@ import { useTypedSelector } from 'hooks';
 const CalculativeFigure: React.FC = () => {
   const { totalPrice, totalQty, price, logo, additionalLogoCharge } =
     useTypedSelector((state) => state.product.toCheckout);
-  console.log(totalPrice, totalQty, price, logo, additionalLogoCharge);
   return (
     <div className="bg-gray-100 p-4 flex flex-wrap items-end justify-between gap-2 text-sm mb-6">
       <div className="">

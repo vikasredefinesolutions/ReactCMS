@@ -20,7 +20,7 @@ export default function Search(props: any) {
                     />
                     <meta name="keywords" content={seo?.seKeyWords} />
                 </Head>
-                <Home pageData={pageData} />
+                <Home />
             </>
         }
 
