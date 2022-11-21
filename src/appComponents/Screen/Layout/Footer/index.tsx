@@ -14,7 +14,7 @@ const Footer: React.FC<_props> = () => {
 
   if (storeLayout === _Store.type1) {
     return (
-      <footer className="bg-white" aria-labelledby="footer-heading">
+      <footer className="bg-white pt-10" aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>

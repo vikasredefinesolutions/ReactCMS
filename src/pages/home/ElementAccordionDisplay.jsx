@@ -38,7 +38,7 @@ const ElementAccordionDisplay = ({acValues}) => {
                 {acValues.map((acValue) =>  { 
 
                     return (
-                        <li className='mb-4 last:mb-0 hasarr clonnable border-b border-black' onClick={showHideAccordion} >
+                        <li className='mb-4 last:mb-0 border-b border-black' onClick={showHideAccordion} >
                             <button className='w-full flex justify-between items-center text-left font-bold font-heading px-2 py-4 border-0 hover:border-0'>
                                 <div className='text-defaule-text'>
                                     {acValue.title}

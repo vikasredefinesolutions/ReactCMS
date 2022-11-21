@@ -1,5 +1,7 @@
 @import url('react-inner-image-zoom/lib/InnerImageZoom/styles.css');
 @import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback);
+@import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
+
 
 @import url(https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap);
 .carousel .slide img {
@@ -767,11 +769,11 @@ select{
 .z-50{
   z-index: 50;
 }
-.z-40{
-  z-index: 40;
-}
 .z-20{
   z-index: 20;
+}
+.z-40{
+  z-index: 40;
 }
 .order-2{
   order: 2;
@@ -1455,11 +1457,6 @@ select{
   margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
 }
-.space-x-6 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
 .space-y-3 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1484,6 +1481,11 @@ select{
   --tw-space-x-reverse: 0;
   margin-right: calc(0.75rem * var(--tw-space-x-reverse));
   margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-x-6 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .space-x-5 > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 0;
@@ -1784,10 +1786,6 @@ select{
 .bg-gray-50{
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-}
-.bg-slate-100{
-  --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 .bg-gray-800{
   --tw-bg-opacity: 1;
@@ -2103,9 +2101,6 @@ select{
 .pb-5{
   padding-bottom: 1.25rem;
 }
-.pt-10{
-  padding-top: 2.5rem;
-}
 .pt-1{
   padding-top: 0.25rem;
 }
@@ -2132,6 +2127,9 @@ select{
 }
 .pb-8{
   padding-bottom: 2rem;
+}
+.pt-10{
+  padding-top: 2.5rem;
 }
 .pb-1{
   padding-bottom: 0.25rem;
@@ -2501,10 +2499,6 @@ select{
 }
 .no-underline{
   text-decoration-line: none;
-}
-.antialiased{
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 .placeholder-gray-500::-moz-placeholder{
   --tw-placeholder-opacity: 1;

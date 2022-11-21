@@ -42,6 +42,7 @@ export const FetchPageType = async (payload: {
   storeId: number;
 }) => {
   const url = `/front/get-page-type?store_id=${payload.storeId}&slug=${payload.slug}`;
+  console.log(url);
   try {
     const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
       url: url,
