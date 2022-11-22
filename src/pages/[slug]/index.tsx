@@ -1,8 +1,8 @@
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import ProductDetails from 'Components/ProductDetails';
-import Home from 'pages/Home';
 import ProductList from 'pages/ProductList';
 import { getServerSideProps } from './getServerSideProps';
+import Home from 'pages/Home';
 export default function Search(props: any) {
   const { pageType, pageData, slug } = props;
   let page = <>Loading ...</>;
