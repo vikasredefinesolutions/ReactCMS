@@ -154,10 +154,19 @@ export const FetchInventoryById = async (payload: {
 
 export const FetchColors = async ({
   productId,
+  storeId,
+  isAttributeSaparateProduct,
 }: {
   productId: number;
+  storeId: number;
+  isAttributeSaparateProduct: boolean;
 }): Promise<_ProductColor[] | null> => {
-  const url = `StoreProduct/getproductattributecolor/${productId}.json`;
+  let url = '';
+  if (isAttributeSaparateProduct === true) {
+    url = `https://redefine-front-staging.azurewebsites.net/StoreProduct/getproductattributecolorbyseparation/${productId}/${storeId}.json`;
+  } else {
+    url = `StoreProduct/getproductattributecolor/${productId}.json`;
+  }
 
   try {
     const res = await SendAsyncV2<_ProductColor[]>({
@@ -169,7 +178,7 @@ export const FetchColors = async ({
       data: res.data,
       name: 'FetchColors',
       type: 'API',
-      show: res.data === null,
+      show: res.data === null || res.data.length === 0,
     });
 
     return res.data;

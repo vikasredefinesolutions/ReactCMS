@@ -20,6 +20,7 @@ import { highLightError } from 'helpers/common.helper';
 export const FetchProductDetails = async (payload: {
   storeId: number;
   seName: string;
+  isAttributeSaparateProduct: boolean;
 }): Promise<{
   details: null | _ProductDetails | _ProductDoNotExist;
   colors: null | _ProductColor[];
@@ -50,6 +51,8 @@ export const FetchProductDetails = async (payload: {
     if (expectedProps.productDetails?.id) {
       expectedProps.productColors = await FetchColors({
         // Request - 2 based on 1
+        storeId: payload.storeId,
+        isAttributeSaparateProduct: payload.isAttributeSaparateProduct,
         productId: expectedProps.productDetails!.id,
       });
     }

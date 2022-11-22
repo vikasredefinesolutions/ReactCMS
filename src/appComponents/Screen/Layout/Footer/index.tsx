@@ -7,6 +7,8 @@ import NewsLetterBox from '../NewsLetterBox';
 import CopyRight from './CopyRight';
 import Features from './Features';
 import OnePercentSection from './OnePercentSection';
+import Link from 'next/link';
+import { paths } from '@constants/paths.constant';
 interface _props {}
 const Footer: React.FC<_props> = () => {
   // const {} = useTypedSelector(state => state.store.display.footer);
@@ -18,6 +20,7 @@ const Footer: React.FC<_props> = () => {
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
+        <ContactUs />
         <Features features={''} />
         <div className="bg-primary">
           <div className="container mx-auto py-4 lg:py-16">
@@ -31,12 +34,12 @@ const Footer: React.FC<_props> = () => {
                   className="mt-4 text-center md:text-left mb-6 md:mb-0"
                 >
                   <li>
-                    {/* <Link
-                  href={paths.SPECIAL_REQUEST}
-                  className="text-base text-gray-200 hover:text-gray-100"
-                >
-                  Special Request
-                </Link> */}
+                    <Link
+                      href={paths.SPECIAL_REQUEST}
+                      className="text-base text-gray-200 hover:text-gray-100"
+                    >
+                      Special Request
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -126,6 +129,7 @@ const Footer: React.FC<_props> = () => {
             </div>
           </div>
         </div>
+
         <CopyRight copyRight={footer.copyRight} />
       </footer>
     );

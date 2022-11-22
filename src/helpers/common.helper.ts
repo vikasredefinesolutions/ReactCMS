@@ -14,13 +14,34 @@ export function removeDuplicates(arr: any[]) {
   );
 }
 
+export const c_getSeName = (
+  component: 'PRODUCT DETAILS' | 'PRODUCT COMPARE',
+) => {
+  const pathName = window.location.pathname;
+  let slug = '';
+
+  if (component === 'PRODUCT DETAILS') {
+    const withoutHTML = pathName.split('.')[0];
+    slug = withoutHTML.split('/')[1];
+  }
+
+  if (component === 'PRODUCT COMPARE') {
+    slug = '';
+  }
+
+  return slug;
+};
+
 export const highLightResponse = ({
   dataToShow,
   component,
+  display = true,
 }: {
   dataToShow: any;
   component: string;
+  display?: boolean;
 }) => {
+  if (display === false) return;
   console.log(
     `Console.log: Response ======================================================================================================================( ${component} `,
     `)================================================================================================================================================Data>`,

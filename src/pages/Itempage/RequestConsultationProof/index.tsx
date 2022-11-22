@@ -96,12 +96,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         domain,
         seName!,
       );
-
       if (expectedProps.store) {
         expectedProps.product =
           await ConsultationController.FetchProductDetails({
             storeId: expectedProps.store.storeId!,
             seName: seName,
+            isAttributeSaparateProduct:
+              expectedProps.store.isAttributeSaparateProduct,
           });
       }
     }

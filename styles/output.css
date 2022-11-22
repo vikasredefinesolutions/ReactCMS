@@ -654,6 +654,9 @@ select{
 .collapse{
   visibility: collapse;
 }
+.static{
+  position: static;
+}
 .fixed{
   position: fixed;
 }
@@ -951,17 +954,17 @@ select{
 .mb-2\.5{
   margin-bottom: 0.625rem;
 }
-.-ml-2{
-  margin-left: -0.5rem;
-}
-.-mr-2{
-  margin-right: -0.5rem;
-}
 .ml-4{
   margin-left: 1rem;
 }
 .mt-12{
   margin-top: 3rem;
+}
+.-ml-2{
+  margin-left: -0.5rem;
+}
+.-mr-2{
+  margin-right: -0.5rem;
 }
 .mb-20{
   margin-bottom: 5rem;
@@ -1071,11 +1074,11 @@ select{
 .h-60{
   height: 15rem;
 }
-.h-14{
-  height: 3.5rem;
-}
 .h-40{
   height: 10rem;
+}
+.h-14{
+  height: 3.5rem;
 }
 .h-2\/3{
   height: 66.666667%;
@@ -1204,9 +1207,6 @@ select{
 .w-14{
   width: 3.5rem;
 }
-.w-screen{
-  width: 100vw;
-}
 .w-1\/4{
   width: 25%;
 }
@@ -1215,6 +1215,9 @@ select{
 }
 .w-52{
   width: 13rem;
+}
+.w-screen{
+  width: 100vw;
 }
 .min-w-0{
   min-width: 0px;
@@ -1712,6 +1715,10 @@ select{
 .border-gray-500{
   --tw-border-opacity: 1;
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+.border-slate-800{
+  --tw-border-opacity: 1;
+  border-color: rgb(30 41 59 / var(--tw-border-opacity));
 }
 .border-gray-400{
   --tw-border-opacity: 1;
@@ -2447,16 +2454,6 @@ select{
   --tw-text-opacity: 1;
   color: rgb(225 29 72 / var(--tw-text-opacity));
 }
-.text-secondary{
-  color: var(--tw-theme-btn-secondary-color);
-}
-.text-secondary-hover{
-  color: var(--tw-theme-btn-secondary-hover-color);
-}
-.text-\[\#051C2C\]{
-  --tw-text-opacity: 1;
-  color: rgb(5 28 44 / var(--tw-text-opacity));
-}
 .text-\[\#0A1C2B\]{
   --tw-text-opacity: 1;
   color: rgb(10 28 43 / var(--tw-text-opacity));
@@ -2464,6 +2461,12 @@ select{
 .text-rose-500{
   --tw-text-opacity: 1;
   color: rgb(244 63 94 / var(--tw-text-opacity));
+}
+.text-secondary{
+  color: var(--tw-theme-btn-secondary-color);
+}
+.text-secondary-hover{
+  color: var(--tw-theme-btn-secondary-hover-color);
 }
 .text-small-title{
   color: var(--tw-theme-small-title-color);
@@ -3335,14 +3338,14 @@ select{
   .lg\:ml-5{
     margin-left: 1.25rem;
   }
+  .lg\:mt-0{
+    margin-top: 0px;
+  }
   .lg\:-ml-4{
     margin-left: -1rem;
   }
   .lg\:-mr-4{
     margin-right: -1rem;
-  }
-  .lg\:mt-0{
-    margin-top: 0px;
   }
   .lg\:ml-6{
     margin-left: 1.5rem;

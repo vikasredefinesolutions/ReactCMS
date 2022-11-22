@@ -16,7 +16,7 @@ export const paths = {
   CART: '/cart.html',
   BRAND: '/brands.html',
   WISHLIST: '/wishlist',
-  WRITEREVIEW: '/writereview',
+  WRITE_A_REVIEW: '/writereview/writereview',
   REQUEST_CONSULTATION: '/itempage/RequestConsultationProof',
   CUSTOMIZE_LOGO: '/customize',
   PRODUCT_COMPARE: '/compare',

@@ -18,6 +18,7 @@ const ProductPrice: React.FC<_props> = ({ msrp }) => {
       <div className="text-gray-700 pt-1 text-sm">
         <span className="font-semibold inline-block w-16">MSRP </span>
         <span>
+          {`: `}
           <Price value={msrp} />
         </span>
       </div>

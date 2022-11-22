@@ -17,7 +17,7 @@ interface _Props {
 
 const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
   const router = useRouter();
-  const { updateUserDetails } = useActions();
+  const { updateUserDetails, setShowLoader } = useActions();
 
   const { layout: storeLayout, id: storeId } = useTypedSelector(
     (state) => state.store,
@@ -30,10 +30,11 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
   };
 
   const signInHandler = (enteredInputs: {
-    email: string;
+    userName: string;
     password: string;
     keepMeLoggedIn: boolean;
   }) => {
+    setShowLoader(true);
     signInUser({ ...enteredInputs, storeId: storeId! })
       .then((userId) => {
         modalHandler(null);
@@ -42,7 +43,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
         });
       })
       .catch(() => 'Handle Error')
-      .finally(() => 'Stop loader');
+      .finally(() => setShowLoader(false));
   };
 
   if (storeLayout === _Store.type3) {
@@ -54,7 +55,11 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
         <div className="w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
           <div className="relative px-4 w-full max-w-2xl h-fullborder border-neutral-200 inline-block h-auto">
             <Formik
-              initialValues={{ email: '', password: '', keepMeLoggedIn: false }}
+              initialValues={{
+                userName: '',
+                password: '',
+                keepMeLoggedIn: false,
+              }}
               onSubmit={signInHandler}
               // validationSchema={validationSchema}
             >
@@ -91,8 +96,8 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                           <Input
                             label={''}
                             placeHolder={'Enter the email'}
-                            name={'email'}
-                            value={values.email}
+                            name={'userName'}
+                            value={values.userName}
                             onChange={handleChange}
                             type={'email'}
                             required={false}
@@ -199,7 +204,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
               </div>
               <Formik
                 initialValues={{
-                  email: '',
+                  userName: '',
                   password: '',
                   keepMeLoggedIn: false,
                 }}
@@ -215,8 +220,8 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                           <Input
                             label={''}
                             placeHolder={'Enter the email'}
-                            name={'email'}
-                            value={values.email}
+                            name={'userName'}
+                            value={values.userName}
                             onChange={handleChange}
                             type={'email'}
                             required={false}
@@ -344,7 +349,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                 <div className="mb-4 text-center">SIGN IN</div>
                 <Formik
                   initialValues={{
-                    email: '',
+                    userName: '',
                     password: '',
                     keepMeLoggedIn: false,
                   }}
@@ -359,8 +364,8 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             label={''}
                             id="email-address0"
                             placeHolder={'Enter the email'}
-                            name={'email'}
-                            value={values.email}
+                            name={'userName'}
+                            value={values.userName}
                             onChange={handleChange}
                             type={'email'}
                             required={false}

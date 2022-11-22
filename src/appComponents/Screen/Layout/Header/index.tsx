@@ -32,7 +32,6 @@ const Header: React.FC = () => {
     return (
       <section className="bg-white sticky top-0 z-20">
         <div className="bg-white">
-          {/* <!-- Mobile menu --> */}
           {mobileView && <MenuItems screen="MOBILE" />}
 
           <header className="relative">
