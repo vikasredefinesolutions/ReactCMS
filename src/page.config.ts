@@ -14,14 +14,6 @@ export const __domain = {
 };
 
 export const sliderSettings = {
-  topRatedProduct: {
-    dots: false,
-    infinite: false,
-    speed: 0,
-    slidesToShow: 3, // Max --> 3
-    slidesToScroll: 0,
-    draggable: false,
-  },
   similarProducts: {
     dots: false,
     infinite: true,
