@@ -1,58 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Price from 'appComponents/reusables/Price';
 import { _Store } from 'constants/store.constant';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
-import { useTypedSelector } from 'hooks';
-import { FetchDiscountTablePrices } from 'services/product.service';
+import { useActions, useTypedSelector } from 'hooks';
+import { FetchDiscountTablePrices } from '@services/product.service';
+import { c_getSeName } from 'helpers/common.helper';
 
 const QtyPriceTable: React.FC = () => {
-  const storeLayout = useTypedSelector((state) => state.store.layout);
-  const customerId = useTypedSelector((state) => state.user.id);
-  const [discounts, setDiscounts] = useState<null | _ProductDiscountTable>(
-    null,
+  const { setPropertyValues } = useActions();
+  const { layout: storeLayout, id: storeId } = useTypedSelector(
+    (state) => state.store,
   );
+  const customerId = useTypedSelector((state) => state.user.id);
+  const selectedColor = useTypedSelector(
+    (state) => state.product.selected.color,
+  );
+  const { discounts } = useTypedSelector((state) => state.product.product);
 
   useEffect(() => {
-    // if (store.id === null || user.id === null) return;
-    // FetchDiscountTablePrices({
-    //   storeId: store.id!,
-    //   seName: store.seName,
-    //   customerId: user.id!,
-    //   attributeOptionId: 0,
-    // }).then((res) => console.log('res', res));
-
-    FetchDiscountTablePrices({
-      storeId: 4,
-      seName: 'Nike-Men-s-Club-Fleece-Sleeve-Swoosh-Pullover-Hoodie',
-      customerId: customerId || 0,
-      attributeOptionId: 1380,
-    }).then(setDiscounts);
-  }, []);
+    if (storeId && customerId && storeLayout === _Store.type1) {
+      FetchDiscountTablePrices({
+        storeId: storeId,
+        seName: c_getSeName('PRODUCT DETAILS'),
+        customerId: customerId || 0,
+        attributeOptionId: selectedColor.attributeOptionId,
+      }).then((res) =>
+        setPropertyValues({
+          propertyName: 'DISCOUNT',
+          data: res,
+        }),
+      );
+    }
+  }, [customerId, storeLayout]);
 
   if (storeLayout === _Store.type1) {
     return (
-      <div className="bg-gray-100 flex flex-wrap text-center border border-gray-300">
-        <div className="hidden md:block text-left">
-          <div className="p-1 px-2 border-r border-b border-gray-300 font-semibold">
-            Quantity:
-          </div>
-          <div className="p-1 px-2 border-r border-gray-300 font-semibold">
-            Price:
-          </div>
-        </div>
-        <div className="flex flex-wrap text-center grow">
-          {discounts?.subRows?.map((column) => (
-            <div className="sm:w-1/5" key={column.discountPrice}>
-              <div className="p-1 px-2 border-b border-gray-300">
-                {column.displayQuantity}
+      <>
+        {customerId !== null && (
+          <div className="bg-gray-100 flex flex-wrap text-center border border-gray-300">
+            <div className="hidden md:block text-left">
+              <div className="p-1 px-2 border-r border-b border-gray-300 font-semibold">
+                Quantity:
               </div>
-              <div className="p-1 px-2">
-                <Price value={column.discountPrice} />
+              <div className="p-1 px-2 border-r border-gray-300 font-semibold">
+                Price:
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+            <div className="flex flex-wrap text-center grow">
+              {discounts?.subRows?.map((column) => (
+                <div className="sm:w-1/5" key={column.discountPrice}>
+                  <div className="p-1 px-2 border-b border-gray-300">
+                    {column.displayQuantity}
+                  </div>
+                  <div className="p-1 px-2">
+                    <Price value={column.discountPrice} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </>
     );
   }
 

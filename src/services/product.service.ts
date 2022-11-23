@@ -10,6 +10,7 @@ import {
 import {
   _ProductDetails,
   _ProductDoNotExist,
+  _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import {
@@ -154,10 +155,19 @@ export const FetchInventoryById = async (payload: {
 
 export const FetchColors = async ({
   productId,
+  storeId,
+  isAttributeSaparateProduct,
 }: {
   productId: number;
+  storeId: number;
+  isAttributeSaparateProduct: boolean;
 }): Promise<_ProductColor[] | null> => {
-  const url = `StoreProduct/getproductattributecolor/${productId}.json`;
+  let url = '';
+  if (isAttributeSaparateProduct === true) {
+    url = `https://redefine-front-staging.azurewebsites.net/StoreProduct/getproductattributecolorbyseparation/${productId}/${storeId}.json`;
+  } else {
+    url = `StoreProduct/getproductattributecolor/${productId}.json`;
+  }
 
   try {
     const res = await SendAsyncV2<_ProductColor[]>({
@@ -169,7 +179,7 @@ export const FetchColors = async ({
       data: res.data,
       name: 'FetchColors',
       type: 'API',
-      show: res.data === null,
+      show: res.data === null || res.data.length === 0,
     });
 
     return res.data;
@@ -225,6 +235,40 @@ export const FetchDiscountTablePrices = async (payload: {
     conditionalLog({
       data: error,
       name: 'FetchDiscountTablePrices',
+      type: 'API',
+      show: _showConsoles.services.productDetails,
+      error: true,
+    });
+
+    return null;
+  }
+};
+
+export const FetchSimilartProducts = async (payload: {
+  storeId: number;
+  productId: number;
+}): Promise<_ProductsAlike[] | null> => {
+  const url = `StoreProduct/getyoumaylikeproducts/${payload.productId}/${payload.storeId}.json`;
+
+  try {
+    const res = await SendAsyncV2<_ProductsAlike[]>({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
+
+    conditionalLog({
+      data: res.data,
+      name: 'FetchSimilartProducts',
+      type: 'API',
+      show: res.data === null || res.data.length === 0,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchSimilartProducts',
       type: 'API',
       show: _showConsoles.services.productDetails,
       error: true,

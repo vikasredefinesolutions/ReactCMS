@@ -1,8 +1,7 @@
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import ProductDetails from 'Components/ProductDetails';
 import ProductList from 'pages/ProductList';
-import {getServerSideProps} from './getServerSideProps';
-import Head from 'next/head';
+import { getServerSideProps } from './getServerSideProps';
 import Home from 'pages/Home';
 export default function Search(props: any) {
     const { pageType, pageData, slug } = props;
@@ -44,7 +43,8 @@ export default function Search(props: any) {
             </>
         }
     }
-    return <>{page}</>;
+ 
+  return <>{page}</>;
 }
 
 export { getServerSideProps };

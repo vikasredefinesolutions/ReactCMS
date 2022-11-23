@@ -85,9 +85,9 @@ const Brand: React.FC<_props> = ({
                 onMouseOver={() => setFocus(true)}
                 onMouseLeave={() => setFocus(false)}
                 className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
-                  sideMenu === 'OPEN'
+                  focus
                     ? `border-b-primary text-primary-hover`
-                    : 'border-transparent text-white hover:text-primary-hover'
+                    : `border-transparent text-white hover:text-primary-hover`
                 }`}
               >
                 <span className="uppercase text-primary">{menuTitle}</span>
@@ -110,11 +110,13 @@ const Brand: React.FC<_props> = ({
               >
                 <div className="relative bg-gray-100 z-50">
                   <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-wrap border-t first:border-t-0 py-5 px-5 border pt-8">
-                      {brandImages.map((image) => (
-                        <BrandImage url={image} alt={image} src={image} />
-                      ))}
-                    </div>
+                    {brandImages.length > 0 && (
+                      <div className="flex flex-wrap border-t first:border-t-0 py-5 px-5 border pt-8">
+                        {brandImages.map((image) => (
+                          <BrandImage url={image} alt={image} src={image} />
+                        ))}
+                      </div>
+                    )}
                     <div className="border-t first:border-t-0 py-5 px-5">
                       <div className="flex flex-wrap gap-y-2">
                         <ul className="w-full lg:w-1/3">
