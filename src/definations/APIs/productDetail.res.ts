@@ -96,6 +96,11 @@ export interface _ProductSEO {
   pinterestOpenGraphDescription: string;
 }
 
-export interface Errors {}
-
-export interface Errors {}
+export interface _ProductsAlike {
+  id: number;
+  name: string;
+  msrp: number;
+  seName: string;
+  image: null | string;
+  categoryId: number;
+}
