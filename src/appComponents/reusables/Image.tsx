@@ -10,7 +10,7 @@ interface _props {
   className: string;
   width?: number | string;
   height?: number | string;
-  key?: number | string
+  key?: number | string;
 }
 
 const ImageComponent: React.FC<_props> = ({
@@ -25,7 +25,6 @@ const ImageComponent: React.FC<_props> = ({
     let url = '';
     if (src) {
       const srcWithHTTPs = src.includes('http');
-      console.log('https exist', srcWithHTTPs);
 
       if (srcWithHTTPs) {
         url = src;

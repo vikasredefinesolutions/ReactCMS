@@ -2,6 +2,7 @@ import {
   _ProductDetails,
   _ProductDoNotExist,
   _ProductDoNotExistTransformed,
+  _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _Reviews } from 'definations/product.type';
@@ -12,18 +13,20 @@ import {
   FetchSizeChartById,
   FetchProductById,
   FetchProductSEOtags,
+  FetchSimilartProducts,
 } from 'services/product.service';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
-import { highLightError, highLightResponse } from 'helpers/common.helper';
+import { highLightError } from 'helpers/common.helper';
 import { _showConsoles, __fileNames } from 'show.config';
 import { conditionalLog } from 'helpers/global.console';
 
 export const getProductDetailProps = async (payload: {
   storeId: number;
   seName: string;
+  isAttributeSaparateProduct: boolean;
 }) => {
   return await FetchProductDetails(payload);
 };
@@ -37,12 +40,14 @@ export const getProductDetailProps = async (payload: {
 export const FetchProductDetails = async (payload: {
   storeId: number;
   seName: string;
+  isAttributeSaparateProduct: boolean;
 }): Promise<{
   details: null | _ProductDetails | _ProductDoNotExist;
   colors: null | _ProductColor[];
   sizes: null | _SizeChartTransformed;
   discount: null | _ProductDiscountTable;
   SEO: null | _ProductSEO;
+  alike: null | _ProductsAlike[];
   inventory: null | _ProductInventoryTransfomed;
   doNotExist: null | { retrunUrlOrCategorySename: string; info: string };
 }> => {
@@ -51,6 +56,7 @@ export const FetchProductDetails = async (payload: {
   let productSizeChart: null | _SizeChartTransformed = null;
   let productDiscountTablePrices: null | _ProductDiscountTable = null;
   let productSEOtags: null | _ProductSEO = null;
+  let productsAlike: null | _ProductsAlike[] = null;
   let productInventoryList: null | _ProductInventoryTransfomed = null;
   let doNotExist: null | _ProductDoNotExistTransformed = null;
   // let productReviews: null;
@@ -72,9 +78,11 @@ export const FetchProductDetails = async (payload: {
       // Request - 2,3,4,5
       await Promise.allSettled([
         FetchColors({
-          productId: productDetails!.id,
+          productId: productDetails.id,
+          storeId: payload.storeId,
+          isAttributeSaparateProduct: payload.isAttributeSaparateProduct,
         }),
-        FetchSizeChartById(productDetails!.id),
+        FetchSizeChartById(productDetails.id),
         FetchDiscountTablePrices({
           seName: payload.seName,
           storeId: payload.storeId,
@@ -83,6 +91,10 @@ export const FetchProductDetails = async (payload: {
         }),
         FetchProductSEOtags({
           seName: payload.seName,
+          storeId: payload.storeId,
+        }),
+        FetchSimilartProducts({
+          productId: productDetails.id,
           storeId: payload.storeId,
         }),
       ]).then((values) => {
@@ -100,6 +112,8 @@ export const FetchProductDetails = async (payload: {
           values[2].status === 'fulfilled' ? values[2].value : null;
         productSEOtags =
           values[3].status === 'fulfilled' ? values[3].value : null;
+        productsAlike =
+          values[4].status === 'fulfilled' ? values[4].value : null;
       });
 
       // Request - 6
@@ -127,6 +141,7 @@ export const FetchProductDetails = async (payload: {
         SEO: productSEOtags,
         inventory: productInventoryList,
         doNotExist: doNotExist,
+        alike: productsAlike,
       },
       type: 'CONTROLLER',
       name: __fileNames.productDetails,
@@ -144,5 +159,6 @@ export const FetchProductDetails = async (payload: {
     discount: productDiscountTablePrices,
     SEO: productSEOtags,
     inventory: productInventoryList,
+    alike: productsAlike,
   };
 };

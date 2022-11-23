@@ -5,13 +5,10 @@ import { _signIn } from 'definations/user.type';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const signInUser = async (payload: _signIn) => {
-  {
-    payload;
-  }
-  const url = `StoreCustomer/customerlogin.json?storeId=${payload.storeId}&Username=${payload.email}&Password=${payload.password}`;
+  const url = `StoreCustomer/customerlogin.json`;
   const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
     url: url,
-    method: 'GET',
+    method: 'POST',
     data: payload,
   });
 

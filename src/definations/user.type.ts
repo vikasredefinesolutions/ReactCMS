@@ -1,6 +1,6 @@
 export interface _signIn {
   storeId: number;
-  email: string;
+  userName: string;
   password: string;
 }
 

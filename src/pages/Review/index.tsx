@@ -4,10 +4,10 @@ import { ChangeEvent, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import uuid from 'react-uuid';
 import * as Yup from 'yup';
-import { addReviewMessages } from '../../constant/validationMessages';
-import { useTypedSelector } from '../../hooks';
-import { UploadImage } from '../../services/file.service';
-import { AddProductReview } from '../../services/review.service';
+import { addReviewMessages } from 'constants/validationMessages';
+import { useTypedSelector } from 'hooks';
+import { UploadImage } from 'services/file.service';
+import { AddProductReview } from 'services/review.service';
 
 const ProductReview = () => {
   const storeId = useTypedSelector((state) => state.store.id);

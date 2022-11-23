@@ -45,6 +45,28 @@ export interface _ProductDetails {
   brandName: string | null;
   brandImage: string | null;
   sizes: string;
+  brandColorLogoUrl: string;
+  brandBannerImage: null;
+  isDiscontinue: boolean;
+  discontinueDate: string;
+  discontinueEndDate: string;
+  suggestedProducts: _SuggestedProduct[];
+}
+
+export interface _SuggestedProduct {
+  id: number;
+  name: string;
+  sku: string;
+  ourCost: string;
+  brandName: string;
+  brandId: number;
+  msrp: string;
+  imap: string;
+  salePrice: string;
+  seName: string;
+  image: string;
+  categoryId: number;
+  storeId: number;
 }
 
 export interface _ProductSEO {
@@ -74,6 +96,11 @@ export interface _ProductSEO {
   pinterestOpenGraphDescription: string;
 }
 
-export interface Errors {}
-
-export interface Errors {}
+export interface _ProductsAlike {
+  id: number;
+  name: string;
+  msrp: number;
+  seName: string;
+  image: null | string;
+  categoryId: number;
+}

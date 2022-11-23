@@ -194,6 +194,21 @@ export const updateSetProperties = (element) => {
 
               }
           }
+
+
+          if(value.type == "side_change" && key == "Sidechange")
+          {
+              x.querySelectorAll("#left-section")[0].classList.remove("lg:order-2");
+              x.querySelectorAll("#left-section")[0].classList.remove("lg:order-1");
+
+              x.querySelectorAll("#right-section")[0].classList.remove("lg:order-2");
+              x.querySelectorAll("#right-section")[0].classList.remove("lg:order-1");
+
+              x.querySelectorAll("#left-section")[0].classList.add(value.value.left ?? "lg:order-1");
+              x.querySelectorAll("#right-section")[0].classList.add(value.value.right ?? "lg:order-2");
+
+//             console.log(value);
+          }
           
           if(value.type == "carousel")
           {
