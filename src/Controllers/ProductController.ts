@@ -67,6 +67,7 @@ export const FetchProductDetails = async (payload: {
     productDetails = await FetchProductById({
       seName: payload.seName,
       storeId: payload.storeId,
+      productId: 0,
     });
 
     if (productDetails?.id === null) {

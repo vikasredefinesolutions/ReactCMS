@@ -26,8 +26,9 @@ import { SendAsyncV2 } from '../utils/axios.util';
 export const FetchProductById = async (payload: {
   seName: string;
   storeId: number;
+  productId: number;
 }): Promise<_ProductDetails | null | _ProductDoNotExist> => {
-  const url = `StoreProduct/getstoreproductbysename/${payload.seName}/${payload.storeId}.json`;
+  const url = `StoreProduct/getstoreproductbysename/${payload.seName}/${payload.storeId}/${payload.productId}.json`;
 
   try {
     const res = await SendAsyncV2<_ProductDetails>({
