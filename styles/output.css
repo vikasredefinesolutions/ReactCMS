@@ -1102,6 +1102,9 @@ select{
   max-height: -moz-max-content;
   max-height: max-content;
 }
+.max-h-\[50px\]{
+  max-height: 50px;
+}
 .max-h-96{
   max-height: 24rem;
 }
@@ -1254,6 +1257,9 @@ select{
 }
 .max-w-2xl{
   max-width: 42rem;
+}
+.max-w-full{
+  max-width: 100%;
 }
 .max-w-md{
   max-width: 28rem;
