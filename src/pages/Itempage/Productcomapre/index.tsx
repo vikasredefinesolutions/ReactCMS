@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import Price from 'appComponents/reusables/Price';
 import { _SeName } from 'constants/store.constant';
@@ -7,120 +7,24 @@ import { FetchColors, FetchProductById } from 'services/product.service';
 import AllColors from 'Components/Compare/AllColors';
 import DisplayCompareImage from 'Components/Compare/DisplayCompareImage';
 import Link from 'next/link';
+import { __domain } from 'page.config';
+import * as _AppController from 'Controllers/_AppController';
+import * as CompareController from 'Controllers/CompareProductsController';
+import { highLightError } from 'helpers/common.helper';
+import { _StoreReturnType } from '@type/store.type';
+import { _ProductBySku } from '@type/APIs/productDetail.res';
+import { conditionalLog } from 'helpers/global.console';
+import { _showConsoles, __fileNames } from 'show.config';
+import { _ProductColor } from '@type/APIs/colors.res';
 
-const ProductCompare: NextPage = () => {
-  const storeId = useTypedSelector((state) => state.store.id);
-  const [items, setItems] = useState<{
-    colors: Array<
-      | {
-          label: string;
-          url: string;
-        }[]
-      | '-'
-    >;
-    productName: Array<string>;
-    id: Array<number>;
-    sizes: Array<string[] | '-'>;
-    price: Array<string | number>;
-    sku: Array<string>;
-    description: Array<string>;
-  } | null>(null);
+interface _props {
+  products: {
+    details: _ProductBySku[] | null;
+    colors: Array<_ProductColor[] | null> | null;
+  } | null;
+}
 
-  const addProductToTable = (res: any) => {
-    setItems((state) => {
-      if (state === null) {
-        return {
-          productName: [res.productName],
-          sku: [res.sku],
-          price: [res.price],
-          colors: [res.colors],
-          sizes: [res.sizes],
-          description: [res.description],
-          id: [res.id],
-        };
-      }
-
-      return {
-        productName: [...state.productName, res.productName],
-        sku: [...state.sku, res.sku],
-        price: [...state.price, res.price],
-        colors: [...state.colors, res.colors],
-        sizes: [...state.sizes, res.sizes],
-        description: [...state.description, res.description],
-        id: [...state.id, res.id],
-      };
-    });
-  };
-
-  const fetchColorsById = (payload: {
-    productName: string;
-    id: number;
-    sizes: string[] | '-';
-    price: string | number;
-    sku: string;
-    description: string;
-  }): Promise<{
-    colors:
-      | {
-          label: string;
-          url: string;
-        }[]
-      | '-';
-    productName: string;
-    id: number;
-    sizes: string[] | '-';
-    price: string | number;
-    sku: string;
-    description: string;
-  }> => {
-    return FetchColors({ productId: payload.id }).then((res) => {
-      const colors = res.map((color) => ({
-        label: color.name,
-        url: color.imageUrl,
-      }));
-
-      if (colors.length === 0) {
-        return { ...payload, colors: '-' };
-      }
-
-      return { ...payload, colors };
-    });
-  };
-
-  const fetchProductDetails = ({
-    seName,
-    storeId,
-  }: {
-    seName: string;
-    storeId: number;
-  }) => {
-    FetchProductById({
-      seName,
-      storeId,
-    }).then((res) => ({
-      productName: res.name || '-',
-      id: res.id,
-      sizes: res.sizes || '-',
-      price: res.msrp || '-',
-      sku: res.sku || '-',
-      description: res.description || '-',
-    }));
-    // .then((info) => fetchColorsById(info))
-    // .then((product) => addProductToTable(product));
-  };
-
-  useEffect(() => {
-    if (storeId) {
-      // const sku = _sku.split(',');
-      ['', ''].map(() => {
-        fetchProductDetails({
-          seName: _SeName.nike,
-          storeId: storeId!,
-        });
-      });
-    }
-  }, []);
-
+const ProductCompare: NextPage<_props> = ({ products }) => {
   return (
     <section className="pt-10 pb-10">
       <div className="container mx-auto">
@@ -137,9 +41,9 @@ const ProductCompare: NextPage = () => {
                 <td className="">
                   <div className="p-2">Title</div>
                 </td>
-                {items?.productName.map((name, index) => (
+                {products?.details?.map((product, index) => (
                   <td key={index} className="">
-                    <div className="p-2">{name}</div>
+                    <div className="p-2">{product.name}</div>
                   </td>
                 ))}
               </tr>
@@ -147,9 +51,9 @@ const ProductCompare: NextPage = () => {
                 <td className="">
                   <div className="p-2">SKU</div>
                 </td>
-                {items?.sku.map((sku, index) => (
+                {products?.details?.map((product, index) => (
                   <td key={index} className="">
-                    <div className="p-2">{sku}</div>
+                    <div className="p-2">{product.sku}</div>
                   </td>
                 ))}
               </tr>
@@ -157,28 +61,28 @@ const ProductCompare: NextPage = () => {
                 <td className="">
                   <div className="p-2">Price</div>
                 </td>
-                {items?.price.map((price, index) => (
+                {products?.details?.map((product, index) => (
                   <td key={index} className="">
                     <div className="p-2">
-                      MSRP <Price value={price} />
+                      MSRP <Price value={product.msrp} />
                     </div>
                   </td>
                 ))}
               </tr>
-              <tr className="divide-x divide-x-gray-300">
+              {/* <tr className="divide-x divide-x-gray-300">
                 <td className="">
                   <div className="p-2">Color</div>
                 </td>
-                {items?.colors.map((color, index) => (
-                  <AllColors color={color} index={index} />
+                {products?.colors?.map((colors, index) => (
+                  <AllColors color={colors} index={index} />
                 ))}
-              </tr>
-              <tr className="divide-x divide-x-gray-300">
+              </tr> */}
+              {/* <tr className="divide-x divide-x-gray-300">
                 <td className="">
                   <div className="p-2">Size</div>
                 </td>
-                {items?.sizes.map((sizes) => {
-                  if (sizes === '-') {
+                {products?.details?.map((product) => {
+                  if (product. === '-') {
                     return (
                       <td className="">
                         <div className="p-2 flex flex-wrap gap-2">"-"</div>
@@ -197,16 +101,16 @@ const ProductCompare: NextPage = () => {
                     </td>
                   );
                 })}
-              </tr>
+              </tr> */}
               <tr className="divide-x divide-x-gray-300">
                 <td className="">
                   <div className="p-2">Description</div>
                 </td>
-                {items?.description.map((desc, index) => (
+                {products?.details?.map((product, index) => (
                   <td key={index} className="">
                     <div
                       className="p-2"
-                      dangerouslySetInnerHTML={{ __html: desc }}
+                      dangerouslySetInnerHTML={{ __html: product.description }}
                     ></div>
                   </td>
                 ))}
@@ -225,3 +129,57 @@ const ProductCompare: NextPage = () => {
 };
 
 export default ProductCompare;
+
+interface _ExpectedCompareProductsProps {
+  store: null | _StoreReturnType;
+  products: null | {
+    details: _ProductBySku[] | null;
+    colors: Array<_ProductColor[] | null> | null;
+  };
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let expectedProps: _ExpectedCompareProductsProps = {
+    products: null,
+    store: null,
+  };
+  const domain = __domain.layout || context.req.rawHeaders[1]!;
+  const query: {
+    SKUs: undefined | string | string[];
+  } = {
+    SKUs: context.query?.SKU,
+  };
+
+  if (typeof query.SKUs === 'string') {
+    query.SKUs = query.SKUs;
+  } else {
+    query.SKUs = undefined;
+  }
+
+  try {
+    expectedProps.store = await _AppController.FetchStoreDetails(domain, '');
+    if (expectedProps.store && query.SKUs) {
+      expectedProps.products = await CompareController.FetchProductsDetail({
+        skus: query.SKUs,
+        storeId: expectedProps.store.storeId!,
+        isAttributeSaparateProduct:
+          expectedProps.store.isAttributeSaparateProduct,
+      });
+    }
+  } catch (error) {
+    highLightError({ error, component: `Compare Products page` });
+  }
+
+  conditionalLog({
+    show: _showConsoles.compareProducts,
+    data: expectedProps,
+    type: 'NEXTJS PROPS',
+    name: __fileNames.compareProducts,
+  });
+
+  return {
+    props: {
+      products: expectedProps.products,
+    },
+  };
+};

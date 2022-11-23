@@ -8,6 +8,7 @@ import {
   _ProductInventoryTransfomed,
 } from 'definations/APIs/inventory.res';
 import {
+  _ProductBySku,
   _ProductDetails,
   _ProductDoNotExist,
   _ProductsAlike,
@@ -22,6 +23,39 @@ import { BrandFilter, FilterApiRequest } from 'definations/productList.type';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
 import { SendAsyncV2 } from '../utils/axios.util';
+
+export const FetchProductsBySKUs = async (payload: {
+  SKUs: string;
+  storeId: number;
+}): Promise<_ProductBySku[] | null> => {
+  const url = `StoreProduct/getstoreproductbyskus/${payload.SKUs}/${payload.storeId}.json`;
+
+  try {
+    const res = await SendAsyncV2<_ProductBySku[] | null>({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
+
+    conditionalLog({
+      data: res.data,
+      name: 'FetchProductsBySKUs',
+      type: 'API',
+      show: res.data === null || res.data.length === 0,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchProductsBySKUs',
+      type: 'API',
+      show: _showConsoles.services.compareProducts,
+      error: true,
+    });
+    return null;
+  }
+};
 
 export const FetchProductById = async (payload: {
   seName: string;

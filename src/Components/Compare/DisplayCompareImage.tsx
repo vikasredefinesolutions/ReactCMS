@@ -1,6 +1,6 @@
 import React from 'react';
-import Image from '../appComponents/reusables/Image';
-import { useTypedSelector } from '../hooks';
+import Image from 'appComponents/reusables/Image';
+import { useTypedSelector } from 'hooks';
 
 const DisplayCompareImage: React.FC = () => {
   const images = useTypedSelector((state) => state.compare.selectedImages);

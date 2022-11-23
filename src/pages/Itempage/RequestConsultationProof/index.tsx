@@ -117,7 +117,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   conditionalLog({
     show: _showConsoles.requestConsultation,
     data: expectedProps,
-    type: 'CONTROLLER',
+    type: 'NEXTJS PROPS',
     name: __fileNames.requestConsultation,
   });
 
