@@ -14,6 +14,7 @@ import {
   _ProductDetails,
   _ProductDoNotExist,
   _ProductDoNotExistTransformed,
+  _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _ExpectedProductProps } from 'definations/product.type';
@@ -36,6 +37,7 @@ interface _props {
     discount: _ProductDiscountTable | null;
     SEO: _ProductSEO | null;
     inventory: null | _ProductInventoryTransfomed;
+    alike: null | _ProductsAlike[];
   } | null;
 }
 
@@ -152,7 +154,7 @@ const Product: React.FC<_props> = ({ product }) => {
         <div className={`font-Outfit`}>
           <ProductDetails product={product.details} />
           <ProductReviews reviews={null} />
-          <ProductAlike title="YOU MAY ALSO LIKE" />
+          <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
         </div>
       </>
     );
@@ -170,7 +172,7 @@ const Product: React.FC<_props> = ({ product }) => {
             text={product.details.description}
           />
           <ProductReviews reviews={null} />
-          <ProductAlike title="YOU MAY ALSO LIKE" />
+          <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
         </div>
       </>
     );
@@ -187,7 +189,7 @@ const Product: React.FC<_props> = ({ product }) => {
             text={product.details.description}
           />
           <SizeChart modalHandler={() => 'Do nothing'} modal={'NO'} />
-          <ProductAlike title="YOU MAY ALSO LIKE" />
+          <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
         </div>
       </>
     );
@@ -203,7 +205,7 @@ const Product: React.FC<_props> = ({ product }) => {
             heading="Description"
             text={product.details.description}
           />
-          <ProductAlike title="YOU MAY ALSO LIKE" />
+          <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
           <ProductReviews reviews={null} />
         </div>
       </>

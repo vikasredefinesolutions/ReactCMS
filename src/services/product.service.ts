@@ -10,6 +10,7 @@ import {
 import {
   _ProductDetails,
   _ProductDoNotExist,
+  _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import {
@@ -234,6 +235,40 @@ export const FetchDiscountTablePrices = async (payload: {
     conditionalLog({
       data: error,
       name: 'FetchDiscountTablePrices',
+      type: 'API',
+      show: _showConsoles.services.productDetails,
+      error: true,
+    });
+
+    return null;
+  }
+};
+
+export const FetchSimilartProducts = async (payload: {
+  storeId: number;
+  productId: number;
+}): Promise<_ProductsAlike[] | null> => {
+  const url = `StoreProduct/getyoumaylikeproducts/${payload.productId}/${payload.storeId}.json`;
+
+  try {
+    const res = await SendAsyncV2<_ProductsAlike[]>({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
+
+    conditionalLog({
+      data: res.data,
+      name: 'FetchSimilartProducts',
+      type: 'API',
+      show: res.data === null || res.data.length === 0,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchSimilartProducts',
       type: 'API',
       show: _showConsoles.services.productDetails,
       error: true,
