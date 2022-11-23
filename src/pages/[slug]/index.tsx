@@ -7,6 +7,8 @@ import Home from 'pages/Home';
 export default function Search(props: any) {
     const { pageType, pageData, slug } = props;
     let page = <>Loading ...</>;
+    
+
     if (pageType && pageData && slug) {
         if (pageType === 'collection') {
             page = <>Collection</>;
@@ -16,12 +18,15 @@ export default function Search(props: any) {
         }
         else if(pageType === 'topic')
         {
-            const { seo } = pageData;
-                        console.log(seo);
+            const tprops = {
+                pageData: pageData,
+                pageType: pageType,
+                slug: slug,
+            };
 
             page = <>
-                <SeoHead title={seo?.seTitle} description={seo?.seDescription} keywords={seo?.seKeyWords} />
-                <Home />
+                <SeoHead title={pageData?.seTitle} description={pageData?.seDescription} keywords={pageData?.seKeyWords} />
+                <Home props={tprops} />
             </>
         }   
         else if ('brand,category'.includes(pageType)) {
@@ -35,7 +40,7 @@ export default function Search(props: any) {
             const { seo } = pageData;
             page =<>
              <SeoHead title={seo?.seTitle} description={seo?.seDescription} keywords={seo?.seKeyWords} />
-            <Home />
+            <Home props={tprops} />
             </>
         }
     }

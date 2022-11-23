@@ -50,15 +50,10 @@ export const FetchPageType = async (payload: {
       data: {},
     });
 
-    conditionalLog({
-      show: _showConsoles.services.store,
-      type: 'API',
-      name: 'FetchPageType',
-      data: res,
-    });
-
-    return res;
+        return res;
   } catch (error) {
     return null;
   }
 };
+
+

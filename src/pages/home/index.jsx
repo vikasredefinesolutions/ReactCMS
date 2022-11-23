@@ -7,13 +7,13 @@ import ElementAccordionDisplay from "./ElementAccordionDisplay";
 import { useTypedSelector } from '../../hooks';
 import axios from "axios";
 
-const Home = () => {
+const Home = (props) => {
+console.log(props);
     const storeId = useTypedSelector((state) => state.store.id);
 
-    const { asPath, pathname } = useRouter();
-    const slug = asPath.replace("/", "");
+    const slug = props.props?.slug;
 
-    const [pageData, setPageData] = useState([]);
+    const pageData = props.props?.pageData;
     const [componentHtml, setComponentHtml] = useState([]);
 
     // const pathArray = document.location.pathname.split('/');
@@ -23,63 +23,32 @@ const Home = () => {
     // const [componentHtml, setComponentHtml] = useState([]);
     
     useEffect(() => {
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            store_id: storeId,
-            slug: slug != undefined ? slug.replace('.html', '') : "",
-          })
-        };
-        fetch(
-            'https://www.redefinecommerce.net/API/api/front/get-page-type',
-            requestOptions,
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                 let pageId = data.data.id;
-                 document.title = data.data?.meta_title;
-
-                 (async () => {
-                     axios.create({
-                      baseURL: "https://www.redefinecommerce.net/API/api/",
-                      headers: {
-                        Accept: "application/json",
-                      },
-                    }).get(`front/topic/component/get/${pageId}/preview`).then((res)=>{
-                        setComponentHtml(res.data);
-                        getPageData(pageId);
-                      }).catch((error)=>{
-                          console.log(error, "Page Error");
-                      });
-                  })();
-
-                
-              } 
-              });
-              
+     // let pageId = pageData.id;
+      document.title = pageData?.seTitle;
+      if(pageData !== undefined) {
+        setComponentHtml(pageData?.components);
+      }
     }, []);
 
-    const getPageData = (pageId) => {
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: {}
+    // const getPageData = (pageId) => {
+    //   const requestOptions = {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },u
+    //     body: {}
 
-      };
+    //   };
 
-      fetch(
-        `https://www.redefinecommerce.net/API/api/topics/${pageId}`,
-        requestOptions,
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-             setPageData(data.data);
-          } 
-        });
-    }
+    //   fetch(
+    //     `https://www.redefinecommerce.net/API/api/topics/${pageId}`,
+    //     requestOptions,
+    //   )
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       if (data.success) {
+    //          setPageData(data.data);
+    //       } 
+    //     });
+    //}
 
   
     const loadBackgroundDefault = (element) => {
@@ -135,8 +104,8 @@ const Home = () => {
      
     <div className="">
        <main>
-            { componentHtml.length > 0 ? 
-                componentHtml.map((componentValue)=>{
+            { pageData.components.length > 0 ? 
+                pageData.components.map((componentValue)=>{
                 const backgroundDefault = loadBackgroundDefault(componentValue);
                 return(
                     <div className={`commondiv ${componentValue.visibility == "off" ? "hidden" : ""}`} style={{ background: backgroundDefault }} id={`div${componentValue.no}`} 
@@ -187,3 +156,4 @@ const Home = () => {
 };
 
 export default Home;
+

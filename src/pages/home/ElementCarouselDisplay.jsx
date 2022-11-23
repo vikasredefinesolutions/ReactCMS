@@ -65,7 +65,7 @@ const ElementCarouselDisplay = ({bannerArr}) => {
                                }
                                 <div className={`flex items-center absolute ${image.headline_font_size} inset-0 p-1 lg:p-4 justify-${image.text_pos ? image.text_pos : "center"} text-white`}>
                             <div class="" style={{ background: `rgb(${image.text_bg_color}, ${image.bg_opacity})`, padding: "20px"}}>
-                                <div class="">{image.headline}</div>
+                                <div class=""><h1>{image.headline}</h1></div>
                                 {image.button_display == "Yes" && <>
                                     <div><a href={image.button_link} target={image.button_link_window ? "_blank" : ""} className={`btn ${image.button_text_transform} ${image.button_size} ${image.button_style}`}>{image.button_text}</a></div>
                                 </>

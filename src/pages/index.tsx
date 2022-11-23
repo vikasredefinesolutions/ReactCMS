@@ -8,19 +8,22 @@ export default function Search(props: any) {
     if (pageType && pageData) {
         if(pageType === 'topic')
         {
-            const { seo } = pageData;
-
+            const props = {
+                pageData: pageData,
+                pageType: pageType,
+                slug: slug,
+            }
             page = <>
                 <Head>
-                    <title>{seo?.seTitle}</title>
+                    <title>{pageData?.seTitle}</title>
                     <meta
                         name="description"
-                        content={seo?.seDescription}
+                        content={pageData?.seDescription}
                         key="desc"
                     />
-                    <meta name="keywords" content={seo?.seKeyWords} />
+                    <meta name="keywords" content={pageData?.seKeyWords} />
                 </Head>
-                <Home />
+                <Home props={props} />
             </>
         }
 
