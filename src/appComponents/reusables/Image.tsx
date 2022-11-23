@@ -1,6 +1,5 @@
 // import axios from 'axios';
 
-import { useState, useEffect } from 'react';
 import { icons as _images } from 'Assets/images.asset';
 import NextImage from 'next/image';
 import config from 'api.config';
