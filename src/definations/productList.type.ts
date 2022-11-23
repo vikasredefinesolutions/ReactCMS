@@ -208,4 +208,8 @@ export type ProductList = Array<GetlAllProductList>;
 
 export type ColorChangeHandler = (productId: number, seName: string, color: string) => void;
 
-export type FilterChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
+export type FilterChangeHandler = (
+  name: string,
+  value: string,
+  checked: boolean,
+) => void;

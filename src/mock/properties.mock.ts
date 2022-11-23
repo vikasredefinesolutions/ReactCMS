@@ -29,7 +29,7 @@ export const properties = {
     },
 
     "product_list_box": {
-        box_count: 3,
+        box_count: 4,
         column_select: 4,
         alignment: "Center",
         product_info: {

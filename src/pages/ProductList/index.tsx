@@ -12,9 +12,11 @@ export type list_FnProps = {
   products: ProductListType;
   checkedFilters: any;
   totalCount: number;
-  productView: string,
-  showFilter: boolean,
-  showSortMenu: boolean,
+  productView: string;
+  showFilter: boolean;
+  showSortMenu: boolean;
+  skuList: string[];
+  compareCheckBoxHandler: (sku: number) => void;
   colorChangeHandler: ColorChangeHandler;
   handleChange: FilterChangeHandler;
   loadMore: () => void;
@@ -22,7 +24,8 @@ export type list_FnProps = {
   setShowSortMenu: (arg: boolean) => void;
   setProductView: (arg: string) => void;
   setShowFilter: (arg: boolean) => void;
-}
+  clearFilters: () => void;
+};
 const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
   const { checkedFilters } = pageData;
   const {
@@ -32,6 +35,8 @@ const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
     productView,
     showFilter,
     showSortMenu,
+    skuList,
+    compareCheckBoxHandler,
     handleChange,
     colorChangeHandler,
     loadMore,
@@ -39,23 +44,28 @@ const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
     setShowSortMenu,
     setProductView,
     setShowFilter,
+    clearFilters,
   } = ProductListController(pageData, slug, checkedFilters || []);
+
   return (
     <Layout1
       showSortMenu={showSortMenu}
       filters={filters}
       products={product}
-      colorChangeHandler={colorChangeHandler}
-      handleChange={handleChange}
       checkedFilters={checkedFilters}
       totalCount={totalCount}
-      loadMore={loadMore}
-      sortProductJson={sortProductJson}
       productView={productView}
       showFilter={showFilter}
+      skuList={skuList}
+      colorChangeHandler={colorChangeHandler}
+      handleChange={handleChange}
+      loadMore={loadMore}
+      sortProductJson={sortProductJson}
       setShowSortMenu={setShowSortMenu}
       setProductView={setProductView}
       setShowFilter={setShowFilter}
+      clearFilters={clearFilters}
+      compareCheckBoxHandler={compareCheckBoxHandler}
     />
   );
 };

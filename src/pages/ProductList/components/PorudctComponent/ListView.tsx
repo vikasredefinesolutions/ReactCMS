@@ -107,7 +107,7 @@ const ListView = ({
                   <span>Personalize</span>
                 </a>
               </div>
-              <div className="mt-1 text-anchor hover:text-anchor-hover">
+              <div className="relative mt-1 text-anchor hover:text-anchor-hover">
 
                 <Link
                   href={`${origin}/${product.sename}.html?v=product-detail`}
@@ -143,16 +143,11 @@ const ListView = ({
                         setCurrentProduct(subRow);
                       }}
                     >
-
                       <ImageComponent
                         src={subRow.imageName}
                         className="max-h-full m-auto"
                         alt={subRow.alttag}                      
                       />
-                      {/* <img
-                        alt=""
-                        title=""
-                      /> */}
                     </li>
                   ) : null,
                 )}

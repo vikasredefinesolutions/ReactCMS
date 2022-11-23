@@ -1,28 +1,33 @@
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
 
 const FlyOutFilter = ({
-    filters,
-    checkedFilters,
-    handleChange,
-    closeFilter
+  filters,
+  checkedFilters,
+  handleChange,
+  closeFilter,
 }: {
-    filters: FilterType;
-    checkedFilters: any;
-    handleChange: FilterChangeHandler;
-    closeFilter: (arg: boolean) => void;
+  filters: FilterType;
+  checkedFilters: any;
+  handleChange: FilterChangeHandler;
+  closeFilter: (arg: boolean) => void;
 }) => {
-    return (
-        <div className="bg-gray-100 fixed top-0 w-80 z-50 h-screen overflow-auto left-0">
-            <div className="border-b border-b-neutral-300 p-2 sticky top-0 left-0 bg-gray-100 flex items-center justify-between">
-                <div className="text-lg font-semibold text-gray-900">Filters</div>
-                <button >
-                    <span onClick={() => closeFilter(false)} className="material-icons-outlined">close</span>
-                </button>
-            </div>
-            <div className="p-4 pt-0">
-                <form className="mt-4 filter-box filter-type">
-                    <div>
-                        {/* <div
+  return (
+    <div className="bg-gray-100 fixed top-0 w-80 z-50 h-screen overflow-auto left-0">
+      <div className="border-b border-b-neutral-300 p-2 sticky top-0 left-0 bg-gray-100 flex items-center justify-between">
+        <div className="text-lg font-semibold text-gray-900">Filters</div>
+        <button>
+          <span
+            onClick={() => closeFilter(false)}
+            className="material-icons-outlined"
+          >
+            close
+          </span>
+        </button>
+      </div>
+      <div className="p-4 pt-0">
+        <form className="mt-4 filter-box filter-type">
+          <div>
+            {/* <div
                             className="text-lg font-medium text-gray-900 hidden lg:block mb-4 uppercase"
                         >
                             Category
@@ -129,75 +134,86 @@ const FlyOutFilter = ({
                             </div>
                         </div> */}
 
-                        {filters.map((filter, index) => (
-                            <div
-                                className={`py-4${index === 0 ? '' : ' border-t border-neutral-300'
-                                    }`}
-                                x-data="{ open: true }"
-                            >
-                                <button
-                                    className="flex items-center justify-between w-full group mb-1"
-                                    aria-expanded="true"
+            {filters.map((filter, index) => (
+              <div
+                className={`py-4${
+                  index === 0 ? '' : ' border-t border-neutral-300'
+                }`}
+                x-data="{ open: true }"
+              >
+                <button
+                  className="flex items-center justify-between w-full group mb-1"
+                  aria-expanded="true"
+                >
+                  <div className="text-lg font-medium text-gray-900 hidden lg:block uppercase">
+                    {filter.label}
+                  </div>
+                </button>
+                <div className="text-sm" x-show="open">
+                  <ul
+                    className={
+                      filter.label.toLowerCase() === 'color'
+                        ? 'flex flex-wrap items-center gap-x-1.5 gap-y-2'
+                        : 'pb-6 pt-2 space-y-3'
+                    }
+                  >
+                    {filter.options.map((option) => {
+                      const checked =
+                        checkedFilters.findIndex(
+                          (res: { name: string; value: string }) =>
+                            res.name === filter.label &&
+                            res.value === option.name,
+                        ) > -1;
+                      return (
+                        <>
+                          {option.name || option.colorCode ? (
+                            filter.label === 'Color' ? (
+                              <li
+                                className={`w-8 h-8 border-2 hover:border-secondary p-0.5 ${
+                                  checked && 'border-secondary'
+                                }`}
+                                style={{
+                                  background: option.colorCode,
+                                }}
+                                onClick={() =>
+                                  handleChange(
+                                    filter.label,
+                                    option.name,
+                                    !checked,
+                                  )
+                                }
+                              ></li>
+                            ) : (
+                              <li className="flex items-center">
+                                <input
+                                  name={filter.label}
+                                  value={option.name}
+                                  checked={checked}
+                                  type="checkbox"
+                                  onChange={(e) => {
+                                    const { name, value, checked } = e.target;
+                                    handleChange(name, value, checked);
+                                  }}
+                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <label
+                                  htmlFor="brandfil-0"
+                                  className="ml-3 text-black text-base"
                                 >
-                                    <div className="text-lg font-medium text-gray-900 hidden lg:block uppercase">
-                                        {filter.label}
-                                    </div>
-                                    {/* <svg
-                                        className="w-8 h-8 shrink-0 fill-current text-gray-400 group-hover:text-gray-500 ml-3 rotate-180"
-                                        viewBox="0 0 32 32"
-                                    >
-                                        <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
-                                    </svg> */}
-                                </button>
-                                <div className="text-sm" x-show="open">
-                                    <ul
-                                        className={
-                                            filter.label.toLowerCase() === 'color'
-                                                ? 'flex flex-wrap items-center gap-x-1.5 gap-y-2'
-                                                : 'pb-6 pt-2 space-y-3'
-                                        }
-                                    >
-                                        {filter.options.map((option) =>
-                                            option.name || option.colorCode ? (
-                                                filter.label === 'Color' ? (
-                                                    <li
-                                                        className="w-8 h-8 border-2 hover:border-secondary p-0.5"
-                                                        style={{
-                                                            background: option.colorCode,
-                                                        }}
-                                                    ></li>
-                                                ) : (
-                                                    <li className="flex items-center">
-                                                        <input
-                                                            name={filter.label}
-                                                            value={option.name}
-                                                            checked={
-                                                                checkedFilters.findIndex(
-                                                                    (res: { name: string; value: string }) =>
-                                                                        res.name === filter.label &&
-                                                                        res.value === option.name,
-                                                                ) > -1
-                                                            }
-                                                            type="checkbox"
-                                                            onChange={handleChange}
-                                                            className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                                        />
-                                                        <label
-                                                            htmlFor="brandfil-0"
-                                                            className="ml-3 text-black text-base"
-                                                        >
-                                                            {option.name} ({option.productCount})
-                                                        </label>
-                                                    </li>
-                                                )
-                                            ) : null,
-                                        )}
-                                    </ul>
-                                </div>
-                            </div>
-                        ))}
+                                  {option.name} ({option.productCount})
+                                </label>
+                              </li>
+                            )
+                          ) : null}
+                        </>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            ))}
 
-                        {/* <div className="py-4 border-t border-neutral-300" x-data="{ open: true }">
+            {/* <div className="py-4 border-t border-neutral-300" x-data="{ open: true }">
                             <button
                                 className="flex items-center justify-between w-full group mb-1"
                                 aria-expanded="true"
@@ -660,11 +676,11 @@ const FlyOutFilter = ({
                                 </ul>
                             </div>
                         </div > */}
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default FlyOutFilter;

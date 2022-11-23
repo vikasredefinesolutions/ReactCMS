@@ -8,6 +8,7 @@ import {
 
 import { useRouter } from 'next/router';
 import { useActions } from 'hooks';
+import { getSkuList, AddRemoveToCompare } from 'helpers/compare.helper';
 const ProductListController = (
   data: { product: ProductList; filters: FilterType },
   slug: string,
@@ -26,6 +27,7 @@ const ProductListController = (
     }>
   >(checkedFilters || null);
   const [filters, setFilters] = useState<FilterType>(data.filters || null);
+  const [skuList, setSkuList] = useState<string[]>([]);
   const getListingWithPagination = (data: ProductList) => {
     if (data) {
       return data.slice(0, perPageCount);
@@ -60,30 +62,31 @@ const ProductListController = (
     setShowLoader(false);
   }, [slug, checkedFilters]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    const checked = e.target.checked;
-    const index = filterOption.findIndex(
-      (filter: { name: string; value: string }) =>
-        filter.name === name && filter.value === value,
-    );
-    const newArray = [...filterOption];
-    if (index < 0) {
-      if (checked) {
-        newArray.push({
-          name,
-          value,
-        });
-      }
-    } else if (!checked) {
-      newArray.splice(index, 1);
+  useEffect(() => {
+    if (localStorage) {
+      setSkuList(getSkuList());
     }
+  }, []);
 
-    const nameArray = removeDuplicates(newArray.map((res) => res.name));
+  const compareCheckBoxHandler = (id: number) => {
+    if (localStorage) {
+      AddRemoveToCompare(id);
+      setSkuList(getSkuList());
+    }
+  };
+
+  const updateFilter = (
+    filterOption: Array<{
+      name: string;
+      value: string;
+    }>,
+  ) => {
+    const nameArray = removeDuplicates(filterOption.map((res) => res.name));
     const valueArray: string[] = [];
     nameArray.forEach((name) => {
-      const filteredValue = newArray.filter((filter) => filter.name === name);
+      const filteredValue = filterOption.filter(
+        (filter) => filter.name === name,
+      );
       const filter = filteredValue.map((res) => res.value).join('~');
       valueArray.push(filter);
     });
@@ -99,8 +102,26 @@ const ProductListController = (
     } else {
       Router.replace(`/${slug}.html`);
     }
+  };
 
+  const handleChange = (name: string, value: string, checked: boolean) => {
+    const index = filterOption.findIndex(
+      (filter: { name: string; value: string }) =>
+        filter.name === name && filter.value === value,
+    );
+    const newArray = [...filterOption];
+    if (index < 0) {
+      if (checked) {
+        newArray.push({
+          name,
+          value,
+        });
+      }
+    } else if (!checked) {
+      newArray.splice(index, 1);
+    }
     setFilterOption(newArray);
+    updateFilter(newArray);
   };
 
   const colorChangeHandler = (
@@ -139,6 +160,11 @@ const ProductListController = (
     setProduct((prev) => [...prev, ...products]);
   };
 
+  const clearFilters = () => {
+    setFilterOption([]);
+    updateFilter([]);
+  };
+
   const sortProductJson = (type: number) => {
     // setProduct([]);
     setCurrentCount(perPageCount);
@@ -165,6 +191,8 @@ const ProductListController = (
     showSortMenu,
     productView,
     showFilter,
+    skuList,
+    compareCheckBoxHandler,
     handleChange,
     colorChangeHandler,
     setFilters,
@@ -174,6 +202,7 @@ const ProductListController = (
     setShowSortMenu,
     setProductView,
     setShowFilter,
+    clearFilters,
   };
 };
 

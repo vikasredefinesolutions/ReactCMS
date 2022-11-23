@@ -7,7 +7,7 @@ import ElementAccordionDisplay from "./ElementAccordionDisplay";
 import { useTypedSelector } from '../../hooks';
 import axios from "axios";
 
-const Home = () => {
+const Home = ({title}) => {
     const storeId = useTypedSelector((state) => state.store.id);
 
     const { asPath, pathname } = useRouter();
@@ -185,5 +185,13 @@ const Home = () => {
    
   );
 };
+
+export const getServerSideProps = () => {
+  return {
+    props: {
+      title: 'Vikas'
+    }
+  }
+}
 
 export default Home;
