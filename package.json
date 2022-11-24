@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev \" \"npm run watch:css \"",
+    "dev": "concurrently \"next dev -p 8080 \" \"npm run watch:css \"",
     "watch:css": "postcss styles/globals.css -o styles/output.css",
     "build": "postcss -m -i styles/globals.css -o styles/dist.css && next build",
     "start": "next start",
