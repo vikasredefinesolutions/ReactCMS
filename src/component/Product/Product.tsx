@@ -38,7 +38,7 @@ const ProductComponent = ({
 
   useEffect(() => {
     setCurrentProduct(product.getProductImageOptionList[0]);
-  }, [product])
+  }, [product]);
   // console.log(product);
   return (
     <li className="text-center flex">
@@ -52,7 +52,7 @@ const ProductComponent = ({
                 className="w-auto h-auto m-auto max-h-[400px]"
                 height={400}
                 width={350}
-                key={currentProduct.id}
+                cKey={currentProduct.id}
               />
               <div className="absolute top-5 right-5 text-gray-800 p-1 z-5">
                 <button className="">

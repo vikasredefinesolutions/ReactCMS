@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Image from 'appComponents/reusables/Image';
-import { useActions } from '../hooks';
+import { useActions } from 'hooks';
 
 interface _props {
   color:

@@ -19,7 +19,9 @@ const SideFilter = ({
         {filters &&
           filters.map((filter, index) => (
             <div
-              className={`py-4${index === 0 ? "" : " border-t border-neutral-300"}`}
+              className={`py-4${
+                index === 0 ? '' : ' border-t border-neutral-300'
+              }`}
               x-data="{ open: true }"
               key={index}
             >
@@ -42,11 +44,18 @@ const SideFilter = ({
                 //     display: currentAccordion === index ? 'unset' : 'none',
                 //   }}
               >
-                <ul className={filter.label === 'Color' ? "flex flex-wrap items-center gap-x-1.5 gap-y-2" : "pb-6 pt-2 space-y-3"}>
+                <ul
+                  className={
+                    filter.label === 'Color'
+                      ? 'flex flex-wrap items-center gap-x-1.5 gap-y-2'
+                      : 'pb-6 pt-2 space-y-3'
+                  }
+                >
                   {filter.options.map((option, ind) =>
                     option.name || option.colorCode ? (
                       filter.label === 'Color' ? (
                         <li
+                          key={ind}
                           className="w-8 h-8 border-2 hover:border-secondary p-0.5"
                           style={{
                             background: option.colorCode,

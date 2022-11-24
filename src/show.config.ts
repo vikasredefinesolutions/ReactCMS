@@ -13,5 +13,6 @@ export const _showConsoles = {
   services: {
     productDetails: true,
     store: true,
+    header: true,
   },
 };

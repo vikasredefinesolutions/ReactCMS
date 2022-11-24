@@ -3,11 +3,14 @@ import {
   _StoreMenu,
   _MenuTopic,
   _MenuCategory,
+  _Brands,
 } from 'definations/APIs/header.res';
 import { _Header } from 'definations/header.type';
 import config from 'api.config';
 import { headerInfo } from '../mock/header.mock';
 import { SendAsyncV2 } from '../utils/axios.util';
+import { conditionalLog } from 'helpers/global.console';
+import { _showConsoles } from 'show.config';
 
 // eslint-disable-next-line no-unused-vars
 export const SearchFor = async (payload: { text: string }) => {
@@ -20,6 +23,39 @@ export const SearchFor = async (payload: { text: string }) => {
   // });
 
   return headerInfo as _Header;
+};
+
+export const FetchBrands = async ({
+  storeId,
+}: {
+  storeId: number;
+}): Promise<_Brands[] | null> => {
+  const url = `/Brand/getbrandbystoreid/${storeId}.json`;
+
+  try {
+    const res = await SendAsyncV2<_Brands[] | null>({
+      url: url,
+      method: 'GET',
+    });
+
+    conditionalLog({
+      data: res.data,
+      name: 'FetchBrands',
+      type: 'API',
+      show: res.data === null || res.data.length === 0,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchBrands',
+      type: 'API',
+      show: _showConsoles.services.store,
+      error: true,
+    });
+    return null;
+  }
 };
 
 export const FetchBannerDetails = async (payload: {
