@@ -1,4 +1,4 @@
-import { getPageType } from '@services/page.service';
+import { getPageType, getPageComponents } from '@services/page.service';
 import { _StoreReturnType } from 'definations/store.type';
 
 import { __domain } from 'page.config';
@@ -32,20 +32,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     store_id: 4,
     slug,
   });
+  let components: any = null;
   const pageType = data.data.type;
   let pageData: ProductListPageData | null | _ProductDetailsProps | TopicProps =
     null;
   let seo: any = null;
+  
   ////////////////////////////////////////////////
   /////////// Page Type Checks
   ////////////////////////////////////////////////
-  if (pageType === 'topic') {
-    seo = {};
-    pageData = {} as TopicProps;
-    seo['seDescription'] = data.data?.meta_description;
-    seo['seKeyWords'] = data.data.meta_keywords;
-    seo['seTitle'] = data.data.meta_title;
-    pageData['seo'] = seo;
+  if(pageType === 'topic')
+  {
+    pageData = {};
+    pageData['seDescription'] = data.data?.meta_description;
+    pageData['seKeyWords'] = data.data.meta_keywords;
+    pageData['seTitle'] = data.data.meta_title;
+    pageData['id'] = data.data.id;
+    components  = await getPageComponents({
+      page_id: data.data.id
+    });
+    pageData['components'] = components?.data;
+
+
   }
 
   if (pageType === 'product') {
