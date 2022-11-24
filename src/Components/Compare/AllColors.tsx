@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { _ProductColor } from '@type/APIs/colors.res';
 import Image from 'appComponents/reusables/Image';
 import { useActions } from 'hooks';
-import { _ProductColor } from '@type/APIs/colors.res';
+import React, { useEffect } from 'react';
 
 interface _props {
   color: null | _ProductColor[];

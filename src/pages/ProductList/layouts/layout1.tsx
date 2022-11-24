@@ -6,7 +6,7 @@ import {
   GetlAllProductList,
   ProductList,
 } from '@type/productList.type';
-import ProductComponent from 'component/Product/Product';
+import ProductComponent from 'pages/ProductList/components/PorudctComponent/Product';
 import { Fragment, useState } from 'react';
 import SideFilter from '../components/Filters/sideFilter';
 import { properties } from '../../../mock/properties.mock';
@@ -14,6 +14,7 @@ import FlyOutFilter from '../components/Filters/flyoutFilter';
 import Layout1FilterBar from '../components/FilterBar/layout1';
 import ListView from '../components/PorudctComponent/ListView';
 import { list_FnProps } from '..';
+import FilterChips from '../components/Filters/filterChips';
 
 const Layout1 = ({
   filters,
@@ -23,6 +24,7 @@ const Layout1 = ({
   showFilter,
   showSortMenu,
   productView,
+  skuList,
   setShowSortMenu,
   setShowFilter,
   setProductView,
@@ -30,6 +32,8 @@ const Layout1 = ({
   handleChange,
   loadMore,
   sortProductJson,
+  clearFilters,
+  compareCheckBoxHandler,
 }: list_FnProps) => {
   
   // console.log(products);
@@ -90,6 +94,7 @@ const Layout1 = ({
                       setShowFilter
                     }}
                   />
+                  <FilterChips {...{clearFilters, checkedFilters, handleChange}}/>
                   <div className="mt-8 relative" id="gridview">
                     <div className="relative w-full pb-6 -mb-6">
                       <ul
@@ -106,6 +111,8 @@ const Layout1 = ({
                             <Fragment key={index}>
                               {productView === 'grid' ? (
                                 <ProductComponent
+                                skuList={skuList}
+                                compareCheckBoxHandler={compareCheckBoxHandler}
                                   product={product}
                                   colorChangeHandler={colorChangeHandler}
                                 />

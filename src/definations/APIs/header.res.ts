@@ -13,6 +13,12 @@ export interface _StoreMenu {
   sename: string;
 }
 
+export interface _Brands {
+  id: number;
+  brandName: string;
+  seName: string;
+  brandColorImageUrl: string;
+}
 export interface _MenuCategory {
   id: number;
   categoryName: string;

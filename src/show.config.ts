@@ -16,5 +16,6 @@ export const _showConsoles = {
     store: true,
     productDetails: true,
     compareProducts: true,
+    header: true,
   },
 };

@@ -7,22 +7,15 @@ import SubMenuItem from './Components/SubMenuItem';
 
 interface _props {
   brandPageUrl: string;
-  brandUrl: string;
   menuTitle: string;
-  brandItems: string[];
-  brandImages: string[];
 }
 
-const Brand: React.FC<_props> = ({
-  brandPageUrl,
-  brandUrl,
-  menuTitle,
-  brandItems,
-  brandImages,
-}) => {
-  const { layout: storeLayout, view } = useTypedSelector(
-    (state) => state.store,
-  );
+const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
+  const {
+    layout: storeLayout,
+    view,
+    brands,
+  } = useTypedSelector((state) => state.store);
   const { toggleSideMenu } = useActions();
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
   const [focus, setFocus] = useState<boolean>(false);
@@ -59,14 +52,16 @@ const Brand: React.FC<_props> = ({
                   aria-labelledby="desktop-featured-heading-1"
                   className="flex flex-wrap gap-y-2"
                 >
-                  {brandItems?.map((item, index) => (
-                    <SubMenuItem
-                      key={index}
-                      itemLabel={item}
-                      itemUrl={brandUrl}
-                      type={'BRAND'}
-                    />
-                  ))}
+                  {brands?.map((brand) => {
+                    return (
+                      <SubMenuItem
+                        key={brand.id}
+                        itemLabel={brand.brandName}
+                        itemUrl={brand.seName}
+                        type={'BRAND'}
+                      />
+                    );
+                  })}
                 </ul>
               </div>
             </div>
@@ -110,34 +105,48 @@ const Brand: React.FC<_props> = ({
               >
                 <div className="relative bg-gray-100 z-50">
                   <div className="max-w-7xl mx-auto">
-                    {brandImages.length > 0 && (
+                    {brands && brands.length > 0 && (
                       <div className="flex flex-wrap border-t first:border-t-0 py-5 px-5 border pt-8">
-                        {brandImages.map((image) => (
-                          <BrandImage url={image} alt={image} src={image} />
-                        ))}
+                        {brands?.map((brand) => {
+                          if (brand.brandColorImageUrl) {
+                            return (
+                              <BrandImage
+                                key={brand.id}
+                                url={brand.seName}
+                                alt={brand.brandName}
+                                src={brand.brandColorImageUrl}
+                              />
+                            );
+                          }
+                          return <></>;
+                        })}
                       </div>
                     )}
                     <div className="border-t first:border-t-0 py-5 px-5">
                       <div className="flex flex-wrap gap-y-2">
                         <ul className="w-full lg:w-1/3">
-                          {brandItems?.map((item, index) => (
-                            <SubMenuItem
-                              key={index}
-                              itemLabel={item}
-                              itemUrl={brandUrl}
-                              type={'BRAND'}
-                            />
-                          ))}
+                          {brands?.map((brand) => {
+                            return (
+                              <SubMenuItem
+                                key={brand.id}
+                                itemLabel={brand.brandName}
+                                itemUrl={brand.seName}
+                                type={'BRAND'}
+                              />
+                            );
+                          })}
                         </ul>
                         <ul className="w-full lg:w-1/3">
-                          {brandItems?.map((item, index) => (
-                            <SubMenuItem
-                              key={index}
-                              itemLabel={item}
-                              itemUrl={brandUrl}
-                              type={'BRAND'}
-                            />
-                          ))}
+                          {brands?.map((brand) => {
+                            return (
+                              <SubMenuItem
+                                key={brand.id}
+                                itemLabel={brand.brandName}
+                                itemUrl={brand.seName}
+                                type={'BRAND'}
+                              />
+                            );
+                          })}
                         </ul>
                       </div>
                     </div>
@@ -179,20 +188,32 @@ const Brand: React.FC<_props> = ({
           {showAllItems && (
             <div className="bg-gray-100">
               <div className="border-t first:border-t-0 py-5 px-4">
-                {brandImages.map((image) => (
-                  <BrandImage url={image} alt={image} src={image} />
-                ))}
+                {brands?.map((brand) => {
+                  if (brand.brandColorImageUrl) {
+                    return (
+                      <BrandImage
+                        key={brand.id}
+                        url={brand.seName}
+                        alt={brand.brandName}
+                        src={brand.brandColorImageUrl}
+                      />
+                    );
+                  }
+                  return <></>;
+                })}
                 <div className="border-t first:border-t-0 py-5">
                   <div className="flex flex-wrap gap-y-2">
                     <ul className="w-full lg:w-1/3">
-                      {brandItems?.map((item, index) => (
-                        <SubMenuItem
-                          key={index}
-                          itemLabel={item}
-                          itemUrl={brandUrl}
-                          type={'BRAND'}
-                        />
-                      ))}
+                      {brands?.map((brand) => {
+                        return (
+                          <SubMenuItem
+                            key={brand.id}
+                            itemLabel={brand.brandName}
+                            itemUrl={brand.seName}
+                            type={'BRAND'}
+                          />
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
@@ -237,21 +258,33 @@ const Brand: React.FC<_props> = ({
                 <div className="relative bg-gray-100">
                   <div className="max-w-4xl mx-auto">
                     <div className="flex flex-wrap border-t first:border-t-0 py-5 px-2 pt-8">
-                      {brandImages.map((image) => (
-                        <BrandImage url={image} alt={image} src={image} />
-                      ))}
+                      {brands?.map((brand, index) => {
+                        if (brand.brandColorImageUrl) {
+                          return (
+                            <BrandImage
+                              key={index}
+                              url={brand.seName}
+                              alt={brand.brandName}
+                              src={brand.brandColorImageUrl}
+                            />
+                          );
+                        }
+                        return <></>;
+                      })}
                     </div>
                     <div className="border-t first:border-t-0 py-5 px-5">
                       <div className="flex flex-wrap gap-y-2">
                         <ul className="w-full lg:w-1/3">
-                          {brandItems?.map((item, index) => (
-                            <SubMenuItem
-                              key={index}
-                              itemLabel={item}
-                              itemUrl={brandUrl}
-                              type={'BRAND'}
-                            />
-                          ))}
+                          {brands?.map((brand, index) => {
+                            return (
+                              <SubMenuItem
+                                key={index}
+                                itemLabel={brand.brandName}
+                                itemUrl={brand.seName}
+                                type={'BRAND'}
+                              />
+                            );
+                          })}
                         </ul>
                       </div>
                     </div>
@@ -294,21 +327,33 @@ const Brand: React.FC<_props> = ({
             <div className="bg-gray-100">
               <div className="border-t first:border-t-0 py-5 px-4">
                 <div className="flex flex-wrap border-t first:border-t-0 py-3">
-                  {brandImages.map((image) => (
-                    <BrandImage url={image} alt={image} src={image} />
-                  ))}
+                  {brands?.map((brand) => {
+                    if (brand.brandColorImageUrl) {
+                      return (
+                        <BrandImage
+                          key={brand.id}
+                          url={brand.seName}
+                          alt={brand.brandName}
+                          src={brand.brandColorImageUrl}
+                        />
+                      );
+                    }
+                    return <></>;
+                  })}
                 </div>
                 <div className="border-t first:border-t-0 py-5">
                   <div className="flex flex-wrap gap-y-2">
                     <ul className="w-full lg:w-1/3">
-                      {brandItems?.map((item, index) => (
-                        <SubMenuItem
-                          key={index}
-                          itemLabel={item}
-                          itemUrl={brandUrl}
-                          type={'BRAND'}
-                        />
-                      ))}
+                      {brands?.map((brand) => {
+                        return (
+                          <SubMenuItem
+                            key={brand.id}
+                            itemLabel={brand.brandName}
+                            itemUrl={brand.seName}
+                            type={'BRAND'}
+                          />
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
@@ -351,9 +396,19 @@ const Brand: React.FC<_props> = ({
                 <div className="relative bg-gray-200 z-50">
                   <div className="max-w-7xl mx-auto p-4">
                     <div className="flex flex-wrap -mx-3 gap-y-6">
-                      {brandImages.map((image) => (
-                        <BrandImage url={image} alt={image} src={image} />
-                      ))}
+                      {brands?.map((brand) => {
+                        if (brand.brandColorImageUrl) {
+                          return (
+                            <BrandImage
+                              key={brand.id}
+                              url={brand.seName}
+                              alt={brand.brandName}
+                              src={brand.brandColorImageUrl}
+                            />
+                          );
+                        }
+                        return <></>;
+                      })}
                     </div>
                   </div>
                 </div>
@@ -395,14 +450,16 @@ const Brand: React.FC<_props> = ({
                   aria-labelledby="desktop-featured-heading-1"
                   className="flex flex-wrap gap-y-2"
                 >
-                  {brandItems?.map((item, index) => (
-                    <SubMenuItem
-                      key={index}
-                      itemLabel={item}
-                      itemUrl={brandUrl}
-                      type={'BRAND'}
-                    />
-                  ))}
+                  {brands?.map((brand) => {
+                    return (
+                      <SubMenuItem
+                        key={brand.id}
+                        itemLabel={brand.brandName}
+                        itemUrl={brand.seName}
+                        type={'BRAND'}
+                      />
+                    );
+                  })}
                 </ul>
               </div>
             </div>
@@ -447,21 +504,33 @@ const Brand: React.FC<_props> = ({
                 <div className="relative bg-white z-50">
                   <div className="max-w-7xl mx-auto">
                     <div className="flex flex-wrap border-t first:border-t-0 py-4 px-5 border">
-                      {brandImages.map((image) => (
-                        <BrandImage url={image} alt={image} src={image} />
-                      ))}
+                      {brands?.map((brand) => {
+                        if (brand.brandColorImageUrl) {
+                          return (
+                            <BrandImage
+                              key={brand.id}
+                              url={brand.seName}
+                              alt={brand.brandName}
+                              src={brand.brandColorImageUrl}
+                            />
+                          );
+                        }
+                        return <></>;
+                      })}
                     </div>
                     <div className="border-t first:border-t-0 py-5 px-5">
                       <div className="flex flex-wrap gap-y-2">
                         <ul className="w-full lg:w-1/3">
-                          {brandItems?.map((item, index) => (
-                            <SubMenuItem
-                              key={index}
-                              itemLabel={item}
-                              itemUrl={brandUrl}
-                              type={'BRAND'}
-                            />
-                          ))}
+                          {brands?.map((brand) => {
+                            return (
+                              <SubMenuItem
+                                key={brand.id}
+                                itemLabel={brand.brandName}
+                                itemUrl={brand.seName}
+                                type={'BRAND'}
+                              />
+                            );
+                          })}
                         </ul>
                       </div>
                     </div>

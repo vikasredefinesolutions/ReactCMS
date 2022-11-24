@@ -6,6 +6,7 @@ import { FetchStoreMenu } from 'services/header.service';
 import Backdrop from '../Backdrop';
 import CloseIcon from '../Icons/CloseIcon';
 import MenuItem from './MenuItem';
+import Brand from './Brand';
 
 type _deMenuItems = 'brand' | 'category' | 'topic';
 interface _props {
@@ -42,11 +43,10 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
               className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto"
             >
               <CloseIcon />
-              {(['brand', 'category', 'topic'] as _deMenuItems[]).map(
-                (menu, index) => (
-                  <MenuItem key={index} type={menu} screen={'MOBILE'} />
-                ),
-              )}
+              <Brand />
+              {(['category', 'topic'] as _deMenuItems[]).map((menu, index) => (
+                <MenuItem key={index} type={menu} screen={'MOBILE'} />
+              ))}
             </div>
           </div>
         </div>

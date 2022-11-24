@@ -12,6 +12,10 @@ import { _showConsoles, __fileNames } from 'show.config';
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
+export const FetchBrands = async (storeId: number) => {
+  return HeaderService.FetchBrands({ storeId });
+};
+
 export const FetchMenuItems = async (storeId: number) => {
   return [];
 

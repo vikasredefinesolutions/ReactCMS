@@ -409,5 +409,12 @@ export const FetchBrandProductList = async ({
     method: 'GET',
   });
 
+  conditionalLog({
+    data: res.data,
+    name: 'FetchProductSEOtags',
+    type: 'API',
+    show: res.data === null,
+  });
+
   return res.data;
 };

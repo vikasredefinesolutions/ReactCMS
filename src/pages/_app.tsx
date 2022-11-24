@@ -4,7 +4,7 @@ import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
 import { __domain } from '../page.config';
 import { reduxWrapper } from 'redux/store.redux';
 import * as _AppController from 'Controllers/_AppController';
-import { _StoreMenu } from 'definations/APIs/header.res';
+import { _StoreMenu, _Brands } from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
 import { useActions } from 'hooks';
 import Spinner from 'appComponents/ui/spinner';
@@ -21,6 +21,7 @@ import { useEffect, useState } from 'react';
 type AppOwnProps = {
   store: _StoreReturnType | null;
   menuItems: _StoreMenu[] | null;
+  brands: _Brands[] | null;
 };
 
 export function RedefineCustomApp({
@@ -28,6 +29,7 @@ export function RedefineCustomApp({
   pageProps,
   store,
   menuItems,
+  brands,
 }: AppProps & AppOwnProps) {
   const { store_storeDetails } = useActions();
   const router = useRouter();
@@ -55,6 +57,7 @@ export function RedefineCustomApp({
     store_storeDetails({
       store: store,
       menuItems: menuItems,
+      brands: brands,
     });
   }
 
@@ -85,6 +88,7 @@ RedefineCustomApp.getInitialProps = async (
   const expectedProps: _Expected_AppProps = {
     store: null,
     menuItems: null,
+    brands: null,
   };
 
   try {
@@ -92,6 +96,12 @@ RedefineCustomApp.getInitialProps = async (
       domain,
       pathName,
     );
+
+    if (expectedProps.store.storeId) {
+      expectedProps.brands = await _AppController.FetchBrands(
+        expectedProps.store.storeId,
+      );
+    }
     // expectedProps.menuItems = await _AppController.FetchMenuItems(2);
   } catch (error) {
     highLightError({ error, component: '_app Page' });
@@ -107,6 +117,7 @@ RedefineCustomApp.getInitialProps = async (
     ...ctx,
     store: expectedProps.store,
     menuItems: expectedProps.menuItems,
+    brands: expectedProps.brands,
   };
 };
 
