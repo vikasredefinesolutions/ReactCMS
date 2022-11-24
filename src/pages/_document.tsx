@@ -1,15 +1,12 @@
-import { highLightError } from 'helpers/common.helper';
+import { _StoreReturnType } from '@type/store.type';
 import * as _AppController from 'Controllers/_AppController';
+import { highLightError } from 'helpers/common.helper';
 import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
   DocumentContext,
-  DocumentInitialProps,
+  DocumentInitialProps, Head, Html, Main,
+  NextScript
 } from 'next/document';
 import { __domain } from 'page.config';
-import { _StoreReturnType } from '@type/store.type';
 
 let store: _StoreReturnType | null = null;
 
@@ -44,12 +41,11 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${
-              store?.storeId
-            }/css/${store?.storeId}.css`}
+            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${store?.storeId
+              }/css/${store?.storeId}.css`}
           />
         </Head>
-        <body>
+        <body className='font-Outfit bg-white'>
           <Main />
           <NextScript />
         </body>

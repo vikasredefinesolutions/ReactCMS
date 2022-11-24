@@ -1,21 +1,20 @@
 import { _ProductDetailsProps } from './APIs/productDetail.res';
 import {
-  StoreBrandProductColorViewModel,
-  StoreBrandProductSizeViewModel,
-  StoreBrandProductGenderViewModel,
-  StoreBrandProductProductTypeViewModel,
-  StoreBrandProductPriceRangeViewModel,
   GetlAllProductList,
-  ProductListType,
+  StoreBrandProductColorViewModel,
+  StoreBrandProductGenderViewModel,
+  StoreBrandProductPriceRangeViewModel,
+  StoreBrandProductProductTypeViewModel,
+  StoreBrandProductSizeViewModel,
 } from './productList.type';
 
-export type other = StoreBrandProductColorViewModel |
-    StoreBrandProductSizeViewModel |
-    StoreBrandProductGenderViewModel |
-    StoreBrandProductProductTypeViewModel |
-    StoreBrandProductPriceRangeViewModel |
-    GetlAllProductList;
-
+export type other =
+  | StoreBrandProductColorViewModel
+  | StoreBrandProductSizeViewModel
+  | StoreBrandProductGenderViewModel
+  | StoreBrandProductProductTypeViewModel
+  | StoreBrandProductPriceRangeViewModel
+  | GetlAllProductList;
 
 export interface Seo {
   brandId: number;
@@ -73,6 +72,7 @@ export interface ProductListPageData {
   filters?: Filter[];
   product?: Product[];
   checkedFilters?: CheckedFilter[];
+  brandId?: string;
 }
 
 export interface SlugPropType {
@@ -81,6 +81,8 @@ export interface SlugPropType {
   slug: string;
 }
 
-export interface TopicProps {
-  seo?: Seo;
-}
+export type TopicProps =
+  | any
+  | {
+      seo?: Seo;
+    };
