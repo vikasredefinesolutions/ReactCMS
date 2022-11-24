@@ -1,19 +1,12 @@
 import { getPageType } from '@services/page.service';
 import { _StoreReturnType } from 'definations/store.type';
 
-import { __domain } from 'page.config';
 import {
   FetchBrandProductList,
   FetchFiltersJsonByBrand,
 } from '@services/product.service';
-import { BrandFilter, ProductList } from '@type/productList.type';
-import * as _AppController from 'Controllers/_AppController';
-import { GetServerSideProps } from 'next';
-import { _ExpectedProductProps } from '@type/product.type';
-import { getProductDetailProps } from 'Controllers/ProductController';
 import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
-import { conditionalLog } from 'helpers/global.console';
-import { _showConsoles, __fileNames } from 'show.config';
+import { BrandFilter } from '@type/productList.type';
 import {
   Filter,
   FilterOption,
@@ -21,7 +14,13 @@ import {
   ProductListPageData,
   TopicProps,
 } from '@type/slug.type';
+import { getProductDetailProps } from 'Controllers/ProductController';
+import * as _AppController from 'Controllers/_AppController';
 import { extractSlugName } from 'helpers/common.helper';
+import { conditionalLog } from 'helpers/global.console';
+import { GetServerSideProps } from 'next';
+import { __domain } from 'page.config';
+import { _showConsoles, __fileNames } from 'show.config';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const domain = __domain.layout || context.req.rawHeaders[1];
@@ -29,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug, slugID } = extractSlugName(context.params);
   store = await _AppController.FetchStoreDetails(domain, slug!);
   const { data } = await getPageType({
-    store_id: 4,
+    store_id: store.storeId || 0,
     slug,
   });
   const pageType = data.data.type;
@@ -63,7 +62,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   if ('brand,category'.includes(pageType)) {
-    const seo = await FetchBrandProductList({ storeId: 4, seName: slug });
+    const seo = await FetchBrandProductList({
+      storeId: store.storeId || 0,
+      seName: slug,
+    });
     let filterOptionforfaceteds: Array<{
       name: string;
       value: string;
@@ -84,9 +86,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     let product: Product[] = [];
     const filter = {
-      storeID: 4,
-      brandId: 169,
-      customerId: 1,
+      storeID: store.storeId || 0,
+      brandId: data.data.id,
+      customerId: 0,
       filterOptionforfaceteds: filterOptionforfaceteds,
     };
     const BrandFilt: BrandFilter = await FetchFiltersJsonByBrand(filter);
@@ -104,6 +106,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
     const page = {} as ProductListPageData;
     pageData = {} as ProductListPageData;
+    page['brandId'] = data.data.id;
     page['seo'] = seo;
     page['filters'] = _filters;
     page['product'] = product as Product[];

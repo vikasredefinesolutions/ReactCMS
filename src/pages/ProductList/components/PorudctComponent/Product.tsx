@@ -1,4 +1,5 @@
 import ImageComponent from 'appComponents/reusables/Image';
+import Price from 'appComponents/reusables/Price';
 import Wishlist from 'appComponents/ui/Wishlist';
 import {
   getCompareLink
@@ -23,7 +24,7 @@ const ProductComponent = ({
     seName: string,
     color: string,
   ) => void;
-  compareCheckBoxHandler: (sku: number) => void;
+  compareCheckBoxHandler: (sku: string) => void;
 }) => {
   const { currentProduct, origin, setCurrentProduct } = ProductBoxController({ product, colorChangeHandler });
 
@@ -57,18 +58,18 @@ const ProductComponent = ({
               </div>
             </div>
             <div className="mt-6 relative">
-              <div className="text-sm absolute -top-4 left-0 right-0">
+              {/* <div className="text-sm absolute -top-4 left-0 right-0">
                 <span className="w-2.5 h-2.5 bg-rose-500 inline-block rounded-full mr-1"></span>
                 Available Ofline
-              </div>
+              </div> */}
               <div className="mt-1">
                 <img
                   className="inline-block max-h-12"
-                  src={`${config.mediaBaseUrl}/rdc${product.brandlogo}`}
+                  src={`${config.mediaBaseUrl}/rdc${product.brandlogo.replace('/rdc', '')}`}
                   alt={product.brandlogo}
                 />
               </div>
-              <div className="mt-1">
+              {/* <div className="mt-1">
                 <a
                   href="javascript:void(0);"
                   className="inline-flex items-center gap-1"
@@ -82,7 +83,7 @@ const ProductComponent = ({
                   </span>
                   <span>Personalize</span>
                 </a>
-              </div>
+              </div> */}
               <div className="relative mt-1 text-anchor hover:text-anchor-hover h-14 text-ellipsis overflow-hidden line-clamp-2">
                 <Link
                   key={product.id}
@@ -96,20 +97,21 @@ const ProductComponent = ({
                 </Link>
               </div>
               <div className="mt-2 text-black text-base tracking-wider">
-                <span className="font-semibold">$159.00</span>{' '}
-                <del>$199.00</del>
+                {/* <span className="font-semibold">$159.00</span>{' '}
+                <del>$199.00</del> */}
+                MSRP <Price value={product.salePrice} />
               </div>
-              <>{skuList.length}</>
+
               <div className="form-group mt-2">
                 <label className="checkbox-inline">
                   <input
-                    checked={skuList.includes(product.id)}
-                    onChange={() => compareCheckBoxHandler(product.id)}
+                    checked={skuList.includes(product.sku)}
+                    onChange={() => compareCheckBoxHandler(product.sku)}
                     type="checkbox"
                   />{' '}
                   {
                     <>
-                      {skuList.length && skuList.includes(product.id) ? (
+                      {skuList.length && skuList.includes(product.sku) ? (
                         <Link href={getCompareLink()}>
                           <a>Compare {skuList.length}</a>
                         </Link>
@@ -129,8 +131,8 @@ const ProductComponent = ({
                     index < 6 ? (
                       <li
                         className={`w-7 h-7 border-2${subRow.id === currentProduct.id
-                            ? ' border-secondary'
-                            : ''
+                          ? ' border-secondary'
+                          : ''
                           }`}
                         onClick={() => {
                           colorChangeHandler(
@@ -152,11 +154,11 @@ const ProductComponent = ({
                   )}
                 </ul>
               )}
-              <div className="mt-3">
+              {/* <div className="mt-3">
                 <a href="javascript:void(0);" className="btn btn-primary">
                   CONTACT US
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

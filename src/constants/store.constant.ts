@@ -1,6 +1,6 @@
 export const _Store = {
   type1: 'corporategear',
-  type2: 'gamedaygear',
+  type2: 'gamedaygear.com',
   type3: 'pk',
   type4: 'drivingi',
 };

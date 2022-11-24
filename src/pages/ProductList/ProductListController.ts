@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import {
-  FilterApiRequest,
-  FilterType,
-  ProductList,
-  BrandFilter,
-} from '@type/productList.type';
+import { FilterType, ProductList } from '@type/productList.type';
+import { useEffect, useState } from 'react';
 
-import { useRouter } from 'next/router';
+import { AddRemoveToCompare, getSkuList } from 'helpers/compare.helper';
 import { useActions } from 'hooks';
-import { getSkuList, AddRemoveToCompare } from 'helpers/compare.helper';
+import { useRouter } from 'next/router';
 const ProductListController = (
   data: { product: ProductList; filters: FilterType },
   slug: string,
   checkedFilters: any,
+  brandId: number,
 ) => {
   const { setShowLoader } = useActions();
   // const location = useLocation();
@@ -42,10 +38,6 @@ const ProductListController = (
   const [productView, setProductView] = useState('grid');
   const [showFilter, setShowFilter] = useState(false);
 
-  const storeId = 4;
-  const brandId = 169;
-  const customerId = 1;
-
   function removeDuplicates(arr: string[]) {
     return arr.filter((item, index) => arr.indexOf(item) === index);
   }
@@ -68,9 +60,9 @@ const ProductListController = (
     }
   }, []);
 
-  const compareCheckBoxHandler = (id: number) => {
+  const compareCheckBoxHandler = (sku: string) => {
     if (localStorage) {
-      AddRemoveToCompare(id);
+      AddRemoveToCompare(sku);
       setSkuList(getSkuList());
     }
   };
@@ -81,6 +73,7 @@ const ProductListController = (
       value: string;
     }>,
   ) => {
+    setShowSortMenu(false);
     const nameArray = removeDuplicates(filterOption.map((res) => res.name));
     const valueArray: string[] = [];
     nameArray.forEach((name) => {
@@ -120,6 +113,7 @@ const ProductListController = (
     } else if (!checked) {
       newArray.splice(index, 1);
     }
+    setShowSortMenu(false);
     setFilterOption(newArray);
     updateFilter(newArray);
   };
@@ -180,6 +174,7 @@ const ProductListController = (
         pro1.salePrice < pro2.salePrice ? 1 : -1,
       );
     }
+    setShowSortMenu(false);
     setAllProduct(newList);
     setProduct(getListingWithPagination(newList));
   };

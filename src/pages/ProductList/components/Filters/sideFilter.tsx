@@ -10,7 +10,7 @@ const SideFilter = ({
   checkedFilters: any;
 }) => (
   <div className="relative">
-    <div className="bg-gray-100 p-4">
+    <div className="p-4">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-medium text-gray-900">Filters</h2>
       </div>
@@ -19,9 +19,8 @@ const SideFilter = ({
         {filters &&
           filters.map((filter, index) => (
             <div
-              className={`py-4${
-                index === 0 ? '' : ' border-t border-neutral-300'
-              }`}
+              className={`py-4${index === 0 ? '' : ' border-t border-neutral-300'
+                }`}
               x-data="{ open: true }"
               key={index}
             >
