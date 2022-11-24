@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import Image from 'appComponents/reusables/Image';
 
 interface _props {
   url: string;
@@ -24,7 +25,7 @@ const BrandImage: React.FC<_props> = ({ url, src, alt }) => {
             href={`/${url}`}
             className="text-anchor hover:text-anchor-hover"
           >
-            <img className="inline-block" src={src} alt={alt} />
+            <Image className="inline-block" src={src} alt={alt} />
           </Link>
         </div>
       );
@@ -36,7 +37,7 @@ const BrandImage: React.FC<_props> = ({ url, src, alt }) => {
         <div className="flex flex-wrap border-t first:border-t-0 py-3">
           <div className="w-1/2 lg:w-1/4 text-center">
             <Link href={`/${url}`} className="block p-2 bg-secondary m-2">
-              <img className="inline-block" src={src} alt={alt} />
+              <Image className="inline-block" src={src} alt={alt} />
             </Link>
           </div>
         </div>
@@ -47,7 +48,7 @@ const BrandImage: React.FC<_props> = ({ url, src, alt }) => {
       return (
         <div className="w-full lg:w-1/4 text-center">
           <Link href={`/${url}`} className="block p-2 bg-secondary m-2">
-            <img className="inline-block" src={src} alt={alt} />
+            <Image className="inline-block" src={src} alt={alt} />
           </Link>
         </div>
       );
@@ -58,7 +59,7 @@ const BrandImage: React.FC<_props> = ({ url, src, alt }) => {
       return (
         <div className="w-1/2 lg:w-1/4 text-center">
           <Link href={`/${url}`} className="block p-2 bg-secondary m-2">
-            <img className="inline-block" src={src} alt={alt} />
+            <Image className="inline-block" src={src} alt={alt} />
           </Link>
         </div>
       );
@@ -70,7 +71,7 @@ const BrandImage: React.FC<_props> = ({ url, src, alt }) => {
             href={`/${url}`}
             className="inline-block P-2 text-anchor hover:text-anchor-hover hover:shadow-md hover:bg-white"
           >
-            <img
+            <Image
               className="inline-block"
               src="../images/brands-img/patagonia.png"
               alt={alt}
@@ -91,7 +92,7 @@ const BrandImage: React.FC<_props> = ({ url, src, alt }) => {
             href={`/${url}`}
             className="text-anchor hover:text-anchor-hover"
           >
-            <img className="inline-block" src={src} alt={alt} />
+            <Image className="inline-block" src={src} alt={alt} />
           </Link>
         </div>
       );

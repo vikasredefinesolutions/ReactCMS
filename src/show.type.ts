@@ -1,6 +1,6 @@
 import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductDiscountTable } from '@type/APIs/discountTable.res';
-import { _StoreMenu } from '@type/APIs/header.res';
+import { _Brands, _StoreMenu } from '@type/APIs/header.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { _ProductDetails, _ProductSEO } from '@type/APIs/productDetail.res';
 import { _SizeChartTransformed } from '@type/APIs/sizeChart.res';
@@ -18,6 +18,7 @@ export type _productController = {
 export type _Expected_AppProps = {
   store: _StoreReturnType | null;
   menuItems: _StoreMenu[] | null;
+  brands: _Brands[] | null;
 };
 
 export type _conditionalLog =

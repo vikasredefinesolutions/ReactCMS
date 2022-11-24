@@ -5,6 +5,7 @@ import {
   getCompareLink
 } from 'helpers/compare.helper';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import config from '../../../../api.config';
 import { GetlAllProductList } from '../../../../definations/productList.type';
 import ProductBoxController from './ProductBox.controller';
@@ -28,6 +29,10 @@ const ProductComponent = ({
 }) => {
   const { currentProduct, origin, setCurrentProduct } = ProductBoxController({ product, colorChangeHandler });
 
+  useEffect(() => {
+    setCurrentProduct(product.getProductImageOptionList[0]);
+  }, [product]);
+  // console.log(product);
   return (
     <li className="text-center flex">
       <div className="h-hull w-full">
@@ -40,7 +45,7 @@ const ProductComponent = ({
                 className="w-auto h-auto m-auto max-h-[400px]"
                 height={400}
                 width={350}
-                key={currentProduct.id}
+                cKey={currentProduct.id}
               />
               <div className="absolute top-5 right-5 text-gray-800 p-1 z-25">
                 <button className="">

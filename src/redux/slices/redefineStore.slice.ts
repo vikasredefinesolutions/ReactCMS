@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { _SeName } from 'constants/store.constant';
-import { _StoreMenu } from 'definations/APIs/header.res';
+import { _Brands, _StoreMenu } from 'definations/APIs/header.res';
 import { PageResponseType, _Show } from 'definations/app.type';
 import { _StoreReturnType } from 'definations/store.type';
 import { showComponents } from 'mock/store.mock';
@@ -23,6 +23,7 @@ export interface _RedesignStore {
   pageType: PageResponseType;
   view: 'DESKTOP' | 'MOBILE';
   menuItems: _StoreMenu[] | null;
+  brands: _Brands[] | null;
 }
 
 // Define the initial state using that type
@@ -38,6 +39,7 @@ const initialState: _RedesignStore = {
   pageType: {} as PageResponseType,
   view: 'DESKTOP',
   menuItems: null,
+  brands: null,
 };
 
 export const storeSlice = createSlice({
@@ -50,6 +52,7 @@ export const storeSlice = createSlice({
         payload: {
           store: _StoreReturnType;
           menuItems: _StoreMenu[] | null;
+          brands: _Brands[] | null;
         };
       },
     ) => {
@@ -58,6 +61,7 @@ export const storeSlice = createSlice({
       state.id = store.storeId;
       state.layout = store.layout;
       state.pathName = store.pathName;
+      state.brands = action.payload.brands;
 
       // state.pageType = store.pageType;
       state.menuItems = action.payload.menuItems;
