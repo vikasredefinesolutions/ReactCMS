@@ -26,7 +26,8 @@ export interface _ProductDoNotExistTransformed {
 }
 
 export interface _ProductBySku {
-  id: number;
+  productId: number;
+  seName: string;
   storeId: number;
   name: string;
   description: string;

@@ -6,9 +6,10 @@ import { _ProductColor } from '@type/APIs/colors.res';
 interface _props {
   color: null | _ProductColor[];
   index: number;
+  seName: string;
 }
 
-const AllColors: React.FC<_props> = ({ color, index }) => {
+const AllColors: React.FC<_props> = ({ color, index, seName }) => {
   const { showCompareImage } = useActions();
 
   if (color === null) {
@@ -25,6 +26,8 @@ const AllColors: React.FC<_props> = ({ color, index }) => {
         index,
         label: '',
         url: '-',
+        attibuteOptionId: 0,
+        seName: '/',
       });
       return;
     }
@@ -33,6 +36,8 @@ const AllColors: React.FC<_props> = ({ color, index }) => {
       index: index,
       label: color[0].name,
       url: color[0].imageUrl,
+      seName: seName,
+      attibuteOptionId: color[0].attributeOptionId,
     });
   }, []);
 
@@ -47,6 +52,8 @@ const AllColors: React.FC<_props> = ({ color, index }) => {
                 index,
                 label: color.name,
                 url: color.imageUrl,
+                attibuteOptionId: color.attributeOptionId,
+                seName: seName,
               })
             }
             className="w-10 h-10 border border-gray-300 bg-gray-100 flex justify-center items-center"

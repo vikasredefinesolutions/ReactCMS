@@ -171,9 +171,25 @@ export const FetchInventoryById = async (payload: {
       show: res.data === null || res.data.length === 0,
     });
 
+    const sizes = payload.attributeOptionId.map((id) => {
+      const repeatedSizes = res.data
+        .map((int) => {
+          if (int.colorAttributeOptionId === id) {
+            return int.name;
+          }
+          return '';
+        })
+        .filter(Boolean);
+
+      return {
+        colorAttributeOptionId: id,
+        sizeArr: removeDuplicates(repeatedSizes),
+      };
+    });
+
     const transformedData: _ProductInventoryTransfomed = {
       inventory: res.data,
-      sizes: removeDuplicates(res.data.map((int) => int.name)),
+      sizes: sizes,
     };
     return transformedData;
   } catch (error) {

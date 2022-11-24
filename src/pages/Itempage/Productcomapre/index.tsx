@@ -1,9 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Price from 'appComponents/reusables/Price';
 import { _SeName } from 'constants/store.constant';
-import { useTypedSelector } from 'hooks';
-import { FetchColors, FetchProductById } from 'services/product.service';
 import AllColors from 'Components/Compare/AllColors';
 import DisplayCompareImage from 'Components/Compare/DisplayCompareImage';
 import Link from 'next/link';
@@ -16,11 +14,14 @@ import { _ProductBySku } from '@type/APIs/productDetail.res';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles, __fileNames } from 'show.config';
 import { _ProductColor } from '@type/APIs/colors.res';
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
+import AllSizes from 'Components/Compare/AllSizes';
 
 interface _props {
   products: {
     details: _ProductBySku[] | null;
     colors: Array<_ProductColor[] | null> | null;
+    inventory: (_ProductInventoryTransfomed | null)[] | null;
   } | null;
 }
 
@@ -43,7 +44,9 @@ const ProductCompare: NextPage<_props> = ({ products }) => {
                 </td>
                 {products?.details?.map((product, index) => (
                   <td key={index} className="">
-                    <div className="p-2">{product.name}</div>
+                    <Link href={product.seName} className="p-2">
+                      {product.name}
+                    </Link>
                   </td>
                 ))}
               </tr>
@@ -69,39 +72,38 @@ const ProductCompare: NextPage<_props> = ({ products }) => {
                   </td>
                 ))}
               </tr>
-              {/* <tr className="divide-x divide-x-gray-300">
+              <tr className="divide-x divide-x-gray-300">
                 <td className="">
                   <div className="p-2">Color</div>
                 </td>
                 {products?.colors?.map((colors, index) => (
-                  <AllColors color={colors} index={index} />
+                  <AllColors
+                    color={colors}
+                    index={index}
+                    seName={
+                      (products.details && products.details[index].seName) ||
+                      '/'
+                    }
+                  />
                 ))}
-              </tr> */}
-              {/* <tr className="divide-x divide-x-gray-300">
+              </tr>
+              <tr className="divide-x divide-x-gray-300">
                 <td className="">
                   <div className="p-2">Size</div>
                 </td>
-                {products?.details?.map((product) => {
-                  if (product. === '-') {
+                {products?.inventory?.map((inventory, index) => {
+                  if (inventory === null) {
                     return (
-                      <td className="">
+                      <td key={index} className="">
                         <div className="p-2 flex flex-wrap gap-2">"-"</div>
                       </td>
                     );
                   }
-                  return (
-                    <td className="">
-                      <div className="p-2 flex flex-wrap gap-2">
-                        {sizes.map((size) => (
-                          <div className="w-10 h-10 border border-gray-300 bg-gray-100 flex justify-center items-center">
-                            {size}
-                          </div>
-                        ))}
-                      </div>
-                    </td>
-                  );
+                  return inventory.sizes.map((sizes) => (
+                    <AllSizes key={index} index={index} sizes={sizes} />
+                  ));
                 })}
-              </tr> */}
+              </tr>
               <tr className="divide-x divide-x-gray-300">
                 <td className="">
                   <div className="p-2">Description</div>
@@ -135,6 +137,7 @@ interface _ExpectedCompareProductsProps {
   products: null | {
     details: _ProductBySku[] | null;
     colors: Array<_ProductColor[] | null> | null;
+    inventory: (_ProductInventoryTransfomed | null)[] | null;
   };
 }
 
@@ -172,7 +175,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   conditionalLog({
     show: _showConsoles.compareProducts,
-    data: expectedProps,
+    data: expectedProps.products,
     type: 'NEXTJS PROPS',
     name: __fileNames.compareProducts,
   });

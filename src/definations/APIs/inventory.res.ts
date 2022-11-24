@@ -26,7 +26,10 @@ export interface _ProductInventory {
 }
 
 export interface _ProductInventoryTransfomed {
-  sizes: string[];
+  sizes: {
+    colorAttributeOptionId: number;
+    sizeArr: string[];
+  }[];
   inventory: _ProductInventory[];
 }
 
