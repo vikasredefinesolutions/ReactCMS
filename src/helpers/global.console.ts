@@ -25,7 +25,12 @@ export const conditionalLog = ({
       return;
     }
 
-    if (name === __fileNames.productDetails || name === __fileNames._app) {
+    if (
+      name === __fileNames.productDetails ||
+      name === __fileNames._app ||
+      name === __fileNames.requestConsultation ||
+      name === __fileNames.compareProducts
+    ) {
       const message = `${type} : ${name}`;
       highLightResponse({ dataToShow: data, component: message });
     }

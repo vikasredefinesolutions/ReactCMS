@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import React, { useEffect } from 'react';
 import RequestConsultationForm from 'Components/RequestConsultation/RequestConsultationForm';
 import RequestFeatures from 'Components/RequestConsultation/RequestFeatures';
@@ -20,25 +20,23 @@ import { highLightError } from 'helpers/common.helper';
 import { useRouter } from 'next/router';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles, __fileNames } from 'show.config';
+import { _ExpectedRequestConsultationProps } from '@type/product.type';
 
 interface _props {
   product: {
     doNotExist: _ProductDoNotExistTransformed | null;
     details: _ProductDetails | null;
-    colors: _ProductColor[] | null;
   } | null;
+
+  color: _ProductColor | null;
 }
 
-const RequestConsultation: NextPage<_props> = ({ product }) => {
+const RequestConsultation: NextPage<_props> = ({ product, color }) => {
   const router = useRouter();
 
   if (product === null) return <>Product Page Loading... </>;
 
-  if (product?.doNotExist) {
-    return <></>;
-  }
-
-  if (product === null || product.details === null || product.colors === null) {
+  if (product === null || product.details === null || color === null) {
     router.push('/');
     return <></>;
   }
@@ -55,7 +53,7 @@ const RequestConsultation: NextPage<_props> = ({ product }) => {
         <div className="w-full lg:w-4/12 px-3 text-center">
           <div className="">
             <Image
-              src={product.colors[0].imageUrl}
+              src={color?.imageUrl || null}
               alt={product.details.name}
               className={''}
             />
@@ -74,38 +72,44 @@ const RequestConsultation: NextPage<_props> = ({ product }) => {
 export default RequestConsultation;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  let expectedProps: {
-    store: null | _StoreReturnType;
-    product: {
-      details: _ProductDetails | _ProductDoNotExist | null;
-      colors: _ProductColor[] | null;
-      doNotExist: null | _ProductDoNotExistTransformed;
-    } | null;
-  } = {
+  let expectedProps: _ExpectedRequestConsultationProps = {
     store: null,
     product: null,
+    color: null,
   };
+
   try {
     const domain = __domain.layout || context.req.rawHeaders[1]!;
-    const seName = _SeName.nike;
-    // const pathNames = context.req.url?.split('/')!;
-    // const seName =  pathNames ? pathNames[pathNames?.length - 1] : null;
+    const query: {
+      productId: undefined | string | string[] | number;
+      colorName: undefined | string | string[];
+    } = {
+      productId: context.query?.productid,
+      colorName: context.query?.Color,
+    };
 
-    if (seName) {
-      expectedProps.store = await _AppController.FetchStoreDetails(
-        domain,
-        seName!,
-      );
+    if (typeof query.productId === 'string') {
+      query.productId = +query.productId; // to number;
+
+      expectedProps.store = await _AppController.FetchStoreDetails(domain, '');
+
       if (expectedProps.store) {
         expectedProps.product =
           await ConsultationController.FetchProductDetails({
             storeId: expectedProps.store.storeId!,
-            seName: seName,
+            productId: query.productId,
             isAttributeSaparateProduct:
               expectedProps.store.isAttributeSaparateProduct,
           });
+        expectedProps.color =
+          expectedProps.product?.colors?.find((color) => {
+            return color.name === query.colorName;
+          }) || null;
       }
     }
+
+    // const pathNames = context.req.url?.split('/')!;
+    // const seName =  pathNames ? pathNames[pathNames?.length - 1] : null;
   } catch (error) {
     highLightError({ error, component: `Request Consultation page` });
   }
@@ -113,13 +117,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   conditionalLog({
     show: _showConsoles.requestConsultation,
     data: expectedProps,
-    type: 'CONTROLLER',
+    type: 'NEXTJS PROPS',
     name: __fileNames.requestConsultation,
   });
 
   return {
     props: {
       product: expectedProps.product,
+      color: expectedProps.color,
     },
   };
 };

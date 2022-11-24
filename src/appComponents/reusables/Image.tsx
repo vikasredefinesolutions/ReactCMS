@@ -1,7 +1,7 @@
 // import axios from 'axios';
 
 import { icons as _images } from 'Assets/images.asset';
-import NextImage from 'next/image';
+import NextImage, { StaticImageData } from 'next/image';
 import config from 'api.config';
 interface _props {
   src: string | null;
@@ -21,7 +21,7 @@ const ImageComponent: React.FC<_props> = ({
   cKey,
 }) => {
   const getMediaURL = (src: string | null) => {
-    let url = '';
+    let url: string | StaticImageData = '';
     if (src) {
       const srcWithHTTPs = src.includes('http');
 
@@ -41,7 +41,7 @@ const ImageComponent: React.FC<_props> = ({
     return url;
   };
 
-  const mediaURL: string = getMediaURL(src);
+  const mediaURL: string | StaticImageData = getMediaURL(src);
 
   return (
     // <div className='w-auto h-auto m-auto max-h-[400px]'>

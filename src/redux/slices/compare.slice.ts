@@ -2,7 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
 export interface _ModalState {
-  selectedImages: { label: string; url: string; index: number }[] | null;
+  selectedImages:
+    | {
+        attibuteOptionId: number;
+        label: string;
+        url: string;
+        index: number;
+        seName: string;
+      }[]
+    | null;
 }
 
 // Define the initial state using that type
@@ -21,6 +29,8 @@ export const compareSlice = createSlice({
           label: string;
           url: string;
           index: number;
+          attibuteOptionId: number;
+          seName: string;
         };
       },
     ) => {
