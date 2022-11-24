@@ -27,16 +27,7 @@ export default function Search(props: any) {
             </>
         }
 
-      page = (
-        <>
-          <Head>
-            <title>{seo?.seTitle}</title>
-            <meta name="description" content={seo?.seDescription} key="desc" />
-            <meta name="keywords" content={seo?.seKeyWords} />
-          </Head>
-          <Home />
-        </>
-      );
+     
     }
   
   return <>{page}</>;
