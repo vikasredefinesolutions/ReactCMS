@@ -1,6 +1,6 @@
 import { _StoreReturnType } from '@type/store.type';
 import * as _AppController from 'Controllers/_AppController';
-import { highLightError } from 'helpers/common.helper';
+import { highLightError } from 'helpers/global.console';
 import Document, {
   DocumentContext,
   DocumentInitialProps,

@@ -10,8 +10,7 @@ import {
   _ProductDetails,
   _ProductDoNotExistTransformed,
 } from 'definations/APIs/productDetail.res';
-import { highLightError } from 'helpers/common.helper';
-import { conditionalLog } from 'helpers/global.console';
+import { conditionalLog, highLightError } from 'helpers/global.console';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

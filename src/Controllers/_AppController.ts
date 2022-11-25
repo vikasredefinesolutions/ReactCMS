@@ -1,6 +1,5 @@
 import { _StoreReturnType } from 'definations/store.type';
-import { highLightError } from 'helpers/common.helper';
-import { conditionalLog } from 'helpers/global.console';
+import { conditionalLog, highLightError } from 'helpers/global.console';
 import { __domain } from 'page.config';
 import * as HeaderService from 'services/header.service';
 import * as HomeService from 'services/home.service';

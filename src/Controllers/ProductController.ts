@@ -9,8 +9,7 @@ import {
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
-import { highLightError } from 'helpers/common.helper';
-import { conditionalLog } from 'helpers/global.console';
+import { conditionalLog, highLightError } from 'helpers/global.console';
 import {
   FetchColors,
   FetchDiscountTablePrices,
