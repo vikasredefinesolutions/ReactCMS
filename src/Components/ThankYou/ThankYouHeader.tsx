@@ -1,7 +1,7 @@
+import { _Store } from 'constants/store.constant';
+import { _ThankYouOrder } from 'definations/thankYou.type';
+import { useTypedSelector } from 'hooks';
 import React from 'react';
-import { _Store } from '../constants/store.constant';
-import { _ThankYouOrder } from '../../../definations/thankYou.type';
-import { useTypedSelector } from '../hooks';
 
 interface _props {
   order: _ThankYouOrder;
@@ -43,7 +43,6 @@ const ThankYouHeader: React.FC<_props> = ({ order, contactNo }) => {
                     </div>
                     <div className="pb-2">
                       <a
-                        href="javascript:void(0)"
                         title="Print Reciept"
                         className="underline hover:no-underline"
                       >
@@ -55,11 +54,7 @@ const ThankYouHeader: React.FC<_props> = ({ order, contactNo }) => {
                     <div className="text-2xl pb-2">Questions?</div>
                     <div className="pb-2">Call Us:&nbsp; {contactNo}</div>
                     <div className="pb-2">
-                      <a
-                        href="javascript:void(0)"
-                        title="Email"
-                        className="underline hover:no-underline"
-                      >
+                      <a title="Email" className="underline hover:no-underline">
                         Email
                       </a>
                     </div>
@@ -105,7 +100,6 @@ const ThankYouHeader: React.FC<_props> = ({ order, contactNo }) => {
                     </span>
                     <span className="text-white block text-sm pb-2">
                       <a
-                        href="javascript:void(0)"
                         title="Print Reciept"
                         className="text-white underline hover:no-underline"
                       >
@@ -122,7 +116,6 @@ const ThankYouHeader: React.FC<_props> = ({ order, contactNo }) => {
                     </span>
                     <span className="text-white block text-sm pb-2">
                       <a
-                        href="javascript:void(0)"
                         title="Email"
                         className="text-white underline hover:no-underline"
                       >

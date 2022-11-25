@@ -1,9 +1,7 @@
 import ImageComponent from 'appComponents/reusables/Image';
 import Price from 'appComponents/reusables/Price';
 import Wishlist from 'appComponents/ui/Wishlist';
-import {
-  getCompareLink
-} from 'helpers/compare.helper';
+import { getCompareLink } from 'helpers/compare.helper';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import config from '../../../../api.config';
@@ -27,7 +25,10 @@ const ProductComponent = ({
   ) => void;
   compareCheckBoxHandler: (sku: string) => void;
 }) => {
-  const { currentProduct, origin, setCurrentProduct } = ProductBoxController({ product, colorChangeHandler });
+  const { currentProduct, origin, setCurrentProduct } = ProductBoxController({
+    product,
+    colorChangeHandler,
+  });
 
   useEffect(() => {
     setCurrentProduct(product.getProductImageOptionList[0]);
@@ -70,13 +71,16 @@ const ProductComponent = ({
               <div className="mt-1">
                 <img
                   className="inline-block max-h-12"
-                  src={`${config.mediaBaseUrl}/rdc${product.brandlogo.replace('/rdc', '')}`}
+                  src={`${config.mediaBaseUrl}/rdc${product.brandlogo.replace(
+                    '/rdc',
+                    '',
+                  )}`}
                   alt={product.brandlogo}
                 />
               </div>
               {/* <div className="mt-1">
                 <a
-                  href="javascript:void(0);"
+                  
                   className="inline-flex items-center gap-1"
                 >
                   <span>
@@ -135,10 +139,11 @@ const ProductComponent = ({
                   {product.getProductImageOptionList.map((subRow, index) =>
                     index < 6 ? (
                       <li
-                        className={`w-7 h-7 border-2${subRow.id === currentProduct.id
-                          ? ' border-secondary'
-                          : ''
-                          }`}
+                        className={`w-7 h-7 border-2${
+                          subRow.id === currentProduct.id
+                            ? ' border-secondary'
+                            : ''
+                        }`}
                         onClick={() => {
                           colorChangeHandler(
                             product.id,
@@ -160,7 +165,7 @@ const ProductComponent = ({
                 </ul>
               )}
               {/* <div className="mt-3">
-                <a href="javascript:void(0);" className="btn btn-primary">
+                <a  className="btn btn-primary">
                   CONTACT US
                 </a>
               </div> */}
