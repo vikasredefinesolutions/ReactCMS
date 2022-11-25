@@ -25,48 +25,6 @@ export const c_getSeName = (
   return slug;
 };
 
-const ANSI = {
-  Reset: '\x1b[0m',
-  Bright: '\x1b[1m',
-
-  FgRed: '\u001b[31m',
-  FgGreen: '\x1b[32m',
-  FgYellow: '\x1b[33m',
-};
-
-export const highLightResponse = ({
-  dataToShow,
-  component,
-  display = true,
-}: {
-  dataToShow: any;
-  component: string;
-  display?: boolean;
-}) => {
-  if (display === false) return;
-  console.log(
-    `${ANSI.FgYellow}Console.log: Response ====================================================================================Res( ${component} )`,
-    `=================================================Data>`,
-    dataToShow,
-    `${ANSI.FgYellow}<Data===============================================================================================================================================================================================END${ANSI.Reset}`,
-  );
-};
-
-export const highLightError = ({
-  error,
-  component,
-}: {
-  error: any;
-  component: string;
-}) => {
-  console.log(
-    `${ANSI.FgRed}Console.log: ERROR ==========================================================================================Error( ${component} )`,
-    `=================================================Data>${ANSI.Reset}`,
-    error,
-    `${ANSI.FgRed}<Data===============================================================================================================================================================================================END${ANSI.Reset}`,
-  );
-};
-
 export const extractSlugName = (contextParam?: ParsedUrlQuery) => {
   let slug = '';
   let slugID: string[] = [];
