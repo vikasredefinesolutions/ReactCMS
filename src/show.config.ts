@@ -9,7 +9,7 @@ export const __fileNames = {
 };
 
 export const _showConsoles = {
-  productDetails: false,
+  productDetails: true,
   _app: false,
   requestConsultation: false,
   compareProducts: false,
