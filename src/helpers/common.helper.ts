@@ -1,11 +1,4 @@
-import { _ProductColor } from '@type/APIs/colors.res';
-import { _ProductDiscountTable } from '@type/APIs/discountTable.res';
-import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
-import { _ProductDetails, _ProductSEO } from '@type/APIs/productDetail.res';
-import { _SizeChartTransformed } from '@type/APIs/sizeChart.res';
 import { ParsedUrlQuery } from 'querystring';
-import { _showConsoles, __fileNames } from 'show.config';
-import { _conditionalLog } from 'show.type';
 
 export function removeDuplicates(arr: any[]) {
   return arr.filter(
@@ -32,6 +25,15 @@ export const c_getSeName = (
   return slug;
 };
 
+const ANSI = {
+  Reset: '\x1b[0m',
+  Bright: '\x1b[1m',
+
+  FgRed: '\u001b[31m',
+  FgGreen: '\x1b[32m',
+  FgYellow: '\x1b[33m',
+};
+
 export const highLightResponse = ({
   dataToShow,
   component,
@@ -43,10 +45,10 @@ export const highLightResponse = ({
 }) => {
   if (display === false) return;
   console.log(
-    `Console.log: Response ======================================================================================================================( ${component} `,
-    `)================================================================================================================================================Data>`,
+    `${ANSI.FgYellow}Console.log: Response ====================================================================================Res( ${component} )`,
+    `=================================================Data>`,
     dataToShow,
-    `<Data=============================================================================================================================================================================================END>`,
+    `${ANSI.FgYellow}<Data===============================================================================================================================================================================================END${ANSI.Reset}`,
   );
 };
 
@@ -58,26 +60,27 @@ export const highLightError = ({
   component: string;
 }) => {
   console.log(
-    `Console.log: ERROR ================================================================================================================Error( ${component} )`,
-    `================================================================================================================================================Data>`,
+    `${ANSI.FgRed}Console.log: ERROR ==========================================================================================Error( ${component} )`,
+    `=================================================Data>${ANSI.Reset}`,
     error,
-    `<Data===============================================================================================================================================================================================END`,
+    `${ANSI.FgRed}<Data===============================================================================================================================================================================================END${ANSI.Reset}`,
   );
 };
 
-export const extractSlugName = (contextParam?: ParsedUrlQuery ) => {
+export const extractSlugName = (contextParam?: ParsedUrlQuery) => {
   let slug = '';
   let slugID: string[] = [];
-  if(contextParam)
-  {
+  if (contextParam) {
     slugID = contextParam['slug-id'] as string[];
     if (slugID) {
       slug = slugID.at(-1)?.replace('.html', '') || '';
     } else {
       const paramsSlug = contextParam!;
 
-      slug = paramsSlug ? (paramsSlug?.slug as string).replace('.html', '') : '';
+      slug = paramsSlug
+        ? (paramsSlug?.slug as string).replace('.html', '')
+        : '';
     }
   }
-  return {slug, slugID};
-}
+  return { slug, slugID };
+};

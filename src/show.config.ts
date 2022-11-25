@@ -12,7 +12,7 @@ export const _showConsoles = {
   productDetails: false,
   _app: false,
   requestConsultation: false,
-  compareProducts: true,
+  compareProducts: false,
   home: false,
   services: {
     store: true,
