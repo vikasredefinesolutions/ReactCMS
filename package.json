@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently \"next dev \" \"npm run watch:css \"",
     "watch:css": "postcss styles/globals.css -o styles/output.css",
-    "build": "postcss -m -i styles/globals.css -o styles/dist.css && next build",
+    "build": "postcss styles/globals.css -o styles/dist.css && next build",
     "start": "next start",
     "lint": "next lint"
   },
