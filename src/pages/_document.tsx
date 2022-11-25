@@ -1,10 +1,13 @@
 import { _StoreReturnType } from '@type/store.type';
 import * as _AppController from 'Controllers/_AppController';
-import { highLightError } from 'helpers/common.helper';
+import { highLightError } from 'helpers/global.console';
 import Document, {
   DocumentContext,
-  DocumentInitialProps, Head, Html, Main,
-  NextScript
+  DocumentInitialProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
 } from 'next/document';
 import { __domain } from 'page.config';
 
@@ -16,7 +19,7 @@ class MyDocument extends Document {
   ): Promise<DocumentInitialProps> {
     const originalRenderPage = ctx.renderPage;
 
-    const domain = __domain.layout || ctx.req?.rawHeaders[1]!;
+    const domain = __domain.domain || ctx.req?.rawHeaders[1]!;
 
     try {
       store = await _AppController.FetchStoreDetails(domain, 'pathName');
@@ -41,11 +44,12 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${store?.storeId
-              }/css/${store?.storeId}.css`}
+            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${
+              store?.storeId
+            }/css/${store?.storeId}.css`}
           />
         </Head>
-        <body className='font-Outfit bg-white'>
+        <body className="font-Outfit bg-white">
           <Main />
           <NextScript />
         </body>

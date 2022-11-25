@@ -1,21 +1,18 @@
-import { GetServerSideProps, NextPage } from 'next';
-import React from 'react';
-import Price from 'appComponents/reusables/Price';
-import { _SeName } from 'constants/store.constant';
-import AllColors from 'Components/Compare/AllColors';
-import DisplayCompareImage from 'Components/Compare/DisplayCompareImage';
-import Link from 'next/link';
-import { __domain } from 'page.config';
-import * as _AppController from 'Controllers/_AppController';
-import * as CompareController from 'Controllers/CompareProductsController';
-import { highLightError } from 'helpers/common.helper';
-import { _StoreReturnType } from '@type/store.type';
-import { _ProductBySku } from '@type/APIs/productDetail.res';
-import { conditionalLog } from 'helpers/global.console';
-import { _showConsoles, __fileNames } from 'show.config';
 import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
+import { _ProductBySku } from '@type/APIs/productDetail.res';
+import { _StoreReturnType } from '@type/store.type';
+import Price from 'appComponents/reusables/Price';
+import AllColors from 'Components/Compare/AllColors';
 import AllSizes from 'Components/Compare/AllSizes';
+import DisplayCompareImage from 'Components/Compare/DisplayCompareImage';
+import * as CompareController from 'Controllers/CompareProductsController';
+import * as _AppController from 'Controllers/_AppController';
+import { conditionalLog, highLightError } from 'helpers/global.console';
+import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
+import { __domain } from 'page.config';
+import { _showConsoles, __fileNames } from 'show.config';
 
 interface _props {
   products: {
@@ -146,7 +143,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     products: null,
     store: null,
   };
-  const domain = __domain.layout || context.req.rawHeaders[1]!;
+  const domain = __domain.domain || context.req.rawHeaders[1]!;
   const query: {
     SKUs: undefined | string | string[];
   } = {

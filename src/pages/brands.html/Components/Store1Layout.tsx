@@ -1,9 +1,18 @@
-
-import { Brand } from '@type/productList.type';
 import Link from 'next/link';
 import BrandController from '../BrandController';
 
-const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandName: string, seName: string, brandColorImageUrl: string }[], alphabets: string[] }) => {
+const Stroe1LayouBrand = ({
+  brands,
+  alphabets,
+}: {
+  brands: {
+    id: number;
+    brandName: string;
+    seName: string;
+    brandColorImageUrl: string;
+  }[];
+  alphabets: string[];
+}) => {
   const {
     alphabets: alphabts,
     currentTab,
@@ -52,7 +61,6 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                 <ul className="w-full flex justify-center max-w-4xl mx-auto flex-wrap">
                   <li className="">
                     <a
-                      href="javascript:void(0);"
                       className={`bg-[${getTabColor()}] h-2 w-24 my-2 inline-block`}
                     ></a>
                   </li>
@@ -60,60 +68,60 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                 <ul className="w-full flex justify-center max-w-4xl mx-auto flex-wrap">
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 0
+                      className={`tab py-2 mr-1 px-2 block font-medium${
+                        currentTab === 0
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                        }`}
+                      }`}
                       onClick={() => setCurrentTab(0)}
-                      href="javascript:void(0);"
                     >
                       Featured
                     </a>
                   </li>
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 1
+                      className={`tab py-2 mr-1 px-2 block font-medium${
+                        currentTab === 1
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                        }`}
+                      }`}
                       onClick={() => setCurrentTab(1)}
-                      href="javascript:void(0);"
                     >
                       Outerwear
                     </a>
                   </li>
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 2
+                      className={`tab py-2 mr-1 px-2 block font-medium${
+                        currentTab === 2
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                        }`}
+                      }`}
                       onClick={() => setCurrentTab(2)}
-                      href="javascript:void(0);"
                     >
                       Golf
                     </a>
                   </li>
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 3
+                      className={`tab py-2 mr-1 px-2 block font-medium${
+                        currentTab === 3
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                        }`}
+                      }`}
                       onClick={() => setCurrentTab(3)}
-                      href="javascript:void(0);"
                     >
                       Sporting Goods
                     </a>
                   </li>
                   <li className="mr-0.5 md:mr-0 font-semibold">
                     <a
-                      className={`tab py-2 mr-1 px-2 block font-medium${currentTab === 4
+                      className={`tab py-2 mr-1 px-2 block font-medium${
+                        currentTab === 4
                           ? ' border-b-2 font-medium border-[#006CD1]'
                           : ''
-                        }`}
+                      }`}
                       onClick={() => setCurrentTab(4)}
-                      href="javascript:void(0);"
                     >
                       Accessories
                     </a>
@@ -912,7 +920,6 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                     <a
                       data-bg="#ffa400"
                       className="bg-[#ffa400] hover:bg-[#f18a00] block py-4 px-10 text-center font-semibold hover:text-[#000000]"
-                      href="javascript:void(0);"
                     >
                       Featured
                     </a>
@@ -921,7 +928,6 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                     <a
                       data-bg="#00ce7c"
                       className="bg-[#00ce7c] hover:bg-[#00a98f] block py-4 px-10 text-center font-semibold hover:text-[#000000]"
-                      href="javascript:void(0);"
                     >
                       Outerwear
                     </a>
@@ -930,7 +936,6 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                     <a
                       data-bg="#00b2e3"
                       className="bg-[#00b2e3] hover:bg-[#4197cb] block py-4 px-10 text-center font-semibold hover:text-[#000000]"
-                      href="javascript:void(0);"
                     >
                       Golf
                     </a>
@@ -939,7 +944,6 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                     <a
                       data-bg="#003a70"
                       className="bg-[#003a70] hover:bg-[#19355e] block py-4 px-10 text-center text-white font-semibold hover:text-[#ffffff]"
-                      href="javascript:void(0);"
                     >
                       Sporting Goods
                     </a>
@@ -948,7 +952,6 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                     <a
                       data-bg="#0a2240"
                       className="bg-[#0a2240] hover:bg-[#09172d] block py-4 px-10 text-center text-white font-semibold hover:text-[#ffffff]"
-                      href="javascript:void(0);"
                     >
                       Accessories
                     </a>
@@ -972,7 +975,6 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                 <div className="flex flex-wrap gap-2 gap-x-5">
                   <a
                     title="##"
-                    href="javascript:void(0);"
                     className="text-sub-title border-b border-white hover:text-primary hover:border-primary opacity-50 cursor-not-allowed"
                   >
                     #
@@ -981,11 +983,11 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                     return (
                       <a
                         title="#D"
-                        href="javascript:void(0);"
-                        className={`text-sub-title border-b border-white hover:text-primary hover:border-primary${alphabets.includes(str)
+                        className={`text-sub-title border-b border-white hover:text-primary hover:border-primary${
+                          alphabets.includes(str)
                             ? ''
                             : ' opacity-50 cursor-not-allowed'
-                          }`}
+                        }`}
                       >
                         {str.toUpperCase()}
                       </a>
@@ -1013,9 +1015,9 @@ const Stroe1LayouBrand = ({ brands, alphabets }: { brands: { id: number, brandNa
                               className="text-anchor hover:text-anchor-hover"
                               href={`/${brand.seName}.html`}
                             >
-                              <a onClick={() =>setShowLoader(true)}>
-                              {brand.brandName}
-                                </a>
+                              <a onClick={() => setShowLoader(true)}>
+                                {brand.brandName}
+                              </a>
                             </Link>
                           </div>
                         ))}

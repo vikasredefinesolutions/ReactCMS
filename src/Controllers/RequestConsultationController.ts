@@ -1,15 +1,11 @@
+import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,
   _ProductDoNotExist,
   _ProductDoNotExistTransformed,
-  _ProductSEO,
 } from 'definations/APIs/productDetail.res';
-import { _Reviews } from 'definations/product.type';
-import { FetchProductById, FetchColors } from 'services/product.service';
-import { _ProductColor } from 'definations/APIs/colors.res';
-import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
-import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
-import { highLightError } from 'helpers/common.helper';
+import { highLightError } from 'helpers/global.console';
+import { FetchColors, FetchProductById } from 'services/product.service';
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////

@@ -1,13 +1,13 @@
-import { GetlAllProductList } from "@type/productList.type";
-import ImageComponent from "appComponents/reusables/Image";
-import Price from "appComponents/reusables/Price";
-import { useActions } from "hooks";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { GetlAllProductList } from '@type/productList.type';
+import ImageComponent from 'appComponents/reusables/Image';
+import Price from 'appComponents/reusables/Price';
+import { useActions } from 'hooks';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const ListView = ({
   product,
-  colorChangeHandler
+  colorChangeHandler,
 }: {
   product: GetlAllProductList;
   colorChangeHandler: (
@@ -16,8 +16,7 @@ const ListView = ({
     color: string,
   ) => void;
 }) => {
-
-  const { setShowLoader } = useActions()
+  const { setShowLoader } = useActions();
   const [origin, setOrigin] = useState('');
   const [currentProduct, setCurrentProduct] = useState(
     product.getProductImageOptionList[0],
@@ -35,7 +34,7 @@ const ListView = ({
 
   useEffect(() => {
     setCurrentProduct(product.getProductImageOptionList[0]);
-  }, [product])
+  }, [product]);
 
   return (
     <li className="">
@@ -65,7 +64,7 @@ const ListView = ({
                 </div>
               </div>
               <div className="absolute top-2 right-2 text-gray-800 p-1 z-5">
-                <a href="javascript:void(0);" className="">
+                <a className="">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 44 44"
@@ -93,10 +92,7 @@ const ListView = ({
                 />
               </div>
               <div className="mt-1">
-                <a
-                  href="javascript:void(0);"
-                  className="inline-flex items-center gap-1"
-                >
+                <a className="inline-flex items-center gap-1">
                   <span>
                     <img
                       src="images/personalize-icon.png"
@@ -108,15 +104,17 @@ const ListView = ({
                 </a>
               </div>
               <div className="relative mt-1 text-anchor hover:text-anchor-hover">
-
                 <Link
                   href={`${origin}/${product.sename}.html?v=product-detail`}
-                  className="relative underline">
+                  className="relative underline"
+                >
                   {product.name}
                 </Link>
               </div>
               <div className="mt-2 text-black text-base tracking-wider">
-                <span className="font-semibold">MSRP <Price value={product.salePrice} /></span>
+                <span className="font-semibold">
+                  MSRP <Price value={product.salePrice} />
+                </span>
               </div>
               <div className="form-group mt-2">
                 <label className="checkbox-inline">
@@ -130,10 +128,11 @@ const ListView = ({
                 {product.getProductImageOptionList.map((subRow, index) =>
                   index < 6 ? (
                     <li
-                      className={`w-7 h-7 border-2${subRow.id === currentProduct.id
-                        ? ' border-secondary'
-                        : ''
-                        }`}
+                      className={`w-7 h-7 border-2${
+                        subRow.id === currentProduct.id
+                          ? ' border-secondary'
+                          : ''
+                      }`}
                       onClick={() => {
                         colorChangeHandler(
                           product.id,
@@ -146,17 +145,14 @@ const ListView = ({
                       <ImageComponent
                         src={subRow.imageName}
                         className="max-h-full m-auto"
-                        alt={subRow.alttag}                      
+                        alt={subRow.alttag}
                       />
                     </li>
                   ) : null,
                 )}
-
               </ul>
               <div className="mt-3">
-                <a href="javascript:void(0);" className="btn btn-primary">
-                  CONTACT US
-                </a>
+                <a className="btn btn-primary">CONTACT US</a>
               </div>
             </div>
           </div>

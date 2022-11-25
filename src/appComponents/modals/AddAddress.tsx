@@ -1,10 +1,10 @@
-import { Formik } from 'formik';
-import { useEffect, useState } from 'react';
-import * as Yup from 'yup';
 import { addressMessages } from 'constants/validationMessages';
 import { AddUpdateAddressRequest } from 'definations/APIs/address.req';
 import { CustomerAddress } from 'definations/APIs/user.res';
+import { Formik } from 'formik';
+import { useEffect, useState } from 'react';
 import { getCountryList, getStatesList } from 'services/address.service';
+import * as Yup from 'yup';
 
 const AddAddress = ({
   closePopupHandler,
@@ -245,12 +245,7 @@ const AddAddress = ({
                         </div>
                       </fieldset>
                       <span className="text-indigo-600 mt-2 mb-2">
-                        <a
-                          href="javascript:void(0);"
-                          title="Add Address Line 2"
-                        >
-                          + Add Address Line 2
-                        </a>
+                        <a title="Add Address Line 2">+ Add Address Line 2</a>
                       </span>
                       <fieldset
                         className="w-full mt-4"

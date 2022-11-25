@@ -1,26 +1,22 @@
-import { GetServerSideProps, NextPage } from 'next';
-import React, { useEffect } from 'react';
+import { _ExpectedRequestConsultationProps } from '@type/product.type';
+import Image from 'appComponents/reusables/Image';
 import RequestConsultationForm from 'Components/RequestConsultation/RequestConsultationForm';
 import RequestFeatures from 'Components/RequestConsultation/RequestFeatures';
-import { __domain } from 'page.config';
-import { _SeName } from 'constants/store.constant';
-import * as _AppController from 'Controllers/_AppController';
-import { _StoreReturnType } from 'definations/store.type';
-import Link from 'next/link';
 import { paths } from 'constants/paths.constant';
 import * as ConsultationController from 'Controllers/RequestConsultationController';
+import * as _AppController from 'Controllers/_AppController';
+import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,
-  _ProductDoNotExist,
   _ProductDoNotExistTransformed,
 } from 'definations/APIs/productDetail.res';
-import { _ProductColor } from 'definations/APIs/colors.res';
-import Image from 'appComponents/reusables/Image';
-import { highLightError } from 'helpers/common.helper';
+import { conditionalLog, highLightError } from 'helpers/global.console';
+import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { conditionalLog } from 'helpers/global.console';
+import { __domain } from 'page.config';
+import { useEffect } from 'react';
 import { _showConsoles, __fileNames } from 'show.config';
-import { _ExpectedRequestConsultationProps } from '@type/product.type';
 
 interface _props {
   product: {
@@ -79,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 
   try {
-    const domain = __domain.layout || context.req.rawHeaders[1]!;
+    const domain = __domain.domain || context.req.rawHeaders[1]!;
     const query: {
       productId: undefined | string | string[] | number;
       colorName: undefined | string | string[];

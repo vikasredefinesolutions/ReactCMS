@@ -3,11 +3,10 @@ import {
   FetchInventoryById,
   FetchProductsBySKUs,
 } from '@services/product.service';
-import { _FetchColors, _ProductColor } from '@type/APIs/colors.res';
+import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { _ProductBySku } from '@type/APIs/productDetail.res';
-import { highLightError } from 'helpers/common.helper';
-import { conditionalLog } from 'helpers/global.console';
+import { conditionalLog, highLightError } from 'helpers/global.console';
 import { _showConsoles, __fileNames } from 'show.config';
 
 export const FetchProductsDetail = async (params: {
