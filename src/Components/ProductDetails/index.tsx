@@ -1,32 +1,27 @@
-import React, { useEffect } from 'react';
-import Head from 'next/head';
-import { useActions, useTypedSelector } from 'hooks';
-import { _SeName, _Store } from 'constants/store.constant';
 import ProductDescription from 'Components/ProductDetails/ProductDescription';
 import ProductDetails from 'Components/ProductDetails/ProductDetails';
 import ProductFeatures from 'Components/ProductDetails/ProductFeatures';
 import SizeChart from 'Components/ProductDetails/SizeChartModal';
+import { _Store } from 'constants/store.constant';
+import { useActions, useTypedSelector } from 'hooks';
+import Head from 'next/head';
+import React, { useEffect } from 'react';
 
-import * as _AppController from 'Controllers/_AppController';
-
-import { __domain } from 'page.config';
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
+import { _ProductColor } from 'definations/APIs/colors.res';
+import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import {
   _ProductDetails,
-  _ProductDoNotExist,
   _ProductDoNotExistTransformed,
   _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
-import { _ExpectedProductProps } from 'definations/product.type';
-import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
-import { _ProductColor } from 'definations/APIs/colors.res';
-import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
-import { useRouter } from 'next/router';
 import { conditionalLog } from 'helpers/global.console';
+import { useRouter } from 'next/router';
 import { _showConsoles, __fileNames } from 'show.config';
-import ProductReviews from './ProductReviews';
 import ProductAlike from './ProductAlike';
+import ProductReviews from './ProductReviews';
 
 interface _props {
   product: {

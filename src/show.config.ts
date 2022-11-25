@@ -5,6 +5,7 @@ export const __fileNames = {
   _app: '_app',
   requestConsultation: 'Request-Consultation',
   compareProducts: 'Compare-Products',
+  home: 'home',
 };
 
 export const _showConsoles = {
@@ -12,6 +13,7 @@ export const _showConsoles = {
   _app: false,
   requestConsultation: false,
   compareProducts: true,
+  home: false,
   services: {
     store: true,
     productDetails: true,

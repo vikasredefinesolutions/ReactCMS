@@ -49,4 +49,26 @@ export interface StoreType {
   macAddress: string;
 }
 
+export interface _FeaturedProduct {
+  productId: number;
+  productName: string;
+  productSEName: string;
+  ourCost: string;
+  msrp: string;
+  imap: string;
+  salePrice: string;
+  productDisplayOrder: number;
+  imageUrl: string;
+  moreImages: _FeaturedMoreImages[];
+}
+
+export interface _FeaturedMoreImages {
+  id: number;
+  attributeOptionID: number;
+  attributeOptionName: string;
+  imageUrl: string;
+  displayOrder: number;
+  altTag: string;
+}
+
 export interface Errors {}

@@ -1,3 +1,6 @@
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
+import { _ProductColor } from 'definations/APIs/colors.res';
+import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import {
   _ProductDetails,
   _ProductDoNotExist,
@@ -5,23 +8,19 @@ import {
   _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
-import { _Reviews } from 'definations/product.type';
+import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
+import { highLightError } from 'helpers/common.helper';
+import { conditionalLog } from 'helpers/global.console';
 import {
   FetchColors,
   FetchDiscountTablePrices,
   FetchInventoryById,
-  FetchSizeChartById,
   FetchProductById,
   FetchProductSEOtags,
   FetchSimilartProducts,
+  FetchSizeChartById,
 } from 'services/product.service';
-import { _ProductColor } from 'definations/APIs/colors.res';
-import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
-import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
-import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
-import { highLightError } from 'helpers/common.helper';
 import { _showConsoles, __fileNames } from 'show.config';
-import { conditionalLog } from 'helpers/global.console';
 
 export const getProductDetailProps = async (payload: {
   storeId: number;

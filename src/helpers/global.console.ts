@@ -1,5 +1,4 @@
-import { hideAllConsoles, _showConsoles, __fileNames } from 'show.config';
-import { _conditionalLog } from 'show.type';
+import { hideAllConsoles, __fileNames } from 'show.config';
 import { highLightError, highLightResponse } from './common.helper';
 
 export const conditionalLog = ({
@@ -29,7 +28,8 @@ export const conditionalLog = ({
       name === __fileNames.productDetails ||
       name === __fileNames._app ||
       name === __fileNames.requestConsultation ||
-      name === __fileNames.compareProducts
+      name === __fileNames.compareProducts ||
+      name === __fileNames.home
     ) {
       const message = `${type} : ${name}`;
       highLightResponse({ dataToShow: data, component: message });
