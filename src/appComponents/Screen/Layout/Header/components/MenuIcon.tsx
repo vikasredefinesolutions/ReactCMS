@@ -1,6 +1,6 @@
-import React from 'react';
 import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
+import React from 'react';
 
 const MenuIcon: React.FC = () => {
   const { toggleSideMenu } = useActions();
@@ -12,7 +12,7 @@ const MenuIcon: React.FC = () => {
         type="button"
         x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
         className="bg-white py-2 rounded-md text-primary hover:text-gray-500"
-        onClick={() => toggleSideMenu(true)}
+        onClick={() => toggleSideMenu('OPEN')}
       >
         <span className="sr-only">Open menu</span>
         <svg
@@ -41,7 +41,7 @@ const MenuIcon: React.FC = () => {
         type="button"
         x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
         className="py-2 rounded-md text-gray-600"
-        onClick={() => toggleSideMenu(true)}
+        onClick={() => toggleSideMenu('OPEN')}
       >
         <span className="sr-only">Open menu</span>
         <svg
@@ -70,7 +70,7 @@ const MenuIcon: React.FC = () => {
         type="button"
         x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
         className="py-2 rounded-md text-gray-600"
-        onClick={() => toggleSideMenu(true)}
+        onClick={() => toggleSideMenu('OPEN')}
       >
         <span className="sr-only">Open menu</span>
         <svg
@@ -99,7 +99,7 @@ const MenuIcon: React.FC = () => {
         type="button"
         x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
         className="py-2 rounded-md text-white hover:text-primary"
-        onClick={() => toggleSideMenu(true)}
+        onClick={() => toggleSideMenu('OPEN')}
       >
         <span className="sr-only">Open menu</span>
         <svg
