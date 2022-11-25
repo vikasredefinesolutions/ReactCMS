@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let store: _StoreReturnType | null = null;
   const { slug, slugID } = extractSlugName(context.params);
   store = await _AppController.FetchStoreDetails(domain, slug!);
-  const { data } = await getPageType({
+  const { data }: any = await getPageType({
     store_id: store.storeId || 0,
     slug,
   });
