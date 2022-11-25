@@ -1,4 +1,4 @@
-export const hideAllConsoles = true;
+export const hideAllConsoles = false;
 
 export const __fileNames = {
   productDetails: 'Product-Details',
@@ -17,5 +17,6 @@ export const _showConsoles = {
     productDetails: true,
     compareProducts: true,
     header: true,
+    page: true,
   },
 };
