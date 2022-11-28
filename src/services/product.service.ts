@@ -27,7 +27,7 @@ export const FetchProductById = async (payload: {
   seName: string;
   storeId: number;
 }): Promise<_ProductDetails | null | _ProductDoNotExist> => {
-  const url = `StoreProduct/getstoreproductbysename/${payload.seName}/${payload.storeId}.json`;
+  const url = `StoreProduct/getstoreproductbysename/${payload.seName}/${payload.storeId}/0.json`;
 
   try {
     const res = await SendAsyncV2<_ProductDetails>({

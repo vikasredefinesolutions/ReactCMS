@@ -1,22 +1,21 @@
-import Screen from 'appComponents/Screen';
-import { _Store } from 'constants/store.constant';
-import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
-import { __domain } from '../page.config';
-import { reduxWrapper } from 'redux/store.redux';
-import * as _AppController from 'Controllers/_AppController';
-import { _StoreMenu, _Brands } from 'definations/APIs/header.res';
-import { _StoreReturnType } from 'definations/store.type';
-import { useActions } from 'hooks';
-import Spinner from 'appComponents/ui/spinner';
-import '../../styles/output.css';
-import '../app.css';
 import SuccessErrorModal from 'appComponents/modals/successErrorModal';
+import Screen from 'appComponents/Screen';
+import Spinner from 'appComponents/ui/spinner';
+import * as _AppController from 'Controllers/_AppController';
+import { _Brands, _StoreMenu } from 'definations/APIs/header.res';
+import { _StoreReturnType } from 'definations/store.type';
 import { highLightError } from 'helpers/common.helper';
-import { _Expected_AppProps } from 'show.type';
 import { conditionalLog } from 'helpers/global.console';
-import { _showConsoles, __fileNames } from 'show.config';
+import { useActions } from 'hooks';
+import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { reduxWrapper } from 'redux/store.redux';
+import { _showConsoles, __fileNames } from 'show.config';
+import { _Expected_AppProps } from 'show.type';
+import '../../styles/output.css';
+import '../app.css';
+import { __domain } from '../page.config';
 
 type AppOwnProps = {
   store: _StoreReturnType | null;
@@ -83,7 +82,7 @@ RedefineCustomApp.getInitialProps = async (
   context: AppContext,
 ): Promise<AppOwnProps & AppInitialProps> => {
   const ctx = await App.getInitialProps(context);
-  const domain = __domain.layout || context.ctx.req?.rawHeaders[1]!;
+  const domain = __domain.domain || context.ctx.req?.rawHeaders[1]!;
   const pathName = context.ctx.pathname;
   const expectedProps: _Expected_AppProps = {
     store: null,

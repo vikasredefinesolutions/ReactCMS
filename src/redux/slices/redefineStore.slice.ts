@@ -79,7 +79,7 @@ export const storeSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(FetchStoreDetails.fulfilled, (state, action) => {
       state.id = action.payload.id;
-      state.layout = __domain.layout;
+      state.layout = __domain.layoutToDisplay;
     });
     builder.addCase(SetPageType.fulfilled, (state, action) => {
       state.pageType = action.payload.payload;

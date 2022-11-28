@@ -23,7 +23,7 @@ import { __domain } from 'page.config';
 import { _showConsoles, __fileNames } from 'show.config';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const domain = __domain.layout || context.req.rawHeaders[1];
+  const domain = __domain.domain || context.req.rawHeaders[1];
   let store: _StoreReturnType | null = null;
   const { slug, slugID } = extractSlugName(context.params);
   store = await _AppController.FetchStoreDetails(domain, slug!);
@@ -97,6 +97,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       filterOptionforfaceteds: filterOptionforfaceteds,
     };
     const BrandFilt: BrandFilter = await FetchFiltersJsonByBrand(filter);
+    console.log(BrandFilt);
     const _filters: Filter[] = [];
     for (const key in BrandFilt) {
       const element = BrandFilt[key];

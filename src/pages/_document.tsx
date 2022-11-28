@@ -16,7 +16,7 @@ class MyDocument extends Document {
   ): Promise<DocumentInitialProps> {
     const originalRenderPage = ctx.renderPage;
 
-    const domain = __domain.layout || ctx.req?.rawHeaders[1]!;
+    const domain = __domain.domain || ctx.req?.rawHeaders[1]!;
 
     try {
       store = await _AppController.FetchStoreDetails(domain, 'pathName');
@@ -41,8 +41,7 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${store?.storeId
-              }/css/${store?.storeId}.css`}
+            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${5}/css/${5}.css`}
           />
         </Head>
         <body className='font-Outfit bg-white'>

@@ -1,24 +1,24 @@
-import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
-import React, { useEffect } from 'react';
+import Image from 'appComponents/reusables/Image';
 import RequestConsultationForm from 'Components/RequestConsultation/RequestConsultationForm';
 import RequestFeatures from 'Components/RequestConsultation/RequestFeatures';
-import { __domain } from 'page.config';
-import { _SeName } from 'constants/store.constant';
-import * as _AppController from 'Controllers/_AppController';
-import { _StoreReturnType } from 'definations/store.type';
-import Link from 'next/link';
 import { paths } from 'constants/paths.constant';
+import { _SeName } from 'constants/store.constant';
 import * as ConsultationController from 'Controllers/RequestConsultationController';
+import * as _AppController from 'Controllers/_AppController';
+import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,
   _ProductDoNotExist,
-  _ProductDoNotExistTransformed,
+  _ProductDoNotExistTransformed
 } from 'definations/APIs/productDetail.res';
-import { _ProductColor } from 'definations/APIs/colors.res';
-import Image from 'appComponents/reusables/Image';
+import { _StoreReturnType } from 'definations/store.type';
 import { highLightError } from 'helpers/common.helper';
-import { useRouter } from 'next/router';
 import { conditionalLog } from 'helpers/global.console';
+import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { __domain } from 'page.config';
+import { useEffect } from 'react';
 import { _showConsoles, __fileNames } from 'show.config';
 
 interface _props {
@@ -86,7 +86,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     product: null,
   };
   try {
-    const domain = __domain.layout || context.req.rawHeaders[1]!;
+    const domain = __domain.domain || context.req.rawHeaders[1]!;
     const seName = _SeName.nike;
     // const pathNames = context.req.url?.split('/')!;
     // const seName =  pathNames ? pathNames[pathNames?.length - 1] : null;
