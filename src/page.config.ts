@@ -1,4 +1,4 @@
-import { _Store } from './constants/store.constant';
+import { _Store, _StoreDomains } from './constants/store.constant';
 
 export const __product = {
   imagesInRow: 7,
@@ -11,7 +11,7 @@ export const __Header = {
 
 export const __domain = {
   isSiteLive: true,
-  localDomain: _Store.type1,
+  localDomain: _StoreDomains.domain1,
   layoutToDisplay: _Store.type1,
 };
 

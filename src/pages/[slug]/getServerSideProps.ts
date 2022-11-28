@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug, slugID } = extractSlugName(context.params);
   store = await _AppController.FetchStoreDetails(domain, slug!);
 
-  if (store === null) {
+  if (!store) {
     highLightError({
       error: 'No store id found',
       component:
