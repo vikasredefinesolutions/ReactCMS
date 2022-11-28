@@ -2,7 +2,10 @@ import axios from 'axios';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
 
-export const getPageType = async (Req: { store_id: number; slug: string }) => {
+export const getPageType = async (Req: {
+  store_id: number;
+  slug: string;
+}): Promise<{ data: any }> => {
   const url = 'https://www.redefinecommerce.net/API/api/front/get-page-type';
 
   try {
@@ -17,6 +20,9 @@ export const getPageType = async (Req: { store_id: number; slug: string }) => {
 
     return page;
   } catch (error) {
+    const page = {
+      data: null,
+    };
     conditionalLog({
       data: error,
       name: 'getPageType',
@@ -24,7 +30,7 @@ export const getPageType = async (Req: { store_id: number; slug: string }) => {
       show: _showConsoles.services.productDetails,
       error: true,
     });
-    return null;
+    return page;
   }
 };
 
