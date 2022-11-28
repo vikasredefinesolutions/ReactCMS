@@ -148,8 +148,8 @@ const Product: React.FC<_props> = ({ product }) => {
         {HeadTag}
         <div className={`font-Outfit`}>
           <ProductDetails product={product.details} />
-          <ProductReviews reviews={null} />
           <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
+          <ProductReviews reviews={null} />
         </div>
       </>
     );
