@@ -1,8 +1,11 @@
 import { FetchOrderDetails } from '@services/user.service';
 import { _MyAcc_OrderDetails } from '@type/APIs/user.res';
+import Price from 'appComponents/reusables/Price';
+import moment from 'moment';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+// import { data as orderDetails } from './dummy';
 
 const OrderDetails: NextPage = () => {
   const { query } = useRouter();
@@ -61,21 +64,25 @@ const OrderDetails: NextPage = () => {
                 <dt className="text-gray-900 font-semibold uppercase">
                   ORDER NUMBER
                 </dt>
-                <dd className="mt-1 text-gray-900">WEB-S05654123</dd>
+                <dd className="mt-1 text-gray-900">{orderDetails?.id}</dd>
               </div>
               <div className="hidden sm:block">
                 <dt className="text-gray-900 font-semibold uppercase">
                   DATE OF ORDER
                 </dt>
                 <dd className="mt-1 text-gray-900">
-                  <time dateTime="2022-05-19">May 19, 2022</time>
+                  <time dateTime="2022-05-19">
+                    {moment(orderDetails?.orderDate).format('DD-MM-YYYY')}
+                  </time>
                 </dd>
               </div>
               <div>
                 <dt className="text-gray-900 font-semibold uppercase">
                   TOTAL PRICE
                 </dt>
-                <dd className="mt-1 font-semibold text-gray-900">$1290.97</dd>
+                <dd className="mt-1 font-semibold text-gray-900">
+                  <Price value={orderDetails?.orderTotal} />
+                </dd>
               </div>
             </div>
             <div className="hidden lg:col-span-2 lg:flex lg:items-center lg:justify-end lg:space-x-4">
