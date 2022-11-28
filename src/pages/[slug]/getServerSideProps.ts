@@ -44,6 +44,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     store_id: store?.storeId || 0,
     slug,
   });
+
+  if (data === null) {
+    throw new Error('No Store-Id found');
+
+    return {
+      props: {
+        pageType: null,
+        pageData: null,
+        slug: null,
+      },
+    };
+  }
+
   let components: any = null;
   const pageType = data.data.type;
   let pageData: ProductListPageData | null | _ProductDetailsProps | TopicProps =

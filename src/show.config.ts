@@ -1,4 +1,4 @@
-export const hideAllConsoles = true; // Will hide all the consoles except API Failures.
+export const hideAllConsoles = false; // Will hide all the consoles except API Failures.
 
 export type _fileNames =
   | 'Product-Details'
