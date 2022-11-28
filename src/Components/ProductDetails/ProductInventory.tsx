@@ -52,32 +52,38 @@ const Inventory: React.FC<_props> = ({ productId }) => {
             <div className="">Availability</div>
             <div className="w-20">QTY</div>
           </div>
-          {inventory?.sizes.map((size) => (
-            <div
-              key={size}
-              className="flex flex-wrap items-center justify-between border-b border-b-gray-300 py-2"
-            >
-              <div className="font-semibold px-2">{size}</div>
-              <div className="">
-                {inventory.inventory.find(
-                  (int) =>
-                    int.colorAttributeOptionId === color.attributeOptionId &&
-                    int.name === size,
-                )?.inventory || 'Out of Stock'}
-              </div>
-              <InventoryInput
-                size={size}
-                qty={
-                  inventory.inventory.find(
-                    (int) =>
-                      int.colorAttributeOptionId === color.attributeOptionId &&
-                      int.name === size,
-                  )?.inventory || 0
-                }
-                price={price?.msrp || 0}
-              />
-            </div>
-          ))}
+          {inventory?.sizes.map((product) => {
+            if (product.colorAttributeOptionId === color.attributeOptionId) {
+              return product.sizeArr.map((size) => (
+                <div
+                  key={size}
+                  className="flex flex-wrap items-center justify-between border-b border-b-gray-300 py-2"
+                >
+                  <div className="font-semibold px-2">{size}</div>
+                  <div className="">
+                    {inventory.inventory.find(
+                      (int) =>
+                        int.colorAttributeOptionId ===
+                        color.attributeOptionId && int.name === size,
+                    )?.inventory || 'Out of Stock'}
+                  </div>
+                  <InventoryInput
+                    size={size}
+                    qty={
+                      inventory.inventory.find(
+                        (int) =>
+                          int.colorAttributeOptionId ===
+                          color.attributeOptionId && int.name === size,
+                      )?.inventory || 0
+                    }
+                    price={price?.msrp || 0}
+                  />
+                </div>
+              ));
+            }
+
+            return <></>;
+          })}
         </div>
       </div>
     );
@@ -92,12 +98,18 @@ const Inventory: React.FC<_props> = ({ productId }) => {
               <div className="font-semibold">Color</div>
             </div>
             <div className="flex flex-wrap justify-evenly text-center gap-y-5 w-full md:w-10/12">
-              {inventory?.sizes.map((size) => {
-                return (
-                  <div className="p-2 w-1/2 md:w-1/12">
-                    <div className="font-semibold">{size}</div>
-                  </div>
-                );
+              {inventory?.sizes.map((product) => {
+                if (
+                  product.colorAttributeOptionId === color.attributeOptionId
+                ) {
+                  return product.sizeArr.map((size) => (
+                    <div className="p-2 w-1/2 md:w-1/12">
+                      <div className="font-semibold">{size}</div>
+                    </div>
+                  ));
+                }
+
+                return <></>;
               })}
             </div>
           </div>
@@ -121,40 +133,47 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                 <div className="">{color.name}</div>
               </div>
               <div className="flex flex-wrap justify-evenly text-center gap-y-5 w-full md:w-10/12">
-                {inventory?.sizes.map((size) => {
-                  const inv =
-                    inventory.inventory.find(
-                      (int) =>
-                        int.colorAttributeOptionId ===
-                        color.attributeOptionId && int.name === size,
-                    )?.inventory || 0;
-                  const inventry = inventory.inventory.find(
-                    (int) =>
-                      int.colorAttributeOptionId ===
-                      color.attributeOptionId && int.name === size,
-                  );
-                  return inv > 0 ? (
-                    <>
-                      <div className="p-2 w-1/2 md:w-1/12">
-                        <div className="mb-1">{inv > 50 ? '50+' : inv}</div>
-                        <InventoryInput
-                          size={size}
-                          qty={inv}
-                          price={
-                            inventry?.price || 5
-                          }
-                          color={color.name}
-                          isDisabled={inv < 1}
-                        />
-                      </div>
-                    </>
-                  ) : (
-                    <div className="p-2 w-1/2 md:w-1/12">
-                      <div className="border-bottom p-b-10">
-                        <strong className="text-center center"> - </strong>{' '}
-                      </div>
-                    </div>
-                  );
+                {inventory?.sizes.map((product) => {
+                  if (
+                    product.colorAttributeOptionId === color.attributeOptionId
+                  ) {
+                    return product.sizeArr.map(size => {
+                      const inv =
+                        inventory.inventory.find(
+                          (int) =>
+                            int.colorAttributeOptionId ===
+                            color.attributeOptionId && int.name === size,
+                        )?.inventory || 0;
+                      const inventry = inventory.inventory.find(
+                        (int) =>
+                          int.colorAttributeOptionId ===
+                          color.attributeOptionId && int.name === size,
+                      );
+                      return inv > 0 ? (
+                        <>
+                          <div className="p-2 w-1/2 md:w-1/12">
+                            <div className="mb-1">{inv > 50 ? '50+' : inv}</div>
+                            <InventoryInput
+                              size={size}
+                              qty={inv}
+                              price={
+                                inventry?.price || 5
+                              }
+                              color={color.name}
+                              isDisabled={inv < 1}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <div className="p-2 w-1/2 md:w-1/12">
+                          <div className="border-bottom p-b-10">
+                            <strong className="text-center center"> - </strong>{' '}
+                          </div>
+                        </div>
+                      );
+                    })
+                  }
+                  return <></>
                 })}
               </div>
             </div>
@@ -163,7 +182,6 @@ const Inventory: React.FC<_props> = ({ productId }) => {
       </div>
     );
   }
-
   if (storeLayout === _Store.type2) {
     return (
       <>
@@ -174,26 +192,30 @@ const Inventory: React.FC<_props> = ({ productId }) => {
               <div className="">QTY.</div>
             </div>
 
-            {inventory?.sizes.map((size) => {
-              return (
-                <div className="flex items-center justify-between border-b border-b-gray-300 py-3 pl-4">
-                  <div className="">{size}</div>
-                  <InventoryInput
-                    size={size}
-                    qty={
-                      inventory.inventory.find(
-                        (int) =>
-                          int.colorAttributeOptionId ===
-                          color.attributeOptionId && int.name === size,
-                      )?.inventory || 0
-                    }
-                    price={price?.msrp || 0}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
+            {inventory?.sizes.map((product) => {
+              if (product.colorAttributeOptionId === color.attributeOptionId) {
+                return product.sizeArr.map((size) => (
+                  <div className="flex items-center justify-between border-b border-b-gray-300 py-3 pl-4">
+                    <div className="">{size}</div>
+                    <InventoryInput
+                      size={size}
+                      qty={
+                        inventory.inventory.find(
+                          (int) =>
+                            int.colorAttributeOptionId ===
+                            color.attributeOptionId && int.name === size,
+                        )?.inventory || 0
+                      }
+                      price={price?.msrp || 0}
+                    />
+                  </div>
+                ));
+              }
+              return <></>;
+            })
+            }
+          </div >
+        </div >
         <div className="mb-3 font-bold bg-[#051C2C] px-4 py-2.5 text-white tracking-widest text-center">
           Add 12 more of this johnnie-O Men's The Original 4-Button Polo to your
           cart to save an additional $8.00 per Item!

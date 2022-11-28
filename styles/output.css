@@ -3018,6 +3018,10 @@ select{
   .sm\:col-span-4{
     grid-column: span 4 / span 4;
   }
+  .sm\:-mx-3{
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
   .sm\:ml-0{
     margin-left: 0px;
   }
@@ -3137,6 +3141,10 @@ select{
     padding-left: 1rem;
     padding-right: 1rem;
   }
+  .sm\:px-3{
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
   .sm\:px-0{
     padding-left: 0px;
     padding-right: 0px;
@@ -3189,6 +3197,9 @@ select{
   }
   .md\:mr-0{
     margin-right: 0px;
+  }
+  .md\:-mr-px{
+    margin-right: -1px;
   }
   .md\:mt-10{
     margin-top: 2.5rem;
@@ -3282,6 +3293,9 @@ select{
   }
   .md\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .md\:flex-row{
+    flex-direction: row;
   }
   .md\:items-center{
     align-items: center;

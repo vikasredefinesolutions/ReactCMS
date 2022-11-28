@@ -10,9 +10,7 @@ const Store2LayoutBannd = () => {
               </a>
             </li>
             <li>
-              <a href="javascript:void(0);" title="Brands">
-                Brands
-              </a>
+              <a title="Brands">Brands</a>
             </li>
           </ul>
         </div>

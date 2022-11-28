@@ -1,5 +1,5 @@
+import AddUserModal from 'appComponents/modals/AddUserModal';
 import { useState } from 'react';
-import AddUserModal from '../../../components/modals/AddUserModal';
 
 export type User = {
   email: string;

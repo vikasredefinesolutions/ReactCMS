@@ -1,9 +1,9 @@
 import { GetlAllProductList } from '@type/productList.type';
+import config from 'api.config';
 import ImageComponent from 'appComponents/reusables/Image';
 import Price from 'appComponents/reusables/Price';
 import { getCompareLink } from 'helpers/compare.helper';
 import Link from 'next/link';
-import config from '../../../../../config';
 import ProductBoxController from './ProductBox.controller';
 
 const ProductLayout2 = ({

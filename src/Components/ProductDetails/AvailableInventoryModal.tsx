@@ -1,9 +1,7 @@
-import React from 'react';
 import Image from 'appComponents/reusables/Image';
-import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
-import { highLightResponse } from 'helpers/common.helper';
+import React from 'react';
 interface _props {
   // eslint-disable-next-line no-unused-vars
   modalHandler: (val: null | _modals) => void;
@@ -15,12 +13,8 @@ const AvailableInventoryModal: React.FC<_props> = ({ modalHandler }) => {
     brand,
     name: productName,
     inventory,
+    sizes,
   } = useTypedSelector((state) => state.product.product);
-
-  highLightResponse({
-    dataToShow: inventory,
-    component: 'AvailableInventoryModal',
-  });
 
   return (
     <div
@@ -74,7 +68,7 @@ const AvailableInventoryModal: React.FC<_props> = ({ modalHandler }) => {
                       <th className="px-2 py-4 w-32">
                         <div className="">Color</div>
                       </th>
-                      {inventory?.sizes.map((size) => (
+                      {sizes.split(',').map((size) => (
                         <th className="px-2 py-4" key={size}>
                           <div className="">{size}</div>
                         </th>
@@ -98,8 +92,8 @@ const AvailableInventoryModal: React.FC<_props> = ({ modalHandler }) => {
                             </div>
                             <div className="">{color.name}</div>
                           </td>
-                          {inventory?.sizes.map((size) => {
-                            const foundIt = inventory.inventory.find(
+                          {sizes.split(',').map((size) => {
+                            const foundIt = inventory?.inventory.find(
                               (int) =>
                                 int.name === size &&
                                 int.colorAttributeOptionId ===
@@ -116,6 +110,7 @@ const AvailableInventoryModal: React.FC<_props> = ({ modalHandler }) => {
                                 </td>
                               );
                             }
+                            return <></>;
                           })}
                         </>
                       </tr>

@@ -1,12 +1,13 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import cartReducer from './slices/cart.slice';
 import compareReducer from './slices/compare.slice';
+import homeReducer from './slices/home.slice';
+import loaderReducer from './slices/loader.slice';
 import modalsReducer from './slices/modals.slice';
 import productReducer from './slices/product.slice';
 import redefineStoreReducer from './slices/redefineStore.slice';
-import userReducer from './slices/user.slice';
-import loaderReducer from './slices/loader.slice';
 import successReducer from './slices/success.slice';
+import userReducer from './slices/user.slice';
 
 const rootReducer = combineReducers({
   store: redefineStoreReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   compare: compareReducer,
   loader: loaderReducer,
   success: successReducer,
+  home: homeReducer,
 });
 
 export default rootReducer;

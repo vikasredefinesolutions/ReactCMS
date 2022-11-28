@@ -8,6 +8,7 @@ import {
   _ProductInventoryTransfomed,
 } from 'definations/APIs/inventory.res';
 import {
+  _ProductBySku,
   _ProductDetails,
   _ProductDoNotExist,
   _ProductsAlike,
@@ -23,11 +24,45 @@ import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
 import { SendAsyncV2 } from '../utils/axios.util';
 
+export const FetchProductsBySKUs = async (payload: {
+  SKUs: string;
+  storeId: number;
+}): Promise<_ProductBySku[] | null> => {
+  const url = `StoreProduct/getstoreproductbyskus/${payload.SKUs}/${payload.storeId}.json`;
+
+  try {
+    const res = await SendAsyncV2<_ProductBySku[] | null>({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
+
+    conditionalLog({
+      data: res.data,
+      name: 'FetchProductsBySKUs',
+      type: 'API',
+      show: res.data === null || res.data.length === 0,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'FetchProductsBySKUs',
+      type: 'API',
+      show: _showConsoles.services.compareProducts,
+      error: true,
+    });
+    return null;
+  }
+};
+
 export const FetchProductById = async (payload: {
   seName: string;
   storeId: number;
+  productId: number;
 }): Promise<_ProductDetails | null | _ProductDoNotExist> => {
-  const url = `StoreProduct/getstoreproductbysename/${payload.seName}/${payload.storeId}/0.json`;
+  const url = `StoreProduct/getstoreproductbysename/${payload.seName}/${payload.storeId}/${payload.productId}.json`;
 
   try {
     const res = await SendAsyncV2<_ProductDetails>({
@@ -136,9 +171,25 @@ export const FetchInventoryById = async (payload: {
       show: res.data === null || res.data.length === 0,
     });
 
+    const sizes = payload.attributeOptionId.map((id) => {
+      const repeatedSizes = res.data
+        .map((int) => {
+          if (int.colorAttributeOptionId === id) {
+            return int.name;
+          }
+          return '';
+        })
+        .filter(Boolean);
+
+      return {
+        colorAttributeOptionId: id,
+        sizeArr: removeDuplicates(repeatedSizes),
+      };
+    });
+
     const transformedData: _ProductInventoryTransfomed = {
       inventory: res.data,
-      sizes: removeDuplicates(res.data.map((int) => int.name)),
+      sizes: sizes,
     };
     return transformedData;
   } catch (error) {

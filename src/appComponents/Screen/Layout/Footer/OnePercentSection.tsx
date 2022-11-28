@@ -40,10 +40,8 @@ const OnePercentSection: React.FC = () => {
           <div className="text-center text-[16px]">{'Redefine'}</div>
           <div className="flex flex-wrap justify-center gap-5 py-2">
             {' '}
-            <a title="Privacy &amp; Security" href="javascript:void(0);">
-              Privacy &amp; Security
-            </a>{' '}
-            <a rel="" title="Terms and Conditions" href="javascript:void(0);">
+            <a title="Privacy &amp; Security">Privacy &amp; Security</a>{' '}
+            <a rel="" title="Terms and Conditions">
               Terms &amp; Conditions
             </a>{' '}
           </div>

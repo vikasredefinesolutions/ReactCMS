@@ -1,13 +1,13 @@
 import axios from 'axios';
+import { addReviewMessages } from 'constants/validationMessages';
 import { Formik } from 'formik';
+import { useTypedSelector } from 'hooks';
 import { ChangeEvent, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import uuid from 'react-uuid';
-import * as Yup from 'yup';
-import { addReviewMessages } from 'constants/validationMessages';
-import { useTypedSelector } from 'hooks';
 import { UploadImage } from 'services/file.service';
 import { AddProductReview } from 'services/review.service';
+import * as Yup from 'yup';
 
 const ProductReview = () => {
   const storeId = useTypedSelector((state) => state.store.id);
@@ -116,7 +116,7 @@ const ProductReview = () => {
           <div className="w-full md:w-8/12 lg:w-5/12 px-3">
             <div className="">
               <div className="text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title">
-                <a href="javascript:void(0);" className="">
+                <a className="">
                   Peter Millar Men’s Solid Performance Polo - Knit Collar
                 </a>
               </div>
@@ -125,9 +125,7 @@ const ProductReview = () => {
                 <div className="">Ankit</div>
                 <div className="">|</div>
                 <div className="">
-                  <a href="javascript:void(0);" className="">
-                    CLEAR
-                  </a>
+                  <a className="">CLEAR</a>
                 </div>
               </div>
             </div>

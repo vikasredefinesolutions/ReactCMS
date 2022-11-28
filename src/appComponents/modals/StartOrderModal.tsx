@@ -1,23 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
-import { _ProductDetails } from 'definations/APIs/productDetail.res';
-import { _modals } from 'definations/product.type';
-import { useActions, useTypedSelector } from 'hooks';
 import AskToLogin from 'Components/ProductDetails/AskToLogin';
 import CalculativeFigure from 'Components/ProductDetails/CalculativeFigure';
 import CustomizeLogoOptions from 'Components/ProductDetails/CustomizeLogoOptions';
 import DiscountPricing from 'Components/ProductDetails/DiscountPricing';
 import ProductSKU from 'Components/ProductDetails/ProductSKU';
 import SizePriceQtyTable from 'Components/ProductDetails/SizePriceQtyTable';
+import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
+import { _ProductDetails } from 'definations/APIs/productDetail.res';
+import { _modals } from 'definations/product.type';
+import { useActions, useTypedSelector } from 'hooks';
+import React, { useEffect, useRef, useState } from 'react';
 import { FetchInventoryById } from 'services/product.service';
 // import { AddToCart } from 'services/user.service';
+import { addToCart } from '@services/cart.service';
 import { CartLogoPersonModel, CartReq } from 'definations/APIs/cart.req';
 import { CartResponse } from 'definations/APIs/cart.res';
+import { highLightError } from 'helpers/global.console';
 import getLocation from '../../helpers/getLocation';
 import Image from '../reusables/Image';
 import Price from '../reusables/Price';
-import { addToCart } from '@services/cart.service';
-import { highLightError } from 'helpers/common.helper';
 interface _props {
   product: _ProductDetails;
   // eslint-disable-next-line no-unused-vars

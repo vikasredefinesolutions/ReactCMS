@@ -25,6 +25,22 @@ export interface _ProductDoNotExistTransformed {
   info: string;
 }
 
+export interface _ProductBySku {
+  productId: number;
+  seName: string;
+  storeId: number;
+  name: string;
+  description: string;
+  shortDescription: string;
+  quantity: number;
+  ourCost: string;
+  msrp: string;
+  imap: string;
+  salePrice: string;
+  sku: string;
+  brandID: number;
+}
+
 export interface _ProductDetails {
   id: number;
   storeId: number;

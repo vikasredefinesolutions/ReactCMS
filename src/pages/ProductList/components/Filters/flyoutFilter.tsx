@@ -42,14 +42,14 @@ const FlyOutFilter = ({
                                         <li className="w-full py-1">
                                             <a
                                                 className="font-semibold flex items-center text-black"
-                                                href="javascript:void(0);"
+                                                
                                             ><span className="material-symbols-outlined">expand_more</span>
                                                 Polos(266)</a
                                             >
                                             <ul className="ml-3">
                                                 <li className="py-1">
                                                     <a
-                                                        href="javascript:void(0);"
+                                                        
                                                         className="flex items-center text-black"
                                                     ><span className="material-symbols-outlined"
                                                     >chevron_right</span
@@ -59,7 +59,7 @@ const FlyOutFilter = ({
                                                 </li>
                                                 <li className="py-1">
                                                     <a
-                                                        href="javascript:void(0);"
+                                                        
                                                         className="flex items-center text-black"
                                                     ><span className="material-symbols-outlined"
                                                     >chevron_right</span
@@ -71,7 +71,7 @@ const FlyOutFilter = ({
                                         </li>
                                         <li className="py-1">
                                             <a
-                                                href="javascript:void(0);"
+                                                
                                                 className="flex items-center text-black"
                                             ><span className="material-symbols-outlined"
                                             >chevron_right</span
@@ -81,7 +81,7 @@ const FlyOutFilter = ({
                                         </li>
                                         <li className="py-1">
                                             <a
-                                                href="javascript:void(0);"
+                                                
                                                 className="flex items-center text-black"
                                             ><span className="material-symbols-outlined"
                                             >chevron_right</span
@@ -91,7 +91,7 @@ const FlyOutFilter = ({
                                         </li>
                                         <li className="py-1">
                                             <a
-                                                href="javascript:void(0);"
+                                                
                                                 className="flex items-center text-black"
                                             ><span className="material-symbols-outlined"
                                             >chevron_right</span
@@ -101,7 +101,7 @@ const FlyOutFilter = ({
                                         </li>
                                         <li className="py-1">
                                             <a
-                                                href="javascript:void(0);"
+                                                
                                                 className="flex items-center text-black"
                                             ><span className="material-symbols-outlined"
                                             >chevron_right</span
@@ -111,7 +111,7 @@ const FlyOutFilter = ({
                                         </li>
                                         <li className="py-1">
                                             <a
-                                                href="javascript:void(0);"
+                                                
                                                 className="flex items-center text-black"
                                             ><span className="material-symbols-outlined"
                                             >chevron_right</span
@@ -121,7 +121,7 @@ const FlyOutFilter = ({
                                         </li>
                                         <li className="py-1">
                                             <a
-                                                href="javascript:void(0);"
+                                                
                                                 className="flex items-center text-black"
                                             ><span className="material-symbols-outlined"
                                             >chevron_right</span
