@@ -11,7 +11,7 @@ export const __Header = {
 
 export const __domain = {
   domain: _Store.type1,
-  layoutToDisplay: _Store.type2,
+  layoutToDisplay: _Store.type3,
 };
 
 export const sliderSettings = {

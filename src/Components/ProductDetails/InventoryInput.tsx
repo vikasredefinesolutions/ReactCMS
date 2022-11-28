@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
 import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
+import React, { useState } from 'react';
 interface _props {
   size: string;
   qty: number;
   price: number;
+  isDisabled?: boolean;
+  color?: string;
 }
 
-const InventoryInput: React.FC<_props> = ({ size, qty, price }) => {
-  const { updateQuantities } = useActions();
+const InventoryInput: React.FC<_props> = ({ size, qty, price, isDisabled = false, color }) => {
+  const { updateQuantities, updateQuantities2 } = useActions();
   const [value, setValue] = useState<number>(0);
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(+event.target.value);
 
-    updateQuantities({
-      size: size,
-      qty: +event.target.value,
-      price: price,
-    });
+    if (storeLayout === _Store.type1) {
+      updateQuantities({
+        size: size,
+        qty: +event.target.value,
+        price: price,
+      });
+    } else {
+      console.log(size, qty, price, color);
+      updateQuantities2({
+        size: size,
+        qty: +event.target.value,
+        price: price,
+        color: color || '',
+      });
+    }
   };
 
   if (storeLayout === _Store.type4) {
@@ -32,6 +44,7 @@ const InventoryInput: React.FC<_props> = ({ size, qty, price }) => {
           onChange={handleChange}
           min={0}
           className="form-input"
+          disabled={isDisabled}
         />
       </div>
     );

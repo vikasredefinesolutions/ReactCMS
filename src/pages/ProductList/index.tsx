@@ -21,7 +21,7 @@ export type list_FnProps = {
   showFilter: boolean;
   showSortMenu: boolean;
   skuList: string[];
-  compareCheckBoxHandler: (sku: number) => void;
+  compareCheckBoxHandler: (sku: string) => void;
   colorChangeHandler: ColorChangeHandler;
   handleChange: FilterChangeHandler;
   loadMore: () => void;

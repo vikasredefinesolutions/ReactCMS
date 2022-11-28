@@ -97,6 +97,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       filterOptionforfaceteds: filterOptionforfaceteds,
     };
     const BrandFilt: BrandFilter = await FetchFiltersJsonByBrand(filter);
+    console.log(BrandFilt);
     const _filters: Filter[] = [];
     for (const key in BrandFilt) {
       const element = BrandFilt[key];
