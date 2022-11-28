@@ -101,9 +101,9 @@ RedefineCustomApp.getInitialProps = async (
       pathName,
     );
 
-    if (expectedProps.store.storeId) {
+    if (expectedProps.store?.storeId) {
       expectedProps.brands = await _AppController.FetchBrands(
-        expectedProps.store.storeId,
+        expectedProps.store?.storeId,
       );
     }
     // expectedProps.menuItems = await _AppController.FetchMenuItems(2);

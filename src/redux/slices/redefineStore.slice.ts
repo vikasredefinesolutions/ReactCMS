@@ -6,10 +6,7 @@ import { _StoreReturnType } from 'definations/store.type';
 import { layoutToShow } from 'helpers/common.helper';
 import { showComponents } from 'mock/store.mock';
 import { __domain } from 'page.config';
-import {
-  FetchStoreDetails,
-  SetPageType,
-} from '../asyncActions/redefineStore.async';
+import { SetPageType } from '../asyncActions/redefineStore.async';
 
 // Define a type for the slice state
 export interface _RedesignStore {
@@ -63,7 +60,10 @@ export const storeSlice = createSlice({
       state.layout = store.layout;
       state.pathName = store.pathName;
       state.brands = action.payload.brands;
-
+      state.layout = layoutToShow({
+        layout: action.payload.store.code,
+        showProd: __domain.isSiteLive,
+      });
       // state.pageType = store.pageType;
       state.menuItems = action.payload.menuItems;
     },
@@ -78,17 +78,6 @@ export const storeSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(FetchStoreDetails.fulfilled, (state, action) => {
-      if (action.payload === null) {
-        return;
-      }
-      state.id = action.payload.id;
-
-      state.layout = layoutToShow({
-        layout: action.payload.code,
-        showProd: __domain.isSiteLive,
-      });
-    });
     builder.addCase(SetPageType.fulfilled, (state, action) => {
       state.pageType = action.payload.payload;
     });
