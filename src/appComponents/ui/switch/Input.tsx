@@ -1,3 +1,4 @@
+import { ErrorMessage } from 'formik';
 import React, { useState } from 'react';
 import EyeButton from './EyeButton';
 import InfoButton from './InfoButton';
@@ -57,6 +58,7 @@ const Input: React.FC<_props> = ({
           </>
         )}
       </div>
+      <ErrorMessage name={name} className="text-rose-500" component={'p'} />
     </>
   );
 };

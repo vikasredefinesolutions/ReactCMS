@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Form, Formik } from 'formik';
-import React from 'react';
-import { useRouter } from 'next/router';
-import * as Yup from 'yup';
+import { __length, __messages } from '@constants/form.config';
 import { paths, queryParam } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
 import { _modals } from 'definations/product.type';
+import { Form, Formik } from 'formik';
 import { useActions, useTypedSelector } from 'hooks';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import { signInUser } from 'services/user.service';
+import * as Yup from 'yup';
 import Input from '../ui/switch/Input';
 
 interface _Props {
@@ -15,19 +16,24 @@ interface _Props {
   modalHandler: (val: null | _modals) => void;
 }
 
+const validationSchema = Yup.object().shape({
+  userName: Yup.string()
+    .email(__messages.email.validRequest)
+    .max(__length.email.max)
+    .min(__length.email.min)
+    .required(__messages.email.required)
+    .nullable(),
+  password: Yup.string().required(__messages.password.required).nullable(),
+});
+
 const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
   const router = useRouter();
   const { updateUserDetails, setShowLoader } = useActions();
+  const [showErroMsg, setErrorMsg] = useState<null | string>(null);
 
   const { layout: storeLayout, id: storeId } = useTypedSelector(
     (state) => state.store,
   );
-  const validationSchema = {
-    email: Yup.string().email(),
-    // .required(`This field can't be left empty`)
-    password: Yup.string(),
-    // .required(`This field can't be left empty`)
-  };
 
   const signInHandler = (enteredInputs: {
     userName: string;
@@ -39,10 +45,13 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
       .then((userId) => {
         modalHandler(null);
         updateUserDetails({
-          id: userId,
+          id: userId!,
         });
       })
-      .catch(() => 'Handle Error')
+      .catch((err) => {
+        console.log(err);
+        // setErrorMsg(err)
+      })
       .finally(() => setShowLoader(false));
   };
 
@@ -61,9 +70,9 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                 keepMeLoggedIn: false,
               }}
               onSubmit={signInHandler}
-              // validationSchema={validationSchema}
+              validationSchema={validationSchema}
             >
-              {({ values, handleChange }) => {
+              {({ values, handleChange, handleSubmit }) => {
                 return (
                   <Form>
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 max-h-screen overflow-y-auto">
@@ -92,13 +101,19 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                       </div>
                       <div className="p-6">
                         <div className="mb-4 text-center">SIGN IN</div>
+                        {showErroMsg && <span>{showErroMsg}</span>}
                         <div className="Login-Main">
                           <Input
                             label={''}
                             placeHolder={'Enter the email'}
                             name={'userName'}
                             value={values.userName}
-                            onChange={handleChange}
+                            onChange={(ev) => {
+                              if (showErroMsg) {
+                                setErrorMsg(null);
+                              }
+                              handleChange(ev);
+                            }}
                             type={'email'}
                             required={false}
                             id={'email'}
@@ -109,13 +124,18 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             placeHolder={'Enter the password'}
                             name={'password'}
                             value={values.password}
-                            onChange={handleChange}
+                            onChange={(ev) => {
+                              if (showErroMsg) {
+                                setErrorMsg(null);
+                              }
+                              handleChange(ev);
+                            }}
                             type={'password'}
                             required={false}
                           />
                           <div className="mb-4">
                             <button
-                              type={'submit'}
+                              onClick={() => handleSubmit()}
                               className="btn btn-lg btn-secondary w-full !flex items-center justify-center"
                             >
                               SHOP NOW
@@ -208,6 +228,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                   password: '',
                   keepMeLoggedIn: false,
                 }}
+                validationSchema={validationSchema}
                 onSubmit={signInHandler}
                 // validationSchema={validationSchema}
               >

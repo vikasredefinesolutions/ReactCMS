@@ -7,15 +7,34 @@ import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
 import { SendAsyncV2 } from '../utils/axios.util';
 
-export const signInUser = async (payload: _signIn) => {
+export const signInUser = async (payload: _signIn): Promise<number | null> => {
   const url = `StoreCustomer/customerlogin.json`;
-  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
-    url: url,
-    method: 'POST',
-    data: payload,
-  });
 
-  return res.data;
+  try {
+    const res = await SendAsyncV2<number>({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
+
+    conditionalLog({
+      data: res.data,
+      name: 'signInUser',
+      type: 'API',
+      show: res.data === null,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'signInUser',
+      type: 'API',
+      show: _showConsoles.services.compareProducts,
+      error: true,
+    });
+    return null;
+  }
 };
 
 export const GetCountriesList = async () => {
