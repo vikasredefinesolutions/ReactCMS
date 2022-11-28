@@ -88,8 +88,26 @@ export const FetchPageType = async (payload: {
       data: {},
     });
 
+    conditionalLog({
+      data: res.data,
+      name: 'FetchPageType',
+      type: 'API',
+      show: res.data === null,
+    });
+
     return res;
   } catch (error) {
-    return null;
+    conditionalLog({
+      data: error,
+      name: 'FetchPageType',
+      type: 'API',
+      show: _showConsoles.services.compareProducts,
+      error: true,
+    });
+
+    const res = {
+      data: null,
+    };
+    return res;
   }
 };
