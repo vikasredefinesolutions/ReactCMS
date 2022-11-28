@@ -1,19 +1,19 @@
+import AddAddress from 'appComponents/modals/AddAddress';
+import SwitchBox from 'appComponents/ui/switch';
+import { AddUpdateAddressRequest } from 'definations/APIs/address.req';
+import { useActions, useTypedSelector } from 'hooks';
 import { useState } from 'react';
-import AddAddress from '../../../components/modals/AddAddress';
-import SwitchBox from '../../../components/ui/switch';
-import { AddUpdateAddressRequest } from '../../../definations/APIs/address.req';
-import { useActions, useTypedSelector } from '../../../hooks';
 import {
   CreateUserAddress,
   deleteCustomerAddress,
   udpateIsDefaultAddress,
   UpdateUserAddress,
-} from '../../../services/address.service';
+} from 'services/address.service';
 // import { SwitchProps } from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { CustomerAddress } from '../../../definations/APIs/user.res';
-import getLocation from '../../../helpers/getLocation';
+import { CustomerAddress } from 'definations/APIs/user.res';
+import getLocation from 'helpers/getLocation';
 
 const UserAddress = () => {
   const { getStoreCustomer } = useActions();
