@@ -1,5 +1,6 @@
 import { _StoreReturnType } from '@type/store.type';
 import * as _AppController from 'Controllers/_AppController';
+import { domainToShow } from 'helpers/common.helper';
 import { highLightError } from 'helpers/global.console';
 import Document, {
   DocumentContext,
@@ -19,7 +20,10 @@ class MyDocument extends Document {
   ): Promise<DocumentInitialProps> {
     const originalRenderPage = ctx.renderPage;
 
-    const domain = __domain.domain || ctx.req?.rawHeaders[1]!;
+    const domain = domainToShow({
+      domain: ctx.req?.rawHeaders[1],
+      showProd: __domain.isSiteLive,
+    });
 
     try {
       store = await _AppController.FetchStoreDetails(domain, 'pathName');

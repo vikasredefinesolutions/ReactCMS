@@ -16,14 +16,18 @@ import {
 } from '@type/slug.type';
 import { getProductDetailProps } from 'Controllers/ProductController';
 import * as _AppController from 'Controllers/_AppController';
-import { extractSlugName } from 'helpers/common.helper';
+import { domainToShow, extractSlugName } from 'helpers/common.helper';
 import { conditionalLog } from 'helpers/global.console';
 import { GetServerSideProps } from 'next';
 import { __domain } from 'page.config';
 import { _showConsoles, __fileNames } from 'show.config';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const domain = __domain.domain || context.req.rawHeaders[1];
+  const domain = domainToShow({
+    domain: context.req?.rawHeaders[1],
+    showProd: __domain.isSiteLive,
+  });
+
   let store: _StoreReturnType | null = null;
   const { slug, slugID } = extractSlugName(context.params);
   store = await _AppController.FetchStoreDetails(domain, slug!);

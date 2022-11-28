@@ -1,10 +1,54 @@
+import { __domain } from 'page.config';
 import { ParsedUrlQuery } from 'querystring';
+import { conditionalLog } from './global.console';
 
 export function removeDuplicates(arr: any[]) {
   return arr.filter(
     (arr, index, self) =>
       index === self.findIndex((t) => t.seName === arr.seName),
   );
+}
+
+export function layoutToShow(payload: {
+  layout: string | undefined;
+  showProd: boolean;
+}): string {
+  let layout = __domain.layoutToDisplay;
+
+  if (payload.showProd && payload.layout) {
+    layout === payload.layout;
+  }
+
+  conditionalLog({
+    show: payload.layout ? false : true,
+    type: 'FUNCTION',
+    name: 'layoutToShow',
+    data: payload.layout,
+    error: true,
+  });
+
+  return layout;
+}
+
+export function domainToShow(payload: {
+  domain: string | undefined;
+  showProd: boolean;
+}): string {
+  let domain = __domain.localDomain;
+
+  if (payload.showProd && payload.domain) {
+    domain === payload.domain;
+  }
+
+  conditionalLog({
+    show: !payload.domain,
+    type: 'FUNCTION',
+    name: 'domainToShow',
+    data: payload.domain,
+    error: true,
+  });
+
+  return domain;
 }
 
 export const c_getSeName = (

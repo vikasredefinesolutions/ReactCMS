@@ -1,6 +1,5 @@
 import { _StoreReturnType } from 'definations/store.type';
 import { conditionalLog, highLightError } from 'helpers/global.console';
-import { __domain } from 'page.config';
 import * as HeaderService from 'services/header.service';
 import * as HomeService from 'services/home.service';
 import { _showConsoles, __fileNames } from 'show.config';
@@ -21,7 +20,10 @@ export const FetchMenuItems = async (storeId: number) => {
   // HeaderService.FetchStoreMenu({ storeId });
 };
 
-export const FetchStoreDetails = async (domain: string, pathName: string) => {
+export const FetchStoreDetails = async (
+  domain: string,
+  pathName: string,
+): Promise<_StoreReturnType | null> => {
   const store: _StoreReturnType = {
     storeId: null,
     layout: null,
@@ -31,21 +33,24 @@ export const FetchStoreDetails = async (domain: string, pathName: string) => {
   };
 
   try {
-    await HomeService.GetStoreID(domain).then((res) => {
+    const res = await HomeService.GetStoreID(domain);
+
+    if (res) {
       store.storeId = res.id;
-      store.layout = __domain.layoutToDisplay;
+      store.layout = res.code;
       store.pathName = pathName;
       store.isAttributeSaparateProduct = res.isAttributeSaparateProduct;
-      return res.id;
+      return store;
+    }
+    conditionalLog({
+      data: store,
+      type: 'CONTROLLER',
+      name: __fileNames._app,
+      show: _showConsoles._app,
     });
+    return null;
   } catch (error) {
     highLightError({ error, component: '_app Controller' });
+    return null;
   }
-  conditionalLog({
-    data: store,
-    type: 'CONTROLLER',
-    name: __fileNames._app,
-    show: _showConsoles._app,
-  });
-  return store;
 };

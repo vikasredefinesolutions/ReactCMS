@@ -4,17 +4,18 @@ import Spinner from 'appComponents/ui/spinner';
 import * as _AppController from 'Controllers/_AppController';
 import { _Brands, _StoreMenu } from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
+import { domainToShow } from 'helpers/common.helper';
 import { conditionalLog, highLightError } from 'helpers/global.console';
 import { useActions } from 'hooks';
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import { __domain } from 'page.config';
 import { useEffect, useState } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
 import { _showConsoles, __fileNames } from 'show.config';
 import { _Expected_AppProps } from 'show.type';
 import '../../styles/output.css';
 import '../app.css';
-import { __domain } from '../page.config';
 
 type AppOwnProps = {
   store: _StoreReturnType | null;
@@ -81,7 +82,12 @@ RedefineCustomApp.getInitialProps = async (
   context: AppContext,
 ): Promise<AppOwnProps & AppInitialProps> => {
   const ctx = await App.getInitialProps(context);
-  const domain = __domain.domain || context.ctx.req?.rawHeaders[1]!;
+
+  const domain = domainToShow({
+    domain: context.ctx.req?.rawHeaders[1],
+    showProd: __domain.isSiteLive,
+  });
+
   const pathName = context.ctx.pathname;
   const expectedProps: _Expected_AppProps = {
     store: null,

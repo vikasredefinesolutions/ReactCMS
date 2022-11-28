@@ -61,18 +61,39 @@ export const fetchProductById = async () => {
   return res.data;
 };
 
-export const GetStoreID = async (domain: string): Promise<_StoreDetails> => {
+export const GetStoreID = async (
+  domain: string,
+): Promise<_StoreDetails | null> => {
   const url = `Store/getstorebydomain.json`;
 
-  const res = await SendAsyncV2<_StoreDetails>({
-    url: url,
-    method: 'POST',
-    data: {
-      url: domain,
-    },
-  });
+  try {
+    const res = await SendAsyncV2<_StoreDetails>({
+      url: url,
+      method: 'POST',
+      data: {
+        url: domain,
+      },
+    });
 
-  return res.data;
+    conditionalLog({
+      data: res,
+      name: 'GetStoreID',
+      type: 'API',
+      show: res.data === null,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      type: 'API',
+      show: true,
+      name: 'GetStoreID',
+      error: true,
+    });
+
+    return null;
+  }
 };
 
 export const FetchPageType = async (payload: {
