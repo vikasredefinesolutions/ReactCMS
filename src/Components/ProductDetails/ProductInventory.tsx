@@ -1,8 +1,10 @@
+import { FetchInventoryById } from '@services/product.service';
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import Image from 'appComponents/reusables/Image';
 import Price from 'appComponents/reusables/Price';
 import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import InventoryInput from './InventoryInput';
 
 interface _props {
@@ -12,16 +14,33 @@ interface _props {
 const Inventory: React.FC<_props> = ({ productId }) => {
   const { updatePrice } = useActions();
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const { color } = useTypedSelector((state) => state.product.selected);
   const { totalPrice } = useTypedSelector((state) => state.product.toCheckout);
   const { price, colors } = useTypedSelector((state) => state.product.product);
-  const { color, inventory } = useTypedSelector(
-    (state) => state.product.selected,
-  );
+
+  const [inventory, setInventory] =
+    useState<null | _ProductInventoryTransfomed>(null);
 
   useEffect(() => {
     updatePrice({ price: price?.msrp || 0 });
-  }, []);
+  }, [price?.msrp]);
 
+  const showInventoryFor = (payload: {
+    productId: number;
+    attributeOptionId: number[];
+  }) => {
+    FetchInventoryById(payload).then((res) => setInventory(res));
+    // .catch((err) => console.log('err', err))
+    // .finally(() => );
+  };
+  useEffect(() => {
+    if (colors === null) return;
+    showInventoryFor({
+      productId: colors[0].productId,
+      attributeOptionId: [colors[0].attributeOptionId],
+    });
+  }, [colors]);
+  console.log(inventory);
   if (inventory === null) return <></>;
 
   if (storeLayout === _Store.type3) {
@@ -45,7 +64,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                     {inventory.inventory.find(
                       (int) =>
                         int.colorAttributeOptionId ===
-                          color.attributeOptionId && int.name === size,
+                        color.attributeOptionId && int.name === size,
                     )?.inventory || 'Out of Stock'}
                   </div>
                   <InventoryInput
@@ -54,7 +73,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                       inventory.inventory.find(
                         (int) =>
                           int.colorAttributeOptionId ===
-                            color.attributeOptionId && int.name === size,
+                          color.attributeOptionId && int.name === size,
                       )?.inventory || 0
                     }
                     price={price?.msrp || 0}
@@ -69,6 +88,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
       </div>
     );
   }
+
   if (storeLayout === _Store.type4) {
     return (
       <div className="">
@@ -93,6 +113,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
               })}
             </div>
           </div>
+
           {colors?.map((color) => (
             <div
               key={color.attributeOptionId}
@@ -116,30 +137,43 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                   if (
                     product.colorAttributeOptionId === color.attributeOptionId
                   ) {
-                    return product.sizeArr.map((size) => (
-                      <div className="p-2 w-1/2 md:w-1/12">
-                        <div className="mb-1">
-                          {inventory.inventory.find(
-                            (int) =>
-                              int.colorAttributeOptionId ===
-                                color.attributeOptionId && int.name === size,
-                          )?.inventory || 0}
+                    return product.sizeArr.map(size => {
+                      const inv =
+                        inventory.inventory.find(
+                          (int) =>
+                            int.colorAttributeOptionId ===
+                            color.attributeOptionId && int.name === size,
+                        )?.inventory || 0;
+                      const inventry = inventory.inventory.find(
+                        (int) =>
+                          int.colorAttributeOptionId ===
+                          color.attributeOptionId && int.name === size,
+                      );
+                      return inv > 0 ? (
+                        <>
+                          <div className="p-2 w-1/2 md:w-1/12">
+                            <div className="mb-1">{inv > 50 ? '50+' : inv}</div>
+                            <InventoryInput
+                              size={size}
+                              qty={inv}
+                              price={
+                                inventry?.price || 5
+                              }
+                              color={color.name}
+                              isDisabled={inv < 1}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <div className="p-2 w-1/2 md:w-1/12">
+                          <div className="border-bottom p-b-10">
+                            <strong className="text-center center"> - </strong>{' '}
+                          </div>
                         </div>
-                        <InventoryInput
-                          size={size}
-                          qty={
-                            inventory.inventory.find(
-                              (int) =>
-                                int.colorAttributeOptionId ===
-                                  color.attributeOptionId && int.name === size,
-                            )?.inventory || 0
-                          }
-                          price={price?.msrp || 0}
-                        />
-                      </div>
-                    ));
+                      );
+                    })
                   }
-                  return <></>;
+                  return <></>
                 })}
               </div>
             </div>
@@ -169,7 +203,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                         inventory.inventory.find(
                           (int) =>
                             int.colorAttributeOptionId ===
-                              color.attributeOptionId && int.name === size,
+                            color.attributeOptionId && int.name === size,
                         )?.inventory || 0
                       }
                       price={price?.msrp || 0}
@@ -178,9 +212,10 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                 ));
               }
               return <></>;
-            })}
-          </div>
-        </div>
+            })
+            }
+          </div >
+        </div >
         <div className="mb-3 font-bold bg-[#051C2C] px-4 py-2.5 text-white tracking-widest text-center">
           Add 12 more of this johnnie-O Men's The Original 4-Button Polo to your
           cart to save an additional $8.00 per Item!

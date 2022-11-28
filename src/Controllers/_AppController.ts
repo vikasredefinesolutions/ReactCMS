@@ -31,7 +31,6 @@ export const FetchStoreDetails = async (
     pathName: '',
     isAttributeSaparateProduct: false,
   };
-
   try {
     const res = await HomeService.GetStoreID(domain);
 

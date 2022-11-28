@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
-import config from '../../api.config';
-import { _ProductColor } from 'definations/APIs/colors.res';
-import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
-import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
-import { color } from '@mui/system';
+import { _ProductColor } from 'definations/APIs/colors.res';
+import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
+import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
+import config from '../../api.config';
 
 // Define a type for the slice state
 interface _ProductStore {
@@ -58,6 +57,7 @@ interface _ProductStore {
           size: string;
           qty: number;
           price: number;
+          color?: string;
         }[]
       | null;
     logos:
@@ -436,6 +436,89 @@ export const productSlice = createSlice({
       state.toCheckout.sizeQtys = updatedSizeQtys || null;
       state.toCheckout.totalQty = totalQty;
       state.toCheckout.totalPrice = totalPrice;
+      console.log('I am here');
+    },
+    updateQuantities2: (
+      state,
+      action: {
+        payload: {
+          size: string;
+          qty: number;
+          price: number;
+          color: string;
+        };
+      },
+    ) => {
+      let productName = action.payload.size;
+      let productPrice = action.payload.price;
+      let productQty = action.payload.qty;
+      let color = action.payload.color;
+      let totalQty = 0;
+      let updatedSizeQtys;
+      console.log(state.toCheckout.sizeQtys, '=================');
+      if (state.toCheckout.sizeQtys === null) {
+        // IT CHECKOUT ARRAY DO NOT EXIST
+        updatedSizeQtys = [
+          {
+            size: productName,
+            qty: productQty,
+            price: productPrice,
+            color: color,
+          },
+        ];
+        console.log(updatedSizeQtys);
+        totalQty = productQty;
+      } else {
+        console.log(state.toCheckout.sizeQtys);
+        updatedSizeQtys = state.toCheckout.sizeQtys?.map((product) => {
+          if (product.size === productName && product.color === color) {
+            totalQty += productQty;
+            return {
+              ...product,
+              qty: productQty,
+            };
+          }
+          totalQty += product.qty;
+          return product;
+        });
+
+        const doesItemExist = state.toCheckout.sizeQtys.find(
+          (product) => product.size === productName && product.color === color,
+        );
+
+        if (!doesItemExist) {
+          updatedSizeQtys.push({
+            size: productName,
+            qty: productQty,
+            price: productPrice,
+            color: color,
+          });
+          totalQty += productQty;
+        }
+      }
+      // LOGO CHARGE
+      let updateAdditionalLogoCharge = 0;
+      // state.toCheckout.logo?.price?.forEach((price) => {
+      //   if (price === 'FREE') return (updateAdditionalLogoCharge += 0);
+      //   return (updateAdditionalLogoCharge += price * totalQty);
+      // });
+
+      // if (totalQty >= state.toCheckout.minQty) {
+      //   state.toCheckout.minQtyCheck = true;
+      // }
+
+      // if (totalQty < state.toCheckout.minQty) {
+      //   state.toCheckout.minQtyCheck = false;
+      // }
+      // TOTAL PRICE
+      let totalPrice =
+        totalQty * state.toCheckout.price + updateAdditionalLogoCharge;
+
+      // STATE UPDATES
+      state.toCheckout.additionalLogoCharge = updateAdditionalLogoCharge;
+      state.toCheckout.sizeQtys = updatedSizeQtys || null;
+      state.toCheckout.totalQty = totalQty;
+      state.toCheckout.totalPrice = totalPrice;
     },
     updateLogoDetails: (
       state,
@@ -506,10 +589,7 @@ export const productSlice = createSlice({
 
       state.toCheckout.logos = logos;
     },
-    updateCheckoutObject: (
-      state,
-      action
-    ) => {
+    updateCheckoutObject: (state, action) => {
       state.toCheckout.totalPrice = action.payload.totalPrice;
       state.toCheckout.totalQty = action.payload.totalQty;
       state.toCheckout.sizeQtys = action.payload.sizeQtys;

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import LoginModal from 'appComponents/modals/LoginModal';
 import StartOrderModal from 'appComponents/modals/StartOrderModal';
 import Price from 'appComponents/reusables/Price';
+import AddToCart from 'appComponents/ui/AddToCartButton';
 import { paths } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { _modals } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import AskToLogin from './AskToLogin';
 import AvailableColors from './AvailableColors';
 import AvailableInventoryModal from './AvailableInventoryModal';
@@ -30,7 +32,6 @@ import ProductRequestConsultation from './ProductRequestConsultation';
 import ProductSKU from './ProductSKU';
 import ProductStarReviews from './ProductStarReviews';
 import SizeChartModal from './SizeChartModal';
-import { useRouter } from 'next/router';
 import TopRatedProducts from './TopRatedProducts';
 
 interface _Props {
@@ -384,13 +385,17 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           </div>
         </div>
         <div className="">
-          <button
-            type="button"
-            className="btn btn-lg btn-secondary w-full text-center !font-normal"
-            data-modal-toggle="LoginModal"
-          >
-            CHECK INVENTORY AND YOUR PRICING
-          </button>
+          {Boolean(userId) ? (
+            <AddToCart title='ADD TO CART' className='btn btn-lg btn-secondary w-full text-center !font-normal' />
+          ) : (
+            <button
+              type="button"
+              className="btn btn-lg btn-secondary w-full text-center !font-normal"
+              data-modal-toggle="LoginModal"
+            >
+              CHECK INVENTORY AND YOUR PRICING
+            </button>
+          )}
         </div>
       </div>
     );

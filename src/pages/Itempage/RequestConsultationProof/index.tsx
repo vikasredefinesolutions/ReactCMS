@@ -8,7 +8,7 @@ import * as _AppController from 'Controllers/_AppController';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,
-  _ProductDoNotExistTransformed,
+  _ProductDoNotExistTransformed
 } from 'definations/APIs/productDetail.res';
 import { domainToShow } from 'helpers/common.helper';
 import { conditionalLog, highLightError } from 'helpers/global.console';

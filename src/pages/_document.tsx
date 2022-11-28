@@ -8,7 +8,7 @@ import Document, {
   Head,
   Html,
   Main,
-  NextScript,
+  NextScript
 } from 'next/document';
 import { __domain } from 'page.config';
 
@@ -48,9 +48,7 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${
-              store?.storeId
-            }/css/${store?.storeId}.css`}
+            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${5}/css/${5}.css`}
           />
         </Head>
         <body className="font-Outfit bg-white">
