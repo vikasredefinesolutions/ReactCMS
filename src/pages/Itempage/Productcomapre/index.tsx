@@ -8,6 +8,7 @@ import AllSizes from 'Components/Compare/AllSizes';
 import DisplayCompareImage from 'Components/Compare/DisplayCompareImage';
 import * as CompareController from 'Controllers/CompareProductsController';
 import * as _AppController from 'Controllers/_AppController';
+import { domainToShow } from 'helpers/common.helper';
 import { conditionalLog, highLightError } from 'helpers/global.console';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
@@ -143,7 +144,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     products: null,
     store: null,
   };
-  const domain = __domain.domain || context.req.rawHeaders[1]!;
+
+  const domain = domainToShow({
+    domain: context.req?.rawHeaders[1],
+    showProd: __domain.isSiteLive,
+  });
+
   const query: {
     SKUs: undefined | string | string[];
   } = {

@@ -11,26 +11,32 @@ export default function Search(props: any) {
         pageData: pageData,
         pageType: pageType,
         slug: slug,
-      }
-      page = <>
-        <Head>
-          <title>{pageData?.seTitle}</title>
-          <meta
-            name="description"
-            content={pageData?.seDescription}
-            key="desc"
-          />
-          <meta name="keywords" content={pageData?.seKeyWords} />
-        </Head>
-        <Home props={props} />
-      </>
+      };
+      page = (
+        <>
+          <Head>
+            <title>{pageData?.seTitle}</title>
+            <meta
+              name="description"
+              content={pageData?.seDescription}
+              key="desc"
+            />
+            <meta name="keywords" content={pageData?.seKeyWords} />
+          </Head>
+          <Home props={props} />
+        </>
+      );
     }
 
     page = (
       <>
         <Head>
           <title>{pageData.seo?.seTitle}</title>
-          <meta name="description" content={pageData.seo?.seDescription} key="desc" />
+          <meta
+            name="description"
+            content={pageData.seo?.seDescription}
+            key="desc"
+          />
           <meta name="keywords" content={pageData.seo?.seKeyWords} />
         </Head>
         <Home />
@@ -42,4 +48,3 @@ export default function Search(props: any) {
 }
 
 export { getServerSideProps };
-

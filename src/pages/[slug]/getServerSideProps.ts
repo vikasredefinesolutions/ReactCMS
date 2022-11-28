@@ -16,19 +16,32 @@ import {
 } from '@type/slug.type';
 import { getProductDetailProps } from 'Controllers/ProductController';
 import * as _AppController from 'Controllers/_AppController';
-import { extractSlugName } from 'helpers/common.helper';
-import { conditionalLog } from 'helpers/global.console';
+import { domainToShow, extractSlugName } from 'helpers/common.helper';
+import { conditionalLog, highLightError } from 'helpers/global.console';
 import { GetServerSideProps } from 'next';
 import { __domain } from 'page.config';
 import { _showConsoles, __fileNames } from 'show.config';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const domain = __domain.domain || context.req.rawHeaders[1];
+  const domain = domainToShow({
+    domain: context.req?.rawHeaders[1],
+    showProd: __domain.isSiteLive,
+  });
+
   let store: _StoreReturnType | null = null;
   const { slug, slugID } = extractSlugName(context.params);
   store = await _AppController.FetchStoreDetails(domain, slug!);
+
+  if (store === null) {
+    highLightError({
+      error: 'No store id found',
+      component:
+        'D:AAASNext_RedefineCommerceFrontWebsrcpages[slug]getServerSideProps.ts',
+    });
+  }
+
   const { data }: any = await getPageType({
-    store_id: store.storeId || 0,
+    store_id: store?.storeId || 0,
     slug,
   });
   let components: any = null;
@@ -54,9 +67,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (pageType === 'product') {
     pageData = await getProductDetailProps({
-      storeId: store.storeId!,
+      storeId: store?.storeId!,
       seName: slug,
-      isAttributeSaparateProduct: store.isAttributeSaparateProduct,
+      isAttributeSaparateProduct: store!.isAttributeSaparateProduct,
     });
     conditionalLog({
       show: _showConsoles.productDetails,
@@ -68,7 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if ('brand,category'.includes(pageType)) {
     const seo = await FetchBrandProductList({
-      storeId: store.storeId || 0,
+      storeId: store?.storeId || 0,
       seName: slug,
     });
     let filterOptionforfaceteds: Array<{
@@ -91,7 +104,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     let product: Product[] = [];
     const filter = {
-      storeID: store.storeId || 0,
+      storeID: store?.storeId || 0,
       brandId: data.data.id,
       customerId: 0,
       filterOptionforfaceteds: filterOptionforfaceteds,

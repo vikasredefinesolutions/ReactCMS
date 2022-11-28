@@ -3,6 +3,7 @@ import { _SeName } from 'constants/store.constant';
 import { _Brands, _StoreMenu } from 'definations/APIs/header.res';
 import { PageResponseType, _Show } from 'definations/app.type';
 import { _StoreReturnType } from 'definations/store.type';
+import { layoutToShow } from 'helpers/common.helper';
 import { showComponents } from 'mock/store.mock';
 import { __domain } from 'page.config';
 import {
@@ -78,8 +79,15 @@ export const storeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(FetchStoreDetails.fulfilled, (state, action) => {
+      if (action.payload === null) {
+        return;
+      }
       state.id = action.payload.id;
-      state.layout = __domain.layoutToDisplay;
+
+      state.layout = layoutToShow({
+        layout: action.payload.code,
+        showProd: __domain.isSiteLive,
+      });
     });
     builder.addCase(SetPageType.fulfilled, (state, action) => {
       state.pageType = action.payload.payload;

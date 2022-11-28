@@ -10,6 +10,7 @@ import {
   _ProductDetails,
   _ProductDoNotExistTransformed
 } from 'definations/APIs/productDetail.res';
+import { domainToShow } from 'helpers/common.helper';
 import { conditionalLog, highLightError } from 'helpers/global.console';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
@@ -75,7 +76,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 
   try {
-    const domain = __domain.domain || context.req.rawHeaders[1]!;
+    const domain = domainToShow({
+      domain: context.req?.rawHeaders[1],
+      showProd: __domain.isSiteLive,
+    });
+
     const query: {
       productId: undefined | string | string[] | number;
       colorName: undefined | string | string[];

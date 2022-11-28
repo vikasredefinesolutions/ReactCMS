@@ -61,18 +61,39 @@ export const fetchProductById = async () => {
   return res.data;
 };
 
-export const GetStoreID = async (domain: string): Promise<_StoreDetails> => {
+export const GetStoreID = async (
+  domain: string,
+): Promise<_StoreDetails | null> => {
   const url = `Store/getstorebydomain.json`;
 
-  const res = await SendAsyncV2<_StoreDetails>({
-    url: url,
-    method: 'POST',
-    data: {
-      url: domain,
-    },
-  });
+  try {
+    const res = await SendAsyncV2<_StoreDetails>({
+      url: url,
+      method: 'POST',
+      data: {
+        url: domain,
+      },
+    });
 
-  return res.data;
+    conditionalLog({
+      data: res,
+      name: 'GetStoreID',
+      type: 'API',
+      show: res.data === null,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      type: 'API',
+      show: true,
+      name: 'GetStoreID',
+      error: true,
+    });
+
+    return null;
+  }
 };
 
 export const FetchPageType = async (payload: {
@@ -88,8 +109,26 @@ export const FetchPageType = async (payload: {
       data: {},
     });
 
+    conditionalLog({
+      data: res.data,
+      name: 'FetchPageType',
+      type: 'API',
+      show: res.data === null,
+    });
+
     return res;
   } catch (error) {
-    return null;
+    conditionalLog({
+      data: error,
+      name: 'FetchPageType',
+      type: 'API',
+      show: _showConsoles.services.compareProducts,
+      error: true,
+    });
+
+    const res = {
+      data: null,
+    };
+    return res;
   }
 };
