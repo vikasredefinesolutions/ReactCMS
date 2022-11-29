@@ -436,7 +436,6 @@ export const productSlice = createSlice({
       state.toCheckout.sizeQtys = updatedSizeQtys || null;
       state.toCheckout.totalQty = totalQty;
       state.toCheckout.totalPrice = totalPrice;
-      console.log('I am here');
     },
     updateQuantities2: (
       state,
@@ -455,7 +454,6 @@ export const productSlice = createSlice({
       let color = action.payload.color;
       let totalQty = 0;
       let updatedSizeQtys;
-      console.log(state.toCheckout.sizeQtys, '=================');
       if (state.toCheckout.sizeQtys === null) {
         // IT CHECKOUT ARRAY DO NOT EXIST
         updatedSizeQtys = [
@@ -466,10 +464,8 @@ export const productSlice = createSlice({
             color: color,
           },
         ];
-        console.log(updatedSizeQtys);
         totalQty = productQty;
       } else {
-        console.log(state.toCheckout.sizeQtys);
         updatedSizeQtys = state.toCheckout.sizeQtys?.map((product) => {
           if (product.size === productName && product.color === color) {
             totalQty += productQty;

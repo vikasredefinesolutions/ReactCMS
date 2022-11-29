@@ -1,5 +1,6 @@
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import LoginModal from 'appComponents/modals/LoginModal';
+import MsgContainer from 'appComponents/modals/MsgContainer';
 import StartOrderModal from 'appComponents/modals/StartOrderModal';
 import Price from 'appComponents/reusables/Price';
 import AddToCart from 'appComponents/ui/AddToCartButton';
@@ -70,7 +71,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
 
     if (isLoggedIn === true) {
       if (minQtyCheck === false) {
-        modalHandler('personalizationFonts');
+        modalHandler('requiredQty');
         return;
       }
 
@@ -161,7 +162,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         />
 
         <form className="mt-6">
-          <div className="mt-10">
+          <div className="mt-10 bg-gray-700">
             <button
               type="button"
               disabled={product.isDiscontinue}
@@ -256,10 +257,15 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           />
           <button
             type="button"
+            disabled={product.isDiscontinue}
             className="btn btn-lg btn-secondary w-full"
-            onClick={() => buyNowHandler(!!userId)}
+            onClick={() => {
+              buyNowHandler(!!userId);
+            }}
           >
-            LOGIN TO SHOP NOW WITH LIVE INVENTORY
+            {product.isDiscontinue
+              ? 'Discontinued'
+              : 'LOGIN TO SHOP NOW WITH LIVE INVENTORY'}
           </button>
         </div>
 
@@ -279,6 +285,13 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         )}
         {openModal === 'login' && <LoginModal modalHandler={modalHandler} />}
         {openModal === 'forgot' && <ForgotModal modalHandler={modalHandler} />}
+        {openModal === 'requiredQty' && (
+          <MsgContainer
+            title="Required Size"
+            message="Please select one size"
+            modalHandler={modalHandler}
+          />
+        )}
       </div>
     );
   }
@@ -319,13 +332,22 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         <Inventory productId={product.id} />
         <div className="mb-3">
           <button
+            disabled={product.isDiscontinue}
             type="button"
             className="btn btn-lg btn-secondary w-full"
             onClick={() => setOpenModal('qouteRequest')}
           >
-            CLICK HERE TO SUBMIT A QUOTE REQUEST
+            {product.isDiscontinue
+              ? 'Discontinued'
+              : 'CLICK HERE TO SUBMIT A QUOTE REQUEST'}
           </button>
         </div>
+        {product.isDiscontinue && (
+          <TopRatedProducts
+            title={'Top Rated Alternatives'}
+            suggestedProducts={product.suggestedProducts}
+          />
+        )}
         {openModal === 'qouteRequest' && (
           <ProductQuoteRequest modalHandler={modalHandler} />
         )}
@@ -386,14 +408,20 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         </div>
         <div className="">
           {Boolean(userId) ? (
-            <AddToCart title='ADD TO CART' className='btn btn-lg btn-secondary w-full text-center !font-normal' />
+            <AddToCart
+              title="ADD TO CART"
+              className="btn btn-lg btn-secondary w-full text-center !font-normal"
+            />
           ) : (
             <button
               type="button"
               className="btn btn-lg btn-secondary w-full text-center !font-normal"
+              disabled={product.isDiscontinue}
               data-modal-toggle="LoginModal"
             >
-              CHECK INVENTORY AND YOUR PRICING
+              {product.isDiscontinue
+                ? 'Discontinued'
+                : 'CHECK INVENTORY AND YOUR PRICING'}
             </button>
           )}
         </div>

@@ -40,7 +40,6 @@ const Inventory: React.FC<_props> = ({ productId }) => {
       attributeOptionId: [colors[0].attributeOptionId],
     });
   }, [colors]);
-  console.log(inventory);
   if (inventory === null) return <></>;
 
   if (storeLayout === _Store.type3) {
@@ -64,7 +63,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                     {inventory.inventory.find(
                       (int) =>
                         int.colorAttributeOptionId ===
-                        color.attributeOptionId && int.name === size,
+                          color.attributeOptionId && int.name === size,
                     )?.inventory || 'Out of Stock'}
                   </div>
                   <InventoryInput
@@ -73,7 +72,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                       inventory.inventory.find(
                         (int) =>
                           int.colorAttributeOptionId ===
-                          color.attributeOptionId && int.name === size,
+                            color.attributeOptionId && int.name === size,
                       )?.inventory || 0
                     }
                     price={price?.msrp || 0}
@@ -137,17 +136,17 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                   if (
                     product.colorAttributeOptionId === color.attributeOptionId
                   ) {
-                    return product.sizeArr.map(size => {
+                    return product.sizeArr.map((size) => {
                       const inv =
                         inventory.inventory.find(
                           (int) =>
                             int.colorAttributeOptionId ===
-                            color.attributeOptionId && int.name === size,
+                              color.attributeOptionId && int.name === size,
                         )?.inventory || 0;
                       const inventry = inventory.inventory.find(
                         (int) =>
                           int.colorAttributeOptionId ===
-                          color.attributeOptionId && int.name === size,
+                            color.attributeOptionId && int.name === size,
                       );
                       return inv > 0 ? (
                         <>
@@ -156,9 +155,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                             <InventoryInput
                               size={size}
                               qty={inv}
-                              price={
-                                inventry?.price || 5
-                              }
+                              price={inventry?.price || 5}
                               color={color.name}
                               isDisabled={inv < 1}
                             />
@@ -171,9 +168,9 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                           </div>
                         </div>
                       );
-                    })
+                    });
                   }
-                  return <></>
+                  return <></>;
                 })}
               </div>
             </div>
@@ -203,7 +200,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                         inventory.inventory.find(
                           (int) =>
                             int.colorAttributeOptionId ===
-                            color.attributeOptionId && int.name === size,
+                              color.attributeOptionId && int.name === size,
                         )?.inventory || 0
                       }
                       price={price?.msrp || 0}
@@ -212,10 +209,9 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                 ));
               }
               return <></>;
-            })
-            }
-          </div >
-        </div >
+            })}
+          </div>
+        </div>
         <div className="mb-3 font-bold bg-[#051C2C] px-4 py-2.5 text-white tracking-widest text-center">
           Add 12 more of this johnnie-O Men's The Original 4-Button Polo to your
           cart to save an additional $8.00 per Item!

@@ -16,6 +16,7 @@ export type _LogoSteps =
   | 'DONE';
 
 export type _modals =
+  | 'requiredQty'
   | 'sizeChart'
   | 'availableInventory'
   | 'login'
