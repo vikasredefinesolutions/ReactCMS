@@ -1,8 +1,8 @@
+import { _Store } from 'constants/store.constant';
 import { Form, Formik } from 'formik';
+import { useTypedSelector } from 'hooks';
 import React from 'react';
-import { _Store } from '../../constants/store.constant';
-import { useTypedSelector } from '../../hooks';
-import { SearchFor } from '../../../services/header.service';
+import { SearchFor } from 'services/header.service';
 
 interface _props {
   screen?: 'MOBILE' | 'DESKTOP';

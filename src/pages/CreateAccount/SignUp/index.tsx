@@ -2,24 +2,24 @@ import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 
-import * as Yup from 'yup';
-import { signupPageMessages } from 'constants/validationMessages';
+import RedefineFwInput from 'Components/SignUp/RedefineFwInput';
+import RedefineInput from 'Components/SignUp/RedefineInput';
+import RedefineSelect from 'Components/SignUp/RedefineSelect';
 import { paths, queryParam } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
-import { _SignUpPayload } from '../../../definations/APIs/signUp.req';
-import { _Country, _Industry, _State } from '../../../definations/user.type';
-import getLocation from '../../../helpers/getLocation';
+import { signupPageMessages } from 'constants/validationMessages';
+import { _SignUpPayload } from 'definations/APIs/signUp.req';
+import { _Country, _Industry, _State } from 'definations/user.type';
+import getLocation from 'helpers/getLocation';
 import { useTypedSelector } from 'hooks';
+import { useRouter } from 'next/router';
 import {
   CreateNewAccount,
   GetCountriesList,
   GetIndustriesList,
   GetStatesList,
 } from 'services/user.service';
-import RedefineFwInput from 'Components/SignUp/RedefineFwInput';
-import RedefineInput from 'Components/SignUp/RedefineInput';
-import RedefineSelect from 'Components/SignUp/RedefineSelect';
-import { useRouter } from 'next/router';
+import * as Yup from 'yup';
 
 const _SignupSchema = Yup.object().shape({
   firstname: Yup.string().required(signupPageMessages.firstname.required),

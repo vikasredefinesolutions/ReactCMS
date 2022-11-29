@@ -1,5 +1,5 @@
+import { _ThankYouOrder } from 'definations/thankYou.type';
 import React from 'react';
-import { _ThankYouOrder } from '../../../definations/thankYou.type';
 import ThankYouProduct from './ThankYouProduct';
 import ThankYouSubTotal from './ThankYouSubTotal';
 

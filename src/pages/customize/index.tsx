@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import Image from 'appComponents/reusables/Image';
+import CustomizeLogoSteps from 'Components/CustomizeLogo/CustomizeLogoSteps';
+import LogosToPrint from 'Components/CustomizeLogo/LogosToPrint';
 import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
-import { logoPositions } from '../../mock/startModal.mock';
-import CustomizeLogoSteps from '../../Components/CustomizeLogo/CustomizeLogoSteps';
-import LogosToPrint from 'Components/CustomizeLogo/LogosToPrint';
+import { logoPositions } from 'mock/startModal.mock';
 import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 
 const CustomizeLogo: NextPage = () => {
   const { clearLogoUploadHistory } = useActions();

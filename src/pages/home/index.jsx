@@ -1,6 +1,6 @@
 //import React, { useState, useEffect, useRef } from "react";
+import { useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
-import { useTypedSelector } from '../../hooks';
 import ElementAccordionDisplay from './ElementAccordionDisplay';
 import ElementCarouselDisplay from './ElementCarouselDisplay';
 import * as helper from './Helper';

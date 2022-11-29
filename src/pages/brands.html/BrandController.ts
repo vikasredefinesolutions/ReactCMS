@@ -1,13 +1,13 @@
+import { useActions, useTypedSelector } from 'hooks';
 import { useState } from 'react';
-import { useActions, useTypedSelector } from '../../hooks';
 
 const BrandController = () => {
-  const {setShowLoader} = useActions();
- const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+  const { setShowLoader } = useActions();
+  const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const alphabets = alpha.map((x) => String.fromCharCode(x).toLowerCase());
   const [currentTab, setCurrentTab] = useState(0);
   const storeLayout = useTypedSelector((state) => state.store.layout);
-  
+
   const getTabColor = () => {
     switch (currentTab) {
       case 0:
@@ -24,7 +24,6 @@ const BrandController = () => {
         break;
     }
   };
-
 
   return {
     alphabets,

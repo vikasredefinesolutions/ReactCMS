@@ -1,10 +1,10 @@
-import { NextPage } from 'next';
-import React, { useEffect, useState } from 'react';
-import { _ThankYouOrder } from '../../definations/thankYou.type';
-import thankYouMock from '../../mock/thankYou.mock';
-import { FetchPlacedOrderDetails } from 'services/thankYou.service';
 import ThankYouAccordion from 'Components/ThankYou/ThankYouAccordion';
 import ThankYouHeader from 'Components/ThankYou/ThankYouHeader';
+import { _ThankYouOrder } from 'definations/thankYou.type';
+import thankYouMock from 'mock/thankYou.mock';
+import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
+import { FetchPlacedOrderDetails } from 'services/thankYou.service';
 
 const ThankYou: NextPage = () => {
   const [order] = useState<_ThankYouOrder | null>(thankYouMock);

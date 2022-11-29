@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import StartOrderModal from '../../appComponents/modals/StartOrderModal';
-import ImageComponent from '../../appComponents/reusables/Image';
-import { CartResponse } from '../../definations/APIs/cart.res';
-import { _ProductDetails } from '../../definations/APIs/productDetail.res';
-import { useActions, useTypedSelector } from '../../hooks';
-import { checkCoupon, deleteItemCart } from '../../services/cart.service';
-import { FetchColors, FetchProductById } from '../../services/product.service';
+import StartOrderModal from 'appComponents/modals/StartOrderModal';
+import ImageComponent from 'appComponents/reusables/Image';
+import Price from 'appComponents/reusables/Price';
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import { CartPage as seoDetails } from 'constants/seo.constant';
-import Price from 'appComponents/reusables/Price';
+import { CartResponse } from 'definations/APIs/cart.res';
+import { _ProductDetails } from 'definations/APIs/productDetail.res';
+import { useActions, useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { checkCoupon, deleteItemCart } from 'services/cart.service';
+import { FetchColors, FetchProductById } from 'services/product.service';
 const CartPage = () => {
   const {
     fetchCartDetails,

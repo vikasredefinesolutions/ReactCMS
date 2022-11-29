@@ -1,9 +1,9 @@
-import React from 'react';
+import { _ThankYouOrder } from 'definations/thankYou.type';
+import { useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { paths } from '../constants/paths.constant';
 import { _Store } from '../constants/store.constant';
-import { _ThankYouOrder } from '../../../definations/thankYou.type';
-import { useTypedSelector } from '../hooks';
 import ThankYouProductTable from './ThankYouProductTable';
 
 interface _props {

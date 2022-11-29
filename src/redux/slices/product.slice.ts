@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
+import config from 'api.config';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
-import config from '../../api.config';
 
 // Define a type for the slice state
 interface _ProductStore {

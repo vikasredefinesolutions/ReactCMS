@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import * as Yup from 'yup';
 import {
   checkoutNewAccountPasswordMessages,
   checkoutPasswordMessages,
   checkoutUserLoginMessages,
-} from '../../constants/validationMessages';
-import { CustomerAddress } from '../../definations/APIs/user.res';
-import { useTypedSelector } from '../../hooks';
+} from 'constants/validationMessages';
+import { CustomerAddress } from 'definations/APIs/user.res';
+import { useTypedSelector } from 'hooks';
+import { useEffect, useState } from 'react';
+import * as Yup from 'yup';
 
 // const defaultDileveryAddres = {
 //   firstName: 'John',

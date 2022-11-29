@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
-import InnerImageZoom from 'react-inner-image-zoom';
-import { useRouter } from 'next/router';
-import { icons } from 'Assets/images.asset';
 import Image from 'appComponents/reusables/Image';
+import { paths } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
 import { _OtherImage } from 'definations/APIs/colors.res';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import InnerImageZoom from 'react-inner-image-zoom';
 import AvailableColors from './AvailableColors';
 import HeartIcon from './HeartIcon';
 import ProductCompanion from './ProductCompanion';
-import { paths } from 'constants/paths.constant';
 
 interface _Props {
   product: _ProductDetails | null;
@@ -87,12 +86,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
                 );
               })}
           </div>
-          <HeartIcon
-            src={icons.heart}
-            title={''}
-            alt={''}
-            className="absolute right-2 top-4 w-6 h-6"
-          />
+          <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
         </div>
       </div>
     );
@@ -142,12 +136,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
             This product is subject to order minimum and maximum quantity
             requirements
           </div>
-          <HeartIcon
-            src={icons.heart}
-            title={''}
-            alt={''}
-            className="absolute right-2 top-4 w-6 h-6"
-          />
+          <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
         </div>
       </div>
     );
@@ -193,12 +182,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
                 );
               })}
           </div>
-          <HeartIcon
-            src={icons.heart}
-            title={''}
-            alt={''}
-            className="absolute right-2 top-4 w-6 h-6"
-          />
+          <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
         </div>
         <AvailableColors />
         <ProductCompanion
@@ -251,12 +235,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
                   );
                 })}
             </div>
-            <HeartIcon
-              src={icons.heart}
-              title={''}
-              alt={''}
-              className="absolute right-2 top-4 w-6 h-6"
-            />
+            <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
           </div>
           <AvailableColors />
         </div>

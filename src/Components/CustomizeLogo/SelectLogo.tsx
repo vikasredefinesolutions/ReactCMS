@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { icons } from 'Assets/images.asset';
+import { _LogoSteps } from 'definations/product.type';
+import { _PreLogos } from 'dummy/filters';
+import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
-import { icons } from '../../../Assets/images.asset';
-import { _LogoSteps } from '../../../definations/product.type';
-import { _PreLogos } from '../../../dummy/filters';
-import { useActions, useTypedSelector } from '../hooks';
+import React, { useState } from 'react';
 import LogoContainer from './LogoContainer';
 import UploadLogoPopup from './UploadLogoPopup';
 
@@ -37,7 +37,7 @@ const SelectLogo: React.FC<_props> = ({ setNextStep }) => {
 
   const actionHandler = (action: 'apply' | 'cancel') => {
     if (action === 'cancel') {
-      router.push(-1);
+      router.back();
       return;
     }
 

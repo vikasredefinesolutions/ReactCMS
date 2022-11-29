@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
 import { _showConsoles, __fileNames } from 'show.config';
 import { _Expected_AppProps } from 'show.type';
-import '../../styles/output.css';
+import 'styles/output.css';
 import '../app.css';
 
 type AppOwnProps = {

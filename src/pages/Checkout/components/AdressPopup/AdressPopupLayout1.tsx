@@ -1,13 +1,13 @@
+import AddAddress from 'appComponents/modals/AddAddress';
+import { AddUpdateAddressRequest } from 'definations/APIs/address.req';
+import { CustomerAddress } from 'definations/APIs/user.res';
+import getLocation from 'helpers/getLocation';
+import { useActions, useTypedSelector } from 'hooks';
 import { useState } from 'react';
-import AddAddress from '../../../../appComponents/modals/AddAddress';
-import { AddUpdateAddressRequest } from '../../../../definations/APIs/address.req';
-import { CustomerAddress } from '../../../../definations/APIs/user.res';
-import getLocation from '../../../../helpers/getLocation';
-import { useActions, useTypedSelector } from '../../../../hooks';
-// import { updateCustomer } from '../../../../redux/slices/user.slice';
-import { CreateUserAddress } from '../../../../services/address.service';
-import { getStoreCustomer } from '../../../../services/user.service';
-import { AddressType } from '../../CheckoutController';
+// import { updateCustomer } from 'redux/slices/user.slice';
+import { AddressType } from 'CheckoutController';
+import { CreateUserAddress } from 'services/address.service';
+import { getStoreCustomer } from 'services/user.service';
 
 export type AddressPopupProps = {
   showChangeAddressPopup: number;

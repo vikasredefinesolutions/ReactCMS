@@ -1,8 +1,8 @@
+import Image from 'appComponents/reusables/Image';
+import { WishlistType } from 'definations/wishlist.type';
+import { useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
-import Image from '../../appComponents/reusables/Image';
-import { WishlistType } from '../../definations/wishlist.type';
-import { useTypedSelector } from '../../hooks';
-import { getWishlist, removeWishlist } from '../../services/wishlist.service';
+import { getWishlist, removeWishlist } from 'services/wishlist.service';
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState<WishlistType>([]);

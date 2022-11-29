@@ -1,11 +1,11 @@
 import HelpIcon from '@mui/icons-material/Help';
+import ForgotModal from 'appComponents/modals/ForgotModal';
 import SeoHead from 'appComponents/Screen/Layout/Head';
+import { CheckoutPage as seoDetails } from 'constants/seo.constant';
 import { Formik } from 'formik';
 import { useState } from 'react';
-import ForgotModal from '../../appComponents/modals/ForgotModal';
 import CheckoutController from './CheckoutController';
 import AddressPopupLayout1 from './components/AdressPopup/AdressPopupLayout1';
-import {CheckoutPage as seoDetails} from 'constants/seo.constant'
 const Checkout = () => {
   const {
     creditCardType,
@@ -47,7 +47,7 @@ const Checkout = () => {
 
   return (
     <>
-    <SeoHead {...seoDetails}/>
+      <SeoHead {...seoDetails} />
       <div className="container mx-auto mt-5">
         <div className="flex flex-wrap -mx-3 gap-y-6">
           <div className="w-full lg:w-9/12 px-3">

@@ -1,5 +1,5 @@
+import { _LogoSteps } from 'definations/product.type';
 import React, { useState } from 'react';
-import { _LogoSteps } from '../../definations/product.type';
 import SelectLocation from './SelectLocation';
 import SelectLogo from './SelectLogo';
 import ShareLater from './ShareLater';

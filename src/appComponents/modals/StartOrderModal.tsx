@@ -14,8 +14,8 @@ import { FetchInventoryById } from 'services/product.service';
 import { addToCart } from '@services/cart.service';
 import { CartLogoPersonModel, CartReq } from 'definations/APIs/cart.req';
 import { CartResponse } from 'definations/APIs/cart.res';
+import getLocation from 'helpers/getLocation';
 import { highLightError } from 'helpers/global.console';
-import getLocation from '../../helpers/getLocation';
 import Image from '../reusables/Image';
 import Price from '../reusables/Price';
 interface _props {
