@@ -14,6 +14,7 @@ const ThankYou: NextPage = () => {
     // .then((res) => setReviews(res))
     // .catch((err) => console.log('err', err))
     // .finally(() => console.log('close loader'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (order === null) {

@@ -3,6 +3,7 @@ import { CartLogoPersonModel, CartReq } from '@type/APIs/cart.req';
 import getLocation from 'helpers/getLocation';
 import { highLightError } from 'helpers/global.console';
 import { useActions, useTypedSelector } from 'hooks';
+import React from 'react';
 
 type Props = {
   title: string;

@@ -47,14 +47,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (data === null) {
     throw new Error('No Store-Id found');
-
-    return {
-      props: {
-        pageType: null,
-        pageData: null,
-        slug: null,
-      },
-    };
   }
 
   let components: any = null;
@@ -123,7 +115,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       filterOptionforfaceteds: filterOptionforfaceteds,
     };
     const BrandFilt: BrandFilter = await FetchFiltersJsonByBrand(filter);
-    console.log(BrandFilt);
+
     const _filters: Filter[] = [];
     for (const key in BrandFilt) {
       const element = BrandFilt[key];

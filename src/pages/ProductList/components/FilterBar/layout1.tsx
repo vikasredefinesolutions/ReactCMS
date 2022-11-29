@@ -4,6 +4,7 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
 import ViewAgendaOutlinedIcon from '@mui/icons-material/ViewAgendaOutlined';
 import { properties } from 'mock/properties.mock';
+import React from 'react';
 
 type props = {
   totalCount: number;
@@ -29,47 +30,57 @@ const Layout1FilterBar: React.FC<props> = ({
       <div className="relative py-2">
         <div className="flex-wrap flex text-sm gap-y-2">
           <div
-            className={`flex ${properties.result_box.layout !== 'unset'
-              ? ' lg:w-1/3 w-1/2'
-              : 'lg:w-1/2 w-full'
-              } w-1/2 items-center gap-2`}
+            className={`flex ${
+              properties.result_box.layout !== 'unset'
+                ? ' lg:w-1/3 w-1/2'
+                : 'lg:w-1/2 w-full'
+            } w-1/2 items-center gap-2`}
           >
-            {properties.result_box.showGrid && <>
-
-
-              <a
-                href="compare.html"
-                className="text-gray-600 hover:text-primary relative"
-              >
-                <FontAwesomeIcon icon={faRandom} style={{ fontSize: '18px' }} />
-              </a>
-              {properties.filter_box.layout !== 'flyout' ? (
-                <>
-                  <button
-                    className={`inline-block w-6 h-6 ${productView === 'grid' ? 'text-primary' : 'text-gray-600'
-                      }`}
-                    onClick={() => setProductView('grid')}
-                  >
-                    <GridViewIcon />
-                  </button>
-                  <button
-                    className={`inline-block w-6 h-6 ${productView === 'list' ? 'text-primary' : 'text-gray-600'
-                      }`}
-                    onClick={() => setProductView('list')}
-                  >
-                    <ViewAgendaOutlinedIcon />
-                  </button>
-                </>
-              ) : (
-                <button
-                  onClick={() => setShowFilter(true)}
-                  className="inline-flex gap-1 items-center text-gray-700"
+            {properties.result_box.showGrid && (
+              <>
+                <a
+                  href="compare.html"
+                  className="text-gray-600 hover:text-primary relative"
                 >
-                  {' '}
-                  <TuneOutlinedIcon /> <span>Filter</span>
-                </button>
-              )}
-            </>}
+                  <FontAwesomeIcon
+                    icon={faRandom}
+                    style={{ fontSize: '18px' }}
+                  />
+                </a>
+                {properties.filter_box.layout !== 'flyout' ? (
+                  <>
+                    <button
+                      className={`inline-block w-6 h-6 ${
+                        productView === 'grid'
+                          ? 'text-primary'
+                          : 'text-gray-600'
+                      }`}
+                      onClick={() => setProductView('grid')}
+                    >
+                      <GridViewIcon />
+                    </button>
+                    <button
+                      className={`inline-block w-6 h-6 ${
+                        productView === 'list'
+                          ? 'text-primary'
+                          : 'text-gray-600'
+                      }`}
+                      onClick={() => setProductView('list')}
+                    >
+                      <ViewAgendaOutlinedIcon />
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => setShowFilter(true)}
+                    className="inline-flex gap-1 items-center text-gray-700"
+                  >
+                    {' '}
+                    <TuneOutlinedIcon /> <span>Filter</span>
+                  </button>
+                )}
+              </>
+            )}
             {properties.result_box.layout === 'unset' && (
               <span>{totalCount} Results</span>
             )}
@@ -81,8 +92,9 @@ const Layout1FilterBar: React.FC<props> = ({
           )}
 
           <div
-            className={`col-start-1 lg:w-${properties.result_box.layout !== 'unset' ? '1/3' : '1/2'
-              } w-full row-start-1`}
+            className={`col-start-1 lg:w-${
+              properties.result_box.layout !== 'unset' ? '1/3' : '1/2'
+            } w-full row-start-1`}
           >
             <div className="flex justify-end max-w-7xl mx-auto pl-4 sm:pl-6 lg:pl-8">
               <div className="flex items-center">

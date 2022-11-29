@@ -1,5 +1,5 @@
-import AddAddress from 'components/modals/AddAddress';
-import SwitchBox from 'components/ui/switch';
+import AddAddress from 'appComponents/modals/AddAddress';
+import SwitchBox from 'appComponents/ui/switch';
 import { AddUpdateAddressRequest } from 'definations/APIs/address.req';
 import { useActions, useTypedSelector } from 'hooks';
 import { useState } from 'react';

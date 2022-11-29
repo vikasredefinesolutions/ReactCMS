@@ -15,8 +15,8 @@ const FilterChips = ({
       <div className="font-semibold whitespace-nowrap mt-1.5">Filters :</div>
       <div className="">
         <ul className="flex flex-wrap gap-2">
-          {checkedFilters.map((filter) => (
-            <li className="">
+          {checkedFilters.map((filter, index) => (
+            <li key={index} className="">
               <a className="btn btn-sm btn-primary !inline-flex items-center !rounded-md gap-x-2 !py-1 !text-sm">
                 <span>{filter.value}</span>
                 <span

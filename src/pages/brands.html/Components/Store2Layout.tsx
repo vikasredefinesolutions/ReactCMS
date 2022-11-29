@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const Store2LayoutBannd = () => {
   return (
     <section className="home-section-1 img-full">
@@ -5,12 +7,14 @@ const Store2LayoutBannd = () => {
         <div className="container">
           <ul>
             <li>
-              <a href="index.html" title="Home">
+              <Link href="index.html" title="Home">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a title="Brands">Brands</a>
+              <Link href="brands.html" title="Brands">
+                Brands
+              </Link>
             </li>
           </ul>
         </div>
@@ -47,9 +51,9 @@ const Store2LayoutBannd = () => {
                         Team Shirts, Custom Team Clothing, and more.
                       </div>
                       <div className="">
-                        <a className="blue-btn" href="/nike.html">
+                        <Link className="blue-btn" href="/nike.html">
                           SHOP NIKE TEAM
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="clearfix"></div>
@@ -70,9 +74,9 @@ const Store2LayoutBannd = () => {
                           <h3>Add Your Team Logo To adidas Sports Team Gear</h3>
                         </div>
                         <div>
-                          <a href="/adidas.html" className="green-btn">
+                          <Link href="/adidas.html" className="green-btn">
                             SHOP ADIDAS TEAM
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -91,9 +95,9 @@ const Store2LayoutBannd = () => {
                           <h3>Gear Up With Under Armour Sports Team Apparel</h3>
                         </div>
                         <div>
-                          <a href="/under-armour.html" className="green-btn">
+                          <Link href="/under-armour.html" className="green-btn">
                             SHOP UNDER ARMOUR
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -112,9 +116,12 @@ const Store2LayoutBannd = () => {
                           <h3>Contact Us To Get Your Quote Started</h3>
                         </div>
                         <div>
-                          <a href="/request-a-quote.html" className="green-btn">
+                          <Link
+                            href="/request-a-quote.html"
+                            className="green-btn"
+                          >
                             CONTACT US
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -133,9 +140,9 @@ const Store2LayoutBannd = () => {
                           <h3>Customize Your Team Logo on YETI Drinkware</h3>
                         </div>
                         <div>
-                          <a href="/yeti.html" className="blue-btn">
+                          <Link href="/yeti.html" className="blue-btn">
                             SHOP YETI DRINKWARE
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -156,9 +163,9 @@ const Store2LayoutBannd = () => {
                           </h3>
                         </div>
                         <div>
-                          <a href="/patagonia.html" className="green-btn">
+                          <Link href="/patagonia.html" className="green-btn">
                             SHOP PATAGONIA
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -204,9 +211,9 @@ const Store2LayoutBannd = () => {
                           </h3>
                         </div>
                         <div>
-                          <a href="/titleist.html" className="blue-btn">
+                          <Link href="/titleist.html" className="blue-btn">
                             SHOP TITLEIST
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -228,9 +235,9 @@ const Store2LayoutBannd = () => {
                           </h3>
                         </div>
                         <div>
-                          <a href="/peter-millar.html" className="blue-btn">
+                          <Link href="/peter-millar.html" className="blue-btn">
                             SHOP PETER MILLAR
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -249,9 +256,9 @@ const Store2LayoutBannd = () => {
                           <h3>Customize TaylorMade Sports Team Gear</h3>
                         </div>
                         <div>
-                          <a href="/taylormade.html" className="blue-btn">
+                          <Link href="/taylormade.html" className="blue-btn">
                             SHOP TAYLORMADE
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -270,9 +277,9 @@ const Store2LayoutBannd = () => {
                           <h3>Customize Your Team Logo On Custom Golf Gear</h3>
                         </div>
                         <div>
-                          <a href="/footjoy.html" className="blue-btn">
+                          <Link href="/footjoy.html" className="blue-btn">
                             SHOP FOOTJOY
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -293,9 +300,9 @@ const Store2LayoutBannd = () => {
                           </h3>
                         </div>
                         <div>
-                          <a href="/callaway-golf.html" className="blue-btn">
+                          <Link href="/callaway-golf.html" className="blue-btn">
                             SHOP CALLAWAY
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -316,9 +323,12 @@ const Store2LayoutBannd = () => {
                           </h3>
                         </div>
                         <div>
-                          <a href="/fairway-greene.html" className="blue-btn">
+                          <Link
+                            href="/fairway-greene.html"
+                            className="blue-btn"
+                          >
                             SHOP FAIRWAY &amp; GREENE
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -337,9 +347,9 @@ const Store2LayoutBannd = () => {
                           <h2>HELLY HANSEN CUSTOM TEAM APPAREL</h2>
                         </div>
                         <div>
-                          <a href="/helly-hansen.html" className="blue-btn">
+                          <Link href="/helly-hansen.html" className="blue-btn">
                             SHOP HELLY HANSEN
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -355,9 +365,12 @@ const Store2LayoutBannd = () => {
                           <h2>THE NORTH FACE CUSTOM TEAM CLOTHING</h2>
                         </div>
                         <div>
-                          <a href="/the-north-face.html" className="blue-btn">
+                          <Link
+                            href="/the-north-face.html"
+                            className="blue-btn"
+                          >
                             SHOP THE NORTH FACE
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -373,9 +386,9 @@ const Store2LayoutBannd = () => {
                           <h2>MARMOT CUSTOM TEAM GEAR</h2>
                         </div>
                         <div>
-                          <a href="/marmot.html" className="blue-btn">
+                          <Link href="/marmot.html" className="blue-btn">
                             SHOP MARMOT
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -391,9 +404,9 @@ const Store2LayoutBannd = () => {
                           <h2>CARHARTT SPORTS TEAM GEAR</h2>
                         </div>
                         <div>
-                          <a href="/carhartt.html" className="blue-btn">
+                          <Link href="/carhartt.html" className="blue-btn">
                             SHOP CARHARTT
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -409,9 +422,9 @@ const Store2LayoutBannd = () => {
                           <h2>BAUER CUSTOM TEAM APPAREL</h2>
                         </div>
                         <div>
-                          <a href="/bauer.html" className="blue-btn">
+                          <Link href="/bauer.html" className="blue-btn">
                             SHOP BAUER TEAM
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -427,9 +440,9 @@ const Store2LayoutBannd = () => {
                           <h2>ASICS CUSTOM TEAM GEAR</h2>
                         </div>
                         <div>
-                          <a href="/asics.html" className="blue-btn">
+                          <Link href="/asics.html" className="blue-btn">
                             SHOP ASICS TEAM
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -445,9 +458,9 @@ const Store2LayoutBannd = () => {
                           <h2>COLUMBIA CUSTOM TEAM CLOTHING</h2>
                         </div>
                         <div>
-                          <a href="/columbia.html" className="blue-btn">
+                          <Link href="/columbia.html" className="blue-btn">
                             SHOP COLUMBIA
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -463,9 +476,9 @@ const Store2LayoutBannd = () => {
                           <h2>EDDIE BAUER SPORTS TEAM GEAR</h2>
                         </div>
                         <div>
-                          <a href="/eddie-bauer.html" className="blue-btn">
+                          <Link href="/eddie-bauer.html" className="blue-btn">
                             SHOP EDDIE BAUER
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -481,9 +494,9 @@ const Store2LayoutBannd = () => {
                           <h2>SOUTHERN TIDE CUSTOM TEAM APPAREL</h2>
                         </div>
                         <div>
-                          <a href="/southern-tide.html" className="blue-btn">
+                          <Link href="/southern-tide.html" className="blue-btn">
                             SHOP SOUTHERN TIDE
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -499,9 +512,12 @@ const Store2LayoutBannd = () => {
                           <h2>VINEYARD VINES CUSTOM TEAM CLOTHING</h2>
                         </div>
                         <div>
-                          <a href="/vineyard-vines.html" className="blue-btn">
+                          <Link
+                            href="/vineyard-vines.html"
+                            className="blue-btn"
+                          >
                             SHOP VINEYARD VINES
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -517,9 +533,9 @@ const Store2LayoutBannd = () => {
                           <h2>JOHNNIE-O CUSTOM TEAM GEAR</h2>
                         </div>
                         <div>
-                          <a href="/johnnie-o.html" className="blue-btn">
+                          <Link href="/johnnie-o.html" className="blue-btn">
                             SHOP JOHNNIE-O
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -535,9 +551,9 @@ const Store2LayoutBannd = () => {
                           <h2>LACOSTE SPORTS TEAM GEAR</h2>
                         </div>
                         <div>
-                          <a href="/lacoste.html" className="blue-btn">
+                          <Link href="/lacoste.html" className="blue-btn">
                             SHOP LACOSTE
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -556,9 +572,12 @@ const Store2LayoutBannd = () => {
                           <h2>ZERO RESTRICTION SPORTS TEAM GEAR</h2>
                         </div>
                         <div>
-                          <a href="/zero-restriction.html" className="blue-btn">
+                          <Link
+                            href="/zero-restriction.html"
+                            className="blue-btn"
+                          >
                             SHOP ZERO RESTRICTION
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -571,9 +590,9 @@ const Store2LayoutBannd = () => {
                           <h2>OGIO CUSTOM SPORTS GEAR</h2>
                         </div>
                         <div>
-                          <a href="/ogio.html" className="blue-btn">
+                          <Link href="/ogio.html" className="blue-btn">
                             SHOP OGIO
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -618,7 +637,7 @@ const Store2LayoutBannd = () => {
                       <div className="panel panel-default">
                         <div className="panel-heading" id="heading2" role="tab">
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse2"
                               aria-expanded="true"
                               data-parent="#accordion"
@@ -628,7 +647,7 @@ const Store2LayoutBannd = () => {
                             >
                               Branded custom jerseys, uniforms, apparel, and
                               accessories
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -665,7 +684,7 @@ const Store2LayoutBannd = () => {
                       <div className="panel panel-default">
                         <div className="panel-heading" id="heading3" role="tab">
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse3"
                               aria-expanded="false"
                               className="collapsed"
@@ -676,7 +695,7 @@ const Store2LayoutBannd = () => {
                             >
                               Full-service, turnkey solution for local sports
                               branding
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -711,7 +730,7 @@ const Store2LayoutBannd = () => {
                       <div className="panel panel-default">
                         <div className="panel-heading" id="heading4" role="tab">
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse4"
                               aria-expanded="false"
                               className="collapsed"
@@ -722,7 +741,7 @@ const Store2LayoutBannd = () => {
                             >
                               Partnerships for custom branded team sports
                               uniforms, apparel, accessories, and more
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -773,7 +792,7 @@ const Store2LayoutBannd = () => {
                       <div className="panel panel-default">
                         <div className="panel-heading" id="heading5" role="tab">
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse5"
                               aria-expanded="false"
                               className="collapsed"
@@ -783,7 +802,7 @@ const Store2LayoutBannd = () => {
                               role="button"
                             >
                               Customizing with GameDay Gear
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -826,7 +845,7 @@ const Store2LayoutBannd = () => {
                       <div className="panel panel-default">
                         <div className="panel-heading" id="heading6" role="tab">
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse6"
                               aria-expanded="false"
                               className="collapsed"
@@ -836,7 +855,7 @@ const Store2LayoutBannd = () => {
                               role="button"
                             >
                               An extensive design process with multiple options
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -865,12 +884,13 @@ const Store2LayoutBannd = () => {
                               </ul>
                             </div>
                             <p>
-                              <a
+                              <Link
                                 href="https://blog.gamedaygear.com/decoration-guide-custom-team-gear/"
                                 target="_blank"
+                                rel="noreferrer"
                               >
                                 GameDay Gear’s Online Decoration Guide
-                              </a>
+                              </Link>
                               outlines all the options you have to design your
                               apparel and merchandise.
                             </p>
@@ -880,7 +900,7 @@ const Store2LayoutBannd = () => {
                       <div className="panel panel-default">
                         <div className="panel-heading" id="heading7" role="tab">
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse7"
                               aria-expanded="false"
                               className="collapsed"
@@ -891,7 +911,7 @@ const Store2LayoutBannd = () => {
                             >
                               Types of premium branded fan merchandise for your
                               team
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -926,7 +946,7 @@ const Store2LayoutBannd = () => {
                       <div className="panel panel-default">
                         <div className="panel-heading" id="heading8" role="tab">
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse8"
                               aria-expanded="false"
                               className="collapsed"
@@ -937,7 +957,7 @@ const Store2LayoutBannd = () => {
                             >
                               How branded custom jerseys, uniform, clothing, and
                               accessories benefit your team
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -1008,7 +1028,7 @@ const Store2LayoutBannd = () => {
                       <div className="panel panel-default">
                         <div className="panel-heading" id="heading9" role="tab">
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse9"
                               aria-expanded="false"
                               className="collapsed"
@@ -1018,7 +1038,7 @@ const Store2LayoutBannd = () => {
                               role="button"
                             >
                               Gear, teams, and people GameDay Gear work with
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -1098,7 +1118,7 @@ const Store2LayoutBannd = () => {
                           role="tab"
                         >
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse10"
                               aria-expanded="false"
                               className="collapsed"
@@ -1109,7 +1129,7 @@ const Store2LayoutBannd = () => {
                             >
                               Easy online ordering process for custom branded
                               sports uniforms, apparel, and accessories
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -1192,7 +1212,7 @@ const Store2LayoutBannd = () => {
                           role="tab"
                         >
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse11"
                               aria-expanded="false"
                               className="collapsed"
@@ -1203,7 +1223,7 @@ const Store2LayoutBannd = () => {
                             >
                               Using the Team Store Builder to set up a branded
                               merchandise marketplace
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div
@@ -1266,7 +1286,7 @@ const Store2LayoutBannd = () => {
                           role="tab"
                         >
                           <h2 className="panel-title">
-                            <a
+                            <Link
                               aria-controls="collapse12"
                               aria-expanded="false"
                               className="collapsed"
@@ -1276,7 +1296,7 @@ const Store2LayoutBannd = () => {
                               role="button"
                             >
                               Why choose GameDay Gear?
-                            </a>
+                            </Link>
                           </h2>
                         </div>
                         <div

@@ -385,7 +385,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           </div>
         </div>
         <div className="">
-          {Boolean(userId) ? (
+          {userId ? (
             <AddToCart title='ADD TO CART' className='btn btn-lg btn-secondary w-full text-center !font-normal' />
           ) : (
             <button

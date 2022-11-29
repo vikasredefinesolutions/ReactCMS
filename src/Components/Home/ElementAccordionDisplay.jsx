@@ -4,8 +4,6 @@ Created By: Vikas Patel
 Created Date: 16th September 2022
 Modified By: <Modified By Name>
 Modified Date: <Modified Date> */
-
-import React from 'react';
 //import { useEffect, useState } from 'react';
 
 const ElementAccordionDisplay = ({ acValues }) => {
@@ -40,9 +38,10 @@ const ElementAccordionDisplay = ({ acValues }) => {
     <>
       {acValues.length > 0 && (
         <>
-          {acValues.map((acValue) => {
+          {acValues.map((acValue, index) => {
             return (
               <li
+                key={index}
                 className="mb-4 last:mb-0 hasarr clonnable border-b border-black"
                 onClick={showHideAccordion}
               >

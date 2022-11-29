@@ -81,6 +81,7 @@ const FeaturedItems: React.FC<_props> = ({ brands }) => {
             <ul className="w-full flex justify-center max-w-4xl mx-auto flex-wrap">
               {['', '', '', ''].map((brand, index) => (
                 <li
+                  key={index}
                   className="mr-0.5 md:mr-0 font-semibold"
                   onClick={() => setBrandIndex(index)}
                 >
@@ -95,7 +96,10 @@ const FeaturedItems: React.FC<_props> = ({ brands }) => {
                     if (index === brandIndex) {
                       return prod?.map((product, productIndex) => {
                         return (
-                          <div className="w-full lg:w-1/4 sm:w-1/2 sm:px-3">
+                          <div
+                            key={productIndex}
+                            className="w-full lg:w-1/4 sm:w-1/2 sm:px-3"
+                          >
                             <div className="">
                               <div className="flex text-center lg:w-auto">
                                 <div className="relative border border-gray-200 pb-4">
@@ -122,24 +126,26 @@ const FeaturedItems: React.FC<_props> = ({ brands }) => {
                                       role="list"
                                       className="flex items-center mt-2 justify-center space-x-1"
                                     >
-                                      {product.moreImages.map((image) => (
-                                        <li
-                                          key={image.id}
-                                          className="w-7 h-7 border-2 border-secondary hover:border-secondary"
-                                          onClick={() =>
-                                            showFeaturedImage({
-                                              imageDetails: image,
-                                              productIndex: productIndex,
-                                            })
-                                          }
-                                        >
-                                          <Image
-                                            src={image.imageUrl}
-                                            alt={image.altTag}
-                                            className=""
-                                          />
-                                        </li>
-                                      ))}
+                                      {product.moreImages.map(
+                                        (image, imageIndex) => (
+                                          <li
+                                            key={imageIndex}
+                                            className="w-7 h-7 border-2 border-secondary hover:border-secondary"
+                                            onClick={() =>
+                                              showFeaturedImage({
+                                                imageDetails: image,
+                                                productIndex: productIndex,
+                                              })
+                                            }
+                                          >
+                                            <Image
+                                              src={image.imageUrl}
+                                              alt={image.altTag}
+                                              className=""
+                                            />
+                                          </li>
+                                        ),
+                                      )}
                                     </ul>
                                   </div>
                                 </div>

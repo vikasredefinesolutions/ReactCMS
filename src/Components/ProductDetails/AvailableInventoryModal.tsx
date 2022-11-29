@@ -92,7 +92,7 @@ const AvailableInventoryModal: React.FC<_props> = ({ modalHandler }) => {
                             </div>
                             <div className="">{color.name}</div>
                           </td>
-                          {sizes.split(',').map((size) => {
+                          {sizes.split(',').map((size, index) => {
                             const foundIt = inventory?.inventory.find(
                               (int) =>
                                 int.name === size &&
@@ -101,7 +101,7 @@ const AvailableInventoryModal: React.FC<_props> = ({ modalHandler }) => {
                             );
                             if (foundIt) {
                               return (
-                                <td className="px-2 py-3">
+                                <td key={index} className="px-2 py-3">
                                   <div className="">
                                     {foundIt.inventory === 0
                                       ? foundIt.futureInventory || '-'

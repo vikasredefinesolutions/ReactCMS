@@ -79,9 +79,10 @@ const SelectLogo: React.FC<_props> = ({ setNextStep }) => {
         </div>
         <div className="max-w-5xl">
           <ul className="flex flex-wrap gap-y-6 -mx-3" x-data="{selected : 0}">
-            {preLogos.map((logo) => {
+            {preLogos.map((logo, index) => {
               return (
                 <LogoContainer
+                  key={index}
                   id={logo.id}
                   image={logo.image}
                   label={logo.label}

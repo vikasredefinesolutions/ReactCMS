@@ -1,13 +1,14 @@
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import { BrandList } from 'constants/seo.constant';
 import { _Store } from 'constants/store.constant';
+import React from 'react';
 import BrandController from './BrandController';
 import Stroe1LayouBrand from './Components/Store1Layout';
 import Store2LayoutBannd from './Components/Store2Layout';
 import getServerSideProps from './getServerSideProps';
 
 const Brands = (props: any) => {
-  let layout: JSX.Element = <></>;
+  let layout: React.ReactNode = <></>;
   const { storeLayout } = BrandController();
 
   if (storeLayout === _Store.type1) {

@@ -3,6 +3,7 @@ import ForgotModal from 'appComponents/modals/ForgotModal';
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import { CheckoutPage as seoDetails } from 'constants/seo.constant';
 import { Formik } from 'formik';
+import Link from 'next/link';
 import { useState } from 'react';
 import CheckoutController from './CheckoutController';
 import AddressPopupLayout1 from './components/AdressPopup/AdressPopupLayout1';
@@ -284,13 +285,13 @@ const Checkout = () => {
                       </div>
                       <div className="w-full lg:w-1/2 px-3">
                         <div className="text-right">
-                          <a
+                          <Link
                             href="/"
                             id="btn-continue-guest"
                             className="btn btn-primary"
                           >
                             CONTINUE AS GUEST
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -730,9 +731,9 @@ const Checkout = () => {
                       <label className="absolute duration-300 -top-3 -z-1 origin-0 text-base bg-white peer-focus:-top-3 peer-placeholder-shown:top-2">
                         Promo code
                       </label>
-                      <a className="coupon-code-Apply text-sm absolute right-0 top-2 hidden">
+                      <button className="coupon-code-Apply text-sm absolute right-0 top-2 hidden">
                         Apply
-                      </a>
+                      </button>
                     </dt>
                   </div>
                   <div className="border-t border-gray-200 pt-2 flex items-center justify-between">
@@ -774,12 +775,12 @@ const Checkout = () => {
                 </button>
               )}
               {showReviewOrder && (
-                <a
+                <Link
                   href="thankyou-order.html"
                   className="btn btn-lg !w-full text-center btn-secondary mb-2"
                 >
                   PLACE ORDER
-                </a>
+                </Link>
               )}
             </div>
             <div className="bg-gray-100 p-3 text-center">

@@ -88,6 +88,7 @@ const CheckoutController = () => {
     if (isLoggedIn && address.length > 0) {
       setShippingAdress(address[0]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, address]);
 
   useEffect(() => {
@@ -96,12 +97,14 @@ const CheckoutController = () => {
     } else if (showShippingScreen) {
       setShowChangeAddressPopup(2);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useShippingAddress, shippingAdress]);
 
   useEffect(() => {
     if (customer.customerAddress) {
       setAddress(customer.customerAddress);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customer.customerAddress]);
 
   function creditCardType(cc: string) {

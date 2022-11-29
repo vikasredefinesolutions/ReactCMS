@@ -1,7 +1,7 @@
-import React from 'react';
-import { useRouter } from 'next/router';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import { useRouter } from 'next/router';
+import React from 'react';
 interface _props {
   name: string | null;
   id: number | null;
@@ -10,10 +10,9 @@ interface _props {
 }
 
 const ProductCompanion: React.FC<_props> = ({ name, imageUrl, id }) => {
-  if (name === null) return <></>;
-
   const router = useRouter();
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  if (name === null) return <></>;
 
   const goToProduct = (id: number | null) => {
     if (id === null) return;

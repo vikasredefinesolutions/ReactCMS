@@ -1,12 +1,11 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { _modals } from '@type/product.type';
+import ForgotModal from 'appComponents/modals/ForgotModal';
+import LoginModal from 'appComponents/modals/LoginModal';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useTypedSelector } from 'hooks';
 import { AddToWishlist, removeWishlist } from 'services/wishlist.service';
-import LoginModal from 'appComponents/modals/LoginModal';
-import ForgotModal from 'appComponents/modals/ForgotModal';
-import { _modals } from '@type/product.type';
 const Wishlist = ({
   iswishlist,
   productId,
@@ -22,7 +21,7 @@ const Wishlist = ({
   name: string;
   wishlistId?: number;
 }) => {
-  const [showModal, setShowModal] = useState<null | string>(null)
+  const [showModal, setShowModal] = useState<null | string>(null);
   const [wishlist, setWishlist] = useState(false);
   const customerId = null;
   const wishlistHandler = async () => {
@@ -61,11 +60,12 @@ const Wishlist = ({
 
   useEffect(() => {
     setWishlist(iswishlist);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [iswishlist]);
 
   const modalHandler = (arg: _modals | null) => {
     setShowModal(arg);
-  }
+  };
 
   const wishlistHtml = wishlist ? (
     <FavoriteIcon sx={{ color: 'orange' }} onClick={removeWishlistHandler} />
@@ -76,10 +76,10 @@ const Wishlist = ({
   return (
     <>
       {showModal === 'login' && <LoginModal modalHandler={modalHandler} />}
-        {showModal === 'forgot' && <ForgotModal modalHandler={modalHandler} />}
+      {showModal === 'forgot' && <ForgotModal modalHandler={modalHandler} />}
       {wishlistHtml}
     </>
-  )
+  );
 };
 
 export default Wishlist;

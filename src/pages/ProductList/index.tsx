@@ -3,10 +3,10 @@ import {
   ColorChangeHandler,
   FilterChangeHandler,
   FilterType,
-  ProductList as ProductListType
+  ProductList as ProductListType,
 } from '@type/productList.type';
 import { useTypedSelector } from 'hooks';
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import Layout1 from './layouts/layout1';
 import Layout2 from './layouts/layout2';
 import Layout3 from './layouts/layout3';
@@ -50,8 +50,13 @@ const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
     setProductView,
     setShowFilter,
     clearFilters,
-  } = ProductListController(pageData, slug, checkedFilters || [], pageData.brandId);
-  const storeLayout = useTypedSelector(state => state.store.layout);
+  } = ProductListController(
+    pageData,
+    slug,
+    checkedFilters || [],
+    pageData.brandId,
+  );
+  const storeLayout = useTypedSelector((state) => state.store.layout);
   let Layout = Fragment as React.FC<list_FnProps>;
   if (storeLayout === _Store.type1) {
     Layout = Layout1;
@@ -63,7 +68,6 @@ const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
     Layout = Layout1;
   }
   if (totalCount > 0) {
-
     return (
       <Layout
         showSortMenu={showSortMenu}
@@ -86,9 +90,17 @@ const ProductList = ({ pageData, slug }: { pageData: any; slug: string }) => {
       />
     );
   } else {
-    return <p style={{
-      padding: '150px'
-    }} className='text-center'> No Product Found</p>
+    return (
+      <p
+        style={{
+          padding: '150px',
+        }}
+        className="text-center"
+      >
+        {' '}
+        No Product Found
+      </p>
+    );
   }
 };
 export default ProductList;

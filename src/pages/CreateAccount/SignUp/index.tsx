@@ -181,6 +181,7 @@ const SignUp: NextPage = () => {
       .then(getStatesList);
 
     GetIndustriesList().then((indus) => setIndustries(indus));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* -------------------------------- VIEW ------------------------------  */

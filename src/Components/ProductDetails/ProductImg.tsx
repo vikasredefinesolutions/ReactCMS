@@ -42,6 +42,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
       imageUrl: selectedColor.imageUrl,
       altTag: selectedColor.altTag,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedColor.attributeOptionId]);
 
   // JSX  ----------------------------------------
@@ -120,6 +121,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
                     : 'border-[#415364] hover:border-[#cdde00]';
                 return (
                   <div
+                    key={img.id}
                     className={`w-20 h-20 overflow-hidden border ${highlight} p-1`}
                     onClick={() => selectImgHandler(img)}
                   >

@@ -5,8 +5,6 @@ Created Date: 17th September 2022
 Modified By: <Modified By Name>
 Modified Date: <Modified Date> */
 
-import React from 'react';
-
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.css';
 
@@ -113,7 +111,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
           >
             {bannerArr.images.map((image) => {
               return (
-                <div className="relative">
+                <div key={image} className="relative">
                   <div className="overflow-hidden">
                     {image.image_or_video == 'Image' ? (
                       <img src={image.image_url} />
@@ -163,6 +161,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                                   image.button_link_window ? '_blank' : ''
                                 }
                                 className={`btn ${image.button_text_transform} ${image.button_size} ${image.button_style}`}
+                                rel="noreferrer"
                               >
                                 {image.button_text}
                               </a>

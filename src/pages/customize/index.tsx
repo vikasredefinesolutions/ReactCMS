@@ -29,6 +29,7 @@ const CustomizeLogo: NextPage = () => {
       },
     }));
     clearLogoUploadHistory(logos);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (storeLayout === _Store.type3) {
@@ -73,7 +74,7 @@ const CustomizeLogo: NextPage = () => {
                     sizeQtys.map((sizeQty, index) => {
                       if (index === 0) return <></>;
                       return (
-                        <div className="pb-4 flex items-center">
+                        <div key={index} className="pb-4 flex items-center">
                           <span className="font-bold inline-block w-24"></span>
                           <span>{`: ${sizeQty.size} / ${sizeQty.qty}`}</span>
                         </div>

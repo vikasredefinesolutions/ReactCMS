@@ -38,7 +38,14 @@
   },
   "plugins": ["react", "import", "@typescript-eslint"],
   "rules": {
+    "import/named": "off",
+    "react/no-unescaped-entities": 0,
+    "import/no-unresolved": 0,
+    "no-unused-vars": "off",
+    "@next/next/no-img-element": "off",
     "react/react-in-jsx-scope": "off",
+    "no-self-assign": "off",
+    "jsx-a11y/role-has-required-aria-props": "off",
     "react/prop-types": 0,
     "no-console": 1,
     "quotes": [

@@ -22,11 +22,13 @@ export interface _RedesignStore {
   view: 'DESKTOP' | 'MOBILE';
   menuItems: _StoreMenu[] | null;
   brands: _Brands[] | null;
+  isAttributeSaparateProduct: boolean;
 }
 
 // Define the initial state using that type
 const initialState: _RedesignStore = {
   id: null,
+  isAttributeSaparateProduct: false,
   layout: null,
   storeTypeId: null,
   display: showComponents,
@@ -60,6 +62,8 @@ export const storeSlice = createSlice({
       state.layout = store.layout;
       state.pathName = store.pathName;
       state.brands = action.payload.brands;
+      state.isAttributeSaparateProduct =
+        action.payload.store.isAttributeSaparateProduct;
       state.layout = layoutToShow({
         layout: action.payload.store.code,
         showProd: __domain.isSiteLive,

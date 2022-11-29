@@ -94,8 +94,8 @@ const UserManagement = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-300">
-                {userList.map((user) => (
-                  <tr className="divide-x divide-gray-300">
+                {userList.map((user, index) => (
+                  <tr key={index} className="divide-x divide-gray-300">
                     <td className="p-2">
                       {user.firstName} {user.lastName}
                     </td>

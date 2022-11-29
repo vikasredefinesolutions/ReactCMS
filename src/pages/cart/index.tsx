@@ -4,7 +4,10 @@ import Price from 'appComponents/reusables/Price';
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import { CartPage as seoDetails } from 'constants/seo.constant';
 import { CartResponse } from 'definations/APIs/cart.res';
-import { _ProductDetails } from 'definations/APIs/productDetail.res';
+import {
+  _ProductDetails,
+  _ProductDoNotExist,
+} from 'definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -19,12 +22,15 @@ const CartPage = () => {
   } = useActions();
   const cartProducts = useTypedSelector((state) => state.cart.cart);
   const [customerId, setCustomerId] = useState(0);
-  const storeId = 4;
+  const { id: storeId, isAttributeSaparateProduct } = useTypedSelector(
+    (state) => state.store,
+  );
 
   useEffect(() => {
     if (customerId) {
       fetchCartDetails(customerId);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId]);
 
   useEffect(() => {
@@ -32,10 +38,13 @@ const CartPage = () => {
       const id = localStorage.getItem('tempCustomerId');
       if (id) setCustomerId(~~id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [showEdit, setShowEdit] = useState(false);
-  const [product, setProduct] = useState<_ProductDetails>();
+  const [product, setProduct] = useState<
+    _ProductDetails | _ProductDoNotExist | null
+  >();
   const [currentCartProduct, setCurrentCartProduct] = useState<CartResponse>();
   const [coupon, setCoupon] = useState('');
 
@@ -56,42 +65,49 @@ const CartPage = () => {
         // seName : seName || 'Nike-Men-s-Club-Fleece-Sleeve-Swoosh-Pullover-Hoodie',
         seName: product.seName,
         storeId,
+        productId: 0, // need to pass zero in productId if valid seName exists
       }).then((res) => {
         setProduct(res);
-        storeDetails({
-          brand: {
-            id: res.brandID,
-            name: res.brandName,
-            url: res.brandImage,
-          },
-          product: {
-            id: res.id || null,
-            name: res.name || null,
-            price:
-              {
-                msrp: res.msrp,
-                ourCost: res.ourCost,
-                salePrice: res.salePrice,
-              } || null,
-          },
-        });
-        FetchColors({ productId: res.id }).then((res) => {
-          if (res) {
-            storeProductColor({
-              colors: res,
-            });
-            setProduct((pro) => {
-              if (pro?.id) {
-                return {
-                  ...pro,
-                  colors: res,
-                };
-              }
-              return undefined;
-            });
-            setShowEdit(true);
-          }
-        });
+        if (res?.id !== null) {
+          storeDetails({
+            brand: {
+              id: res?.brandID || null,
+              name: res?.brandName || null,
+              url: res?.brandImage || null,
+            },
+            product: {
+              id: res?.id || null,
+              name: res?.name || null,
+              price:
+                {
+                  msrp: res?.msrp || 0,
+                  ourCost: res?.ourCost || 0,
+                  salePrice: res?.salePrice || 0,
+                } || null,
+            },
+          });
+          FetchColors({
+            productId: res!.id,
+            storeId,
+            isAttributeSaparateProduct,
+          }).then((res) => {
+            if (res) {
+              storeProductColor({
+                colors: res,
+              });
+              setProduct((pro) => {
+                if (pro?.id) {
+                  return {
+                    ...pro,
+                    colors: res,
+                  };
+                }
+                return undefined;
+              });
+              setShowEdit(true);
+            }
+          });
+        }
       });
     }
   };
@@ -151,8 +167,8 @@ const CartPage = () => {
                   Items in your shopping cart
                 </h2>
                 <ul role="list" className="overflow-hidden">
-                  {cartProducts.map((product: any) => (
-                    <li className="flex flex-wrap py-5 -mx-3">
+                  {cartProducts.map((product: any, index) => (
+                    <li key={index} className="flex flex-wrap py-5 -mx-3">
                       <div className="w-full lg:w-1/4 px-3">
                         {/* <Link href={`/${product.seName}`} title=""> */}
                         <ImageComponent
@@ -205,8 +221,11 @@ const CartPage = () => {
                               </div>
 
                               {product.shoppingCartItemDetailsViewModels.map(
-                                (item: any) => (
-                                  <div className="flex justify-between py-2">
+                                (item: any, index: number) => (
+                                  <div
+                                    key={index}
+                                    className="flex justify-between py-2"
+                                  >
                                     <div className="text-base w-28">
                                       {item.attributeOptionValue}
                                     </div>
@@ -813,7 +832,7 @@ const CartPage = () => {
           </div> */}
         </div>
       </section>
-      {showEdit && product && (
+      {showEdit && product && product.id !== null && (
         <StartOrderModal
           modalHandler={() => setShowEdit(false)}
           product={product}

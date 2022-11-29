@@ -30,10 +30,12 @@ const ListView = ({
     if (window !== undefined) {
       setOrigin(window.location.origin);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setCurrentProduct(product.getProductImageOptionList[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   return (

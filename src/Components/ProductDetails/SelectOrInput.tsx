@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
 import { useActions } from 'hooks';
+import React, { useEffect, useState } from 'react';
 
 interface _props {
   qty: number;
@@ -65,6 +65,7 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
 
   useEffect(() => {
     updatePrice({ price: price.msrp });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

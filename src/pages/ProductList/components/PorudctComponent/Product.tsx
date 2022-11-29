@@ -32,6 +32,7 @@ const ProductComponent = ({
 
   useEffect(() => {
     setCurrentProduct(product.getProductImageOptionList[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
   // console.log(product);
   return (

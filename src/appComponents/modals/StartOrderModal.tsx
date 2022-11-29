@@ -158,6 +158,7 @@ const StartOrderModal: React.FC<_props> = ({
     return () => {
       clearToCheckout();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

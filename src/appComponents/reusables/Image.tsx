@@ -1,8 +1,9 @@
 // import axios from 'axios';
 
+import config from 'api.config';
 import { icons as _images } from 'Assets/images.asset';
 import NextImage, { StaticImageData } from 'next/image';
-import config from 'api.config';
+import React from 'react';
 interface _props {
   src: string | null;
   alt: string;

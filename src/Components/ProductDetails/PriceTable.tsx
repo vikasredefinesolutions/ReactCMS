@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import { FetchDiscountTablePrices } from '@services/product.service';
 import Price from 'appComponents/reusables/Price';
 import { _Store } from 'constants/store.constant';
-import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
-import { useActions, useTypedSelector } from 'hooks';
-import { FetchDiscountTablePrices } from '@services/product.service';
 import { c_getSeName } from 'helpers/common.helper';
+import { useActions, useTypedSelector } from 'hooks';
+import React, { useEffect } from 'react';
 
 const QtyPriceTable: React.FC = () => {
   const { setPropertyValues } = useActions();
@@ -31,6 +30,7 @@ const QtyPriceTable: React.FC = () => {
         }),
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId, storeLayout]);
 
   if (storeLayout === _Store.type1) {

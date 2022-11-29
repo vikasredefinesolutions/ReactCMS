@@ -72,8 +72,9 @@ const ProductLayout2 = ({
           </label>
         </div>
         <ul role="list" className="flex items-center justify-center mt-4">
-          {product.getProductImageOptionList.map((option) => (
+          {product.getProductImageOptionList.map((option, index) => (
             <li
+              key={index}
               className={`w-8 h-8 text-center border-2${
                 option.id === currentProduct.id ? ' border-secondary' : ''
               } hover:border-primary`}
@@ -146,8 +147,9 @@ const ProductLayout2 = ({
             </label>
           </div>
           <ul role="list" className="flex items-center mt-4">
-            {product.getProductImageOptionList.map((option) => (
+            {product.getProductImageOptionList.map((option, index) => (
               <li
+                key={index}
                 className={`w-8 h-8 text-center border-2${
                   option.id === currentProduct.id ? ' border-secondary' : ''
                 } hover:border-primary`}

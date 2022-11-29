@@ -979,9 +979,10 @@ const Stroe1LayouBrand = ({
                   >
                     #
                   </a>
-                  {alphabts.map((str) => {
+                  {alphabts.map((str, index) => {
                     return (
                       <a
+                        key={index}
                         title="#D"
                         className={`text-sub-title border-b border-white hover:text-primary hover:border-primary${
                           alphabets.includes(str)
@@ -1008,8 +1009,8 @@ const Stroe1LayouBrand = ({
                         {str.toUpperCase()}
                       </div>
                       <div className="flex flex-wrap gap-x-5 gap-y-2">
-                        {brandFiltered.map((brand) => (
-                          <div className="">
+                        {brandFiltered.map((brand, index) => (
+                          <div key={index} className="">
                             <Link
                               title={brand.brandName}
                               className="text-anchor hover:text-anchor-hover"
