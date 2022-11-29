@@ -9,7 +9,13 @@ interface _props {
   color?: string;
 }
 
-const InventoryInput: React.FC<_props> = ({ size, qty, price, isDisabled = false, color }) => {
+const InventoryInput: React.FC<_props> = ({
+  size,
+  qty,
+  price,
+  isDisabled = false,
+  color,
+}) => {
   const { updateQuantities, updateQuantities2 } = useActions();
   const [value, setValue] = useState<number>(0);
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
@@ -24,7 +30,6 @@ const InventoryInput: React.FC<_props> = ({ size, qty, price, isDisabled = false
         price: price,
       });
     } else {
-      console.log(size, qty, price, color);
       updateQuantities2({
         size: size,
         qty: +event.target.value,

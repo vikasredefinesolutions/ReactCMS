@@ -1,5 +1,5 @@
+import Price from 'appComponents/reusables/Price';
 import React from 'react';
-import Price from '../appComponents/reusables/Price';
 
 interface _props {
   id: number;

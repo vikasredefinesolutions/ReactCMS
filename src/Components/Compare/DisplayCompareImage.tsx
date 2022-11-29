@@ -1,7 +1,7 @@
-import React from 'react';
 import Image from 'appComponents/reusables/Image';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
+import React from 'react';
 
 const DisplayCompareImage: React.FC = () => {
   const images = useTypedSelector((state) => state.compare.selectedImages);
@@ -13,8 +13,8 @@ const DisplayCompareImage: React.FC = () => {
         {/* to left 1st block empty */}
       </td>
 
-      {images?.map((item) => (
-        <Link href={item.seName || '/'}>
+      {images?.map((item, index) => (
+        <Link key={index} href={item.seName || '/'}>
           <a>
             <Image
               key={item.index}

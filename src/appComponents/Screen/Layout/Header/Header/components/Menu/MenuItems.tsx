@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { _Store } from 'constants/store.constant';
-import { _StoreMenu } from 'definations/APIs/header.res';
-import { useActions, useTypedSelector } from 'hooks';
-import { FetchStoreMenu } from 'services/header.service';
+import { useTypedSelector } from 'hooks';
+import React from 'react';
 import Backdrop from '../Backdrop';
 import CloseIcon from '../Icons/CloseIcon';
-import MenuItem from './MenuItem';
 import Brand from './Brand';
+import MenuItem from './MenuItem';
 
 type _deMenuItems = 'brand' | 'category' | 'topic';
 interface _props {
@@ -43,7 +41,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
               className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto"
             >
               <CloseIcon />
-              <Brand />
+              <Brand brandPageUrl="/brands.html" menuTitle={'Brands'} />;
               {(['category', 'topic'] as _deMenuItems[]).map((menu, index) => (
                 <MenuItem key={index} type={menu} screen={'MOBILE'} />
               ))}
@@ -57,11 +55,9 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
         <div className="hidden h-full xl:flex items-center justify-center flex-1">
           <div className="ml-5">
             <div className="h-full flex justify-center space-x-5 relative text-sm">
-              {(['brand', 'category', 'topic'] as _deMenuItems[]).map(
-                (menu, index) => (
-                  <MenuItem key={index} type={menu} screen={'DESKTOP'} />
-                ),
-              )}
+              {(['category', 'topic'] as _deMenuItems[]).map((menu, index) => (
+                <MenuItem key={index} type={menu} screen={'DESKTOP'} />
+              ))}
             </div>
           </div>
         </div>
@@ -86,7 +82,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
             >
               <CloseIcon />
               <div className="my-6 px-0 border-t border-gray-300">
-                {(['brand', 'category', 'topic'] as _deMenuItems[]).map(
+                {(['category', 'topic'] as _deMenuItems[]).map(
                   (menu, index) => (
                     <MenuItem key={index} type={menu} screen={'MOBILE'} />
                   ),
@@ -104,7 +100,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
           <div className="">
             <div className="ml-6">
               <div className="h-full flex justify-center gap-x-4 xl:gap-x-10 text-base xl:tracking-widest">
-                {(['brand', 'category', 'topic'] as _deMenuItems[]).map(
+                {(['category', 'topic'] as _deMenuItems[]).map(
                   (menu, index) => (
                     <MenuItem key={index} type={menu} screen={'DESKTOP'} />
                   ),
@@ -134,7 +130,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
             >
               <CloseIcon />
               <div className="my-6 px-0 border-t border-gray-300">
-                {(['brand', 'category', 'topic'] as _deMenuItems[]).map(
+                {(['category', 'topic'] as _deMenuItems[]).map(
                   (menu, index) => (
                     <MenuItem key={index} type={menu} screen={'MOBILE'} />
                   ),
@@ -151,7 +147,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
           <div className="">
             <div className="ml-6">
               <div className="h-full flex justify-center space-x-6 xl:space-x-10 relative text-base xl:tracking-widest">
-                {(['brand', 'category', 'topic'] as _deMenuItems[]).map(
+                {(['category', 'topic'] as _deMenuItems[]).map(
                   (menu, index) => (
                     <MenuItem key={index} type={menu} screen={'DESKTOP'} />
                   ),
@@ -181,7 +177,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
             >
               <CloseIcon />
               <div className="my-6 px-0 border-t border-gray-300">
-                {(['brand', 'category', 'topic'] as _deMenuItems[]).map(
+                {(['category', 'topic'] as _deMenuItems[]).map(
                   (menu, index) => (
                     <MenuItem key={index} type={menu} screen={'DESKTOP'} />
                   ),
@@ -197,11 +193,9 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
         <div className="hidden h-full lg:flex items-center justify-center flex-1">
           <div className="ml-6">
             <div className="h-full flex justify-center space-x-6 relative">
-              {(['brand', 'category', 'topic'] as _deMenuItems[]).map(
-                (menu, index) => (
-                  <MenuItem key={index} type={menu} screen={'DESKTOP'} />
-                ),
-              )}
+              {(['category', 'topic'] as _deMenuItems[]).map((menu, index) => (
+                <MenuItem key={index} type={menu} screen={'DESKTOP'} />
+              ))}
             </div>
           </div>
         </div>

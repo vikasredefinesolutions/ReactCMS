@@ -38,6 +38,8 @@ interface _props {
 
 const Product: React.FC<_props> = ({ product }) => {
   const router = useRouter();
+  const storeLayout = useTypedSelector((state) => state.store.layout);
+  const { store_productDetails, setColor, setShowLoader } = useActions();
 
   const addParams = () => {
     router.query.altview = '1';
@@ -62,6 +64,41 @@ const Product: React.FC<_props> = ({ product }) => {
     if (product?.doNotExist) {
       router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (product) {
+      if (product.doNotExist === null) {
+        store_productDetails({
+          brand: {
+            id: product.details!.brandID,
+            name: product.details!.brandName,
+            url: product.details!.brandImage,
+          },
+          product: {
+            id: product.details!.id || null,
+            name: product.details!.name || null,
+            discounts: product.discount || null,
+            sizes: product.details?.sizes || '',
+            sizeChart: product.sizes || null,
+            colors: product.colors || null,
+            price:
+              {
+                msrp: product.details!.msrp,
+                ourCost: product.details!.ourCost,
+                salePrice: product.details!.salePrice,
+              } || null,
+            inventory: product.inventory,
+          },
+        });
+        if (product.colors) {
+          setColor(product.colors[0]);
+        }
+      }
+    }
+
+    setShowLoader(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (product === null) return <>Product Page Loading... </>;
@@ -80,41 +117,6 @@ const Product: React.FC<_props> = ({ product }) => {
   if (product?.details === null || product?.details === undefined) {
     return <> Product Details not found </>;
   }
-
-  const storeLayout = useTypedSelector((state) => state.store.layout);
-  const { store_productDetails, setColor, setShowLoader } = useActions();
-
-  useEffect(() => {
-    if (product.doNotExist === null) {
-      store_productDetails({
-        brand: {
-          id: product.details!.brandID,
-          name: product.details!.brandName,
-          url: product.details!.brandImage,
-        },
-        product: {
-          id: product.details!.id || null,
-          name: product.details!.name || null,
-          discounts: product.discount || null,
-          sizes: product.details?.sizes || '',
-          sizeChart: product.sizes || null,
-          colors: product.colors || null,
-          price:
-            {
-              msrp: product.details!.msrp,
-              ourCost: product.details!.ourCost,
-              salePrice: product.details!.salePrice,
-            } || null,
-          inventory: product.inventory,
-        },
-      });
-      if (product.colors) {
-        setColor(product.colors[0]);
-      }
-    }
-
-    setShowLoader(false);
-  }, []);
 
   const HeadTag = (
     <Head>

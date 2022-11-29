@@ -48,16 +48,19 @@ const ProductListController = (
     } else {
       setShowLoader(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProduct]);
 
   useEffect(() => {
     setShowLoader(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug, checkedFilters]);
 
   useEffect(() => {
     if (localStorage) {
       setSkuList(getSkuList());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const compareCheckBoxHandler = (sku: string) => {

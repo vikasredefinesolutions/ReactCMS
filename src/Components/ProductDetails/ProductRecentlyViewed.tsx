@@ -1,6 +1,7 @@
-import React from 'react';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import React from 'react';
 const ProductRecentlyViewed: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   // const show = useTypedSelector((state) => state.store.display.footer);
@@ -49,12 +50,12 @@ const ProductRecentlyViewed: React.FC = () => {
                     </div>
                     <div className="w-full pt-4 h-full text-center z-10">
                       <div className="w-full text-xl mb-3 h-14">
-                        <a
+                        <Link
                           href="/"
                           className="text-secondary text-xl font-bold"
                         >
                           Patagonia Women's Better Sweater
-                        </a>
+                        </Link>
                       </div>
                       <div className="text-secondary-hover font-bold">
                         MSRP $149.00
@@ -73,12 +74,12 @@ const ProductRecentlyViewed: React.FC = () => {
                     </div>
                     <div className="w-full pt-4 h-full text-center z-10">
                       <div className="w-full text-xl mb-3 h-14">
-                        <a
+                        <Link
                           href="/"
                           className="text-secondary text-xl font-bold"
                         >
                           Patagonia Women's Better Sweater Jacket
-                        </a>
+                        </Link>
                       </div>
                       <div className="text-secondary-hover font-bold">
                         MSRP $149.00
@@ -97,12 +98,12 @@ const ProductRecentlyViewed: React.FC = () => {
                     </div>
                     <div className="w-full pt-4 h-full text-center z-10">
                       <div className="w-full text-xl mb-3 h-14">
-                        <a
+                        <Link
                           href="/"
                           className="text-secondary text-xl font-bold"
                         >
                           Patagonia Women's Better Sweater Jacket
-                        </a>
+                        </Link>
                       </div>
                       <div className="text-secondary-hover font-bold">
                         MSRP $149.00

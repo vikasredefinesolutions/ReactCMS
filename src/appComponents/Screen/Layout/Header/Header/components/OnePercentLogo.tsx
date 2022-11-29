@@ -1,6 +1,6 @@
+import { _Store } from 'constants/store.constant';
+import { useTypedSelector } from 'hooks';
 import React from 'react';
-import { _Store } from '../../constants/store.constant';
-import { useTypedSelector } from '../../hooks';
 
 const OnePercentLogo: React.FC<{ position: 'HEADER' | 'FOOTER' }> = ({
   position,

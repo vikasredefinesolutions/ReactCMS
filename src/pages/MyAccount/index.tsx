@@ -28,6 +28,7 @@ const MyAccount = () => {
             <ul className="flex flex-wrap gap-4">
               {Tabs.map((res, index) => (
                 <li
+                  key={index}
                   className={`border-b text-base font-semibold px-3 py-3 ${
                     currentTab === index ? 'border-blue-500' : ''
                   }`}

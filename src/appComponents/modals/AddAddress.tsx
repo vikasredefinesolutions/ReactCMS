@@ -83,10 +83,12 @@ const AddAddress = ({
         });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editData, country]);
 
   useEffect(() => {
     getCountryList().then((res) => setCountry(res));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -157,8 +159,8 @@ const AddAddress = ({
                             onBlur={handleBlur}
                           >
                             <option>Select Country</option>
-                            {country.map((res) => (
-                              <option>{res?.name}</option>
+                            {country.map((res, index) => (
+                              <option key={index}>{res?.name}</option>
                             ))}
                           </select>
                           <div className="text-red-500 text-s mt-1">
@@ -403,8 +405,8 @@ const AddAddress = ({
                               value={values.state}
                             >
                               <option>Select State</option>
-                              {state.map((res) => (
-                                <option>{res?.name}</option>
+                              {state.map((res, index) => (
+                                <option key={index}>{res?.name}</option>
                               ))}
                             </select>
                           </div>

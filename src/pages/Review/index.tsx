@@ -2,8 +2,8 @@ import axios from 'axios';
 import { addReviewMessages } from 'constants/validationMessages';
 import { Formik } from 'formik';
 import { useTypedSelector } from 'hooks';
+import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import uuid from 'react-uuid';
 import { UploadImage } from 'services/file.service';
 import { AddProductReview } from 'services/review.service';
@@ -16,8 +16,11 @@ const ProductReview = () => {
     [],
   );
   const [star, setStar] = useState(5);
-  const [searchParam] = useSearchParams();
-  const productId = searchParam.get('ProductId');
+  // const [searchParam] = useSearchParams();
+  const { query } = useRouter();
+  // const productId = searchParam.get('ProductId');
+  const productId = query.ProductId;
+
   const validationSchema = Yup.object().shape({
     comment: Yup.string()
       .min(3, addReviewMessages.comment.min)
@@ -74,7 +77,7 @@ const ProductReview = () => {
         location: `${data.city}, ${data.state}, ${data.country_name}, ${data.postal}`,
         ipAddress: data.IPv4,
         macAddress: '00-00-00-00-00-00',
-        productId: productId || 0,
+        productId: (productId && +productId) || 0,
         customerId: customerId || 0,
         storeId: storeId || 0,
         commentHeading: values.commentHeading,
@@ -137,6 +140,7 @@ const ProductReview = () => {
                 .map((_, index) => {
                   return (
                     <svg
+                      key={index}
                       className={`h-5 w-5 flex-shrink-0 text-${
                         index < star ? 'primary-500' : 'gray-300'
                       }`}
@@ -236,8 +240,8 @@ const ProductReview = () => {
                       />
                     </div>
                     <div className="flex flex-wrap">
-                      {files.map((file) => (
-                        <div className="h-24 w-24 m-2">
+                      {files.map((file, index) => (
+                        <div key={index} className="h-24 w-24 m-2">
                           <img src={file.preview} alt="preview" />
                         </div>
                       ))}

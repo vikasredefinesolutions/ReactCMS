@@ -1,8 +1,8 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
 
 const BreadCrumb: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
@@ -99,8 +99,8 @@ const BreadCrumb: React.FC = () => {
                     </span>
                   </div>
                 </li> */}
-                {getBreadCrubs().map((item) => (
-                  <li aria-current="page">
+                {getBreadCrubs().map((item, index) => (
+                  <li key={index} aria-current="page">
                     <Link
                       href={item.url}
                       className="inline-flex items-center font-medium text-gray-700 hover:text-gray-900"

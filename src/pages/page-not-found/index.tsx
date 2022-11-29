@@ -1,6 +1,6 @@
-import { GetStaticProps, NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { paths } from 'constants/paths.constant';
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 const PageNotFound: NextPage = () => {
   const router = useRouter();
@@ -29,9 +29,3 @@ const PageNotFound: NextPage = () => {
 };
 
 export default PageNotFound;
-
-export const getStaticProps: GetStaticProps = (context) => {
-  return {
-    props: {}, // will be passed to the page component as props
-  };
-};

@@ -1,7 +1,8 @@
-import Link from 'next/link';
+import Image from 'appComponents/reusables/Image';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
-import Image from 'appComponents/reusables/Image';
+import Link from 'next/link';
+import React from 'react';
 
 interface _props {
   url: string;

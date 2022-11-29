@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import {
-  _MenuCategory,
-  _MenuTopic,
-  _StoreMenu,
-} from 'definations/APIs/header.res';
-import { useActions, useTypedSelector } from 'hooks';
-import { FetchMenuCategories, FetchMenuTopics } from 'services/header.service';
-import Category from './Category';
-import Custom from './Custom';
-import Topic from './Topic';
+import React from 'react';
 import Brand from './Brand';
+import Category from './Category';
+import Topic from './Topic';
 interface _props {
   screen: 'MOBILE' | 'DESKTOP';
   // menu: _StoreMenu;
@@ -89,15 +81,7 @@ const MenuItem: React.FC<_props> = ({ type }) => {
   // }
 
   if (type === 'brand') {
-    return (
-      <Brand
-        brandPageUrl="/brands.html"
-        brandUrl={'nike.html'}
-        menuTitle={'Brands'}
-        brandItems={['Nike']}
-        brandImages={[]}
-      />
-    );
+    return <Brand brandPageUrl="/brands.html" menuTitle={'Brands'} />;
   }
   if (type === 'category') {
     return (

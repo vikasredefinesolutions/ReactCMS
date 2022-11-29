@@ -1,8 +1,7 @@
-import React from 'react';
 import { _Store } from 'constants/store.constant';
-import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
+import React from 'react';
 
 interface _Props {
   modal?: 'NO';
@@ -33,9 +32,9 @@ const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
                 <thead className="text-sm bg-gray-100 font-semibold uppercase border-b border-neutral-200">
                   <tr className="divide-x divide-slate-200">
                     <th className="px-2 py-4">&nbsp;</th>
-                    {sizeChart?.measurements.map((length) => {
+                    {sizeChart?.measurements.map((length, index) => {
                       return (
-                        <th className="px-2 py-4">
+                        <th key={index} className="px-2 py-4">
                           <div className="">{length}</div>
                         </th>
                       );
@@ -43,11 +42,11 @@ const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200">
-                  {sizeChart?.sizeChartRange.map((range) => (
-                    <tr className="divide-x divide-slate-200">
+                  {sizeChart?.sizeChartRange.map((range, index) => (
+                    <tr key={index} className="divide-x divide-slate-200">
                       <td className="px-2 py-3 text-left">{range}</td>
-                      {sizeChart?.measurements.map((length) => (
-                        <td className="px-2 py-3">
+                      {sizeChart?.measurements.map((length, index) => (
+                        <td key={index} className="px-2 py-3">
                           <div className="">
                             {sizeChart.sizeChartView[`${length}${range}`]}
                           </div>
@@ -106,19 +105,19 @@ const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
                     <thead className="text-sm bg-gray-100 font-semibold uppercase border-b border-neutral-200">
                       <tr className="divide-x divide-slate-200">
                         <th className="px-2 py-4">&nbsp;</th>
-                        {sizeChart?.measurements.map((length) => (
-                          <th className="px-2 py-4">
+                        {sizeChart?.measurements.map((length, index) => (
+                          <th key={index} className="px-2 py-4">
                             <div className="">{length}</div>
                           </th>
                         ))}
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-200">
-                      {sizeChart?.sizeChartRange.map((range) => (
-                        <tr className="divide-x divide-slate-200">
+                      {sizeChart?.sizeChartRange.map((range, index) => (
+                        <tr key={index} className="divide-x divide-slate-200">
                           <td className="px-2 py-3 text-left">{range}</td>
-                          {sizeChart?.measurements.map((length) => (
-                            <td className="px-2 py-3">
+                          {sizeChart?.measurements.map((length, index) => (
+                            <td key={index} className="px-2 py-3">
                               <div className="">
                                 {sizeChart.sizeChartView[`${length}${range}`]}
                               </div>
@@ -182,15 +181,17 @@ const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
                     <tbody className="divide-y divide-gray-300">
                       <tr className="divide-x divide-gray-300 bg-gray-100">
                         <td className="p-2">SIZE</td>
-                        {sizeChart?.measurements.map((length) => (
-                          <td className="p-2">{length}</td>
+                        {sizeChart?.measurements.map((length, index) => (
+                          <td key={index} className="p-2">
+                            {length}
+                          </td>
                         ))}
                       </tr>
-                      {sizeChart?.sizeChartRange.map((range) => (
-                        <tr className="divide-x divide-gray-300">
+                      {sizeChart?.sizeChartRange.map((range, index) => (
+                        <tr key={index} className="divide-x divide-gray-300">
                           <td className="p-2">{range}</td>
-                          {sizeChart.measurements.map((length) => (
-                            <td className="p-2">
+                          {sizeChart.measurements.map((length, index) => (
+                            <td key={index} className="p-2">
                               {sizeChart.sizeChartView[`${length}${range}`]}
                             </td>
                           ))}
@@ -261,7 +262,7 @@ const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
                       {sizeChart?.sizeChartRange.map((piece) => (
                         <tr className="divide-x divide-slate-200" key={piece}>
                           <td className="px-2 py-3 text-left">{piece}</td>
-                          {sizeChart.measurements.map((length) => (
+                          {sizeChart.measurements.map((length, index) => (
                             <td className="px-2 py-3" key={length}>
                               <div className="">
                                 {sizeChart.sizeChartView[`${length}${piece}`]}

@@ -1,6 +1,7 @@
-import React from 'react';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import React from 'react';
 const ContactUs: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   if (storeLayout === _Store.type3) {
@@ -9,9 +10,9 @@ const ContactUs: React.FC = () => {
         <div className="container mx-auto py-4 lg:py-6">
           <div className="w-full md:grid md:grid-cols-1 md:gap-6 mb-6">
             <div className="flex justify-center">
-              <a href="/" title="">
+              <Link href="/" title="">
                 <img alt="" src="../images/pk-footer-logo.png" />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="w-full md:grid md:grid-cols-1 md:gap-6">
@@ -27,59 +28,64 @@ const ContactUs: React.FC = () => {
                 className="mt-2 flex flex-wrap justify-center gap-8 text-3xl mb-10"
               >
                 <li className="">
-                  <a
+                  <Link
                     href="https://www.facebook.com/pkhealthgear/"
                     title="Facebook"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <i className="fab fa-facebook-f" aria-hidden="true">
                       <span className="sr-only">Facebook</span>
                     </i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="">
-                  <a
+                  <Link
                     href="https://twitter.com/PKHealthGear"
                     title="Twitter"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <i className="fab fa-twitter" aria-hidden="true">
                       <span className="sr-only">Twitter</span>
                     </i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="">
-                  <a
+                  <Link
                     href="https://www.linkedin.com/company/health-pk/"
                     title="LinkedIn"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <i className="fab fa-linkedin-in" aria-hidden="true">
                       <span className="sr-only">LinkedIn</span>
                     </i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="">
-                  <a
+                  <Link
                     href="https://www.pinterest.com/pkhealthgear/"
                     title="Pinterest"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <i className="fab fa-pinterest-p" aria-hidden="true">
                       <span className="sr-only">Pinterest</span>
                     </i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="">
-                  <a
+                  <Link
                     href="https://www.instagram.com/pkhealthgear/"
                     title="Instagram"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <i className="fab fa-instagram" aria-hidden="true">
                       <span className="sr-only">Instagram</span>
                     </i>
-                  </a>
+                  </Link>
                 </li>
               </ul>
 
@@ -88,7 +94,7 @@ const ContactUs: React.FC = () => {
                 className="mt-2 flex flex-wrap justify-center gap-6 text-base"
               >
                 <li>
-                  <a
+                  <Link
                     title="Track your order"
                     href="/"
                     data-toggle="modal"
@@ -96,62 +102,63 @@ const ContactUs: React.FC = () => {
                     className="font-normal text-anchor hover:text-[#72a84b]"
                   >
                     Track your order
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     title="Order Guidelines"
                     href="/OrderGuidelines.html"
                     className="font-normal text-anchor hover:text-[#72a84b]"
                   >
                     Order Guidelines
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     title="About Us"
                     href="http://www.parsonskellogg.com/"
                     className="font-normal text-anchor hover:text-[#72a84b]"
                   >
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     title="Measuring Guide"
                     href="/MeasuringGuide.html"
                     className="font-normal text-anchor hover:text-[#72a84b]"
                   >
                     Measuring Guide
-                  </a>
+                  </Link>
                 </li>
                 <li style={{ display: 'none' }}>
-                  <a
+                  <Link
                     title="Decoration Guidelines"
                     href="/Decoration-guide.html"
                     className="font-normal text-anchor hover:text-[#72a84b]"
                   >
                     Decoration Guidelines
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     title="One Percent For the Planet"
                     href="/patagonia-sustainability-initiatives.html"
                     className="font-normal text-anchor hover:text-[#72a84b]"
                   >
                     One Percent For the Planet
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     title="Blog"
                     href="https://blog.pkhealthgear.com/"
                     target="_blank"
                     className="font-normal text-anchor hover:text-[#72a84b]"
+                    rel="noreferrer"
                   >
                     Blog
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

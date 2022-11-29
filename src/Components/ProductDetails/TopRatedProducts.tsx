@@ -2,9 +2,7 @@ import { _SuggestedProduct } from '@type/APIs/productDetail.res';
 import Image from 'appComponents/reusables/Image';
 import Price from 'appComponents/reusables/Price';
 import Link from 'next/link';
-import { sliderSettings } from 'page.config';
-import React, { useRef } from 'react';
-import Slider from 'react-slick';
+import React from 'react';
 
 interface _props {
   title: string;
@@ -27,7 +25,7 @@ const TopRatedProducts: React.FC<_props> = ({ title, suggestedProducts }) => {
               <div
                 key={product.sku}
                 className="slide-item"
-                onClick={() => console.log('clicked')}
+                onClick={() => 'handle click'}
               >
                 <div className="px-2">
                   <div className="flex text-center lg:w-auto mb-6">

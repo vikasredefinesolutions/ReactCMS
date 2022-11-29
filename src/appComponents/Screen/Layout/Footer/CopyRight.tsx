@@ -1,7 +1,8 @@
-import React from 'react';
 import { _Store } from 'constants/store.constant';
 import { _Footer } from 'definations/footer.type';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import React from 'react';
 
 type _props = Pick<_Footer, 'copyRight'>;
 
@@ -21,27 +22,27 @@ const CopyRight: React.FC<_props> = ({ copyRight }) => {
               <div className="w-full text-white mb-4">© 2022 PKhealthgear</div>
               <ul role="list" className="flex flex-wrap justify-center gap-6">
                 <li>
-                  <a
+                  <Link
                     title="Privacy &amp; Security"
                     href="/"
                     className="text-white"
                   >
                     Privacy &amp; Security
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     title="Terms and Conditions"
                     href="/"
                     className="text-white"
                   >
                     Terms and Conditions
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a title="Sitemap" href="/" className="text-white">
+                  <Link title="Sitemap" href="/" className="text-white">
                     Sitemap
-                  </a>{' '}
+                  </Link>{' '}
                 </li>
               </ul>
             </div>
@@ -90,12 +91,12 @@ const CopyRight: React.FC<_props> = ({ copyRight }) => {
           <div className="pt-5">
             <div className="text-center text-[16px]">{copyRight.title}</div>
             <div className="flex flex-wrap justify-center gap-5 py-2">
-              <a title="Privacy &amp; Security" href="/">
+              <Link title="Privacy &amp; Security" href="/">
                 Privacy &amp; Security
-              </a>
-              <a rel="" title="Terms and Conditions" href="/">
+              </Link>
+              <Link rel="" title="Terms and Conditions" href="/">
                 Terms &amp; Conditions
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -133,21 +134,21 @@ const CopyRight: React.FC<_props> = ({ copyRight }) => {
           <div className="container mx-auto">
             <div className="">
               <div className="text-center pb-2">
-                <a title="DI Policies" href="/di-policies.html">
+                <Link title="DI Policies" href="/di-policies.html">
                   DI Policies
-                </a>{' '}
+                </Link>{' '}
                 |{' '}
-                <a title="Privacy &amp; Security" href="/privacypolicy.html">
+                <Link title="Privacy &amp; Security" href="/privacypolicy.html">
                   Privacy &amp; Security
-                </a>{' '}
+                </Link>{' '}
                 |{' '}
-                <a
+                <Link
                   rel="nofollow"
                   title="Terms and Conditions"
                   href="/TermsandCondition.html"
                 >
                   Terms &amp; Conditions
-                </a>
+                </Link>
               </div>
               <div className="text-center">
                 {/* &copy; 2022 Driving Impressions ● All Rights Reserved */}

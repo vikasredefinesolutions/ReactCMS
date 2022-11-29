@@ -2,7 +2,6 @@ export const AddRemoveToCompare = (sku: string) => {
   if (localStorage) {
     const skuList = getSkuList();
     const index = skuList.findIndex((_sku: string) => _sku === sku);
-    console.log(index);
     if (index > -1) {
       skuList.splice(index, 1);
     } else {

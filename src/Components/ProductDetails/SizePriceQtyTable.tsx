@@ -1,9 +1,7 @@
-import React from 'react';
-import Price from 'appComponents/reusables/Price';
 import { ShoppingCartItemDetailsViewModel } from 'definations/APIs/cart.res';
 import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
 import { useTypedSelector } from 'hooks';
-import SelectOrInput from './SelectOrInput';
+import React from 'react';
 
 interface _props {
   inventory: _ProductInventoryTransfomed;
@@ -37,7 +35,7 @@ const SizePriceQtyTable: React.FC<_props> = ({
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-200">
-            {inventory?.sizes.map((size) => {
+            {/* {inventory?.sizes.map((size) => {
               const foundIt = inventory.inventory.find(
                 (int) => int.name === size,
               );
@@ -60,7 +58,7 @@ const SizePriceQtyTable: React.FC<_props> = ({
                   </tr>
                 );
               }
-            })}
+            })} */}
           </tbody>
         </table>
       </div>

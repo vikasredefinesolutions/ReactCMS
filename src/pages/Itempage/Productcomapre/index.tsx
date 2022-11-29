@@ -76,6 +76,7 @@ const ProductCompare: NextPage<_props> = ({ products }) => {
                 </td>
                 {products?.colors?.map((colors, index) => (
                   <AllColors
+                    key={index}
                     color={colors}
                     index={index}
                     seName={

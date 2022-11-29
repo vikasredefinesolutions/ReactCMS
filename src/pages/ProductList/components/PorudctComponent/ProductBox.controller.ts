@@ -1,6 +1,5 @@
 import { GetlAllProductList } from '@type/productList.type';
-import { AddRemoveToCompare, getSkuList } from 'helpers/compare.helper';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const ProductBoxController = ({
   product,
@@ -26,18 +25,18 @@ const ProductBoxController = ({
     if (window !== undefined) {
       setOrigin(window.location.origin);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setCurrentProduct(product.getProductImageOptionList[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
-
-  
 
   return {
     currentProduct,
     origin,
-    setCurrentProduct
+    setCurrentProduct,
   };
 };
 

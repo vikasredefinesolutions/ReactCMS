@@ -1,5 +1,6 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 const ManageLogo = () => {
@@ -275,36 +276,36 @@ const ManageLogo = () => {
                     >
                       <ul className="pb-3 text-sm">
                         <li className="pt-3 px-4">
-                          <a
+                          <Link
                             href="customer-details.html"
                             className="text-indigo-500 hover:text-indigo-600"
                           >
                             Edit
-                          </a>
+                          </Link>
                         </li>
                         <li className="pt-3 px-4">
-                          <a
+                          <Link
                             href="/"
                             className="text-indigo-500 hover:text-indigo-600"
                           >
                             Delete
-                          </a>
+                          </Link>
                         </li>
                         <li className="pt-3 px-4">
-                          <a
+                          <Link
                             href="/"
                             className="text-indigo-500 hover:text-indigo-600"
                           >
                             Approve
-                          </a>
+                          </Link>
                         </li>
                         <li className="pt-3 px-4">
-                          <a
+                          <Link
                             href="/"
                             className="text-indigo-500 hover:text-indigo-600"
                           >
                             Disapprove
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                     </div>
@@ -347,13 +348,13 @@ const ManageLogo = () => {
                 </td>
                 <td className="px-2 first:pl-5 py-3">
                   <div className="">
-                    <a
+                    <Link
                       href="customer-custom-logo-1.html"
                       title=""
                       className="text-indigo-500"
                     >
                       Waiting for Approval
-                    </a>
+                    </Link>
                   </div>
                 </td>
                 <td className="px-2 first:pl-5 py-3">
@@ -369,36 +370,36 @@ const ManageLogo = () => {
                     >
                       <ul className="pb-3 text-sm">
                         <li className="pt-3 px-4">
-                          <a
+                          <Link
                             href="customer-details.html"
                             className="text-indigo-500 hover:text-indigo-600"
                           >
                             Edit
-                          </a>
+                          </Link>
                         </li>
                         <li className="pt-3 px-4">
-                          <a
+                          <Link
                             href="/"
                             className="text-indigo-500 hover:text-indigo-600"
                           >
                             Delete
-                          </a>
+                          </Link>
                         </li>
                         <li className="pt-3 px-4">
-                          <a
+                          <Link
                             href="/"
                             className="text-indigo-500 hover:text-indigo-600"
                           >
                             Approve
-                          </a>
+                          </Link>
                         </li>
                         <li className="pt-3 px-4">
-                          <a
+                          <Link
                             href="/"
                             className="text-indigo-500 hover:text-indigo-600"
                           >
                             Disapprove
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                     </div>

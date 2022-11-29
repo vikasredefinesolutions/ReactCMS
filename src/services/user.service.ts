@@ -1,10 +1,10 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _SignUpPayload } from 'definations/APIs/signUp.req';
 import { _AccCreated } from 'definations/APIs/signUp.res';
-import { _signIn } from 'definations/user.type';
+import { _SignIn } from 'definations/user.type';
 import { SendAsyncV2 } from '../utils/axios.util';
 
-export const signInUser = async (payload: _signIn) => {
+export const signInUser = async (payload: _SignIn) => {
   const url = `StoreCustomer/customerlogin.json`;
   const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
     url: url,

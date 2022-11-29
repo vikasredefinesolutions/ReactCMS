@@ -17,7 +17,7 @@ const __product = {
   },
 };
 
-export default {
+const thankYou = {
   customer: {
     firstName: 'John',
     email: ' john@email.com',
@@ -35,3 +35,5 @@ export default {
   },
   contactNo: '+91-000-000-0000',
 };
+
+export default thankYou;

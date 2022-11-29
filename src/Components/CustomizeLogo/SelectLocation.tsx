@@ -1,7 +1,7 @@
+import { _LogoSteps } from 'definations/product.type';
 import React, { useState } from 'react';
-import { _LogoSteps } from '../../../definations/product.type';
 
-import { useActions, useTypedSelector } from '../hooks';
+import { useActions, useTypedSelector } from 'hooks';
 
 interface _props {
   setNextStep: React.Dispatch<React.SetStateAction<_LogoSteps[]>>;
