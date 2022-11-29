@@ -1,4 +1,4 @@
-export const hideAllConsoles = true; // Will hide all the consoles except API Failures.
+export const hideAllConsoles = false; // Will hide all the consoles except API Failures.
 
 export type _fileNames =
   | 'Product-Details'
@@ -16,7 +16,7 @@ export const __fileNames: { [key: string]: _fileNames } = {
 };
 
 export const _showConsoles = {
-  productDetails: true,
+  productDetails: false,
   _app: false,
   requestConsultation: false,
   compareProducts: false,
