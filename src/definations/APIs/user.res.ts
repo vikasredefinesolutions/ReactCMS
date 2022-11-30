@@ -62,7 +62,7 @@ export interface UserType {
   macAddress: string;
 }
 
-export interface _MyAcc_OrderDetails {
+export interface _MyAcc_OrderBillingDetails {
   id: number;
   storeID: number;
   orderGUID: null;
@@ -231,4 +231,25 @@ export interface _MyAcc_OrderDetails {
   location: null;
   ipAddress: null;
   macAddress: null;
+}
+
+export interface _MyAcc_OrderProductDetails {
+  colorImage: string;
+  productName: string;
+  sku: string;
+  attributeOptionId: string;
+  attributeOptionValue: string;
+  shoppingCartItemsId: number;
+  shoppingCartItemDetailsViewModels: ShoppingCartItemDetailsViewModel[];
+  totalQty: number;
+  totalPrice: number;
+  txtcode: null;
+  seName: null | string;
+}
+
+interface ShoppingCartItemDetailsViewModel {
+  attributeOptionId: number;
+  attributeOptionValue: string;
+  qty: number;
+  price: number;
 }
