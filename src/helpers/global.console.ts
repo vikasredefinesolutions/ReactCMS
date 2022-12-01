@@ -1,3 +1,4 @@
+// tslint:disable:no-console
 import chalk from 'chalk';
 import { hideAllConsoles, __fileNames } from 'show.config';
 

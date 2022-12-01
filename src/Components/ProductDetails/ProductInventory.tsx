@@ -23,6 +23,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
 
   useEffect(() => {
     updatePrice({ price: price?.msrp || 0 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price?.msrp]);
 
   const showInventoryFor = (payload: {
@@ -39,6 +40,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
       productId: colors[0].productId,
       attributeOptionId: [colors[0].attributeOptionId],
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
   if (inventory === null) return <></>;
 
@@ -101,8 +103,8 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                 if (
                   product.colorAttributeOptionId === color.attributeOptionId
                 ) {
-                  return product.sizeArr.map((size) => (
-                    <div className="p-2 w-1/2 md:w-1/12">
+                  return product.sizeArr.map((size, index) => (
+                    <div key={index} className="p-2 w-1/2 md:w-1/12">
                       <div className="font-semibold">{size}</div>
                     </div>
                   ));
@@ -136,7 +138,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                   if (
                     product.colorAttributeOptionId === color.attributeOptionId
                   ) {
-                    return product.sizeArr.map((size) => {
+                    return product.sizeArr.map((size, index) => {
                       const inv =
                         inventory.inventory.find(
                           (int) =>
@@ -150,7 +152,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                       );
                       return inv > 0 ? (
                         <>
-                          <div className="p-2 w-1/2 md:w-1/12">
+                          <div key={index} className="p-2 w-1/2 md:w-1/12">
                             <div className="mb-1">{inv > 50 ? '50+' : inv}</div>
                             <InventoryInput
                               size={size}
@@ -191,8 +193,11 @@ const Inventory: React.FC<_props> = ({ productId }) => {
 
             {inventory?.sizes.map((product) => {
               if (product.colorAttributeOptionId === color.attributeOptionId) {
-                return product.sizeArr.map((size) => (
-                  <div className="flex items-center justify-between border-b border-b-gray-300 py-3 pl-4">
+                return product.sizeArr.map((size, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between border-b border-b-gray-300 py-3 pl-4"
+                  >
                     <div className="">{size}</div>
                     <InventoryInput
                       size={size}

@@ -1,12 +1,11 @@
 //import React, { useState, useEffect, useRef } from "react";
+import ElementAccordionDisplay from 'Components/Home/ElementAccordionDisplay';
+import ElementCarouselDisplay from 'Components/Home/ElementCarouselDisplay';
+import { useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
-import { useTypedSelector } from '../../hooks';
-import ElementAccordionDisplay from './ElementAccordionDisplay';
-import ElementCarouselDisplay from './ElementCarouselDisplay';
-import * as helper from './Helper';
+import * as helper from '../../Components/Home/Helper';
 
 const Home = (props) => {
-  console.log(props);
   const storeId = useTypedSelector((state) => state.store.id);
 
   const slug = props.props?.slug;
@@ -26,6 +25,7 @@ const Home = (props) => {
     if (pageData !== undefined) {
       setComponentHtml(pageData?.components);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const getPageData = (pageId) => {
@@ -82,6 +82,7 @@ const Home = (props) => {
       //  x.querySelectorAll('#div'+element.no)[0].innerHTML = element.uid;
       helper.updateSetProperties(element, index);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [componentHtml]);
 
   return (
@@ -89,10 +90,11 @@ const Home = (props) => {
       <div className="">
         <main>
           {pageData.components.length > 0 ? (
-            pageData.components.map((componentValue) => {
+            pageData.components.map((componentValue, index) => {
               const backgroundDefault = loadBackgroundDefault(componentValue);
               return (
                 <div
+                  key={index}
                   className={`commondiv ${
                     componentValue.visibility == 'off' ? 'hidden' : ''
                   }`}

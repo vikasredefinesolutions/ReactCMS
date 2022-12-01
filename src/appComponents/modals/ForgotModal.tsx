@@ -1,7 +1,8 @@
-import React from 'react';
 import { _Store } from 'constants/store.constant';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import React from 'react';
 
 interface _Props {
   // eslint-disable-next-line no-unused-vars
@@ -97,13 +98,13 @@ const ForgotModal: React.FC<_Props> = ({ modalHandler }) => {
                   Forget Password
                 </div>
                 <div className="flex items-center gap-x-2">
-                  <a
+                  <Link
                     href="/"
-                    data-modal-toggle="LoginModal"
+                    // data-modal-toggle="LoginModal"
                     className="text-anchor"
                   >
                     &lt; Back
-                  </a>
+                  </Link>
                   <button
                     type="button"
                     className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -139,12 +140,12 @@ const ForgotModal: React.FC<_Props> = ({ modalHandler }) => {
                   </div>
 
                   <div className="mb-4">
-                    <a
+                    <Link
                       href="/"
                       className="btn btn-lg btn-secondary w-full !flex items-center justify-center"
                     >
                       FORGET PASSWORD
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -213,12 +214,12 @@ const ForgotModal: React.FC<_Props> = ({ modalHandler }) => {
                   </div>
 
                   <div className="mb-4">
-                    <a
+                    <Link
                       href="/"
                       className="btn btn-lg btn-secondary w-full !flex items-center justify-center"
                     >
                       FORGET PASSWORD
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -1,16 +1,12 @@
-import Image from 'appComponents/reusables/Image';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
 import { UpdateWishList } from 'services/user.service';
 
 interface _props {
-  src: string;
-  title: string;
-  alt: string;
   className: string;
 }
 
-const HeartIcon: React.FC<_props> = (image) => {
+const HeartIcon: React.FC<_props> = ({ className }) => {
   const selectedColor = useTypedSelector(
     (state) => state.product.selected.color,
   );
@@ -24,12 +20,11 @@ const HeartIcon: React.FC<_props> = (image) => {
 
   return (
     <div
-      className={image.className}
+      className={className}
       onClick={() => addToWishList(selectedColor?.productId || null)}
     >
       <span className="material-icons-outlined"> favorite_border </span>
       {/* <span className="material-icons-outlined"> favorite </span> */}
-      {/* <Image src={image.src} alt={image.alt} className={''} /> */}
     </div>
   );
 };

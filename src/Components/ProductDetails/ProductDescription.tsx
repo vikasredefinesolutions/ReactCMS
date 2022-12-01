@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
 import { __product } from 'page.config';
+import React, { useState } from 'react';
 interface _props {
   heading: string;
   text: string;
 }
 const ProductDescription: React.FC<_props> = ({ text, heading }) => {
-  if (!text) return <></>;
   const [showExtra, setShowExtra] = useState(false);
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  if (!text) return <></>;
   const showExtraButton = text.length >= __product.descriptionLength;
   // const show = useTypedSelector((state) => state.store.display.footer);
 

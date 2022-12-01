@@ -8,7 +8,7 @@ import * as _AppController from 'Controllers/_AppController';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,
-  _ProductDoNotExistTransformed
+  _ProductDoNotExistTransformed,
 } from 'definations/APIs/productDetail.res';
 import { domainToShow } from 'helpers/common.helper';
 import { conditionalLog, highLightError } from 'helpers/global.console';
@@ -31,18 +31,19 @@ interface _props {
 const RequestConsultation: NextPage<_props> = ({ product, color }) => {
   const router = useRouter();
 
+  useEffect(() => {
+    if (product !== null && product.doNotExist) {
+      router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (product === null) return <>Product Page Loading... </>;
 
   if (product === null || product.details === null || color === null) {
     router.push('/');
     return <></>;
   }
-
-  useEffect(() => {
-    if (product.doNotExist) {
-      router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
-    }
-  }, []);
 
   return (
     <section className="container mx-auto border border-gray-300 p-3">

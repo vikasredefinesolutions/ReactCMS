@@ -1,7 +1,7 @@
-import React from 'react';
+import { _LogoSteps } from 'definations/product.type';
+import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
-import { _LogoSteps } from '../../../definations/product.type';
-import { useActions, useTypedSelector } from '../hooks';
+import React from 'react';
 interface _props {
   setNextStep: React.Dispatch<React.SetStateAction<_LogoSteps[]>>;
 }
@@ -30,7 +30,7 @@ const ShareLater: React.FC<_props> = ({ setNextStep }) => {
     }
 
     if (action === 'CANCEL') {
-      router.push(-1);
+      router.back();
       return;
     }
   };

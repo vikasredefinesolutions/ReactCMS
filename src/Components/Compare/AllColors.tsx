@@ -12,6 +12,30 @@ interface _props {
 const AllColors: React.FC<_props> = ({ color, index, seName }) => {
   const { showCompareImage } = useActions();
 
+  useEffect(() => {
+    if (color !== null) {
+      if (typeof color === 'string') {
+        showCompareImage({
+          index,
+          label: '',
+          url: '-',
+          attibuteOptionId: 0,
+          seName: '/',
+        });
+        return;
+      }
+
+      showCompareImage({
+        index: index,
+        label: color[0].name,
+        url: color[0].imageUrl,
+        seName: seName,
+        attibuteOptionId: color[0].attributeOptionId,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (color === null) {
     return (
       <td key={index} className="">
@@ -19,27 +43,6 @@ const AllColors: React.FC<_props> = ({ color, index, seName }) => {
       </td>
     );
   }
-
-  useEffect(() => {
-    if (typeof color === 'string') {
-      showCompareImage({
-        index,
-        label: '',
-        url: '-',
-        attibuteOptionId: 0,
-        seName: '/',
-      });
-      return;
-    }
-
-    showCompareImage({
-      index: index,
-      label: color[0].name,
-      url: color[0].imageUrl,
-      seName: seName,
-      attibuteOptionId: color[0].attributeOptionId,
-    });
-  }, []);
 
   return (
     <td key={index} className="">

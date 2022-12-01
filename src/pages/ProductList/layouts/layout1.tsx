@@ -1,20 +1,13 @@
-import { Menu, MenuItem } from '@mui/material';
-import {
-  ColorChangeHandler,
-  FilterChangeHandler,
-  FilterType,
-  GetlAllProductList,
-  ProductList,
-} from '@type/productList.type';
+import { GetlAllProductList } from '@type/productList.type';
+import { properties } from 'mock/properties.mock';
 import ProductComponent from 'pages/ProductList/components/PorudctComponent/Product';
-import { Fragment, useState } from 'react';
-import SideFilter from '../components/Filters/sideFilter';
-import { properties } from '../../../mock/properties.mock';
-import FlyOutFilter from '../components/Filters/flyoutFilter';
-import Layout1FilterBar from '../components/FilterBar/layout1';
-import ListView from '../components/PorudctComponent/ListView';
+import { Fragment } from 'react';
 import { list_FnProps } from '..';
+import Layout1FilterBar from '../components/FilterBar/layout1';
 import FilterChips from '../components/Filters/filterChips';
+import FlyOutFilter from '../components/Filters/flyoutFilter';
+import SideFilter from '../components/Filters/sideFilter';
+import ListView from '../components/PorudctComponent/ListView';
 
 const Layout1 = ({
   filters,
@@ -35,7 +28,6 @@ const Layout1 = ({
   clearFilters,
   compareCheckBoxHandler,
 }: list_FnProps) => {
-  
   // console.log(products);
   return (
     <>
@@ -91,10 +83,12 @@ const Layout1 = ({
                       sortOpenHandler: setShowSortMenu,
                       setProductView,
                       productView,
-                      setShowFilter
+                      setShowFilter,
                     }}
                   />
-                  <FilterChips {...{clearFilters, checkedFilters, handleChange}}/>
+                  <FilterChips
+                    {...{ clearFilters, checkedFilters, handleChange }}
+                  />
                   <div className="mt-8 relative" id="gridview">
                     <div className="relative w-full pb-6 -mb-6">
                       <ul
@@ -111,8 +105,10 @@ const Layout1 = ({
                             <Fragment key={index}>
                               {productView === 'grid' ? (
                                 <ProductComponent
-                                skuList={skuList}
-                                compareCheckBoxHandler={compareCheckBoxHandler}
+                                  skuList={skuList}
+                                  compareCheckBoxHandler={
+                                    compareCheckBoxHandler
+                                  }
                                   product={product}
                                   colorChangeHandler={colorChangeHandler}
                                 />
@@ -149,7 +145,6 @@ const Layout1 = ({
           </div>
         </div>
       </section>
-
     </>
   );
 };

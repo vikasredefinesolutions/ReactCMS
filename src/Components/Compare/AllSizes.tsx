@@ -21,8 +21,11 @@ const AllSizes: React.FC<_props> = ({ sizes, index }) => {
       return (
         <td className="">
           <div className="p-2 flex flex-wrap gap-2">
-            {sizes.sizeArr.map((size) => (
-              <div className="w-10 h-10 border border-gray-300 bg-gray-100 flex justify-center items-center">
+            {sizes.sizeArr.map((size, index) => (
+              <div
+                key={index}
+                className="w-10 h-10 border border-gray-300 bg-gray-100 flex justify-center items-center"
+              >
                 {size}
               </div>
             ))}

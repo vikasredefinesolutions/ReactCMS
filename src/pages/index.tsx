@@ -1,6 +1,6 @@
+import { getServerSideProps } from 'Components/Slug/getServerSideProps';
 import Head from 'next/head';
 import Home from 'pages/Home';
-import { getServerSideProps } from 'pages/[slug]/getServerSideProps';
 export default function Search(props: any) {
   const { pageType, pageData, slug } = props;
 

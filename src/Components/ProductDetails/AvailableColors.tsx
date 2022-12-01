@@ -1,11 +1,10 @@
+import Image from 'appComponents/reusables/Image';
 import { _Store } from 'constants/store.constant';
-import { _ProductColor } from 'definations/APIs/colors.res';
 import { _modals } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
 import { __product } from 'page.config';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import SizeChart from './SizeChartModal';
-import Image from 'appComponents/reusables/Image';
 
 const AvailableColors: React.FC = () => {
   const { setColor } = useActions();

@@ -1,7 +1,8 @@
-import { Form, Formik } from 'formik';
-import React from 'react';
 import { _Store } from 'constants/store.constant';
+import { Form, Formik } from 'formik';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import React from 'react';
 import { SearchFor } from 'services/header.service';
 
 interface _props {
@@ -101,7 +102,7 @@ const SearchBar: React.FC<_props> = ({
   if (storeLayout === _Store.type1) {
     if (screen === 'MOBILE') {
       return (
-        <a href="#" className="py-2 text-primary hover:text-gray-500">
+        <Link href="#" className="py-2 text-primary hover:text-gray-500">
           <span className="sr-only">Search</span>
           <svg
             className="w-6 h-6"
@@ -119,7 +120,7 @@ const SearchBar: React.FC<_props> = ({
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             ></path>
           </svg>
-        </a>
+        </Link>
       );
     }
     if (screen === 'DESKTOP') {
@@ -175,7 +176,7 @@ const SearchBar: React.FC<_props> = ({
   if (storeLayout === _Store.type3) {
     if (screen === 'MOBILE') {
       return (
-        <a href="/" className="text-gray-600 hover:text-primary">
+        <Link href="/" className="text-gray-600 hover:text-primary">
           <span className="sr-only">Search</span>
           <svg
             className="w-6 h-6"
@@ -193,7 +194,7 @@ const SearchBar: React.FC<_props> = ({
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             ></path>
           </svg>
-        </a>
+        </Link>
       );
     }
 

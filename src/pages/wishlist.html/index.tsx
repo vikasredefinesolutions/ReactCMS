@@ -1,8 +1,8 @@
+import Image from 'appComponents/reusables/Image';
+import { WishlistType } from 'definations/wishlist.type';
+import { useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
-import Image from '../../appComponents/reusables/Image';
-import { WishlistType } from '../../definations/wishlist.type';
-import { useTypedSelector } from '../../hooks';
-import { getWishlist, removeWishlist } from '../../services/wishlist.service';
+import { getWishlist, removeWishlist } from 'services/wishlist.service';
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState<WishlistType>([]);
@@ -10,6 +10,7 @@ const Wishlist = () => {
   useEffect(() => {
     getWishlist(customerId || 0).then((wishlist) => setWishlist(wishlist));
     // setWishlist(wishlist);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const removeWishlistHandler = (id: number) => {
@@ -23,8 +24,8 @@ const Wishlist = () => {
       </div>
       <div className="relative">
         <ul role="list" className="flex flex-wrap -mx-3 gap-y-6">
-          {wishlist.map((list) => (
-            <li className="w-full md:w-1/2 lg:w-1/4 px-3">
+          {wishlist.map((list, index) => (
+            <li key={index} className="w-full md:w-1/2 lg:w-1/4 px-3">
               <div className="group relative border border-gray-300 p-3 text-center">
                 <div className="w-full">
                   <Image src={list.colorLogoUrl} className="" alt="wishlist" />

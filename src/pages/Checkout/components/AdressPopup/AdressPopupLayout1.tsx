@@ -1,12 +1,13 @@
+import AddAddress from 'appComponents/modals/AddAddress';
+import { AddUpdateAddressRequest } from 'definations/APIs/address.req';
+import { CustomerAddress } from 'definations/APIs/user.res';
+import getLocation from 'helpers/getLocation';
+import { useActions, useTypedSelector } from 'hooks';
+import Link from 'next/link';
 import { useState } from 'react';
-import AddAddress from '../../../../appComponents/modals/AddAddress';
-import { AddUpdateAddressRequest } from '../../../../definations/APIs/address.req';
-import { CustomerAddress } from '../../../../definations/APIs/user.res';
-import getLocation from '../../../../helpers/getLocation';
-import { useActions, useTypedSelector } from '../../../../hooks';
-// import { updateCustomer } from '../../../../redux/slices/user.slice';
-import { CreateUserAddress } from '../../../../services/address.service';
-import { getStoreCustomer } from '../../../../services/user.service';
+// import { updateCustomer } from 'redux/slices/user.slice';
+import { CreateUserAddress } from 'services/address.service';
+import { getStoreCustomer } from 'services/user.service';
 import { AddressType } from '../../CheckoutController';
 
 export type AddressPopupProps = {
@@ -108,8 +109,8 @@ const AddressPopupLayout1 = ({
                           address.addressType ===
                           (showChangeAddressPopup === 1 ? 'S' : 'B'),
                       )
-                      .map((address) => (
-                        <div className="w-full lg:w-1/2 px-3">
+                      .map((address, index) => (
+                        <div key={index} className="w-full lg:w-1/2 px-3">
                           <div className="bg-gray-100 border p-2 border-300">
                             <div className="mb-3 ">
                               {address.firstname} {address.lastName}
@@ -129,9 +130,9 @@ const AddressPopupLayout1 = ({
                               {address.phone}
                             </div>
                             <div className="mb-3">
-                              <a href="/" className="text-anchor">
+                              <Link href="/" className="text-anchor">
                                 Edit
-                              </a>
+                              </Link>
                             </div>
                             <div className="">
                               <button

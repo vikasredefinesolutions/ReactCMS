@@ -40,7 +40,6 @@ const ProductAlike: React.FC<_props> = ({ title, products }) => {
                 {...sliderSettings.similarProducts}
               >
                 {products.map((product) => {
-                  console.log('prod', product.seName);
                   return (
                     <div key={product.id} className="slide-item">
                       <div className="px-2">

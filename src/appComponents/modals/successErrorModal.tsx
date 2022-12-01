@@ -1,22 +1,22 @@
-import { useActions, useTypedSelector } from "hooks";
-import { useEffect } from "react";
+import { useActions, useTypedSelector } from 'hooks';
+import { useEffect } from 'react';
 
 const SuccessErrorModal = () => {
-  const modal = useTypedSelector(state => state.success);
+  const modal = useTypedSelector((state) => state.success);
   const { hideModal } = useActions();
   useEffect(() => {
-    if(modal.showModal)
-    {
+    if (modal.showModal) {
       setTimeout(() => {
         hideModal();
-      }, 3000)
+      }, 3000);
     }
-  }, [modal.showModal])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modal.showModal]);
 
   return (
     <div
       id="LoginModal"
-      style={{display: modal.showModal ? 'unset' : 'none'}}
+      style={{ display: modal.showModal ? 'unset' : 'none' }}
       className="overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center h-modal h-full inset-0"
     >
       <div className="w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
@@ -29,7 +29,7 @@ const SuccessErrorModal = () => {
               <button
                 type="button"
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              onClick={() => hideModal()}
+                onClick={() => hideModal()}
               >
                 <svg
                   className="w-5 h-5"
@@ -38,7 +38,7 @@ const SuccessErrorModal = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fillRule="add"
+                    fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                     clipRule="evenodd"
                   ></path>
@@ -46,13 +46,13 @@ const SuccessErrorModal = () => {
               </button>
             </div>
             <div className="p-3">
-                <div className="mb-4 text-center">{modal.message}</div>
-          </div>
+              <div className="mb-4 text-center">{modal.message}</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default SuccessErrorModal;

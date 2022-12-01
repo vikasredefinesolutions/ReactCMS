@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import ForgotModal from 'appComponents/modals/ForgotModal';
+import LoginModal from 'appComponents/modals/LoginModal';
 import { _Store } from 'constants/store.constant';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
-import ForgotModal from '../../../../modals/ForgotModal';
-import LoginModal from '../../../../modals/LoginModal';
+import React, { useState } from 'react';
 
 const LoginIcon: React.FC = () => {
   const [showModal, setShowModal] = useState<null | _modals>(null);

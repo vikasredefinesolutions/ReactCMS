@@ -1,11 +1,11 @@
+import config from 'api.config';
 import ImageComponent from 'appComponents/reusables/Image';
 import Price from 'appComponents/reusables/Price';
 import Wishlist from 'appComponents/ui/Wishlist';
+import { GetlAllProductList } from 'definations/productList.type';
 import { getCompareLink } from 'helpers/compare.helper';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import config from '../../../../api.config';
-import { GetlAllProductList } from '../../../../definations/productList.type';
 import ProductBoxController from './ProductBox.controller';
 // import Price from '../reusables/Price';
 // import Wishlist from '../ui/Wishlist';
@@ -32,6 +32,7 @@ const ProductComponent = ({
 
   useEffect(() => {
     setCurrentProduct(product.getProductImageOptionList[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
   // console.log(product);
   return (

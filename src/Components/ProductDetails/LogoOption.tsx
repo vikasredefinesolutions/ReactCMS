@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { useActions, useTypedSelector } from 'hooks';
+import React, { useEffect, useState } from 'react';
 
 const dummyLogoImage = 'images/logo-to-be-submitted.webp';
 
@@ -133,6 +133,7 @@ const LogoOption: React.FC<_props> = ({
         });
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logoStatus]);
 
   useEffect(() => {
@@ -141,6 +142,7 @@ const LogoOption: React.FC<_props> = ({
     return () => {
       updatePriceByLogo({ type: 'subtract', price, index });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

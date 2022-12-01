@@ -1,5 +1,5 @@
 export const numberingdiv = (dataArr) => {
-    let strHTML = "";
+    let strHTML = '';
     if(dataArr.length > 0)
     {
       let count = 1;
@@ -21,17 +21,17 @@ export const numberingdiv = (dataArr) => {
 
 export const boximage = (dataArr) => {
    
-    let strHTML = "";
+    let strHTML = '';
     if(dataArr.length > 0)
     {
         dataArr.forEach(function (item) {
             let className;
             if(item.colcount == 2)
-                className = "lg:w-1/2";
+                className = 'lg:w-1/2';
             else if(item.colcount == 3)
-                className = "lg:w-1/3";
+                className = 'lg:w-1/3';
             else   
-                className = "lg:w-1/4";
+                className = 'lg:w-1/4';
             strHTML += '<div class="w-full '+className+' px-3 md:w-1/3 mt-6">';
             strHTML += '<div class="flex justify-center pb-5">';
             strHTML += '<div class="btn-primary rounded-full w-10 h-10 flex justify-center items-center text-base text-white font-semibold">'+item.index+'</div>';
@@ -46,13 +46,13 @@ export const boximage = (dataArr) => {
                 strHTML += '</a>';
                 strHTML += '</div>';
             }
-            if(item.Headline !== undefined && item.Headline !== "")
+            if(item.Headline !== undefined && item.Headline !== '')
             {
                 strHTML += '<div class="text-center bg-white w-full">';
                 strHTML += '<div class="text-base p-4">'+item.Headline+'</div>';
                 strHTML += '</div>';
             }
-            if(item.Button_display != undefined && item.Button_display == "Yes")
+            if(item.Button_display != undefined && item.Button_display == 'Yes')
             {
               
                 strHTML += '<div class="mt-5 mb-5">';
@@ -93,7 +93,7 @@ export const boximage = (dataArr) => {
 
 export const multipleImages = (dataArr) => {
    
-  let strHTML = "";
+  let strHTML = '';
   if(dataArr.length > 0)
   {
       dataArr.forEach(function (item) {
@@ -111,7 +111,7 @@ export const multipleImages = (dataArr) => {
               strHTML += '</a>';
               strHTML += '</div>';
           }
-          if(item.Headline != undefined && item.Headline != "")
+          if(item.Headline != undefined && item.Headline != '')
           {
               strHTML += '<div class="text-center bg-white w-full">';
               strHTML += '<div class="text-base p-4">'+item.Headline+'</div>';

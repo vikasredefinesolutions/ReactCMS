@@ -5,12 +5,12 @@ import {
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _SignUpPayload } from 'definations/APIs/signUp.req';
 import { _AccCreated } from 'definations/APIs/signUp.res';
-import { _signIn } from 'definations/user.type';
+import { _SignIn } from 'definations/user.type';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
 import { SendAsyncV2 } from '../utils/axios.util';
 
-export const signInUser = async (payload: _signIn): Promise<number | null> => {
+export const signInUser = async (payload: _SignIn): Promise<number | null> => {
   const url = `StoreCustomer/customerlogin.json`;
 
   try {

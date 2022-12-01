@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import Image from 'appComponents/reusables/Image';
+import CustomizeLogoSteps from 'Components/CustomizeLogo/CustomizeLogoSteps';
+import LogosToPrint from 'Components/CustomizeLogo/LogosToPrint';
 import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
-import { logoPositions } from '../../mock/startModal.mock';
-import CustomizeLogoSteps from '../../Components/CustomizeLogo/CustomizeLogoSteps';
-import LogosToPrint from 'Components/CustomizeLogo/LogosToPrint';
+import { logoPositions } from 'mock/startModal.mock';
 import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 
 const CustomizeLogo: NextPage = () => {
   const { clearLogoUploadHistory } = useActions();
@@ -29,6 +29,7 @@ const CustomizeLogo: NextPage = () => {
       },
     }));
     clearLogoUploadHistory(logos);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (storeLayout === _Store.type3) {
@@ -73,7 +74,7 @@ const CustomizeLogo: NextPage = () => {
                     sizeQtys.map((sizeQty, index) => {
                       if (index === 0) return <></>;
                       return (
-                        <div className="pb-4 flex items-center">
+                        <div key={index} className="pb-4 flex items-center">
                           <span className="font-bold inline-block w-24"></span>
                           <span>{`: ${sizeQty.size} / ${sizeQty.qty}`}</span>
                         </div>

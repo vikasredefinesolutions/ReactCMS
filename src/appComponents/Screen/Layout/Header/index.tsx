@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
 import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector, useWindowDimensions } from 'hooks';
-import Notification from '../Notification';
+import { __Header } from 'page.config';
+import React, { useEffect, useState } from 'react';
 import LoginIcon from './components/LoginIcon';
 import Logo from './components/Logo';
 import MenuIcon from './components/MenuIcon';
 import MyCartIcon from './components/MyCartIcon';
+import OnePercentLogo from './components/OnePercentLogo';
 import SearchBar from './components/SearchBar';
 import WishListIcon from './components/WishListIcon';
 import MenuItems from './Header/components/Menu/MenuItems';
-import OnePercentLogo from './components/OnePercentLogo';
-import { __Header } from 'page.config';
 
 const Header: React.FC = () => {
   const show = useTypedSelector((state) => state.store.display.header);
@@ -26,6 +25,7 @@ const Header: React.FC = () => {
     const showMobile = mobile ? 'MOBILE' : 'DESKTOP';
     setView(showMobile);
     setMobileView(mobile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
   if (storeLayout === _Store.type1) {

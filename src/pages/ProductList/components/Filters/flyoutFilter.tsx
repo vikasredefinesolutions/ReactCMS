@@ -136,6 +136,7 @@ const FlyOutFilter = ({
 
             {filters.map((filter, index) => (
               <div
+                key={index}
                 className={`py-4${
                   index === 0 ? '' : ' border-t border-neutral-300'
                 }`}
@@ -169,6 +170,7 @@ const FlyOutFilter = ({
                           {option.name || option.colorCode ? (
                             filter.label === 'Color' ? (
                               <li
+                                key={index}
                                 className={`w-8 h-8 border-2 hover:border-secondary p-0.5 ${
                                   checked && 'border-secondary'
                                 }`}
