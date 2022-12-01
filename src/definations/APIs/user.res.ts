@@ -241,15 +241,28 @@ export interface _MyAcc_OrderProductDetails {
   attributeOptionValue: string;
   shoppingCartItemsId: number;
   shoppingCartItemDetailsViewModels: ShoppingCartItemDetailsViewModel[];
+  shoppingCartLogoPersonViewModels: ShoppingCartLogoPersonViewModel[];
+  shoppingCartLinePersonViewModel: any[];
   totalQty: number;
   totalPrice: number;
   txtcode: null;
   seName: null | string;
 }
 
-interface ShoppingCartItemDetailsViewModel {
+export interface ShoppingCartItemDetailsViewModel {
   attributeOptionId: number;
   attributeOptionValue: string;
   qty: number;
   price: number;
+}
+
+export interface ShoppingCartLogoPersonViewModel {
+  logoImagePath: string;
+  logoPrice: number;
+  logoLocation: null;
+  logoName: string;
+  logoPositionImage: string;
+  sku: null;
+  size: null;
+  name: null;
 }

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { paths } from '@constants/paths.constant';
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import LoginModal from 'appComponents/modals/LoginModal';
 import { _Store } from 'constants/store.constant';
 import { _modals, _Reviews } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
-import { paths } from '@constants/paths.constant';
+import React, { useState } from 'react';
 
 interface _Props {
   reviews: _Reviews | null;
@@ -83,7 +83,7 @@ const ProductReviews: React.FC<_Props> = () => {
                 onClick={() => {
                   if (userId) {
                     router.push(
-                      `${paths.WRITE_A_REVIEW}??ProductId=${productId}`,
+                      `${paths.WRITE_A_REVIEW}?ProductId=${productId}`,
                     );
                     return;
                   }
