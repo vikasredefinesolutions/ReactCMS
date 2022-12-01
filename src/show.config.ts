@@ -5,7 +5,8 @@ export type _fileNames =
   | '_app'
   | 'Request-Consultation'
   | 'Compare-Products'
-  | 'home';
+  | 'home'
+  | 'my-order-details';
 
 export const __fileNames: { [key: string]: _fileNames } = {
   productDetails: 'Product-Details',
@@ -13,6 +14,7 @@ export const __fileNames: { [key: string]: _fileNames } = {
   requestConsultation: 'Request-Consultation',
   compareProducts: 'Compare-Products',
   home: 'home',
+  myAccount_myOrderDetails: 'my-order-details',
 };
 
 export const _showConsoles = {
@@ -21,11 +23,13 @@ export const _showConsoles = {
   requestConsultation: false,
   compareProducts: false,
   home: false,
+  myAccount_myOrderDetails: true,
   services: {
     store: true,
     productDetails: true,
     compareProducts: true,
     header: true,
     page: true,
+    user: true,
   },
 };

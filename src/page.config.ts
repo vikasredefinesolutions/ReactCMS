@@ -10,9 +10,9 @@ export const __Header = {
 };
 
 export const __domain = {
-  isSiteLive: true,
+  isSiteLive: false,
   localDomain: _StoreDomains.domain1,
-  layoutToDisplay: _Store.type1,
+  layoutToDisplay: _Store.type3,
 };
 
 export const sliderSettings = {

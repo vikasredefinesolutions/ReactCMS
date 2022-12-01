@@ -42,7 +42,6 @@ const Inventory: React.FC<_props> = ({ productId }) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
-
   if (inventory === null) return <></>;
 
   if (storeLayout === _Store.type3) {

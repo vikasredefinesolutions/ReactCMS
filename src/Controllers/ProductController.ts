@@ -58,7 +58,6 @@ export const FetchProductDetails = async (payload: {
   let productInventoryList: null | _ProductInventoryTransfomed = null;
   let doNotExist: null | _ProductDoNotExistTransformed = null;
   // let productReviews: null;
-  // let productAlikes: null;
 
   try {
     // Request - 1

@@ -20,4 +20,6 @@ export const paths = {
   REQUEST_CONSULTATION: '/itempage/RequestConsultationProof',
   CUSTOMIZE_LOGO: '/customize',
   PRODUCT_COMPARE: '/compare',
+  ORDER: 'orders/index',
+  ORDER_DETAILS: 'Orders/Orderdetails',
 };

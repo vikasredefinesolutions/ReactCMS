@@ -13,7 +13,7 @@ const EyeButton: React.FC<_props> = ({ showPassword, setShowPassword }) => {
       type="button"
     >
       <span
-        className={`material-symbols-outlined text-base mdi-${
+        className={`material-icons-outlined text-lg mdi-${
           showPassword ? 'eye-outline' : 'eye-off-outline'
         }`}
       >

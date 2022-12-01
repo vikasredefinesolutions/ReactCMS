@@ -10,7 +10,7 @@ export interface _UserState {
 
 // Define the initial state using that type
 const initialState: _UserState = {
-  id: 123,
+  id: null,
   customer: {
     firstname: 'Husain',
     lastName: 'Think',
