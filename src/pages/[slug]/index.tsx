@@ -61,3 +61,4 @@ export default function Search(props: any) {
 }
 
 export { getServerSideProps };
+

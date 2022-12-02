@@ -17,7 +17,6 @@ export const getPageType = async (Req: {
       type: 'API',
       show: page.data === null,
     });
-
     return page;
   } catch (error) {
     const page = {

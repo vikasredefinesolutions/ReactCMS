@@ -2,16 +2,19 @@ import { getServerSideProps } from 'Components/Slug/getServerSideProps';
 import Head from 'next/head';
 import Home from 'pages/Home';
 export default function Search(props: any) {
+  console.log(props);
   const { pageType, pageData, slug } = props;
 
   let page = <>Loading ...</>;
   if (pageType && pageData) {
     if (pageType === 'topic') {
-      const props = {
+      
+      const tprops = {
         pageData: pageData,
         pageType: pageType,
         slug: slug,
       };
+      console.log(tprops);  
       page = (
         <>
           <Head>
@@ -23,28 +26,16 @@ export default function Search(props: any) {
             />
             <meta name="keywords" content={pageData?.seKeyWords} />
           </Head>
-          <Home props={props} />
+          <Home props={tprops} />
         </>
       );
     }
 
-    page = (
-      <>
-        <Head>
-          <title>{pageData.seo?.seTitle}</title>
-          <meta
-            name="description"
-            content={pageData.seo?.seDescription}
-            key="desc"
-          />
-          <meta name="keywords" content={pageData.seo?.seKeyWords} />
-        </Head>
-        <Home />
-      </>
-    );
+    
   }
 
   return <>{page}</>;
 }
 
 export { getServerSideProps };
+
