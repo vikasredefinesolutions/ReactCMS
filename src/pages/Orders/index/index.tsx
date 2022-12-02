@@ -71,9 +71,9 @@ const Orders: NextPage = () => {
   return (
     <section className="container mx-auto  bg-gray-100  px-6 py-6 mt-5 mb-5">
       <div className="mx-auto space-y-10 sm:px-4 lg:px-0 pb-2">
-        {orderDetails?.map((order) => {
+        {orderDetails?.map((order, index) => {
           return (
-            <div className="bg-white border-t border-b border-gray-200 sm:border">
+            <div className="bg-white border-t border-b border-gray-200 sm:border" key={`i${index}`}>
               <div className="flex items-center p-4 border-b border-gray-200 sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6 bg-gray-50">
                 <div className="flex-1 grid grid-cols-2 gap-x-6 text-sm sm:col-span-4 sm:grid-cols-4 lg:col-span-2">
                   <div>
@@ -113,8 +113,8 @@ const Orders: NextPage = () => {
                 </div>
               </div>
               <ul role="list" className="divide-y divide-gray-200">
-                {order?.product?.map((prod) => (
-                  <li className="p-4 sm:p-6">
+                {order?.product?.map((prod, index) => (
+                  <li className="p-4 sm:p-6" key={`ji${index}`}>
                     <div className="flex flex-wrap justify-between -mx-3">
                       <div className="px-3">
                         <div className="lg:flex-shrink-0 sm:w-52 sm:h-52 w-full h-auto overflow-hidden rounded-lg text-center">
@@ -139,8 +139,8 @@ const Orders: NextPage = () => {
                           <span className="font-semibold">COLOR : </span>
                           {prod.attributeOptionValue}
                         </div>
-                        {prod.shoppingCartItemDetailsViewModels.map((p) => (
-                          <div className="mt-4 flex flex-wrap justify-between -mx-3">
+                        {prod.shoppingCartItemDetailsViewModels.map((p, index) => (
+                          <div className="mt-4 flex flex-wrap justify-between -mx-3" key={`k${index}`}>
                             <div className="w-full lg:w-1/3 px-3">
                               <div className="font-semibold">SIZE</div>
                               <div className="">{p.attributeOptionValue}</div>

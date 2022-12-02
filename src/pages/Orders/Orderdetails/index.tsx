@@ -153,9 +153,9 @@ const OrderDetails: NextPage = () => {
                 </div>
               </div>
               <ul role="list" className="divide-y divide-gray-200">
-                {order?.product?.map((prod) => {
+                {order?.product?.map((prod, index) => {
                   return (
-                    <li className="p-4 sm:p-6">
+                    <li className="p-4 sm:p-6" key={`i${index}`}>
                       <div className="flex flex-wrap justify-between -mx-3 gap-y-4">
                         <div className="px-3">
                           <div className="lg:flex-shrink-0 sm:w-52 sm:h-52 w-full h-auto overflow-hidden rounded-lg text-center">
@@ -182,8 +182,8 @@ const OrderDetails: NextPage = () => {
                           </div>
                           <div className="border-t border-b border-gray-200 my-4 py-4">
                             {prod.shoppingCartItemDetailsViewModels.map(
-                              (subProd) => (
-                                <div className="flex flex-wrap justify-between -mx-3">
+                              (subProd, index) => (
+                                <div className="flex flex-wrap justify-between -mx-3" key={`j${index}`}>
                                   <div className="w-1/3 px-3">
                                     <div className="font-semibold">SIZE</div>
                                     <div className="">
@@ -223,9 +223,9 @@ const OrderDetails: NextPage = () => {
                           <div className="mt-4 border-t border-gray-200 pt-4">
                             <div className="font-semibold">LOGO</div>
                             {prod.shoppingCartLogoPersonViewModels.map(
-                              (logo) => {
+                              (logo, index) => {
                                 return (
-                                  <div className="w-20 h-20 border flex items-center justify-center">
+                                  <div className="w-20 h-20 border flex items-center justify-center" key={`v${index}`}>
                                     <Image
                                       className="inline-block max-h-full"
                                       src={logo.logoImagePath}
