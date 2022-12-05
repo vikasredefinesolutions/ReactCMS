@@ -51,3 +51,5 @@ const allClass = () => {
     </>
   );
 };
+
+export default allClass;
