@@ -1,6 +1,7 @@
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import ProductDetails from 'Components/ProductDetails';
 import Home from 'pages/Home';
+
 import ProductList from 'pages/ProductList';
 import { getServerSideProps } from '../../Components/Slug/getServerSideProps';
 export default function Search(props: any) {
