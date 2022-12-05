@@ -1,6 +1,6 @@
 import { __domain } from 'page.config';
 import { ParsedUrlQuery } from 'querystring';
-import { conditionalLog, highLightError } from './global.console';
+import { conditionalLog } from './global.console';
 
 export function removeDuplicates(arr: any[]) {
   return arr.filter(
@@ -16,7 +16,7 @@ export function layoutToShow(payload: {
   let layout = __domain.layoutToDisplay;
 
   if (payload.showProd && payload.layout) {
-    layout === payload.layout;
+    layout = payload.layout;
   }
 
   conditionalLog({
@@ -39,11 +39,7 @@ export function domainToShow(payload: {
   if (payload.showProd && payload.domain) {
     domain = payload.domain;
   }
-highLightError({
-      error: payload,
-      component:
-        domain + 'custom',
-    });
+
   conditionalLog({
     show: !payload.domain,
     type: 'FUNCTION',
