@@ -47,6 +47,11 @@ export function domainToShow(payload: {
     error: true,
   });
 
+  highLightError({
+      error: domain+' calling',
+      component:
+        'custom',
+    });
   return domain;
 }
 
