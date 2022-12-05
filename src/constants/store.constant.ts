@@ -1,13 +1,13 @@
 export const _Store = {
   type1: 'cg',
-  type2: 'vercel1.redefinecommerce.net',
+  type2: 'gamedaygear.com',
   type3: 'pk',
   type4: 'drivingi',
 };
 
 export const _StoreDomains = {
-  domain1: 'corporategear',
-  domain2: 'vercel.redefinecommerce.net',
+  domain1: 'vercel.redefinecommerce.net',
+  domain2: 'vercel1.redefinecommerce.net',
   domain3: 'pk',
   domain4: 'drivingi',
 };

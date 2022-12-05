@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     highLightError({
       error: 'No store id found',
       component:
-        domain+'D:AAASNext_RedefineCommerceFrontWebsrcpages[slug]getServerSideProps.ts',
+        'D:AAASNext_RedefineCommerceFrontWebsrcpages[slug]getServerSideProps.ts',
     });
   }
 
