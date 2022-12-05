@@ -6,7 +6,6 @@ const allClass = () => {
     <>
       <div className="absolute top-1/2 -translate-y-1/2 left-4 z-10 flex items-center">
                   <button
-                    onClick={clickHandler}
                     className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
                   >
                     <svg
@@ -25,7 +24,6 @@ const allClass = () => {
               
               <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10 flex items-center">
                   <button
-                    onClick={clickHandler}
                     className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
                   >
                     <svg
