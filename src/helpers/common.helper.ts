@@ -36,9 +36,9 @@ export function domainToShow(payload: {
 }): string {
   let domain = __domain.localDomain;
 
-  if (payload.showProd && payload.domain) {
+  //if (payload.showProd && payload.domain) {
     domain === payload.domain;
-  }
+ // }
   conditionalLog({
     show: !payload.domain,
     type: 'FUNCTION',
@@ -47,11 +47,7 @@ export function domainToShow(payload: {
     error: true,
   });
 
-  highLightError({
-      error: domain+' calling',
-      component:
-        'custom',
-    });
+  
   return domain;
 }
 
