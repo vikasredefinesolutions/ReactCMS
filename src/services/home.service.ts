@@ -85,7 +85,7 @@ export const GetStoreID = async (
 
     return res.data;
   } catch (error) {
-    console.log(domain);
+    
     conditionalLog({
       data: error,
       type: 'API',
