@@ -9,6 +9,7 @@ export const getPageType = async (Req: {
   const url = 'https://www.redefinecommerce.net/API/api/front/get-page-type';
 
   try {
+    console.log(url, Req);
     const page = await axios.post(url, Req);
 
     conditionalLog({
