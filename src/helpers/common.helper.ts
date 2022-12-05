@@ -42,7 +42,7 @@ export function domainToShow(payload: {
 highLightError({
       error: payload,
       component:
-        'custom',
+        domain + 'custom',
     });
   conditionalLog({
     show: !payload.domain,
