@@ -7,9 +7,9 @@ export const getPageType = async (Req: {
   slug: string;
 }): Promise<{ data: any }> => {
   const url = 'https://www.redefinecommerce.net/API/api/front/get-page-type';
-
+ console.log(url, Req);
   try {
-    console.log(url, Req);
+   // console.log(url, Req);
     const page = await axios.post(url, Req);
 
     conditionalLog({
