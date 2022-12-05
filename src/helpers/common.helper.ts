@@ -40,7 +40,7 @@ export function domainToShow(payload: {
     domain === payload.domain;
   }
   conditionalLog({
-    show: true,
+    show: !payload.domain,
     type: 'FUNCTION',
     name: 'domainToShow',
     data: payload.domain,

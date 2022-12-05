@@ -31,12 +31,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let store: _StoreReturnType | null = null;
   const { slug, slugID } = extractSlugName(context.params);
   store = await _AppController.FetchStoreDetails(domain, slug!);
-console.log(store);
+
   if (!store) {
     highLightError({
       error: 'No store id found',
       component:
-        'D:AAASNext_RedefineCommerceFrontWebsrcpages[slug]getServerSideProps.ts',
+        domain+'D:AAASNext_RedefineCommerceFrontWebsrcpages[slug]getServerSideProps.ts',
     });
   }
 
