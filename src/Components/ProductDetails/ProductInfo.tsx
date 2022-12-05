@@ -407,12 +407,23 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           </div>
         </div>
         <div className="">
-          
+          {userId ? (
             <AddToCart
               title="ADD TO CART"
               className="btn btn-lg btn-secondary w-full text-center !font-normal"
             />
-         
+          ) : (
+            <button
+              type="button"
+              className="btn btn-lg btn-secondary w-full text-center !font-normal"
+              disabled={product.isDiscontinue}
+              data-modal-toggle="LoginModal"
+            >
+              {product.isDiscontinue
+                ? 'Discontinued'
+                : 'CHECK INVENTORY AND YOUR PRICING'}
+            </button>
+          )}
         </div>
       </div>
     );

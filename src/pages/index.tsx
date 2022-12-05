@@ -2,7 +2,7 @@ import { getServerSideProps } from 'Components/Slug/getServerSideProps';
 import Head from 'next/head';
 import Home from 'pages/Home';
 export default function Search(props: any) {
-  //console.log(props);
+  console.log(props);
   const { pageType, pageData, slug } = props;
 
   let page = <>Loading ...</>;
@@ -14,7 +14,7 @@ export default function Search(props: any) {
         pageType: pageType,
         slug: slug,
       };
-//      console.log(tprops);  
+      console.log(tprops);  
       page = (
         <>
           <Head>

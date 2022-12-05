@@ -155,7 +155,7 @@ const OrderDetails: NextPage = () => {
               <ul role="list" className="divide-y divide-gray-200">
                 {order?.product?.map((prod, index) => {
                   return (
-                    <li className="p-4 sm:p-6" key={`i${index}`}>
+                    <li className="p-4 sm:p-6" key={`prod{index}`}>
                       <div className="flex flex-wrap justify-between -mx-3 gap-y-4">
                         <div className="px-3">
                           <div className="lg:flex-shrink-0 sm:w-52 sm:h-52 w-full h-auto overflow-hidden rounded-lg text-center">
@@ -183,7 +183,7 @@ const OrderDetails: NextPage = () => {
                           <div className="border-t border-b border-gray-200 my-4 py-4">
                             {prod.shoppingCartItemDetailsViewModels.map(
                               (subProd, index) => (
-                                <div className="flex flex-wrap justify-between -mx-3" key={`j${index}`}>
+                                <div className="flex flex-wrap justify-between -mx-3" key={`subProd{index}`}>
                                   <div className="w-1/3 px-3">
                                     <div className="font-semibold">SIZE</div>
                                     <div className="">
@@ -225,7 +225,7 @@ const OrderDetails: NextPage = () => {
                             {prod.shoppingCartLogoPersonViewModels.map(
                               (logo, index) => {
                                 return (
-                                  <div className="w-20 h-20 border flex items-center justify-center" key={`v${index}`}>
+                                  <div className="w-20 h-20 border flex items-center justify-center" key={`logo{index}`}>
                                     <Image
                                       className="inline-block max-h-full"
                                       src={logo.logoImagePath}
