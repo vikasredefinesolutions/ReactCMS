@@ -39,6 +39,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         'D:AAASNext_RedefineCommerceFrontWebsrcpages[slug]getServerSideProps.ts',
     });
   }
+  else
+  {
+    highLightError({
+      error: domain+'No store id found',
+      component:
+        'not error',
+    });
+  }
 
   const { data }: any = await getPageType({
     store_id: store?.storeId || 0,
