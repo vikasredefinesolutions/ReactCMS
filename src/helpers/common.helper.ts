@@ -1,6 +1,7 @@
 import { __domain } from 'page.config';
 import { ParsedUrlQuery } from 'querystring';
 import { conditionalLog } from './global.console';
+import { conditionalLog, highLightError } from 'helpers/global.console';
 
 export function removeDuplicates(arr: any[]) {
   return arr.filter(
