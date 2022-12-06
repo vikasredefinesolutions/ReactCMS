@@ -59,7 +59,7 @@ const allClass = () => {
                         class="zoomImg"
                         style="position: absolute; top: -644.341px; left: -91.3086px; opacity: 0; width: 1260px; height: 1726px; border: medium none; max-width: none; max-height: none;" />
                 </div>
-                <div class="sub-image absolute left-2 top-4 w-20">
+                <div class="sub-image md:absolute md:left-2 md:top-4 md:w-20 md:block">
                     <div class="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-secondary"
                         ><img
                             src="http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/images/1040623_25528_STH.jpg" alt="" class="w-full object-center object-cover" />
