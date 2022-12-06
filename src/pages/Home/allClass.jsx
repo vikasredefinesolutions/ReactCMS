@@ -48,38 +48,33 @@ const allClass = () => {
                           ></iframe>
                           <div className="container mx-auto mt-6">
     <div className="lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start">
-        <div className="col-span-1 grid grid-cols-12 gap-6" x-data="Components.tabs()" @tab-click.window="onTabClick"
-            @tab-keydown.window="onTabKeydown">
-            <div className="col-span-12 border border-slate-200 relative"
-                x-data="{imageUrl: 'images/1040623_25528_STH_large.jpg', test:'1'}">
+        <div className="col-span-1 grid grid-cols-12 gap-6">
+            <div className="col-span-12 border border-slate-200 relative">
                 <div className="main-image max-w-lg mx-auto" style="position: relative; overflow: hidden;"><img
-                        src="images/1040623_25528_STH_large.jpg" :src="imageUrl" alt=""
-                        className="w-full object-center object-cover sm:rounded-lg main_image"><img role="presentation"
+                        src="images/1040623_25528_STH_large.jpg" alt=""
+                        className="w-full object-center object-cover sm:rounded-lg main_image" />
+                        <img role="presentation"
                         alt=""
                         src="http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/images/1040623_25528_STH_large.jpg"
                         className="zoomImg"
-                        style="position: absolute; top: -644.341px; left: -91.3086px; opacity: 0; width: 1260px; height: 1726px; border: medium none; max-width: none; max-height: none;">
+                        style="position: absolute; top: -644.341px; left: -91.3086px; opacity: 0; width: 1260px; height: 1726px; border: medium none; max-width: none; max-height: none;" />
                 </div>
                 <div className="sub-image absolute left-2 top-4 w-20">
                     <div className="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-secondary"
-                        :className="test == 1 ? 'border-secondary' : 'border-slate-200'"
-                        @click="test = 1 ,imageUrl = 'images/1040623_25528_STH_large.jpg' , custom()"><img
-                            src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover"></div>
+                        ><img
+                            src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
+                            </div>
                     <div className="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-slate-200"
-                        :className="test == 2 ? 'border-secondary' : 'border-slate-200'"
-                        @click="test = 2 ,imageUrl = 'images/1040623_25528_sth_1_large.jpg' , custom()"><img
-                            src="images/1040623_25528_sth_1.jpg" alt="" className="w-full object-center object-cover"></div>
+                        ><img
+                            src="images/1040623_25528_sth_1.jpg" alt="" className="w-full object-center object-cover" /></div>
                     <div className="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-slate-200"
-                        :className="test == 3 ? 'border-secondary' : 'border-slate-200'"
-                        @click="test = 3 ,imageUrl = 'images/1040623_25528_sth_2_large.jpg' , custom()"><img
-                            src="images/1040623_25528_sth_2.jpg" alt="" className="w-full object-center object-cover"></div>
-                    <div className="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-slate-200"
-                        :className="test == 4 ? 'border-secondary' : 'border-slate-200'"
-                        @click="test = 4 ,imageUrl = 'images/1040623_25528_sth_3_large.jpg' , custom()"><img
-                            src="images/1040623_25528_sth_3.jpg" alt="" className="w-full object-center object-cover"></div>
+                        ><img
+                            src="images/1040623_25528_sth_2.jpg" alt="" className="w-full object-center object-cover" /></div>
+                    <div className="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-slate-200"><img
+                            src="images/1040623_25528_sth_3.jpg" alt="" className="w-full object-center object-cover" /></div>
                 </div>
                 <div className="absolute right-2 top-4 w-6 h-6"><img src="images/outline_favorite_border_black_24dp.png"
-                        title="" alt=""></div>
+                        title="" alt="" /></div>
             </div>
         </div>
         <div className="col-span-1 mt-4 md:mt-10 px-2 md:px-4 sm:px-0 sm:mt-16 lg:mt-0">
@@ -102,73 +97,73 @@ const allClass = () => {
                 <div className="flex flex-wrap gap-5 text-sm text-center px-2 available-colors">
                     <div className="w-20">
                         <div className="border-2 border-secondary hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Stonewash</div>
                     </div>
                     <div className="w-20">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Black</div>
                     </div>
                     <div className="w-20">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">New Navy</div>
                     </div>
                     <div className="w-20">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Pale Khaki</div>
                     </div>
                     <div className="w-20">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Nickel w/Forge Grey</div>
                     </div>
                     <div className="w-20">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Nickel</div>
                     </div>
                     <div className="w-20 sr-only">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Stonewash</div>
                     </div>
                     <div className="w-20 sr-only">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Black</div>
                     </div>
                     <div className="w-20 sr-only">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">New Navy</div>
                     </div>
                     <div className="w-20 sr-only">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Pale Khaki</div>
                     </div>
                     <div className="w-20 sr-only">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Nickel w/Forge Grey</div>
                     </div>
                     <div className="w-20 sr-only">
                         <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0"><img
-                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover">
+                                src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                         </div>
                         <div className="">Nickel</div>
                     </div>
@@ -232,7 +227,7 @@ const allClass = () => {
                 </div>
             </div>
             <div className="text-xs p-3 pb-0" style="display: none;" id="divMinorder">We reserve the right to reject orders
-                that do not meet the 12 piece minimum per style<br>and color, exceptions may apply for men’s and women’s
+                that do not meet the 12 piece minimum per style<br />and color, exceptions may apply for men’s and women’s
                 companion styles per color.</div>
             <div className="m-3"><button type="button" className="text-indigo-500 text-sm font-semibold underline"
                     data-modal-toggle="availableinventoryModal">Check Available Inventory</button></div>
@@ -251,10 +246,7 @@ const allClass = () => {
                 <h3 className="sr-only">Reviews</h3>
                 <div className="flex items-center">
                     <div className="flex items-center"><svg className="h-5 w-5 flex-shrink-0 text-indigo-500"
-                            x-state:on="Active" x-state:off="Inactive"
-                            x-state-description="Active: &quot;text-indigo-500&quot;, Inactive: &quot;text-gray-300&quot;"
-                            x-description="Heroicon name: solid/star" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                           >
                             <path
                                 d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
                             </path>
