@@ -48,7 +48,7 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${5}/css/${5}.css`}
+            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${store?.storeId}/css/${store?.storeId}.css`}
           />
         </Head>
         <body className="font-Outfit bg-white">
