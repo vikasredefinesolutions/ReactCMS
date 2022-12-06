@@ -6,6 +6,7 @@ import React from 'react';
 
 interface _props {
   screen: 'DESKTOP' | 'MOBILE';
+  headerdata: null;
 }
 
 const CompanyLogo: React.FC<_props> = ({ screen, headerdata }) => {
