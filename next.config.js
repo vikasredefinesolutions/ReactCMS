@@ -15,7 +15,7 @@ module.exports = {
     return [
       {
         // matching all API routes
-        source: "https://redefine-front-staging.azurewebsites.net/:path*",
+        source: "/(.*)",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
           { key: "Access-Control-Allow-Origin", value: "*" },
