@@ -38,6 +38,7 @@ export function domainToShow(payload: {
 
   if (payload.showProd && payload.domain) {
     domain = payload.domain;
+  
   }
 
   conditionalLog({
