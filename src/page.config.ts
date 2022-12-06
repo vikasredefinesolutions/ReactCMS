@@ -10,7 +10,7 @@ export const __Header = {
 };
 
 export const __domain = {
-  isSiteLive: false,
+  isSiteLive: true,
   localDomain: _StoreDomains.domain1,
   layoutToDisplay: _Store.type2,
 };

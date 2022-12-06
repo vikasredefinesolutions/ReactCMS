@@ -7,7 +7,7 @@ export const _Store = {
 
 export const _StoreDomains = {
   domain1: 'vercel.redefinecommerce.net',
-  domain2: 'gamedaygear.com',
+  domain2: 'vercel1.redefinecommerce.net',
   domain3: 'pk',
   domain4: 'drivingi',
 };
