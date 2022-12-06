@@ -24,7 +24,9 @@ export interface _RedesignStore {
   brands: _Brands[] | null;
   isAttributeSaparateProduct: boolean;
   cartCharges: null | CartCharges;
-  configs: null | _TransformedThemeConfig;
+  configs: {
+    header: _TransformedThemeConfig | null;
+  };
 }
 
 // Define the initial state using that type
@@ -43,7 +45,9 @@ const initialState: _RedesignStore = {
   menuItems: null,
   brands: null,
   cartCharges: null,
-  configs: null,
+  configs: {
+    header: null,
+  }
 };
 
 export const storeSlice = createSlice({
@@ -57,7 +61,9 @@ export const storeSlice = createSlice({
           store: _StoreReturnType;
           menuItems: _StoreMenu[] | null;
           brands: _Brands[] | null;
-          configs: _TransformedThemeConfig | null;
+          configs: {
+              header: _TransformedThemeConfig | null;
+            };
         };
       },
     ) => {
