@@ -37,7 +37,7 @@ export function domainToShow(payload: {
   let domain = __domain.localDomain;
 
   if (payload.showProd && payload.domain) {
-    domain = payload.domain;
+  //  domain = payload.domain;
   }
 
   conditionalLog({
