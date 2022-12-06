@@ -3,7 +3,7 @@ import { FetchOrderDetails } from '@services/user.service';
 import { ShoppingCartItemDetailsViewModel } from '@type/APIs/cart.res';
 import {
   _MyAcc_OrderBillingDetails,
-  _MyAcc_OrderProductDetails,
+  _MyAcc_OrderProductDetails
 } from '@type/APIs/user.res';
 import Image from 'appComponents/reusables/Image';
 import Price from 'appComponents/reusables/Price';
@@ -153,9 +153,9 @@ const OrderDetails: NextPage = () => {
                 </div>
               </div>
               <ul role="list" className="divide-y divide-gray-200">
-                {order?.product?.map((prod, index) => {
+                {order?.product?.map((prod) => {
                   return (
-                    <li className="p-4 sm:p-6" key={`prod{index}`}>
+                    <li key={prod.productName} className="p-4 sm:p-6">
                       <div className="flex flex-wrap justify-between -mx-3 gap-y-4">
                         <div className="px-3">
                           <div className="lg:flex-shrink-0 sm:w-52 sm:h-52 w-full h-auto overflow-hidden rounded-lg text-center">
@@ -182,8 +182,8 @@ const OrderDetails: NextPage = () => {
                           </div>
                           <div className="border-t border-b border-gray-200 my-4 py-4">
                             {prod.shoppingCartItemDetailsViewModels.map(
-                              (subProd, index) => (
-                                <div className="flex flex-wrap justify-between -mx-3" key={`subProd{index}`}>
+                              (subProd) => (
+                                <div key={subProd.attributeOptionId} className="flex flex-wrap justify-between -mx-3">
                                   <div className="w-1/3 px-3">
                                     <div className="font-semibold">SIZE</div>
                                     <div className="">
@@ -225,7 +225,7 @@ const OrderDetails: NextPage = () => {
                             {prod.shoppingCartLogoPersonViewModels.map(
                               (logo, index) => {
                                 return (
-                                  <div className="w-20 h-20 border flex items-center justify-center" key={`logo{index}`}>
+                                  <div key={index} className="w-20 h-20 border flex items-center justify-center">
                                     <Image
                                       className="inline-block max-h-full"
                                       src={logo.logoImagePath}

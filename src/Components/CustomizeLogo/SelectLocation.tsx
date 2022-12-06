@@ -64,11 +64,10 @@ const SelectLocation: React.FC<_props> = ({ setNextStep }) => {
                 }}
               >
                 <div
-                  className={`border-2 ${
-                    selectedLocation?.value === pos.value
+                  className={`border-2 ${selectedLocation?.value === pos.value
                       ? 'border-primary'
                       : 'border-gray-200'
-                  } hover:border-primary p-3 w-full text-ceter`}
+                    } hover:border-primary p-3 w-full text-ceter`}
                 >
                   <div className="">
                     <img

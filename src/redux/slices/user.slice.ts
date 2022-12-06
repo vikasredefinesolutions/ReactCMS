@@ -77,11 +77,11 @@ export const userSlice = createSlice({
   name: 'userDetails',
   initialState,
   reducers: {
-    updateUserDetails: (
+    logInUser: (
       state,
       action: {
         payload: {
-          id: number;
+          id: number | null;
         };
       },
     ) => {

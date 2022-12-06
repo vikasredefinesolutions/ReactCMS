@@ -5,6 +5,12 @@ export interface ShoppingCartItemDetailsViewModel {
   price: number;
 }
 
+export interface ShoppingCartLogoPersonViewModel {
+  logoImagePath: string;
+  logoPrice: number;
+  location: string;
+}
+
 export interface CartResponse {
   colorImage: string;
   productName: string;
@@ -13,8 +19,13 @@ export interface CartResponse {
   attributeOptionValue: string;
   shoppingCartItemsId: number;
   shoppingCartItemDetailsViewModels: ShoppingCartItemDetailsViewModel[];
+  shoppingCartLogoPersonViewModels: ShoppingCartLogoPersonViewModel[];
   totalQty: number;
   totalPrice: number;
   txtcode?: any;
   seName: string;
+  cartLinePersonModels?: any[];
+  shoppingcartLinePersonModels: any[];
 }
+
+export type CartProducts = CartResponse[];

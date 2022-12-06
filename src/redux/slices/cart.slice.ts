@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { CartProducts } from '@type/APIs/cart.res';
 import { fetchCartDetails } from '../asyncActions/cart.async';
 
 export interface CartSliceType {
-  cart: Array<string>;
+  cart: CartProducts;
 }
 
 const initialState: CartSliceType = {

@@ -59,6 +59,7 @@ export type AddToCartModel = {
   shoppingCartItemModel: ShoppingCartItemModel;
   shoppingCartItemsDetailModels: ShoppingCartItemsDetailModel[];
   cartLogoPersonModel: CartLogoPersonModel[];
+  cartLinePersonModels: any[];
 };
 
 export type CartReq = {

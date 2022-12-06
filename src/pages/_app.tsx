@@ -2,7 +2,11 @@ import SuccessErrorModal from 'appComponents/modals/successErrorModal';
 import Screen from 'appComponents/Screen';
 import Spinner from 'appComponents/ui/spinner';
 import * as _AppController from 'Controllers/_AppController';
-import { _Brands, _StoreMenu } from 'definations/APIs/header.res';
+import {
+  _Brands,
+  _StoreMenu,
+  _TransformedThemeConfig
+} from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
 import { domainToShow } from 'helpers/common.helper';
 import { conditionalLog, highLightError } from 'helpers/global.console';
@@ -12,6 +16,7 @@ import { useRouter } from 'next/router';
 import { __domain } from 'page.config';
 import { useEffect, useState } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
+import { FetchThemeConfigs } from 'services/page.service';
 import { _showConsoles, __fileNames } from 'show.config';
 import { _Expected_AppProps } from 'show.type';
 import '../../styles/output.css';
@@ -21,6 +26,9 @@ type AppOwnProps = {
   store: _StoreReturnType | null;
   menuItems: _StoreMenu[] | null;
   brands: _Brands[] | null;
+  configs: {
+    header: _TransformedThemeConfig | null;
+  };
 };
 
 export function RedefineCustomApp({
@@ -29,6 +37,7 @@ export function RedefineCustomApp({
   store,
   menuItems,
   brands,
+  configs
 }: AppProps & AppOwnProps) {
   const { store_storeDetails } = useActions();
   const router = useRouter();
@@ -58,6 +67,7 @@ export function RedefineCustomApp({
       store: store,
       menuItems: menuItems,
       brands: brands,
+      configs: configs,
     });
   }
 
@@ -94,6 +104,9 @@ RedefineCustomApp.getInitialProps = async (
     store: null,
     menuItems: null,
     brands: null,
+    configs: {
+      header: null,
+    },
   };
 
   try {
@@ -106,6 +119,10 @@ RedefineCustomApp.getInitialProps = async (
       expectedProps.brands = await _AppController.FetchBrands(
         expectedProps.store?.storeId,
       );
+      expectedProps.configs.header = await FetchThemeConfigs({
+        store_id: expectedProps.store?.storeId,
+        config_name: 'header_config',
+      });
     }
     // expectedProps.menuItems = await _AppController.FetchMenuItems(2);
   } catch (error) {
@@ -123,6 +140,7 @@ RedefineCustomApp.getInitialProps = async (
     store: expectedProps.store,
     menuItems: expectedProps.menuItems,
     brands: expectedProps.brands,
+    configs: expectedProps.configs,
   };
 };
 

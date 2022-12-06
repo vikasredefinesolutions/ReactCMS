@@ -1,5 +1,5 @@
+import { ProductListPageData } from '@type/slug.type';
 import SeoHead from 'appComponents/Screen/Layout/Head';
-import ProductDetails from 'Components/ProductDetails';
 import Home from 'pages/Home';
 import ProductList from 'pages/ProductList';
 import { getServerSideProps } from '../../Components/Slug/getServerSideProps';
@@ -18,7 +18,19 @@ export default function Search(props: any) {
     if (pageType === 'collection') {
       page = <>Collection</>;
     } else if (pageType === 'product') {
-      page = <ProductDetails product={pageData} />;
+      const { seo } = pageData as ProductListPageData;
+      page = (
+        <>
+          {seo && (
+            <SeoHead
+              title={seo?.seTitle}
+              description={seo?.seDescription}
+              keywords={seo?.seKeyWords}
+            />
+          )}
+          <ProductList pageData={pageData} slug={slug} />
+        </>
+      )
     } else if (pageType === 'topic') {
       page = (
         <>

@@ -1,3 +1,4 @@
+import { paths } from '@constants/paths.constant';
 import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { _ProductBySku } from '@type/APIs/productDetail.res';
@@ -120,7 +121,7 @@ const ProductCompare: NextPage<_props> = ({ products }) => {
           </table>
         </div>
         <div className="text-center mt-4">
-          <Link href={'/product-listing'} className="btn btn-primary">
+          <Link href={paths.PRODUCT_LISTING} className="btn btn-primary">
             SEND LINK
           </Link>
         </div>

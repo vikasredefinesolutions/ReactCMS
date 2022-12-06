@@ -47,7 +47,7 @@ const CheckoutController = () => {
 
   const customer = useTypedSelector((state) => state.user.customer);
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   const [showEmail, setShowEmail] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showForgetPassword, setShowForgetPassword] = useState(false);
@@ -87,6 +87,11 @@ const CheckoutController = () => {
   useEffect(() => {
     if (isLoggedIn && address.length > 0) {
       setShippingAdress(address[0]);
+    }
+
+    if (isLoggedIn) {
+      setShowEmail(false);
+      setShowShippingScreen(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, address]);

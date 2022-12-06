@@ -7,6 +7,53 @@ import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 
 // Define a type for the slice state
+interface toCheckout {
+  minQtyCheck: boolean;
+  minQty: number;
+  totalQty: number;
+  price: number;
+  totalPrice: number;
+  currency: string;
+  additionalLogoCharge: number;
+  availableOptions:
+    | { value: string; label: string; logo: { url: string } }[]
+    | null;
+  allowNextLogo: boolean;
+  logo: {
+    price: Array<number | 'FREE'> | null;
+  };
+  sizeQtys:
+    | {
+        size: string;
+        qty: number;
+        price: number;
+        color?: string;
+      }[]
+    | null;
+  logos:
+    | {
+        no: number;
+        logo: {
+          url: string;
+          name: string;
+        };
+        location: {
+          label: string;
+          value: string;
+        };
+      }[]
+    | null;
+  lines:
+    | {
+        line1: string;
+        line2: string;
+        color: string;
+        font: string;
+        price: number;
+      }[]
+    | null;
+}
+
 interface _ProductStore {
   selected: {
     productId: number;
@@ -37,43 +84,7 @@ interface _ProductStore {
       url: string | null;
     } | null;
   };
-  toCheckout: {
-    minQtyCheck: boolean;
-    minQty: number;
-    totalQty: number;
-    price: number;
-    totalPrice: number;
-    currency: string;
-    additionalLogoCharge: number;
-    availableOptions:
-      | { value: string; label: string; logo: { url: string } }[]
-      | null;
-    allowNextLogo: boolean;
-    logo: {
-      price: Array<number | 'FREE'> | null;
-    };
-    sizeQtys:
-      | {
-          size: string;
-          qty: number;
-          price: number;
-          color?: string;
-        }[]
-      | null;
-    logos:
-      | {
-          no: number;
-          logo: {
-            url: string;
-            name: string;
-          };
-          location: {
-            label: string;
-            value: string;
-          };
-        }[]
-      | null;
-  };
+  toCheckout: toCheckout;
 }
 
 // Define the initial state using that type
@@ -117,8 +128,8 @@ const initialState: _ProductStore = {
     name: null,
   },
   toCheckout: {
-    minQty: 0,
-    minQtyCheck: false,
+    minQty: 2,
+    minQtyCheck: true,
     totalQty: 0,
     price: 0,
     availableOptions: null,
@@ -129,6 +140,7 @@ const initialState: _ProductStore = {
     allowNextLogo: false,
     logo: { price: null },
     logos: null,
+    lines: null,
   },
 };
 
@@ -258,6 +270,7 @@ export const productSlice = createSlice({
         additionalLogoCharge: 0,
         allowNextLogo: false,
         logo: { price: null },
+        lines: null,
       };
     },
 
@@ -625,6 +638,16 @@ export const productSlice = createSlice({
       },
     ) => {
       state.product.colors = action.payload.colors;
+    },
+    updateOnEditCart: (
+      state,
+      action: {
+        payload: {
+          toCheckout: toCheckout;
+        };
+      },
+    ) => {
+      state.toCheckout = action.payload.toCheckout;
     },
   },
 });

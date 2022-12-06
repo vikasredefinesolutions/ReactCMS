@@ -66,3 +66,22 @@ export interface Template {
   title: string;
   image_src: null;
 }
+
+export type _Configs = 'header_config';
+
+export interface _ThemeConfigRes {
+  id: number;
+  store_id: number;
+  config_name: string;
+  config_value: string;
+  status: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface _TransformedThemeConfig {
+  id: number;
+  store_id: number;
+  config_name: string;
+  config_value: { [key: string]: string };
+}

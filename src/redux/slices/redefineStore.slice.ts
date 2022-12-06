@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { _SeName } from 'constants/store.constant';
-import { _Brands, _StoreMenu } from 'definations/APIs/header.res';
+import { _Brands, _StoreMenu, _TransformedThemeConfig } from 'definations/APIs/header.res';
 import { PageResponseType, _Show } from 'definations/app.type';
-import { _StoreReturnType } from 'definations/store.type';
+import { CartCharges, _StoreReturnType } from 'definations/store.type';
 import { layoutToShow } from 'helpers/common.helper';
 import { showComponents } from 'mock/store.mock';
 import { __domain } from 'page.config';
@@ -23,6 +23,8 @@ export interface _RedesignStore {
   menuItems: _StoreMenu[] | null;
   brands: _Brands[] | null;
   isAttributeSaparateProduct: boolean;
+  cartCharges: null | CartCharges;
+  configs: null | _TransformedThemeConfig;
 }
 
 // Define the initial state using that type
@@ -40,6 +42,8 @@ const initialState: _RedesignStore = {
   view: 'DESKTOP',
   menuItems: null,
   brands: null,
+  cartCharges: null,
+  configs: null,
 };
 
 export const storeSlice = createSlice({
@@ -53,11 +57,11 @@ export const storeSlice = createSlice({
           store: _StoreReturnType;
           menuItems: _StoreMenu[] | null;
           brands: _Brands[] | null;
+          configs: _TransformedThemeConfig | null;
         };
       },
     ) => {
       const store = action.payload.store;
-
       state.id = store.storeId;
       state.layout = store.layout;
       state.pathName = store.pathName;
@@ -68,8 +72,10 @@ export const storeSlice = createSlice({
         layout: action.payload.store.code,
         showProd: __domain.isSiteLive,
       });
+      state.cartCharges = store.cartCharges;
       // state.pageType = store.pageType;
       state.menuItems = action.payload.menuItems;
+      state.configs = action.payload.configs;
     },
 
     setView: (

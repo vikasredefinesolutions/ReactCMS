@@ -89,7 +89,7 @@ export const conditionalLog = ({
   if (hideAllConsoles) return;
 
   if (show) {
-    if (type === 'API' || type === 'FUNCTION') {
+    if (type === 'API') {
       const errType = error ? 'API Failed' : 'No Data Found';
       const message = `${errType} : ${name}`;
       highLightError({ error: data, component: message });

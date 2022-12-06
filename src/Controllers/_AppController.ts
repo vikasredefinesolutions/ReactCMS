@@ -31,6 +31,7 @@ export const FetchStoreDetails = async (
     pathName: '',
     code: '',
     isAttributeSaparateProduct: false,
+    cartCharges: null,
   };
   try {
     const res = await HomeService.GetStoreID(domain);
@@ -41,6 +42,13 @@ export const FetchStoreDetails = async (
       store.pathName = pathName;
       store.code = res.code;
       store.isAttributeSaparateProduct = res.isAttributeSaparateProduct;
+      store.cartCharges = {
+        isSmallRun: res.isSmallRun,
+        smallRunLimit: res.smallRunLimit,
+        smallRunFeesCharges: res.smallRunFeesCharges,
+        isLogoSetupCharges: res.isLogoSetupCharges,
+        logoSetupCharges: res.logoSetupCharges,
+      };
       return store;
     }
     conditionalLog({

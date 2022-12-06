@@ -7,6 +7,7 @@ export const fetchCartDetails = createAsyncThunk(
   async (customerId: number) => {
     try {
       const cart = await fetchCart(customerId);
+      console.log(cart);
       return cart;
     } catch (error) {
       throw new Error('No Details found!!!');
@@ -14,12 +15,11 @@ export const fetchCartDetails = createAsyncThunk(
   },
 );
 
-export const AddToCart = 
-  async (payload: CartReq) => {
-    try {
-      const cart = await addToCart(payload);
-      return cart;
-    } catch (error) {
-      throw new Error('Try Again!!!');
-    }
-  };
+export const AddToCart = async (payload: CartReq) => {
+  try {
+    const cart = await addToCart(payload);
+    return cart;
+  } catch (error) {
+    throw new Error('Try Again!!!');
+  }
+};

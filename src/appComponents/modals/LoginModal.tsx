@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { __length, __messages } from '@constants/form.config';
+import { _LocalStorage } from '@constants/global.constant';
 import { paths, queryParam } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
 import { _modals } from 'definations/product.type';
@@ -28,7 +29,7 @@ const validationSchema = Yup.object().shape({
 
 const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
   const router = useRouter();
-  const { updateUserDetails, setShowLoader } = useActions();
+  const { logInUser, setShowLoader } = useActions();
   const [showErroMsg, setErrorMsg] = useState<null | string>(null);
 
   const { layout: storeLayout, id: storeId } = useTypedSelector(
@@ -44,7 +45,8 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
     signInUser({ ...enteredInputs, storeId: storeId! })
       .then((userId) => {
         modalHandler(null);
-        updateUserDetails({
+        localStorage.setItem(_LocalStorage.userId, `${userId}`);
+        logInUser({
           id: userId!,
         });
       })

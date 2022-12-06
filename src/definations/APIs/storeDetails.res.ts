@@ -33,6 +33,11 @@ export interface _StoreDetails {
   location: string;
   ipAddress: string;
   macAddress: string;
+  isSmallRun: boolean;
+  smallRunLimit: number;
+  smallRunFeesCharges: number;
+  isLogoSetupCharges: boolean;
+  logoSetupCharges: number;
 }
 
 export interface StoreType {

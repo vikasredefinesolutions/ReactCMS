@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   _FeaturedProduct,
-  _StoreDetails
+  _StoreDetails,
 } from 'definations/APIs/storeDetails.res';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
@@ -67,7 +67,6 @@ export const GetStoreID = async (
   const url = `Store/getstorebydomain.json`;
 
   try {
-    
     const res = await SendAsyncV2<_StoreDetails>({
       url: url,
       method: 'POST',
@@ -82,10 +81,8 @@ export const GetStoreID = async (
       type: 'API',
       show: res.data === null,
     });
-
     return res.data;
   } catch (error) {
-    
     conditionalLog({
       data: error,
       type: 'API',

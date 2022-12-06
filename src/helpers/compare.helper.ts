@@ -1,3 +1,5 @@
+import { paths } from '@constants/paths.constant';
+
 export const AddRemoveToCompare = (sku: string) => {
   if (localStorage) {
     const skuList = getSkuList();
@@ -26,7 +28,7 @@ export const checkCompare = (sku: string) => {
 export const getCompareLink = () => {
   if (localStorage) {
     const skuList = getSkuList();
-    return `/itempage/Productcomapre?SKU=${skuList.toString()}`;
+    return `${paths.PRODUCT_COMPARE}?SKU=${skuList.toString()}`;
   }
   return '';
 };

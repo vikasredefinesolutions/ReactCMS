@@ -1,7 +1,8 @@
-import React from 'react';
+import CustomizeLogo from 'appComponents/ui/cart/customizeLogo';
 import { _Store } from 'constants/store.constant';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { useTypedSelector } from 'hooks';
+import React from 'react';
 import ProductImg from './ProductImg';
 import ProductInfo from './ProductInfo';
 
@@ -42,14 +43,18 @@ const ProductDetails: React.FC<_Props> = ({ product }) => {
 
   if (storeLayout === _Store.type3) {
     return (
-      <section className="mainsection pt-5">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:items-start">
-            <ProductImg product={product} />
-            <ProductInfo product={product} />
+      <>
+        <section className="mainsection pt-5">
+          <div className="container mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:items-start">
+              <ProductImg product={product} />
+              <ProductInfo product={product} />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <CustomizeLogo />
+      </>
+
     );
   }
 

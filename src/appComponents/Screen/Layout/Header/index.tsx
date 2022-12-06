@@ -2,6 +2,8 @@ import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector, useWindowDimensions } from 'hooks';
 import { __Header } from 'page.config';
 import React, { useEffect, useState } from 'react';
+import CompareIcon from './components/CompareIcon';
+import LoggedInMenu from './components/LoggedInMenu';
 import LoginIcon from './components/LoginIcon';
 import Logo from './components/Logo';
 import MenuIcon from './components/MenuIcon';
@@ -12,6 +14,8 @@ import WishListIcon from './components/WishListIcon';
 import MenuItems from './Header/components/Menu/MenuItems';
 
 const Header: React.FC = () => {
+  const  headerdata = useTypedSelector((state) => state.store.configs?.header);
+  
   const show = useTypedSelector((state) => state.store.display.header);
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { width } = useWindowDimensions();
@@ -40,7 +44,7 @@ const Header: React.FC = () => {
                 <div className="container mx-auto">
                   <div className="">
                     <div className="py-3 lg:py-4 flex items-center justify-between">
-                      <Logo screen="DESKTOP" />
+                      <Logo screen="DESKTOP" headerdata={headerdata?.config_value} />
 
                       <MenuItems screen="DESKTOP" />
 
@@ -49,13 +53,15 @@ const Header: React.FC = () => {
                         {mobileView && <SearchBar screen="MOBILE" />}
                       </div>
 
-                      {mobileView && <Logo screen="MOBILE" />}
+                      {mobileView && <Logo screen="MOBILE" headerdata={headerdata?.config_value} />}
                       <div className="flex items-center justify-end">
                         <div className="flex items-center lg:ml-6">
                           <div className="flex items-center space-x-4">
                             {show.searchBar && <SearchBar screen={'DESKTOP'} />}
                             <WishListIcon />
                             <LoginIcon />
+                            <LoggedInMenu />
+                            <CompareIcon />
                             {/* <!-- <span className="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span> --> */}
                             <MyCartIcon />
                           </div>
@@ -81,7 +87,7 @@ const Header: React.FC = () => {
               <nav aria-label="Top">
                 <div className="">
                   <div className="py-3 lg:py-4 flex items-center justify-between gap-3">
-                    <Logo screen="DESKTOP" />
+                    <Logo screen="DESKTOP" headerdata={headerdata?.config_value}  />
 
                     {/* MOBILE VIEW ---- START */}
                     {mobileView && (
@@ -93,11 +99,13 @@ const Header: React.FC = () => {
                     {/* MOBILE VIEW ---- END */}
 
                     <SearchBar screen="DESKTOP" />
-                    {mobileView && <Logo screen="MOBILE" />}
+                    {mobileView && <Logo screen="MOBILE" headerdata={headerdata?.config_value}  />}
                     <div className="flex items-center justify-end">
                       <div className="flex items-center">
                         <div className="flex items-center space-x-3">
                           <LoginIcon />
+                          <LoggedInMenu />
+                          <CompareIcon />
                           <WishListIcon />
                           <MyCartIcon />
                         </div>
@@ -130,7 +138,7 @@ const Header: React.FC = () => {
             <nav aria-label="Top">
               <div className="">
                 <div className="py-3 flex items-center justify-between gap-3">
-                  <Logo screen="DESKTOP" />
+                  <Logo screen="DESKTOP" headerdata={headerdata?.config_value}  />
                   {mobileView && (
                     <div className="flex items-center lg:hidden space-x-3">
                       <MenuIcon />
@@ -140,12 +148,14 @@ const Header: React.FC = () => {
 
                   <SearchBar screen="DESKTOP" />
 
-                  {mobileView && <Logo screen="MOBILE" />}
+                  {mobileView && <Logo screen="MOBILE" headerdata={headerdata?.config_value}  />}
 
                   <div className="flex items-center justify-end">
                     <div className="flex items-center">
                       <div className="flex items-center space-x-3">
                         <LoginIcon />
+                        <LoggedInMenu />
+                        <CompareIcon />
                         <WishListIcon />
                         <MyCartIcon />
                       </div>
@@ -174,7 +184,7 @@ const Header: React.FC = () => {
               <div className="">
                 <div className="container mx-auto">
                   <div className="py-3 lg:py-4 flex items-center justify-between">
-                    <Logo screen="DESKTOP" />
+                    <Logo screen="DESKTOP" headerdata={headerdata?.config_value}  />
                     <MenuItems screen="DESKTOP" />
 
                     {mobileView && (
@@ -184,12 +194,14 @@ const Header: React.FC = () => {
                       </div>
                     )}
 
-                    {mobileView && <Logo screen="MOBILE" />}
+                    {mobileView && <Logo screen="MOBILE" headerdata={headerdata?.config_value}  />}
                     <div className="flex items-center justify-end">
                       <div className="flex items-center lg:ml-6">
                         <div className="flex items-center space-x-4">
                           <SearchBar screen="DESKTOP" />
                           <LoginIcon />
+                          <LoggedInMenu />
+                          <CompareIcon />
                           <MyCartIcon />
                           <OnePercentLogo position="HEADER" />
                         </div>

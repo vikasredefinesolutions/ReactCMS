@@ -1,14 +1,14 @@
-import React from 'react';
-import Link from 'next/link';
 import { paths } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import React from 'react';
 
 interface _props {
   screen: 'DESKTOP' | 'MOBILE';
 }
 
-const CompanyLogo: React.FC<_props> = ({ screen }) => {
+const CompanyLogo: React.FC<_props> = ({ screen, headerdata }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
   if (storeLayout === _Store.type1) {
@@ -18,7 +18,7 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
           <Link href={paths.HOME}>
             <img
               className="h-16 w-auto"
-              src="https://www.corporategear.com/images/logo.svg"
+              src={headerdata?.desktop_image}
               alt="Corporate Gear"
             />
           </Link>
@@ -29,7 +29,7 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
       return (
         <Link href={paths.HOME} className="xl:hidden">
           <img
-            src="https://www.corporategear.com/images/logo.svg"
+            src={headerdata?.mobile_image}
             alt=""
             className="h-14 w-auto"
           />
@@ -45,7 +45,7 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
           <Link href={paths.HOME}>
             <img
               className="max-h-14 w-auto"
-              src="../images/logo.png"
+              src={headerdata?.desktop_image}
               alt="Corporate Gear"
             />
           </Link>
@@ -55,7 +55,7 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME} className="lg:hidden">
-          <img src="../images/logo.png" alt="" className="h-6 w-auto" />
+          <img src={headerdata?.mobile_image} alt="" className="h-6 w-auto" />
         </Link>
       );
     }
@@ -68,7 +68,7 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
           <Link href={paths.HOME}>
             <img
               className="max-h-20 w-auto"
-              src="../images/logo.png"
+              src={headerdata?.desktop_image}
               alt="Corporate Gear"
             />
           </Link>
@@ -79,7 +79,7 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME} className="lg:hidden">
-          <img src="../images/logo.png" alt="" className="h-6 w-auto" />
+          <img src={headerdata?.mobile_image} alt="" className="h-6 w-auto" />
         </Link>
       );
     }
@@ -94,7 +94,7 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
               <span className="sr-only">Workflow</span>
               <img
                 className="h-16 w-auto"
-                src="/images/logo.png"
+                src={headerdata?.desktop_image}
                 alt="Corporate Gear"
               />
             </>
@@ -105,7 +105,7 @@ const CompanyLogo: React.FC<_props> = ({ screen }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME} className="lg:hidden">
-          <img src="../images/logo.png" alt="" className="h-8 w-auto" />
+          <img src={headerdata?.mobile_image} alt="" className="h-8 w-auto" />
         </Link>
       );
     }

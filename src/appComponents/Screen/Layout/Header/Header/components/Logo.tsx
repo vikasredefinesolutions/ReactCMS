@@ -1,8 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
 import { paths } from 'constants/paths.constant';
 import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import React from 'react';
 
 interface _props {
   screen: 'DESKTOP' | 'MOBILE';

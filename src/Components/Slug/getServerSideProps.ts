@@ -3,7 +3,7 @@ import { _StoreReturnType } from 'definations/store.type';
 
 import {
   FetchBrandProductList,
-  FetchFiltersJsonByBrand
+  FetchFiltersJsonByBrand,
 } from '@services/product.service';
 import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
 import { BrandFilter } from '@type/productList.type';
@@ -12,7 +12,7 @@ import {
   FilterOption,
   Product,
   ProductListPageData,
-  TopicProps
+  TopicProps,
 } from '@type/slug.type';
 import { getProductDetailProps } from 'Controllers/ProductController';
 import * as _AppController from 'Controllers/_AppController';
@@ -31,6 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let store: _StoreReturnType | null = null;
   const { slug, slugID } = extractSlugName(context.params);
   store = await _AppController.FetchStoreDetails(domain, slug!);
+  let data;
 
   if (!store) {
     highLightError({
@@ -40,12 +41,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     });
   }
 
-  const { data }: any = await getPageType({
+  const response = await getPageType({
     store_id: store?.storeId || 0,
     slug,
   });
 
-  if (data === null) {
+  if (response !== null) {
+    data = response.data;
+  } else {
     throw new Error('No Store-Id found');
   }
 
@@ -59,7 +62,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   /////////// Page Type Checks
   ////////////////////////////////////////////////
   if (pageType === 'topic') {
-    console.log(pageType);
     pageData = {};
     pageData['seDescription'] = data.data?.meta_description;
     pageData['seKeyWords'] = data.data.meta_keywords;

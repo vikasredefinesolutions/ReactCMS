@@ -124,6 +124,7 @@ const StartOrderModal: React.FC<_props> = ({
           },
         ],
         cartLogoPersonModel: cartLogoPersonModel,
+        cartLinePersonModels: []
       },
     };
     if (cartObject) {

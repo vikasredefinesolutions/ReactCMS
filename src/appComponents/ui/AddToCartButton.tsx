@@ -84,6 +84,7 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
           },
         ],
         cartLogoPersonModel: cartLogoPersonModel,
+        cartLinePersonModels: []
       },
     };
     if (cartObject) {
