@@ -51,7 +51,7 @@ const allClass = () => {
         <div className="col-span-1 grid grid-cols-12 gap-6">
             <div className="col-span-12 border border-slate-200 relative">
                 <div className="main-image max-w-lg mx-auto" style="position: relative; overflow: hidden;"><img
-                        src="images/1040623_25528_STH_large.jpg" alt=""
+                        src="http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/images/1040623_25528_STH_large.jpg" alt=""
                         className="w-full object-center object-cover sm:rounded-lg main_image" />
                         <img role="presentation"
                         alt=""
@@ -62,16 +62,16 @@ const allClass = () => {
                 <div className="sub-image absolute left-2 top-4 w-20">
                     <div className="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-secondary"
                         ><img
-                            src="images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
+                            src="http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/images/1040623_25528_STH.jpg" alt="" className="w-full object-center object-cover" />
                             </div>
                     <div className="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-slate-200"
                         ><img
                             src="images/1040623_25528_sth_1.jpg" alt="" className="w-full object-center object-cover" /></div>
                     <div className="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-slate-200"
                         ><img
-                            src="images/1040623_25528_sth_2.jpg" alt="" className="w-full object-center object-cover" /></div>
+                            src="http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/images/1040623_25528_sth_2.jpg" alt="" className="w-full object-center object-cover" /></div>
                     <div className="md:border hover:border-secondary p-1 mb-1 last:mb-0 border-slate-200"><img
-                            src="images/1040623_25528_sth_3.jpg" alt="" className="w-full object-center object-cover" /></div>
+                            src="http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/images/1040623_25528_sth_3.jpg" alt="" className="w-full object-center object-cover" /></div>
                 </div>
                 <div className="absolute right-2 top-4 w-6 h-6"><img src="images/outline_favorite_border_black_24dp.png"
                         title="" alt="" /></div>
