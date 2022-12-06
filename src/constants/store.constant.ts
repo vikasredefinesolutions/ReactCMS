@@ -1,8 +1,8 @@
 export const _Store = {
-  type1: 'cg',
-  type2: 'gamedaygear.com',
-  type3: 'pk',
-  type4: 'drivingi',
+  type1: 'CG',
+  type2: 'GG',
+  type3: 'PKHG',
+  type4: 'DI',
 };
 
 export const _StoreDomains = {
