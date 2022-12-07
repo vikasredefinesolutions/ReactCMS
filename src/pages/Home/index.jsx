@@ -63,7 +63,7 @@ const Home = (props) => {
             if (key == bgPropertyName) return value;
           },
         )[0];
-
+console.log(element.properties, attributes);
         if (attributes != undefined && Object.keys(attributes).length > 0) {
           if (attributes.type == 'color') {
             return attributes.value;
