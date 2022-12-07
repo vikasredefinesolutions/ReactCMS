@@ -4,6 +4,7 @@ import ElementCarouselDisplay from 'Components/Home/ElementCarouselDisplay';
 import { useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
 import * as helper from '../../Components/Home/Helper';
+import ThankYou from '../thank-you';
 
 const Home = (props) => {
   const storeId = useTypedSelector((state) => state.store.id);
@@ -51,6 +52,9 @@ const Home = (props) => {
   const loadBackgroundDefault = (element) => {
     if (element.selectedVal != undefined) {
       if (Object.keys(element.selectedVal).length > 0) {
+
+          console.log(element.selectedVal);
+
         const bgPropertyName = Object.keys(element.properties).find(
           (key) => element.properties[key] === 'background',
         );
