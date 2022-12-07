@@ -53,17 +53,19 @@ const Home = (props) => {
     if (element.selectedVal != undefined) {
       if (Object.keys(element.selectedVal).length > 0) {
 
-          console.log(element.selectedVal);
+          //console.log(element.selectedVal);
 
         const bgPropertyName = Object.keys(element.properties).find(
-          (key) => element.properties[key] === 'background',
+          (key) => key === 'bg',
         );
-        const attributes = Object.entries(element.selectedVal).map(
+        let attributes;
+        Object.entries(element.selectedVal).map(
           ([key, value]) => {
-            if (key == bgPropertyName) return value;
+            if (key == bgPropertyName) 
+              attributes = value;
           },
-        )[0];
-console.log(element.properties, attributes);
+        );
+
         if (attributes != undefined && Object.keys(attributes).length > 0) {
           if (attributes.type == 'color') {
             return attributes.value;
@@ -101,7 +103,7 @@ console.log(element.properties, attributes);
                   key={index}
                   className={`commondiv ${
                     componentValue.visibility == 'off' ? 'hidden' : ''
-                  }`}
+                  } mainsection container mx-auto`}
                   style={{ background: backgroundDefault }}
                   id={`div${componentValue.no}`}
                   // ref={ref => {
