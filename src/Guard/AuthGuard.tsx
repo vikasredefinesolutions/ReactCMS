@@ -40,7 +40,15 @@ export const AuthGuard = ({
 }: _authGuard_): _Expected_AppProps | void => {
   const initials = {
     ...ctx,
-    store: null,
+     store: {
+      storeId: null,
+      layout: null,
+      pageType: '',
+      pathName: '',
+      code: '',
+      isAttributeSaparateProduct: false,
+      cartCharges: null,
+    },
     menuItems: null,
     configs: { header: null },
     customer: null,
