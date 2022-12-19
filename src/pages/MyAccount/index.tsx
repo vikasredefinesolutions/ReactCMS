@@ -24,6 +24,7 @@ const MyAccount = () => {
       {currentTab === 4 && <UserAddress />}
     </>
   );
+  
 };
 
 export default MyAccount;
