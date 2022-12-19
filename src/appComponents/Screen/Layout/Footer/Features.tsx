@@ -1,7 +1,7 @@
-import React from 'react';
-import { _Store } from 'constants/store.constant';
 import { _Footer } from 'definations/footer.type';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
+import React from 'react';
 
 type _props = Pick<_Footer, 'features'>;
 

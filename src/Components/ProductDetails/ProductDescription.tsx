@@ -1,6 +1,5 @@
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
-import { __product } from 'page.config';
+import { _Store, __constant } from 'page.config';
 import React, { useState } from 'react';
 interface _props {
   heading: string;
@@ -10,7 +9,8 @@ const ProductDescription: React.FC<_props> = ({ text, heading }) => {
   const [showExtra, setShowExtra] = useState(false);
   const storeLayout = useTypedSelector((state) => state.store.layout);
   if (!text) return <></>;
-  const showExtraButton = text.length >= __product.descriptionLength;
+  const showExtraButton =
+    text.length >= __constant._productDetails.descriptionLength;
   // const show = useTypedSelector((state) => state.store.display.footer);
 
   if (storeLayout === _Store.type1) {

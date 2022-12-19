@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
+import React, { useState } from 'react';
 
 interface _props {
   pricingLabel: string;

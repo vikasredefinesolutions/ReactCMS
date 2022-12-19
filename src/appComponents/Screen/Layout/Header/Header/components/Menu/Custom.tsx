@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import { _Store } from 'page.config';
+import React, { useState } from 'react';
 
 interface _props {
-  menuTitle: string;
-  menuItems: string;
-  menuUrl: string;
+  title: string;
+  content: string;
+  url: string;
 }
 
-const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
+const Custom: React.FC<_props> = ({ content, title, url }) => {
   const { layout: storeLayout, view } = useTypedSelector(
     (state) => state.store,
   );
@@ -35,10 +35,10 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-anchor">{menuTitle}</div>
+              <div className="text-anchor">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={`/${menuUrl}`} className="text-xs">
+              <Link href={`${url}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -47,7 +47,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
             <div className="bg-gray-100">
               <div
                 className="border-t first:border-t-0 py-5 px-6"
-                dangerouslySetInnerHTML={{ __html: menuItems }}
+                dangerouslySetInnerHTML={{ __html: content }}
               />
             </div>
           )}
@@ -56,7 +56,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link href={`/${menuUrl}`} className="flex">
+        <Link href={`${url}`} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -69,7 +69,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     : 'border-transparent text-white hover:text-primary-hover'
                 }`}
               >
-                <span className="uppercase text-primary">{menuTitle}</span>
+                <span className="uppercase text-primary">{title}</span>
               </button>
             </div>
             {focus && (
@@ -89,7 +89,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                   <div className="max-w-7xl mx-auto">
                     <div
                       className="border-t first:border-t-0 py-5 px-5"
-                      dangerouslySetInnerHTML={{ __html: menuItems }}
+                      dangerouslySetInnerHTML={{ __html: content }}
                     />
                   </div>
                 </div>
@@ -118,10 +118,10 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-anchor">{menuTitle}</div>
+              <div className="text-anchor">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={`/${menuUrl}`} className="text-xs">
+              <Link href={`${url}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -130,7 +130,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
             <div className="bg-gray-100">
               <div
                 className="border-t first:border-t-0 py-5 px-6"
-                dangerouslySetInnerHTML={{ __html: menuItems }}
+                dangerouslySetInnerHTML={{ __html: content }}
               />
             </div>
           )}
@@ -140,7 +140,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
 
     if (view === 'DESKTOP') {
       return (
-        <Link href={`/${menuUrl}`} className="flex">
+        <Link href={`${url}`} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -153,7 +153,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     : 'text-white hover:text-primary-hover'
                 }`}
               >
-                <span className="uppercase text-white">{menuTitle}</span>
+                <span className="uppercase text-white">{title}</span>
               </button>
             </div>
             {focus && (
@@ -173,7 +173,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                   <div className="max-w-4xl mx-auto">
                     <div
                       className="border-t first:border-t-0 py-5 px-5"
-                      dangerouslySetInnerHTML={{ __html: menuItems }}
+                      dangerouslySetInnerHTML={{ __html: content }}
                     />
                   </div>
                 </div>
@@ -202,10 +202,10 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-anchor">{menuTitle}</div>
+              <div className="text-anchor">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={`/${menuUrl}`} className="text-xs">
+              <Link href={`${url}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -214,7 +214,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
             <div className="bg-gray-100">
               <div
                 className="border-t first:border-t-0 py-5 px-6"
-                dangerouslySetInnerHTML={{ __html: menuItems }}
+                dangerouslySetInnerHTML={{ __html: content }}
               ></div>
             </div>
           )}
@@ -223,7 +223,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link href={`/${menuUrl}`} className="flex">
+        <Link href={`${url}`} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -232,7 +232,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                 type="button"
                 className="relative z-10 flex items-center transition-colors ease-out text-base xl:tracking-widest text-anchor py-2.5"
               >
-                <span className="">{menuTitle}</span>
+                <span className="">{title}</span>
               </button>
             </div>
             {focus && (
@@ -252,7 +252,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                   <div className="max-w-7xl mx-auto">
                     <div
                       className="border-t first:border-t-0 py-5 px-5"
-                      dangerouslySetInnerHTML={{ __html: menuItems }}
+                      dangerouslySetInnerHTML={{ __html: content }}
                     ></div>
                   </div>
                 </div>
@@ -281,7 +281,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-gray-800 font-medium">{menuTitle}</div>
+              <div className="text-gray-800 font-medium">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
               <Link href="product-listing" className="text-xs">
@@ -293,7 +293,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
             <div className="bg-gray-100" x-show="open" x-cloak>
               <div
                 className="border-t first:border-t-0 py-5 px-6"
-                dangerouslySetInnerHTML={{ __html: menuItems }}
+                dangerouslySetInnerHTML={{ __html: content }}
               ></div>
             </div>
           )}
@@ -302,7 +302,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link href={`/${menuUrl}`} className="flex">
+        <Link href={`${url}`} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -315,7 +315,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     : 'border-transparent text-white hover:text-primary-hover'
                 }`}
               >
-                <span className="text-white">{menuTitle}</span>
+                <span className="text-white">{title}</span>
               </button>
             </div>
             {focus && (
@@ -335,7 +335,7 @@ const Custom: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                   <div className="max-w-7xl mx-auto">
                     <div
                       className="border-t first:border-t-0 py-5 px-5"
-                      dangerouslySetInnerHTML={{ __html: menuItems }}
+                      dangerouslySetInnerHTML={{ __html: content }}
                     ></div>
                   </div>
                 </div>

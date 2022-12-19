@@ -1,6 +1,6 @@
-import { _Store } from 'constants/store.constant';
+import { extractCookies } from 'helpers/common.helper';
 import { useActions, useTypedSelector, useWindowDimensions } from 'hooks';
-import { __Header } from 'page.config';
+import { _Store, __constant } from 'page.config';
 import React, { useEffect, useState } from 'react';
 import CompareIcon from './components/CompareIcon';
 import LoggedInMenu from './components/LoggedInMenu';
@@ -14,18 +14,26 @@ import WishListIcon from './components/WishListIcon';
 import MenuItems from './Header/components/Menu/MenuItems';
 
 const Header: React.FC = () => {
-  const  headerdata = useTypedSelector((state) => state.store.configs?.header);
-  
+  const headerdata = useTypedSelector((state) => state.store.configs?.header);
+  const id = useTypedSelector((state) => state.user.id);
   const show = useTypedSelector((state) => state.store.display.header);
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { width } = useWindowDimensions();
-  const { setView } = useActions();
+  const { setView, logInUser } = useActions();
   const [mobileView, setMobileView] = useState<boolean>(
-    width <= __Header.mobileBreakPoint,
+    width <= __constant._header.mobileBreakPoint,
   );
+  useEffect(() => {
+    if (document) {
+      const cookies = extractCookies('', 'browserCookie');
+      if (cookies.userId !== null) {
+        logInUser({ id: cookies.userId });
+      }
+    }
+  }, []);
 
   useEffect(() => {
-    const mobile = width <= __Header.mobileBreakPoint;
+    const mobile = width <= __constant._header.mobileBreakPoint;
     const showMobile = mobile ? 'MOBILE' : 'DESKTOP';
     setView(showMobile);
     setMobileView(mobile);
@@ -34,7 +42,7 @@ const Header: React.FC = () => {
 
   if (storeLayout === _Store.type1) {
     return (
-      <section className="bg-white sticky top-0 z-20">
+      <section className="bg-white sticky top-0 z-40">
         <div className="bg-white">
           {mobileView && <MenuItems screen="MOBILE" />}
 
@@ -44,7 +52,10 @@ const Header: React.FC = () => {
                 <div className="container mx-auto">
                   <div className="">
                     <div className="py-3 lg:py-4 flex items-center justify-between">
-                      <Logo screen="DESKTOP" headerdata={headerdata?.config_value} />
+                      <Logo
+                        screen="DESKTOP"
+                        headerdata={headerdata?.config_value}
+                      />
 
                       <MenuItems screen="DESKTOP" />
 
@@ -53,7 +64,12 @@ const Header: React.FC = () => {
                         {mobileView && <SearchBar screen="MOBILE" />}
                       </div>
 
-                      {mobileView && <Logo screen="MOBILE" headerdata={headerdata?.config_value} />}
+                      {mobileView && (
+                        <Logo
+                          screen="MOBILE"
+                          headerdata={headerdata?.config_value}
+                        />
+                      )}
                       <div className="flex items-center justify-end">
                         <div className="flex items-center lg:ml-6">
                           <div className="flex items-center space-x-4">
@@ -79,7 +95,7 @@ const Header: React.FC = () => {
   }
   if (storeLayout === _Store.type2) {
     return (
-      <section className="bg-white sticky top-0 z-50">
+      <section className="bg-white sticky top-0 z-40">
         <div className="container mx-auto">
           <div x-data="{ open: false }" className="bg-white">
             {mobileView && <MenuItems screen="MOBILE" />}
@@ -87,7 +103,10 @@ const Header: React.FC = () => {
               <nav aria-label="Top">
                 <div className="">
                   <div className="py-3 lg:py-4 flex items-center justify-between gap-3">
-                    <Logo screen="DESKTOP" headerdata={headerdata?.config_value}  />
+                    <Logo
+                      screen="DESKTOP"
+                      headerdata={headerdata?.config_value}
+                    />
 
                     {/* MOBILE VIEW ---- START */}
                     {mobileView && (
@@ -99,7 +118,12 @@ const Header: React.FC = () => {
                     {/* MOBILE VIEW ---- END */}
 
                     <SearchBar screen="DESKTOP" />
-                    {mobileView && <Logo screen="MOBILE" headerdata={headerdata?.config_value}  />}
+                    {mobileView && (
+                      <Logo
+                        screen="MOBILE"
+                        headerdata={headerdata?.config_value}
+                      />
+                    )}
                     <div className="flex items-center justify-end">
                       <div className="flex items-center">
                         <div className="flex items-center space-x-3">
@@ -124,7 +148,7 @@ const Header: React.FC = () => {
   if (storeLayout === _Store.type3) {
     return (
       <section
-        className="bg-white sticky top-0 left-0 right-0 z-50 border-b-2 border-b-gray-300"
+        className="bg-white sticky top-0 left-0 right-0 z-40 border-b-2 border-b-gray-300"
         id=""
       >
         <div className="container mx-auto">
@@ -138,7 +162,10 @@ const Header: React.FC = () => {
             <nav aria-label="Top">
               <div className="">
                 <div className="py-3 flex items-center justify-between gap-3">
-                  <Logo screen="DESKTOP" headerdata={headerdata?.config_value}  />
+                  <Logo
+                    screen="DESKTOP"
+                    headerdata={headerdata?.config_value}
+                  />
                   {mobileView && (
                     <div className="flex items-center lg:hidden space-x-3">
                       <MenuIcon />
@@ -148,7 +175,12 @@ const Header: React.FC = () => {
 
                   <SearchBar screen="DESKTOP" />
 
-                  {mobileView && <Logo screen="MOBILE" headerdata={headerdata?.config_value}  />}
+                  {mobileView && (
+                    <Logo
+                      screen="MOBILE"
+                      headerdata={headerdata?.config_value}
+                    />
+                  )}
 
                   <div className="flex items-center justify-end">
                     <div className="flex items-center">
@@ -174,7 +206,7 @@ const Header: React.FC = () => {
   if (storeLayout === _Store.type4) {
     return (
       <section
-        className="sticky top-0 z-50 bg-[url('https://www.drivingi.com/images/home-bg.jpg')] bg-cover"
+        className="sticky top-0 z-40 bg-[url('https://www.drivingi.com/images/home-bg.jpg')] bg-cover"
         id="header"
       >
         <div className="">
@@ -184,7 +216,10 @@ const Header: React.FC = () => {
               <div className="">
                 <div className="container mx-auto">
                   <div className="py-3 lg:py-4 flex items-center justify-between">
-                    <Logo screen="DESKTOP" headerdata={headerdata?.config_value}  />
+                    <Logo
+                      screen="DESKTOP"
+                      headerdata={headerdata?.config_value}
+                    />
                     <MenuItems screen="DESKTOP" />
 
                     {mobileView && (
@@ -194,7 +229,12 @@ const Header: React.FC = () => {
                       </div>
                     )}
 
-                    {mobileView && <Logo screen="MOBILE" headerdata={headerdata?.config_value}  />}
+                    {mobileView && (
+                      <Logo
+                        screen="MOBILE"
+                        headerdata={headerdata?.config_value}
+                      />
+                    )}
                     <div className="flex items-center justify-end">
                       <div className="flex items-center lg:ml-6">
                         <div className="flex items-center space-x-4">

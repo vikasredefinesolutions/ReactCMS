@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { _Store } from 'constants/store.constant';
-import { useActions, useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
+import React, { useState } from 'react';
 
 interface _props {
-  menuTitle: string;
-  menuUrl: string;
+  title: string;
+  url: string;
 }
 
-const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
+const Topic: React.FC<_props> = ({ title, url }) => {
   const { toggleSideMenu } = useActions();
   const router = useRouter();
   const storeLayout = useTypedSelector((state) => state.store.layout);
@@ -30,11 +30,11 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
               <button
                 onClick={() => {
                   toggleSideMenu('CLOSE');
-                  router.push(`/${menuUrl}`);
+                  router.push(`/${url}`);
                 }}
                 className=""
               >
-                {menuTitle}
+                {title}
               </button>
             </div>
           </div>
@@ -44,7 +44,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
 
     if (view === 'DESKTOP') {
       return (
-        <Link href={`/${menuUrl}`} className="flex">
+        <Link href={`${url}`} className="flex">
           <div className="">
             <button
               onMouseOver={() => setFocus(true)}
@@ -56,7 +56,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
                   : `border-transparent text-white hover:text-primary-hover`
               }`}
             >
-              <span className="uppercase text-primary">{menuTitle}</span>
+              <span className="uppercase text-primary">{title}</span>
             </button>
           </div>
         </Link>
@@ -73,7 +73,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
               <button
                 onClick={() => {
                   toggleSideMenu('CLOSE');
-                  router.push(`/${menuUrl}`);
+                  router.push(`/${url}`);
                 }}
                 className=""
               >
@@ -93,7 +93,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
         >
           <div className="">
             <Link
-              href={`/${menuUrl}`}
+              href={`${url}`}
               type={'button'}
               className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold ${
                 focus
@@ -101,7 +101,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
                   : `text-gray-700 hover:text-gray-800`
               }`}
             >
-              <span className="uppercase text-white">{menuTitle}</span>
+              <span className="uppercase text-white">{title}</span>
             </Link>
           </div>
         </div>
@@ -116,7 +116,7 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
           className="text-sm border-b border-gray-300"
           onClick={() => {
             toggleSideMenu('CLOSE');
-            router.push(`/${menuUrl}`);
+            router.push(`/${url}`);
           }}
         >
           <div className="flex items-center justify-between py-3 px-2 pl-8">
@@ -136,11 +136,11 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
         >
           <div className="">
             <Link
-              href={`/${menuUrl}`}
+              href={`${url}`}
               type={'button'}
               className="flex items-center transition-colors ease-out duration-200 text-anchor py-2.5"
             >
-              <span className="">{menuTitle}</span>
+              <span className="">{title}</span>
             </Link>
           </div>
         </div>
@@ -155,12 +155,12 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
           className="text-sm border-b border-gray-300"
           onClick={() => {
             toggleSideMenu('CLOSE');
-            router.push(`/${menuUrl}`);
+            router.push(`/${url}`);
           }}
         >
           <div className="flex items-center justify-between py-3 px-2 pl-8">
             <div className="">
-              <button className="">{menuTitle}</button>
+              <button className="">{title}</button>
             </div>
           </div>
         </div>
@@ -175,14 +175,14 @@ const Topic: React.FC<_props> = ({ menuTitle, menuUrl }) => {
         >
           <div className="">
             <Link
-              href={`/${menuUrl}`}
+              href={`${url}`}
               className={`relative z-10 flex items-center transition-colors ease-out duration-200 text-md font-medium border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary ${
                 focus
                   ? 'border-blue-500 text-anchor-hover'
                   : 'border-transparent text-gray-700 hover:text-gray-800'
               }`}
             >
-              <span className="text-white">{menuTitle}</span>
+              <span className="text-white">{title}</span>
             </Link>
           </div>
         </div>

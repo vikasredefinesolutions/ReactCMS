@@ -1,6 +1,6 @@
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import { BrandList } from 'constants/seo.constant';
-import { _Store } from 'constants/store.constant';
+import { _Store } from 'page.config';
 import React from 'react';
 import BrandController from './BrandController';
 import Stroe1LayouBrand from './Components/Store1Layout';

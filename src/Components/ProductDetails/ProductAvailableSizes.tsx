@@ -1,7 +1,6 @@
-import React from 'react';
-import { _Store } from 'constants/store.constant';
-import { extractString } from 'helpers/conversions';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
+import React from 'react';
 
 const ProducAvailableSizes: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);

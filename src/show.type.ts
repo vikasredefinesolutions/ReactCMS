@@ -1,14 +1,45 @@
 import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductDiscountTable } from '@type/APIs/discountTable.res';
 import {
-  _Brands,
   _StoreMenu,
   _TransformedThemeConfig,
+  _t_Brands,
+  _t_MenuCategory,
+  _t_MenuTopic,
 } from '@type/APIs/header.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { _ProductDetails, _ProductSEO } from '@type/APIs/productDetail.res';
 import { _SizeChartTransformed } from '@type/APIs/sizeChart.res';
+import { UserType } from '@type/APIs/user.res';
 import { _StoreReturnType } from '@type/store.type';
+
+export type _DynamicContent = {
+  type: 'BRANDS' | 'CATEGORY';
+  title: string;
+  seName: string | null;
+  items: _t_Brands | _t_MenuCategory | null;
+};
+
+export type _NoneContent = {
+  type: 'TOPIC' | 'CATEGORY';
+  title: string;
+  seName: string | null;
+  items: _t_MenuTopic | null;
+};
+
+export type _CustomContent = {
+  type: 'TOPIC' | 'CATEGORY';
+  title: string;
+  seName: string | null;
+  items: string | null;
+};
+
+export type _MenuItems = {
+  items: null | _StoreMenu[];
+  items_content:
+    | (_CustomContent | _DynamicContent | _NoneContent | null)[]
+    | null;
+};
 
 export type _productController = {
   details: null | _ProductDetails;
@@ -20,12 +51,12 @@ export type _productController = {
 };
 
 export type _Expected_AppProps = {
-  store: _StoreReturnType | null;
-  menuItems: _StoreMenu[] | null;
-  brands: _Brands[] | null;
+  store: _StoreReturnType;
+  menuItems: _MenuItems | null;
   configs: {
     header: _TransformedThemeConfig | null;
   };
+  customer: UserType | null;
 };
 
 export type _conditionalLog =

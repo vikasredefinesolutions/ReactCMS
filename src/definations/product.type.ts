@@ -1,11 +1,6 @@
 import { _ProductColor } from './APIs/colors.res';
 import { _ProductDiscountTable } from './APIs/discountTable.res';
-import {
-  _ProductDetails,
-  _ProductDoNotExist,
-  _ProductDoNotExistTransformed,
-  _ProductSEO,
-} from './APIs/productDetail.res';
+import { _ProductDetails, _ProductSEO } from './APIs/productDetail.res';
 import { _SizeChartTransformed } from './APIs/sizeChart.res';
 import { _StoreReturnType } from './store.type';
 
@@ -54,14 +49,4 @@ export interface _ExpectedProductProps {
     SEO: null | _ProductSEO;
   } | null;
   store?: _StoreReturnType | null;
-}
-
-export interface _ExpectedRequestConsultationProps {
-  store: null | _StoreReturnType;
-  product: {
-    details: _ProductDetails | _ProductDoNotExist | null;
-    colors: _ProductColor[] | null;
-    doNotExist: null | _ProductDoNotExistTransformed;
-  } | null;
-  color: _ProductColor | null;
 }

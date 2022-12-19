@@ -10,7 +10,9 @@ export interface _StoreMenu {
   modifiedby: null;
   modifieddate: null;
   category: 'topic' | 'category';
-  sename: string;
+  sename: null | string;
+  title?: string;
+  menu_type: 'Brands';
 }
 
 export interface _Brands {
@@ -19,11 +21,21 @@ export interface _Brands {
   seName: string;
   brandColorImageUrl: string;
 }
+
+export interface _t_Brands {
+  dataType: 'BRANDS';
+  brands: _Brands[] | null;
+}
 export interface _MenuCategory {
   id: number;
   categoryName: string;
   seName: string;
   customSEName: null;
+}
+
+export interface _t_MenuCategory {
+  dataType: 'CATEGORIES';
+  categories: _MenuCategory[] | null;
 }
 
 export interface _MenuTopic {
@@ -59,6 +71,11 @@ export interface _MenuTopic {
   created_at: string;
   updated_at: string;
   template: Template;
+}
+
+export interface _t_MenuTopic {
+  dataType: 'TOPIC';
+  topic: _MenuTopic | null;
 }
 
 export interface Template {

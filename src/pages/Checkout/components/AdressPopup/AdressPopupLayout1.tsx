@@ -5,14 +5,14 @@ import getLocation from 'helpers/getLocation';
 import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { useState } from 'react';
-// import { updateCustomer } from 'redux/slices/user.slice';
 import { CreateUserAddress } from 'services/address.service';
-import { getStoreCustomer } from 'services/user.service';
+import { GetStoreCustomer } from 'services/user.service';
 import { AddressType } from '../../CheckoutController';
 
 export type AddressPopupProps = {
   showChangeAddressPopup: number;
   addressArray: Array<CustomerAddress>;
+  defaultAddress: string;
   // eslint-disable-next-line no-unused-vars
   changeAddres: (address: AddressType) => void;
   closeShippingPopup: () => void;
@@ -21,11 +21,12 @@ export type AddressPopupProps = {
 const AddressPopupLayout1 = ({
   showChangeAddressPopup,
   addressArray,
+  defaultAddress,
   changeAddres,
   closeShippingPopup,
 }: AddressPopupProps) => {
   const { updateCustomer } = useActions();
-  const [addressType, setAddressType] = useState('');
+  const [addressType, setAddressType] = useState(defaultAddress);
   const customerId = useTypedSelector((state) => state.user.id);
   const closePopupHandler = () => {
     setAddressType('');
@@ -60,8 +61,8 @@ const AddressPopupLayout1 = ({
       },
     };
     await CreateUserAddress(obj);
-    const customer = await getStoreCustomer(customerId || 0);
-    updateCustomer({ customer });
+    const customer = await GetStoreCustomer(customerId || 0);
+    updateCustomer({ customer: customer! });
     setAddressType('');
   };
 

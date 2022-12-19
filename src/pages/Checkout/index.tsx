@@ -1,5 +1,6 @@
 import HelpIcon from '@mui/icons-material/Help';
 import ForgotModal from 'appComponents/modals/ForgotModal';
+import Price from 'appComponents/reusables/Price';
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import { CheckoutPage as seoDetails } from 'constants/seo.constant';
 import { Formik } from 'formik';
@@ -22,6 +23,9 @@ const Checkout = () => {
     changeAddres,
     closeShippingPopup,
     setShowAddAccount,
+    checkCustomer,
+    logInUser,
+    getTotalPrice,
     addressArray,
     useShippingAddress,
     cardArray,
@@ -45,6 +49,8 @@ const Checkout = () => {
   const handleReviewOrder = () => {
     setShowReviewOrder(!showReviewOrder);
   };
+
+  const { totalPrice, subTotal, smallRunFee, logoSetupCharges, salesTax } = getTotalPrice();
 
   return (
     <>
@@ -75,10 +81,7 @@ const Checkout = () => {
                   </div>
                   <div className="max-w-[600px]">
                     <Formik
-                      onSubmit={() => {
-                        setShowPassword(true);
-                        setShowEmail(false);
-                      }}
+                      onSubmit={checkCustomer}
                       initialValues={{ email: '' }}
                       validationSchema={validationSchema}
                     >
@@ -134,10 +137,7 @@ const Checkout = () => {
                       <Formik
                         validationSchema={passwordValidationSchema}
                         initialValues={{ password: '' }}
-                        onSubmit={() => {
-                          setShowShippingScreen(true);
-                          setShowPassword(false);
-                        }}
+                        onSubmit={logInUser}
                       >
                         {({
                           errors,
@@ -189,11 +189,6 @@ const Checkout = () => {
                           </>
                         )}
                       </Formik>
-                    </div>
-                    <div className="">
-                      <button className="btn btn-primary">
-                        CHECKOUT AS GUEST
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -381,11 +376,10 @@ const Checkout = () => {
                             {cardArray.map((card) => (
                               <div
                                 key={card.name}
-                                className={`opacity-${
-                                  card.name === creditCardType(cardDetails)
-                                    ? '100'
-                                    : '40'
-                                } ml-1 w-8`}
+                                className={`opacity-${card.name === creditCardType(cardDetails)
+                                  ? '100'
+                                  : '40'
+                                  } ml-1 w-8`}
                               >
                                 <img src={card.image} alt={card.name} />
                               </div>
@@ -456,11 +450,10 @@ const Checkout = () => {
                                   />
                                   <div className="z-10 absolute bottom-full left-1/2 transform -translate-x-1/2">
                                     <div
-                                      className={`bg-slate-800 p-2 rounded overflow-hidden mb-2 ${
-                                        showCVVHelpCard
-                                          ? 'transition ease-out duration-200 transform'
-                                          : ''
-                                      }`}
+                                      className={`bg-slate-800 p-2 rounded overflow-hidden mb-2 ${showCVVHelpCard
+                                        ? 'transition ease-out duration-200 transform'
+                                        : ''
+                                        }`}
                                       style={{
                                         display: showCVVHelpCard
                                           ? 'block'
@@ -717,7 +710,7 @@ const Checkout = () => {
                   <div className="flex items-center justify-between pt-2">
                     <dt className="text-base">Subtotal</dt>
                     <dd className="text-base font-medium text-gray-900">
-                      $4,780.00
+                      <Price value={subTotal} />
                     </dd>
                   </div>
                   <div className="border-t border-gray-200 relative">
@@ -741,7 +734,23 @@ const Checkout = () => {
                       <span>Shipping</span>
                     </dt>
                     <dd className="text-base font-medium text-gray-900">
-                      FREE
+                      -
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <dt className="flex items-center text-base">
+                      <span>Logo Setup Charges</span>
+                    </dt>
+                    <dd className="text-base font-medium text-gray-900">
+                      <Price value={logoSetupCharges} />
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <dt className="flex items-center text-base">
+                      <span>Small Run Fee</span>
+                    </dt>
+                    <dd className="text-base font-medium text-gray-900">
+                      <Price value={smallRunFee} />
                     </dd>
                   </div>
                   <div className="flex items-center justify-between">
@@ -749,14 +758,15 @@ const Checkout = () => {
                       <span>Tax</span>
                     </dt>
                     <dd className="text-base font-medium text-gray-900">
-                      $0.00
+                      <Price value={salesTax} />
                     </dd>
                   </div>
                 </dl>
               </div>
               <div className="flex justify-between items-center bg-gray-200 w-full text-lg font-medium px-4 py-1">
                 <div>Total:</div>
-                <div>$4,850.60</div>
+
+                <div><Price value={totalPrice} /></div>
               </div>
             </div>
             <div className="text-base text-red-500 font-medium mb-3">
@@ -805,6 +815,7 @@ const Checkout = () => {
         <AddressPopupLayout1
           showChangeAddressPopup={showChangeAddressPopup}
           addressArray={addressArray}
+          defaultAddress={'s'}
           changeAddres={changeAddres}
           closeShippingPopup={closeShippingPopup}
         />

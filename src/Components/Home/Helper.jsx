@@ -100,7 +100,7 @@ export const updateSetProperties = (element) => {
           x.querySelectorAll('#' + key)[0].innerHTML =
             '<iframe class="w-full aspect-video" src="https://www.youtube.com/embed/' +
             value.value +
-            '?rel=0" allow="autoplay; encrypted-media" frameborder="0"></iframe>';
+            '?rel=0" allow="autoplay; encrypted-media" frameBorder="0"></iframe>';
         }
       }
 
@@ -109,7 +109,7 @@ export const updateSetProperties = (element) => {
           x.querySelectorAll('#' + key)[0].innerHTML =
             '<iframe src="https://player.vimeo.com/video/' +
             value.value +
-            '?background=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="" style="" class="w-full aspect-video"></iframe>';
+            '?background=1" frameBorder="0" allow="autoplay; fullscreen" allowfullscreen="" style="" class="w-full aspect-video"></iframe>';
         }
       }
 
@@ -459,7 +459,7 @@ export const displayCarousel = (
           strHTML +=
             `<iframe class="w-full aspect-video" src="https://www.youtube.com/embed/` +
             data.video_url +
-            `?rel=0" allow="autoplay; encrypted-media" frameborder="0"></iframe>`;
+            `?rel=0" allow="autoplay; encrypted-media" frameBorder="0"></iframe>`;
         } else if (data.video_type == 'Vimeo') {
           strHTML +=
             `<iframe class="w-full aspect-video" src="https://player.vimeo.com/video/` +

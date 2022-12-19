@@ -1,5 +1,5 @@
-import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React from 'react';
 
 const MenuIcon: React.FC = () => {

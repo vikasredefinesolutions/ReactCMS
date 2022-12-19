@@ -1,8 +1,7 @@
 import Image from 'appComponents/reusables/Image';
-import { _Store } from 'constants/store.constant';
 import { _modals } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
-import { __product } from 'page.config';
+import { _Store, __constant } from 'page.config';
 import React, { useState } from 'react';
 import SizeChart from './SizeChartModal';
 
@@ -18,7 +17,8 @@ const AvailableColors: React.FC = () => {
 
   if (colors === null) return <></>;
   const colorsCount = colors.length;
-  const showAllColorsButton = colorsCount > __product.imagesInRow;
+  const showAllColorsButton =
+    colorsCount > __constant._productDetails.imagesInRow;
 
   if (storeLayout === _Store.type1) {
     return (
@@ -30,7 +30,8 @@ const AvailableColors: React.FC = () => {
         </div>
         <div className="flex flex-wrap gap-5 text-sm text-center px-2 available-colors">
           {colors.map((product, index) => {
-            const show = showAllColors || index < __product.imagesInRow;
+            const show =
+              showAllColors || index < __constant._productDetails.imagesInRow;
             const highlight =
               product.attributeOptionId === selectedColor?.attributeOptionId
                 ? 'border-secondary'

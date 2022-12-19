@@ -1,7 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
-import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import { _Store } from 'page.config';
+import React from 'react';
 
 interface _props {
   itemLabel: string;

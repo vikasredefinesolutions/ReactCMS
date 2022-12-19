@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
-import React from 'react';
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
+import React from 'react';
 import { SubscribeToNewsLetter } from 'services/user.service';
 
 const NewsLetterBox: React.FC = () => {

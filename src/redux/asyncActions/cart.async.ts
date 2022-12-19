@@ -7,7 +7,6 @@ export const fetchCartDetails = createAsyncThunk(
   async (customerId: number) => {
     try {
       const cart = await fetchCart(customerId);
-      console.log(cart);
       return cart;
     } catch (error) {
       throw new Error('No Details found!!!');

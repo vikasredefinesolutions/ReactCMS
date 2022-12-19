@@ -1,6 +1,6 @@
-import { _Store } from 'constants/store.constant';
 import { _ThankYouOrder } from 'definations/thankYou.type';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React from 'react';
 
 interface _props {

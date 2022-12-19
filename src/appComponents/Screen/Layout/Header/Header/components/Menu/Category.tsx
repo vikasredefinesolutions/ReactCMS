@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { _Store } from 'constants/store.constant';
+import { _MenuCategory } from '@type/APIs/header.res';
 import { useActions, useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import { _Store } from 'page.config';
+import React, { useState } from 'react';
 import SubMenuItem from './Components/SubMenuItem';
 interface _props {
-  menuTitle: string;
-  menuUrl: string;
-  menuItems: string[];
+  title: string;
+  url: string;
+  content: _MenuCategory[] | null;
 }
 
-const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
+const Category: React.FC<_props> = ({ content, title, url }) => {
   const { layout: storeLayout, view } = useTypedSelector(
     (state) => state.store,
   );
@@ -17,6 +18,10 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
   const [focus, setFocus] = useState(false);
   const [showAllItems, setShowAllItems] = useState<boolean>(false);
+
+  if (content === null) {
+    return <></>;
+  }
 
   if (storeLayout === _Store.type1) {
     if (view === 'MOBILE') {
@@ -35,10 +40,10 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-anchor">{menuTitle}</div>
+              <div className="text-anchor">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={`/${menuUrl}`} className="text-xs">
+              <Link href={`${url}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -51,11 +56,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                   aria-labelledby="desktop-featured-heading-1"
                   className="flex flex-wrap gap-y-2"
                 >
-                  {menuItems?.map((item, index) => (
+                  {content?.map((item, index) => (
                     <SubMenuItem
                       key={index}
-                      itemLabel={item}
-                      itemUrl={menuUrl}
+                      itemLabel={item.categoryName}
+                      itemUrl={item.seName}
                       type={'CATEGORY'}
                     />
                   ))}
@@ -69,7 +74,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
 
     if (view === 'DESKTOP') {
       return (
-        <Link href={`/${menuUrl}`} className="flex">
+        <Link href={`${url}`} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -82,7 +87,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     : `border-transparent text-white hover:text-primary-hover`
                 }`}
               >
-                <span className="uppercase text-primary">{menuTitle}</span>
+                <span className="uppercase text-primary">{title}</span>
               </button>
             </div>
             {focus && (
@@ -95,7 +100,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                 //   x-transition:leave="transition ease-in duration-150"
                 //   x-transition:leave-start="opacity-100"
                 //   x-transition:leave-end="opacity-0"
-                className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
+                className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm z-50"
               >
                 <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
                 <div className="relative bg-gray-100 z-50">
@@ -106,11 +111,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                         aria-labelledby="desktop-featured-heading-1"
                         className="flex flex-wrap gap-y-2"
                       >
-                        {menuItems.map((item, index) => (
+                        {content.map((item, index) => (
                           <SubMenuItem
                             key={index}
-                            itemLabel={item}
-                            itemUrl={menuUrl}
+                            itemLabel={item.categoryName}
+                            itemUrl={item.seName}
                             type={'CATEGORY'}
                           />
                         ))}
@@ -143,10 +148,10 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-anchor">{menuTitle}</div>
+              <div className="text-anchor">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={`/${menuUrl}`} className="text-xs">
+              <Link href={`${url}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -160,11 +165,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                       BY CATEGORY
                     </div>
                     <ul>
-                      {menuItems.map((item, index) => (
+                      {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
-                          itemLabel={item}
-                          itemUrl={menuUrl}
+                          itemLabel={item.categoryName}
+                          itemUrl={item.seName}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -175,11 +180,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                       BY BRAND
                     </div>
                     <ul>
-                      {menuItems.map((item, index) => (
+                      {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
-                          itemLabel={item}
-                          itemUrl={menuUrl}
+                          itemLabel={item.categoryName}
+                          itemUrl={item.seName}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -191,7 +196,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     <ul>
                       <li className="flex items-center">
                         <Link
-                          href={`/${menuUrl}`}
+                          href={`${url}`}
                           className="text-anchor hover:text-anchor-hover"
                         >
                           All Men's Apparel & Footwear
@@ -203,7 +208,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     <ul>
                       <li className="flex items-center">
                         <Link
-                          href={`/${menuUrl}`}
+                          href={`${url}`}
                           className="text-anchor hover:text-anchor-hover"
                         >
                           All Brands
@@ -220,7 +225,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link href={`/${menuUrl}`} className="flex">
+        <Link href={`${url}`} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -233,7 +238,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     : 'text-white hover:text-primary-hover'
                 }`}
               >
-                <span className="uppercase text-white">{menuTitle}</span>
+                <span className="uppercase text-white">{title}</span>
               </button>
             </div>
             {focus && (
@@ -246,7 +251,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                 // x-transition:leave="transition ease-in duration-150"
                 // x-transition:leave-start="opacity-100"
                 // x-transition:leave-end="opacity-0"
-                className="absolute top-full left-0 right-0 text-gray-500 shadow sm:text-md font-medium"
+                className="absolute top-full left-0 right-0 text-gray-500 shadow sm:text-md font-medium z-50"
               >
                 {/* <!-- <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"></div> --> */}
                 <div className="relative bg-gray-100">
@@ -258,11 +263,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                             BY CATEGORY
                           </div>
                           <ul>
-                            {menuItems.map((item, index) => (
+                            {content.map((item, index) => (
                               <SubMenuItem
                                 key={index}
-                                itemLabel={item}
-                                itemUrl={menuUrl}
+                                itemLabel={item.categoryName}
+                                itemUrl={item.seName}
                                 type={'CATEGORY'}
                               />
                             ))}
@@ -273,11 +278,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                             BY BRAND
                           </div>
                           <ul>
-                            {menuItems.map((item, index) => (
+                            {content.map((item, index) => (
                               <SubMenuItem
                                 key={index}
-                                itemLabel={item}
-                                itemUrl={menuUrl}
+                                itemLabel={item.categoryName}
+                                itemUrl={item.seName}
                                 type={'CATEGORY'}
                               />
                             ))}
@@ -289,7 +294,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                           <ul>
                             <li className="flex items-center">
                               <Link
-                                href={`/${menuUrl}`}
+                                href={`${url}`}
                                 className="text-anchor hover:text-anchor-hover"
                               >
                                 All Men's Apparel & Footwear
@@ -301,7 +306,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                           <ul>
                             <li className="flex items-center">
                               <Link
-                                href={`/${menuUrl}`}
+                                href={`${url}`}
                                 className="text-anchor hover:text-anchor-hover"
                               >
                                 All Brands
@@ -338,10 +343,10 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-anchor">{menuTitle}</div>
+              <div className="text-anchor">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={`/${menuUrl}`} className="text-xs">
+              <Link href={`${url}`} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -355,11 +360,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                       BY CATEGORY
                     </div>
                     <ul>
-                      {menuItems.map((item, index) => (
+                      {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
-                          itemLabel={item}
-                          itemUrl={menuUrl}
+                          itemLabel={item.categoryName}
+                          itemUrl={item.seName}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -370,11 +375,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                       BY BRAND
                     </div>
                     <ul>
-                      {menuItems.map((item, index) => (
+                      {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
-                          itemLabel={item}
-                          itemUrl={menuUrl}
+                          itemLabel={item.categoryName}
+                          itemUrl={item.seName}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -385,8 +390,8 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                   <div className="w-full lg:w-1/3">
                     <ul>
                       <SubMenuItem
-                        itemLabel={`All ${menuTitle}`}
-                        itemUrl={menuUrl}
+                        itemLabel={`All ${title}`}
+                        itemUrl={url}
                         type={'CATEGORY'}
                       />
                     </ul>
@@ -394,8 +399,8 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                   <div className="w-full lg:w-1/3">
                     <ul>
                       <SubMenuItem
-                        itemLabel={`All ${menuTitle}`}
-                        itemUrl={menuUrl}
+                        itemLabel={`All ${title}`}
+                        itemUrl={url}
                         type={'CATEGORY'}
                       />
                     </ul>
@@ -409,7 +414,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link href={`/${menuUrl}`} className="flex">
+        <Link href={`${url}`} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -418,7 +423,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                 onMouseLeave={() => setFocus(false)}
                 className="relative z-10 flex items-center transition-colors ease-out text-base xl:tracking-widest text-anchor py-2.5"
               >
-                <span className="">{menuTitle}</span>
+                <span className="">{title}</span>
               </button>
             </div>
             {focus && (
@@ -431,18 +436,18 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                 // x-transition:leave="transition ease-in duration-150"
                 // x-transition:leave-start="opacity-100"
                 // x-transition:leave-end="opacity-0"
-                className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
+                className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm  z-50"
               >
                 <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
                 <div className="relative bg-gray-200 z-50">
                   <div className="max-w-7xl mx-auto">
                     <div className="border-t first:border-t-0 py-5 px-5">
                       <ul role="list" className="flex flex-wrap gap-y-2">
-                        {menuItems.map((item, index) => (
+                        {content.map((item, index) => (
                           <SubMenuItem
                             key={index}
-                            itemLabel={item}
-                            itemUrl={menuUrl}
+                            itemLabel={item.categoryName}
+                            itemUrl={item.seName}
                             type={'CATEGORY'}
                           />
                         ))}
@@ -475,7 +480,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-gray-800 font-medium">{menuTitle}</div>
+              <div className="text-gray-800 font-medium">{title}</div>
             </button>
             <div className="">
               <Link href="product-listing" className="text-xs">
@@ -491,11 +496,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                   aria-labelledby="desktop-featured-heading-1"
                   className="flex flex-wrap gap-y-2"
                 >
-                  {menuItems.map((item, index) => (
+                  {content.map((item, index) => (
                     <SubMenuItem
                       key={index}
-                      itemLabel={item}
-                      itemUrl={menuUrl}
+                      itemLabel={item.categoryName}
+                      itemUrl={item.seName}
                       type={'CATEGORY'}
                     />
                   ))}
@@ -508,7 +513,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link href={`/${menuUrl}`} className="flex">
+        <Link href={`${url}`} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -521,7 +526,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                     : 'border-transparent text-white hover:text-primary-hover'
                 }`}
               >
-                <span className="text-white">{menuTitle}</span>
+                <span className="text-white">{title}</span>
               </button>
             </div>
             {focus && (
@@ -534,7 +539,7 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                 // x-transition:leave="transition ease-in duration-150"
                 // x-transition:leave-start="opacity-100"
                 // x-transition:leave-end="opacity-0"
-                className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
+                className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm  z-50"
               >
                 <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
                 <div className="relative bg-white z-50">
@@ -545,11 +550,11 @@ const Category: React.FC<_props> = ({ menuItems, menuTitle, menuUrl }) => {
                         aria-labelledby="desktop-featured-heading-1"
                         className="flex flex-wrap gap-y-2"
                       >
-                        {menuItems.map((item, index) => (
+                        {content.map((item, index) => (
                           <SubMenuItem
                             key={index}
-                            itemLabel={item}
-                            itemUrl={menuUrl}
+                            itemLabel={item.categoryName}
+                            itemUrl={item.seName}
                             type={'CATEGORY'}
                           />
                         ))}

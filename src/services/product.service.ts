@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Seo } from '@type/slug.type';
+import { _BrandSEO } from '@type/slug.type';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
@@ -19,10 +19,33 @@ import {
   _SizeChartTransformed,
 } from 'definations/APIs/sizeChart.res';
 import { _Reviews } from 'definations/product.type';
-import { BrandFilter, FilterApiRequest } from 'definations/productList.type';
-import { conditionalLog } from 'helpers/global.console';
+import {
+  BrandFilter,
+  CategoryFilter,
+  FilterApiRequest,
+} from 'definations/productList.type';
+import { CallAPI } from 'helpers/common.helper';
+import {
+  conditionalLog,
+  conditionalLogV2,
+  __console,
+} from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
 import { SendAsyncV2 } from '../utils/axios.util';
+
+export type _ProducDetailAPIs =
+  | 'FetchProductsBySKUs'
+  | 'FetchSizeChartById'
+  | 'FetchDiscountTablePrices'
+  | 'FetchSimilartProducts'
+  | 'FetchProductSEOtags'
+  | 'FetchColors'
+  | 'FetchProductById';
+
+export type _ProductDetailService = {
+  service: 'productDetails';
+  api: _ProducDetailAPIs;
+};
 
 export const FetchProductsBySKUs = async (payload: {
   SKUs: string;
@@ -30,31 +53,19 @@ export const FetchProductsBySKUs = async (payload: {
 }): Promise<_ProductBySku[] | null> => {
   const url = `StoreProduct/getstoreproductbyskus/${payload.SKUs}/${payload.storeId}.json`;
 
-  try {
-    const res = await SendAsyncV2<_ProductBySku[] | null>({
+  const response = await CallAPI<_ProductBySku[]>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchProductsBySKUs',
+    },
+    request: {
       url: url,
       method: 'POST',
-      data: payload,
-    });
+      body: payload,
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'FetchProductsBySKUs',
-      type: 'API',
-      show: res.data === null || res.data.length === 0,
-    });
-
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'FetchProductsBySKUs',
-      type: 'API',
-      show: _showConsoles.services.compareProducts,
-      error: true,
-    });
-    return null;
-  }
+  return response;
 };
 
 export const FetchProductById = async (payload: {
@@ -64,6 +75,13 @@ export const FetchProductById = async (payload: {
 }): Promise<_ProductDetails | null | _ProductDoNotExist> => {
   const url = `StoreProduct/getstoreproductbysename/${payload.seName}/${payload.storeId}/${payload.productId}.json`;
 
+  conditionalLogV2({
+    data: payload,
+    show: __console.productDetails.service.FetchProductById,
+    type: 'API-PAYLOAD',
+    name: 'FetchProductById',
+  });
+
   try {
     const res = await SendAsyncV2<_ProductDetails>({
       url: url,
@@ -71,12 +89,12 @@ export const FetchProductById = async (payload: {
     });
 
     if (res.data === null) {
-      conditionalLog({
+      conditionalLogV2({
         // @ts-ignore: Unreachable code error
         data: res.otherData,
+        show: __console.productDetails.service.FetchProductById,
+        type: 'API-RESPONSE',
         name: 'FetchProductById',
-        type: 'API',
-        show: res.data === null,
       });
       // @ts-ignore: Unreachable code error
       return { id: null, productDoNotExist: res.otherData };
@@ -84,12 +102,12 @@ export const FetchProductById = async (payload: {
 
     return res.data;
   } catch (error) {
-    conditionalLog({
+    conditionalLogV2({
+      // @ts-ignore: Unreachable code error
       data: error,
+      show: __console.productDetails.service.FetchProductById,
+      type: 'API-ERROR',
       name: 'FetchProductById',
-      type: 'API',
-      show: _showConsoles.services.productDetails,
-      error: true,
     });
     return null;
   }
@@ -111,41 +129,34 @@ export const FetchSizeChartById = async (
 ): Promise<_SizeChartTransformed | null> => {
   const url = `StoreProduct/getsizechartbyproductid/${payload}.json`;
 
-  try {
-    const res = await SendAsyncV2<_SizeChart>({
+  const response = await CallAPI<_SizeChart>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchSizeChartById',
+    },
+    request: {
       url: url,
-      method: 'GET',
-    });
+      method: 'POST',
+      body: payload,
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'FetchSizeChartById',
-      type: 'API',
-      show: res.data === null,
-    });
-
+  if (response !== null) {
     const sizeChart: [{ [key: string]: string }] = JSON.parse(
-      res.data?.sizeChartView,
+      response.sizeChartView,
     );
 
     const transformedData: _SizeChartTransformed = {
-      ...res.data,
-      sizeChartRange: res.data.sizeChartRange.split(','),
+      ...response,
+      sizeChartRange: response.sizeChartRange.split(','),
       sizeChartView: sizeChart[0],
-      measurements: res.data.measurements.split(','),
+      measurements: response.measurements.split(','),
     };
 
     return transformedData;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'FetchSizeChartById',
-      type: 'API',
-      show: _showConsoles.services.productDetails,
-      error: true,
-    });
-    return null;
   }
+
+  return null;
 };
 
 export const FetchInventoryById = async (payload: {
@@ -220,30 +231,18 @@ export const FetchColors = async ({
     url = `StoreProduct/getproductattributecolor/${productId}.json`;
   }
 
-  try {
-    const res = await SendAsyncV2<_ProductColor[]>({
+  const response = await CallAPI<_ProductColor[]>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchColors',
+    },
+    request: {
       url: url,
       method: 'POST',
-    });
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'FetchColors',
-      type: 'API',
-      show: res.data === null || res.data.length === 0,
-    });
-
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'FetchColors',
-      type: 'API',
-      show: _showConsoles.services.productDetails,
-      error: true,
-    });
-    return null;
-  }
+  return response;
 };
 
 export const FetchFiltersJsonByBrand = async (
@@ -251,6 +250,19 @@ export const FetchFiltersJsonByBrand = async (
 ) => {
   const url = `/StoreProductFilter/GetFilterByBrandByCatche.json`;
   const res = await SendAsyncV2<BrandFilter>({
+    url: url,
+    method: 'POST',
+    data: filterRequest,
+  });
+
+  return res.data;
+};
+
+export const FetchFiltersJsonByCategory = async (
+  filterRequest: FilterApiRequest,
+) => {
+  const url = `/StoreProductFilter/GetFilterByCategoryByCatche.json`;
+  const res = await SendAsyncV2<CategoryFilter>({
     url: url,
     method: 'POST',
     data: filterRequest,
@@ -267,32 +279,19 @@ export const FetchDiscountTablePrices = async (payload: {
 }): Promise<_ProductDiscountTable | null> => {
   const url = `StoreProduct/getproductquantitydiscounttabledetail.json`;
 
-  try {
-    const res = await SendAsyncV2<_ProductDiscountTable>({
+  const response = await CallAPI<_ProductDiscountTable>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchDiscountTablePrices',
+    },
+    request: {
       url: url,
       method: 'POST',
-      data: payload,
-    });
+      body: payload,
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'FetchDiscountTablePrices',
-      type: 'API',
-      show: res.data === null,
-    });
-
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'FetchDiscountTablePrices',
-      type: 'API',
-      show: _showConsoles.services.productDetails,
-      error: true,
-    });
-
-    return null;
-  }
+  return response;
 };
 
 export const FetchSimilartProducts = async (payload: {
@@ -301,32 +300,19 @@ export const FetchSimilartProducts = async (payload: {
 }): Promise<_ProductsAlike[] | null> => {
   const url = `StoreProduct/getyoumaylikeproducts/${payload.productId}/${payload.storeId}.json`;
 
-  try {
-    const res = await SendAsyncV2<_ProductsAlike[]>({
+  const response = await CallAPI<_ProductsAlike[]>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchSimilartProducts',
+    },
+    request: {
       url: url,
       method: 'POST',
-      data: payload,
-    });
+      body: payload,
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'FetchSimilartProducts',
-      type: 'API',
-      show: res.data === null || res.data.length === 0,
-    });
-
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'FetchSimilartProducts',
-      type: 'API',
-      show: _showConsoles.services.productDetails,
-      error: true,
-    });
-
-    return null;
-  }
+  return response;
 };
 
 export const fetchProductList = async (storeId: string) => {
@@ -369,31 +355,18 @@ export const FetchProductSEOtags = async ({
 }): Promise<_ProductSEO | null> => {
   const url = `StoreProductSeo/GetDetails/${storeId}/${seName}.json`;
 
-  try {
-    const res = await SendAsyncV2<_ProductSEO>({
+  const response = await CallAPI<_ProductSEO>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchProductSEOtags',
+    },
+    request: {
       url: url,
       method: 'GET',
-    });
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'FetchProductSEOtags',
-      type: 'API',
-      show: res.data === null,
-    });
-
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'FetchProductSEOtags',
-      type: 'API',
-      show: _showConsoles.services.productDetails,
-      error: true,
-    });
-
-    return null;
-  }
+  return response;
 };
 
 export const FetchBrandProductList = async ({
@@ -404,7 +377,8 @@ export const FetchBrandProductList = async ({
   seName: string;
 }) => {
   const url = `Brand/getbrandseodetails/${storeId}/${seName}.json`;
-  const res = await SendAsyncV2<Seo>({
+
+  const res = await SendAsyncV2<_BrandSEO>({
     url: url,
     method: 'GET',
   });

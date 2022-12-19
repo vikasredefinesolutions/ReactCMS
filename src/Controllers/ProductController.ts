@@ -4,12 +4,11 @@ import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import {
   _ProductDetails,
   _ProductDoNotExist,
-  _ProductDoNotExistTransformed,
   _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
-import { conditionalLog, highLightError } from 'helpers/global.console';
+import { conditionalLogV2, __console } from 'helpers/global.console';
 import {
   FetchColors,
   FetchDiscountTablePrices,
@@ -19,7 +18,28 @@ import {
   FetchSimilartProducts,
   FetchSizeChartById,
 } from 'services/product.service';
-import { _showConsoles, __fileNames } from 'show.config';
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////// TYPES: JUST FOR  THIS PAGE ----------------------------------
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+interface _FetchProductDetails {
+  details: null | _ProductDetails | _ProductDoNotExist;
+  colors: null | _ProductColor[];
+  sizes: null | _SizeChartTransformed;
+  discount: null | _ProductDiscountTable;
+  SEO: null | _ProductSEO;
+  inventory: null | _ProductInventoryTransfomed;
+  alike: null | _ProductsAlike[];
+}
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////// SERVER SIDE FUNCTIONS ---------------------------------------
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 export const getProductDetailProps = async (payload: {
   storeId: number;
@@ -29,26 +49,11 @@ export const getProductDetailProps = async (payload: {
   return await FetchProductDetails(payload);
 };
 
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////// SERVER SIDE FUNCTIONS ---------------------------------------
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-
 export const FetchProductDetails = async (payload: {
   storeId: number;
   seName: string;
   isAttributeSaparateProduct: boolean;
-}): Promise<{
-  details: null | _ProductDetails | _ProductDoNotExist;
-  colors: null | _ProductColor[];
-  sizes: null | _SizeChartTransformed;
-  discount: null | _ProductDiscountTable;
-  SEO: null | _ProductSEO;
-  alike: null | _ProductsAlike[];
-  inventory: null | _ProductInventoryTransfomed;
-  doNotExist: null | { retrunUrlOrCategorySename: string; info: string };
-}> => {
+}): Promise<_FetchProductDetails> => {
   let productColors: null | _ProductColor[] = null;
   let productDetails: null | _ProductDetails | _ProductDoNotExist = null;
   let productSizeChart: null | _SizeChartTransformed = null;
@@ -56,7 +61,6 @@ export const FetchProductDetails = async (payload: {
   let productSEOtags: null | _ProductSEO = null;
   let productsAlike: null | _ProductsAlike[] = null;
   let productInventoryList: null | _ProductInventoryTransfomed = null;
-  let doNotExist: null | _ProductDoNotExistTransformed = null;
   // let productReviews: null;
 
   try {
@@ -67,13 +71,8 @@ export const FetchProductDetails = async (payload: {
       productId: 0, // Not required when fetching details by seName
     });
 
-    if (productDetails?.id === null) {
-      doNotExist = productDetails.productDoNotExist;
-      productDetails = null;
-    }
-
     if (productDetails?.id) {
-      // Request - 2,3,4,5
+      // Request - 2,3,4,5 based on 1
       await Promise.allSettled([
         FetchColors({
           productId: productDetails.id,
@@ -96,12 +95,6 @@ export const FetchProductDetails = async (payload: {
           storeId: payload.storeId,
         }),
       ]).then((values) => {
-        conditionalLog({
-          data: values,
-          type: 'CONTROLLER',
-          name: __fileNames.productDetails,
-          show: _showConsoles.productDetails,
-        });
         productColors =
           values[0].status === 'fulfilled' ? values[0].value : null;
         productSizeChart =
@@ -114,7 +107,7 @@ export const FetchProductDetails = async (payload: {
           values[4].status === 'fulfilled' ? values[4].value : null;
       });
 
-      // Request - 6
+      // Request - 6 based on 2
       if (productColors !== null) {
         productColors;
         const allColorAttributes = (productColors as _ProductColor[]).map(
@@ -130,7 +123,7 @@ export const FetchProductDetails = async (payload: {
 
     // Request - 7
     // await  ---> Fetch Product Reviews
-    conditionalLog({
+    conditionalLogV2({
       data: {
         details: productDetails,
         colors: productColors,
@@ -138,19 +131,22 @@ export const FetchProductDetails = async (payload: {
         discount: productDiscountTablePrices,
         SEO: productSEOtags,
         inventory: productInventoryList,
-        doNotExist: doNotExist,
         alike: productsAlike,
       },
+      show: __console.productDetails.controller,
       type: 'CONTROLLER',
-      name: __fileNames.productDetails,
-      show: _showConsoles.productDetails,
+      name: 'Product Details',
     });
   } catch (error) {
-    highLightError({ error, component: `Product Controller` });
+    conditionalLogV2({
+      data: error,
+      show: __console.allCatch,
+      type: 'CATCH',
+      name: 'Product Details: Controller - Something went wrong',
+    });
   }
 
   return {
-    doNotExist: doNotExist,
     details: productDetails,
     colors: productColors,
     sizes: productSizeChart,

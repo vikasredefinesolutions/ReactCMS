@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { paths } from 'constants/paths.constant';
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
-import { string } from 'yup';
+import { useRouter } from 'next/router';
+import { _Store } from 'page.config';
+import React from 'react';
 
 const ProductRequestConsultation: React.FC = () => {
   const router = useRouter();

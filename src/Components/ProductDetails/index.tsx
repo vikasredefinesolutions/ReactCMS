@@ -2,41 +2,25 @@ import ProductDescription from 'Components/ProductDetails/ProductDescription';
 import ProductDetails from 'Components/ProductDetails/ProductDetails';
 import ProductFeatures from 'Components/ProductDetails/ProductFeatures';
 import SizeChart from 'Components/ProductDetails/SizeChartModal';
-import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
-import Head from 'next/head';
+import { _Store } from 'page.config';
 import React, { useEffect } from 'react';
 
-import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
-import { _ProductColor } from 'definations/APIs/colors.res';
-import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
-import {
-  _ProductDetails,
-  _ProductDoNotExistTransformed,
-  _ProductsAlike,
-  _ProductSEO,
-} from 'definations/APIs/productDetail.res';
-import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
-import { conditionalLog } from 'helpers/global.console';
+import { _ProductDetailsProps } from 'definations/APIs/productDetail.res';
+import { conditionalLogV2, __console } from 'helpers/global.console';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { _showConsoles, __fileNames } from 'show.config';
 import ProductAlike from './ProductAlike';
 import ProductReviews from './ProductReviews';
 
-interface _props {
-  product: {
-    doNotExist: _ProductDoNotExistTransformed;
-    details: _ProductDetails | null;
-    colors: _ProductColor[] | null;
-    sizes: _SizeChartTransformed | null;
-    discount: _ProductDiscountTable | null;
-    SEO: _ProductSEO | null;
-    inventory: null | _ProductInventoryTransfomed;
-    alike: null | _ProductsAlike[];
-  } | null;
-}
+const Product: React.FC<_ProductDetailsProps> = (product) => {
+  conditionalLogV2({
+    data: product,
+    show: __console.productDetails.page,
+    type: 'PAGE',
+    name: 'Product Details - Props',
+  });
 
-const Product: React.FC<_props> = ({ product }) => {
   const router = useRouter();
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { store_productDetails, setColor, setShowLoader } = useActions();
@@ -61,39 +45,34 @@ const Product: React.FC<_props> = ({ product }) => {
       addParams();
     }
 
-    if (product?.doNotExist) {
-      router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     if (product) {
-      if (product.doNotExist === null) {
-        store_productDetails({
-          brand: {
-            id: product.details!.brandID,
-            name: product.details!.brandName,
-            url: product.details!.brandImage,
-          },
-          product: {
-            id: product.details!.id || null,
-            name: product.details!.name || null,
-            discounts: product.discount || null,
-            sizes: product.details?.sizes || '',
-            sizeChart: product.sizes || null,
-            colors: product.colors || null,
-            price:
-              {
-                msrp: product.details!.msrp,
-                ourCost: product.details!.ourCost,
-                salePrice: product.details!.salePrice,
-              } || null,
-            inventory: product.inventory,
-          },
-        });
-        if (product.colors) {
-          setColor(product.colors[0]);
-        }
+      store_productDetails({
+        brand: {
+          id: product.details!.brandID,
+          name: product.details!.brandName,
+          url: product.details!.brandImage,
+        },
+        product: {
+          id: product.details!.id || null,
+          name: product.details!.name || null,
+          discounts: product.discount || null,
+          sizes: product.details?.sizes || '',
+          sizeChart: product.sizes || null,
+          colors: product.colors || null,
+          price:
+            {
+              msrp: product.details!.msrp,
+              ourCost: product.details!.ourCost,
+              salePrice: product.details!.salePrice,
+            } || null,
+          inventory: product.inventory,
+        },
+      });
+      if (product.colors) {
+        setColor(product.colors[0]);
       }
     }
 
@@ -102,17 +81,6 @@ const Product: React.FC<_props> = ({ product }) => {
   }, []);
 
   if (product === null) return <>Product Page Loading... </>;
-
-  conditionalLog({
-    show: _showConsoles.productDetails,
-    name: __fileNames.productDetails,
-    type: 'PAGE',
-    data: product,
-  });
-
-  if (product.doNotExist) {
-    return <></>;
-  }
 
   if (product?.details === null || product?.details === undefined) {
     return <> Product Details not found </>;

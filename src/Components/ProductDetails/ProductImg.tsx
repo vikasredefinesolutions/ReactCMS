@@ -1,10 +1,10 @@
 import Image from 'appComponents/reusables/Image';
 import { paths } from 'constants/paths.constant';
-import { _Store } from 'constants/store.constant';
 import { _OtherImage } from 'definations/APIs/colors.res';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
+import { _Store } from 'page.config';
 import React, { useEffect } from 'react';
 import InnerImageZoom from 'react-inner-image-zoom';
 import AvailableColors from './AvailableColors';

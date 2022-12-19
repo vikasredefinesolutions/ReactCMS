@@ -1,10 +1,10 @@
 import { paths } from '@constants/paths.constant';
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import LoginModal from 'appComponents/modals/LoginModal';
-import { _Store } from 'constants/store.constant';
 import { _modals, _Reviews } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
+import { _Store } from 'page.config';
 import React, { useState } from 'react';
 
 interface _Props {

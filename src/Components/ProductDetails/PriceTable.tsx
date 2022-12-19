@@ -1,8 +1,8 @@
 import { FetchDiscountTablePrices } from '@services/product.service';
 import Price from 'appComponents/reusables/Price';
-import { _Store } from 'constants/store.constant';
 import { c_getSeName } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React, { useEffect } from 'react';
 
 const QtyPriceTable: React.FC = () => {

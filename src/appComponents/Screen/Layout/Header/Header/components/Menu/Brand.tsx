@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { _Store } from 'constants/store.constant';
+import { _Brands } from '@type/APIs/header.res';
 import { useActions, useTypedSelector } from 'hooks';
+import Link from 'next/link';
+import { _Store, __constant } from 'page.config';
+import React, { useState } from 'react';
 import BrandImage from './Components/BrandImage';
 import SubMenuItem from './Components/SubMenuItem';
 
 interface _props {
-  brandPageUrl: string;
-  menuTitle: string;
+  url: string;
+  title: string;
+  content: _Brands[] | null;
 }
 
-const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
-  const {
-    layout: storeLayout,
-    view,
-    brands,
-  } = useTypedSelector((state) => state.store);
+const Brand: React.FC<_props> = ({ url, title, content }) => {
+  const { layout: storeLayout, view } = useTypedSelector(
+    (state) => state.store,
+  );
   const { toggleSideMenu } = useActions();
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
   const [focus, setFocus] = useState<boolean>(false);
@@ -36,10 +36,10 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-anchor">{menuTitle}</div>
+              <div className="text-anchor">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={brandPageUrl} className="text-xs">
+              <Link href={url} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -52,7 +52,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                   aria-labelledby="desktop-featured-heading-1"
                   className="flex flex-wrap gap-y-2"
                 >
-                  {brands?.map((brand) => {
+                  {content?.map((brand) => {
                     return (
                       <SubMenuItem
                         key={brand.id}
@@ -72,7 +72,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
 
     if (view === 'DESKTOP') {
       return (
-        <Link href={brandPageUrl} className="flex">
+        <Link href={url} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -85,7 +85,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                     : `border-transparent text-white hover:text-primary-hover`
                 }`}
               >
-                <span className="uppercase text-primary">{menuTitle}</span>
+                <span className="uppercase text-primary">{title}</span>
                 {/* <!-- <svg className="w-8 h-8 shrink-0 fill-current text-anchor-hover group-hover:text-gray-500 ml-3" :className="{ 'text-anchor-hover rotate-180': open }" viewBox="0 0 32 32">
                                     <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
                                 </svg> -->  */}
@@ -105,9 +105,15 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
               >
                 <div className="relative bg-gray-100 z-50">
                   <div className="max-w-7xl mx-auto">
-                    {brands && brands.length > 0 && (
+                    {content && content.length > 0 && (
                       <div className="flex flex-wrap border-t first:border-t-0 py-5 px-5 border pt-8">
-                        {brands?.map((brand) => {
+                        {content?.map((brand, index) => {
+                          if (
+                            index >
+                            __constant._header.imagesToShowInBrandDropdown
+                          ) {
+                            return <></>;
+                          }
                           if (brand.brandColorImageUrl) {
                             return (
                               <BrandImage
@@ -125,7 +131,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                     <div className="border-t first:border-t-0 py-5 px-5">
                       <div className="flex flex-wrap gap-y-2">
                         <ul className="w-full lg:w-1/3">
-                          {brands?.map((brand) => {
+                          {content?.map((brand) => {
                             return (
                               <SubMenuItem
                                 key={brand.id}
@@ -137,7 +143,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                           })}
                         </ul>
                         <ul className="w-full lg:w-1/3">
-                          {brands?.map((brand) => {
+                          {content?.map((brand) => {
                             return (
                               <SubMenuItem
                                 key={brand.id}
@@ -177,10 +183,10 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-anchor">{menuTitle}</div>
+              <div className="text-anchor">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={brandPageUrl} className="text-xs">
+              <Link href={url} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -188,7 +194,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
           {showAllItems && (
             <div className="bg-gray-100">
               <div className="border-t first:border-t-0 py-5 px-4">
-                {brands?.map((brand) => {
+                {content?.map((brand) => {
                   if (brand.brandColorImageUrl) {
                     return (
                       <BrandImage
@@ -204,7 +210,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                 <div className="border-t first:border-t-0 py-5">
                   <div className="flex flex-wrap gap-y-2">
                     <ul className="w-full lg:w-1/3">
-                      {brands?.map((brand) => {
+                      {content?.map((brand) => {
                         return (
                           <SubMenuItem
                             key={brand.id}
@@ -225,7 +231,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
     }
     if (view === 'DESKTOP') {
       return (
-        <Link href={brandPageUrl} className="flex">
+        <Link href={url} className="flex">
           <>
             {' '}
             <div className="relative flex">
@@ -239,7 +245,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                     : 'text-white hover:text-primary-hover'
                 }`}
               >
-                <span className="uppercase text-white">{menuTitle}</span>
+                <span className="uppercase text-white">{title}</span>
                 {/* <!-- <svg className="w-8 h-8 shrink-0 fill-current text-anchor-hover group-hover:text-gray-500 ml-3" :className="{ 'text-anchor-hover rotate-180': open }" viewBox="0 0 32 32">
             <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
         </svg> -->  */}
@@ -258,7 +264,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                 <div className="relative bg-gray-100">
                   <div className="max-w-4xl mx-auto">
                     <div className="flex flex-wrap border-t first:border-t-0 py-5 px-2 pt-8">
-                      {brands?.map((brand, index) => {
+                      {content?.map((brand, index) => {
                         if (brand.brandColorImageUrl) {
                           return (
                             <BrandImage
@@ -275,7 +281,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                     <div className="border-t first:border-t-0 py-5 px-5">
                       <div className="flex flex-wrap gap-y-2">
                         <ul className="w-full lg:w-1/3">
-                          {brands?.map((brand, index) => {
+                          {content?.map((brand, index) => {
                             return (
                               <SubMenuItem
                                 key={index}
@@ -315,10 +321,10 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-anchor">{menuTitle}</div>
+              <div className="text-anchor">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={brandPageUrl} className="text-xs">
+              <Link href={url} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -327,7 +333,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
             <div className="bg-gray-100">
               <div className="border-t first:border-t-0 py-5 px-4">
                 <div className="flex flex-wrap border-t first:border-t-0 py-3">
-                  {brands?.map((brand) => {
+                  {content?.map((brand) => {
                     if (brand.brandColorImageUrl) {
                       return (
                         <BrandImage
@@ -344,7 +350,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                 <div className="border-t first:border-t-0 py-5">
                   <div className="flex flex-wrap gap-y-2">
                     <ul className="w-full lg:w-1/3">
-                      {brands?.map((brand) => {
+                      {content?.map((brand) => {
                         return (
                           <SubMenuItem
                             key={brand.id}
@@ -366,7 +372,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
 
     if (view === 'DESKTOP') {
       return (
-        <Link href={brandPageUrl} className="flex">
+        <Link href={url} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -375,7 +381,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                 onMouseLeave={() => setFocus(false)}
                 className="relative z-10 flex items-center transition-colors ease-out text-base xl:tracking-widest text-anchor py-2.5"
               >
-                <span className="">{menuTitle}</span>
+                <span className="">{title}</span>
                 {/* <!-- <svg className="w-8 h-8 shrink-0 fill-current text-anchor-hover group-hover:text-gray-500 ml-3" :className="{ 'text-anchor-hover rotate-180': open }" viewBox="0 0 32 32">
                                        <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
                                    </svg> -->  */}
@@ -396,7 +402,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                 <div className="relative bg-gray-200 z-50">
                   <div className="max-w-7xl mx-auto p-4">
                     <div className="flex flex-wrap -mx-3 gap-y-6">
-                      {brands?.map((brand) => {
+                      {content?.map((brand) => {
                         if (brand.brandColorImageUrl) {
                           return (
                             <BrandImage
@@ -434,10 +440,10 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
               >
                 <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
               </svg>
-              <div className="text-gray-800 font-medium">{menuTitle}</div>
+              <div className="text-gray-800 font-medium">{title}</div>
             </button>
             <div className="" onClick={() => toggleSideMenu('CLOSE')}>
-              <Link href={brandPageUrl} className="text-xs">
+              <Link href={url} className="text-xs">
                 Show All
               </Link>
             </div>
@@ -450,7 +456,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                   aria-labelledby="desktop-featured-heading-1"
                   className="flex flex-wrap gap-y-2"
                 >
-                  {brands?.map((brand) => {
+                  {content?.map((brand) => {
                     return (
                       <SubMenuItem
                         key={brand.id}
@@ -470,7 +476,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
 
     if (view === 'DESKTOP') {
       return (
-        <Link href={brandPageUrl} className="flex">
+        <Link href={url} className="flex">
           <>
             <div className="relative flex">
               <button
@@ -483,7 +489,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                     : 'border-transparent text-white hover:text-primary-hover'
                 }`}
               >
-                <span className="text-white">{menuTitle}</span>
+                <span className="text-white">{title}</span>
                 {/* <!-- <svg className="w-8 h-8 shrink-0 fill-current text-anchor-hover group-hover:text-gray-500 ml-3" :className="{ 'text-anchor-hover rotate-180': open }" viewBox="0 0 32 32">
                                                                         <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
                                                                     </svg> -->  */}
@@ -504,7 +510,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                 <div className="relative bg-white z-50">
                   <div className="max-w-7xl mx-auto">
                     <div className="flex flex-wrap border-t first:border-t-0 py-4 px-5 border">
-                      {brands?.map((brand) => {
+                      {content?.map((brand) => {
                         if (brand.brandColorImageUrl) {
                           return (
                             <BrandImage
@@ -521,7 +527,7 @@ const Brand: React.FC<_props> = ({ brandPageUrl, menuTitle }) => {
                     <div className="border-t first:border-t-0 py-5 px-5">
                       <div className="flex flex-wrap gap-y-2">
                         <ul className="w-full lg:w-1/3">
-                          {brands?.map((brand) => {
+                          {content?.map((brand) => {
                             return (
                               <SubMenuItem
                                 key={brand.id}

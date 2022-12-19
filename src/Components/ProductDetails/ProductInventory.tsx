@@ -2,8 +2,8 @@ import { FetchInventoryById } from '@services/product.service';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import Image from 'appComponents/reusables/Image';
 import Price from 'appComponents/reusables/Price';
-import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React, { useEffect, useState } from 'react';
 import InventoryInput from './InventoryInput';
 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import Price from 'appComponents/reusables/Price';
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
+import React, { useState } from 'react';
 import QtyPriceTable from './PriceTable';
 interface _props {
   price: {

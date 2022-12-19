@@ -1,14 +1,15 @@
 //import React, { useState, useEffect, useRef } from "react";
 import ElementAccordionDisplay from 'Components/Home/ElementAccordionDisplay';
 import ElementCarouselDisplay from 'Components/Home/ElementCarouselDisplay';
+import FeaturedItems from 'Components/Home/FeaturedItems';
 import { useTypedSelector } from 'hooks';
+import { __constant } from 'page.config';
 import { useEffect, useState } from 'react';
 import * as helper from '../../Components/Home/Helper';
-import ThankYou from '../thank-you';
 
 const Home = (props) => {
   const storeId = useTypedSelector((state) => state.store.id);
-
+  const { featuredItems } = props;
   const slug = props.props?.slug;
 
   const pageData = props.props?.pageData;
@@ -52,19 +53,14 @@ const Home = (props) => {
   const loadBackgroundDefault = (element) => {
     if (element.selectedVal != undefined) {
       if (Object.keys(element.selectedVal).length > 0) {
-
-          //console.log(element.selectedVal);
-
         const bgPropertyName = Object.keys(element.properties).find(
-          (key) => key === 'bg',
+          (key) => element.properties[key] === 'background',
         );
-        let attributes;
-        Object.entries(element.selectedVal).map(
+        const attributes = Object.entries(element.selectedVal).map(
           ([key, value]) => {
-            if (key == bgPropertyName) 
-              attributes = value;
+            if (key == bgPropertyName) return value;
           },
-        );
+        )[0];
 
         if (attributes != undefined && Object.keys(attributes).length > 0) {
           if (attributes.type == 'color') {
@@ -94,8 +90,14 @@ const Home = (props) => {
   return (
     <>
       <div className="">
+        {featuredItems?.products && (
+          <FeaturedItems
+            brands={__constant._Home.featuredItems.brands}
+            products={featuredItems.products}
+          />
+        )}
         <main>
-          {pageData.components.length > 0 ? (
+          {pageData?.components.length > 0 ? (
             pageData.components.map((componentValue, index) => {
               const backgroundDefault = loadBackgroundDefault(componentValue);
               return (
@@ -103,7 +105,7 @@ const Home = (props) => {
                   key={index}
                   className={`commondiv ${
                     componentValue.visibility == 'off' ? 'hidden' : ''
-                  } mainsection container mx-auto`}
+                  }`}
                   style={{ background: backgroundDefault }}
                   id={`div${componentValue.no}`}
                   // ref={ref => {
@@ -153,14 +155,14 @@ const Home = (props) => {
             })
           ) : (
             <>
-              <section classname="mainsection taillwind_content_block_22"></section>
+              <section className="mainsection taillwind_content_block_22"></section>
             </>
           )}
         </main>
       </div>
       <div
         id="wrapperloading"
-        style={{ position: 'fixed', 'z-index': '10000000' }}
+        style={{ position: 'fixed', zIndex: '10000000' }}
       >
         <div id="loading"></div>
       </div>

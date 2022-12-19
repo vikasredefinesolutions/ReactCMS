@@ -1,9 +1,9 @@
-import React from 'react';
-import Link from 'next/link';
 import { paths } from 'constants/paths.constant';
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { _Store } from 'page.config';
+import React from 'react';
 
 const WishListIcon: React.FC = () => {
   const router = useRouter();

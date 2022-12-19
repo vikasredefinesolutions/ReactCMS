@@ -8,7 +8,7 @@ import Document, {
   Head,
   Html,
   Main,
-  NextScript
+  NextScript,
 } from 'next/document';
 import { __domain } from 'page.config';
 
@@ -26,7 +26,7 @@ class MyDocument extends Document {
     });
 
     try {
-      store = await _AppController.FetchStoreDetails(domain, 'pathName');
+      store = await _AppController.fetchStoreDetails(domain, ''); // Here only store id is required. so, ignore second parameter.
     } catch (error) {
       highLightError({ error, component: '_document' });
     }
@@ -48,7 +48,9 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${store?.storeId}/css/${store?.storeId}.css`}
+            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${
+              store?.storeId
+            }/css/${store?.storeId}.css`}
           />
         </Head>
         <body className="font-Outfit bg-white">

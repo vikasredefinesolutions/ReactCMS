@@ -43,7 +43,7 @@ const StartOrderModal: React.FC<_props> = ({
   );
   const toCheckout = useTypedSelector((state) => state.product.toCheckout);
   const colors = useTypedSelector((state) => state.product.product.colors);
-  const customerId = useTypedSelector((state) => state.user.customer.id);
+  const customerId = useTypedSelector((state) => state.user.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
   const showInventoryFor = (payload: {
     productId: number;
@@ -124,7 +124,7 @@ const StartOrderModal: React.FC<_props> = ({
           },
         ],
         cartLogoPersonModel: cartLogoPersonModel,
-        cartLinePersonModels: []
+        cartLinePersonModels: [],
       },
     };
     if (cartObject) {

@@ -1,9 +1,10 @@
 import { _FeaturedProduct } from '@type/APIs/storeDetails.res';
 import Image from 'appComponents/reusables/Image';
 import Price from 'appComponents/reusables/Price';
+import { conditionalLogV2, __console } from 'helpers/global.console';
 import { useActions } from 'hooks';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FeatureDisplayImage from './FeatureDisplayImage';
 
 interface _props {
@@ -11,54 +12,34 @@ interface _props {
   products: Array<_FeaturedProduct[]> | null;
 }
 
-const FeaturedItems: React.FC<_props> = ({ brands }) => {
+const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
+  conditionalLogV2({
+    data: {
+      brands,
+      productsArr,
+    },
+    show: __console.home.component.featuredItems,
+    type: 'COMPONENT',
+    name: 'FeaturedItems (Home Page) received props',
+  });
+
   const { showFeaturedImage } = useActions();
   const [brandIndex, setBrandIndex] = useState(0);
-  const product = [
-    {
-      productId: 380,
-      productName: 'Nike Featherlight Hat',
-      productSEName: 'nike-featherlight-hat',
-      ourCost: '15.60',
-      msrp: '31.20',
-      imap: '0.00',
-      salePrice: '24.00',
-      productDisplayOrder: 9999,
-      imageUrl: '/rdc/1/product/attributeimages/attribute_6179_6179.jpg',
-      moreImages: [
-        {
-          id: 0,
-          attributeOptionID: 1880,
-          attributeOptionName: 'Anthracite',
-          imageUrl: '/rdc/1/product/attributeimages/attribute_6179_6179.jpg',
-          displayOrder: 1,
-          altTag: 'Nike Featherlight Hat Anthracite',
-        },
-      ],
-    },
-    {
-      productId: 388,
-      productName: 'Nike Brasilia Extra Small Training Duffel Bag',
-      productSEName: 'nike-brasilia-extra-small-training-duffel-bag',
-      ourCost: '11.85',
-      msrp: '30.00',
-      imap: '0.00',
-      salePrice: '30.00',
-      productDisplayOrder: 9999,
-      imageUrl: '/rdc/1/product/attributeimages/attribute_3287_3287.jpg',
-      moreImages: [
-        {
-          id: 0,
-          attributeOptionID: 1957,
-          attributeOptionName: 'Black',
-          imageUrl: '/rdc/1/product/attributeimages/attribute_3287_3287.jpg',
-          displayOrder: 1,
-          altTag: 'Nike Brasilia Extra Small Training Duffel Bag Black',
-        },
-      ],
-    },
-  ];
-  const products: _FeaturedProduct[][] = [product, product];
+
+  useEffect(() => {
+    if (productsArr) {
+      productsArr.forEach((products, brandIndx) => {
+        if (brandIndx === brandIndex) {
+          products.forEach((prod, prodIndex) => {
+            showFeaturedImage({
+              imageDetails: prod.moreImages[0],
+              productIndex: prodIndex,
+            });
+          });
+        }
+      });
+    }
+  }, [brandIndex]);
 
   return (
     <>
@@ -78,23 +59,25 @@ const FeaturedItems: React.FC<_props> = ({ brands }) => {
             // x-data="{activeTab:01, activeClass: 'tab py-2 mr-1 px-2 block hover:text-primary text-primary focus:outline-none text-default-text border-b-2 font-medium border-primary', inactiveClass : 'tab py-2 px-2 block text-default-text hover:text-primary focus:outline-none mr-1 rounded-sm font-medium border-slate-300 hover:border-primary' }"
             className="w-full"
           >
-            <ul className="w-full flex justify-center max-w-4xl mx-auto flex-wrap">
-              {['', '', '', ''].map((brand, index) => (
-                <li
-                  key={index}
-                  className="mr-0.5 md:mr-0 font-semibold"
-                  onClick={() => setBrandIndex(index)}
-                >
-                  <a>Patagonia</a>
-                </li>
-              ))}
-            </ul>
+            {brands && (
+              <ul className="w-full flex justify-center max-w-4xl mx-auto flex-wrap">
+                {brands.map((brand, index) => (
+                  <li
+                    key={index}
+                    className="mx-8 md:mr-0 font-semibold"
+                    onClick={() => setBrandIndex(index)}
+                  >
+                    <a>{brand.name}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
             <div className="text-center mx-auto pt-10">
               <div className="panel-01 tab-content overflow-hidden">
                 <div className="flex flex-wrap sm:-mx-3 gap-y-6">
-                  {products?.map((prod, index) => {
-                    if (index === brandIndex) {
-                      return prod?.map((product, productIndex) => {
+                  {productsArr?.map((products, brandIndx) => {
+                    if (brandIndx === brandIndex) {
+                      return products?.map((product, productIndex) => {
                         return (
                           <div
                             key={productIndex}

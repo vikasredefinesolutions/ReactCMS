@@ -44,12 +44,11 @@ const CartLayout3 = ({
     }[] | null>(null)
 
     const updatePersonlizeData = (name: string, value: string, index: number) => {
-        if (personliseLineArray) {
-            const pers = [...personliseLineArray];
+        if (personalizeDetails) {
+            const pers = [...personalizeDetails];
             const persOject = pers[index];
             pers[index] = { ...persOject, [name]: value }
-            console.log(pers);
-            setPersonliseLineArray(pers);
+            setPersonalizeDetails(pers);
         }
 
     }
@@ -409,8 +408,8 @@ const CartLayout3 = ({
                                                         </div>
                                                         <div className="flex flex-wrap -mx-3 gap-y-6 max-w-xl">
                                                             {
-                                                                fonts.map((fnt, index) => (
-                                                                    <div key={index} className="w-full lg:w-1/3 px-3">
+                                                                fonts.map((fnt, _indx) => (
+                                                                    <div key={`f-${_indx}`} className="w-full lg:w-1/3 px-3">
                                                                         <div className={`border-2${fnt.name === font ? ' border-primary' : ''}`}>
                                                                             <img src={fnt.image} alt=""
                                                                                 onClick={() => updatePersonlizeData('font', fnt.name, index)}

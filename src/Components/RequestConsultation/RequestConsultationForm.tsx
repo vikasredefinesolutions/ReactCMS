@@ -1,8 +1,7 @@
 import { Form, Formik } from 'formik';
-import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { paths } from 'constants/paths.constant';
 import RequestInput from './RequestInput';
 import RequestSelect from './RequestSelect';
 
@@ -253,7 +252,7 @@ const RequestConsultationForm: React.FC = () => {
                   <button
                     type="button"
                     className="text-center text-anchorr"
-                    onClick={() => router.push(paths.PRODUCT)}
+                    onClick={() => router.back()}
                   >
                     Cancel
                   </button>

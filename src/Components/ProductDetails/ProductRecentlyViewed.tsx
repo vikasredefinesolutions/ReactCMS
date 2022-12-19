@@ -1,162 +1,94 @@
-import { _Store } from 'constants/store.constant';
-import { useTypedSelector } from 'hooks';
-import Link from 'next/link';
-import React from 'react';
-const ProductRecentlyViewed: React.FC = () => {
-  const storeLayout = useTypedSelector((state) => state.store.layout);
-  // const show = useTypedSelector((state) => state.store.display.footer);
-  if (storeLayout === _Store.type2) {
-    return (
-      <section className="pb-10 overflow-hidden">
-        <div className="container mx-auto pt-10">
-          <div className="w-full text-center text-xl md:text-2xl lg:text-sub-title font-sub-title mb-4">
-            RECENTLY VIEWED
-          </div>
-          <div
-            x-data="{swiper: null}"
-            x-init="swiper = new Swiper($refs.container, {
-                  loop: true,
-                  slidesPerView: 1,
-                  spaceBetween: 0,
-              
-                  breakpoints: {
-                      640: {
-                          slidesPerView: 3,
-                          spaceBetween: 0,
-                      },
-                      768: {
-                          slidesPerView: 3,
-                          spaceBetween: 0,
-                      },
-                      1024: {
-                          slidesPerView: 5,
-                          spaceBetween: 0,
-                      },
-                  },
-              })"
-            className="relative w-12/12 mx-auto flex flex-row"
-          >
-            <div className="swiper-container -mx-4" x-ref="container">
-              <div className="swiper-wrapper">
-                {/* <!-- Slides --> */}
-                <div className="swiper-slide px-4">
-                  <div className="flex flex-col">
-                    <div className="flex-shrink-0 rounded overflow-hidden">
-                      <img
-                        className="h-auto w-full object-cover"
-                        src="./images/1040623_25528_STH.jpg"
-                        alt=""
-                      />
-                    </div>
-                    <div className="w-full pt-4 h-full text-center z-10">
-                      <div className="w-full text-xl mb-3 h-14">
-                        <Link
-                          href="/"
-                          className="text-secondary text-xl font-bold"
-                        >
-                          Patagonia Women's Better Sweater
-                        </Link>
-                      </div>
-                      <div className="text-secondary-hover font-bold">
-                        MSRP $149.00
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="swiper-slide px-4">
-                  <div className="flex flex-col relative">
-                    <div className="flex-shrink-0 rounded overflow-hidden">
-                      <img
-                        className="h-auto w-full object-cover"
-                        src="./images/1040623_25528_STH.jpg"
-                        alt=""
-                      />
-                    </div>
-                    <div className="w-full pt-4 h-full text-center z-10">
-                      <div className="w-full text-xl mb-3 h-14">
-                        <Link
-                          href="/"
-                          className="text-secondary text-xl font-bold"
-                        >
-                          Patagonia Women's Better Sweater Jacket
-                        </Link>
-                      </div>
-                      <div className="text-secondary-hover font-bold">
-                        MSRP $149.00
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="swiper-slide px-4">
-                  <div className="flex flex-col">
-                    <div className="flex-shrink-0 rounded overflow-hidden">
-                      <img
-                        className="h-auto w-full object-cover"
-                        src="./images/1040623_25528_STH.jpg"
-                        alt=""
-                      />
-                    </div>
-                    <div className="w-full pt-4 h-full text-center z-10">
-                      <div className="w-full text-xl mb-3 h-14">
-                        <Link
-                          href="/"
-                          className="text-secondary text-xl font-bold"
-                        >
-                          Patagonia Women's Better Sweater Jacket
-                        </Link>
-                      </div>
-                      <div className="text-secondary-hover font-bold">
-                        MSRP $149.00
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+import { _ProductsAlike } from '@type/APIs/productDetail.res';
+import Image from 'appComponents/reusables/Image';
+import Price from 'appComponents/reusables/Price';
+import { useRouter } from 'next/router';
+import { __constant } from 'page.config';
+import React, { useRef } from 'react';
+import Slider from 'react-slick';
+
+interface _props {
+  title: string;
+  products: _ProductsAlike[] | null;
+}
+
+const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
+  const router = useRouter();
+  const sliderRef = useRef<null | Slider>(null);
+
+  const goToNextProduct = () => {
+    sliderRef.current!.slickNext();
+  };
+
+  const goToPrevProduct = () => {
+    sliderRef.current!.slickPrev();
+  };
+
+  return (
+    <>
+      {products === null ? (
+        <></>
+      ) : (
+        <section className="mainsection mt-10">
+          <div className="container mx-auto">
+            <div className="w-full text-center text-2xl md:text-3xl lg:text-title font-title text-color-title text-color-title mb-4">
+              {title}
             </div>
-            <div className="absolute inset-y-0 left-0 z-10 flex items-center">
-              <button
-                // @click="swiper.slidePrev()"
-                className="bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none"
+            <div className="relative" id="slider">
+              {/* <button onClick={() => goToPrevProduct()}>Prev</button> */}
+              <Slider
+                ref={(c) => (sliderRef.current = c)}
+                {...__constant._productDetails.recentlyViewed.sliderSettings}
               >
-                <span className="hidden">Previous</span>
-                <svg
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="chevron-left w-6 h-6"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-            <div className="absolute inset-y-0 right-0 z-10 flex items-center">
-              <button
-                // @click="swiper.slideNext()"
-                className="bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none"
-              >
-                <span className="hidden">Next</span>
-                <svg
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="chevron-right w-6 h-6"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </button>
+                {products.map((product) => {
+                  return (
+                    <div key={product.id} className="slide-item">
+                      <div className="px-2">
+                        <div className="flex text-center lg:w-auto mb-6">
+                          <div className="relative pb-4">
+                            <div className="w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
+                              <div
+                                onClick={() => router.push(product.seName)}
+                                // href={`${encodeURIComponent(product.seName)}`}
+                                className="relative"
+                              >
+                                {/* Issue: Using functional components as child of <Link/> causes ref-warnings */}
+                                <Image
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="w-auto h-auto max-h-max"
+                                />
+                              </div>
+                            </div>
+                            <div className="mt-6">
+                              <div
+                                onClick={() => router.push(product.seName)}
+                                className="mt-1 text-anchor hover:text-anchor-hover"
+                              >
+                                <div className="relative underline">
+                                  <span className="absolute inset-0"></span>
+                                  {product.name}
+                                </div>
+                              </div>
+                              <div className="mt-3 text-black text-base tracking-wider">
+                                <span className="font-semibold">
+                                  MSRP <Price value={product.msrp} />
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </Slider>
+              {/* <button onClick={() => goToNextProduct()}>Next</button> */}
             </div>
           </div>
-        </div>
-      </section>
-    );
-  }
-  return <></>;
+        </section>
+      )}
+    </>
+  );
 };
 
 export default ProductRecentlyViewed;

@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
 export interface _ModalState {
-  showLoader:boolean;
+  showLoader: boolean;
 }
 
 // Define the initial state using that type
 const initialState: _ModalState = {
-    showLoader: false,
+  showLoader: true,
 };
 
 export const loaderSlice = createSlice({
@@ -20,7 +20,7 @@ export const loaderSlice = createSlice({
         payload: boolean;
       },
     ) => {
-      state.showLoader = action.payload
+      state.showLoader = action.payload;
     },
   },
 });

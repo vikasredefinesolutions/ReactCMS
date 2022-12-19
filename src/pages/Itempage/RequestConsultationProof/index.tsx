@@ -1,79 +1,137 @@
-import { _ExpectedRequestConsultationProps } from '@type/product.type';
+import { _StoreReturnType } from '@type/store.type';
 import Image from 'appComponents/reusables/Image';
+import ProductAlike from 'Components/ProductDetails/ProductAlike';
 import RequestConsultationForm from 'Components/RequestConsultation/RequestConsultationForm';
 import RequestFeatures from 'Components/RequestConsultation/RequestFeatures';
-import { paths } from 'constants/paths.constant';
 import * as ConsultationController from 'Controllers/RequestConsultationController';
 import * as _AppController from 'Controllers/_AppController';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,
-  _ProductDoNotExistTransformed,
+  _ProductsAlike,
+  _ProductSEO,
 } from 'definations/APIs/productDetail.res';
+import { Redirect } from 'Guard/AuthGuard';
 import { domainToShow } from 'helpers/common.helper';
-import { conditionalLog, highLightError } from 'helpers/global.console';
+import { conditionalLogV2, __console } from 'helpers/global.console';
 import { GetServerSideProps, NextPage } from 'next';
-import Link from 'next/link';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { __domain } from 'page.config';
-import { useEffect } from 'react';
-import { _showConsoles, __fileNames } from 'show.config';
 
-interface _props {
-  product: {
-    doNotExist: _ProductDoNotExistTransformed | null;
-    details: _ProductDetails | null;
-  } | null;
-
-  color: _ProductColor | null;
-}
-
-const RequestConsultation: NextPage<_props> = ({ product, color }) => {
+const RequestConsultation: NextPage<_RequestConsultationProps> = ({
+  details,
+  color,
+  alike,
+  seo,
+}) => {
+  conditionalLogV2({
+    data: {
+      details,
+      color,
+      alike,
+      seo,
+    },
+    show: __console.requestConsultation.page,
+    type: 'PAGE',
+    name: 'Request Consultation - Props',
+  });
   const router = useRouter();
 
-  useEffect(() => {
-    if (product !== null && product.doNotExist) {
-      router.push(product.doNotExist.retrunUrlOrCategorySename || '/');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (product === null) return <>Product Page Loading... </>;
-
-  if (product === null || product.details === null || color === null) {
+  if (details === null) {
     router.push('/');
-    return <></>;
+    return <>Page do not exist... </>;
   }
+
+  const HeadTag = (
+    <Head>
+      <title>{seo?.pageTitle || details.name}</title>
+      <meta
+        name="description"
+        content={seo?.metaDescription || details.description}
+        key="desc"
+      />
+      <meta name="keywords" content={seo?.metaKeywords || details.name} />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        charSet="UTF-8"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+      />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+      />
+    </Head>
+  );
 
   return (
     <section className="container mx-auto border border-gray-300 p-3">
+      <>{HeadTag}</>
       <div className="flex flex-wrap items-center -mx-3">
         <div className="w-full lg:w-4/12 px-3 text-center">
           <div className="">
             <Image
               src={color?.imageUrl || null}
-              alt={product.details.name}
+              alt={details.name}
               className={''}
             />
           </div>
           <div className="text-lg md:text-xl lg:text-small-title font-small-title">
-            <Link href={paths.PRODUCT}>{product.details.name}</Link>
+            <button onClick={() => router.back()}>{details.name}</button>
           </div>
         </div>
         <RequestConsultationForm />
         <RequestFeatures />
       </div>
+      <ProductAlike title={'YOU MAY ALSO LIKE'} products={alike} />
     </section>
   );
 };
 
 export default RequestConsultation;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////// TYPES: JUST FOR  THIS PAGE ----------------------------------
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+interface _ExpectedRequestConsultationProps {
+  store: null | _StoreReturnType;
+  product: null | {
+    details: null | _ProductDetails;
+    colors: null | _ProductColor[];
+  };
+  color: null | _ProductColor;
+  alike: null | _ProductsAlike[];
+  seo: null | _ProductSEO;
+}
+
+interface _RequestConsultationProps {
+  details: null | _ProductDetails;
+  color: null | _ProductColor;
+  alike: null | _ProductsAlike[];
+  seo: null | _ProductSEO;
+}
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////// SERVER SIDE METHOD ------------------------------------------
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+export const getServerSideProps: GetServerSideProps = async (
+  context,
+): Promise<{ props: _RequestConsultationProps }> => {
+  const responseBody = context.res;
   let expectedProps: _ExpectedRequestConsultationProps = {
     store: null,
     product: null,
     color: null,
+    alike: null,
+    seo: null,
   };
 
   try {
@@ -93,16 +151,35 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (typeof query.productId === 'string') {
       query.productId = +query.productId; // to number;
 
-      expectedProps.store = await _AppController.FetchStoreDetails(domain, '');
+      expectedProps.store = await _AppController.fetchStoreDetails(domain, '');
 
       if (expectedProps.store) {
-        expectedProps.product =
-          await ConsultationController.FetchProductDetails({
-            storeId: expectedProps.store.storeId!,
-            productId: query.productId,
-            isAttributeSaparateProduct:
-              expectedProps.store.isAttributeSaparateProduct,
+        const product = await ConsultationController.FetchProductDetails({
+          storeId: expectedProps.store.storeId!,
+          productId: query.productId,
+          isAttributeSaparateProduct:
+            expectedProps.store.isAttributeSaparateProduct,
+        });
+        if (product.details === null || product.details.id === null) {
+          Redirect({
+            res: responseBody,
+            to: product.details?.productDoNotExist?.retrunUrlOrCategorySename,
           });
+          return {
+            props: {
+              details: null,
+              color: null,
+              alike: null,
+              seo: null,
+            },
+          };
+        }
+        expectedProps.product = {
+          details: product.details,
+          colors: product.colors,
+        };
+        expectedProps.alike = product.alike;
+        expectedProps.seo = product.seo;
         expectedProps.color =
           expectedProps.product?.colors?.find((color) => {
             return color.name === query.colorName;
@@ -110,23 +187,32 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
 
-    // const pathNames = context.req.url?.split('/')!;
-    // const seName =  pathNames ? pathNames[pathNames?.length - 1] : null;
+    conditionalLogV2({
+      data: {
+        store: expectedProps.store,
+        details: expectedProps.product!.details,
+        color: expectedProps.color,
+        alike: expectedProps.alike,
+      },
+      show: __console.requestConsultation.serverMethod,
+      type: 'SERVER_METHOD',
+      name: 'Request Consultation: getServerSide sending Props',
+    });
   } catch (error) {
-    highLightError({ error, component: `Request Consultation page` });
+    conditionalLogV2({
+      data: error,
+      show: __console.allCatch,
+      type: 'CATCH',
+      name: 'Request Consultation: getServerSideProps - Something went wrong',
+    });
   }
-
-  conditionalLog({
-    show: _showConsoles.requestConsultation,
-    data: expectedProps,
-    type: 'NEXTJS PROPS',
-    name: __fileNames.requestConsultation,
-  });
 
   return {
     props: {
-      product: expectedProps.product,
+      details: expectedProps.product!.details,
       color: expectedProps.color,
+      alike: expectedProps.alike,
+      seo: expectedProps.seo,
     },
   };
 };

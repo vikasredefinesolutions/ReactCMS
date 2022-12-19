@@ -1,5 +1,5 @@
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React from 'react';
 
 const OnePercentLogo: React.FC<{ position: 'HEADER' | 'FOOTER' }> = ({

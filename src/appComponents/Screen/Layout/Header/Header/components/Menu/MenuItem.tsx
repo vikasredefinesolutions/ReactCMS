@@ -1,104 +1,83 @@
+import { paths } from '@constants/paths.constant';
+import {
+  _t_Brands,
+  _t_MenuCategory,
+  _t_MenuTopic,
+} from '@type/APIs/header.res';
 import React from 'react';
 import Brand from './Brand';
 import Category from './Category';
+import Custom from './Custom';
+import DomainDropDown from './DomainDropDown';
+import LayoutDropDown from './LayoutDropDown';
 import Topic from './Topic';
-interface _props {
-  screen: 'MOBILE' | 'DESKTOP';
-  // menu: _StoreMenu;
-  type: 'brand' | 'category' | 'topic';
+
+// TODO - Remove Layout dropdown & type
+
+interface _layoutDropdown {
+  showLayoutsOption: boolean;
+  layouts: {
+    layoutType: string;
+    domain: string;
+    layoutName: string;
+  }[];
 }
 
-const MenuItem: React.FC<_props> = ({ type }) => {
-  // const storeId = useTypedSelector((state) => state.store.id);
-  // const [menuItems, setMenuItems] = useState<{
-  //   topic: _MenuTopic | null;
-  //   category: null | _MenuCategory[];
-  // } | null>(null);
+// -----------
+interface _props {
+  content:
+    | _t_MenuTopic
+    | _t_Brands
+    | _t_MenuCategory
+    | string
+    | null
+    | _layoutDropdown;
+  type: 'BRANDS' | 'CATEGORY' | 'TOPIC' | 'CUSTOM' | 'LAYOUT_DROPDOWN';
+  title: string;
+  url: string | null;
+}
 
-  // const callAPI = (type: 'TOPIC' | 'CATEGORY') => {
-  //   if (type === 'TOPIC') {
-  //     FetchMenuTopics({ topicId: menu.topicid })
-  //       .then((res) => setMenuItems({ topic: res, category: null }))
-  //       .catch(() => setMenuItems({ topic: null, category: null }));
-  //   }
+const MenuItem: React.FC<_props> = ({ type, url, title, content }) => {
+  let _titleURL = '/';
 
-  //   if (type === 'CATEGORY') {
-  //     if (storeId === null) return;
-  //     FetchMenuCategories({ categoryId: menu.topicid, storeId: storeId })
-  //       .then((res) => setMenuItems({ topic: null, category: res }))
-  //       .catch(() => setMenuItems({ topic: null, category: null }));
-  //   }
-  // };
-
-  // if (menu?.type === 'custom') {
-  //   if (menu?.category === 'topic') {
-  //     if (menu.menuinfo === null) return <></>;
-  //     return (
-  //       <Custom
-  //         menuTitle={'Dummy Custom topic'}
-  //         menuItems={menu.menuinfo}
-  //         menuUrl={menu.sename}
-  //       />
-  //     );
-  //   }
-  //   if (menu?.category === 'category') {
-  //     if (menu.menuinfo === null) return <></>;
-  //     return (
-  //       <Custom
-  //         menuTitle={'Dummy Custom category'}
-  //         menuItems={menu.menuinfo}
-  //         menuUrl={menu.sename}
-  //       />
-  //     );
-  //   }
-  // }
-
-  // if (menu?.type === 'dynamic') {
-  //   if (menu?.category === 'category') {
-  //     if (menuItems === null) {
-  //       callAPI('CATEGORY');
-  //       return <></>;
-  //     }
-  //     return (
-  //       <Category
-  //         menuTitle={'Dummy Custom Category'}
-  //         menuUrl={menu.sename}
-  //         menuItems={['Dummy 1', 'dummy 2']}
-  //       />
-  //     );
-  //   }
-  // }
-
-  // if (menu?.type === 'none') {
-  //   if (menuItems === null) {
-  //     callAPI('TOPIC');
-  //     return <></>;
-  //   }
-
-  //   if (menuItems.topic === null) return <></>;
-
-  //   return <Topic menuTitle={menuItems.topic.title} menuUrl={menu.sename} />;
-  // }
-
-  if (type === 'brand') {
-    return <Brand brandPageUrl="/brands.html" menuTitle={'Brands'} />;
+  if (url) {
+    _titleURL = url;
   }
-  if (type === 'category') {
-    return (
-      <Category
-        menuTitle={'Men'}
-        menuUrl={'nike.html'}
-        menuItems={['Jacket']}
-      />
-    );
+
+  if (content === null) {
+    return <></>;
   }
-  if (type === 'topic') {
+
+  if (typeof content === 'string') {
+    return <Custom title={title} url={_titleURL} content={content} />;
+  }
+
+  if ('dataType' in content) {
+    if (type === 'BRANDS' && content.dataType === 'BRANDS') {
+      return <Brand title={title} url={paths.BRAND} content={content.brands} />;
+    }
+
+    if (type === 'CATEGORY' && content.dataType === 'CATEGORIES') {
+      return (
+        <Category title={title} url={_titleURL} content={content.categories} />
+      );
+    }
+  }
+
+  if ('showLayoutsOption' in content) {
     return (
-      <Topic menuTitle={'Consultation'} menuUrl={'request-consultation'} />
+      <>
+        <LayoutDropDown content={content.layouts} />
+        <DomainDropDown content={content.layouts} />
+      </>
     );
   }
 
-  return <></>;
+  if (type === 'TOPIC') {
+    return <Topic title={title} url={_titleURL} />;
+  }
+
+  return <>dum</>;
 };
 
 export default MenuItem;

@@ -1,16 +1,16 @@
-import { _Store } from '@constants/store.constant';
 import {
   ColorChangeHandler,
   FilterChangeHandler,
   FilterType,
-  ProductList as ProductListType,
+  ProductList as ProductListType
 } from '@type/productList.type';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React, { Fragment } from 'react';
+import ProductListController from '../../Controllers/ProductListController';
 import Layout1 from './layouts/layout1';
 import Layout2 from './layouts/layout2';
 import Layout3 from './layouts/layout3';
-import ProductListController from './ProductListController';
 
 export type list_FnProps = {
   filters: FilterType;

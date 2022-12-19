@@ -6,13 +6,13 @@ import RedefineFwInput from 'Components/SignUp/RedefineFwInput';
 import RedefineInput from 'Components/SignUp/RedefineInput';
 import RedefineSelect from 'Components/SignUp/RedefineSelect';
 import { paths, queryParam } from 'constants/paths.constant';
-import { _Store } from 'constants/store.constant';
 import { signupPageMessages } from 'constants/validationMessages';
 import { _SignUpPayload } from 'definations/APIs/signUp.req';
 import { _Country, _Industry, _State } from 'definations/user.type';
 import getLocation from 'helpers/getLocation';
 import { useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
+import { _Store } from 'page.config';
 import {
   CreateNewAccount,
   GetCountriesList,

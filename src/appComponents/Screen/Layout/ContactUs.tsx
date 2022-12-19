@@ -1,6 +1,6 @@
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
+import { _Store } from 'page.config';
 import React from 'react';
 const ContactUs: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);

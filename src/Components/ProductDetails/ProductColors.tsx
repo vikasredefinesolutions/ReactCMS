@@ -1,8 +1,7 @@
-import React from 'react';
 import Image from 'appComponents/reusables/Image';
-import { _Store } from 'constants/store.constant';
-import { _ProductColor } from 'definations/APIs/colors.res';
 import { useActions, useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
+import React from 'react';
 
 const ProductColors: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);

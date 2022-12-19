@@ -1,7 +1,7 @@
 import { paths } from 'constants/paths.constant';
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
+import { _Store } from 'page.config';
 import React from 'react';
 
 interface _props {
@@ -29,11 +29,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, headerdata }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME} className="xl:hidden">
-          <img
-            src={headerdata?.mobile_image}
-            alt=""
-            className="h-14 w-auto"
-          />
+          <img src={headerdata?.mobile_image} alt="" className="h-14 w-auto" />
         </Link>
       );
     }

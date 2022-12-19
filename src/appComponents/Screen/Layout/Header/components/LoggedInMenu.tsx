@@ -1,20 +1,22 @@
-import { _LocalStorage } from '@constants/global.constant';
 import { paths } from '@constants/paths.constant';
-import { _Store } from '@constants/store.constant';
+import { _Logout } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { _Store } from 'page.config';
 import { useState } from 'react';
 
 const LoggedInMenu = () => {
   const { logInUser } = useActions();
-  const { id: loggedIn } = useTypedSelector((state) => state.user);
+  const router = useRouter();
+  const { id: loggedIn, customer } = useTypedSelector((state) => state.user);
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
   const [focus, setFocus] = useState(false);
 
   const logoutHandler = () => {
-    logInUser({ id: null });
-    localStorage.removeItem(_LocalStorage.userId);
-    return;
+    setFocus(false);
+
+    _Logout(logInUser);
   };
 
   const showMenuOrNot = (): boolean => {
@@ -38,7 +40,9 @@ const LoggedInMenu = () => {
           >
             <Link href={paths.loggedInMenu.title}>
               <a className="text-primary hover:text-anchor-hover flex items-center gap-1">
-                <span className="text-sm xl:inline-block">User Name</span>
+                <span className="text-sm xl:inline-block">
+                  {customer?.firstname}
+                </span>
                 <svg
                   className="w-6 h-6"
                   x-description="Heroicon name: outline/user"
@@ -119,7 +123,7 @@ const LoggedInMenu = () => {
           >
             <Link href={paths.loggedInMenu.title}>
               <a className="text-gray-600 hover:text-[#CDDE00] flex items-center gap-1">
-                <span className="hidden">User Name</span>
+                <span className="hidden">{customer?.firstname}</span>
                 <svg
                   className="w-6 h-6"
                   x-description="Heroicon name: outline/user"
@@ -200,7 +204,7 @@ const LoggedInMenu = () => {
           >
             <Link href={paths.loggedInMenu.title}>
               <a className="text-gray-600 hover:text-primary flex items-center gap-1">
-                <span className="hidden">USER NAME</span>
+                <span className="hidden">{customer?.firstname}</span>
                 <svg
                   className="w-6 h-6"
                   x-description="Heroicon name: outline/user"
@@ -287,7 +291,9 @@ const LoggedInMenu = () => {
             className="text-primary hover:text-anchor-hover flex items-center gap-1"
           >
             <a>
-              <span className="text-sm xl:inline-block">User Name</span>
+              <span className="text-sm xl:inline-block">
+                {customer?.firstname}
+              </span>
               <svg
                 className="w-6 h-6"
                 x-description="Heroicon name: outline/user"

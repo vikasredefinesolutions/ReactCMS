@@ -1,7 +1,7 @@
 import { paths } from 'constants/paths.constant';
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
+import { _Store } from 'page.config';
 import React from 'react';
 
 interface _props {

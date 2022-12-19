@@ -7,7 +7,7 @@ import {
   CreateUserAddress,
   deleteCustomerAddress,
   udpateIsDefaultAddress,
-  UpdateUserAddress,
+  UpdateUserAddress
 } from 'services/address.service';
 // import { SwitchProps } from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -21,10 +21,12 @@ const UserAddress = () => {
   const [showAddressPopup, setShowAddresss] = useState('');
   const [showTab, setShowTab] = useState('S');
   const [editData, setEditData] = useState<CustomerAddress | null>(null);
+  const [address, setAddress] = useState<CustomerAddress[] | null>(null);
 
-  const address = useTypedSelector(
-    (state) => state.user.customer.customerAddress,
+  const customer = useTypedSelector(
+    (state) => state.user.customer
   );
+
   const customerId = useTypedSelector((state) => state.user.id);
 
   const closePopupHandler = () => {
@@ -33,7 +35,10 @@ const UserAddress = () => {
   };
 
   const getAddress = (type: string) => {
-    return address.filter((res) => res.addressType === type);
+    if (address) {
+      return address.filter((res) => res.addressType === type);
+    }
+    return []
   };
 
   const submitHandler = async (values: AddUpdateAddressRequest) => {
@@ -117,9 +122,8 @@ const UserAddress = () => {
               <li className="mr-0.5 md:mr-0 font-semibold">
                 <button
                   onClick={() => setShowTab('S')}
-                  className={`tab py-2 mr-1 px-2 block text-primary focus:outline-none text-default-text border-b-2 font-medium${
-                    showTab === 'B' ? '' : ' border-primary'
-                  }`}
+                  className={`tab py-2 mr-1 px-2 block text-primary focus:outline-none text-default-text border-b-2 font-medium${showTab === 'B' ? '' : ' border-primary'
+                    }`}
                 >
                   Shipping Address
                 </button>
@@ -127,9 +131,8 @@ const UserAddress = () => {
               <li className="mr-0.5 md:mr-0 font-semibold">
                 <button
                   onClick={() => setShowTab('B')}
-                  className={`tab py-2 mr-1 px-2 block text-primary focus:outline-none text-default-text border-b-2 font-medium${
-                    showTab === 'S' ? '' : ' border-primary'
-                  }`}
+                  className={`tab py-2 mr-1 px-2 block text-primary focus:outline-none text-default-text border-b-2 font-medium${showTab === 'S' ? '' : ' border-primary'
+                    }`}
                 >
                   Billing Address
                 </button>

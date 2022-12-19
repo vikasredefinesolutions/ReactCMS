@@ -1,6 +1,6 @@
-import React from 'react';
-import { _Store } from 'constants/store.constant';
 import { useActions, useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
+import React from 'react';
 
 const CloseIcon: React.FC = () => {
   const { layout: storeLayout } = useTypedSelector((state) => state.store);

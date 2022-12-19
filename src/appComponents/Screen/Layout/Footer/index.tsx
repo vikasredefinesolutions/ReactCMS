@@ -1,8 +1,8 @@
 import { paths } from '@constants/paths.constant';
-import { _Store } from 'constants/store.constant';
 import { useTypedSelector } from 'hooks';
 import { footer } from 'mock/footer.mock';
 import Link from 'next/link';
+import { _Store } from 'page.config';
 import React from 'react';
 import ContactUs from '../ContactUs';
 import NewsLetterBox from '../NewsLetterBox';

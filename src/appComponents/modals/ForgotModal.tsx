@@ -1,7 +1,7 @@
-import { _Store } from 'constants/store.constant';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
+import { _Store } from 'page.config';
 import React from 'react';
 
 interface _Props {

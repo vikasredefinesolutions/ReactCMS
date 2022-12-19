@@ -165,7 +165,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   try {
-    expectedProps.store = await _AppController.FetchStoreDetails(domain, '');
+    expectedProps.store = await _AppController.fetchStoreDetails(domain, '');
     if (expectedProps.store && query.SKUs) {
       expectedProps.products = await CompareController.FetchProductsDetail({
         skus: query.SKUs,

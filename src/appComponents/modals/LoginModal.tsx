@@ -1,14 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { __length, __messages } from '@constants/form.config';
-import { _LocalStorage } from '@constants/global.constant';
+import { __Cookie, __Cookie_Expiry } from '@constants/global.constant';
 import { paths, queryParam } from 'constants/paths.constant';
-import { _Store } from 'constants/store.constant';
 import { _modals } from 'definations/product.type';
 import { Form, Formik } from 'formik';
+import { setCookie } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
+import { _Store } from 'page.config';
 import React, { useState } from 'react';
-import { signInUser } from 'services/user.service';
+import { GetStoreCustomer, signInUser } from 'services/user.service';
 import * as Yup from 'yup';
 import Input from '../ui/switch/Input';
 
@@ -29,9 +30,8 @@ const validationSchema = Yup.object().shape({
 
 const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
   const router = useRouter();
-  const { logInUser, setShowLoader } = useActions();
+  const { logInUser, setShowLoader, updateCustomer } = useActions();
   const [showErroMsg, setErrorMsg] = useState<null | string>(null);
-
   const { layout: storeLayout, id: storeId } = useTypedSelector(
     (state) => state.store,
   );
@@ -42,17 +42,25 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
     keepMeLoggedIn: boolean;
   }) => {
     setShowLoader(true);
+
     signInUser({ ...enteredInputs, storeId: storeId! })
-      .then((userId) => {
-        modalHandler(null);
-        localStorage.setItem(_LocalStorage.userId, `${userId}`);
-        logInUser({
-          id: userId!,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        // setErrorMsg(err)
+      .then((user) => {
+        if (user.credentials === 'INVALID') {
+          setErrorMsg(__messages.credentials.invalid);
+        }
+        if (user.credentials === 'VALID') {
+          modalHandler(null);
+          logInUser({
+            id: +user.id,
+          });
+          setCookie(__Cookie.userId, user.id, __Cookie_Expiry.userId);
+
+          GetStoreCustomer(+user.id).then((res) => {
+            if (res !== null) {
+              updateCustomer({ customer: res });
+            }
+          });
+        }
       })
       .finally(() => setShowLoader(false));
   };
@@ -103,7 +111,11 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                       </div>
                       <div className="p-6">
                         <div className="mb-4 text-center">SIGN IN</div>
-                        {showErroMsg && <span>{showErroMsg}</span>}
+                        {showErroMsg && (
+                          <span className="mb-1 text-rose-500">
+                            {showErroMsg}
+                          </span>
+                        )}
                         <div className="Login-Main">
                           <Input
                             label={''}
@@ -137,7 +149,10 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                           />
                           <div className="mb-4">
                             <button
-                              onClick={() => handleSubmit()}
+                              disabled={!!showErroMsg}
+                              onClick={() => {
+                                handleSubmit();
+                              }}
                               className="btn btn-lg btn-secondary w-full !flex items-center justify-center"
                             >
                               SHOP NOW
@@ -147,7 +162,12 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             <div className="mb-3">
                               <input
                                 checked={values.keepMeLoggedIn}
-                                onChange={handleChange}
+                                onChange={(ev) => {
+                                  if (showErroMsg) {
+                                    setErrorMsg(null);
+                                  }
+                                  handleChange(ev);
+                                }}
                                 type="checkbox"
                                 id="'ChkKeepMeLogged'"
                                 name="keepMeLoggedIn"
@@ -232,20 +252,29 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                 }}
                 validationSchema={validationSchema}
                 onSubmit={signInHandler}
-                // validationSchema={validationSchema}
               >
                 {({ values, handleChange }) => {
                   return (
                     <Form>
                       <div className="p-6">
                         <div className="mb-4 text-center">SIGN IN</div>
+                        {showErroMsg && (
+                          <span className="mb-1 text-rose-500">
+                            {showErroMsg}
+                          </span>
+                        )}
                         <div className="Login-Main">
                           <Input
                             label={''}
                             placeHolder={'Enter the email'}
                             name={'userName'}
                             value={values.userName}
-                            onChange={handleChange}
+                            onChange={(ev) => {
+                              if (showErroMsg) {
+                                setErrorMsg(null);
+                              }
+                              handleChange(ev);
+                            }}
                             type={'email'}
                             required={false}
                             id={'email'}
@@ -256,7 +285,12 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             placeHolder={'Enter the password'}
                             name={'password'}
                             value={values.password}
-                            onChange={handleChange}
+                            onChange={(ev) => {
+                              if (showErroMsg) {
+                                setErrorMsg(null);
+                              }
+                              handleChange(ev);
+                            }}
                             type={'password'}
                             required={false}
                           />
@@ -264,6 +298,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                           <div className="mb-4">
                             <button
                               type="submit"
+                              disabled={!!showErroMsg}
                               className="btn btn-lg btn-secondary w-full !flex items-center justify-center"
                               id=""
                             >
@@ -274,7 +309,12 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             <div className="mb-3">
                               <input
                                 checked={values.keepMeLoggedIn}
-                                onChange={handleChange}
+                                onChange={(ev) => {
+                                  if (showErroMsg) {
+                                    setErrorMsg(null);
+                                  }
+                                  handleChange(ev);
+                                }}
                                 type="checkbox"
                                 id="'ChkKeepMeLogged'"
                                 name="keepMeLoggedIn"
@@ -377,11 +417,16 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                     keepMeLoggedIn: false,
                   }}
                   onSubmit={signInHandler}
-                  // validationSchema={validationSchema}
+                  validationSchema={validationSchema}
                 >
                   {({ values, handleChange }) => {
                     return (
                       <Form>
+                        {showErroMsg && (
+                          <span className="mb-1 text-rose-500">
+                            {showErroMsg}
+                          </span>
+                        )}
                         <div className="Login-Main">
                           <Input
                             label={''}
@@ -389,7 +434,12 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             placeHolder={'Enter the email'}
                             name={'userName'}
                             value={values.userName}
-                            onChange={handleChange}
+                            onChange={(ev) => {
+                              if (showErroMsg) {
+                                setErrorMsg(null);
+                              }
+                              handleChange(ev);
+                            }}
                             type={'email'}
                             required={false}
                           />
@@ -399,12 +449,18 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             id="password"
                             name={'password'}
                             value={values.password}
-                            onChange={handleChange}
+                            onChange={(ev) => {
+                              if (showErroMsg) {
+                                setErrorMsg(null);
+                              }
+                              handleChange(ev);
+                            }}
                             type={'password'}
                             required={false}
                           />
                           <div className="mb-4">
                             <button
+                              disabled={!!showErroMsg}
                               className="btn btn-lg btn-secondary w-full !flex items-center justify-center"
                               type="submit"
                             >
@@ -415,7 +471,12 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             <div className="mb-3">
                               <input
                                 checked={values.keepMeLoggedIn}
-                                onChange={handleChange}
+                                onChange={(ev) => {
+                                  if (showErroMsg) {
+                                    setErrorMsg(null);
+                                  }
+                                  handleChange(ev);
+                                }}
                                 type="checkbox"
                                 id="'ChkKeepMeLogged'"
                                 name="keepMeLoggedIn"

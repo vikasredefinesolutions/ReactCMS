@@ -139,7 +139,6 @@ const CartController = () => {
       priceObject.totalPrice += res.totalPrice;
       priceObject.subTotal += res.totalPrice;
       totalQty += res.totalQty;
-      console.log(res.totalQty);
     });
 
     if (store.cartCharges) {
@@ -150,7 +149,6 @@ const CartController = () => {
         isLogoSetupCharges,
         logoSetupCharges,
       } = store.cartCharges;
-      console.log(isSmallRun, totalQty);
       if (isSmallRun) {
         if (totalQty < smallRunLimit) {
           priceObject.totalPrice += smallRunFeesCharges;

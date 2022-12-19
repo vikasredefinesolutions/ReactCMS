@@ -1,8 +1,8 @@
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import LoginModal from 'appComponents/modals/LoginModal';
-import { _Store } from 'constants/store.constant';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React, { useState } from 'react';
 
 const LoginIcon: React.FC = () => {

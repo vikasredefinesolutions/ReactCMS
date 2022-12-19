@@ -38,13 +38,11 @@ const ProductComponent = ({
         <div className="flex text-center lg:w-auto h-full">
           <div className="relative border border-gray-200 pb-4 w-full">
             <div className="w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1">
-              <a href="product-page.html" className="relative">
-                <img
-                  src={`${config.mediaBaseUrl}${currentProduct.imageName}`}
-                  alt=""
-                  className="w-auto h-auto m-auto max-h-[400px]"
-                />
-              </a>
+              <img
+                src={`${config.mediaBaseUrl}${currentProduct.imageName}`}
+                alt=""
+                className="w-auto h-auto m-auto max-h-[400px]"
+              />
               <div className="absolute top-5 right-5 text-gray-800 p-1 z-5">
                 <button className="">
                   <Wishlist
@@ -95,11 +93,10 @@ const ProductComponent = ({
                   {product.getProductImageOptionList.map((subRow, index) =>
                     index < 6 ? (
                       <li
-                        className={`w-7 h-7 border-2${
-                          subRow.id === currentProduct.id
+                        className={`w-7 h-7 border-2${subRow.id === currentProduct.id
                             ? ' border-secondary'
                             : ''
-                        }`}
+                          }`}
                         onClick={() => {
                           colorChangeHandler(
                             product.id,

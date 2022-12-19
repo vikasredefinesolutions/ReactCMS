@@ -1,25 +1,14 @@
+import { checkCustomerAlreadyExist } from '@services/cart.service';
+import { signInUser } from '@services/user.service';
 import {
   checkoutNewAccountPasswordMessages,
   checkoutPasswordMessages,
   checkoutUserLoginMessages,
 } from 'constants/validationMessages';
 import { CustomerAddress } from 'definations/APIs/user.res';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-
-// const defaultDileveryAddres = {
-//   firstName: 'John',
-//   lastName: 'Smith',
-//   companyName: 'Redefine',
-//   streetAddress: 'Street4, Waltham',
-//   address2: '',
-//   city: 'Minnesota',
-//   state: 'MP',
-//   zipCode: '76051',
-//   Country: 'United Kingdom',
-//   phone: '+1 98567-59863',
-// };
 
 const cardArray = [
   {
@@ -43,11 +32,15 @@ const cardArray = [
 export type AddressType = CustomerAddress;
 export type CreditCardType = typeof cardArray;
 const CheckoutController = () => {
-  const [address, setAddress] = useState<Array<CustomerAddress>>([]);
+  const { showModal, fetchCartDetails } = useActions();
 
   const customer = useTypedSelector((state) => state.user.customer);
-
+  // const storeId = useTypedSelector((state) => state.store.id);
+  const { id: storeId, ...store } = useTypedSelector((state) => state.store);
+  const cartProducts = useTypedSelector((state) => state.cart.cart);
   const isLoggedIn = false;
+
+  const [address, setAddress] = useState<Array<CustomerAddress>>([]);
   const [showEmail, setShowEmail] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showForgetPassword, setShowForgetPassword] = useState(false);
@@ -61,6 +54,7 @@ const CheckoutController = () => {
   const [purchaseOrder, setPurchaseOrder] = useState(false);
   const [showChangeAddressPopup, setShowChangeAddressPopup] = useState(NaN);
   const [showAddAccount, setShowAddAccount] = useState(false);
+  const [email, setEmail] = useState('');
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -85,6 +79,13 @@ const CheckoutController = () => {
   });
 
   useEffect(() => {
+    if (customer?.id) {
+      fetchCartDetails(customer?.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [customer?.id]);
+
+  useEffect(() => {
     if (isLoggedIn && address.length > 0) {
       setShippingAdress(address[0]);
     }
@@ -106,11 +107,11 @@ const CheckoutController = () => {
   }, [useShippingAddress, shippingAdress]);
 
   useEffect(() => {
-    if (customer.customerAddress) {
+    if (customer && customer.customerAddress) {
       setAddress(customer.customerAddress);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customer.customerAddress]);
+  }, [customer]);
 
   function creditCardType(cc: string) {
     var re = new RegExp('^4');
@@ -148,6 +149,101 @@ const CheckoutController = () => {
     setShowChangeAddressPopup(NaN);
   };
 
+  const checkCustomer = async (value: { email: string }) => {
+    if (storeId) {
+      try {
+        const response = await checkCustomerAlreadyExist(
+          value.email,
+          ~~storeId,
+        );
+        setShowEmail(false);
+        setEmail(value.email);
+        if (response?.isAlreadyExitsCustomer) {
+          setShowPassword(true);
+        } else {
+          setShowAddAccount(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const logInUser = async (value: { password: string }) => {
+    if (storeId) {
+      try {
+        const response = await signInUser({
+          password: value.password,
+          storeId: ~~storeId,
+          userName: email,
+        });
+        if (response) {
+          if (~~response > 0) {
+            setShowShippingScreen(true);
+            setShowPassword(false);
+            if (!isLoggedIn) {
+              setShowChangeAddressPopup(1);
+            }
+          } else {
+            showModal({
+              message: response.toString(),
+              type: 'error',
+            });
+          }
+        }
+
+        // if (response?.isAlreadyExitsCustomer) {
+        //   setShowPassword(true);
+        // } else {
+        //   setShowAddAccount(true);
+        // }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const getTotalPrice = () => {
+    let priceObject = {
+      totalPrice: 0,
+      subTotal: 0,
+      smallRunFee: 0,
+      logoSetupCharges: 0,
+      salesTax: 0,
+    };
+
+    if (cartProducts && cartProducts.length > 0) {
+      let totalQty = 0;
+      cartProducts.forEach((res: any) => {
+        priceObject.totalPrice += res.totalPrice;
+        priceObject.subTotal += res.totalPrice;
+        totalQty += res.totalQty;
+      });
+
+      if (store.cartCharges) {
+        const {
+          isSmallRun,
+          smallRunLimit,
+          smallRunFeesCharges,
+          isLogoSetupCharges,
+          logoSetupCharges,
+        } = store.cartCharges;
+        if (isSmallRun) {
+          if (totalQty < smallRunLimit) {
+            priceObject.totalPrice += smallRunFeesCharges;
+            priceObject.smallRunFee = smallRunFeesCharges;
+          }
+        }
+        if (isLogoSetupCharges) {
+          priceObject.totalPrice += logoSetupCharges;
+          priceObject.logoSetupCharges = logoSetupCharges;
+        }
+      }
+    }
+
+    return priceObject;
+  };
+
   return {
     creditCardType,
     setShowEmail,
@@ -164,6 +260,9 @@ const CheckoutController = () => {
     closeShippingPopup,
     changeAddres,
     setShowAddAccount,
+    checkCustomer,
+    logInUser,
+    getTotalPrice,
     useShippingAddress,
     cardArray,
     passwordValidationSchema,

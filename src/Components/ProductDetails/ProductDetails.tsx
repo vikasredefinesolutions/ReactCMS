@@ -1,7 +1,7 @@
 import CustomizeLogo from 'appComponents/ui/cart/customizeLogo';
-import { _Store } from 'constants/store.constant';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React from 'react';
 import ProductImg from './ProductImg';
 import ProductInfo from './ProductInfo';
@@ -54,7 +54,6 @@ const ProductDetails: React.FC<_Props> = ({ product }) => {
         </section>
         <CustomizeLogo />
       </>
-
     );
   }
 

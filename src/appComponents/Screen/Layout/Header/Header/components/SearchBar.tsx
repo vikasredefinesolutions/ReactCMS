@@ -1,7 +1,7 @@
-import { _Store } from 'constants/store.constant';
 import { Form, Formik } from 'formik';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
+import { _Store } from 'page.config';
 import React from 'react';
 import { SearchFor } from 'services/header.service';
 
@@ -103,23 +103,25 @@ const SearchBar: React.FC<_props> = ({
     if (screen === 'MOBILE') {
       return (
         <Link href="#" className="py-2 text-primary hover:text-gray-500">
-          <span className="sr-only">Search</span>
-          <svg
-            className="w-6 h-6"
-            x-description="Heroicon name: outline/search"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
+          <a>
+            <span className="sr-only">Search</span>
+            <svg
+              className="w-6 h-6"
+              x-description="Heroicon name: outline/search"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+          </a>
         </Link>
       );
     }

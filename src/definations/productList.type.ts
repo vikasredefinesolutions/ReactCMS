@@ -197,7 +197,8 @@ export type FilterType = Array<{
 
 export type FilterApiRequest = {
   storeID: string | number;
-  brandId: string | number;
+  brandId?: string | number;
+  categoryId?: string | number;
   customerId: number;
   filterOptionforfaceteds: Array<{
     name: string;
@@ -218,3 +219,42 @@ export type FilterChangeHandler = (
   value: string,
   checked: boolean,
 ) => void;
+
+export interface StoreCategoryProductCategoryListViewModel {
+  label?: string;
+  subrows: any[];
+  id: number;
+  name: string;
+  productCount: number;
+  displayOrder: number;
+  sename: string;
+}
+
+export interface StoreBrandProductBrandViewModel {
+  label: string;
+  id: number;
+  name: string;
+  productCount: number;
+  displayOrder: number;
+}
+
+export interface CategoryFilter {
+  storeBrandProductColorViewModels: StoreBrandProductColorViewModel[];
+  storeBrandProductSizeViewModels: StoreBrandProductSizeViewModel[];
+  storeBrandProductGenderViewModels: StoreBrandProductGenderViewModel[];
+  storeBrandProductProductTypeViewModels: StoreBrandProductProductTypeViewModel[];
+  storeBrandProductPriceRangeViewModels: StoreBrandProductPriceRangeViewModel[];
+  storeCategoryProductCategoryListViewModel: StoreCategoryProductCategoryListViewModel[];
+  storeBrandProductBrandViewModel: StoreBrandProductBrandViewModel[];
+  getlAllProductList: GetlAllProductList[];
+  [key: string]: Array<
+    | StoreBrandProductColorViewModel
+    | StoreBrandProductSizeViewModel
+    | StoreBrandProductGenderViewModel
+    | StoreBrandProductProductTypeViewModel
+    | StoreBrandProductPriceRangeViewModel
+    | StoreCategoryProductCategoryListViewModel
+    | StoreBrandProductBrandViewModel
+    | GetlAllProductList
+  >;
+}

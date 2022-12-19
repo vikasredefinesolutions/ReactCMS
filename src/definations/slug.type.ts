@@ -1,4 +1,6 @@
+import { __Error } from '@constants/global.constant';
 import { _ProductDetailsProps } from './APIs/productDetail.res';
+import { _FeaturedProduct } from './APIs/storeDetails.res';
 import {
   GetlAllProductList,
   StoreBrandProductColorViewModel,
@@ -16,7 +18,58 @@ export type other =
   | StoreBrandProductPriceRangeViewModel
   | GetlAllProductList;
 
-export interface Seo {
+export type _PageTypesAvailable =
+  | 'topic'
+  | 'category'
+  | 'product'
+  | 'collection'
+  | 'brand';
+
+export interface _TopicHomeProps {
+  pageData: {
+    components: any;
+  };
+  pageType: 'topic';
+  slug: string;
+}
+
+export interface _GetPageType {
+  store_id: number;
+  slug: string;
+  id: number;
+  type: _PageTypesAvailable;
+  meta_title: string;
+  meta_keywords: string;
+  meta_description: string;
+}
+
+export interface _SlugServerSide_WentWrong {
+  error: __Error.storeIdMissing | __Error.noPageTypeFound;
+}
+
+export interface _SlugServerSideProps {
+  pageMetaData: _GetPageType;
+  page: {
+    productDetails: _ProductDetailsProps | null;
+    productListing: _ProductListProps | null;
+    topicHome: {
+      components: any;
+    };
+    home: {
+      featuredItems: null | Array<_FeaturedProduct[] | null>;
+    };
+  } | null;
+}
+
+export interface _ProductListProps {
+  brandSEO: _BrandSEO;
+  filters: Filter[];
+  product: Product[];
+  checkedFilters: CheckedFilter[];
+  brandId: number;
+}
+
+export interface _BrandSEO {
   brandId: number;
   brandName: string;
   seName: string;
@@ -66,23 +119,3 @@ export interface CheckedFilter {
   name: string;
   value: string;
 }
-
-export interface ProductListPageData {
-  seo?: Seo;
-  filters?: Filter[];
-  product?: Product[];
-  checkedFilters?: CheckedFilter[];
-  brandId?: string;
-}
-
-export interface SlugPropType {
-  pageType: string;
-  pageData: ProductListPageData | _ProductDetailsProps | TopicProps;
-  slug: string;
-}
-
-export type TopicProps =
-  | any
-  | {
-      seo?: Seo;
-    };

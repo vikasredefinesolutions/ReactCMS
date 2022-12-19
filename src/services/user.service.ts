@@ -1,4 +1,6 @@
+import { __Login } from '@constants/global.constant';
 import {
+  UserType,
   _MyAcc_OrderBillingDetails,
   _MyAcc_OrderProductDetails,
 } from '@type/APIs/user.res';
@@ -6,37 +8,95 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _SignUpPayload } from 'definations/APIs/signUp.req';
 import { _AccCreated } from 'definations/APIs/signUp.res';
 import { _SignIn } from 'definations/user.type';
-import { conditionalLog } from 'helpers/global.console';
+import { CallAPI } from 'helpers/common.helper';
+import {
+  conditionalLog,
+  conditionalLogV2,
+  __console,
+} from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
 import { SendAsyncV2 } from '../utils/axios.util';
 
-export const signInUser = async (payload: _SignIn): Promise<number | null> => {
+interface _Valid {
+  credentials: 'VALID';
+  id: string;
+}
+interface _Invalid {
+  credentials: 'INVALID';
+  message: string;
+}
+
+export type _UserAPIs =
+  | 'signInUser'
+  | 'CreateNewAccount'
+  | 'OrderedBillingDetails'
+  | 'OrderedProductDetails'
+  | 'FetchOrderIds'
+  | 'GetStoreCustomer'
+  | 'FetchOrderDetails';
+export interface _UserServices {
+  service: 'user';
+  api: _UserAPIs;
+}
+
+export const signInUser = async (
+  payload: _SignIn,
+): Promise<_Valid | _Invalid> => {
   const url = `StoreCustomer/customerlogin.json`;
+  conditionalLogV2({
+    // @ts-ignore: Unreachable code error
+    data: payload,
+    name: 'signInUser',
+    type: 'API-RESPONSE',
+    show: __console.user.service['signInUser'],
+  });
 
   try {
-    const res = await SendAsyncV2<number>({
+    const res = await SendAsyncV2<string>({
       url: url,
       method: 'POST',
       data: payload,
     });
 
-    conditionalLog({
+    if (res.data === null) {
+      conditionalLogV2({
+        // @ts-ignore: Unreachable code error
+        data: res?.errors,
+        name: 'signInUser',
+        type: 'API-RESPONSE',
+        show: __console.user.service['signInUser'],
+      });
+
+      return {
+        credentials: 'INVALID',
+        // @ts-ignore: Unreachable code error
+        message: res?.errors?.exception,
+      };
+    }
+    conditionalLogV2({
+      // @ts-ignore: Unreachable code error
       data: res.data,
       name: 'signInUser',
-      type: 'API',
-      show: res.data === null,
+      type: 'API-RESPONSE',
+      show: __console.user.service['signInUser'],
     });
 
-    return res.data;
+    return {
+      credentials: 'VALID',
+      id: res.data,
+    };
   } catch (error) {
-    conditionalLog({
+    conditionalLogV2({
       data: error,
       name: 'signInUser',
-      type: 'API',
-      show: _showConsoles.services.compareProducts,
-      error: true,
+      type: 'API-ERROR',
+      show: __console.user.service['signInUser'],
     });
-    return null;
+
+    return {
+      credentials: 'INVALID',
+      message: __Login.something_went_wrong,
+    };
   }
 };
 
@@ -93,16 +153,22 @@ export const SubscribeToNewsLetter = async (payload: { email: string }) => {
 
 export const CreateNewAccount = async (
   payload: _SignUpPayload,
-): Promise<_AccCreated> => {
+): Promise<_AccCreated | null> => {
   const url = 'StoreCustomer/storecustomercreate.json';
 
-  const res: AxiosResponse = await SendAsyncV2<_AccCreated>({
-    url: url,
-    method: 'POST',
-    data: payload,
+  const response = await CallAPI<_AccCreated>({
+    name: {
+      service: 'user',
+      api: 'CreateNewAccount',
+    },
+    request: {
+      url: url,
+      method: 'POST',
+      body: payload,
+    },
   });
 
-  return res.data;
+  return response;
 };
 
 export const AddToCart = async (payload: { note: string }) => {
@@ -116,14 +182,34 @@ export const AddToCart = async (payload: { note: string }) => {
   return res.data;
 };
 
-export const getStoreCustomer = async (customerId: number) => {
-  const url = `/StoreCustomer/get/${customerId}.json`;
-  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
-    url: url,
-    method: 'GET',
-    data: customerId,
-  });
-  return res.data;
+export const GetStoreCustomer = async (
+  customerId: number,
+): Promise<UserType | null> => {
+  try {
+    const url = `/StoreCustomer/get/${customerId}.json`;
+    const res = await SendAsyncV2<UserType>({
+      url: url,
+      method: 'GET',
+    });
+
+    conditionalLog({
+      data: res.data,
+      name: 'GetStoreCustomer',
+      type: 'API',
+      show: _showConsoles.services.user && res.data === null,
+      error: true,
+    });
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'GetStoreCustomer',
+      type: 'API',
+      show: _showConsoles.services.user,
+      error: true,
+    });
+    return null;
+  }
 };
 
 export const FetchOrderIds = async (payload: {

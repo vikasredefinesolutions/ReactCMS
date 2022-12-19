@@ -122,14 +122,14 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                             class="w-full aspect-video"
                             src={`https://www.youtube.com/embed/${image.video_url}?rel=0`}
                             allow="autoplay; encrypted-media"
-                            frameborder="0"
+                            frameBorder="0"
                           ></iframe>
                         ) : (
                           <iframe
                             class="p-0 w-full aspect-[7/3]"
                             src={`https://player.vimeo.com/video/${image.video_url}?autoplay=1&amp;loop=1&amp;background=1&amp;muted=1`}
                             allow="autoplay; encrypted-media"
-                            frameborder="0"
+                            frameBorder="0"
                           ></iframe>
                         )}
                       </>

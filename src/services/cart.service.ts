@@ -1,5 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { CartReq, CouponReq } from 'definations/APIs/cart.req';
+import { conditionalLog } from 'helpers/global.console';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export const fetchCart = async (customerId: number) => {
@@ -38,4 +39,38 @@ export const deleteItemCart = async (cartItemId: number) => {
     method: 'GET',
   });
   return res;
+};
+
+export const checkCustomerAlreadyExist = async (
+  email: string,
+  storeId: number,
+) => {
+  try {
+    const url = `/StoreCustomer/storecustomerguest.json`;
+    const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+      url: url,
+      method: 'POST',
+      data: {
+        email: email,
+        storeId: storeId,
+      },
+    });
+    conditionalLog({
+      data: res.data,
+      name: 'getThemeConfigs',
+      type: 'API',
+      show: res.data === null,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'getThemeConfigs',
+      type: 'API',
+      show: true,
+    });
+
+    return null;
+  }
 };

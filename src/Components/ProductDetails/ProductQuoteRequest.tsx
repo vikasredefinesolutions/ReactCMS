@@ -1,10 +1,10 @@
+import { __QuoteRequestMessages } from 'constants/validationMessages';
+import { _modals } from 'definations/product.type';
 import { Form, Formik } from 'formik';
+import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React from 'react';
 import * as Yup from 'yup';
-import { __QuoteRequestMessages } from 'constants/validationMessages';
-import { _Store } from 'constants/store.constant';
-import { _modals } from 'definations/product.type';
-import { useTypedSelector } from 'hooks';
 import ProductQuoteRequestInput from './ProductQuoteRequestInput';
 
 type __QuoteRequest = {

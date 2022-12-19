@@ -4,12 +4,13 @@ import { _ProductInventoryTransfomed } from './inventory.res';
 import { _SizeChartTransformed } from './sizeChart.res';
 
 export interface _ProductDetailsProps {
-  details?: null | _ProductDetails | _ProductDoNotExist;
-  colors?: null | _ProductColor[];
-  sizes?: null | _SizeChartTransformed;
-  discount?: null | _ProductDiscountTable;
-  SEO?: null | _ProductSEO;
-  inventory?: null | _ProductInventoryTransfomed;
+  details: null | _ProductDetails;
+  colors: null | _ProductColor[];
+  sizes: null | _SizeChartTransformed;
+  discount: null | _ProductDiscountTable;
+  SEO: null | _ProductSEO;
+  inventory: null | _ProductInventoryTransfomed;
+  alike: null | _ProductsAlike[];
 }
 
 export interface _ProductDoNotExist {
