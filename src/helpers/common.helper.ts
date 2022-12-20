@@ -232,7 +232,7 @@ export const CallAPI = async <T>({
     // @ts-ignore: Unreachable code error
     show: __console[name.service].service[name.api],
   });
-
+console.log(request);
   try {
     const res = await SendAsyncV2<T>(request);
     conditionalLogV2({
