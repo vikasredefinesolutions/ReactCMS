@@ -1,3 +1,4 @@
+import { __LocalStorage } from '@constants/global.constant';
 import { paths } from '@constants/paths.constant';
 
 export const AddRemoveToCompare = (sku: string) => {
@@ -10,7 +11,10 @@ export const AddRemoveToCompare = (sku: string) => {
       skuList.push(sku);
     }
 
-    localStorage.setItem('compareList', JSON.stringify(skuList));
+    localStorage.setItem(
+      __LocalStorage.compareProducts,
+      JSON.stringify(skuList),
+    );
   }
 };
 
@@ -34,6 +38,6 @@ export const getCompareLink = () => {
 };
 
 export const getSkuList = () => {
-  const data = localStorage.getItem('compareList');
+  const data = localStorage.getItem(__LocalStorage.compareProducts);
   return data ? JSON.parse(data) : [];
 };

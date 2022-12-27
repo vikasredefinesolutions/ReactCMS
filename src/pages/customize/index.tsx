@@ -1,15 +1,15 @@
+import { getLogoPositionList } from '@services/product.service';
 import Image from 'appComponents/reusables/Image';
 import CustomizeLogoSteps from 'Components/CustomizeLogo/CustomizeLogoSteps';
 import LogosToPrint from 'Components/CustomizeLogo/LogosToPrint';
 import { useActions, useTypedSelector } from 'hooks';
-import { logoPositions } from 'mock/startModal.mock';
 import { NextPage } from 'next';
 import { _Store } from 'page.config';
 import { useEffect, useState } from 'react';
 
 const CustomizeLogo: NextPage = () => {
   const { clearLogoUploadHistory } = useActions();
-
+  const customerId = useTypedSelector((state) => state.user.id);
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { sizeQtys } = useTypedSelector((state) => state.product.toCheckout);
   const { name: productName } = useTypedSelector(
@@ -21,16 +21,26 @@ const CustomizeLogo: NextPage = () => {
   const [showOrSelect, setShowOrSelect] = useState<'SHOW' | 'SELECT'>('SELECT');
 
   useEffect(() => {
-    const logos = logoPositions.map((logo) => ({
-      label: logo.label,
-      value: logo.value,
-      logo: {
-        url: logo.image.url,
-      },
-    }));
-    clearLogoUploadHistory(logos);
+    if (customerId) {
+
+      getLogoPositionList(customerId).then(response => {
+        const logos = response.subRow.map((logo) => ({
+          label: logo.name,
+          value: logo.logoLocationDetailId.toString(),
+          logo: {
+            url: logo.image,
+          },
+        }));
+        clearLogoUploadHistory(logos);
+      })
+    }
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
+
 
   if (storeLayout === _Store.type3) {
     return (

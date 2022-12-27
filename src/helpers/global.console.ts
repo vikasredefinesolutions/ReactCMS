@@ -1,22 +1,5 @@
-export const __Show = {
-  all: true,
-  services: {
-    payload: true,
-    response: false,
-    error: true,
-  },
-  component: true,
-  controllers: false,
-  serverMethods: false,
-  page: true,
-  functions: false,
-  catch: true,
-};
 // tslint:disable:no-console
-import { _HeaderAPIs } from '@services/header.service';
-import { _StoreAPIs } from '@services/page.service';
-import { _ProducDetailAPIs } from '@services/product.service';
-import { _UserAPIs } from '@services/user.service';
+import { __Console } from '@type/console.type';
 import chalk from 'chalk';
 import {
   hide_All_Consoles,
@@ -24,6 +7,99 @@ import {
   __fileNames,
 } from 'show.config';
 import { isItServer } from './common.helper';
+
+export const __Show = {
+  all: true,
+  services: {
+    payload: false,
+    response: false,
+    error: true,
+  },
+  component: false,
+  controllers: false,
+  serverMethods: false,
+  page: false,
+  functions: false,
+  catch: true,
+};
+
+export const __console: __Console = {
+  allCatch: true,
+  app: {
+    controller: false,
+    serverMethod: false,
+    page: false,
+    service: {
+      FetchThemeConfigs: false,
+      GetStoreID: false,
+    },
+  },
+  header: {
+    service: {
+      FetchBrands: false,
+      FetchStoreMenu: false,
+      FetchMenuTopics: false,
+      FetchBannerDetails: false,
+      FetchMenuCategories: false,
+    },
+  },
+  slug: {
+    serverMethod: false,
+    page: false,
+    service: {
+      getPageType: false,
+    },
+  },
+  home: {
+    controller: false,
+    component: {
+      featuredItems: false,
+    },
+    service: {
+      FetchFeaturedProducts: false,
+      getPageComponents: false,
+    },
+  },
+  productDetails: {
+    service: {
+      FetchProductsBySKUs: false,
+      FetchSizeChartById: false,
+      FetchDiscountTablePrices: false,
+      FetchSimilartProducts: false,
+      FetchProductSEOtags: false,
+      FetchColors: false,
+      FetchProductById: false,
+      FetchBrandProductList: false,
+    },
+    controller: false,
+    components: {
+      similarProducts: false,
+    },
+    serverMethod: false,
+    page: false,
+  },
+  user: {
+    service: {
+      signInUser: false,
+      CreateNewAccount: false,
+      OrderedBillingDetails: false,
+      OrderedProductDetails: false,
+      FetchOrderIds: false,
+      GetStoreCustomer: false,
+      FetchOrderDetails: false,
+    },
+  },
+  requestConsultation: {
+    controller: false,
+    serverMethod: false,
+    page: false,
+  },
+  compare: {
+    controller: false,
+    serverMethod: false,
+    page: false,
+  },
+};
 
 const Error = {
   title: chalk.bold.red,
@@ -43,133 +119,7 @@ const C_Log = {
   border: chalk.yellow,
 };
 
-interface __Console {
-  allCatch: boolean;
-  store: {
-    service: Record<_StoreAPIs, boolean>;
-  };
-  requestConsultation: {
-    controller: boolean;
-    page: boolean;
-    serverMethod: boolean;
-  };
-  slug: {
-    serverMethod: boolean;
-    page: boolean;
-  };
-  user: {
-    service: Record<_UserAPIs, boolean>;
-  };
-  app: {
-    controller: boolean;
-    serverMethod: boolean;
-    page: boolean;
-  };
-  header: {
-    service: Record<_HeaderAPIs, boolean>;
-  };
-  productDetails: {
-    service: Record<_ProducDetailAPIs, boolean>;
-    controller: boolean;
-    components: {
-      similarProducts: boolean;
-    };
-    serverMethod: boolean;
-    page: boolean;
-  };
-  compare: {
-    controller: boolean;
-    serverMethod: boolean;
-    page: boolean;
-  };
-  home: {
-    controller: boolean;
-    component: {
-      featuredItems: boolean;
-    };
-  };
-}
-
-export const __console: __Console = {
-  allCatch: true,
-  store: {
-    service: {
-      FetchThemeConfigs: false,
-      getPageType: false,
-      getPageComponents: false,
-    },
-  },
-  home: {
-    controller: true,
-    component: {
-      featuredItems: true,
-    },
-  },
-  slug: {
-    serverMethod: true,
-    page: true,
-  },
-  user: {
-    service: {
-      signInUser: true,
-      CreateNewAccount: true,
-      OrderedBillingDetails: true,
-      OrderedProductDetails: true,
-      FetchOrderIds: true,
-      GetStoreCustomer: false,
-      FetchOrderDetails: true,
-    },
-  },
-  header: {
-    service: {
-      FetchBrands: true,
-      FetchStoreMenu: true,
-      FetchMenuTopics: true,
-      FetchBannerDetails: true,
-      FetchMenuCategories: false,
-    },
-  },
-  app: {
-    controller: true,
-    serverMethod: true,
-    page: true,
-  },
-  requestConsultation: {
-    controller: true,
-    serverMethod: true,
-    page: true,
-  },
-  productDetails: {
-    service: {
-      FetchProductsBySKUs: true,
-      FetchSizeChartById: true,
-      FetchDiscountTablePrices: true,
-      FetchSimilartProducts: true,
-      FetchProductSEOtags: true,
-      FetchColors: true,
-      FetchProductById: true,
-    },
-    controller: true,
-    components: {
-      similarProducts: true,
-    },
-    serverMethod: true,
-    page: true,
-  },
-  compare: {
-    controller: true,
-    serverMethod: true,
-    page: true,
-  },
-};
-
-export const cLog = ({
-  dataToShow,
-  component,
-}: {
-  dataToShow: any;
-  component: string;
-}) => {
+export const cLog = (dataToShow: any, component: string) => {
   console.log(
     C_Log.border(
       `===============================================================================================================================`,
@@ -191,6 +141,11 @@ export const highLightResponse = ({
   dataToShow: any;
   component: string;
 }) => {
+  const _server = isItServer();
+  if (!_server) {
+    Log.data = chalk.black;
+  }
+
   console.log(
     Log.border(
       `===============================================================================================================================`,
@@ -219,6 +174,11 @@ export const highLightError = ({
   component: string;
 }) => {
   const ErrMsg = Error.data(JSON.stringify(error, null, 3));
+
+  const _server = isItServer();
+  if (!_server) {
+    Error.data = chalk.black;
+  }
 
   console.log(
     Error.border(
@@ -370,7 +330,7 @@ export const conditionalLogV2 = ({
       const message = `PAGE PROPS: ${name} ${
         additionalMsg ? `- ${additionalMsg}` : ''
       }`;
-      cLog({ dataToShow: data, component: message });
+      cLog(data, message);
       return;
     }
 
@@ -385,7 +345,7 @@ export const conditionalLogV2 = ({
       const message = `COMPONENT : ${name} ${
         additionalMsg ? `- ${additionalMsg}` : ''
       }`;
-      cLog({ dataToShow: data, component: message });
+      cLog(data, message);
       return;
     }
     if (__Show.catch && type === 'CATCH') {

@@ -1,6 +1,6 @@
 import { __Cookie } from '@constants/global.constant';
+import { FetchThemeConfigs } from '@services/app.service';
 import { GetStoreCustomer } from '@services/user.service';
-import { UserType } from '@type/APIs/user.res';
 
 import SuccessErrorModal from 'appComponents/modals/successErrorModal';
 import Screen from 'appComponents/Screen';
@@ -15,6 +15,7 @@ import {
   extractCookies,
   nextJsSetCookie,
   setCookie,
+  _Logout,
 } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import { useActions } from 'hooks';
@@ -34,7 +35,6 @@ type AppOwnProps = {
   configs: {
     header: _TransformedThemeConfig | null;
   };
-  customer: UserType | null;
 };
 
 const RedefineCustomApp = ({
@@ -43,10 +43,14 @@ const RedefineCustomApp = ({
   store,
   menuItems,
   configs,
-  customer,
 }: AppProps & AppOwnProps) => {
-  const { store_storeDetails, updateCustomerV2, setShowLoader } = useActions();
   const router = useRouter();
+  const { logInUser } = useActions();
+  const { store_storeDetails, updateCustomerV2, setShowLoader } = useActions();
+
+  const refreshHandler = () => {
+    return setCookie(__Cookie.storeInfo, '', 'EPOCH');
+  };
 
   useEffect(() => {
     const handleStart = () => {
@@ -62,7 +66,7 @@ const RedefineCustomApp = ({
   }, [router]);
 
   useEffect(() => {
-    setShowLoader(false);
+    const cookies = extractCookies('', 'browserCookie');
     if (store) {
       store_storeDetails({
         store: store,
@@ -71,21 +75,29 @@ const RedefineCustomApp = ({
       });
     }
 
-    if (customer) {
-      updateCustomerV2({
-        customer: customer,
-        id: customer.id,
-      });
+    if (cookies && cookies.userId) {
+      setShowLoader(true);
+      GetStoreCustomer(cookies.userId)
+        .then((res) => {
+          if (res === null) {
+            _Logout(logInUser);
+            return;
+          }
+          updateCustomerV2({
+            customer: res,
+            id: res.id,
+          });
+        })
+        .finally(() => {
+          setShowLoader(false);
+        });
     }
+    setShowLoader(false);
   }, []);
 
-  const unloadHandler = () => {
-    return setCookie(__Cookie.storeInfo, '', 'EPOCH');
-  };
-
   useEffect(() => {
-    window.addEventListener('beforeunload', unloadHandler);
-    return () => window.removeEventListener('beforeunload', unloadHandler);
+    window.addEventListener('beforeunload', refreshHandler);
+    return () => window.removeEventListener('beforeunload', refreshHandler);
   }, []);
 
   return (
@@ -112,6 +124,7 @@ RedefineCustomApp.getInitialProps = async (
       pageType: '',
       pathName: '',
       code: '',
+      storeTypeId: null,
       isAttributeSaparateProduct: false,
       cartCharges: null,
     },
@@ -119,7 +132,6 @@ RedefineCustomApp.getInitialProps = async (
     configs: {
       header: null,
     },
-    customer: null,
   };
 
   //------------------------------------
@@ -157,18 +169,14 @@ RedefineCustomApp.getInitialProps = async (
       }
 
       if (expectedProps.store?.storeId) {
-        // expectedProps.configs.header = await FetchThemeConfigs({
-        //   store_id: expectedProps.store?.storeId,
-        //   config_name: 'header_config',
-        // });
+        expectedProps.configs.header = await FetchThemeConfigs({
+          store_id: expectedProps.store?.storeId,
+          config_name: 'header_config',
+        });
 
         expectedProps.menuItems = await _AppController.fetchMenuItems(
           expectedProps.store.storeId,
         );
-
-        if (cookies.userId) {
-          expectedProps.customer = await GetStoreCustomer(~~cookies.userId);
-        }
 
         if (res && cookies.storeInfo === null) {
           nextJsSetCookie({
@@ -190,14 +198,14 @@ RedefineCustomApp.getInitialProps = async (
     conditionalLogV2({
       data: expectedProps,
       type: 'SERVER_METHOD',
-      name: 'Server: _app.tsx',
+      name: ' _app.tsx',
       show: __console.app.serverMethod,
     });
   } catch (error) {
     conditionalLogV2({
       data: error,
       type: 'CATCH',
-      name: 'Server: _app.tsx - Something went wrong',
+      name: ' _app.tsx - Something went wrong',
       show: __console.allCatch,
     });
   }
@@ -215,7 +223,6 @@ RedefineCustomApp.getInitialProps = async (
     store: expectedProps.store,
     menuItems: expectedProps.menuItems,
     configs: expectedProps.configs,
-    customer: expectedProps.customer,
   };
 };
 

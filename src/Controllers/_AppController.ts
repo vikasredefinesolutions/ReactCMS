@@ -1,3 +1,4 @@
+import { GetStoreID } from '@services/app.service';
 import {
   _StoreMenu,
   _t_Brands,
@@ -5,15 +6,8 @@ import {
   _t_MenuTopic,
 } from '@type/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
-import {
-  conditionalLog,
-  conditionalLogV2,
-  highLightError,
-  __console,
-} from 'helpers/global.console';
+import { conditionalLogV2, __console } from 'helpers/global.console';
 import * as HeaderService from 'services/header.service';
-import * as HomeService from 'services/home.service';
-import { _showConsoles, __fileNames } from 'show.config';
 import {
   _CustomContent,
   _DynamicContent,
@@ -58,10 +52,10 @@ const callMenuItemAPI = async ({
   }
 
   if (titleType === 'CATEGORY') {
-    return HeaderService.FetchMenuCategories({
-      categoryId: topicId,
-      storeId: storeId,
-    });
+    // return HeaderService.FetchMenuCategories({
+    //   categoryId: topicId,
+    //   storeId: storeId,
+    // });
   }
 
   if (titleType === 'BRANDS') {
@@ -225,11 +219,12 @@ export const fetchStoreDetails = async (
     pageType: '',
     pathName: '',
     code: '',
+    storeTypeId: null,
     isAttributeSaparateProduct: false,
     cartCharges: null,
   };
   try {
-    const res = await HomeService.GetStoreID(domain);
+    const res = await GetStoreID(domain);
 
     if (res) {
       store.storeId = res.id;
@@ -244,18 +239,31 @@ export const fetchStoreDetails = async (
         isLogoSetupCharges: res.isLogoSetupCharges,
         logoSetupCharges: res.logoSetupCharges,
       };
+      store.storeTypeId = res.storeTypeId;
 
+      conditionalLogV2({
+        data: store,
+        show: __console.app.controller,
+        type: 'CONTROLLER',
+        name: '_AppController - Store values didnt update',
+      });
       return store;
     }
-    conditionalLog({
+
+    conditionalLogV2({
       data: store,
+      show: __console.app.controller,
       type: 'CONTROLLER',
-      name: __fileNames._app,
-      show: _showConsoles._app,
+      name: '_AppController - Store values didnt update',
     });
     return store;
   } catch (error) {
-    highLightError({ error, component: '_AppController: fetchStoreDetails' });
+    conditionalLogV2({
+      data: error,
+      show: __console.allCatch,
+      type: 'CATCH',
+      name: '_AppController - Something went wrong',
+    });
     return store;
   }
 };

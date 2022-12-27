@@ -3,7 +3,6 @@ import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store } from 'page.config';
 import React from 'react';
-import { SearchFor } from 'services/header.service';
 
 interface _props {
   screen?: 'MOBILE' | 'DESKTOP';
@@ -18,7 +17,7 @@ const SearchBar: React.FC<_props> = ({
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
   const searchHandler = (value: { text: string }) => {
-    SearchFor(value);
+    // SearchFor(value);
     onSearchInput(value.text as string);
     // .then().catch().finally;
   };

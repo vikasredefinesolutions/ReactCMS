@@ -1,21 +1,19 @@
 import { __Cookie } from '@constants/global.constant';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { _RedefineAppServices } from '@services/app.service';
 import { _HeaderServices } from '@services/header.service';
-import { _StoreServices } from '@services/page.service';
+import { _HomeServices } from '@services/home.service';
 import { _ProductDetailService } from '@services/product.service';
+import { _SlugServices } from '@services/slug.service';
 import { _UserServices } from '@services/user.service';
 import { SendAsyncV2 } from '@utils/axios.util';
+import config from 'api.config';
 import axios from 'axios';
 import { IncomingMessage, ServerResponse } from 'http';
 import router from 'next/router';
 import { __domain } from 'page.config';
 import { ParsedUrlQuery } from 'querystring';
-import {
-  conditionalLog,
-  conditionalLogV2,
-  highLightError,
-  __console,
-} from './global.console';
+import { conditionalLog, conditionalLogV2, __console } from './global.console';
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -41,7 +39,7 @@ interface _GET {
 interface _POST {
   url: string;
   method: 'POST';
-  body?: any;
+  data?: any;
 }
 
 interface _cAxiosResponse<T> {
@@ -103,9 +101,12 @@ export const extractCookies = (
     storeInfo: null,
   };
 
-  if (type === 'browserCookie') {
+  const server = isItServer();
+
+  if (type === 'browserCookie' && !server) {
     _cookies = document.cookie;
   }
+
   if (_cookies) {
     const _cookiesArr = _cookies.split('; ');
 
@@ -158,7 +159,13 @@ export const CallCmsAPI = async <T>({
   name,
   request,
 }: {
-  name: _StoreServices;
+  name:
+    | _HeaderServices
+    | _ProductDetailService
+    | _RedefineAppServices
+    | _SlugServices
+    | _HomeServices
+    | _UserServices;
   request: _GET | _POST;
 }): Promise<T | null> => {
   conditionalLogV2({
@@ -169,12 +176,11 @@ export const CallCmsAPI = async <T>({
     show: __console[name.service].service[name.api],
   });
 
+  const url = `${config.CMS}${request.url}`;
+
   try {
     if (request.method === 'POST') {
-      const res = await axios.post<_cAxiosResponse<T>>(
-        request.url,
-        request.body,
-      );
+      const res = await axios.post<_cAxiosResponse<T>>(url, request.data);
       conditionalLogV2({
         data: res.data,
         name: `${name.service} - ${name.api}`,
@@ -186,11 +192,10 @@ export const CallCmsAPI = async <T>({
       if (res.data.data === false) {
         return null;
       }
-
       return res.data.data;
     }
-
-    const getResponse = await axios.get<_cAxiosResponse<T>>(request.url);
+    // GET Request will be handled from here on.
+    const getResponse = await axios.get<_cAxiosResponse<T>>(url);
 
     conditionalLogV2({
       data: getResponse.data,
@@ -199,13 +204,16 @@ export const CallCmsAPI = async <T>({
       // @ts-ignore: Unreachable code error
       show: __console[name.service].service[name.api],
     });
+    if (name.api === 'getPageComponents') {
+      // @ts-ignore: Unreachable code error
+      return getResponse.data;
+    }
 
-    highLightError({ error: getResponse.data, component: 'CMS GET' });
     return getResponse.data.data;
   } catch (error) {
     conditionalLogV2({
       data: error,
-      name: `${name.service} - ${name}`,
+      name: `${name.service} - ${name.api}`,
       type: 'API-ERROR',
       // @ts-ignore: Unreachable code error
       show: __console[name.service].service[name.api],
@@ -221,7 +229,9 @@ export const CallAPI = async <T>({
   name:
     | _HeaderServices
     | _ProductDetailService
-    | _StoreServices
+    | _RedefineAppServices
+    | _SlugServices
+    | _HomeServices
     | _UserServices;
   request: _GET | _POST;
 }) => {
@@ -232,7 +242,7 @@ export const CallAPI = async <T>({
     // @ts-ignore: Unreachable code error
     show: __console[name.service].service[name.api],
   });
-console.log(request);
+
   try {
     const res = await SendAsyncV2<T>(request);
     conditionalLogV2({
@@ -264,6 +274,24 @@ export function removeDuplicates(arr: any[]) {
     (arr, index, self) =>
       index === self.findIndex((t) => t.seName === arr.seName),
   );
+}
+
+export function addCustomEvents(name: 'localStorage') {
+  if (name === 'localStorage') {
+    const originalSetItem = localStorage.setItem;
+    const originalRemoveItem = localStorage.removeItem;
+    const addItemEvent = new Event('itemInserted');
+    const removeItemEvent = new Event('itemRemoved');
+
+    localStorage.setItem = function (key, value) {
+      document.dispatchEvent(addItemEvent);
+      originalSetItem.apply(this, [key, value]);
+    };
+    localStorage.removeItem = function (key) {
+      document.dispatchEvent(removeItemEvent);
+      originalRemoveItem.apply(this, [key]);
+    };
+  }
 }
 
 //////////////////////////////////////////////////////////////////////

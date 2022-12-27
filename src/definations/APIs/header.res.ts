@@ -84,7 +84,7 @@ export interface Template {
   image_src: null;
 }
 
-export type _Configs = 'header_config';
+export type _ThemeConfigsAvailable = 'header_config';
 
 export interface _ThemeConfigRes {
   id: number;

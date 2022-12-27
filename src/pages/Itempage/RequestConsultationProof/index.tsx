@@ -4,7 +4,6 @@ import ProductAlike from 'Components/ProductDetails/ProductAlike';
 import RequestConsultationForm from 'Components/RequestConsultation/RequestConsultationForm';
 import RequestFeatures from 'Components/RequestConsultation/RequestFeatures';
 import * as ConsultationController from 'Controllers/RequestConsultationController';
-import * as _AppController from 'Controllers/_AppController';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,
@@ -12,12 +11,11 @@ import {
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { Redirect } from 'Guard/AuthGuard';
-import { domainToShow } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { __domain } from 'page.config';
+import { _globalStore } from 'store.global';
 
 const RequestConsultation: NextPage<_RequestConsultationProps> = ({
   details,
@@ -99,7 +97,7 @@ export default RequestConsultation;
 //////////////////////////////////////////////////////////////////////
 
 interface _ExpectedRequestConsultationProps {
-  store: null | _StoreReturnType;
+  store: _StoreReturnType;
   product: null | {
     details: null | _ProductDetails;
     colors: null | _ProductColor[];
@@ -127,7 +125,16 @@ export const getServerSideProps: GetServerSideProps = async (
 ): Promise<{ props: _RequestConsultationProps }> => {
   const responseBody = context.res;
   let expectedProps: _ExpectedRequestConsultationProps = {
-    store: null,
+    store: {
+      storeId: null,
+      layout: null,
+      storeTypeId: null,
+      pageType: '',
+      pathName: '',
+      code: '',
+      isAttributeSaparateProduct: false,
+      cartCharges: null,
+    },
     product: null,
     color: null,
     alike: null,
@@ -135,11 +142,6 @@ export const getServerSideProps: GetServerSideProps = async (
   };
 
   try {
-    const domain = domainToShow({
-      domain: context.req?.rawHeaders[1],
-      showProd: __domain.isSiteLive,
-    });
-
     const query: {
       productId: undefined | string | string[] | number;
       colorName: undefined | string | string[];
@@ -151,7 +153,13 @@ export const getServerSideProps: GetServerSideProps = async (
     if (typeof query.productId === 'string') {
       query.productId = +query.productId; // to number;
 
-      expectedProps.store = await _AppController.fetchStoreDetails(domain, '');
+      if (_globalStore.storeId) {
+        expectedProps.store = {
+          ...expectedProps.store,
+          storeId: _globalStore.storeId,
+          isAttributeSaparateProduct: _globalStore.isAttributeSaparateProduct,
+        };
+      }
 
       if (expectedProps.store) {
         const product = await ConsultationController.FetchProductDetails({

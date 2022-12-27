@@ -1,9 +1,8 @@
-import { _Footer } from 'definations/footer.type';
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
 import React from 'react';
 
-type _props = Pick<_Footer, 'features'>;
+type _props = Pick<any, 'features'>;
 
 const Features: React.FC<_props> = ({ features }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);

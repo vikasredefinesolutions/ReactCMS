@@ -164,7 +164,7 @@ export const CreateNewAccount = async (
     request: {
       url: url,
       method: 'POST',
-      body: payload,
+      data: payload,
     },
   });
 
@@ -185,31 +185,20 @@ export const AddToCart = async (payload: { note: string }) => {
 export const GetStoreCustomer = async (
   customerId: number,
 ): Promise<UserType | null> => {
-  try {
-    const url = `/StoreCustomer/get/${customerId}.json`;
-    const res = await SendAsyncV2<UserType>({
+  const url = `/StoreCustomer/get/${customerId}.json`;
+
+  const response = await CallAPI<UserType>({
+    name: {
+      service: 'user',
+      api: 'GetStoreCustomer',
+    },
+    request: {
       url: url,
       method: 'GET',
-    });
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'GetStoreCustomer',
-      type: 'API',
-      show: _showConsoles.services.user && res.data === null,
-      error: true,
-    });
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'GetStoreCustomer',
-      type: 'API',
-      show: _showConsoles.services.user,
-      error: true,
-    });
-    return null;
-  }
+  return response;
 };
 
 export const FetchOrderIds = async (payload: {
@@ -218,61 +207,37 @@ export const FetchOrderIds = async (payload: {
 }): Promise<number[] | null> => {
   const url = `Order/GetAllOrdernumberByCustomerId/${payload.userId}/${payload.storeId}.json`;
 
-  try {
-    const res = await SendAsyncV2<number[]>({
+  const response = await CallAPI<number[]>({
+    name: {
+      service: 'user',
+      api: 'FetchOrderIds',
+    },
+    request: {
       url: url,
       method: 'GET',
-    });
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'FetchOrderIds',
-      type: 'API',
-      show: res.data === null,
-    });
-
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'FetchOrderIds',
-      type: 'API',
-      show: _showConsoles.services.user,
-      error: true,
-    });
-    return null;
-  }
+  return response;
 };
 
 const OrderedBillingDetails = async (
   orderId: number,
 ): Promise<_MyAcc_OrderBillingDetails | null> => {
-  const orderBillingDetailsURL = `Order/GetById/${orderId}.json`;
+  const url = `Order/GetById/${orderId}.json`;
 
-  try {
-    const res = await SendAsyncV2<_MyAcc_OrderBillingDetails>({
-      url: orderBillingDetailsURL,
+  const response = await CallAPI<_MyAcc_OrderBillingDetails>({
+    name: {
+      service: 'user',
+      api: 'OrderedBillingDetails',
+    },
+    request: {
+      url: url,
       method: 'GET',
-    });
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'OrderedBillingDetails',
-      type: 'API',
-      show: res.data === null,
-    });
-
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'OrderedBillingDetails',
-      type: 'API',
-      show: _showConsoles.services.user,
-      error: true,
-    });
-    return null;
-  }
+  return response;
 };
 
 const OrderedProductDetails = async (
@@ -343,5 +308,78 @@ export const FetchOrderDetails = async ({
       product: null,
       billing: null,
     };
+  }
+};
+
+export const updateUserPassword = async (payload: {
+  email: string;
+  password: string;
+  customerId: number;
+}): Promise<{
+  success: boolean;
+  errors: {
+    password: string;
+  };
+} | null> => {
+  try {
+    const url = '/StoreCustomer/updatestorecustomeremailpassword.json';
+    const res = await SendAsyncV2<{
+      success: boolean;
+      errors: {
+        password: string;
+      };
+    }>({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
+    conditionalLog({
+      data: res.data,
+      name: 'updatePassword',
+      type: 'API',
+      show: true,
+    });
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'updatePassword',
+      type: 'API',
+      show: _showConsoles.services.user,
+      error: true,
+    });
+    return null;
+  }
+};
+
+export const updateUserData = async (payload: {
+  customerId: number;
+  firstName: string;
+  lastName: string;
+  companyName: string;
+}): Promise<any | null> => {
+  try {
+    const url = '/StoreCustomer/updateaccountsettingsinfo.json';
+    const res: AxiosResponse = await SendAsyncV2({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
+    conditionalLog({
+      data: res.data,
+      name: 'updateUserData',
+      type: 'API',
+      show: true,
+    });
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'updateUserData',
+      type: 'API',
+      show: _showConsoles.services.user,
+      error: true,
+    });
+    return null;
   }
 };

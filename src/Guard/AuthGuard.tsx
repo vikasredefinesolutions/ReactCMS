@@ -38,9 +38,10 @@ export const AuthGuard = ({
   ctx,
   loggedIn,
 }: _authGuard_): _Expected_AppProps | void => {
-  const initials = {
+  const initials: _Expected_AppProps = {
     ...ctx,
-     store: {
+    store: {
+      storeTypeId: null,
       storeId: null,
       layout: null,
       pageType: '',
@@ -51,7 +52,6 @@ export const AuthGuard = ({
     },
     menuItems: null,
     configs: { header: null },
-    customer: null,
   };
 
   if (!loggedIn) {

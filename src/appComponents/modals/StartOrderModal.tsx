@@ -4,19 +4,18 @@ import CustomizeLogoOptions from 'Components/ProductDetails/CustomizeLogoOptions
 import DiscountPricing from 'Components/ProductDetails/DiscountPricing';
 import ProductSKU from 'Components/ProductDetails/ProductSKU';
 import SizePriceQtyTable from 'Components/ProductDetails/SizePriceQtyTable';
-import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { _modals } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
 import React, { useEffect, useRef, useState } from 'react';
-import { FetchInventoryById } from 'services/product.service';
 // import { AddToCart } from 'services/user.service';
 import { addToCart } from '@services/cart.service';
+import { FetchInventoryById } from '@services/product.service';
+import StartOrderAvailableColors from 'Components/ProductDetails/StartOrderAvailableColors';
 import { CartLogoPersonModel, CartReq } from 'definations/APIs/cart.req';
 import { CartResponse } from 'definations/APIs/cart.res';
 import getLocation from 'helpers/getLocation';
 import { highLightError } from 'helpers/global.console';
-import Image from '../reusables/Image';
 import Price from '../reusables/Price';
 interface _props {
   product: _ProductDetails;
@@ -25,35 +24,24 @@ interface _props {
   editDetails?: CartResponse;
 }
 
-const StartOrderModal: React.FC<_props> = ({
-  product,
-  modalHandler,
-  editDetails,
-}) => {
+const StartOrderModal: React.FC<_props> = (props) => {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
-  const { clearToCheckout, showModal, setShowLoader } = useActions();
+  const { clearToCheckout, showModal, setShowLoader, updateProductProperties } =
+    useActions();
+  const { product, modalHandler } = props;
 
   // ----------------------------STATES ---------------------------------------
   const [allColors, showAllColors] = useState<boolean>(false);
-  const [inventory, setInventory] =
-    useState<null | _ProductInventoryTransfomed>(null);
 
   const { name: colorName } = useTypedSelector(
     (state) => state.product.selected.color,
   );
   const toCheckout = useTypedSelector((state) => state.product.toCheckout);
-  const colors = useTypedSelector((state) => state.product.product.colors);
+  const { colors, inventory: allColorsInventory } = useTypedSelector(
+    (state) => state.product.product,
+  );
   const customerId = useTypedSelector((state) => state.user.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
-  const showInventoryFor = (payload: {
-    productId: number;
-    attributeOptionId: number[];
-  }) => {
-    FetchInventoryById(payload)
-      .then((res) => setInventory(res))
-      // .catch((err) => console.log('err', err))
-      .finally(() => setShowLoader(false));
-  };
 
   const addToCartHandler = async () => {
     const location = await getLocation();
@@ -141,20 +129,28 @@ const StartOrderModal: React.FC<_props> = ({
         highLightError({ error, component: 'StartOrderModal' });
       }
     }
-    // .then((res) => setReviews(res))
-    // .catch((err) => console.log('err', err))
-    // .finally(() => console.log('close loader'));
 
     modalHandler(null);
     // router.push('/cart');
   };
 
   useEffect(() => {
-    if (colors === null) return;
-    showInventoryFor({
-      productId: colors[0].productId,
-      attributeOptionId: [colors[0].attributeOptionId],
-    });
+    setShowLoader(false);
+    if (!allColorsInventory && colors) {
+      const allColorAttributes = colors?.map(
+        (color) => color.attributeOptionId,
+      );
+
+      FetchInventoryById({
+        productId: selectedProduct.productId,
+        attributeOptionId: allColorAttributes,
+      }).then((res) =>
+        updateProductProperties({
+          type: 'INVENTORY_LIST',
+          data: res,
+        }),
+      );
+    }
 
     return () => {
       clearToCheckout();
@@ -169,7 +165,7 @@ const StartOrderModal: React.FC<_props> = ({
     >
       <div className="w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
         <div className="relative px-4 w-full max-w-3xl h-full md:h-auto">
-          {inventory && (
+          {allColorsInventory && (
             <div className="relative bg-white shadow max-h-screen overflow-y-auto">
               <div className="flex justify-between items-start p-5 rounded-t border-b sticky top-0 left-0 bg-white">
                 <h3 className="text-xl font-semibold text-gray-900 lg:text-2xl">
@@ -223,47 +219,7 @@ const StartOrderModal: React.FC<_props> = ({
                   </div>
 
                   {/* -------------------------------------------AVAILABLE COLORS ------------------------------------------ */}
-                  {allColors && (
-                    <div x-show="open" x-cloak>
-                      <div className="text-sm text-gray-600 bg-primary flex flex-wrap justify-between items-center p-2 md:p-0 md:pl-2 my-2">
-                        <span className="text-lg font-bold text-white">
-                          Available Colors:
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-5 text-sm text-center px-2">
-                        {colors?.map((color) => (
-                          <div
-                            className="w-20"
-                            key={color.productId}
-                            onClick={() =>
-                              showInventoryFor({
-                                productId: color.productId,
-                                attributeOptionId: [color.attributeOptionId],
-                              })
-                            }
-                          >
-                            <div className="border-2 border-slate-200 hover:border-secondary mb-1 last:mb-0">
-                              <Image
-                                src={color.imageUrl}
-                                alt={color.altTag}
-                                className="w-full object-center object-cover"
-                              />
-                            </div>
-                            <div
-                              className=""
-                              style={{
-                                whiteSpace: 'nowrap',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                              }}
-                            >
-                              {color.name}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  {allColors && <StartOrderAvailableColors />}
 
                   {/* -------------------------------------------PRODUCT INFORMATION ------------------------------------------ */}
                   <div className="mt-3">
@@ -284,12 +240,7 @@ const StartOrderModal: React.FC<_props> = ({
                 </div>
 
                 {/* -------------------------------------------INVENTORY TABLE ------------------------------------------ */}
-                <SizePriceQtyTable
-                  inventory={inventory}
-                  editDetailsQuantity={
-                    editDetails?.shoppingCartItemDetailsViewModels
-                  }
-                />
+                <SizePriceQtyTable />
                 <CustomizeLogoOptions />
                 <CalculativeFigure />
 

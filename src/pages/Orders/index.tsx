@@ -11,6 +11,7 @@ import MyAccountTabs from 'Components/MyAccountTabs';
 import { useActions, useTypedSelector } from 'hooks';
 import moment from 'moment';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -71,6 +72,11 @@ const Orders: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>{'Order'}</title>
+        <meta name="description" content={'My Account Settings'} key="desc" />
+        <meta name="keywords" content={'All Orders'} />
+      </Head>
       <MyAccountTabs />
       <section className="container mx-auto  bg-gray-100  px-6 py-6 mt-5 mb-5">
         <div className="mx-auto space-y-10 sm:px-4 lg:px-0 pb-2">

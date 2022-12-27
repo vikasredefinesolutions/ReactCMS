@@ -1,10 +1,9 @@
-import { _Footer } from 'definations/footer.type';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store } from 'page.config';
 import React from 'react';
 
-type _props = Pick<_Footer, 'copyRight'>;
+type _props = Pick<any, 'copyRight'>;
 
 const CopyRight: React.FC<_props> = ({ copyRight }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);

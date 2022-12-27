@@ -44,7 +44,7 @@ const ProductAlike: React.FC<_props> = ({ title, products }) => {
                     <div key={product.id} className="slide-item">
                       <div className="px-2">
                         <div className="flex text-center lg:w-auto mb-6">
-                          <div className="relative pb-4">
+                          <div className="relative pb-4 w-full">
                             <div className="w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
                               <div
                                 onClick={() => router.push(product.seName)}

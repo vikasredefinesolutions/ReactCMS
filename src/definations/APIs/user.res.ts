@@ -59,6 +59,7 @@ export interface UserType {
   rowVersion: string;
   location: string;
   ipAddress: string;
+  customerRoleId: number;
   macAddress: string;
 }
 

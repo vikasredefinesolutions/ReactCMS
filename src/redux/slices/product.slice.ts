@@ -52,6 +52,7 @@ interface toCheckout {
         price: number;
       }[]
     | null;
+  chosenLogo: null | any[];
 }
 
 interface _ProductStore {
@@ -140,14 +141,39 @@ const initialState: _ProductStore = {
     allowNextLogo: false,
     logo: { price: null },
     logos: null,
+    chosenLogo: null,
     lines: null,
   },
 };
+
+interface _updateDiscountTablePrices {
+  type: 'DISOCUNT_TABLE_PRICES';
+  data: _ProductDiscountTable | null;
+}
+
+interface _updateInventoryList {
+  type: 'INVENTORY_LIST';
+  data: null | _ProductInventoryTransfomed;
+}
+
+interface _UpdateProperties_Action {
+  payload: _updateDiscountTablePrices | _updateInventoryList;
+}
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
+    updateProductProperties: (state, { payload }: _UpdateProperties_Action) => {
+      if (payload.type === 'DISOCUNT_TABLE_PRICES') {
+        state.product.discounts = payload.data;
+      }
+
+      if (payload.type === 'INVENTORY_LIST') {
+        state.product.inventory = payload.data;
+      }
+    },
+
     setPropertyValues: (
       state,
       action: {
@@ -162,16 +188,30 @@ export const productSlice = createSlice({
         state.product.discounts = action.payload.data;
       }
     },
-    setColor: (state, action) => {
+    // filterInventoryByColorId: (state, action) => {
+
+    // },
+    setColor: (
+      state,
+      action: {
+        payload: _ProductColor;
+      },
+    ) => {
       if (state.product.inventory) {
-        const inventoryToShow = state.product.inventory?.inventory.find(
-          (int) => int.attributeOptionId === action.payload.attributeOptionId,
+        const inventoryToShowByColor =
+          state.product.inventory?.inventory.filter(
+            (int) => int.attributeOptionId === action.payload.attributeOptionId,
+          );
+
+        const sizesToShowByColor = state.product.inventory?.sizes.filter(
+          (int) =>
+            int.colorAttributeOptionId === action.payload.attributeOptionId,
         );
 
-        if (inventoryToShow) {
+        if (inventoryToShowByColor) {
           state.selected.inventory = {
-            inventory: [inventoryToShow],
-            sizes: state.selected.inventory!.sizes,
+            inventory: inventoryToShowByColor,
+            sizes: sizesToShowByColor,
           };
         }
       }
@@ -216,7 +256,6 @@ export const productSlice = createSlice({
           product: {
             id: number | null;
             name: string | null;
-            inventory: null | _ProductInventoryTransfomed;
             price: {
               msrp: number;
               ourCost: number;
@@ -225,7 +264,6 @@ export const productSlice = createSlice({
             colors: _ProductColor[] | null;
             sizeChart: null | _SizeChartTransformed;
             sizes: string;
-            discounts: null | _ProductDiscountTable;
           };
         };
       },
@@ -236,9 +274,7 @@ export const productSlice = createSlice({
       state.product.price = action.payload.product.price;
       state.product.sizes = action.payload.product.sizes;
       state.product.sizeChart = action.payload.product.sizeChart;
-      state.product.discounts = action.payload.product.discounts;
       state.product.colors = action.payload.product.colors;
-      state.product.inventory = action.payload.product.inventory;
     },
 
     toggleNextLogoButton: (state, action: { payload: boolean }) => {
@@ -271,6 +307,7 @@ export const productSlice = createSlice({
         allowNextLogo: false,
         logo: { price: null },
         lines: null,
+        chosenLogo: null,
       };
     },
 

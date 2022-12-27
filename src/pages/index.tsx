@@ -3,9 +3,9 @@ import {
   _SlugServerSide_WentWrong,
   _TopicHomeProps,
 } from '@type/slug.type';
+import SeoHead from 'appComponents/Screen/Layout/Head';
 import { getServerSideProps } from 'Components/Slug/getServerSideProps';
 import { NextPage } from 'next';
-import Head from 'next/head';
 import Home from 'pages/Home';
 
 const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
@@ -22,31 +22,18 @@ const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     return <>No page data found</>;
   }
 
-  const _SEO = {
-    title: pageMetaData?.meta_title || 'Home',
-    desc: pageMetaData?.meta_description || 'Home page',
-    keywords:
-      pageMetaData?.meta_keywords || 'Custom Embroidery | Branded Promotional',
-  };
-
-  const HeadTag = (
-    <Head>
-      <title>{_SEO.title}</title>
-      <meta name="description" content={_SEO.desc} key="desc" />
-      <meta name="keywords" content={_SEO.keywords} />
-      <link
-        rel="stylesheet"
-        type="text/css"
-        charSet="UTF-8"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-      />
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-      />
-    </Head>
-  );
+  if (pageMetaData.type === '404') {
+    return (
+      <>
+        <SeoHead
+          title={pageMetaData.meta_title || '404: No Page found'}
+          description={pageMetaData.meta_description || ''}
+          keywords={pageMetaData.meta_keywords || 'Branded Promotional'}
+        />
+        <h3>404: No page found</h3>
+      </>
+    );
+  }
 
   if (pageMetaData.type === 'topic') {
     const tprops: _TopicHomeProps = {
@@ -57,7 +44,17 @@ const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
 
     return (
       <>
-        {HeadTag}
+        <SeoHead
+          title={pageMetaData?.meta_title ? pageMetaData.meta_title : 'Home'}
+          description={
+            pageMetaData?.meta_description ? pageMetaData.meta_description : ''
+          }
+          keywords={
+            pageMetaData?.meta_keywords
+              ? pageMetaData.meta_keywords
+              : 'Branded Promotional'
+          }
+        />
         <Home
           props={tprops}
           featuredItems={{
@@ -69,7 +66,16 @@ const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     );
   }
 
-  return <>if page type do not matched to "topic" what to do???</>;
+  return (
+    <>
+      <SeoHead
+        title={'No Matches found'}
+        description={''}
+        keywords={'Branded Promotional'}
+      />
+      If no matchess found what to show
+    </>
+  );
 };
 
 export { getServerSideProps };

@@ -1,5 +1,5 @@
 import { allAsyncActions } from './asyncActions';
-import { storeActions } from './slices/cart.slice';
+import { CartActions } from './slices/cart.slice';
 import { compareActions } from './slices/compare.slice';
 import { homeActions } from './slices/home.slice';
 import { loaderActions } from './slices/loader.slice';
@@ -14,7 +14,7 @@ const actions = {
   ...productActions,
   ...allAsyncActions,
   ...userActions,
-  ...storeActions,
+  ...CartActions,
   ...modalActions,
   ...compareActions,
   ...loaderActions,

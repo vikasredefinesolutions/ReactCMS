@@ -3,7 +3,11 @@ import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import React from 'react';
 
-const DisplayCompareImage: React.FC = () => {
+interface _props {
+  onRemove: (val: number) => void;
+}
+
+const DisplayCompareImage: React.FC<_props> = ({ onRemove }) => {
   const images = useTypedSelector((state) => state.compare.selectedImages);
 
   return (
@@ -14,16 +18,26 @@ const DisplayCompareImage: React.FC = () => {
       </td>
 
       {images?.map((item, index) => (
-        <Link key={index} href={item.seName || '/'}>
-          <a>
-            <Image
-              key={item.index}
-              src={item.url}
-              alt={item.label}
-              className={''}
-            />
-          </a>
-        </Link>
+        <td key={index}>
+          <div className="w-96 p-2 relative">
+            <button
+              onClick={() => onRemove(index)}
+              className="absolute right-1 top-1 text-secondary hover:text-secondary-hover z-50"
+            >
+              <span className="material-icons-outlined text-lg ">close</span>
+            </button>
+            <Link key={index} href={item.seName || '/'}>
+              <a>
+                <Image
+                  key={item.index}
+                  src={item.url}
+                  alt={item.label}
+                  className={''}
+                />
+              </a>
+            </Link>
+          </div>
+        </td>
       ))}
     </tr>
   );

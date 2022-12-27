@@ -8,10 +8,7 @@ import { useEffect, useState } from 'react';
 import * as helper from '../../Components/Home/Helper';
 
 const Home = (props) => {
-  const storeId = useTypedSelector((state) => state.store.id);
   const { featuredItems } = props;
-  const slug = props.props?.slug;
-
   const pageData = props.props?.pageData;
   const [componentHtml, setComponentHtml] = useState([]);
 
@@ -24,7 +21,7 @@ const Home = (props) => {
   useEffect(() => {
     // let pageId = pageData.id;
     document.title = pageData?.seTitle;
-    if (pageData !== undefined) {
+    if (pageData.components !== undefined) {
       setComponentHtml(pageData?.components);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,7 +76,7 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    componentHtml.map((element, index) => {
+    componentHtml?.map((element, index) => {
       //let x = ReactDOM.findDOMNode(refArray.current[element.uid]);
       //  x.querySelectorAll('#div'+element.no)[0].innerHTML = element.uid;
       helper.updateSetProperties(element, index);
@@ -87,8 +84,11 @@ const Home = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [componentHtml]);
 
+  const storeTypeId = useTypedSelector((state) => state.store.storeTypeId);
+
   return (
     <>
+      <>{storeTypeId} - dummy text</>
       <div className="">
         {featuredItems?.products && (
           <FeaturedItems
@@ -97,7 +97,7 @@ const Home = (props) => {
           />
         )}
         <main>
-          {pageData?.components.length > 0 ? (
+          {pageData?.components && pageData?.components.length > 0 ? (
             pageData.components.map((componentValue, index) => {
               const backgroundDefault = loadBackgroundDefault(componentValue);
               return (
@@ -168,14 +168,6 @@ const Home = (props) => {
       </div>
     </>
   );
-};
-
-export const getServerSideProps = () => {
-  return {
-    props: {
-      title: 'Vikas',
-    },
-  };
 };
 
 export default Home;

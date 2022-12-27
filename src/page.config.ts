@@ -8,9 +8,31 @@ export const _Store = {
   type2: 'GG',
   type3: 'PKHG',
   type4: 'DI',
+  type5: 'bacardiGreyGoose',
+  type6: 'bacardiToGo',
+  type7: 'bbcpord',
+  type8: 'bcorp',
+  type9: 'betahumana',
+  type10: 'cyxtera',
+  type11: 'gilbaneco',
+  type12: 'healthyPoints',
+  type13: 'bacardi',
+  type14: 'humanaheroes',
+  type15: 'petermillar',
+  type16: 'southerntide',
+  type17: 'theHardFord',
+  type18: 'theHardFordClaimsapparel',
+  type19: 'theHardFordJuniorfireMarshal',
+  type20: 'theHardFordVolshirt',
+  type21: 'theHomeDepot',
+  type22: 'ussa',
+  type23: 'ussaClaimsApparel',
+  type24: 'ussaMilitarysAffairs',
+  type25: 'wayFair',
 };
 
 export const _StoreDomains = {
+  // domain1: 'corporategear',
   domain1: 'vercel.redefinecommerce.net',
   domain2: 'vercel1.redefinecommerce.net',
   domain3: 'pk',
@@ -25,7 +47,7 @@ export const _StoreDomains = {
 
 export const __domain = {
   devMode: true, // for development features.
-  isSiteLive: false,
+  isSiteLive: true,
   localDomain: _StoreDomains.domain1,
   layoutToDisplay: _Store.type1,
 };

@@ -1,5 +1,8 @@
+import { _MyAcc_OrderProductDetails } from '@type/APIs/user.res';
+import ImageComponent from 'appComponents/reusables/Image';
+import Price from 'appComponents/reusables/Price';
 import { paths } from 'constants/paths.constant';
-import { _ThankYouOrder } from 'definations/thankYou.type';
+
 import { useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
@@ -7,25 +10,30 @@ import React from 'react';
 import ThankYouProductTable from './ThankYouProductTable';
 
 interface _props {
-  order: _ThankYouOrder;
+  product: _MyAcc_OrderProductDetails;
 }
 
-const ThankYouProduct: React.FC<_props> = ({ order }) => {
+const ThankYouProduct: React.FC<_props> = ({ product }) => {
   const router = useRouter();
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
-  const navigateTo = (id: string) => {
-    router.push(`${paths.PRODUCT}?cat=&_pid=${id}&_cl=`);
+  const navigateTo = (seName: string | null) => {
+    if (seName === null) {
+      router.push(paths.HOME);
+      return;
+    }
+
+    router.push(seName);
   };
 
   if (storeLayout === _Store.type2) {
     return (
       <li className="flex py-6 flex-wrap px-4">
         <div className="w-full lg:w-4/12 px-3 mt-3">
-          <button onClick={() => navigateTo('id')}>
-            <img
-              src="images/1040623_25528_STH.jpg"
-              alt=""
+          <button onClick={() => navigateTo(product?.seName)}>
+            <ImageComponent
+              src={product.colorImage}
+              alt={product.productName}
               className="rounded-md object-center object-cover"
             />
           </button>
@@ -34,10 +42,10 @@ const ThankYouProduct: React.FC<_props> = ({ order }) => {
         <div className="w-full lg:w-8/12 px-3 mt-3">
           <div className="text-lg font-semibold">
             <button
-              onClick={() => navigateTo('id')}
+              onClick={() => navigateTo(product?.seName)}
               className="text-black hover:text-anchor-hover"
             >
-              Patagonia Men's Better Sweater Jacket
+              {product.productName}
             </button>
           </div>
           <div className="w-full flex flex-wrap">
@@ -45,23 +53,25 @@ const ThankYouProduct: React.FC<_props> = ({ order }) => {
               <div className="flex justify-between">
                 <div className="text-base">
                   <span className="font-semibold">SKU :</span>
-                  25528
+                  {product.sku}
                 </div>
               </div>
               <div className="mt-1 flex">
                 <div className="text-base">
                   <span className="font-semibold">Color :</span>
-                  Stonewash
+                  {product.attributeOptionValue}
                 </div>
               </div>
             </div>
             <div className="mt-2 sm:w-1/3">
               <div className="bold text-lg text-right">
-                <span className="">Item Total: $2,964.00</span>
+                <span className="">
+                  Item Total: <Price value={product.totalPrice} />
+                </span>
               </div>
             </div>
 
-            <ThankYouProductTable order={order} />
+            <ThankYouProductTable product={product} />
             {/* <!-- <div className="flex justify-start items-center mb-3">
                               <div>
                                   <span className="material-icons text-[60px] mr-3">support_agent</span>
@@ -83,10 +93,10 @@ const ThankYouProduct: React.FC<_props> = ({ order }) => {
     return (
       <li className="flex py-6 flex-wrap px-4">
         <div className="w-full lg:w-4/12 px-3 mt-3">
-          <button onClick={() => navigateTo('id')}>
-            <img
-              src="images/1040623_25528_STH.jpg"
-              alt=""
+          <button onClick={() => navigateTo(product?.seName)}>
+            <ImageComponent
+              src={product.colorImage}
+              alt={product.productName}
               className="rounded-md object-center object-cover"
             />
           </button>
@@ -95,10 +105,10 @@ const ThankYouProduct: React.FC<_props> = ({ order }) => {
         <div className="w-full lg:w-8/12 px-3 mt-3">
           <div className="text-lg font-semibold">
             <button
-              onClick={() => navigateTo('id')}
+              onClick={() => navigateTo(product?.seName)}
               className="text-black hover:text-blue-500"
             >
-              Patagonia Men's Better Sweater Jacket
+              {product.productName}
             </button>
           </div>
           <div className="w-full flex flex-wrap">
@@ -106,23 +116,25 @@ const ThankYouProduct: React.FC<_props> = ({ order }) => {
               <div className="flex justify-between">
                 <div className="text-base">
                   <span className="font-semibold">SKU :</span>
-                  25528
+                  {product.sku}
                 </div>
               </div>
               <div className="mt-1 flex">
                 <div className="text-base">
                   <span className="font-semibold">Color :</span>
-                  Stonewash
+                  {product.attributeOptionValue}
                 </div>
               </div>
             </div>
             <div className="mt-2 sm:w-1/3">
               <div className="bold text-lg text-right">
-                <span className="">Item Total: $2,964.00</span>
+                <span className="">
+                  Item Total: <Price value={product.totalPrice} />
+                </span>
               </div>
             </div>
 
-            <ThankYouProductTable order={order} />
+            <ThankYouProductTable product={product} />
             {/* <!-- <div className="flex justify-start items-center mb-3">
                                   <div>
                                       <span className="material-icons text-[60px] mr-3">support_agent</span>
@@ -139,13 +151,14 @@ const ThankYouProduct: React.FC<_props> = ({ order }) => {
       </li>
     );
   }
+
   return (
     <li className="flex py-6 flex-wrap px-4">
       <div className="w-full lg:w-4/12 px-3 mt-3">
-        <button onClick={() => navigateTo('id')}>
-          <img
-            src="images/1040623_25528_STH.jpg"
-            alt=""
+        <button onClick={() => navigateTo(product?.seName)}>
+          <ImageComponent
+            src={product.colorImage}
+            alt={product.productName}
             className="rounded-md object-center object-cover"
           />
         </button>
@@ -154,10 +167,10 @@ const ThankYouProduct: React.FC<_props> = ({ order }) => {
       <div className="w-full lg:w-8/12 px-3 mt-3">
         <div className="text-lg font-semibold">
           <button
-            onClick={() => navigateTo('id')}
+            onClick={() => navigateTo(product?.seName)}
             className="text-black hover:text-anchor-hover"
           >
-            Patagonia Men's Better Sweater Jacket
+            {product.productName}
           </button>
         </div>
         <div className="w-full flex flex-wrap">
@@ -165,23 +178,25 @@ const ThankYouProduct: React.FC<_props> = ({ order }) => {
             <div className="flex justify-between">
               <div className="text-base">
                 <span className="font-semibold">SKU :</span>
-                25528
+                {product.sku}
               </div>
             </div>
             <div className="mt-1 flex">
               <div className="text-base">
                 <span className="font-semibold">Color :</span>
-                Stonewash
+                {product.attributeOptionValue}
               </div>
             </div>
           </div>
           <div className="mt-2 sm:w-1/3">
             <div className="bold text-lg text-right">
-              <span className="">Item Total: $2,964.00</span>
+              <span className="">
+                Item Total: <Price value={product.totalPrice} />
+              </span>
             </div>
           </div>
 
-          <ThankYouProductTable order={order} />
+          <ThankYouProductTable product={product} />
           {/* <!-- <div className="flex justify-start items-center mb-3">
                                   <div>
                                       <span className="material-icons text-[60px] mr-3">support_agent</span>

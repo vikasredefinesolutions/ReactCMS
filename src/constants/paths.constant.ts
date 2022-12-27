@@ -4,7 +4,7 @@ export const queryParam = {
 };
 
 export const paths = {
-  HOME: '/home',
+  HOME: '/',
   PRODUCT: '/product',
   SPECIAL_REQUEST: '/special_request',
   PRODUCT_LISTING: '/product-list',
@@ -26,7 +26,7 @@ export const paths = {
     address: '/myaccount/Address',
   },
   SIGN_UP: '/CreateAccount/SignUp',
-  THANK_YOU: '/thank-you',
+  THANK_YOU: '/Orders/Thankyou',
   CART: '/cart.html',
   BRAND: '/brands.html',
   WISHLIST: '/wishlist',

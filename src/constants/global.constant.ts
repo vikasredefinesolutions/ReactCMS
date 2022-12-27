@@ -8,7 +8,7 @@ export enum __Cookie {
   storeInfo = 'storeInfo',
 }
 
-// cookie_expirty in days
+// cookie_expiry in days
 export const __Cookie_Expiry = {
   userId: 2,
 };
@@ -17,3 +17,8 @@ export enum __Error {
   storeIdMissing = 'STORE_ID is missing',
   noPageTypeFound = 'PageType is missing',
 }
+
+export const __LocalStorage = {
+  recetlyViewedProducts: '_rcvwp',
+  compareProducts: '_cmpPdts',
+};

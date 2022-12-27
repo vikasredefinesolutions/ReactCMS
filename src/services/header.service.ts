@@ -1,4 +1,3 @@
-import config from 'api.config';
 import { _BannerRes } from 'definations/APIs/banner.res';
 import {
   _MenuCategory,
@@ -8,9 +7,8 @@ import {
   _t_MenuCategory,
   _t_MenuTopic,
 } from 'definations/APIs/header.res';
-import { _Header } from 'definations/header.type';
-import { CallAPI } from 'helpers/common.helper';
-import { headerInfo } from '../mock/header.mock';
+
+import { CallAPI, CallCmsAPI } from 'helpers/common.helper';
 
 export type _HeaderAPIs =
   | 'FetchBrands'
@@ -24,25 +22,12 @@ export type _HeaderServices = {
   api: _HeaderAPIs;
 };
 
-// eslint-disable-next-line no-unused-vars
-export const SearchFor = async (payload: { text: string }) => {
-  // const url = `/front/get-page-type?store_id=${payload.storeId}&slug=${payload.slug}`;
-
-  // await SendAsyncV2<AxiosRequestConfig>({
-  //   url: url,
-  //   method: 'POST',
-  //   data: {},
-  // });
-
-  return headerInfo as _Header;
-};
-
 export const FetchBrands = async ({
   storeId,
 }: {
   storeId: number;
 }): Promise<_t_Brands | null> => {
-  const url = `/Brand/getbrandbystoreid/${storeId}.json`;
+  const url = `Brand/getbrandbystoreid/${storeId}.json`;
 
   const response = await CallAPI<_t_Brands>({
     name: {
@@ -82,9 +67,9 @@ export const FetchBannerDetails = async (payload: {
 export const FetchStoreMenu = async (payload: {
   storeId: number;
 }): Promise<_StoreMenu[] | null> => {
-  const url = `${config.CMS}/api/store-menu/${payload.storeId}`;
+  const url = `API/api/store-menu/${payload.storeId}`;
 
-  const response = await CallAPI<_StoreMenu[]>({
+  const response = await CallCmsAPI<_StoreMenu[]>({
     name: {
       api: 'FetchStoreMenu',
       service: 'header',
@@ -101,14 +86,13 @@ export const FetchStoreMenu = async (payload: {
 export const FetchMenuTopics = async (payload: {
   topicId: number;
 }): Promise<_t_MenuTopic | null> => {
-  const url = `${config.CMS}/api/topics/${payload.topicId}`;
+  const url = `API/api/topics/${payload.topicId}`;
 
-  const response = await CallAPI<_MenuTopic>({
+  const response = await CallCmsAPI<_MenuTopic>({
     name: {
       api: 'FetchMenuTopics',
       service: 'header',
     },
-
     request: {
       url: url,
       method: 'POST',
@@ -127,9 +111,9 @@ export const FetchMenuCategories = async (payload: {
   storeId: number;
   categoryId: number;
 }): Promise<_t_MenuCategory | null> => {
-  const url = `${config.api.URL}Category/getcategorysbyparentid/${payload.categoryId}/${payload.storeId}.json`;
+  const url = `API/Category/getcategorysbyparentid/${payload.categoryId}/${payload.storeId}.json`;
 
-  const response = await CallAPI<_MenuCategory[]>({
+  const response = await CallCmsAPI<_MenuCategory[]>({
     name: {
       api: 'FetchMenuCategories',
       service: 'header',

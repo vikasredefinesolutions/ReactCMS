@@ -31,7 +31,7 @@ const LoggedInMenu = () => {
 
   if (storeLayout === _Store.type1) {
     return (
-      <a>
+      <div>
         {showMenuOrNot() && (
           <div
             className="flex relative"
@@ -108,13 +108,13 @@ const LoggedInMenu = () => {
             )}
           </div>
         )}
-      </a>
+      </div>
     );
   }
 
   if (storeLayout === _Store.type2) {
     return (
-      <a>
+      <div>
         {showMenuOrNot() && (
           <div
             className="flex relative"
@@ -189,13 +189,13 @@ const LoggedInMenu = () => {
             )}
           </div>
         )}
-      </a>
+      </div>
     );
   }
 
   if (storeLayout === _Store.type3) {
     return (
-      <a>
+      <div>
         {showMenuOrNot() && (
           <div
             className="flex relative"
@@ -270,16 +270,16 @@ const LoggedInMenu = () => {
             )}
           </div>
         )}
-      </a>
+      </div>
     );
   }
 
   if (storeLayout === _Store.type4) {
-    return <a>{showMenuOrNot() && <a> MISSING </a>}</a>;
+    return <div>{showMenuOrNot() && <a> MISSING </a>}</div>;
   }
 
   return (
-    <a>
+    <div>
       {showMenuOrNot() && (
         <div
           className="flex relative"
@@ -368,7 +368,7 @@ const LoggedInMenu = () => {
           )}
         </div>
       )}
-    </a>
+    </div>
   );
 };
 

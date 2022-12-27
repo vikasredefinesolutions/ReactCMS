@@ -8,7 +8,7 @@ export interface _User {
   firstName: string;
   lastName: string;
   email: string;
-  role: string;
+  role: number;
 }
 
 export interface _Country {

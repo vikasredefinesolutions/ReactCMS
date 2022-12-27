@@ -1,11 +1,14 @@
+import { CartProducts } from '@type/APIs/cart.res';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { CartReq, CouponReq } from 'definations/APIs/cart.req';
 import { conditionalLog } from 'helpers/global.console';
 import { SendAsyncV2 } from '../utils/axios.util';
 
-export const fetchCart = async (customerId: number) => {
+export const fetchCart = async (
+  customerId: number,
+): Promise<CartProducts | null> => {
   const url = `/Store/GetShoppingCartItemsDetail/${customerId}.json`;
-  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+  const res = await SendAsyncV2<CartProducts | null>({
     url: url,
     method: 'GET',
   });
@@ -46,7 +49,7 @@ export const checkCustomerAlreadyExist = async (
   storeId: number,
 ) => {
   try {
-    const url = `/StoreCustomer/storecustomerguest.json`;
+    const url = `/StoreCustomer/checkstorecustomerguest.json`;
     const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
       url: url,
       method: 'POST',
@@ -67,6 +70,34 @@ export const checkCustomerAlreadyExist = async (
     conditionalLog({
       data: error,
       name: 'getThemeConfigs',
+      type: 'API',
+      show: true,
+    });
+
+    return null;
+  }
+};
+
+export const placeOrder = async (orderObject: any) => {
+  try {
+    const url = `/Order/addorder.json`;
+    const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+      url: url,
+      method: 'POST',
+      data: orderObject,
+    });
+    conditionalLog({
+      data: res.data,
+      name: 'placeOrder',
+      type: 'API',
+      show: res.data === null,
+    });
+
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'placeOrder',
       type: 'API',
       show: true,
     });

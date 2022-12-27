@@ -24,3 +24,20 @@ export interface NavigationLink {
   url: string;
   visible: boolean;
 }
+
+export type SubRow = {
+  logoLocationDetailId: number;
+  name: string;
+  image: string;
+  threeDImage: string;
+  threeDLogoLocationClass: string;
+  price: number;
+  cost: number;
+  brandGuideLines: boolean;
+};
+
+export type LogoList = {
+  isFirstLogoFree: boolean;
+  productId: number;
+  subRow: SubRow[];
+};

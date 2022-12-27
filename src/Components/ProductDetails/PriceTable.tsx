@@ -6,7 +6,7 @@ import { _Store } from 'page.config';
 import React, { useEffect } from 'react';
 
 const QtyPriceTable: React.FC = () => {
-  const { setPropertyValues } = useActions();
+  const { updateProductProperties } = useActions();
   const { layout: storeLayout, id: storeId } = useTypedSelector(
     (state) => state.store,
   );
@@ -17,21 +17,26 @@ const QtyPriceTable: React.FC = () => {
   const { discounts } = useTypedSelector((state) => state.product.product);
 
   useEffect(() => {
-    if (storeId && customerId && storeLayout === _Store.type1) {
+    if (
+      storeId &&
+      customerId &&
+      selectedColor &&
+      storeLayout === _Store.type1
+    ) {
       FetchDiscountTablePrices({
         storeId: storeId,
         seName: c_getSeName('PRODUCT DETAILS'),
-        customerId: customerId || 0,
+        customerId: customerId,
         attributeOptionId: selectedColor.attributeOptionId,
       }).then((res) =>
-        setPropertyValues({
-          propertyName: 'DISCOUNT',
+        updateProductProperties({
+          type: 'DISOCUNT_TABLE_PRICES',
           data: res,
         }),
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customerId, storeLayout]);
+  }, [customerId, storeLayout, selectedColor.attributeOptionId]);
 
   if (storeLayout === _Store.type1) {
     return (

@@ -1,4 +1,8 @@
-import { checkCustomerAlreadyExist } from '@services/cart.service';
+import {
+  checkCustomerAlreadyExist,
+  placeOrder as PlaceOrderService,
+} from '@services/cart.service';
+import { getPaymentOption } from '@services/payment.servicee';
 import { signInUser } from '@services/user.service';
 import {
   checkoutNewAccountPasswordMessages,
@@ -7,9 +11,8 @@ import {
 } from 'constants/validationMessages';
 import { CustomerAddress } from 'definations/APIs/user.res';
 import { useActions, useTypedSelector } from 'hooks';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-
 const cardArray = [
   {
     name: 'VISA',
@@ -38,6 +41,7 @@ const CheckoutController = () => {
   // const storeId = useTypedSelector((state) => state.store.id);
   const { id: storeId, ...store } = useTypedSelector((state) => state.store);
   const cartProducts = useTypedSelector((state) => state.cart.cart);
+  const cart = useTypedSelector((state) => state.cart);
   const isLoggedIn = false;
 
   const [address, setAddress] = useState<Array<CustomerAddress>>([]);
@@ -46,14 +50,19 @@ const CheckoutController = () => {
   const [showForgetPassword, setShowForgetPassword] = useState(false);
   const [showShippingScreen, setShowShippingScreen] = useState(false);
 
-  const [shippingAdress, setShippingAdress] = useState<CustomerAddress>();
+  const [shippingAdress, setShippingAdress] = useState<CustomerAddress | null>(
+    null,
+  );
   const [useShippingAddress, setUseShippingAddress] = useState(true);
-  const [billingAdress, setBillingAdress] = useState<CustomerAddress>();
+  const [billingAdress, setBillingAdress] = useState<CustomerAddress | null>(
+    null,
+  );
   const [cardDetails, setCardDetails] = useState('');
   const [showCVVHelpCard, setShowCVVHelpCard] = useState(false);
   const [purchaseOrder, setPurchaseOrder] = useState(false);
   const [showChangeAddressPopup, setShowChangeAddressPopup] = useState(NaN);
   const [showAddAccount, setShowAddAccount] = useState(false);
+  const [paymentOptions, setPaymentOption] = useState<any | null>(null);
   const [email, setEmail] = useState('');
 
   const validationSchema = Yup.object().shape({
@@ -79,8 +88,9 @@ const CheckoutController = () => {
   });
 
   useEffect(() => {
-    if (customer?.id) {
-      fetchCartDetails(customer?.id);
+    const tempCustomerId = localStorage.getItem('tempCustomerId');
+    if (customer?.id || tempCustomerId) {
+      fetchCartDetails(customer?.id || ~~(tempCustomerId || 0));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customer?.id]);
@@ -101,7 +111,9 @@ const CheckoutController = () => {
     if (useShippingAddress) {
       setBillingAdress(shippingAdress);
     } else if (showShippingScreen) {
-      setShowChangeAddressPopup(2);
+      if (isLoggedIn) {
+        setShowChangeAddressPopup(2);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useShippingAddress, shippingAdress]);
@@ -112,6 +124,141 @@ const CheckoutController = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customer]);
+
+  useEffect(() => {
+    if (storeId) {
+      getPaymentOption({ storeId }).then((payment) =>
+        setPaymentOption(payment),
+      );
+    }
+  }, [storeId]);
+
+  const placeOrder = async () => {
+    let order = {
+      orderModel: {
+        id: 0,
+        storeID: storeId,
+        isNew: true,
+        shoppingCartID: 0,
+        customerID: 48,
+        firstName: customer?.firstname || billingAdress?.firstname,
+        lastName: customer?.lastName || billingAdress?.lastName,
+        email: customer?.email || billingAdress?.email,
+        notes: 'string',
+        billingEqualsShipping: useShippingAddress,
+        billingEmail: billingAdress?.email,
+        billingFirstName: billingAdress?.firstname,
+        billingLastName: billingAdress?.lastName,
+        billingCompany: billingAdress?.companyName,
+        billingAddress1: billingAdress?.address1,
+        billingAddress2: billingAdress?.address2,
+        billingSuite: billingAdress?.suite,
+        billingCity: billingAdress?.city,
+        billingState: billingAdress?.state,
+        billingZip: billingAdress?.postalCode,
+        billingCountry: billingAdress?.countryName,
+        billingPhone: billingAdress?.phone,
+        shippingEmail: shippingAdress?.email,
+        shippingFirstName: shippingAdress?.firstname,
+        shippingLastName: shippingAdress?.lastName,
+        shippingCompany: shippingAdress?.companyName,
+        shippingAddress1: shippingAdress?.address1,
+        shippingAddress2: shippingAdress?.address2,
+        shippingSuite: shippingAdress?.suite,
+        shippingCity: shippingAdress?.city,
+        shippingState: shippingAdress?.state,
+        shippingZip: shippingAdress?.postalCode,
+        shippingCountry: shippingAdress?.countryName,
+        shippingPhone: shippingAdress?.phone,
+        shippingMethod: 'string',
+        okToEmail: true,
+        cardName: 'Debit Card',
+        cardType: 'Visa',
+        cardNumber: '9876543210123698',
+        cardVarificationCode: '125',
+        cardExpirationMonth: '11',
+        cardExpirationYear: '25',
+        couponCode: '',
+        couponDiscountAmount: 0,
+        giftCertiSerialNumber: '',
+        giftCertificateDiscountAmount: 0,
+        quantityDiscountAmount: 0,
+        levelDiscountPercent: 0,
+        levelDiscountAmount: 0,
+        customDiscount: 0,
+        orderSubtotal: 0,
+        orderTax: 0,
+        orderShippingCosts: 0,
+        orderTotal: 0,
+        authorizationCode: 'string',
+        authorizationResult: 'string',
+        authorizationPNREF: 'string',
+        transactionCommand: 'string',
+        lastIPAddress: 'string',
+        paymentGateway: 'string',
+        paymentMethod: 'string',
+        orderStatus: 'string',
+        transactionStatus: 'string',
+        avsResult: 'string',
+        captureTxCommand: 'string',
+        captureTXResult: 'string',
+        authorizedOn: new Date(),
+        capturedOn: new Date(),
+        orderDate: new Date(),
+        deleted: true,
+        referrer: 'string',
+        refundedAmount: 0,
+        chargeAmount: 0,
+        authorizedAmount: 0,
+        adjustmentAmount: 0,
+        orderNotes: 'string',
+        isGiftWrap: true,
+        giftWrapAmt: 0,
+        inventoryWasReduced: true,
+        refOrderID: 'string',
+        isMobileOrder: true,
+        batchId: 0,
+        shippingLabelCost: 0,
+        shippingLabelWeight1: 0,
+        shippingLabelPackageHeight: 0,
+        shippingLabelPackageWidth: 0,
+        shippingLabelPackageLength: 0,
+        noOfLabels: 0,
+        salesAgentId: 0,
+        isApproved: true,
+        dimensionValue: 0,
+        giftWrapPrice: 0,
+        shipPromotionDiscount: 0,
+        isFullFillment: true,
+        isAmazonuplaod: true,
+        cvvResult: 'string',
+        isMailSend: true,
+        shippedByStamps: true,
+        logoFinalTotal: 0,
+        lineFinalTotal: 0,
+        isExport: true,
+        inHandDate: '2022-12-15T10:50:21.912Z',
+        storeCredit: 0,
+        chargeHostedPaymentID: 'string',
+        sewout: true,
+        sewoutTotal: 0,
+        digitalTotal: 0,
+        empSourceName: 'string',
+        empSourceMedium: 'string',
+        gclid: 'string',
+        isPayLater: true,
+        orderCheckoutNote: 'string',
+        empSalesRap: 'string',
+        employeeID: 0,
+      },
+    };
+
+    try {
+      await PlaceOrderService(order);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   function creditCardType(cc: string) {
     var re = new RegExp('^4');
@@ -191,16 +338,19 @@ const CheckoutController = () => {
             });
           }
         }
-
-        // if (response?.isAlreadyExitsCustomer) {
-        //   setShowPassword(true);
-        // } else {
-        //   setShowAddAccount(true);
-        // }
       } catch (error) {
         console.log(error);
       }
     }
+  };
+
+  const continueAsGuest = () => {
+    setShowShippingScreen(true);
+    setShowPassword(false);
+    setShowAddAccount(false);
+    // if (!isLoggedIn) {
+    //   setShowChangeAddressPopup(1);
+    // }
   };
 
   const getTotalPrice = () => {
@@ -244,6 +394,24 @@ const CheckoutController = () => {
     return priceObject;
   };
 
+  const addressChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { value, name } = event.target;
+    let shipAddress = {} as CustomerAddress;
+    if (shippingAdress) {
+      shipAddress = shippingAdress;
+    }
+
+    shipAddress = { ...shipAddress, [name]: value };
+    setShippingAdress(shipAddress);
+    if (useShippingAddress) {
+      setBillingAdress(shipAddress);
+    }
+  };
+
+  const bindSubmitForm = () => {};
+
   return {
     creditCardType,
     setShowEmail,
@@ -263,6 +431,10 @@ const CheckoutController = () => {
     checkCustomer,
     logInUser,
     getTotalPrice,
+    continueAsGuest,
+    bindSubmitForm,
+    addressChangeHandler,
+    placeOrder,
     useShippingAddress,
     cardArray,
     passwordValidationSchema,
@@ -280,6 +452,8 @@ const CheckoutController = () => {
     showShippingScreen,
     shippingAdress,
     showAddAccount,
+    isLoggedIn,
+    paymentOptions,
   };
 };
 

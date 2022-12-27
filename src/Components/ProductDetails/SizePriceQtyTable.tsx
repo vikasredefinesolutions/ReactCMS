@@ -1,18 +1,15 @@
-import { ShoppingCartItemDetailsViewModel } from 'definations/APIs/cart.res';
-import { _ProductInventoryTransfomed } from 'definations/APIs/inventory.res';
+import Price from 'appComponents/reusables/Price';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
+import SelectOrInput from './SelectOrInput';
 
-interface _props {
-  inventory: _ProductInventoryTransfomed;
-  editDetailsQuantity?: ShoppingCartItemDetailsViewModel[];
-}
+const SizePriceQtyTable: React.FC = () => {
+  const { price, inventory } = useTypedSelector(
+    (state) => state.product.product,
+  );
+  const { color } = useTypedSelector((state) => state.product.selected);
+  const { sizeQtys } = useTypedSelector((state) => state.product.toCheckout);
 
-const SizePriceQtyTable: React.FC<_props> = ({
-  inventory,
-  editDetailsQuantity,
-}) => {
-  const price = useTypedSelector((state) => state.product.product.price);
   return (
     <div className="">
       <div className="overflow-x-auto max-h-screen">
@@ -35,15 +32,29 @@ const SizePriceQtyTable: React.FC<_props> = ({
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-200">
-            {/* {inventory?.sizes.map((size) => {
-              const foundIt = inventory.inventory.find(
-                (int) => int.name === size,
-              );
-              const qty =
-                editDetailsQuantity &&
-                editDetailsQuantity.find((q) => q.attributeOptionValue === size)
-                  ?.qty;
-              if (foundIt) {
+            {inventory?.sizes.map((colorWithAllSizes) => {
+              const showOrNot =
+                colorWithAllSizes.colorAttributeOptionId ===
+                color.attributeOptionId;
+
+              if (!showOrNot) return <></>;
+
+              return colorWithAllSizes.sizeArr.map((size) => {
+                const foundWithSameSizeAndColor = inventory.inventory?.find(
+                  (int) =>
+                    int.name === size &&
+                    int.colorAttributeOptionId ===
+                      colorWithAllSizes.colorAttributeOptionId,
+                );
+
+                if (!foundWithSameSizeAndColor) return <></>;
+                const qty = sizeQtys?.find(
+                  (item) =>
+                    item.size === size &&
+                    (item?.color
+                      ? item.color === foundWithSameSizeAndColor.name
+                      : false),
+                );
                 return (
                   <tr className="" key={size}>
                     <td className="px-2 py-4">
@@ -54,11 +65,15 @@ const SizePriceQtyTable: React.FC<_props> = ({
                         <Price value={price?.msrp!} />
                       </div>
                     </td>
-                    <SelectOrInput qty={qty || 0} size={size} price={price!} />
+                    <SelectOrInput
+                      qty={qty?.qty || 0}
+                      size={size}
+                      price={price!}
+                    />
                   </tr>
                 );
-              }
-            })} */}
+              });
+            })}
           </tbody>
         </table>
       </div>

@@ -1,27 +1,41 @@
+import { CustomerUsersObject } from '@type/APIs/customerUser.res';
 import { addUserMessages } from 'constants/validationMessages';
 import { _User } from 'definations/user.type';
 import { Formik } from 'formik';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 type Props = {
   // eslint-disable-next-line no-unused-vars
-  submitHandler: (values: _User) => void;
+  submitHandler: (values: _User, formikProps: { setFieldError: (arg0: string, arg1: string | undefined) => void; }) => void;
   closeModal: () => void;
+  editData?: CustomerUsersObject | null;
 };
 
-const AddUserModal = ({ submitHandler, closeModal }: Props) => {
-  const initialValues = {
+const AddUserModal = ({ submitHandler, closeModal, editData }: Props) => {
+  const [initialValues, setInitialValues] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    role: '',
-  };
+    role: 0,
+  });
+
+  useEffect(() => {
+    if (editData) {
+      setInitialValues({
+        firstName: editData.firstname,
+        lastName: editData.lastname,
+        email: editData.email,
+        role: editData.customerRoleId,
+      })
+    }
+  }, [editData])
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required(addUserMessages.firstName.required),
     lastName: Yup.string().required(addUserMessages.lastName.required),
     email: Yup.string().required(addUserMessages.email.required),
-    role: Yup.string().required(addUserMessages.role.required),
+    role: Yup.number().min(1, addUserMessages.role.required),
   });
 
   return (
@@ -35,7 +49,7 @@ const AddUserModal = ({ submitHandler, closeModal }: Props) => {
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 max-h-screen overflow-y-auto">
             <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600 sticky top-0 left-0 bg-white">
               <div className="text-xl font-semibold text-gray-900 lg:text-2xl login-top-title dark:text-white">
-                Add User
+                {editData ? 'Update' : 'Add'} User
               </div>
               <div className="flex items-center gap-x-2">
                 <button
@@ -62,8 +76,10 @@ const AddUserModal = ({ submitHandler, closeModal }: Props) => {
               onSubmit={submitHandler}
               validationSchema={validationSchema}
               initialValues={initialValues}
+              enableReinitialize={true}
             >
               {({
+                values,
                 touched,
                 errors,
                 handleChange,
@@ -88,6 +104,7 @@ const AddUserModal = ({ submitHandler, closeModal }: Props) => {
                             autoComplete="First Name"
                             placeholder="First Name"
                             className="form-input"
+                            value={values.firstName}
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
@@ -108,6 +125,7 @@ const AddUserModal = ({ submitHandler, closeModal }: Props) => {
                         <div className="mt-2">
                           <input
                             type="text"
+                            value={values.lastName}
                             id="Last Name"
                             name="lastName"
                             autoComplete="Last Name"
@@ -135,6 +153,7 @@ const AddUserModal = ({ submitHandler, closeModal }: Props) => {
                             type="email"
                             id="email-address"
                             name="email"
+                            value={values.email}
                             autoComplete="email"
                             placeholder="Email Address"
                             className="form-input"
@@ -161,12 +180,13 @@ const AddUserModal = ({ submitHandler, closeModal }: Props) => {
                             name="role"
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            value={values.role}
                           >
-                            <option value="" disabled>
+                            <option value={0} selected disabled>
                               Select Role
                             </option>
-                            <option value="administrator">Administrator</option>
-                            <option value="user">User</option>
+                            <option value={1}>Administrator</option>
+                            <option value={2}>User</option>
                           </select>
                         </div>
                         {touched.role && errors.role && (

@@ -1,10 +1,10 @@
 import { _FeaturedProduct } from '@type/APIs/storeDetails.res';
-import Image from 'appComponents/reusables/Image';
 import Price from 'appComponents/reusables/Price';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import { useActions } from 'hooks';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import FeaturedImageOptions from './FeaturedImageOptions';
 import FeatureDisplayImage from './FeatureDisplayImage';
 
 interface _props {
@@ -28,12 +28,13 @@ const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
 
   useEffect(() => {
     if (productsArr) {
-      productsArr.forEach((products, brandIndx) => {
+      productsArr?.forEach((products, brandIndx) => {
         if (brandIndx === brandIndex) {
           products.forEach((prod, prodIndex) => {
             showFeaturedImage({
               imageDetails: prod.moreImages[0],
               productIndex: prodIndex,
+              uImgIndex: `${brandIndex}-${prodIndex}-0`,
             });
           });
         }
@@ -55,16 +56,17 @@ const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
           FEATURED ITEMS
         </div>
         <div className="flex flex-col md:flex-row md:-mr-px text-sm">
-          <div
-            // x-data="{activeTab:01, activeClass: 'tab py-2 mr-1 px-2 block hover:text-primary text-primary focus:outline-none text-default-text border-b-2 font-medium border-primary', inactiveClass : 'tab py-2 px-2 block text-default-text hover:text-primary focus:outline-none mr-1 rounded-sm font-medium border-slate-300 hover:border-primary' }"
-            className="w-full"
-          >
+          <div className="w-full">
             {brands && (
               <ul className="w-full flex justify-center max-w-4xl mx-auto flex-wrap">
-                {brands.map((brand, index) => (
+                {brands?.map((brand, index) => (
                   <li
                     key={index}
-                    className="mx-8 md:mr-0 font-semibold"
+                    className={`mx-8 md:mr-0 font-semibold tab py-2 mr-1 px-2 block hover:text-primary text-default-text  focus:outline-none ${
+                      index === brandIndex
+                        ? 'text-primary border-b-2 font-medium border-primary'
+                        : 'rounded-sm font-medium border-slate-300 hover:border-primary'
+                    }`}
                     onClick={() => setBrandIndex(index)}
                   >
                     <a>{brand.name}</a>
@@ -77,68 +79,52 @@ const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
                 <div className="flex flex-wrap sm:-mx-3 gap-y-6">
                   {productsArr?.map((products, brandIndx) => {
                     if (brandIndx === brandIndex) {
-                      return products?.map((product, productIndex) => {
-                        return (
-                          <div
-                            key={productIndex}
-                            className="w-full lg:w-1/4 sm:w-1/2 sm:px-3"
-                          >
-                            <div className="">
-                              <div className="flex text-center lg:w-auto">
-                                <div className="relative border border-gray-200 pb-4">
-                                  <div className="mt-6">
-                                    <FeatureDisplayImage
-                                      productIndex={productIndex}
-                                      seName={product.productSEName}
-                                    />
-                                    <Link
-                                      href={product.productSEName}
-                                      className="mt-1 text-anchor hover:text-anchor-hover"
-                                    >
-                                      <a className="relative">
-                                        <span className="absolute inset-0"></span>
-                                        {product.productName}
-                                      </a>
-                                    </Link>
-                                    <div className="mt-3 text-black text-base tracking-wider">
-                                      <span className="font-semibold">
-                                        MSRP <Price value={product.msrp} />
-                                      </span>
+                      return (
+                        <Fragment key={brandIndex}>
+                          {products?.map((product, productIndex) => {
+                            return (
+                              <div
+                                key={`${productIndex}-${brandIndex}`}
+                                className="w-full lg:w-1/4 sm:w-1/2 sm:px-3"
+                              >
+                                <div className="">
+                                  <div className="flex text-center lg:w-auto">
+                                    <div className="relative border w-full border-gray-200 pb-4">
+                                      <div className="mt-6 ">
+                                        <FeatureDisplayImage
+                                          productIndex={productIndex}
+                                          seName={product.productSEName}
+                                        />
+                                        <Link
+                                          href={product.productSEName}
+                                          className="mt-1 text-anchor hover:text-anchor-hover"
+                                        >
+                                          <a className="relative">
+                                            <span className="absolute inset-0"></span>
+                                            {product.productName}
+                                          </a>
+                                        </Link>
+                                        <div className="mt-3 text-black text-base tracking-wider">
+                                          <span className="font-semibold">
+                                            MSRP <Price value={product.msrp} />
+                                          </span>
+                                        </div>
+                                        <FeaturedImageOptions
+                                          images={product.moreImages}
+                                          bIndex={brandIndex}
+                                          pIndex={productIndex}
+                                        />
+                                      </div>
                                     </div>
-                                    <ul
-                                      role="list"
-                                      className="flex items-center mt-2 justify-center space-x-1"
-                                    >
-                                      {product.moreImages.map(
-                                        (image, imageIndex) => (
-                                          <li
-                                            key={imageIndex}
-                                            className="w-7 h-7 border-2 border-secondary hover:border-secondary"
-                                            onClick={() =>
-                                              showFeaturedImage({
-                                                imageDetails: image,
-                                                productIndex: productIndex,
-                                              })
-                                            }
-                                          >
-                                            <Image
-                                              src={image.imageUrl}
-                                              alt={image.altTag}
-                                              className=""
-                                            />
-                                          </li>
-                                        ),
-                                      )}
-                                    </ul>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                        );
-                      });
+                            );
+                          })}
+                        </Fragment>
+                      );
                     }
-                    return <></>;
+                    return <Fragment key={brandIndex}></Fragment>;
                   })}
                 </div>
               </div>

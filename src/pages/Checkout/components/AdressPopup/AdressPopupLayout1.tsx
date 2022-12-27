@@ -179,7 +179,7 @@ const AddressPopupLayout1 = ({
           {...{
             closePopupHandler,
             submitHandler,
-            editData: {} as CustomerAddress,
+            editData: null,
           }}
         />
       )}

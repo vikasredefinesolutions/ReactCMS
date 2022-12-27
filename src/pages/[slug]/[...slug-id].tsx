@@ -1,11 +1,11 @@
 import {
   _SlugServerSideProps,
-  _SlugServerSide_WentWrong,
+  _SlugServerSide_WentWrong
 } from '@type/slug.type';
 import SeoHead from 'appComponents/Screen/Layout/Head';
-import ProductDetails from 'Components/ProductDetails';
+import ProductList from 'Components/ProductList';
 import { NextPage } from 'next';
-import ProductList from 'pages/ProductList';
+import Redefine_ProductDetails from 'Templates/Redefine_ProductDetail';
 import { getServerSideProps } from '../../Components/Slug/getServerSideProps';
 const ProductListing: NextPage<
   _SlugServerSideProps | _SlugServerSide_WentWrong
@@ -17,31 +17,37 @@ const ProductListing: NextPage<
 
   const { pageMetaData, page } = props;
 
-  const _SEO = {
-    title: pageMetaData?.meta_title || 'Home',
-    desc: pageMetaData?.meta_description || 'Home page',
-    keywords:
-      pageMetaData?.meta_keywords || 'Custom Embroidery | Branded Promotional',
-  };
-
   if (page === null) {
     return <>If no page data is found</>;
+  }
+
+  if (pageMetaData.type === '404') {
+    return (
+      <>
+        <SeoHead
+          title={pageMetaData.meta_title || '404: No Page found'}
+          description={pageMetaData.meta_description || ''}
+          keywords={pageMetaData.meta_keywords || 'Branded Promotional'}
+        />
+        <h3>404: No page found</h3>
+      </>
+    );
   }
 
   if (pageMetaData.type === 'collection') {
     return (
       <>
         <SeoHead
-          title={_SEO.title}
-          description={_SEO.desc}
-          keywords={_SEO.keywords}
+          title={pageMetaData.meta_title || 'Collection'}
+          description={pageMetaData.meta_description || ''}
+          keywords={pageMetaData.meta_keywords || 'Branded Promotional'}
         />
         <>Collection Page would come here</>
       </>
     );
   }
   if (pageMetaData.type === 'product' && page.productDetails) {
-    return <ProductDetails {...page.productDetails} />;
+    return <Redefine_ProductDetails {...page.productDetails} />;
   }
   if ('brand,category'.includes(pageMetaData.type)) {
     const listing = page.productListing;
@@ -58,7 +64,16 @@ const ProductListing: NextPage<
       </>
     );
   }
-  return <>Nothing matches send to home page</>;
+  return (
+    <>
+      <SeoHead
+        title={pageMetaData.meta_title || 'No Matches found'}
+        description={pageMetaData.meta_description || ''}
+        keywords={pageMetaData.meta_keywords || 'Branded Promotional'}
+      />
+      If no matchess found what to show
+    </>
+  );
 };
 
 export { getServerSideProps };

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { LogoList } from '@type/APIs/logo.res';
 import { _BrandSEO } from '@type/slug.type';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _ProductColor } from 'definations/APIs/colors.res';
@@ -40,7 +41,8 @@ export type _ProducDetailAPIs =
   | 'FetchSimilartProducts'
   | 'FetchProductSEOtags'
   | 'FetchColors'
-  | 'FetchProductById';
+  | 'FetchProductById'
+  | 'FetchBrandProductList';
 
 export type _ProductDetailService = {
   service: 'productDetails';
@@ -61,7 +63,7 @@ export const FetchProductsBySKUs = async (payload: {
     request: {
       url: url,
       method: 'POST',
-      body: payload,
+      data: payload,
     },
   });
 
@@ -137,7 +139,7 @@ export const FetchSizeChartById = async (
     request: {
       url: url,
       method: 'POST',
-      body: payload,
+      data: payload,
     },
   });
 
@@ -248,7 +250,7 @@ export const FetchColors = async ({
 export const FetchFiltersJsonByBrand = async (
   filterRequest: FilterApiRequest,
 ) => {
-  const url = `/StoreProductFilter/GetFilterByBrandByCatche.json`;
+  const url = `/StoreProductFilter/GetFilterByBrand.json`;
   const res = await SendAsyncV2<BrandFilter>({
     url: url,
     method: 'POST',
@@ -287,7 +289,7 @@ export const FetchDiscountTablePrices = async (payload: {
     request: {
       url: url,
       method: 'POST',
-      body: payload,
+      data: payload,
     },
   });
 
@@ -308,7 +310,7 @@ export const FetchSimilartProducts = async (payload: {
     request: {
       url: url,
       method: 'POST',
-      body: payload,
+      data: payload,
     },
   });
 
@@ -378,16 +380,27 @@ export const FetchBrandProductList = async ({
 }) => {
   const url = `Brand/getbrandseodetails/${storeId}/${seName}.json`;
 
-  const res = await SendAsyncV2<_BrandSEO>({
-    url: url,
-    method: 'GET',
+  const response = CallAPI<_BrandSEO>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchBrandProductList',
+    },
+    request: {
+      url: url,
+      method: 'GET',
+    },
   });
 
-  conditionalLog({
-    data: res.data,
-    name: 'FetchProductSEOtags',
-    type: 'API',
-    show: res.data === null,
+  return response;
+};
+
+export const getLogoPositionList = async (
+  customerId: number,
+): Promise<LogoList> => {
+  const url = `/StoreProduct/getproductlogolocationdetails/${customerId}.json`;
+  const res = await SendAsyncV2<LogoList>({
+    url,
+    method: 'GET',
   });
 
   return res.data;

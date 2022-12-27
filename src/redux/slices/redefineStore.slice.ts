@@ -31,8 +31,8 @@ export interface _RedesignStore {
 const initialState: _RedesignStore = {
   id: null,
   isAttributeSaparateProduct: false,
-  layout: null,
-  storeTypeId: null,
+  layout: 'cg',
+  storeTypeId: 2,
   display: showComponents,
   pathName: '',
   companyName: '',
@@ -75,9 +75,9 @@ export const storeSlice = createSlice({
         showProd: __domain.isSiteLive,
       });
       state.cartCharges = store.cartCharges;
-      // state.pageType = store.pageType;
       state.menuItems = action.payload.menuItems;
       state.configs = action.payload.configs;
+      state.storeTypeId = store.storeTypeId;
     },
 
     change_Layout: (

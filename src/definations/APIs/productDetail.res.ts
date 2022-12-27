@@ -1,15 +1,11 @@
 import { _ProductColor } from './colors.res';
-import { _ProductDiscountTable } from './discountTable.res';
-import { _ProductInventoryTransfomed } from './inventory.res';
 import { _SizeChartTransformed } from './sizeChart.res';
 
 export interface _ProductDetailsProps {
   details: null | _ProductDetails;
   colors: null | _ProductColor[];
   sizes: null | _SizeChartTransformed;
-  discount: null | _ProductDiscountTable;
   SEO: null | _ProductSEO;
-  inventory: null | _ProductInventoryTransfomed;
   alike: null | _ProductsAlike[];
 }
 

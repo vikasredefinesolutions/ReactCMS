@@ -10,29 +10,43 @@ interface _props {
 }
 
 const AllColors: React.FC<_props> = ({ color, index, seName }) => {
-  const { showCompareImage } = useActions();
+  const { updateCompareDisplayImage } = useActions();
 
   useEffect(() => {
     if (color !== null) {
       if (typeof color === 'string') {
-        showCompareImage({
-          index,
-          label: '',
-          url: '-',
-          attibuteOptionId: 0,
-          seName: '/',
+        updateCompareDisplayImage({
+          type: 'ADD',
+          data: {
+            index,
+            label: '',
+            url: '-',
+            attibuteOptionId: 0,
+            seName: '/',
+          },
         });
         return;
       }
 
-      showCompareImage({
-        index: index,
-        label: color[0].name,
-        url: color[0].imageUrl,
-        seName: seName,
-        attibuteOptionId: color[0].attributeOptionId,
+      updateCompareDisplayImage({
+        type: 'ADD',
+        data: {
+          index: index,
+          label: color[0].name,
+          url: color[0].imageUrl,
+          seName: seName,
+          attibuteOptionId: color[0].attributeOptionId,
+        },
       });
     }
+    return () => {
+      updateCompareDisplayImage({
+        type: 'REMOVE',
+        data: {
+          index: index,
+        },
+      });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -46,22 +60,29 @@ const AllColors: React.FC<_props> = ({ color, index, seName }) => {
 
   return (
     <td key={index} className="">
-      <div className="p-2">
+      <div className="p-2 flex gap-2 flex-wrap">
         {color.map((color) => (
           <div
             key={index}
             onClick={() =>
-              showCompareImage({
-                index,
-                label: color.name,
-                url: color.imageUrl,
-                attibuteOptionId: color.attributeOptionId,
-                seName: seName,
+              updateCompareDisplayImage({
+                type: 'ADD',
+                data: {
+                  index,
+                  label: color.name,
+                  url: color.imageUrl,
+                  attibuteOptionId: color.attributeOptionId,
+                  seName: seName,
+                },
               })
             }
-            className="w-10 h-10 border border-gray-300 bg-gray-100 flex justify-center items-center"
+            className="w-10 h-10 border border-gray-300 p-1 flex items-center justify-center"
           >
-            <Image src={color.imageUrl} alt={color.name} className={''} />
+            <Image
+              src={color.imageUrl}
+              alt={color.name}
+              className={'inline-block max-h-full'}
+            />
           </div>
         ))}
       </div>

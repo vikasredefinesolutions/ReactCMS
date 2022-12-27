@@ -21,6 +21,17 @@ const CartPage = () => {
   } = CartController();
   const storeLayout = useTypedSelector((state) => state.store.layout);
   let layout = <></>;
+
+  if (cartProducts === null || cartProducts.length < 1) {
+    return (
+      <div className='text-center mt-20'>
+        <h1>Your Cart is Empty.</h1>
+        <h5> There's nothing in your cart.</h5>
+        <h5>Not to worry: we have lots of other great finds.</h5>
+      </div>
+    )
+  }
+
   if (storeLayout === _Store.type1) {
     layout = (
       <CartLayout1

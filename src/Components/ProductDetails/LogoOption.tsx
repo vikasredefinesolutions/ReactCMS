@@ -1,3 +1,4 @@
+import { UploadImage } from '@services/file.service';
 import { useActions, useTypedSelector } from 'hooks';
 import React, { useEffect, useState } from 'react';
 
@@ -20,6 +21,13 @@ const LogoOption: React.FC<_props> = ({
   price,
   onRemove: removeHandler,
 }) => {
+
+  console.log(title,
+    id,
+    name,
+    index,
+    price)
+  const selectedLogo = useTypedSelector(state => state.product.toCheckout.chosenLogo);
   const { updatePriceByLogo, updateOptions } = useActions();
   const [logoStatus, setLogoStatus] = useState<null | 'submitted' | 'later'>(
     null,
@@ -43,7 +51,7 @@ const LogoOption: React.FC<_props> = ({
     (state) => state.product.toCheckout.availableOptions,
   );
 
-  const fileReader = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const fileReader = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget?.files === null) return;
 
     const file = {
@@ -51,6 +59,22 @@ const LogoOption: React.FC<_props> = ({
       type: event.currentTarget.files[0].type,
       previewURL: URL.createObjectURL(event.currentTarget.files[0]),
     };
+    let logos: any[] = [];
+    if (selectedLogo) {
+      logos = [...selectedLogo];
+    }
+    const image = await UploadImage({ folderPath: '/rdc/1/store/4/images/', files: event.currentTarget?.files[0] });
+    let oldLogoIndex = logos?.findIndex(res => res.index === index && res.id === id);
+
+    if (oldLogoIndex > -1) {
+      logos[oldLogoIndex] = { ...logos[oldLogoIndex], path: image }
+    } else {
+      logos.push({
+        index,
+        id,
+        path: image
+      })
+    }
 
     setFileToUpload(file);
     setLogoStatus('submitted');

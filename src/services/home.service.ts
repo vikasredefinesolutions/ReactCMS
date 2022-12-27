@@ -1,11 +1,12 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import {
-  _FeaturedProduct,
-  _StoreDetails,
-} from 'definations/APIs/storeDetails.res';
-import { conditionalLog } from 'helpers/global.console';
-import { _showConsoles } from 'show.config';
-import { SendAsyncV2 } from '../utils/axios.util';
+import { _FeaturedProduct } from 'definations/APIs/storeDetails.res';
+import { CallAPI, CallCmsAPI } from 'helpers/common.helper';
+
+export type _HomeAPIs = 'FetchFeaturedProducts' | 'getPageComponents';
+
+export interface _HomeServices {
+  service: 'home';
+  api: _HomeAPIs;
+}
 
 export const FetchFeaturedProducts = async (payload: {
   storeId: number;
@@ -14,83 +15,34 @@ export const FetchFeaturedProducts = async (payload: {
 }): Promise<_FeaturedProduct[] | null> => {
   const url = '/StoreProduct/getfeaturedproductitems.json';
 
-  try {
-    const res = await SendAsyncV2<_FeaturedProduct[] | null>({
+  const response = await CallAPI<_FeaturedProduct[]>({
+    name: {
+      service: 'home',
+      api: 'FetchFeaturedProducts',
+    },
+    request: {
       url: url,
       method: 'POST',
       data: payload,
-    });
-
-    conditionalLog({
-      data: res.data,
-      name: 'FetchProductsBySKUs',
-      type: 'API',
-      show: res.data === null || res.data.length === 0,
-    });
-
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'FetchProductsBySKUs',
-      type: 'API',
-      show: _showConsoles.services.compareProducts,
-      error: true,
-    });
-
-    return null;
-  }
-};
-
-export const fetchProducts = async () => {
-  const url = '/home';
-  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
-    url: url,
-    method: 'GET',
+    },
   });
 
-  return res.data;
+  return response;
 };
 
-export const fetchProductById = async () => {
-  const url = '/product/';
-  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
-    url: url,
-    method: 'GET',
-  });
-  return res.data;
-};
+export const getPageComponents = async (Req: { page_id: number }) => {
+  const url = `API/api/front/topic/component/get/${Req.page_id}`;
 
-export const GetStoreID = async (
-  domain: string,
-): Promise<_StoreDetails | null> => {
-  const url = `Store/getstorebydomain.json`;
-
-  try {
-    const res = await SendAsyncV2<_StoreDetails>({
+  const response = await CallCmsAPI<any>({
+    name: {
+      service: 'home',
+      api: 'getPageComponents',
+    },
+    request: {
       url: url,
-      method: 'POST',
-      data: {
-        url: domain,
-      },
-    });
+      method: 'GET',
+    },
+  });
 
-    conditionalLog({
-      data: res,
-      name: 'GetStoreID',
-      type: 'API',
-      show: res.data === null,
-    });
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      type: 'API',
-      show: true,
-      name: 'GetStoreID',
-      error: true,
-    });
-
-    return null;
-  }
+  return response;
 };

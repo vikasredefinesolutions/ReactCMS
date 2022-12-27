@@ -1,18 +1,20 @@
 import HelpIcon from '@mui/icons-material/Help';
+import { fetchCart } from '@services/cart.service';
+import { CartProducts } from '@type/APIs/cart.res';
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import Price from 'appComponents/reusables/Price';
 import SeoHead from 'appComponents/Screen/Layout/Head';
+import AddressForm from 'appComponents/ui/AddressForm';
 import { CheckoutPage as seoDetails } from 'constants/seo.constant';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
+import { Redirect } from 'Guard/AuthGuard';
 import Link from 'next/link';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import CheckoutController from './CheckoutController';
 import AddressPopupLayout1 from './components/AdressPopup/AdressPopupLayout1';
-const Checkout = () => {
+const Checkout = (props: { cartDetails: CartProducts | null }) => {
   const {
     creditCardType,
-    setShowEmail,
-    setShowPassword,
     setShowForgetPassword,
     setShowShippingScreen,
     setUseShippingAddress,
@@ -26,6 +28,10 @@ const Checkout = () => {
     checkCustomer,
     logInUser,
     getTotalPrice,
+    continueAsGuest,
+    bindSubmitForm,
+    addressChangeHandler,
+    placeOrder,
     addressArray,
     useShippingAddress,
     cardArray,
@@ -43,14 +49,28 @@ const Checkout = () => {
     showShippingScreen,
     shippingAdress,
     showAddAccount,
+    isLoggedIn,
+    paymentOptions,
   } = CheckoutController();
+  const { cartDetails } = props;
+  const shipping = createRef();
+  const billing = createRef();
   const [showReviewOrder, setShowReviewOrder] = useState(false);
-
-  const handleReviewOrder = () => {
-    setShowReviewOrder(!showReviewOrder);
+  const handleReviewOrder = async () => {
+    if (!isLoggedIn) {
+      const form = shipping.current as FormikProps<any>;
+      await form.submitForm();
+      if (form.dirty && form.isValid) {
+        setShowReviewOrder(!showReviewOrder);
+        placeOrder();
+      }
+    } else {
+      setShowReviewOrder(!showReviewOrder);
+    }
   };
 
-  const { totalPrice, subTotal, smallRunFee, logoSetupCharges, salesTax } = getTotalPrice();
+  const { totalPrice, subTotal, smallRunFee, logoSetupCharges, salesTax } =
+    getTotalPrice();
 
   return (
     <>
@@ -280,13 +300,13 @@ const Checkout = () => {
                       </div>
                       <div className="w-full lg:w-1/2 px-3">
                         <div className="text-right">
-                          <Link
-                            href="/"
+                          <button
                             id="btn-continue-guest"
                             className="btn btn-primary"
+                            onClick={continueAsGuest}
                           >
                             CONTINUE AS GUEST
-                          </Link>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -298,7 +318,7 @@ const Checkout = () => {
                 id="ShippingPaymentMain"
                 style={{ display: showShippingScreen ? 'unset' : 'none' }}
               >
-                {shippingAdress && (
+                {
                   <div className="flex flex-wrap -mx-3 -mt-3">
                     <div className="w-full lg:w-1/2 px-3 mt-3">
                       <div
@@ -310,17 +330,20 @@ const Checkout = () => {
                       >
                         <div className="flex justify-between items-center my-3 pb-3 border-b border-gray-300">
                           <div className="text-xl">Shipping Address</div>
-                          <div>
-                            <button
-                              onClick={() => setShowChangeAddressPopup(1)}
-                              className="text-anchor"
-                              data-modal-toggle="shippingaddressModal"
-                            >
-                              Change
-                            </button>
-                          </div>
+                          {isLoggedIn && (
+                            <div>
+                              <button
+                                onClick={() => setShowChangeAddressPopup(1)}
+                                className="text-anchor"
+                                data-modal-toggle="shippingaddressModal"
+                              >
+                                Change
+                              </button>
+                            </div>
+                          )}
                         </div>
-                        <div className="text-base mb-3">
+
+                        {isLoggedIn && shippingAdress && <div className="text-base mb-3">
                           {shippingAdress.firstname} {shippingAdress.lastName}
                           <br />
                           {/* {shippingAdress.companyName} */}
@@ -336,10 +359,27 @@ const Checkout = () => {
                           {shippingAdress.countryName}
                           <br />
                           {shippingAdress.phone}
+                        </div>}
+                        <div style={{ 'display': isLoggedIn ? 'none' : 'unset' }}>
+                          <AddressForm
+                            submitHandler={(arg) => console.log(arg)}
+                            closePopupHandler={() => { }}
+                            editData={null}
+                            hideButtons={false}
+                            formRef={shipping}
+                            customChangeHandler={addressChangeHandler}
+                            addressType="s"
+                          // formRef={formRef}
+                          // ref={formRef}
+                          // bindSubmitForm={bindSubmitForm}
+                          />
                         </div>
+                        {/* )} */}
                       </div>
                     </div>
                     <div className="w-full lg:w-1/2 px-3 mt-3">
+
+
                       <div
                         id="PaymentCard"
                         style={{
@@ -349,6 +389,11 @@ const Checkout = () => {
                               : 'none',
                         }}
                       >
+
+                        {
+
+                        }
+
                         <div className="flex justify-between items-center my-3 pb-3 border-b border-gray-300">
                           <div className="text-xl">Payment</div>
                           <div>
@@ -540,7 +585,8 @@ const Checkout = () => {
                             <label>Use Shipping Address</label>
                           </div>
                         </div>
-                        {showShippingScreen && billingAdress && (
+
+                        {isLoggedIn && showShippingScreen && billingAdress && (
                           <div
                             id="SelectedShippingAddress"
                             className="text-base mb-3"
@@ -562,10 +608,21 @@ const Checkout = () => {
                             {billingAdress.phone}
                           </div>
                         )}
+                        {!isLoggedIn && (
+                          <AddressForm
+                            submitHandler={(arg) => console.log(arg)}
+                            closePopupHandler={() => { }}
+                            editData={useShippingAddress ? billingAdress : null}
+                            hideButtons={false}
+                            formRef={billing}
+                            customChangeHandler={addressChangeHandler}
+                            addressType={'b'}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
-                )}
+                }
               </div>
               {/* Order Review */}
             </div>
@@ -733,9 +790,7 @@ const Checkout = () => {
                     <dt className="flex items-center text-base">
                       <span>Shipping</span>
                     </dt>
-                    <dd className="text-base font-medium text-gray-900">
-                      -
-                    </dd>
+                    <dd className="text-base font-medium text-gray-900">-</dd>
                   </div>
                   <div className="flex items-center justify-between">
                     <dt className="flex items-center text-base">
@@ -766,7 +821,9 @@ const Checkout = () => {
               <div className="flex justify-between items-center bg-gray-200 w-full text-lg font-medium px-4 py-1">
                 <div>Total:</div>
 
-                <div><Price value={totalPrice} /></div>
+                <div>
+                  <Price value={totalPrice} />
+                </div>
               </div>
             </div>
             <div className="text-base text-red-500 font-medium mb-3">
@@ -778,6 +835,7 @@ const Checkout = () => {
               {!showReviewOrder && (
                 <button
                   onClick={handleReviewOrder}
+                  // onClick={submitForm}
                   className="btn btn-lg !w-full text-center btn-secondary mb-2"
                   id="btn-review-order"
                 >
@@ -823,5 +881,30 @@ const Checkout = () => {
     </>
   );
 };
+
+export const getServerSideProps = (context: { req: { cookies: { userId?: string | null; }; }; res: any }) => {
+  const userId = context.req.cookies?.userId;
+  let check = true;
+  let cart = null;
+  if (userId && userId !== null) {
+    cart = fetchCart(~~userId);
+    if (!cart) {
+      check = false;
+    }
+  }
+
+  if (check) {
+    Redirect({
+      res: context.res,
+      to: '/cart'
+    })
+  }
+
+  return {
+    props: {
+      cartDetails: cart
+    }
+  }
+}
 
 export default Checkout;

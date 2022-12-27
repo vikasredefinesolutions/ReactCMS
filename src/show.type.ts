@@ -10,7 +10,6 @@ import {
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { _ProductDetails, _ProductSEO } from '@type/APIs/productDetail.res';
 import { _SizeChartTransformed } from '@type/APIs/sizeChart.res';
-import { UserType } from '@type/APIs/user.res';
 import { _StoreReturnType } from '@type/store.type';
 
 export type _DynamicContent = {
@@ -56,10 +55,4 @@ export type _Expected_AppProps = {
   configs: {
     header: _TransformedThemeConfig | null;
   };
-  customer: UserType | null;
 };
-
-export type _conditionalLog =
-  | _productController
-  | _Expected_AppProps
-  | _StoreReturnType;

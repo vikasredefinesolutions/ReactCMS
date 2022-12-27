@@ -1,10 +1,16 @@
-import { _ThankYouOrder } from 'definations/thankYou.type';
-import React from 'react';
+import {
+  _MyAcc_OrderBillingDetails,
+  _MyAcc_OrderProductDetails
+} from '@type/APIs/user.res';
+import React, { Fragment } from 'react';
 import ThankYouProduct from './ThankYouProduct';
 import ThankYouSubTotal from './ThankYouSubTotal';
 
 interface _props {
-  order: _ThankYouOrder;
+  order: {
+    billing: _MyAcc_OrderBillingDetails | null;
+    product: _MyAcc_OrderProductDetails[] | null;
+  };
 }
 
 const ThankYouAccordion: React.FC<_props> = ({ order }) => {
@@ -20,7 +26,7 @@ const ThankYouAccordion: React.FC<_props> = ({ order }) => {
             aria-expanded="true"
             aria-controls="collapseOne"
           >
-            Detailed Order Reciept :{order.order.id}
+            Detailed Order Reciept :{order.billing?.refOrderID}
           </button>
         </h2>
         <div
@@ -34,9 +40,13 @@ const ThankYouAccordion: React.FC<_props> = ({ order }) => {
               role="list"
               className="border-b border-gray-900 divide-y divide-gray-300"
             >
-              <ThankYouProduct order={order} />
+              {order.product?.map((prod, index) => (
+                <Fragment key={index}>
+                  <ThankYouProduct product={prod} />
+                </Fragment>
+              ))}
             </ul>
-            <ThankYouSubTotal order={order} />
+            <ThankYouSubTotal billing={order.billing} />
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ export const getCountryList = async () => {
 
 export const getStatesList = async (id: number) => {
   const url = `/StoreCustomer/getcustomerstatebycountryid/${id}.json`;
-  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+  const res = await SendAsyncV2<Array<{ id: number; name: string }>>({
     url: url,
     method: 'GET',
   });

@@ -1,29 +1,14 @@
 import { __Error } from '@constants/global.constant';
 import { _ProductDetailsProps } from './APIs/productDetail.res';
 import { _FeaturedProduct } from './APIs/storeDetails.res';
-import {
-  GetlAllProductList,
-  StoreBrandProductColorViewModel,
-  StoreBrandProductGenderViewModel,
-  StoreBrandProductPriceRangeViewModel,
-  StoreBrandProductProductTypeViewModel,
-  StoreBrandProductSizeViewModel,
-} from './productList.type';
-
-export type other =
-  | StoreBrandProductColorViewModel
-  | StoreBrandProductSizeViewModel
-  | StoreBrandProductGenderViewModel
-  | StoreBrandProductProductTypeViewModel
-  | StoreBrandProductPriceRangeViewModel
-  | GetlAllProductList;
 
 export type _PageTypesAvailable =
   | 'topic'
   | 'category'
   | 'product'
   | 'collection'
-  | 'brand';
+  | 'brand'
+  | '404';
 
 export interface _TopicHomeProps {
   pageData: {

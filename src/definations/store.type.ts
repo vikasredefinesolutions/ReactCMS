@@ -10,6 +10,7 @@ export interface _StoreReturnType {
   storeId: null | number;
   layout: null | string;
   pageType: string;
+  storeTypeId: null | number;
   pathName: string;
   code: string;
   isAttributeSaparateProduct: boolean;

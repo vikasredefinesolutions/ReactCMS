@@ -1,5 +1,5 @@
-import { useActions } from 'hooks';
-import React from 'react';
+import { addCustomEvents } from 'helpers/common.helper';
+import React, { useEffect } from 'react';
 import BreadCrumb from './Layout/BreadCrumb';
 
 import Footer from './Layout/Footer';
@@ -9,7 +9,11 @@ interface _props {
   children: React.ReactNode;
 }
 const Screen: React.FC<_props> = ({ children }) => {
-  const { logInUser } = useActions();
+  useEffect(() => {
+    if (localStorage) {
+      addCustomEvents('localStorage');
+    }
+  }, []);
 
   return (
     <>

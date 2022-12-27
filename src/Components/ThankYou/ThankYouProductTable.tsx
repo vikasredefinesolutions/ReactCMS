@@ -1,11 +1,12 @@
-import { _ThankYouOrder } from 'definations/thankYou.type';
+import { _MyAcc_OrderProductDetails } from '@type/APIs/user.res';
+import Price from 'appComponents/reusables/Price';
 import React from 'react';
 
 interface _props {
-  order: _ThankYouOrder;
+  product: _MyAcc_OrderProductDetails;
 }
 
-const ThankYouProductTable: React.FC<_props> = () => {
+const ThankYouProductTable: React.FC<_props> = ({ product }) => {
   return (
     <div className="mt-10 mb-5 w-full">
       <div className="text-base font-semibold border-b pb-2">Item Details</div>
@@ -15,16 +16,22 @@ const ThankYouProductTable: React.FC<_props> = () => {
         <div className="text-base font-semibold w-20 text-right">Price</div>
       </div>
 
-      <div className="flex justify-between py-2">
-        <div className="text-base w-28">XS </div>
-        <div className="text-base w-16 text-center">4</div>
-        <div className="text-base w-20 text-right">$494.00</div>
-      </div>
+      {product.shoppingCartItemDetailsViewModels.map((prod, index) => (
+        <div key={index} className="flex justify-between py-2">
+          <div className="text-base w-28">{prod.attributeOptionId} </div>
+          <div className="text-base w-16 text-center">{prod.qty}</div>
+          <div className="text-base w-20 text-right">
+            <Price value={prod.price} />
+          </div>
+        </div>
+      ))}
 
       <div className="flex justify-between py-3 border-t border-b">
         <div className="text-base w-28">Product Total: </div>
-        <div className="text-base w-16 text-center">24</div>
-        <div className="text-base w-20 text-right">$2,964.00</div>
+        <div className="text-base w-16 text-center">{product.totalQty}</div>
+        <div className="text-base w-20 text-right">
+          <Price value={product.totalPrice} />
+        </div>
       </div>
     </div>
   );

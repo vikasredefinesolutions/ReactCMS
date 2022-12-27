@@ -1,10 +1,11 @@
 import { __Error } from '@constants/global.constant';
-import { getPageComponents, getPageType } from '@services/page.service';
+import { getPageComponents } from '@services/home.service';
 import {
   FetchBrandProductList,
   FetchFiltersJsonByBrand,
   FetchFiltersJsonByCategory,
 } from '@services/product.service';
+import { getPageType } from '@services/slug.service';
 import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
 import { _FeaturedProduct } from '@type/APIs/storeDetails.res';
 import { BrandFilter, CategoryFilter } from '@type/productList.type';
@@ -99,9 +100,10 @@ export const getServerSideProps: GetServerSideProps = async (
   // ---------------------------------------------------------------
 
   pageMetaData = await getPageType({
-    store_id: store.storeId,
+    storeId: store.storeId,
     slug,
   });
+  console.log(pageMetaData);
   // pageMetaData!.type = 'brand'; // DUMMY VALUE FOR TEST
   if (pageMetaData === null) {
     highLightError({
@@ -114,7 +116,6 @@ export const getServerSideProps: GetServerSideProps = async (
       },
     };
   }
-
   // ------------------------------------------------------------------
 
   ////////////////////////////////////////////////
@@ -122,11 +123,10 @@ export const getServerSideProps: GetServerSideProps = async (
   ////////////////////////////////////////////////
   try {
     if (pageMetaData.type === 'topic') {
-      page.topicHome.components = (
-        await getPageComponents({
-          page_id: pageMetaData.id,
-        })
-      ).data;
+      page.topicHome.components = await getPageComponents({
+        page_id: pageMetaData.id,
+      });
+
       page.home.featuredItems = (
         await HomeController.fetchFeaturedItems({
           storeId: store.storeId,
@@ -217,7 +217,7 @@ export const getServerSideProps: GetServerSideProps = async (
         }
       }
       page.productListing = {
-        brandSEO: brandSEO,
+        brandSEO: brandSEO!,
         filters: _filters,
         product: product,
         checkedFilters: filterOptionforfaceteds,

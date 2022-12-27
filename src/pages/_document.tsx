@@ -1,7 +1,3 @@
-import { _StoreReturnType } from '@type/store.type';
-import * as _AppController from 'Controllers/_AppController';
-import { domainToShow } from 'helpers/common.helper';
-import { highLightError } from 'helpers/global.console';
 import Document, {
   DocumentContext,
   DocumentInitialProps,
@@ -10,9 +6,9 @@ import Document, {
   Main,
   NextScript,
 } from 'next/document';
-import { __domain } from 'page.config';
+import { _globalStore } from 'store.global';
 
-let store: _StoreReturnType | null = null;
+let storeId: null | number = null;
 
 class MyDocument extends Document {
   static async getInitialProps(
@@ -20,15 +16,8 @@ class MyDocument extends Document {
   ): Promise<DocumentInitialProps> {
     const originalRenderPage = ctx.renderPage;
 
-    const domain = domainToShow({
-      domain: ctx.req?.rawHeaders[1],
-      showProd: __domain.isSiteLive,
-    });
-
-    try {
-      store = await _AppController.fetchStoreDetails(domain, ''); // Here only store id is required. so, ignore second parameter.
-    } catch (error) {
-      highLightError({ error, component: '_document' });
+    if (_globalStore.storeId) {
+      storeId = _globalStore.storeId;
     }
 
     ctx.renderPage = () =>
@@ -43,14 +32,30 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <link
             rel="stylesheet"
             type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${
-              store?.storeId
-            }/css/${store?.storeId}.css`}
+            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            charSet="UTF-8"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          />
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossOrigin="anonymous"
+            referrerPolicy="no-referrer"
           />
         </Head>
         <body className="font-Outfit bg-white">

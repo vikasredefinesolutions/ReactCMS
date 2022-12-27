@@ -13,7 +13,7 @@ type Props = {
 export const AddToCart: React.FC<Props> = ({ title, className }) => {
   const { showModal } = useActions();
   const toCheckout = useTypedSelector((state) => state.product.toCheckout);
-  const customer = useTypedSelector((state) => state.user.customer);
+  const customerId = useTypedSelector((state) => state.user.customer?.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
 
   const addToCartHandler = async () => {
@@ -56,7 +56,7 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
 
     const cartObject: CartReq = {
       addToCartModel: {
-        customerId: customer?.id || (tempCustId ? ~~tempCustId : 0),
+        customerId: customerId || (tempCustId ? ~~tempCustId : 0),
         productId: selectedProduct.productId,
         storeId: 4,
         shoppingCartItemModel: {
@@ -90,7 +90,7 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
     if (cartObject) {
       try {
         const res = await addToCart(cartObject);
-        if (!customer?.id) {
+        if (!customerId) {
           localStorage.setItem('tempCustomerId', res);
         }
         showModal({

@@ -10,17 +10,17 @@ const initialState: CartSliceType = {
   cart: [],
 };
 
-export const storeSlice = createSlice({
+export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCartDetails.fulfilled, (state, action) => {
-      state.cart = action.payload;
+      //state.cart = action.payload;
     });
   },
 });
 
-export const storeActions = storeSlice.actions;
+export const CartActions = cartSlice.actions;
 
-export default storeSlice.reducer;
+export default cartSlice.reducer;
