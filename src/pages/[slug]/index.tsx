@@ -6,7 +6,7 @@ import {
 import SeoHead from 'appComponents/Screen/Layout/Head';
 
 import { NextPage } from 'next';
-import Home from 'pages/home';
+import Home from 'pages/Home';
 import Redefine_ProductDetails from 'Templates/Redefine_ProductDetail';
 import Redefine_ProductList from 'Templates/Redefine_ProductList';
 import { getServerSideProps } from '../../Components/Slug/getServerSideProps';
