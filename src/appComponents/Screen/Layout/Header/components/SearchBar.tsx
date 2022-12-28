@@ -1,4 +1,3 @@
-import { Form, Formik } from 'formik';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store } from 'page.config';
@@ -6,22 +5,13 @@ import React from 'react';
 
 interface _props {
   screen?: 'MOBILE' | 'DESKTOP';
-  // eslint-disable-next-line no-unused-vars
-  onSearchInput?: (value?: string) => Promise<any>;
 }
 
 const SearchBar: React.FC<_props> = ({
   screen = 'DESKTOP',
-  onSearchInput = () => {},
 }) => {
+
   const storeLayout = useTypedSelector((state) => state.store.layout);
-
-  const searchHandler = (value: { text: string }) => {
-    // SearchFor(value);
-    onSearchInput(value.text as string);
-    // .then().catch().finally;
-  };
-
   if (storeLayout === _Store.type2) {
     if (screen === 'MOBILE') {
       return (
@@ -50,49 +40,35 @@ const SearchBar: React.FC<_props> = ({
     if (screen === 'DESKTOP') {
       return (
         <div className="hidden lg:flex flex-grow max-w-[500px]">
-          <Formik initialValues={{ text: '' }} onSubmit={searchHandler}>
-            {({ values, handleSubmit, handleChange, handleReset }) => {
-              return (
-                <Form>
-                  <div className="border border-secondary w-full p-2 pr-10 rounded-full text-white hover:text-[#CDDE00] relative">
-                    <input
-                      type="text"
-                      className="outline-none text-secondary text-lg w-full border-0 focus:ring-0"
-                      placeholder="Search"
-                      value={values.text}
-                      name="text"
-                      min={1}
-                      onChange={handleChange}
-                    />
-                    <div
-                      className="w-8 h-8 absolute rounded-full bg-[#415364] right-1.5 top-3 flex items-center justify-center"
-                      onClick={() => {
-                        handleSubmit();
-                        handleReset();
-                      }}
-                    >
-                      <svg
-                        className="w-4 h-4"
-                        x-description="Heroicon name: outline/search"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        ></path>
-                      </svg>
-                    </div>
-                  </div>
-                </Form>
-              );
-            }}
-          </Formik>
+          <div className="border border-secondary w-full p-2 pr-10 rounded-full text-white hover:text-[#CDDE00] relative">
+            <input
+              type="text"
+              className="outline-none text-secondary text-lg w-full border-0 focus:ring-0"
+              placeholder="Search"
+              name="searchVal"
+              min={1}
+            />
+            <div
+              className="w-8 h-8 absolute rounded-full bg-[#415364] right-1.5 top-3 flex items-center justify-center"
+            >
+              <svg
+                className="w-4 h-4"
+                x-description="Heroicon name: outline/search"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+          </div>
         </div>
       );
     }
@@ -101,6 +77,7 @@ const SearchBar: React.FC<_props> = ({
   if (storeLayout === _Store.type1) {
     if (screen === 'MOBILE') {
       return (
+
         <Link href="#" className="py-2 text-primary hover:text-gray-500">
           <a>
             <span className="sr-only">Search</span>
@@ -126,50 +103,37 @@ const SearchBar: React.FC<_props> = ({
     }
     if (screen === 'DESKTOP') {
       return (
-        <Formik initialValues={{ text: '' }} onSubmit={searchHandler}>
-          {({ values, handleSubmit, handleChange, handleReset }) => {
-            return (
-              <Form>
-                <div className="hidden lg:flex">
-                  <div className="-m-2 border border-gray-400 p-2 pr-10 text-gray-400 hover:text-gray-500 relative">
-                    <input
-                      type="text"
-                      value={values.text}
-                      name="text"
-                      min={1}
-                      onChange={handleChange}
-                      className="outline-none border-0 focus:ring-0"
-                    />
-                    <div
-                      className="w-6 h-6 absolute right-2 top-4 "
-                      onClick={() => {
-                        handleSubmit();
-                        handleReset();
-                      }}
-                    >
-                      <svg
-                        className="w-6 h-6"
-                        x-description="Heroicon name: outline/search"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        ></path>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </Form>
-            );
-          }}
-        </Formik>
+        <div className="hidden lg:flex">
+          <div className="-m-2 border border-gray-400 p-2 pr-10 text-gray-400 hover:text-gray-500 relative">
+            <input
+              type="text"
+              name="txtSearch"
+              id="txtSearch"
+              min={1}
+              className="outline-none border-0 focus:ring-0"
+            />
+            <div
+              className="w-6 h-6 absolute right-2 top-4  "
+            >
+              <svg
+                className="w-6 h-6"
+                x-description="Heroicon name: outline/search"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </div>
       );
     }
   }

@@ -103,7 +103,6 @@ export const getServerSideProps: GetServerSideProps = async (
     storeId: store.storeId,
     slug,
   });
-  console.log(pageMetaData);
   // pageMetaData!.type = 'brand'; // DUMMY VALUE FOR TEST
   if (pageMetaData === null) {
     highLightError({

@@ -3,7 +3,7 @@ import { CartProducts } from '@type/APIs/cart.res';
 import { fetchCartDetails } from '../asyncActions/cart.async';
 
 export interface CartSliceType {
-  cart: CartProducts;
+  cart: CartProducts | null;
 }
 
 const initialState: CartSliceType = {
@@ -16,7 +16,7 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCartDetails.fulfilled, (state, action) => {
-      //state.cart = action.payload;
+      state.cart = action.payload;
     });
   },
 });

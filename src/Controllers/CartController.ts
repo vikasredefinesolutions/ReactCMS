@@ -135,11 +135,13 @@ const CartController = () => {
     };
     // let smallRunFee = 99;
     let totalQty = 0;
-    cartProducts.forEach((res: any) => {
-      priceObject.totalPrice += res.totalPrice;
-      priceObject.subTotal += res.totalPrice;
-      totalQty += res.totalQty;
-    });
+    if (cartProducts !== null) {
+      cartProducts.forEach((res: any) => {
+        priceObject.totalPrice += res.totalPrice;
+        priceObject.subTotal += res.totalPrice;
+        totalQty += res.totalQty;
+      });
+    }
 
     if (store.cartCharges) {
       const {

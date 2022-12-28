@@ -62,7 +62,7 @@ const SearchBar: React.FC<_props> = ({
                       value={values.text}
                       name="text"
                       min={1}
-                      onChange={handleChange}
+                      id="txtSearch"
                     />
                     <div
                       className="w-8 h-8 absolute rounded-full bg-[#415364] right-1.5 top-3 flex items-center justify-center"
@@ -137,7 +137,8 @@ const SearchBar: React.FC<_props> = ({
                       value={values.text}
                       name="text"
                       min={1}
-                      onChange={handleChange}
+                      id="txtSearch"
+//                      onChange={handleChange}
                       className="outline-none border-0 focus:ring-0"
                     />
                     <div
@@ -204,7 +205,7 @@ const SearchBar: React.FC<_props> = ({
         <div className="hidden lg:flex flex-grow max-w-[500px]">
           <div className="border border-secondary w-full p-2 pr-10 rounded-full text-white hover:text-primary relative">
             <input
-              type="text"
+              type="text" id="txtSearch"
               className="outline-none text-secondary text-lg w-full bg-transparent border-0 focus:ring-0"
               placeholder="Search"
             />
@@ -262,7 +263,7 @@ const SearchBar: React.FC<_props> = ({
           {/* Earlier anchor tag */}
           <div className="-m-2  border border-primary p-2 pr-10 text-gray-400 hover:text-gray-500 rounded-md relative">
             <input
-              type="text"
+              type="text" id="txtSearch"
               className="outline-none bg-transparent text-white placeholder:text-gray-400 border-0 focus:ring-0"
               placeholder="Search"
             />
