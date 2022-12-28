@@ -62,7 +62,7 @@ class MyDocument extends Document {
             crossOrigin="anonymous"
             referrerPolicy="no-referrer"
           />
-          <script type="text/javascript" dangerouslySetInnerHTML={{ __html: 'var klevu_addPageNumberToUrl = true,klevu_addSelectedFiltersToUrl = true; alert();' }}>
+          <script type="text/javascript" dangerouslySetInnerHTML={{ __html: 'var klevu_addPageNumberToUrl = true,klevu_addSelectedFiltersToUrl = true; ' }}>
 
           </script>
         </Head>
