@@ -165,7 +165,8 @@ export const FetchInventoryById = async (payload: {
   productId: number;
   attributeOptionId: number[];
 }): Promise<_ProductInventoryTransfomed | null> => {
-  const url = `StoreProduct/getproductattributesizes.json`;
+  const url = `/StoreProduct/getproductattributesizes.json`;
+  console.log(payload);
   function removeDuplicates(arr: string[]) {
     return arr.filter((item, index) => arr.indexOf(item) === index);
   }
