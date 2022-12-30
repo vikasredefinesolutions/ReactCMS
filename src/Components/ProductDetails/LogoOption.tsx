@@ -22,11 +22,6 @@ const LogoOption: React.FC<_props> = ({
   onRemove: removeHandler,
 }) => {
 
-  console.log(title,
-    id,
-    name,
-    index,
-    price)
   const selectedLogo = useTypedSelector(state => state.product.toCheckout.chosenLogo);
   const { updatePriceByLogo, updateOptions } = useActions();
   const [logoStatus, setLogoStatus] = useState<null | 'submitted' | 'later'>(

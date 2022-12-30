@@ -6,7 +6,7 @@ import {
 import SeoHead from 'appComponents/Screen/Layout/Head';
 import { getServerSideProps } from 'Components/Slug/getServerSideProps';
 import { NextPage } from 'next';
-import Home from 'pages/Home';
+import Home from 'pages/home';
 
 const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
   props,

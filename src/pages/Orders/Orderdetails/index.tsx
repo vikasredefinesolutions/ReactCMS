@@ -3,7 +3,7 @@ import { FetchOrderDetails } from '@services/user.service';
 import { ShoppingCartItemDetailsViewModel } from '@type/APIs/cart.res';
 import {
   _MyAcc_OrderBillingDetails,
-  _MyAcc_OrderProductDetails,
+  _MyAcc_OrderProductDetails
 } from '@type/APIs/user.res';
 import InvoiceModal from 'appComponents/modals/InvoiceModal';
 import Image from 'appComponents/reusables/Image';

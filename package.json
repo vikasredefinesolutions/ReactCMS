@@ -25,7 +25,6 @@
     "formik": "^2.2.9",
     "moment": "^2.29.4",
     "next": "^12.3.2",
-    "next-optimized-images": "^2.6.2",
     "next-redux-wrapper": "^8.0.0",
     "postcss-cli": "^10.0.0",
     "react": "18.2.0",
@@ -37,7 +36,6 @@
     "react-uuid": "^2.0.0",
     "slick-carousel": "^1.8.1",
     "tailwind-scrollbar": "^2.0.1",
-    "webp-loader": "^0.6.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

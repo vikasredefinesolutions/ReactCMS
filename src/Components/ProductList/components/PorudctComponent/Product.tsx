@@ -140,11 +140,10 @@ const ProductComponent = ({
                   {product.getProductImageOptionList.map((subRow, index) =>
                     index < 6 ? (
                       <li
-                        className={`w-7 h-7 border-2${
-                          subRow.id === currentProduct.id
+                        className={`w-7 h-7 border-2${subRow.id === currentProduct.id
                             ? ' border-secondary'
                             : ''
-                        }`}
+                          }`}
                         onClick={() => {
                           colorChangeHandler(
                             product.id,

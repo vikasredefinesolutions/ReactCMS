@@ -41,6 +41,7 @@ const UserManagement = () => {
     if (customer?.id) {
       fetchUserList();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customer?.id])
 
   const submitHandler = async (values: _User, formikProps: { setFieldError: (arg0: string, arg1: string | undefined) => void; }) => {

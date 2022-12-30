@@ -68,11 +68,9 @@ const AccountSetting = () => {
       const res = await updateUserData({ ...value, customerId: customer?.id || 0 })
       if (res) {
         showModal({ message: 'Password Updated Successfully', type: 'Updated' })
-
       }
-
     } catch (error) {
-      console.log(error);
+      showModal({ message: 'Password Update Failed', type: 'Failed' })
     }
   }
 

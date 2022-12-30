@@ -8,11 +8,14 @@ Modified Date: <Modified Date> */
 import React from 'react';
 
 const TemplateFooter = () => {
-    return (
-        <footer className="bg-gray-800 mt-20 relative group" aria-labelledby="footer-heading">
-        <img src="http://74.205.47.210/PHP7/footer.jpeg" />
-  </footer>
-    );
+  return (
+    <footer
+      className="bg-gray-800 mt-20 relative group"
+      aria-labelledby="footer-heading"
+    >
+      <img alt="footer logo" src="http://74.205.47.210/PHP7/footer.jpeg" />
+    </footer>
+  );
 };
 
 export default TemplateFooter;

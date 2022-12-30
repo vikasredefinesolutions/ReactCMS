@@ -14,6 +14,13 @@ export const updateSetProperties = (element) => {
         }
       }
 
+      if (value.type == 'transform') {
+        let propName = key.replace('_text_transform', '');
+        if (x.querySelectorAll('#' + propName).length > 0) {
+          x.querySelectorAll('#' + propName)[0].classList.add(value.value);
+        }
+      }
+
       if (value.type == 'image') {
         if (x.querySelectorAll('#' + key).length > 0) {
           if (x.querySelectorAll('#' + key + '_img').length > 0) {
@@ -48,6 +55,37 @@ export const updateSetProperties = (element) => {
               '" title="' +
               value.value +
               '" /> </a>';
+          }
+        }
+      }
+
+      if (value.type == 'fontsize') {
+        let propname = key.replace('_font_size', '');
+
+        if (element.properties.TextAppearance != null) {
+          if (element.properties.TextAppearance.fields != undefined) {
+            let fields = element.properties.TextAppearance.fields.split(',');
+            let textBgColor = propname.text_bg_color ?? '';
+            let bgOpacity = propname.bg_opacity ?? '1';
+            let fontSize = propname.font_size ?? '';
+            let textPos = propname.text_pos ?? 'center';
+
+            fields.forEach((el) => {
+              if (x.querySelectorAll('#' + el + '_pos').length > 0) {
+                x.querySelectorAll('#' + el + '_pos')[0].className =
+                  'flex items-center absolute ' +
+                  fontSize +
+                  ' inset-0 p-1 lg:p-4 text-white justify-' +
+                  textPos;
+                x.querySelectorAll('#' + el + '_bg')[0].style =
+                  'background: rgb(' +
+                  textBgColor +
+                  ', ' +
+                  bgOpacity +
+                  '); padding: 20px';
+                x.querySelectorAll('#' + el)[0].className = 'pb-2';
+              }
+            });
           }
         }
       }
@@ -578,5 +616,5 @@ export const removeWidthClass = (x, type = 'Both') => {
 };
 
 export const showMsg = () => {
-  alert('s');
+  //  alert('s');
 };

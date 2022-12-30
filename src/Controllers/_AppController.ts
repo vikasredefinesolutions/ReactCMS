@@ -167,7 +167,7 @@ export const fetchMenuItems = async (
 
   try {
     menu.items = await HeaderService.FetchStoreMenu({ storeId });
-console.log(menu.items);
+
     if (menu.items && menu.items.length > 0) {
       const itemsToFetch = menu.items.map((item) => {
         if (item.type === 'custom') {

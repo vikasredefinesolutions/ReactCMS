@@ -250,7 +250,7 @@ export const FetchColors = async ({
 export const FetchFiltersJsonByBrand = async (
   filterRequest: FilterApiRequest,
 ) => {
-  const url = `/StoreProductFilter/GetFilterByBrand.json`;
+  const url = `/StoreProductFilter/GetFilterByBrandByCatche.json`;
   const res = await SendAsyncV2<BrandFilter>({
     url: url,
     method: 'POST',

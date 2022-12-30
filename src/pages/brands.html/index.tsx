@@ -2,10 +2,10 @@ import SeoHead from 'appComponents/Screen/Layout/Head';
 import { BrandList } from 'constants/seo.constant';
 import { _Store } from 'page.config';
 import React from 'react';
-import BrandController from './BrandController';
-import Stroe1LayouBrand from './Components/Store1Layout';
-import Store2LayoutBannd from './Components/Store2Layout';
-import getServerSideProps from './getServerSideProps';
+import BrandController from '../../Components/Brands/BrandController';
+import Stroe1LayouBrand from '../../Components/Brands/Components/Store1Layout';
+import Store2LayoutBannd from '../../Components/Brands/Components/Store2Layout';
+import getServerSideProps from '../../Components/Brands/getServerSideProps';
 
 const Brands = (props: any) => {
   let layout: React.ReactNode = <></>;

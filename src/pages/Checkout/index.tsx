@@ -10,8 +10,8 @@ import { Formik, FormikProps } from 'formik';
 import { Redirect } from 'Guard/AuthGuard';
 import Link from 'next/link';
 import { createRef, useState } from 'react';
-import CheckoutController from './CheckoutController';
-import AddressPopupLayout1 from './components/AdressPopup/AdressPopupLayout1';
+import CheckoutController from '../../Components/Checkout/CheckoutController';
+import AddressPopupLayout1 from '../../Components/Checkout/components/AdressPopup/AdressPopupLayout1';
 const Checkout = (props: { cartDetails: CartProducts | null }) => {
   const {
     creditCardType,

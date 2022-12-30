@@ -11,7 +11,7 @@ export interface _location {
   state: string;
 }
 
-export default async function () {
+export default async function getLocation() {
   const { data: location } = await axios.get(
     'https://geolocation-db.com/json/',
   );

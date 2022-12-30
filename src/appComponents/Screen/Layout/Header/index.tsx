@@ -15,7 +15,7 @@ import MenuItems from './Header/components/Menu/MenuItems';
 
 const Header: React.FC = () => {
   const headerdata = useTypedSelector((state) => state.store.configs?.header);
-  const id = useTypedSelector((state) => state.user.id);
+  // const id = useTypedSelector((state) => state.user.id);
   const show = useTypedSelector((state) => state.store.display.header);
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { width } = useWindowDimensions();
@@ -30,6 +30,7 @@ const Header: React.FC = () => {
         logInUser({ id: cookies.userId });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

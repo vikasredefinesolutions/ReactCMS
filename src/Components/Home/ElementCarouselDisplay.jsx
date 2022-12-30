@@ -114,7 +114,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                 <div key={image} className="relative">
                   <div className="overflow-hidden">
                     {image.image_or_video == 'Image' ? (
-                      <img src={image.image_url} />
+                      <img src={image.image_url} alt="corousel" />
                     ) : (
                       <>
                         {image.video_type == 'Youtube' ? (

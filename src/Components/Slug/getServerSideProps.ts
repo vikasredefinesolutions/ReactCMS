@@ -1,7 +1,6 @@
 import { __Error } from '@constants/global.constant';
 import { getPageComponents } from '@services/home.service';
 import {
-  FetchBrandProductList,
   FetchFiltersJsonByBrand,
   FetchFiltersJsonByCategory,
 } from '@services/product.service';
@@ -14,6 +13,7 @@ import {
   Filter,
   FilterOption,
   Product,
+  _BrandSEO,
   _GetPageType,
   _ProductListProps,
   _SlugServerSideProps,
@@ -75,7 +75,6 @@ export const getServerSideProps: GetServerSideProps = async (
   const responseBody = context.res;
   const { slug, slugID } = extractSlugName(context.params);
   let { store, pageMetaData, page } = _expectedSlugProps;
-
   // ---------------------------------------------------------------
   // store = await _AppController.fetchStoreDetails(domain, slug!);
   if (_globalStore.storeId) {
@@ -84,7 +83,6 @@ export const getServerSideProps: GetServerSideProps = async (
       isAttributeSaparateProduct: _globalStore.isAttributeSaparateProduct,
     };
   }
-
   if (store.storeId === null) {
     highLightError({
       error: `No Store found. Can't proceed further`,
@@ -165,22 +163,26 @@ export const getServerSideProps: GetServerSideProps = async (
     }
 
     if ('brand,category'.includes(pageMetaData.type)) {
-      const brandSEO = await FetchBrandProductList({
-        storeId: store.storeId,
-        seName: slug,
-      });
+      let FilterOptions: Array<{
+        name: string;
+        value: string;
+      }> = [];
       let filterOptionforfaceteds: Array<{
         name: string;
         value: string;
       }> = [];
       if (slugID) {
         // @ts-ignore: Unreachable code error
-        const keys = context.params.slug.split(',');
+        const keys = [...context.params.slug.split(',')];
         const values = slugID[0].split(',');
         keys.forEach((res: string, index: number) =>
           values[index].split('~').forEach((val) => {
-            filterOptionforfaceteds.push({
+            FilterOptions.push({
               name: res,
+              value: val,
+            });
+            filterOptionforfaceteds.push({
+              name: res.replace(' ', '-').toLowerCase(),
               value: val,
             });
           }),
@@ -202,7 +204,6 @@ export const getServerSideProps: GetServerSideProps = async (
       } else {
         ProductFilt = await FetchFiltersJsonByCategory(filter);
       }
-
       const _filters: Filter[] = [];
       for (const key in ProductFilt) {
         const element = ProductFilt[key];
@@ -216,14 +217,13 @@ export const getServerSideProps: GetServerSideProps = async (
         }
       }
       page.productListing = {
-        brandSEO: brandSEO!,
+        brandSEO: {} as _BrandSEO,
         filters: _filters,
         product: product,
-        checkedFilters: filterOptionforfaceteds,
+        checkedFilters: FilterOptions,
         brandId: pageMetaData.id,
       };
     }
-
     conditionalLogV2({
       data: {
         store: store,
@@ -242,7 +242,6 @@ export const getServerSideProps: GetServerSideProps = async (
       name: 'Slug: getServerSideProps - Something went wrong',
     });
   }
-
   return {
     props: {
       pageMetaData: pageMetaData,
