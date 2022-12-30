@@ -30,7 +30,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
     productId: number;
     attributeOptionId: number[];
   }) => {
-    console.log("productinventory.tsx");
+    console.log('productinventory.tsx');
     FetchInventoryById(payload).then((res) => setInventory(res));
     // .catch((err) => console.log('err', err))
     // .finally(() => );

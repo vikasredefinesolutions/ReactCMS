@@ -54,7 +54,7 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps> = (product) => {
         const allColorAttributes = product.colors.map(
           (color) => color.attributeOptionId,
         );
-console.log("product detail/index.tsx");
+console.log('product detail/index.tsx');
         FetchInventoryById({
           productId: product.details.id,
           attributeOptionId: allColorAttributes,
