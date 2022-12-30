@@ -1,3 +1,7 @@
+// const withOptimizedImages = require('next-optimized-images')
+
+// module.exports = withOptimizedImages({})
+
 module.exports = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,

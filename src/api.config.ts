@@ -9,7 +9,8 @@ export interface _Config {
 
 const dev = {
   api: {
-    URL: 'https://redefine-front-staging.redefinecommerce.io/',
+    //URL: 'https://redefine-front-staging.redefinecommerce.io/',
+    URL : 'https://redefine-front-beta.redefinecommerce.io/',
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
@@ -18,7 +19,8 @@ const dev = {
 
 const stage = {
   api: {
-    URL: 'https://redefine-front-staging.redefinecommerce.io/',
+    //URL: 'https://redefine-front-staging.redefinecommerce.io/',
+    URL: 'https://redefine-front-beta.redefinecommerce.io/',
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
@@ -27,7 +29,8 @@ const stage = {
 
 const prod = {
   api: {
-    URL: 'https://redefine-front-staging.redefinecommerce.io/',
+    //URL: 'https://redefine-front-staging.redefinecommerce.io/',
+    URL: 'https://redefine-front-beta.redefinecommerce.io/swagger/index.html',
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
