@@ -32,7 +32,13 @@ export interface _SlugServerSide_WentWrong {
   error: __Error.storeIdMissing | __Error.noPageTypeFound;
 }
 
+export interface _StoreCache {
+  storeCode: string;
+  storeTypeId: null | number;
+}
+
 export interface _SlugServerSideProps {
+  _store: _StoreCache | null;
   pageMetaData: _GetPageType;
   page: {
     productDetails: _ProductDetailsProps | null;

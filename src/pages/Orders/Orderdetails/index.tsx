@@ -1,13 +1,13 @@
 import { paths } from '@constants/paths.constant';
 import { FetchOrderDetails } from '@services/user.service';
-import { ShoppingCartItemDetailsViewModel } from '@type/APIs/cart.res';
+import { _CI_ShoppingCartItemDetailsViewModel } from '@type/APIs/cart.res';
 import {
   _MyAcc_OrderBillingDetails,
-  _MyAcc_OrderProductDetails
+  _MyAcc_OrderProductDetails,
 } from '@type/APIs/user.res';
 import InvoiceModal from 'appComponents/modals/InvoiceModal';
-import Image from 'appComponents/reusables/Image';
-import Price from 'appComponents/reusables/Price';
+import Image from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import MyAccountTabs from 'Components/MyAccountTabs';
 import moment from 'moment';
 import { NextPage } from 'next';
@@ -61,7 +61,7 @@ const OrderDetails: NextPage = () => {
     return address;
   };
 
-  const mergeAllSizes = (items: ShoppingCartItemDetailsViewModel[]) => {
+  const mergeAllSizes = (items: _CI_ShoppingCartItemDetailsViewModel[]) => {
     let allSizes = '';
 
     items.forEach((product, index) => {

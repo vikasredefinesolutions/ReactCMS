@@ -1,4 +1,4 @@
-import Image from 'appComponents/reusables/Image';
+import Image from 'appComponents/reUsable/Image';
 import { WishlistType } from 'definations/wishlist.type';
 import { useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';

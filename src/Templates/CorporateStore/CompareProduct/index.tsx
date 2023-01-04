@@ -1,8 +1,3 @@
-import React from 'react';
-
-interface _props {}
-const Corporate_CompareProduct: React.FC<_props> = () => {
-  return <div>Corporate_CompareProduct</div>;
-};
+import Corporate_CompareProduct from './Corporate_CompareProduct_View';
 
 export default Corporate_CompareProduct;

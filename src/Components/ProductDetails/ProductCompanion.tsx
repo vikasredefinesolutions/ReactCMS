@@ -1,4 +1,3 @@
-import { useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
 import React from 'react';
@@ -9,9 +8,13 @@ interface _props {
   link: string | null;
 }
 
-const ProductCompanion: React.FC<_props> = ({ name, imageUrl, id }) => {
+const ProductCompanion: React.FC<_props & { storeCode: string }> = ({
+  name,
+  imageUrl,
+  id,
+  storeCode,
+}) => {
   const router = useRouter();
-  const storeLayout = useTypedSelector((state) => state.store.layout);
   if (name === null) return <></>;
 
   const goToProduct = (id: number | null) => {
@@ -19,7 +22,7 @@ const ProductCompanion: React.FC<_props> = ({ name, imageUrl, id }) => {
     router.push(`/product/${id}`);
   };
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <div className="pt-10 mx-auto max-w-xs text-center">
         <div className="mb-2 text-2xl">COMPANION</div>
@@ -38,7 +41,7 @@ const ProductCompanion: React.FC<_props> = ({ name, imageUrl, id }) => {
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <div className="text-black mb-5 text-sm">
         <span className="font-bold mr-1">Companion Product</span> :

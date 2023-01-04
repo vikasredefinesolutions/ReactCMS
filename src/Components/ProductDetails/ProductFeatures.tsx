@@ -1,13 +1,10 @@
-import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
 import React from 'react';
 
-const ProductFeatures: React.FC<{ fewFeatures?: boolean }> = ({
-  fewFeatures,
-}) => {
-  const storeLayout = useTypedSelector((state) => state.store.layout);
-
-  if (storeLayout === _Store.type1) {
+const ProductFeatures: React.FC<
+  { fewFeatures?: boolean } & { storeCode: string }
+> = ({ fewFeatures, storeCode }) => {
+  if (storeCode === _Store.type1) {
     return (
       <div className="w-full text-center flex justify-center mt-5 py-3">
         <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-3">
@@ -37,7 +34,7 @@ const ProductFeatures: React.FC<{ fewFeatures?: boolean }> = ({
     );
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     if (fewFeatures) {
       return (
         <section className="">
@@ -126,7 +123,7 @@ const ProductFeatures: React.FC<{ fewFeatures?: boolean }> = ({
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <div className="w-full bg-[#061b2c] text-center flex justify-center mb-4 py-4 text-white">
         <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-3">
@@ -162,7 +159,7 @@ const ProductFeatures: React.FC<{ fewFeatures?: boolean }> = ({
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return <> NO product feature component added for Divinig UI </>;
   }
 

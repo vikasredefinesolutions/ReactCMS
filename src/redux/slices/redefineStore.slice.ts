@@ -66,7 +66,6 @@ export const storeSlice = createSlice({
 
       //--------------------------------------------------------
       state.id = store.storeId;
-      state.layout = store.layout;
       state.pathName = store.pathName;
       state.isAttributeSaparateProduct =
         action.payload.store.isAttributeSaparateProduct;

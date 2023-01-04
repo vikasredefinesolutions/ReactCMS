@@ -1,31 +1,37 @@
-export interface ShoppingCartItemDetailsViewModel {
+export interface _CI_ShoppingCartItemDetailsViewModel {
   attributeOptionId: number;
   attributeOptionValue: string;
   qty: number;
   price: number;
 }
 
-export interface ShoppingCartLogoPersonViewModel {
+export interface _CI_ShoppingCartLogoPersonViewModel {
   logoImagePath: string;
   logoPrice: number;
-  location: string;
+  logoLocation: null;
+  logoName: string;
+  logoPositionImage: string;
+  sku: string;
+  size: string;
+  name: string;
 }
 
-export interface CartResponse {
+export interface _CartItem {
   colorImage: string;
   productName: string;
   sku: string;
   attributeOptionId: string;
   attributeOptionValue: string;
   shoppingCartItemsId: number;
-  shoppingCartItemDetailsViewModels: ShoppingCartItemDetailsViewModel[];
-  shoppingCartLogoPersonViewModels: ShoppingCartLogoPersonViewModel[];
+  shoppingCartItemDetailsViewModels: _CI_ShoppingCartItemDetailsViewModel[];
+  shoppingCartLogoPersonViewModels: _CI_ShoppingCartLogoPersonViewModel[];
+  shoppingCartLinePersonViewModel: any[];
   totalQty: number;
   totalPrice: number;
-  txtcode?: any;
+  txtcode: any;
   seName: string;
-  cartLinePersonModels?: any[];
-  shoppingcartLinePersonModels: any[];
+  cartLinePersonModels?: any[]; // Not recieved in the response
+  shoppingcartLinePersonModels: any[]; // Not recieved in the response
 }
 
-export type CartProducts = CartResponse[];
+export type CartProducts = _CartItem[];

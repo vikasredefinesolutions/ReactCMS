@@ -1,4 +1,4 @@
-import SeoHead from 'appComponents/Screen/Layout/Head';
+import SeoHead from 'appComponents/reUsable/SeoHead';
 import { BrandList } from 'constants/seo.constant';
 import { _Store } from 'page.config';
 import React from 'react';

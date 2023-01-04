@@ -28,6 +28,9 @@ export const paths = {
   SIGN_UP: '/CreateAccount/SignUp',
   THANK_YOU: '/Orders/Thankyou',
   CART: '/cart.html',
+  cart: {
+    keepShopping: '/',
+  },
   BRAND: '/brands.html',
   WISHLIST: '/wishlist',
   WRITE_A_REVIEW: '/writereview/writereview',

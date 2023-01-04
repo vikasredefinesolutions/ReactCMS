@@ -1,4 +1,4 @@
-import Price from 'appComponents/reusables/Price';
+import Price from 'appComponents/reUsable/Price';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
 import SelectOrInput from './SelectOrInput';

@@ -1,8 +1,8 @@
 import {
   _SlugServerSideProps,
-  _SlugServerSide_WentWrong
+  _SlugServerSide_WentWrong,
 } from '@type/slug.type';
-import SeoHead from 'appComponents/Screen/Layout/Head';
+import SeoHead from 'appComponents/reUsable/SeoHead';
 import ProductList from 'Components/ProductList';
 import { NextPage } from 'next';
 import Redefine_ProductDetails from 'Templates/Redefine_ProductDetail';
@@ -15,7 +15,7 @@ const ProductListing: NextPage<
     return <>{error}</>;
   }
 
-  const { pageMetaData, page } = props;
+  const { _store, pageMetaData, page } = props;
 
   if (page === null) {
     return <>If no page data is found</>;
@@ -46,8 +46,8 @@ const ProductListing: NextPage<
       </>
     );
   }
-  if (pageMetaData.type === 'product' && page.productDetails) {
-    return <Redefine_ProductDetails {...page.productDetails} />;
+  if (pageMetaData.type === 'product' && page.productDetails && _store) {
+    return <Redefine_ProductDetails {...page.productDetails} {..._store} />;
   }
   if ('brand,category'.includes(pageMetaData.type)) {
     const listing = page.productListing;

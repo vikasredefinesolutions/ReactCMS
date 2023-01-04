@@ -1,4 +1,4 @@
-import Image from 'appComponents/reusables/Image';
+import Image from 'appComponents/reUsable/Image';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import React from 'react';

@@ -1,7 +1,7 @@
 import { GetlAllProductList } from '@type/productList.type';
 import config from 'api.config';
-import ImageComponent from 'appComponents/reusables/Image';
-import Price from 'appComponents/reusables/Price';
+import ImageComponent from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import { getCompareLink } from 'helpers/compare.helper';
 import Link from 'next/link';
 import ProductBoxController from './ProductBox.controller';

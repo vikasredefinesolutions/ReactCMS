@@ -2,8 +2,8 @@ import HelpIcon from '@mui/icons-material/Help';
 import { fetchCart } from '@services/cart.service';
 import { CartProducts } from '@type/APIs/cart.res';
 import ForgotModal from 'appComponents/modals/ForgotModal';
-import Price from 'appComponents/reusables/Price';
-import SeoHead from 'appComponents/Screen/Layout/Head';
+import Price from 'appComponents/reUsable/Price';
+import SeoHead from 'appComponents/reUsable/SeoHead';
 import AddressForm from 'appComponents/ui/AddressForm';
 import { CheckoutPage as seoDetails } from 'constants/seo.constant';
 import { Formik, FormikProps } from 'formik';
@@ -343,43 +343,43 @@ const Checkout = (props: { cartDetails: CartProducts | null }) => {
                           )}
                         </div>
 
-                        {isLoggedIn && shippingAdress && <div className="text-base mb-3">
-                          {shippingAdress.firstname} {shippingAdress.lastName}
-                          <br />
-                          {/* {shippingAdress.companyName} */}
-                          <br />
-                          {shippingAdress.address1}
-                          <br />
-                          {[
-                            shippingAdress.city,
-                            shippingAdress.state,
-                            shippingAdress.postalCode,
-                          ].join(', ')}
-                          <br />
-                          {shippingAdress.countryName}
-                          <br />
-                          {shippingAdress.phone}
-                        </div>}
-                        <div style={{ 'display': isLoggedIn ? 'none' : 'unset' }}>
+                        {isLoggedIn && shippingAdress && (
+                          <div className="text-base mb-3">
+                            {shippingAdress.firstname} {shippingAdress.lastName}
+                            <br />
+                            {/* {shippingAdress.companyName} */}
+                            <br />
+                            {shippingAdress.address1}
+                            <br />
+                            {[
+                              shippingAdress.city,
+                              shippingAdress.state,
+                              shippingAdress.postalCode,
+                            ].join(', ')}
+                            <br />
+                            {shippingAdress.countryName}
+                            <br />
+                            {shippingAdress.phone}
+                          </div>
+                        )}
+                        <div style={{ display: isLoggedIn ? 'none' : 'unset' }}>
                           <AddressForm
                             submitHandler={(arg) => console.log(arg)}
-                            closePopupHandler={() => { }}
+                            closePopupHandler={() => {}}
                             editData={null}
                             hideButtons={false}
                             formRef={shipping}
                             customChangeHandler={addressChangeHandler}
                             addressType="s"
-                          // formRef={formRef}
-                          // ref={formRef}
-                          // bindSubmitForm={bindSubmitForm}
+                            // formRef={formRef}
+                            // ref={formRef}
+                            // bindSubmitForm={bindSubmitForm}
                           />
                         </div>
                         {/* )} */}
                       </div>
                     </div>
                     <div className="w-full lg:w-1/2 px-3 mt-3">
-
-
                       <div
                         id="PaymentCard"
                         style={{
@@ -389,11 +389,6 @@ const Checkout = (props: { cartDetails: CartProducts | null }) => {
                               : 'none',
                         }}
                       >
-
-                        {
-
-                        }
-
                         <div className="flex justify-between items-center my-3 pb-3 border-b border-gray-300">
                           <div className="text-xl">Payment</div>
                           <div>
@@ -421,10 +416,11 @@ const Checkout = (props: { cartDetails: CartProducts | null }) => {
                             {cardArray.map((card) => (
                               <div
                                 key={card.name}
-                                className={`opacity-${card.name === creditCardType(cardDetails)
-                                  ? '100'
-                                  : '40'
-                                  } ml-1 w-8`}
+                                className={`opacity-${
+                                  card.name === creditCardType(cardDetails)
+                                    ? '100'
+                                    : '40'
+                                } ml-1 w-8`}
                               >
                                 <img src={card.image} alt={card.name} />
                               </div>
@@ -495,10 +491,11 @@ const Checkout = (props: { cartDetails: CartProducts | null }) => {
                                   />
                                   <div className="z-10 absolute bottom-full left-1/2 transform -translate-x-1/2">
                                     <div
-                                      className={`bg-slate-800 p-2 rounded overflow-hidden mb-2 ${showCVVHelpCard
-                                        ? 'transition ease-out duration-200 transform'
-                                        : ''
-                                        }`}
+                                      className={`bg-slate-800 p-2 rounded overflow-hidden mb-2 ${
+                                        showCVVHelpCard
+                                          ? 'transition ease-out duration-200 transform'
+                                          : ''
+                                      }`}
                                       style={{
                                         display: showCVVHelpCard
                                           ? 'block'
@@ -611,7 +608,7 @@ const Checkout = (props: { cartDetails: CartProducts | null }) => {
                         {!isLoggedIn && (
                           <AddressForm
                             submitHandler={(arg) => console.log(arg)}
-                            closePopupHandler={() => { }}
+                            closePopupHandler={() => {}}
                             editData={useShippingAddress ? billingAdress : null}
                             hideButtons={false}
                             formRef={billing}
@@ -882,7 +879,10 @@ const Checkout = (props: { cartDetails: CartProducts | null }) => {
   );
 };
 
-export const getServerSideProps = (context: { req: { cookies: { userId?: string | null; }; }; res: any }) => {
+export const getServerSideProps = (context: {
+  req: { cookies: { userId?: string | null } };
+  res: any;
+}) => {
   const userId = context.req.cookies?.userId;
   let check = true;
   let cart = null;
@@ -896,15 +896,15 @@ export const getServerSideProps = (context: { req: { cookies: { userId?: string 
   if (check) {
     Redirect({
       res: context.res,
-      to: '/cart'
-    })
+      to: '/cart',
+    });
   }
 
   return {
     props: {
-      cartDetails: cart
-    }
-  }
-}
+      cartDetails: cart,
+    },
+  };
+};
 
 export default Checkout;

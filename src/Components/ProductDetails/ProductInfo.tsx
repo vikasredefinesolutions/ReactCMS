@@ -2,7 +2,7 @@ import ForgotModal from 'appComponents/modals/ForgotModal';
 import LoginModal from 'appComponents/modals/LoginModal';
 import MsgContainer from 'appComponents/modals/MsgContainer';
 import StartOrderModal from 'appComponents/modals/StartOrderModal';
-import Price from 'appComponents/reusables/Price';
+import Price from 'appComponents/reUsable/Price';
 import AddToCart from 'appComponents/ui/AddToCartButton';
 import { paths } from 'constants/paths.constant';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
@@ -37,12 +37,12 @@ import TopRatedProducts from './TopRatedProducts';
 
 interface _Props {
   product: _ProductDetails;
+  storeCode: string;
 }
 
-const ProductInfo: React.FC<_Props> = ({ product }) => {
+const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
   const { setShowLoader } = useActions();
   const [openModal, setOpenModal] = useState<null | _modals>(null);
-  const { layout: storeLayout } = useTypedSelector((state) => state.store);
   const { id: userId } = useTypedSelector((state) => state.user);
 
   const {
@@ -80,7 +80,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
     }
   };
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     return (
       <div className="col-span-1 mt-4 md:mt-10 px-2 md:px-4 sm:px-0 sm:mt-16 lg:mt-0">
         <div className="flex flex-wrap">
@@ -88,18 +88,19 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
             <h1 className="text-3xl font-semibold text-gray-900">
               {product.name}
             </h1>
-            <ProductSKU skuID={product.sku} />
+            <ProductSKU skuID={product.sku} storeCode={storeCode} />
             <ProductPrice
               ourCost={product.ourCost}
               msrp={product.msrp}
               imap={product.imap}
+              storeCode={storeCode}
               salePrice={product.salePrice}
             />
           </div>
-          <ProductRequestConsultation />
+          <ProductRequestConsultation storeCode={storeCode} />
         </div>
 
-        <AvailableColors />
+        <AvailableColors storeCode={storeCode} />
 
         {/* PRICING INFORMATION */}
         <>
@@ -108,6 +109,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           </div>
           <div>
             <DiscountPricing
+              storeCode={storeCode}
               showPriceTable={true}
               price={{
                 ourCost: product.ourCost,
@@ -150,6 +152,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         <ProductCompanion
           link={product.companionProductLink}
           name={product.companionProductName}
+          storeCode={storeCode}
           id={product.companionProductId}
           imageUrl={product.companionProductImage}
         />
@@ -157,6 +160,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         <ProductStarReviews />
 
         <ProductDescription
+          storeCode={storeCode}
           text={product.description}
           heading={'Description'}
         />
@@ -190,14 +194,14 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
             </button>
           </div>
         </form>
-        <ProductFeatures />
+        <ProductFeatures storeCode={storeCode} />
         <section aria-labelledby="details-heading" className="mt-12">
           <h2 id="details-heading" className="sr-only">
             Additional details
           </h2>
         </section>
         {openModal === 'sizeChart' && (
-          <SizeChartModal modalHandler={modalHandler} />
+          <SizeChartModal storeCode={storeCode} modalHandler={modalHandler} />
         )}
         {openModal === 'availableInventory' && (
           <AvailableInventoryModal modalHandler={modalHandler} />
@@ -211,24 +215,28 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <div className="col-span-1">
         <div className="mb-4">
           <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
-          <ProductFeatures />
+          <ProductFeatures storeCode={storeCode} />
           <ProductPrice
+            storeCode={storeCode}
             ourCost={product.ourCost}
             msrp={product.msrp}
             imap={product.imap}
             salePrice={product.salePrice}
           />
-          <ProductSKU skuID={product.sku} />
+          <ProductSKU storeCode={storeCode} skuID={product.sku} />
         </div>
-        <MinimumQuantity pricingLabel={'Discount Pricing'} />
-        <QtyPriceTable />
+        <MinimumQuantity
+          storeCode={storeCode}
+          pricingLabel={'Discount Pricing'}
+        />
+        <QtyPriceTable storeCode={storeCode} />
         <ProductColors />
-        <ColorName />
+        <ColorName storeCode={storeCode} />
         <div className="mb-4 flex items-center justify-end gap-2">
           <button
             className="inline-block"
@@ -243,13 +251,14 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
             Personalizations Fonts
           </button>
         </div>
-        <Inventory productId={product.id} />
+        <Inventory storeCode={storeCode} productId={product.id} />
         <div className="mb-4 text-rose-500 text-sm">
           PLEASE SIGN INTO YOUR ACCOUNT TO VIEW LIVE INVENTORY AND VOLUME
           DISCOUNTS
         </div>
         <div className="mb-4 bg-[#ececec] py-4 px-2">
           <DiscountPrice
+            storeCode={storeCode}
             ourCost={product.ourCost}
             msrp={product.msrp}
             imap={product.imap}
@@ -270,6 +279,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         </div>
 
         <ProductNote
+          storeCode={storeCode}
           note={`<strong>PLEASE NOTE:</strong> If you are ordering product that is
         backordered, your entire order will not ship until all items are
         available. Click the number in the Availability column above to see
@@ -278,7 +288,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
         />
 
         {openModal === 'sizeChart' && (
-          <SizeChartModal modalHandler={modalHandler} />
+          <SizeChartModal storeCode={storeCode} modalHandler={modalHandler} />
         )}
         {openModal === 'personalizationFonts' && (
           <PersonalizationFontModal onCancel={modalHandler} />
@@ -296,7 +306,7 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
     );
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     return (
       <div className="w-full lg:w-6/12 px-3">
         <div className="mb-1">
@@ -316,20 +326,21 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
             PERSONALIZE WITH YOUR LOGO
           </span>
         </div>
-        <ProductFeatures />
+        <ProductFeatures storeCode={storeCode} />
         <div className="text-black mb-5 text-[16px] flex items-center">
           <span className="font-bold w-32">SKU </span>{' '}
           <span>{`: ${product.sku}`}</span>
         </div>
         <ProductPrice
+          storeCode={storeCode}
           ourCost={product.ourCost}
           msrp={product.msrp}
           imap={product.imap}
           salePrice={product.salePrice}
         />
-        <MinimumQuantity pricingLabel={''} />
-        <AvailableColors />
-        <Inventory productId={product.id} />
+        <MinimumQuantity storeCode={storeCode} pricingLabel={''} />
+        <AvailableColors storeCode={storeCode} />
+        <Inventory storeCode={storeCode} productId={product.id} />
         <div className="mb-3">
           <button
             disabled={product.isDiscontinue}
@@ -349,28 +360,33 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
           />
         )}
         {openModal === 'qouteRequest' && (
-          <ProductQuoteRequest modalHandler={modalHandler} />
+          <ProductQuoteRequest
+            storeCode={storeCode}
+            modalHandler={modalHandler}
+          />
         )}
       </div>
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <div className="col-span-1 mt-4 md:mt-10 sm:mt-16 lg:mt-0">
         <div className="mb-4 text-2xl border-b border-b-gray-200 pb-2">
           <h1 className="">{product.name}</h1>
         </div>
         {/* <ProductFeatures /> */}
-        <ProductSKU skuID={product.sku} />
+        <ProductSKU storeCode={storeCode} skuID={product.sku} />
         <ProductPrice
+          storeCode={storeCode}
           ourCost={product.ourCost}
           msrp={product.msrp}
           imap={product.imap}
           salePrice={product.salePrice}
         />
-        <MinimumQuantity pricingLabel={''} />
+        <MinimumQuantity storeCode={storeCode} pricingLabel={''} />
         <DiscountPricing
+          storeCode={storeCode}
           showPriceTable={true}
           price={{
             salePrice: product.salePrice,
@@ -379,8 +395,9 @@ const ProductInfo: React.FC<_Props> = ({ product }) => {
             ourCost: product.ourCost,
           }}
         />
-        <Inventory productId={product.id} />
+        <Inventory storeCode={storeCode} productId={product.id} />
         <ProductCompanion
+          storeCode={storeCode}
           name={product.companionProductName}
           id={product.companionProductId}
           imageUrl={product.companionProductImage}

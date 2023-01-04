@@ -11,27 +11,28 @@ import React, { useEffect, useRef, useState } from 'react';
 // import { AddToCart } from 'services/user.service';
 import { addToCart } from '@services/cart.service';
 import { FetchInventoryById } from '@services/product.service';
+import Price from 'appComponents/reUsable/Price';
 import StartOrderAvailableColors from 'Components/ProductDetails/StartOrderAvailableColors';
 import { CartLogoPersonModel, CartReq } from 'definations/APIs/cart.req';
-import { CartResponse } from 'definations/APIs/cart.res';
+import { _CartItem } from 'definations/APIs/cart.res';
 import getLocation from 'helpers/getLocation';
 import { highLightError } from 'helpers/global.console';
-import Price from '../reusables/Price';
 interface _props {
   product: _ProductDetails;
   // eslint-disable-next-line no-unused-vars
   modalHandler: (val: null | _modals) => void;
-  editDetails?: CartResponse;
+  editDetails?: _CartItem;
 }
 
 const StartOrderModal: React.FC<_props> = (props) => {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
-  const { clearToCheckout, showModal, setShowLoader, updateProductProperties } =
-    useActions();
   const { product, modalHandler } = props;
 
   // ----------------------------STATES ---------------------------------------
   const [allColors, showAllColors] = useState<boolean>(false);
+  const { clearToCheckout, showModal, setShowLoader, updateProductProperties } =
+    useActions();
+  const { layout: storeLayout } = useTypedSelector((state) => state.store);
 
   const { name: colorName } = useTypedSelector(
     (state) => state.product.selected.color,
@@ -192,7 +193,7 @@ const StartOrderModal: React.FC<_props> = (props) => {
               <div className="p-6">
                 <div className="flex flex-wrap mb-6">
                   <div className="w-full lg:w-1/2">
-                    <ProductSKU skuID={product.sku} />
+                    <ProductSKU skuID={product.sku} storeCode={storeLayout!} />
                     <div className="">
                       <span className="font-semibold">Color : </span>
                       <span>{colorName}</span>
@@ -227,6 +228,7 @@ const StartOrderModal: React.FC<_props> = (props) => {
                   </div>
                   <div>
                     <DiscountPricing
+                      storeCode={storeLayout!}
                       showPriceTable={false}
                       price={{
                         salePrice: product.salePrice,

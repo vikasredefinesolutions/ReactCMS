@@ -103,14 +103,13 @@ const Home = (props) => {
               return (
                 <div
                   key={index}
-                  className={`commondiv ${
-                    componentValue.visibility == 'off' ? 'hidden' : ''
-                  }`}
+                  className={`commondiv ${componentValue.visibility == 'off' ? 'hidden' : ''
+                    }`}
                   style={{ background: backgroundDefault }}
                   id={`div${componentValue.no}`}
-                  // ref={ref => {
-                  //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
-                  // }}
+                // ref={ref => {
+                //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
+                // }}
                 >
                   {Object.keys(componentValue.selectedVal).includes(
                     'carousel',

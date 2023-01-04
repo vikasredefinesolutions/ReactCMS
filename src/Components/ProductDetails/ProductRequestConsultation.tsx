@@ -4,14 +4,16 @@ import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
 import React from 'react';
 
-const ProductRequestConsultation: React.FC = () => {
+const ProductRequestConsultation: React.FC<{ storeCode: string }> = ({
+  storeCode,
+}) => {
   const router = useRouter();
-  const storeLayout = useTypedSelector((state) => state.store.layout);
+
   const { productId, color } = useTypedSelector(
     (state) => state.product.selected,
   );
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     const params = {
       productId: productId,
       color: color.name,

@@ -8,13 +8,16 @@ interface _Props {
   // eslint-disable-next-line no-unused-vars
   modalHandler(val: null | _modals): void;
 }
-const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
-  const storeLayout = useTypedSelector((state) => state.store.layout);
+const SizeChart: React.FC<
+  _Props & {
+    storeCode: string;
+  }
+> = ({ modalHandler, modal, storeCode }) => {
   const sizeChart = useTypedSelector(
     (state) => state.product.product.sizeChart,
   );
 
-  if (modal === 'NO' && storeLayout === _Store.type3) {
+  if (modal === 'NO' && storeCode === _Store.type3) {
     return (
       <section className="mainsection pt-10">
         <div className="container mx-auto">
@@ -63,7 +66,7 @@ const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <div
         id="sizechartModal"
@@ -140,7 +143,7 @@ const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
     );
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     return (
       <div
         id="FitSizeModal"
@@ -208,7 +211,7 @@ const SizeChart: React.FC<_Props> = ({ modalHandler, modal }) => {
     );
   }
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     return (
       <div
         onClick={() => modalHandler(null)}

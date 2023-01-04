@@ -6,15 +6,17 @@ interface _props {
   pricingLabel: string;
 }
 
-const MinimumQuantity: React.FC<_props> = ({ pricingLabel }) => {
-  const storeLayout = useTypedSelector((state) => state.store.layout);
+const MinimumQuantity: React.FC<_props & { storeCode: string }> = ({
+  pricingLabel,
+  storeCode,
+}) => {
   const { minQuantity } = useTypedSelector(
     (state) => state.product.selected.color,
   );
   const unitUnits = minQuantity > 1 ? 'units' : 'unit';
   const [showMsg, setShowMsg] = useState(false);
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     return (
       <>
         <div className="text-sm text-gray-900 bg-primary flex flex-wrap justify-between items-center p-2 md:p-0 md:pl-2 mt-5">
@@ -44,7 +46,7 @@ const MinimumQuantity: React.FC<_props> = ({ pricingLabel }) => {
     );
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     return (
       <div className="mb-5 w-full">
         <ul className="">
@@ -78,7 +80,7 @@ const MinimumQuantity: React.FC<_props> = ({ pricingLabel }) => {
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <div className="mb-4 pb-4">
         <div
@@ -105,7 +107,7 @@ const MinimumQuantity: React.FC<_props> = ({ pricingLabel }) => {
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <div className="text-black mb-2 text-sm flex items-center">
         <span className="font-bold w-36">MINIMUM ORDER:</span>

@@ -1,7 +1,7 @@
 import { FetchInventoryById } from '@services/product.service';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
-import Image from 'appComponents/reusables/Image';
-import Price from 'appComponents/reusables/Price';
+import Image from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import { useActions, useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
 import React, { useEffect, useState } from 'react';
@@ -11,9 +11,8 @@ interface _props {
   productId: number;
 }
 
-const Inventory: React.FC<_props> = ({ productId }) => {
+const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
   const { updatePrice } = useActions();
-  const storeLayout = useTypedSelector((state) => state.store.layout);
   const { color } = useTypedSelector((state) => state.product.selected);
   const { totalPrice } = useTypedSelector((state) => state.product.toCheckout);
   const { price, colors } = useTypedSelector((state) => state.product.product);
@@ -30,7 +29,6 @@ const Inventory: React.FC<_props> = ({ productId }) => {
     productId: number;
     attributeOptionId: number[];
   }) => {
-    console.log('productinventory.tsx');
     FetchInventoryById(payload).then((res) => setInventory(res));
     // .catch((err) => console.log('err', err))
     // .finally(() => );
@@ -45,7 +43,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
   }, [colors]);
   if (inventory === null) return <></>;
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <div className="mb-4">
         <div className="">
@@ -71,6 +69,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                   </div>
                   <InventoryInput
                     size={size}
+                    storeCode={storeCode}
                     qty={
                       inventory.inventory.find(
                         (int) =>
@@ -91,7 +90,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <div className="">
         <div className="text-xs bg-gray-100 mb-5">
@@ -157,6 +156,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                             <div className="mb-1">{inv > 50 ? '50+' : inv}</div>
                             <InventoryInput
                               size={size}
+                              storeCode={storeCode}
                               qty={inv}
                               price={inventry?.price || 5}
                               color={color.name}
@@ -182,7 +182,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
       </div>
     );
   }
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     return (
       <>
         <div className="mb-4">
@@ -202,6 +202,7 @@ const Inventory: React.FC<_props> = ({ productId }) => {
                     <div className="">{size}</div>
                     <InventoryInput
                       size={size}
+                      storeCode={storeCode}
                       qty={
                         inventory.inventory.find(
                           (int) =>

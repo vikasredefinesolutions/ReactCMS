@@ -43,7 +43,11 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
   }) => {
     setShowLoader(true);
 
-    signInUser({ ...enteredInputs, storeId: storeId! })
+    signInUser({
+      userName: enteredInputs.userName,
+      password: enteredInputs.password,
+      storeId: storeId!,
+    })
       .then((user) => {
         if (user.credentials === 'INVALID') {
           setErrorMsg(__messages.credentials.invalid);

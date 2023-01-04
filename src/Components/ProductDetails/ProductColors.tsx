@@ -1,4 +1,4 @@
-import Image from 'appComponents/reusables/Image';
+import Image from 'appComponents/reUsable/Image';
 import { useActions, useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
 import React from 'react';

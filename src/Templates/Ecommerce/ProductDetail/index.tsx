@@ -7,12 +7,15 @@ import { _Store } from 'page.config';
 import React, { useEffect } from 'react';
 
 import { FetchInventoryById } from '@services/product.service';
+import { _StoreCache } from '@type/slug.type';
 import ProductAlike from 'Components/ProductDetails/ProductAlike';
 import ProductReviews from 'Components/ProductDetails/ProductReviews';
 import { _ProductDetailsProps } from 'definations/APIs/productDetail.res';
 import Head from 'next/head';
 
-const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps> = (product) => {
+const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
+  product,
+) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const {
     store_productDetails,
@@ -54,7 +57,7 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps> = (product) => {
         const allColorAttributes = product.colors.map(
           (color) => color.attributeOptionId,
         );
-console.log('product detail/index.tsx');
+
         FetchInventoryById({
           productId: product.details.id,
           attributeOptionId: allColorAttributes,
@@ -95,66 +98,85 @@ console.log('product detail/index.tsx');
     </Head>
   );
 
-  if (storeLayout === _Store.type1) {
+  if (product.storeCode === _Store.type1) {
     return (
       <>
         {HeadTag}
         <div className={`font-Outfit`}>
-          <ProductDetails product={product.details} />
+          <ProductDetails
+            product={product.details}
+            storeCode={product.storeCode}
+          />
           <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
-          <ProductReviews reviews={null} />
+          <ProductReviews reviews={null} storeCode={product.storeCode} />
         </div>
       </>
     );
   }
 
-  if (storeLayout === _Store.type2) {
+  if (product.storeCode === _Store.type2) {
     return (
       <>
         {HeadTag}
         <div className={`font-Outfit tracking-wider`}>
-          <ProductDetails product={product.details} />
-          <ProductFeatures fewFeatures />
+          <ProductDetails
+            product={product.details}
+            storeCode={product.storeCode}
+          />
+          <ProductFeatures fewFeatures storeCode={product.storeCode} />
           <ProductDescription
             heading="DESCRIPTION"
             text={product.details.description}
+            storeCode={product.storeCode}
           />
-          <ProductReviews reviews={null} />
+          <ProductReviews reviews={null} storeCode={product.storeCode} />
           <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
         </div>
       </>
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (product.storeCode === _Store.type3) {
     return (
       <>
         {HeadTag}
         <div className={`font-Outfit`}>
-          <ProductDetails product={product.details} />
+          <ProductDetails
+            product={product.details}
+            storeCode={product.storeCode}
+          />
           <ProductDescription
             heading="Description"
             text={product.details.description}
+            storeCode={product.storeCode}
           />
-          <SizeChart modalHandler={() => 'Do nothing'} modal={'NO'} />
+          <SizeChart
+            modalHandler={() => 'Do nothing'}
+            modal={'NO'}
+            storeCode={product.storeCode}
+          />
           <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
         </div>
       </>
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (product.storeCode === _Store.type4) {
     return (
       <>
         {HeadTag}
         <div className={`font-Outfit tracking-wider`}>
-          <ProductDetails product={product.details} />
+          <ProductDetails
+            product={product.details}
+            storeCode={product.storeCode}
+          />
           <ProductDescription
             heading="Description"
             text={product.details.description}
+            storeCode={product.storeCode}
           />
           <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
-          <ProductReviews reviews={null} />
+          <ProductReviews reviews={null} storeCode={product.storeCode} />
         </div>
       </>
     );

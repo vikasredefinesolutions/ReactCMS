@@ -1,9 +1,9 @@
 import { _StoreReturnType } from '@type/store.type';
-import Image from 'appComponents/reusables/Image';
+import Image from 'appComponents/reUsable/Image';
 import ProductAlike from 'Components/ProductDetails/ProductAlike';
 import RequestConsultationForm from 'Components/RequestConsultation/RequestConsultationForm';
 import RequestFeatures from 'Components/RequestConsultation/RequestFeatures';
-import * as ConsultationController from 'Controllers/RequestConsultationController';
+import * as ConsultationController from 'Controllers/RequestConsultationController.async';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,

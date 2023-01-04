@@ -1,6 +1,6 @@
 import { _MyAcc_OrderProductDetails } from '@type/APIs/user.res';
-import ImageComponent from 'appComponents/reusables/Image';
-import Price from 'appComponents/reusables/Price';
+import ImageComponent from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import { paths } from 'constants/paths.constant';
 
 import { useTypedSelector } from 'hooks';

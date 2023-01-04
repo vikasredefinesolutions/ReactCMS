@@ -27,6 +27,8 @@ interface _ExtractCookies {
   storeInfo: null | {
     storeId: number;
     domain: string;
+    storeCode: string;
+    storeTypeId: number;
     isAttributeSaparateProduct: boolean;
   };
 }
@@ -54,6 +56,8 @@ interface _cStoreInfo {
     storeId: number;
     isAttributeSaparateProduct: boolean;
     domain: string;
+    storeCode: string;
+    storeTypeId: number;
   };
 }
 

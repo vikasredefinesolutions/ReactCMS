@@ -26,12 +26,7 @@ import {
   FilterApiRequest,
 } from 'definations/productList.type';
 import { CallAPI } from 'helpers/common.helper';
-import {
-  conditionalLog,
-  conditionalLogV2,
-  __console,
-} from 'helpers/global.console';
-import { _showConsoles } from 'show.config';
+import { conditionalLogV2, __console } from 'helpers/global.console';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export type _ProducDetailAPIs =
@@ -42,6 +37,7 @@ export type _ProducDetailAPIs =
   | 'FetchProductSEOtags'
   | 'FetchColors'
   | 'FetchProductById'
+  | 'FetchInventoryById'
   | 'FetchBrandProductList';
 
 export type _ProductDetailService = {
@@ -138,8 +134,7 @@ export const FetchSizeChartById = async (
     },
     request: {
       url: url,
-      method: 'POST',
-      data: payload,
+      method: 'GET',
     },
   });
 
@@ -165,57 +160,48 @@ export const FetchInventoryById = async (payload: {
   productId: number;
   attributeOptionId: number[];
 }): Promise<_ProductInventoryTransfomed | null> => {
-  const url = `/StoreProduct/getproductattributesizes.json`;
-  console.log(payload);
+  const url = `StoreProduct/getproductattributesizes.json`;
   function removeDuplicates(arr: string[]) {
     return arr.filter((item, index) => arr.indexOf(item) === index);
   }
 
-  try {
-    const res = await SendAsyncV2<_ProductInventory[]>({
+  const response = await CallAPI<_ProductInventory[]>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchInventoryById',
+    },
+    request: {
       url: url,
       method: 'POST',
       data: payload,
-    });
+    },
+  });
 
-    conditionalLog({
-      data: res.data,
-      name: 'FetchInventoryById',
-      type: 'API',
-      show: res.data === null || res.data.length === 0,
-    });
-
-    const sizes = payload.attributeOptionId.map((id) => {
-      const repeatedSizes = res.data
-        .map((int) => {
-          if (int.colorAttributeOptionId === id) {
-            return int.name;
-          }
-          return '';
-        })
-        .filter(Boolean);
-
-      return {
-        colorAttributeOptionId: id,
-        sizeArr: removeDuplicates(repeatedSizes),
-      };
-    });
-
-    const transformedData: _ProductInventoryTransfomed = {
-      inventory: res.data,
-      sizes: sizes,
-    };
-    return transformedData;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'FetchInventoryById',
-      type: 'API',
-      show: _showConsoles.services.productDetails,
-      error: true,
-    });
+  if (response === null) {
     return null;
   }
+
+  const sizes = payload.attributeOptionId.map((id) => {
+    const repeatedSizes = response
+      .map((int) => {
+        if (int.colorAttributeOptionId === id) {
+          return int.name;
+        }
+        return '';
+      })
+      .filter(Boolean);
+
+    return {
+      colorAttributeOptionId: id,
+      sizeArr: removeDuplicates(repeatedSizes),
+    };
+  });
+
+  const transformedData: _ProductInventoryTransfomed = {
+    inventory: response,
+    sizes: sizes,
+  };
+  return transformedData;
 };
 
 export const FetchColors = async ({

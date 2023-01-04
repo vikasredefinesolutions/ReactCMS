@@ -1,21 +1,27 @@
+import { _CompareProducts } from '@type/compare';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
+import Corporate_CompareProduct from './CorporateStore/CompareProduct';
+import Ecommerce_CompareProduct from './Ecommerce/CompareProduct';
+import StoreBuilder_CompareProduct from './StoreBuilder/CompareProduct';
 
-interface _props {}
+interface _props {
+  products: _CompareProducts | null;
+}
 
-const Redefine_CompareProducts: React.FC<_props> = () => {
+const Redefine_CompareProducts: React.FC<_props> = (props) => {
   const storeTypeId = useTypedSelector((state) => state.store.storeTypeId);
 
   if (storeTypeId === 1) {
-    return <> </>;
+    return <Corporate_CompareProduct {...props} />;
   }
 
   if (storeTypeId === 2) {
-    return <> </>;
+    return <Ecommerce_CompareProduct {...props} />;
   }
 
   if (storeTypeId === 3) {
-    return <> </>;
+    return <StoreBuilder_CompareProduct {...props} />;
   }
 
   return <>No store type found</>;

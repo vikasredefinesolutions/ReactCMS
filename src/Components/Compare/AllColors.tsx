@@ -1,5 +1,5 @@
 import { _ProductColor } from '@type/APIs/colors.res';
-import Image from 'appComponents/reusables/Image';
+import Image from 'appComponents/reUsable/Image';
 import { useActions } from 'hooks';
 import React, { useEffect } from 'react';
 

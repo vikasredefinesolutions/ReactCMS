@@ -1,6 +1,6 @@
 import { checkCoupon, deleteItemCart } from '@services/cart.service';
 import { FetchColors, FetchProductById } from '@services/product.service';
-import { CartResponse } from '@type/APIs/cart.res';
+import { _CartItem } from '@type/APIs/cart.res';
 import { _ProductDetails } from '@type/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
@@ -32,10 +32,10 @@ const CartController = () => {
 
   const [showEdit, setShowEdit] = useState(false);
   const [product, setProduct] = useState<_ProductDetails>();
-  const [currentCartProduct, setCurrentCartProduct] = useState<CartResponse>();
+  const [currentCartProduct, setCurrentCartProduct] = useState<_CartItem>();
   const [coupon, setCoupon] = useState('');
 
-  const loadProduct = (product: CartResponse) => {
+  const loadProduct = (product: _CartItem) => {
     if (storeId) {
       const obj = {
         totalQty: product.totalQty,

@@ -1,5 +1,5 @@
 import { _MyAcc_OrderProductDetails } from '@type/APIs/user.res';
-import Price from 'appComponents/reusables/Price';
+import Price from 'appComponents/reUsable/Price';
 import React from 'react';
 
 interface _props {

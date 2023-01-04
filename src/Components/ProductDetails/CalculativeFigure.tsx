@@ -1,6 +1,6 @@
-import React from 'react';
-import Price from 'appComponents/reusables/Price';
+import Price from 'appComponents/reUsable/Price';
 import { useTypedSelector } from 'hooks';
+import React from 'react';
 
 const CalculativeFigure: React.FC = () => {
   const { totalPrice, totalQty, price, logo, additionalLogoCharge } =

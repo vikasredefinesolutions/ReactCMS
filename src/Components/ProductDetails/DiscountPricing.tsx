@@ -1,4 +1,4 @@
-import Price from 'appComponents/reusables/Price';
+import Price from 'appComponents/reUsable/Price';
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
 import React, { useState } from 'react';
@@ -13,15 +13,19 @@ interface _props {
   showPriceTable: boolean;
 }
 
-const DiscountPricing: React.FC<_props> = ({ showPriceTable, price }) => {
+const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
+  showPriceTable,
+  price,
+  storeCode,
+}) => {
   const [showMsg, setShowMsg] = useState(false);
-  const { layout: storeLayout } = useTypedSelector((state) => state.store);
+
   const { minQuantity } = useTypedSelector(
     (state) => state.product.selected.color,
   );
   const unitUnits = minQuantity > 1 ? 'units' : 'unit';
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <div className="mb-5">
         <div>
@@ -39,7 +43,7 @@ const DiscountPricing: React.FC<_props> = ({ showPriceTable, price }) => {
               {` ${minQuantity} ${unitUnits} per color`}
             </button>
           </div>
-          <QtyPriceTable />
+          <QtyPriceTable storeCode={storeCode} />
           {showMsg && (
             <div className="text-xs p-3 pb-0" id="divMinorder">
               <p>
@@ -55,7 +59,7 @@ const DiscountPricing: React.FC<_props> = ({ showPriceTable, price }) => {
     );
   }
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     return (
       <div className="mb-5">
         <div>
@@ -89,7 +93,7 @@ const DiscountPricing: React.FC<_props> = ({ showPriceTable, price }) => {
               <strong>DISCOUNT PRICING AVAILABLE!</strong>
             </button>
           </div>
-          {showPriceTable && <QtyPriceTable />}
+          {showPriceTable && <QtyPriceTable storeCode={storeCode} />}
           {showMsg && (
             <div className="text-xs p-3 pb-0" id="divMinorder">
               <p>

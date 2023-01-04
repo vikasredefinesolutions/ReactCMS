@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import config from 'api.config';
 import { GetlAllProductList } from 'definations/productList.type';
-import Price from '../reusables/Price';
+import Price from '../reUsable/Price';
 import Wishlist from '../ui/Wishlist';
 
 const ProductComponent = ({
@@ -93,10 +93,11 @@ const ProductComponent = ({
                   {product.getProductImageOptionList.map((subRow, index) =>
                     index < 6 ? (
                       <li
-                        className={`w-7 h-7 border-2${subRow.id === currentProduct.id
+                        className={`w-7 h-7 border-2${
+                          subRow.id === currentProduct.id
                             ? ' border-secondary'
                             : ''
-                          }`}
+                        }`}
                         onClick={() => {
                           colorChangeHandler(
                             product.id,

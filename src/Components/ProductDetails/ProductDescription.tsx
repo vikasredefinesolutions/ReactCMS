@@ -1,19 +1,22 @@
-import { useTypedSelector } from 'hooks';
 import { _Store, __constant } from 'page.config';
 import React, { useState } from 'react';
 interface _props {
   heading: string;
   text: string;
 }
-const ProductDescription: React.FC<_props> = ({ text, heading }) => {
+const ProductDescription: React.FC<_props & { storeCode: string }> = ({
+  text,
+  heading,
+  storeCode,
+}) => {
   const [showExtra, setShowExtra] = useState(false);
-  const storeLayout = useTypedSelector((state) => state.store.layout);
+
   if (!text) return <></>;
   const showExtraButton =
     text.length >= __constant._productDetails.descriptionLength;
   // const show = useTypedSelector((state) => state.store.display.footer);
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     return (
       <div className="m-3">
         <h3 className="font-semibold text-2xl mb-2">{heading}</h3>
@@ -47,7 +50,7 @@ const ProductDescription: React.FC<_props> = ({ text, heading }) => {
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <section className="mainsection pt-10">
         <div className="container mx-auto">
@@ -62,7 +65,7 @@ const ProductDescription: React.FC<_props> = ({ text, heading }) => {
     );
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     return (
       <div className="container mx-auto pt-10">
         <div className="">
@@ -78,7 +81,7 @@ const ProductDescription: React.FC<_props> = ({ text, heading }) => {
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <section className="mainsection mt-20">
         <div className="container mx-auto">

@@ -1,5 +1,5 @@
 import { getLogoPositionList } from '@services/product.service';
-import Image from 'appComponents/reusables/Image';
+import Image from 'appComponents/reUsable/Image';
 import CustomizeLogoSteps from 'Components/CustomizeLogo/CustomizeLogoSteps';
 import LogosToPrint from 'Components/CustomizeLogo/LogosToPrint';
 import { useActions, useTypedSelector } from 'hooks';
@@ -22,8 +22,7 @@ const CustomizeLogo: NextPage = () => {
 
   useEffect(() => {
     if (customerId) {
-
-      getLogoPositionList(customerId).then(response => {
+      getLogoPositionList(customerId).then((response) => {
         const logos = response.subRow.map((logo) => ({
           label: logo.name,
           value: logo.logoLocationDetailId.toString(),
@@ -32,15 +31,11 @@ const CustomizeLogo: NextPage = () => {
           },
         }));
         clearLogoUploadHistory(logos);
-      })
+      });
     }
-
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-
-
 
   if (storeLayout === _Store.type3) {
     return (

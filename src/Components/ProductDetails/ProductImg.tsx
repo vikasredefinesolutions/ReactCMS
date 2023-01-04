@@ -1,4 +1,4 @@
-import Image from 'appComponents/reusables/Image';
+import Image from 'appComponents/reUsable/Image';
 import { paths } from 'constants/paths.constant';
 import { _OtherImage } from 'definations/APIs/colors.res';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
@@ -15,12 +15,14 @@ interface _Props {
   product: _ProductDetails | null;
 }
 
-const ProductImg: React.FC<_Props> = ({ product }) => {
+const ProductImg: React.FC<_Props & { storeCode: string }> = ({
+  product,
+  storeCode,
+}) => {
   const router = useRouter();
   const { setImage } = useActions();
 
   // STATES ----------------------------------------
-  const storeLayout = useTypedSelector((state) => state.store.layout);
   const selectedColor = useTypedSelector(
     (state) => state.product.selected.color,
   );
@@ -49,7 +51,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
 
   if (product === null) return <></>;
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     return (
       <div className="col-span-1 grid grid-cols-12 gap-6">
         <div className="col-span-12 border border-slate-200 relative">
@@ -93,7 +95,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
     );
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     return (
       <div className="w-full lg:w-6/12 px-3">
         <div className="relative">
@@ -144,7 +146,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <div className="relative">
         <div className="relative">
@@ -186,8 +188,9 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
           </div>
           <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
         </div>
-        <AvailableColors />
+        <AvailableColors storeCode={storeCode} />
         <ProductCompanion
+          storeCode={storeCode}
           name={product.companionProductName}
           id={product.companionProductId}
           link={product.companionProductLink}
@@ -197,7 +200,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <div className="col-span-1">
         {/* <!-- Image selector --> */}
@@ -239,7 +242,7 @@ const ProductImg: React.FC<_Props> = ({ product }) => {
             </div>
             <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
           </div>
-          <AvailableColors />
+          <AvailableColors storeCode={storeCode} />
         </div>
       </div>
     );

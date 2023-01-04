@@ -1,6 +1,6 @@
 import { GetlAllProductList } from '@type/productList.type';
-import ImageComponent from 'appComponents/reusables/Image';
-import Price from 'appComponents/reusables/Price';
+import ImageComponent from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import { useActions } from 'hooks';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';

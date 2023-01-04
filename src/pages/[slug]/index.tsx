@@ -1,15 +1,14 @@
 import {
   _SlugServerSideProps,
   _SlugServerSide_WentWrong,
-  _TopicHomeProps
+  _TopicHomeProps,
 } from '@type/slug.type';
-import SeoHead from 'appComponents/Screen/Layout/Head';
-
+import SeoHead from 'appComponents/reUsable/SeoHead';
+import { getServerSideProps } from 'Components/Slug/getServerSideProps';
 import { NextPage } from 'next';
-import Home from 'pages/Home';
+import Home from 'pages/home';
 import Redefine_ProductDetails from 'Templates/Redefine_ProductDetail';
 import Redefine_ProductList from 'Templates/Redefine_ProductList';
-import { getServerSideProps } from '../../Components/Slug/getServerSideProps';
 
 const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
   props,
@@ -19,7 +18,7 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     return <>{error}</>;
   }
 
-  const { page, pageMetaData } = props;
+  const { page, pageMetaData, _store } = props;
 
   if (page === null) {
     return <>If no page data is found</>;
@@ -50,8 +49,8 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
       </>
     );
   }
-  if (pageMetaData.type === 'product' && page.productDetails) {
-    return <Redefine_ProductDetails {...page.productDetails} />;
+  if (pageMetaData.type === 'product' && page.productDetails && _store) {
+    return <Redefine_ProductDetails {...page.productDetails} {..._store} />;
   }
   if (pageMetaData.type === 'topic') {
     const tprops: _TopicHomeProps = {

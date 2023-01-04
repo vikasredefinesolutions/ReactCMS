@@ -3,10 +3,10 @@ import { FetchThemeConfigs } from '@services/app.service';
 import { GetStoreCustomer } from '@services/user.service';
 
 import SuccessErrorModal from 'appComponents/modals/successErrorModal';
-import Screen from 'appComponents/Screen';
 import Spinner from 'appComponents/ui/spinner';
+import Redefine_Screen from 'Templates/Redefine_Screen';
 
-import * as _AppController from 'Controllers/_AppController';
+import * as _AppController from 'Controllers/_AppController.async';
 import { _TransformedThemeConfig } from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
 import AuthGuard from 'Guard/AuthGuard';
@@ -103,9 +103,9 @@ const RedefineCustomApp = ({
   return (
     <Spinner>
       <SuccessErrorModal />
-      <Screen>
+      <Redefine_Screen>
         <Component {...pageProps} />
-      </Screen>
+      </Redefine_Screen>
     </Spinner>
   );
 };
@@ -143,6 +143,8 @@ RedefineCustomApp.getInitialProps = async (
     expectedProps.store.storeId = cookies.storeInfo.storeId;
     expectedProps.store.isAttributeSaparateProduct =
       cookies.storeInfo.isAttributeSaparateProduct;
+    expectedProps.store.code = cookies.storeInfo.storeCode;
+    expectedProps.store.storeTypeId = cookies.storeInfo.storeTypeId;
   }
 
   if (res && currentPath) {
@@ -186,6 +188,8 @@ RedefineCustomApp.getInitialProps = async (
               value: {
                 storeId: expectedProps.store.storeId,
                 domain: domain,
+                storeCode: expectedProps.store.code,
+                storeTypeId: expectedProps.store.storeTypeId!,
                 isAttributeSaparateProduct:
                   expectedProps.store.isAttributeSaparateProduct,
               },
@@ -215,6 +219,14 @@ RedefineCustomApp.getInitialProps = async (
     _globalStore.set({
       key: 'isAttributeSaparateProduct',
       value: expectedProps.store.isAttributeSaparateProduct,
+    });
+    _globalStore.set({
+      key: 'code',
+      value: expectedProps.store.code,
+    });
+    _globalStore.set({
+      key: 'storeTypeId',
+      value: expectedProps.store.storeTypeId,
     });
   }
 

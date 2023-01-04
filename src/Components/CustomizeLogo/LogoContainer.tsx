@@ -1,4 +1,4 @@
-import Price from 'appComponents/reusables/Price';
+import Price from 'appComponents/reUsable/Price';
 import React from 'react';
 
 interface _props {
@@ -43,8 +43,9 @@ const LogoContainer: React.FC<_props> = ({
       }
     >
       <div
-        className={`border-2 hover:border-primary ${selected ? 'border-primary' : 'border-gray-200'
-          } p-3 w-full text-ceter`}
+        className={`border-2 hover:border-primary ${
+          selected ? 'border-primary' : 'border-gray-200'
+        } p-3 w-full text-ceter`}
       >
         <div className="">
           <img className="inline-block" src={image.url} alt="" />

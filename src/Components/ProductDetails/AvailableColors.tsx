@@ -1,13 +1,12 @@
-import Image from 'appComponents/reusables/Image';
+import Image from 'appComponents/reUsable/Image';
 import { _modals } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
 import { _Store, __constant } from 'page.config';
 import React, { useState } from 'react';
 import SizeChart from './SizeChartModal';
 
-const AvailableColors: React.FC = () => {
+const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
   const { setColor } = useActions();
-  const storeLayout = useTypedSelector((state) => state.store.layout);
   const colors = useTypedSelector((state) => state.product.product.colors);
   const [showAllColors, setShowAllColors] = useState(false);
   const [showModal, setShowModal] = useState<null | _modals>(null);
@@ -20,7 +19,7 @@ const AvailableColors: React.FC = () => {
   const showAllColorsButton =
     colorsCount > __constant._productDetails.imagesInRow;
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     return (
       <div>
         <div className="text-sm text-gray-600 bg-primary flex flex-wrap justify-between items-center p-2 md:p-0 md:pl-2 my-2">
@@ -87,7 +86,7 @@ const AvailableColors: React.FC = () => {
     );
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     return (
       <>
         <div className="text-black mb-5 flex items-center">
@@ -126,13 +125,15 @@ const AvailableColors: React.FC = () => {
               <img src="images/size-chart.jpg" alt="" />
             </button>
           </div>
-          {showModal && <SizeChart modalHandler={setShowModal} />}
+          {showModal && (
+            <SizeChart modalHandler={setShowModal} storeCode={storeCode} />
+          )}
         </div>
       </>
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <>
         <div className="w-full flex justify-center text-center gap-2 text-md font-bold mb-2">
@@ -166,7 +167,7 @@ const AvailableColors: React.FC = () => {
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <>
         <div className="w-full flex justify-center text-center gap-2 text-md font-bold mb-2">

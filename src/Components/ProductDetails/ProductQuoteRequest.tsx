@@ -39,8 +39,10 @@ interface _props {
   modalHandler: (param: null | _modals) => void;
 }
 
-const ProductQuoteRequest: React.FC<_props> = ({ modalHandler }) => {
-  const storeLayout = useTypedSelector((state) => state.store.layout);
+const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
+  modalHandler,
+  storeCode,
+}) => {
   const { name: productName } = useTypedSelector(
     (state) => state.product.product,
   );
@@ -51,7 +53,7 @@ const ProductQuoteRequest: React.FC<_props> = ({ modalHandler }) => {
   const quoteRequestHandler = () => {};
 
   // const show = useTypedSelector((state) => state.store.display.footer);
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     return (
       <div
         id="QuoteRequestModal"

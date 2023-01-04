@@ -6,9 +6,15 @@ interface _Props {
   modalHandler: (val: null | _modals) => void;
   message: string;
   title: string;
+  confirmButton?: () => void;
 }
 
-const MsgContainer: React.FC<_Props> = ({ modalHandler, message, title }) => {
+const MsgContainer: React.FC<_Props> = ({
+  modalHandler,
+  message,
+  title,
+  confirmButton,
+}) => {
   return (
     <>
       <div
@@ -44,6 +50,14 @@ const MsgContainer: React.FC<_Props> = ({ modalHandler, message, title }) => {
               <div className="p-6">
                 <div className="mb-4 text-center">{message}</div>
               </div>
+              {confirmButton && (
+                <button
+                  onClick={() => confirmButton()}
+                  className="btn btn-primary !w-full !py-1 text-center"
+                >
+                  Confirm
+                </button>
+              )}
             </div>
           </div>
         </div>

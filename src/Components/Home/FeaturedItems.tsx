@@ -1,5 +1,5 @@
 import { _FeaturedProduct } from '@type/APIs/storeDetails.res';
-import Price from 'appComponents/reusables/Price';
+import Price from 'appComponents/reUsable/Price';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import { useActions } from 'hooks';
 import Link from 'next/link';
@@ -55,10 +55,11 @@ const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
               {brands?.map((brand, index) => (
                 <li
                   key={index}
-                  className={`mx-8 md:mr-0 font-semibold tab py-2 mr-1 px-2 block hover:text-primary text-default-text  focus:outline-none ${index === brandIndex
-                    ? 'text-primary border-b-2 font-medium border-primary'
-                    : 'rounded-sm font-medium border-slate-300 hover:border-primary'
-                    }`}
+                  className={`mx-8 md:mr-0 font-semibold tab py-2 mr-1 px-2 block hover:text-primary text-default-text  focus:outline-none ${
+                    index === brandIndex
+                      ? 'text-primary border-b-2 font-medium border-primary'
+                      : 'rounded-sm font-medium border-slate-300 hover:border-primary'
+                  }`}
                   onClick={() => setBrandIndex(index)}
                 >
                   <a>{brand.name}</a>
@@ -69,10 +70,10 @@ const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
           <div className="text-center mx-auto pt-10">
             <div className="panel-01 tab-content overflow-hidden">
               <div className="flex flex-wrap sm:-mx-3 gap-y-6">
-                {productsArr?.map((products, brandIndx) => {
-                  if (brandIndx === brandIndex) {
+                {productsArr?.map((products, brandIdx) => {
+                  if (brandIdx === brandIndex) {
                     return (
-                      <Fragment key={brandIndex}>
+                      <Fragment key={brandIdx}>
                         {products?.map((product, productIndex) => {
                           return (
                             <div
@@ -116,7 +117,7 @@ const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
                       </Fragment>
                     );
                   }
-                  return <Fragment key={brandIndex}></Fragment>;
+                  return <Fragment key={brandIdx}></Fragment>;
                 })}
               </div>
             </div>

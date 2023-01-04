@@ -11,7 +11,7 @@ import { isItServer } from './common.helper';
 export const __Show = {
   all: true,
   services: {
-    payload: false,
+    payload: true,
     response: false,
     error: true,
   },
@@ -31,7 +31,7 @@ export const __console: __Console = {
     page: false,
     service: {
       FetchThemeConfigs: false,
-      GetStoreID: false,
+      GetStoreID: true,
     },
   },
   header: {
@@ -62,6 +62,7 @@ export const __console: __Console = {
   },
   productDetails: {
     service: {
+      FetchInventoryById: false,
       FetchProductsBySKUs: false,
       FetchSizeChartById: false,
       FetchDiscountTablePrices: false,
@@ -125,8 +126,14 @@ export const cLog = (dataToShow: any, component: string) => {
       `===============================================================================================================================`,
     ),
   );
+  let consoleMsg = dataToShow;
+  const _server = isItServer();
+  if (_server) {
+    consoleMsg = Log.data(JSON.stringify(dataToShow, null, 3));
+  }
+
   console.log(C_Log.title(`Console.log:        ( ${component} )`));
-  console.log(dataToShow);
+  console.log(consoleMsg);
   console.log(
     C_Log.border(
       `--------------X--------------------------------X--------------------------------X--------------------------------X-------------`,

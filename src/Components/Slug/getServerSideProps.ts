@@ -1,4 +1,5 @@
 import { __Error } from '@constants/global.constant';
+import { paths } from '@constants/paths.constant';
 import { getPageComponents } from '@services/home.service';
 import {
   FetchFiltersJsonByBrand,
@@ -19,8 +20,8 @@ import {
   _SlugServerSideProps,
   _SlugServerSide_WentWrong,
 } from '@type/slug.type';
-import * as HomeController from 'Controllers/HomeController';
-import { getProductDetailProps } from 'Controllers/ProductController';
+import * as HomeController from 'Controllers/HomeController.async';
+import { getProductDetailProps } from 'Controllers/ProductController.async';
 import { Redirect } from 'Guard/AuthGuard';
 
 import { extractSlugName } from 'helpers/common.helper';
@@ -37,6 +38,8 @@ export interface _ExpectedSlugProps {
   store: {
     storeId: null | number;
     isAttributeSaparateProduct: boolean;
+    storeCode: string;
+    storeTypeId: null | number;
   };
   pageMetaData: _GetPageType | null;
   page: {
@@ -54,6 +57,8 @@ export interface _ExpectedSlugProps {
 const _expectedSlugProps: _ExpectedSlugProps = {
   store: {
     storeId: null,
+    storeCode: '',
+    storeTypeId: null,
     isAttributeSaparateProduct: false,
   },
   pageMetaData: null,
@@ -76,13 +81,15 @@ export const getServerSideProps: GetServerSideProps = async (
   const { slug, slugID } = extractSlugName(context.params);
   let { store, pageMetaData, page } = _expectedSlugProps;
   // ---------------------------------------------------------------
-  // store = await _AppController.fetchStoreDetails(domain, slug!);
   if (_globalStore.storeId) {
     store = {
+      storeCode: _globalStore.code,
+      storeTypeId: _globalStore.storeTypeId,
       storeId: _globalStore.storeId,
       isAttributeSaparateProduct: _globalStore.isAttributeSaparateProduct,
     };
   }
+
   if (store.storeId === null) {
     highLightError({
       error: `No Store found. Can't proceed further`,
@@ -146,10 +153,13 @@ export const getServerSideProps: GetServerSideProps = async (
       ) {
         Redirect({
           res: responseBody,
-          to: '/Orders',
+          to:
+            productDetails.details?.productDoNotExist
+              ?.retrunUrlOrCategorySename || paths.HOME,
         });
         return {
           props: {
+            _store: null,
             pageMetaData: pageMetaData,
             page: null,
           },
@@ -244,6 +254,10 @@ export const getServerSideProps: GetServerSideProps = async (
   }
   return {
     props: {
+      _store: {
+        storeCode: store.storeCode,
+        storeTypeId: store.storeTypeId,
+      },
       pageMetaData: pageMetaData,
       page: page,
     },

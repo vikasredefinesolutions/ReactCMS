@@ -5,8 +5,8 @@ import {
   _MyAcc_OrderBillingDetails,
   _MyAcc_OrderProductDetails,
 } from '@type/APIs/user.res';
-import Image from 'appComponents/reusables/Image';
-import Price from 'appComponents/reusables/Price';
+import Image from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import MyAccountTabs from 'Components/MyAccountTabs';
 import { useActions, useTypedSelector } from 'hooks';
 import moment from 'moment';

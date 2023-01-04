@@ -1,4 +1,4 @@
-import Image from 'appComponents/reusables/Image';
+import Image from 'appComponents/reUsable/Image';
 import { _modals } from 'definations/product.type';
 import { useTypedSelector } from 'hooks';
 import React from 'react';

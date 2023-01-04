@@ -11,10 +11,11 @@ interface _Props {
   reviews: _Reviews | null;
 }
 
-const ProductReviews: React.FC<_Props> = () => {
+const ProductReviews: React.FC<_Props & { storeCode: string }> = ({
+  storeCode,
+}) => {
   const router = useRouter();
   const [openModal, setOpenModal] = useState<null | _modals>(null);
-  const storeLayout = useTypedSelector((state) => state.store.layout);
   const { id: userId } = useTypedSelector((state) => state.user);
   const { id: productId } = useTypedSelector((state) => state.product.product);
 
@@ -26,7 +27,7 @@ const ProductReviews: React.FC<_Props> = () => {
     setOpenModal(null);
   };
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <section className="">
         <div className="container mx-auto pt-10">
@@ -58,7 +59,7 @@ const ProductReviews: React.FC<_Props> = () => {
     );
   }
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     return (
       <section className="mainsection mt-10 mb-20">
         <div className="container mx-auto">

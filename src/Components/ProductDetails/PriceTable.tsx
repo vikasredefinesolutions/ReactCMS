@@ -1,15 +1,13 @@
 import { FetchDiscountTablePrices } from '@services/product.service';
-import Price from 'appComponents/reusables/Price';
+import Price from 'appComponents/reUsable/Price';
 import { c_getSeName } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
 import React, { useEffect } from 'react';
 
-const QtyPriceTable: React.FC = () => {
+const QtyPriceTable: React.FC<{ storeCode: string }> = ({ storeCode }) => {
   const { updateProductProperties } = useActions();
-  const { layout: storeLayout, id: storeId } = useTypedSelector(
-    (state) => state.store,
-  );
+  const { id: storeId } = useTypedSelector((state) => state.store);
   const customerId = useTypedSelector((state) => state.user.id);
   const selectedColor = useTypedSelector(
     (state) => state.product.selected.color,
@@ -17,12 +15,7 @@ const QtyPriceTable: React.FC = () => {
   const { discounts } = useTypedSelector((state) => state.product.product);
 
   useEffect(() => {
-    if (
-      storeId &&
-      customerId &&
-      selectedColor &&
-      storeLayout === _Store.type1
-    ) {
+    if (storeId && customerId && selectedColor && storeCode === _Store.type1) {
       FetchDiscountTablePrices({
         storeId: storeId,
         seName: c_getSeName('PRODUCT DETAILS'),
@@ -36,9 +29,9 @@ const QtyPriceTable: React.FC = () => {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customerId, storeLayout, selectedColor.attributeOptionId]);
+  }, [customerId, storeCode, selectedColor.attributeOptionId]);
 
-  if (storeLayout === _Store.type1) {
+  if (storeCode === _Store.type1) {
     return (
       <>
         {customerId !== null && (
@@ -69,7 +62,7 @@ const QtyPriceTable: React.FC = () => {
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     return (
       <div className="mb-4 border border-gray-300 text-center">
         <div className="bg-gray-300 p-2 font-semibold">QUANTITY DISCOUNT</div>
@@ -90,7 +83,7 @@ const QtyPriceTable: React.FC = () => {
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <div className="bg-gray-100 flex flex-wrap text-center border border-gray-300">
         <div className="hidden md:block text-left">

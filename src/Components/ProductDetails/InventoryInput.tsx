@@ -1,4 +1,4 @@
-import { useActions, useTypedSelector } from 'hooks';
+import { useActions } from 'hooks';
 import { _Store } from 'page.config';
 import React, { useState } from 'react';
 interface _props {
@@ -9,21 +9,21 @@ interface _props {
   color?: string;
 }
 
-const InventoryInput: React.FC<_props> = ({
+const InventoryInput: React.FC<_props & { storeCode: string }> = ({
   size,
   qty,
   price,
   isDisabled = false,
+  storeCode,
   color,
 }) => {
   const { updateQuantities, updateQuantities2 } = useActions();
   const [value, setValue] = useState<number>(0);
-  const { layout: storeLayout } = useTypedSelector((state) => state.store);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(+event.target.value);
 
-    if (storeLayout === _Store.type1) {
+    if (storeCode === _Store.type1) {
       updateQuantities({
         size: size,
         qty: +event.target.value,
@@ -39,7 +39,7 @@ const InventoryInput: React.FC<_props> = ({
     }
   };
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     return (
       <div className="">
         <input
@@ -55,7 +55,7 @@ const InventoryInput: React.FC<_props> = ({
     );
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     if (qty === 0) return <div className="">Call for Inventory</div>;
 
     return (
@@ -72,7 +72,7 @@ const InventoryInput: React.FC<_props> = ({
     );
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     if (qty === 0) return <div className="">-</div>;
     return (
       <div className="w-20">

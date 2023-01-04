@@ -1,6 +1,6 @@
 import { _ProductsAlike } from '@type/APIs/productDetail.res';
-import Image from 'appComponents/reusables/Image';
-import Price from 'appComponents/reusables/Price';
+import Image from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import { useRouter } from 'next/router';
 import { __constant } from 'page.config';
 import React, { useRef } from 'react';

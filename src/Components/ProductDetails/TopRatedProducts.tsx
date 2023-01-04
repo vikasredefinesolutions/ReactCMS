@@ -1,6 +1,6 @@
 import { _SuggestedProduct } from '@type/APIs/productDetail.res';
-import Image from 'appComponents/reusables/Image';
-import Price from 'appComponents/reusables/Price';
+import Image from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import Link from 'next/link';
 import React from 'react';
 

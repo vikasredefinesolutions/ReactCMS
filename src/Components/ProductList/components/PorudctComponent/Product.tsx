@@ -1,13 +1,13 @@
 import config from 'api.config';
-import ImageComponent from 'appComponents/reusables/Image';
-import Price from 'appComponents/reusables/Price';
+import ImageComponent from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import Wishlist from 'appComponents/ui/Wishlist';
 import { GetlAllProductList } from 'definations/productList.type';
 import { getCompareLink } from 'helpers/compare.helper';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import ProductBoxController from './ProductBox.controller';
-// import Price from '../reusables/Price';
+// import Price from 'appComponents/reUsable/Price';
 // import Wishlist from '../ui/Wishlist';
 
 const ProductComponent = ({
@@ -34,6 +34,12 @@ const ProductComponent = ({
     setCurrentProduct(product.getProductImageOptionList[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
+
+  if (!currentProduct) {
+    console.log('currentProduct not found', currentProduct);
+    return <></>;
+  }
+
   // console.log(product);
   return (
     <li className="text-center flex">
@@ -140,10 +146,11 @@ const ProductComponent = ({
                   {product.getProductImageOptionList.map((subRow, index) =>
                     index < 6 ? (
                       <li
-                        className={`w-7 h-7 border-2${subRow.id === currentProduct.id
+                        className={`w-7 h-7 border-2${
+                          subRow.id === currentProduct.id
                             ? ' border-secondary'
                             : ''
-                          }`}
+                        }`}
                         onClick={() => {
                           colorChangeHandler(
                             product.id,

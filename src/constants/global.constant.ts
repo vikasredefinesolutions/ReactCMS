@@ -21,4 +21,5 @@ export enum __Error {
 export const __LocalStorage = {
   recetlyViewedProducts: '_rcvwp',
   compareProducts: '_cmpPdts',
+  tempCustomerId: 'tempCustomerId',
 };

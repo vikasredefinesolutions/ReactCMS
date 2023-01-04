@@ -38,6 +38,7 @@
   },
   "plugins": ["react", "import", "@typescript-eslint"],
   "rules": {
+   "@next/next/no-html-link-for-pages": "off",
     "import/named": "off",
     "react/no-unescaped-entities": 0,
     "import/no-unresolved": 0,
