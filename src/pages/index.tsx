@@ -3,10 +3,12 @@ import {
   _SlugServerSide_WentWrong,
   _TopicHomeProps,
 } from '@type/slug.type';
+import PageNotFound from 'appComponents/reUsable/404';
 import SeoHead from 'appComponents/reUsable/SeoHead';
 import { getServerSideProps } from 'Components/Slug/getServerSideProps';
+import { cLog } from 'helpers/global.console';
 import { NextPage } from 'next';
-import Home from 'pages/Home';
+import Home from 'pages/home';
 
 const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
   props,
@@ -16,42 +18,44 @@ const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     return <>{error}</>;
   }
 
-  const { pageMetaData, page } = props;
+  const { pageMetaData, page, _store } = props;
 
-  if (page === null) {
-    return <>No page data found</>;
+  if (!_store || !pageMetaData || !page) {
+    cLog('No page data found', '404');
+    return <PageNotFound />;
   }
 
-  if (pageMetaData.type === '404') {
+  if (pageMetaData?.type === '404') {
+    cLog('404', '404');
     return (
       <>
         <SeoHead
-          title={pageMetaData.meta_title || '404: No Page found'}
-          description={pageMetaData.meta_description || ''}
-          keywords={pageMetaData.meta_keywords || 'Branded Promotional'}
+          title={pageMetaData?.meta_title || '404: No Page found'}
+          description={pageMetaData?.meta_description || ''}
+          keywords={pageMetaData?.meta_keywords || 'Branded Promotional'}
         />
-        <h3>404: No page found</h3>
+        <PageNotFound />
       </>
     );
   }
 
-  if (pageMetaData.type === 'topic') {
+  if (pageMetaData?.type === 'topic') {
     const tprops: _TopicHomeProps = {
       pageData: page.topicHome,
-      pageType: pageMetaData.type,
-      slug: pageMetaData.slug,
+      pageType: pageMetaData?.type,
+      slug: pageMetaData?.slug,
     };
 
     return (
       <>
         <SeoHead
-          title={pageMetaData?.meta_title ? pageMetaData.meta_title : 'Home'}
+          title={pageMetaData?.meta_title ? pageMetaData?.meta_title : 'Home'}
           description={
-            pageMetaData?.meta_description ? pageMetaData.meta_description : ''
+            pageMetaData?.meta_description ? pageMetaData?.meta_description : ''
           }
           keywords={
             pageMetaData?.meta_keywords
-              ? pageMetaData.meta_keywords
+              ? pageMetaData?.meta_keywords
               : 'Branded Promotional'
           }
         />
@@ -73,7 +77,8 @@ const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
         description={''}
         keywords={'Branded Promotional'}
       />
-      If no matchess found what to show
+      {cLog('No match found', '404')}
+      <PageNotFound />
     </>
   );
 };

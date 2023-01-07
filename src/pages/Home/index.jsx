@@ -90,12 +90,12 @@ const Home = (props) => {
     <>
       <>{storeTypeId} - dummy text</>
       <div className="">
-        {/*{featuredItems?.products && (
+        {featuredItems?.products && (
           <FeaturedItems
             brands={__constant._Home.featuredItems.brands}
             products={featuredItems.products}
           />
-        )}*/}
+        )}
         <main>
           {pageData?.components && pageData?.components.length > 0 ? (
             pageData.components.map((componentValue, index) => {

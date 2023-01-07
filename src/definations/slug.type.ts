@@ -39,7 +39,7 @@ export interface _StoreCache {
 
 export interface _SlugServerSideProps {
   _store: _StoreCache | null;
-  pageMetaData: _GetPageType;
+  pageMetaData: _GetPageType | null;
   page: {
     productDetails: _ProductDetailsProps | null;
     productListing: _ProductListProps | null;

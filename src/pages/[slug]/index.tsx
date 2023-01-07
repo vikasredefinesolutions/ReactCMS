@@ -3,10 +3,12 @@ import {
   _SlugServerSide_WentWrong,
   _TopicHomeProps,
 } from '@type/slug.type';
+import PageNotFound from 'appComponents/reUsable/404';
 import SeoHead from 'appComponents/reUsable/SeoHead';
 import { getServerSideProps } from 'Components/Slug/getServerSideProps';
+import { cLog } from 'helpers/global.console';
 import { NextPage } from 'next';
-import Home from 'pages/Home';
+import Home from 'pages/home';
 import Redefine_ProductDetails from 'Templates/Redefine_ProductDetail';
 import Redefine_ProductList from 'Templates/Redefine_ProductList';
 
@@ -20,11 +22,13 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
 
   const { page, pageMetaData, _store } = props;
 
-  if (page === null) {
-    return <>If no page data is found</>;
+  if (!_store || !pageMetaData || !page) {
+    cLog('No page data found', '404');
+    return <PageNotFound />;
   }
 
-  if (pageMetaData.type === '404') {
+  if (pageMetaData?.type === '404') {
+    cLog('404', '404');
     return (
       <>
         <SeoHead
@@ -32,12 +36,12 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
           description={pageMetaData.meta_description || ''}
           keywords={pageMetaData.meta_keywords || 'Branded Promotional'}
         />
-        <h3>404: No page found</h3>
+        <PageNotFound />
       </>
     );
   }
 
-  if (pageMetaData.type === 'collection') {
+  if (pageMetaData?.type === 'collection') {
     return (
       <>
         <SeoHead
@@ -49,10 +53,12 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
       </>
     );
   }
-  if (pageMetaData.type === 'product' && page.productDetails && _store) {
+
+  if (pageMetaData?.type === 'product' && page.productDetails && _store) {
     return <Redefine_ProductDetails {...page.productDetails} {..._store} />;
   }
-  if (pageMetaData.type === 'topic') {
+
+  if (pageMetaData?.type === 'topic') {
     const tprops: _TopicHomeProps = {
       pageData: page.topicHome,
       pageType: pageMetaData.type,
@@ -82,7 +88,8 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
       </>
     );
   }
-  if ('brand,category'.includes(pageMetaData.type)) {
+
+  if ('brand,category'.includes(pageMetaData?.type)) {
     const listing = page.productListing;
     return (
       <>
@@ -102,6 +109,7 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
       </>
     );
   }
+
   return (
     <>
       <SeoHead
@@ -109,7 +117,8 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
         description={''}
         keywords={'Branded Promotional'}
       />
-      If no matchess found what to show
+      {cLog('No match found', '404')}
+      <PageNotFound />
     </>
   );
 };

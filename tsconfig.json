@@ -22,6 +22,11 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/ProductList/components/PorudctComponent"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages/ProductList/components/PorudctComponent"
+  ],
   "exclude": ["node_modules"]
 }

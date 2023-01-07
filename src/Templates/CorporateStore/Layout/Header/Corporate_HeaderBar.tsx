@@ -1,5 +1,5 @@
-import { Corporate_LoginIcon } from './Icons.tsx/Corporate_LoginIcon';
-import Corporate_MyCartIcon from './Icons.tsx/Corporate_MyCartIcon';
+import { Corporate_LoginIcon } from './Icons/Corporate_LoginIcon';
+import Corporate_MyCartIcon from './Icons/Corporate_MyCartIcon';
 
 export const Bacardi_HeaderBar = () => {
   return (

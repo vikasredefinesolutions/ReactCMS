@@ -306,7 +306,7 @@ const CheckoutController = () => {
         );
         setShowEmail(false);
         setEmail(value.email);
-        if (response?.isAlreadyExitsCustomer) {
+        if (response?.isCustomerExist) {
           setShowPassword(true);
         } else {
           setShowAddAccount(true);

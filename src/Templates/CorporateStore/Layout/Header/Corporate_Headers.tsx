@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Link from 'next/link';
 import React from 'react';
 import { Bacardi_HeaderBar } from './Corporate_HeaderBar';

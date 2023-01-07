@@ -1,3 +1,4 @@
+import { paths } from '@constants/paths.constant';
 import { _StoreReturnType } from '@type/store.type';
 import Image from 'appComponents/reUsable/Image';
 import ProductAlike from 'Components/ProductDetails/ProductAlike';
@@ -10,9 +11,8 @@ import {
   _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
-import { Redirect } from 'Guard/AuthGuard';
 import { conditionalLogV2, __console } from 'helpers/global.console';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { _globalStore } from 'store.global';
@@ -122,7 +122,7 @@ interface _RequestConsultationProps {
 
 export const getServerSideProps: GetServerSideProps = async (
   context,
-): Promise<{ props: _RequestConsultationProps }> => {
+): Promise<GetServerSidePropsResult<_RequestConsultationProps>> => {
   const responseBody = context.res;
   let expectedProps: _ExpectedRequestConsultationProps = {
     store: {
@@ -169,16 +169,12 @@ export const getServerSideProps: GetServerSideProps = async (
             expectedProps.store.isAttributeSaparateProduct,
         });
         if (product.details === null || product.details.id === null) {
-          Redirect({
-            res: responseBody,
-            to: product.details?.productDoNotExist?.retrunUrlOrCategorySename,
-          });
           return {
-            props: {
-              details: null,
-              color: null,
-              alike: null,
-              seo: null,
+            redirect: {
+              destination:
+                product.details?.productDoNotExist?.retrunUrlOrCategorySename ||
+                paths.NOT_FOUND,
+              permanent: true,
             },
           };
         }

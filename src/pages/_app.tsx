@@ -116,7 +116,7 @@ RedefineCustomApp.getInitialProps = async (
   const res = context.ctx.res;
   const pathName = context.ctx.pathname;
   const currentPath = context.ctx.asPath;
-  let alreadyAPIsCalledOnce = false;
+  let APIsCalledOnce = false;
   const expectedProps: _Expected_AppProps = {
     store: {
       storeId: null,
@@ -139,7 +139,7 @@ RedefineCustomApp.getInitialProps = async (
   const cookies = extractCookies(context.ctx.req?.headers.cookie);
 
   if (cookies.storeInfo?.storeId) {
-    alreadyAPIsCalledOnce = true;
+    APIsCalledOnce = true;
     expectedProps.store.storeId = cookies.storeInfo.storeId;
     expectedProps.store.isAttributeSaparateProduct =
       cookies.storeInfo.isAttributeSaparateProduct;
@@ -148,12 +148,17 @@ RedefineCustomApp.getInitialProps = async (
   }
 
   if (res && currentPath) {
-    AuthGuard({
+    const currentPage = AuthGuard({
       path: currentPath,
-      res,
-      ctx,
       loggedIn: cookies.loggedIN,
     });
+
+    if (currentPage.access === false) {
+      res.writeHead(302, {
+        Location: currentPage.redirectTo,
+      });
+      res.end();
+    }
   }
 
   const domain = domainToShow({
@@ -162,13 +167,11 @@ RedefineCustomApp.getInitialProps = async (
   });
 
   try {
-    if (!alreadyAPIsCalledOnce) {
-      if (expectedProps.store.storeId === null) {
-        expectedProps.store = await _AppController.fetchStoreDetails(
-          domain,
-          pathName,
-        );
-      }
+    if (APIsCalledOnce === false) {
+      expectedProps.store = await _AppController.fetchStoreDetails(
+        domain,
+        pathName,
+      );
 
       if (expectedProps.store?.storeId) {
         expectedProps.configs.header = await FetchThemeConfigs({

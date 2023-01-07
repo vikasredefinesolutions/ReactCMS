@@ -30,7 +30,7 @@ export const __console: __Console = {
     serverMethod: false,
     page: false,
     service: {
-      FetchThemeConfigs: false,
+      FetchThemeConfigs: true,
       GetStoreID: true,
     },
   },

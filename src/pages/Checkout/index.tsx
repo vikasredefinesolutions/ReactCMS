@@ -7,12 +7,12 @@ import SeoHead from 'appComponents/reUsable/SeoHead';
 import AddressForm from 'appComponents/ui/AddressForm';
 import { CheckoutPage as seoDetails } from 'constants/seo.constant';
 import { Formik, FormikProps } from 'formik';
-import { Redirect } from 'Guard/AuthGuard';
+import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
 import Link from 'next/link';
 import { createRef, useState } from 'react';
 import CheckoutController from '../../Components/Checkout/CheckoutController';
 import AddressPopupLayout1 from '../../Components/Checkout/components/AdressPopup/AdressPopupLayout1';
-const Checkout = (props: { cartDetails: CartProducts | null }) => {
+const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
   const {
     creditCardType,
     setShowForgetPassword,
@@ -879,10 +879,10 @@ const Checkout = (props: { cartDetails: CartProducts | null }) => {
   );
 };
 
-export const getServerSideProps = (context: {
+export const getServerSideProps: GetServerSideProps = (context: {
   req: { cookies: { userId?: string | null } };
   res: any;
-}) => {
+}): Promise<GetServerSidePropsResult<any>> => {
   const userId = context.req.cookies?.userId;
   let check = true;
   let cart = null;
@@ -894,13 +894,17 @@ export const getServerSideProps = (context: {
   }
 
   if (check) {
-    Redirect({
-      res: context.res,
-      to: '/cart',
-    });
+    return {
+      // @ts-ignore: Unreachable code error
+      redirect: {
+        destination: '/cart',
+        permanent: true,
+      },
+    };
   }
 
   return {
+    // @ts-ignore: Unreachable code error
     props: {
       cartDetails: cart,
     },

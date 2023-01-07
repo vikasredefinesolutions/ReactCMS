@@ -22,7 +22,6 @@ import {
 } from '@type/slug.type';
 import * as HomeController from 'Controllers/HomeController.async';
 import { getProductDetailProps } from 'Controllers/ProductController.async';
-import { Redirect } from 'Guard/AuthGuard';
 
 import { extractSlugName } from 'helpers/common.helper';
 import {
@@ -30,7 +29,7 @@ import {
   highLightError,
   __console,
 } from 'helpers/global.console';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetServerSidePropsResult } from 'next';
 import { __constant } from 'page.config';
 import { _globalStore } from 'store.global';
 
@@ -38,7 +37,7 @@ export interface _ExpectedSlugProps {
   store: {
     storeId: null | number;
     isAttributeSaparateProduct: boolean;
-    storeCode: string;
+    storeCode: null | string;
     storeTypeId: null | number;
   };
   pageMetaData: _GetPageType | null;
@@ -57,7 +56,7 @@ export interface _ExpectedSlugProps {
 const _expectedSlugProps: _ExpectedSlugProps = {
   store: {
     storeId: null,
-    storeCode: '',
+    storeCode: null,
     storeTypeId: null,
     isAttributeSaparateProduct: false,
   },
@@ -76,8 +75,9 @@ const _expectedSlugProps: _ExpectedSlugProps = {
 
 export const getServerSideProps: GetServerSideProps = async (
   context,
-): Promise<{ props: _SlugServerSideProps | _SlugServerSide_WentWrong }> => {
-  const responseBody = context.res;
+): Promise<
+  GetServerSidePropsResult<_SlugServerSideProps | _SlugServerSide_WentWrong>
+> => {
   const { slug, slugID } = extractSlugName(context.params);
   let { store, pageMetaData, page } = _expectedSlugProps;
   // ---------------------------------------------------------------
@@ -151,17 +151,21 @@ export const getServerSideProps: GetServerSideProps = async (
         productDetails.details === null ||
         productDetails.details.id === null
       ) {
-        Redirect({
-          res: responseBody,
-          to:
-            productDetails.details?.productDoNotExist
-              ?.retrunUrlOrCategorySename || paths.HOME,
+        conditionalLogV2({
+          data: productDetails,
+          show: __console.allCatch,
+          type: 'CATCH',
+          name: `Slug: ${
+            productDetails.details?.productDoNotExist?.info ||
+            'Product not found'
+          }`,
         });
         return {
-          props: {
-            _store: null,
-            pageMetaData: pageMetaData,
-            page: null,
+          redirect: {
+            destination:
+              productDetails.details?.productDoNotExist
+                ?.retrunUrlOrCategorySename || paths.NOT_FOUND,
+            permanent: true,
           },
         };
       }
@@ -252,6 +256,13 @@ export const getServerSideProps: GetServerSideProps = async (
       name: 'Slug: getServerSideProps - Something went wrong',
     });
   }
+
+  if (!store.storeCode || !store.storeTypeId || !pageMetaData || !page) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       _store: {
