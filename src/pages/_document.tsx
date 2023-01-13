@@ -7,7 +7,7 @@ import Document, {
   NextScript
 } from 'next/document';
 import { _globalStore } from 'store.global';
-import '../../styles/output.css'; 
+
 let storeId: null | number = null;
 
 class MyDocument extends Document {
@@ -44,6 +44,12 @@ class MyDocument extends Document {
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
           />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href={`../../styles/output.css`}
+          />
+
           <link
             rel="stylesheet"
             type="text/css"
