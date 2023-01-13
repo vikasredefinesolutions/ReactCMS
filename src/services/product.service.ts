@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { CategoriesByPid } from '@type/APIs/category.res';
 import { LogoList } from '@type/APIs/logo.res';
 import { _BrandSEO } from '@type/slug.type';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -126,7 +127,6 @@ export const FetchSizeChartById = async (
   payload: number,
 ): Promise<_SizeChartTransformed | null> => {
   const url = `StoreProduct/getsizechartbyproductid/${payload}.json`;
-
   const response = await CallAPI<_SizeChart>({
     name: {
       service: 'productDetails',
@@ -137,6 +137,12 @@ export const FetchSizeChartById = async (
       method: 'GET',
     },
   });
+
+  // const response = await SendAsyncV2<_SizeChart>({
+  //e   url: url,
+  //   mthod: 'GET',
+  //   data: payload,
+  // });
 
   if (response !== null) {
     const sizeChart: [{ [key: string]: string }] = JSON.parse(
@@ -149,7 +155,6 @@ export const FetchSizeChartById = async (
       sizeChartView: sizeChart[0],
       measurements: response.measurements.split(','),
     };
-
     return transformedData;
   }
 
@@ -386,6 +391,32 @@ export const getLogoPositionList = async (
 ): Promise<LogoList> => {
   const url = `/StoreProduct/getproductlogolocationdetails/${customerId}.json`;
   const res = await SendAsyncV2<LogoList>({
+    url,
+    method: 'GET',
+  });
+
+  return res.data;
+};
+
+export const fetchCategoryByproductId = async (
+  productId: number,
+  storeId: number,
+): Promise<CategoriesByPid> => {
+  const url = `/Category/getcategorysbyproductid/${storeId}/${productId}.json`;
+  const res = await SendAsyncV2<CategoriesByPid>({
+    url,
+    method: 'GET',
+  });
+
+  return res.data;
+};
+
+export const fetchCategoryByCategoryId = async (
+  catId: number,
+  storeId: number,
+): Promise<CategoriesByPid> => {
+  const url = `/Category/getcategorypathbycategoryid/${storeId}/${catId}.json`;
+  const res = await SendAsyncV2<CategoriesByPid>({
     url,
     method: 'GET',
   });

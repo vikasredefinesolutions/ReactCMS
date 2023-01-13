@@ -14,6 +14,7 @@ const MinimumQuantity: React.FC<_props & { storeCode: string }> = ({
     (state) => state.product.selected.color,
   );
   const unitUnits = minQuantity > 1 ? 'units' : 'unit';
+  const showMinQuantity = minQuantity > 1;
   const [showMsg, setShowMsg] = useState(false);
 
   if (storeCode === _Store.type1) {
@@ -23,24 +24,28 @@ const MinimumQuantity: React.FC<_props & { storeCode: string }> = ({
           <span className="text-lg font-semibold text-white">
             {pricingLabel}:
           </span>
-          <button
-            onClick={() => setShowMsg((show) => !show)}
-            className="text-white py-1 md:px-2 flex flex-wrap text-sm font-semibold uppercase items-center"
-            id="aMinOrder"
-          >
-            <span>MINIMUM ORDER :</span>
-            {`${minQuantity} ${unitUnits} per color`}
-          </button>
-          {showMsg && (
-            <div className="text-xs p-3 pb-0" id="divMinorder">
-              <p>
-                We reserve the right to reject orders that do not meet the{' '}
-                {minQuantity}
-                piece minimum per style <br /> and color, exceptions may apply
-                for men’s and women’s companion styles per color.
-              </p>
-            </div>
-          )}
+          {showMinQuantity ? (
+            <>
+              <button
+                onClick={() => setShowMsg((show) => !show)}
+                className="text-white py-1 md:px-2 flex flex-wrap text-sm font-semibold uppercase items-center"
+                id="aMinOrder"
+              >
+                <span>MINIMUM ORDER :</span>
+                {`${minQuantity} ${unitUnits} per color`}
+              </button>
+              {showMsg && (
+                <div className="text-xs p-3 pb-0" id="divMinorder">
+                  <p>
+                    We reserve the right to reject orders that do not meet the{' '}
+                    {minQuantity}
+                    piece minimum per style <br /> and color, exceptions may
+                    apply for men’s and women’s companion styles per color.
+                  </p>
+                </div>
+              )}
+            </>
+          ) : null}
         </div>
       </>
     );
@@ -56,8 +61,8 @@ const MinimumQuantity: React.FC<_props & { storeCode: string }> = ({
               // :className="open == true ? '':' rounded-b-lg'"
               onClick={() => setShowMsg((show) => !show)}
             >
-              {!showMsg && <span className="material-icons-outlined">+</span>}
-              {showMsg && <span className="material-icons-outlined">-</span>}
+              {!showMsg && <span className="material-icons-outlined">add</span>}
+              {showMsg && <span className="material-icons-outlined">remove</span>}
               <div className="text-md text-black">
                 <strong>MINIMUM ORDER QUANTITY:</strong>
                 <span className="font-normal">
@@ -87,7 +92,10 @@ const MinimumQuantity: React.FC<_props & { storeCode: string }> = ({
           className="flex items-center gap-1"
           onClick={() => setShowMsg((show) => !show)}
         >
-          <span className="material-icons-outlined text-xl"></span>
+          {
+          showMsg ? <span className="material-icons-outlined text-xl">remove</span> :
+          <span className="material-icons-outlined text-xl">add</span>
+          }
           <span className="font-bold inline-block">
             MINIMUM ORDER QUANTITY :
           </span>

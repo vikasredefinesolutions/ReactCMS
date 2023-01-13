@@ -31,7 +31,7 @@ export interface _RedesignStore {
 const initialState: _RedesignStore = {
   id: null,
   isAttributeSaparateProduct: false,
-  layout: 'cg',
+  layout: null,
   storeTypeId: 2,
   display: showComponents,
   pathName: '',
@@ -95,6 +95,10 @@ export const storeSlice = createSlice({
       },
     ) => {
       state.view = action.payload;
+    },
+
+    updatePageType: (state, { payload }) => {
+      state.pageType = payload;
     },
   },
   extraReducers: (builder) => {

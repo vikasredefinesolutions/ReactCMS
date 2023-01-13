@@ -44,13 +44,31 @@ export const deleteItemCart = async (cartItemId: number) => {
   return res;
 };
 
+interface _CheckCustomerAlreadyExist {
+  id: number;
+  isCustomerExist: boolean;
+  isGuestCustomer: boolean;
+}
+
+export const updateCartByNewUserId = async (
+  oldCustomerId: number,
+  newCustomerId: number,
+) => {
+  const url = `/Store/MoveRegisterCart/${newCustomerId}/${oldCustomerId}.json`;
+  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+    url: url,
+    method: 'GET',
+  });
+  return res;
+};
+
 export const checkCustomerAlreadyExist = async (
   email: string,
   storeId: number,
-) => {
+): Promise<_CheckCustomerAlreadyExist | null> => {
   try {
     const url = `/StoreCustomer/checkstorecustomerguest.json`;
-    const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+    const res = await SendAsyncV2<_CheckCustomerAlreadyExist | null>({
       url: url,
       method: 'POST',
       data: {

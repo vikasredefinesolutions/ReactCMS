@@ -5,6 +5,10 @@ import React, { useEffect, useState } from 'react';
 import RedefineFwInput from 'Components/SignUp/RedefineFwInput';
 import RedefineInput from 'Components/SignUp/RedefineInput';
 import RedefineSelect from 'Components/SignUp/RedefineSelect';
+import {
+  signup_payload,
+  _Signup_Payload,
+} from 'Components/SignUp/signup.payload';
 import { paths, queryParam } from 'constants/paths.constant';
 import { signupPageMessages } from 'constants/validationMessages';
 import { _SignUpPayload } from 'definations/APIs/signUp.req';
@@ -24,6 +28,7 @@ import * as Yup from 'yup';
 const _SignupSchema = Yup.object().shape({
   firstname: Yup.string().required(signupPageMessages.firstname.required),
   lastName: Yup.string().required(signupPageMessages.lastName.required),
+  companyName: Yup.string().required(signupPageMessages.companyName.required),
   companyId: Yup.string().when('showIndustries', {
     is: true,
     then: Yup.string().required(signupPageMessages.companyId.required),
@@ -66,54 +71,6 @@ const _SignupSchema = Yup.object().shape({
     .min(1),
 });
 
-const _SignUpInitials = {
-  showIndustries: false,
-  id: 0,
-  details: '',
-  rowVersion: '',
-  location: '',
-  ipAddress: '',
-  macAddress: '',
-  firstname: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  companyName: '',
-  companyId: 0,
-  sharedCustomerId: 0,
-  customerType: '',
-  storeId: 0,
-  isTaxableuser: false,
-  storeCustomerAddress: [
-    {
-      id: 0,
-      rowVersion: '',
-      location: '',
-      ipAddress: '',
-      macAddress: '',
-      customerId: 0,
-      firstname: '',
-      lastName: '',
-      email: '',
-      address1: '',
-      address2: '',
-      suite: '',
-      city: '',
-      state: '',
-      postalCode: '',
-      phone: '',
-      fax: '',
-      countryName: '',
-      countryCode: '',
-      addressType: '',
-      isDefault: false,
-      recStatus: 'A',
-    },
-  ],
-  recStatus: 'A',
-};
-
 const SignUp: NextPage = () => {
   const router = useRouter();
   const [stateContries, setStateContries] = useState<{
@@ -133,8 +90,8 @@ const SignUp: NextPage = () => {
 
   /* ------------------------------- FUNCTIONS ------------------------------  */
   const loginSubmitHandler = async (
-    enteredInputs: typeof _SignUpInitials,
-    // actions: FormikHelpers<typeof _SignUpInitials>,
+    enteredInputs: _Signup_Payload,
+    // actions: FormikHelpers<typeof signup_payload>,
   ) => {
     const location = await getLocation();
 
@@ -188,11 +145,24 @@ const SignUp: NextPage = () => {
   const CreateMyAccountForm = (
     <Formik
       initialValues={{
-        ..._SignUpInitials,
+        ...signup_payload,
+        storeCustomerAddress: [
+          {
+            ...signup_payload.storeCustomerAddress[0],
+            state: stateContries.state ? stateContries.state[0].name : '',
+            countryCode: stateContries.country
+              ? stateContries.country[0].name
+              : '',
+            countryName: stateContries.country
+              ? stateContries.country[0].name
+              : '',
+          },
+        ],
         showIndustries: storeLayout === _Store.type3,
       }}
       onSubmit={loginSubmitHandler}
       validationSchema={_SignupSchema}
+      enableReinitialize
     >
       {({ values, handleChange, setFieldValue }) => {
         return (
@@ -349,12 +319,12 @@ const SignUp: NextPage = () => {
                     name={'storeCustomerAddress[0].state'}
                     value={values.storeCustomerAddress[0].state}
                     options={stateContries.state}
-                    onChange={(event) =>
+                    onChange={(event) => {
                       setFieldValue(
                         'storeCustomerAddress[0].state',
                         +event.target.value,
-                      )
-                    }
+                      );
+                    }}
                     required={false}
                   />
                 )}
@@ -388,7 +358,7 @@ const SignUp: NextPage = () => {
 
   if (storeLayout === _Store.type2) {
     if (display === undefined) {
-      router.push('/home');
+      router.push(paths.HOME);
     }
     return (
       <>
@@ -396,7 +366,7 @@ const SignUp: NextPage = () => {
           <section className="container mx-auto mt-8 mb-8">
             <div className="">
               <Formik
-                initialValues={_SignUpInitials}
+                initialValues={signup_payload}
                 onSubmit={loginSubmitHandler}
               >
                 {({ values, handleChange }) => {

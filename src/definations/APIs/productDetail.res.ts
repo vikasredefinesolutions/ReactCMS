@@ -51,7 +51,7 @@ export interface _ProductDetails {
   salePrice: number;
   companionProductId: number | null;
   companionProductName: string | null;
-  companionProductLink: string | null;
+  companionProductSEName: string | null;
   companionProductImage: string | null;
   sku: string;
   brandID: number | null;

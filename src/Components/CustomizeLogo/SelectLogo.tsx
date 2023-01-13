@@ -70,15 +70,15 @@ const SelectLogo: React.FC<_props> = ({ setNextStep }) => {
 
   return (
     <>
-      <div className="p-4">
-        <div className="text-lg md:text-xl lg:text-small-title font-small-title text-color-small-title mb-2">
+      <div className='p-4'>
+        <div className='text-lg md:text-xl lg:text-small-title font-small-title text-color-small-title mb-2'>
           2. Select a Logo{' '}
           {showError && (
-            <span className="text-rose-600">{`(Please Select Logo)`}</span>
+            <span className='text-rose-600'>{`(Please Select Logo)`}</span>
           )}
         </div>
-        <div className="max-w-5xl">
-          <ul className="flex flex-wrap gap-y-6 -mx-3" x-data="{selected : 0}">
+        <div className='max-w-5xl'>
+          <ul className='flex flex-wrap gap-y-6 -mx-3' x-data='{selected : 0}'>
             {preLogos.map((logo, index) => {
               return (
                 <LogoContainer
@@ -98,28 +98,28 @@ const SelectLogo: React.FC<_props> = ({ setNextStep }) => {
                 />
               );
             })}
-            <li className="w-full sm:w-1/2 lg:w-1/4 text-center px-3 flex">
+            <li className='w-full sm:w-1/2 lg:w-1/4 text-center px-3 flex'>
               <div
-                className="border-2 hover:border-primary p-3 w-full text-ceter border-gray-200"
+                className='border-2 hover:border-primary p-3 w-full text-ceter border-gray-200'
                 onClick={() => setOpenModal(true)}
               >
-                <div className="">
-                  <img className="inline-block" src={icons.addNewLogo} alt="" />
+                <div className=''>
+                  <img className='inline-block' src={icons.addNewLogo} alt='' />
                 </div>
               </div>
             </li>
           </ul>
         </div>
-        <div className="mt-3">
+        <div className='mt-3'>
           <button
             onClick={() => actionHandler('apply')}
-            className="btn btn-primary"
+            className='btn btn-primary'
           >
             APPLY LOGO
           </button>
           <button
             onClick={() => actionHandler('cancel')}
-            className="btn btn-primary"
+            className='btn btn-primary'
           >
             CANCEL
           </button>

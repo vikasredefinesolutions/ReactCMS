@@ -1,14 +1,18 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import {
   _SlugServerSideProps,
   _SlugServerSide_WentWrong,
-  _TopicHomeProps,
+  _TopicHomeProps
 } from '@type/slug.type';
 import PageNotFound from 'appComponents/reUsable/404';
 import SeoHead from 'appComponents/reUsable/SeoHead';
 import { getServerSideProps } from 'Components/Slug/getServerSideProps';
 import { cLog } from 'helpers/global.console';
+import { useActions, useTypedSelector } from 'hooks';
+import _ from 'lodash';
 import { NextPage } from 'next';
-import Home from 'pages/Home';
+import Home from 'pages/home';
+import { useEffect } from 'react';
 import Redefine_ProductDetails from 'Templates/Redefine_ProductDetail';
 import Redefine_ProductList from 'Templates/Redefine_ProductList';
 
@@ -19,16 +23,21 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     const { error } = props;
     return <>{error}</>;
   }
-
+  const { updatePageType } = useActions()
   const { page, pageMetaData, _store } = props;
+  const { layout: storeLayout } = useTypedSelector((state) => state.store);
+  useEffect(() => {
+    if (!_.isEmpty(pageMetaData)) {
+      updatePageType(pageMetaData);
+    }
+  }, [pageMetaData])
+
 
   if (!_store || !pageMetaData || !page) {
     cLog('No page data found', '404');
     return <PageNotFound />;
   }
-
-  if (pageMetaData?.type === '404') {
-    cLog('404', '404');
+  if (pageMetaData.type === '404') {
     return (
       <>
         <SeoHead
@@ -40,6 +49,8 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
       </>
     );
   }
+
+
 
   if (pageMetaData?.type === 'collection') {
     return (
@@ -55,7 +66,18 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
   }
 
   if (pageMetaData?.type === 'product' && page.productDetails && _store) {
-    return <Redefine_ProductDetails {...page.productDetails} {..._store} />;
+    let storeCode = _store.storeCode;
+    if (storeLayout !== null) {
+      storeCode = storeLayout;
+    }
+
+    return (
+      <Redefine_ProductDetails
+        {...page.productDetails}
+        storeCode={storeCode}
+        storeTypeId={_store.storeTypeId}
+      />
+    );
   }
 
   if (pageMetaData?.type === 'topic') {

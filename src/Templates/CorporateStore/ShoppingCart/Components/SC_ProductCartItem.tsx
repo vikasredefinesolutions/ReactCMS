@@ -5,13 +5,15 @@ import Price from 'appComponents/reUsable/Price';
 import { useActions } from 'hooks';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { _InCart_Item_model } from 'redux/slices/slices';
+import { _InCart_Product_model } from 'redux/slices/_slices';
 import {
   SC_SizeQtyPriceRow_withEdit_n_RemoveButton,
   SC_SizeQtyPriceTable,
 } from './SC_SizeQtyPrice';
 
-export const SC_CartItem_withPersonalization: React.FC<_CartItem> = (item) => {
+export const SC_ProductCartItem_withPersonalization: React.FC<_CartItem> = (
+  item,
+) => {
   return (
     <li className="border-b border-b-gray-300">
       <div className="flex flex-wrap py-5 -mx-3">
@@ -57,10 +59,10 @@ export const SC_CartItem_withPersonalization: React.FC<_CartItem> = (item) => {
   );
 };
 
-export const SC_CartItem_withoutPersonalization: React.FC<
-  _InCart_Item_model
+export const SC_ProductCartItem_withoutPersonalization: React.FC<
+  _InCart_Product_model
 > = (item) => {
-  const { cart_update } = useActions();
+  const { cart_update_item } = useActions();
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const removeItemHandler = ({
@@ -70,9 +72,10 @@ export const SC_CartItem_withoutPersonalization: React.FC<
     productId: number;
     colorId: number;
   }) => {
-    cart_update({
+    cart_update_item({
       type: 'remove_item',
       data: {
+        itemType: 'product',
         productId,
         colorId,
       },
@@ -105,12 +108,7 @@ export const SC_CartItem_withoutPersonalization: React.FC<
     <li className="flex flex-wrap py-5 -mx-3">
       <div className="w-full lg:w-1/4 px-3">
         <Link href={item?.seName} title="">
-          {/* <Image
-            src={item?.colorImageURL}
-            alt={item?.productName}
-            className=""
-          /> */}
-          sdf
+          <Image src={item?.colorImageURL} alt={item?.name} className="" />
         </Link>
       </div>
 
@@ -120,7 +118,7 @@ export const SC_CartItem_withoutPersonalization: React.FC<
             href={item?.seName}
             className="text-black hover:text-anchor-hover"
           >
-            {item?.productName}
+            {item?.name}
           </Link>
         </div>
         <div className="w-full flex flex-wrap">
@@ -139,7 +137,7 @@ export const SC_CartItem_withoutPersonalization: React.FC<
             <SC_SizeQtyPriceTable
               details={item?.attributes}
               toRemove={{
-                productName: item.productName,
+                productName: item.name,
                 productId: item.productId,
                 colorId: item.colorId,
               }}
@@ -149,7 +147,7 @@ export const SC_CartItem_withoutPersonalization: React.FC<
             <div className="bold text-xl text-right">
               <span className="">
                 Item Total:
-                <Price value={item?.productTotalPrice} />
+                <Price value={item?.itemTotalPrice} />
               </span>
             </div>
             <div className="mt-3 lg:ml-10">
@@ -166,7 +164,7 @@ export const SC_CartItem_withoutPersonalization: React.FC<
       {showAlert ? (
         <MsgContainer
           modalHandler={() => toggleConfirmationMsg('HIDE')}
-          message={item.productName}
+          message={item.name}
           confirmButton={() => toggleConfirmationMsg('CONFIRM')}
           title={'Are you sure want to remove?'}
         />

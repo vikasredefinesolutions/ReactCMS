@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 const LoginIcon: React.FC = () => {
   const [showModal, setShowModal] = useState<null | _modals>(null);
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const { id: loggedIn } = useTypedSelector((state) => state.user);
 
   const toggleLoginModal = () => {
     if (showModal) {
@@ -17,9 +18,11 @@ const LoginIcon: React.FC = () => {
     setShowModal('login');
   };
 
+  if (loggedIn) return <></>;
+
   if (storeLayout === _Store.type3) {
     return (
-      <div className="flex relative" x-data="{ open : false }">
+      <div className="flex relative">
         <button
           onClick={toggleLoginModal}
           className="text-gray-600 hover:text-primary flex items-center gap-1"
@@ -42,38 +45,7 @@ const LoginIcon: React.FC = () => {
             ></path>
           </svg>
         </button>
-        {/* <div
-          className="absolute right-0 top-full border-2 border-black bg-white z-40 w-52"
-          style={{ display: 'none' }}
-        >
-          <ul className="">
-            <li className="border-t border-t-gray-300">
-              <Link href={} className="flex p-2 gap-1">
-                <span className="material-icons-outlined">shopping_cart</span>{' '}
-                <span className="">Order</span>
-              </Link>
-            </li>
-            <li className="border-t border-t-gray-300">
-              <a href="customer-custom-logo.html" className="flex p-2 gap-1">
-                <span className="material-icons-outlined">design_services</span>{' '}
-                <span className="">Manage Logo</span>
-              </a>
-            </li>
-            <li className="border-t border-t-gray-300">
-              <a href="my-account.html" className="flex p-2 gap-1">
-                <span className="material-icons-outlined">construction</span>{' '}
-                <span className="">Account Settings</span>
-              </a>
-            </li> */}
-        {/* <!-- <li className="border-t border-t-gray-300"><a href="/" className="flex p-2 gap-1"><span className="material-icons-outlined">help_outline</span> <span className="">Help</span></a></li> --> */}
-        {/* <li className="border-t-2 border-t-gray-300">
-              <a href="/" className="flex p-2 gap-1">
-                <span className="material-icons-outlined">logout</span>{' '}
-                <span className="">Sign Out</span>
-              </a>
-            </li>
-          </ul>
-        </div> */}
+
         {showModal === 'login' && <LoginModal modalHandler={setShowModal} />}
         {showModal === 'forgot' && <ForgotModal modalHandler={setShowModal} />}
       </div>
@@ -82,7 +54,7 @@ const LoginIcon: React.FC = () => {
 
   if (storeLayout === _Store.type2) {
     return (
-      <div className="flex relative" x-data="{ open : false }">
+      <div className="flex relative">
         <button
           onClick={toggleLoginModal}
           className="text-gray-600 hover:text-[#CDDE00] flex items-center gap-1"
@@ -107,49 +79,6 @@ const LoginIcon: React.FC = () => {
           </svg>
         </button>
 
-        {/* --------------------------------MENU---------------------------------------- */}
-        {/* <div className="absolute right-0 top-full border-2 border-black bg-white z-40 w-40">
-        <ul className="">
-          <li className="border-t border-t-gray-300">
-            <a
-              href="my-orders.html"
-              className="flex p-2 gap-1"
-            >
-              <span className="material-icons-outlined">
-                shopping_cart
-              </span>{' '}
-              <span className="">Order</span>
-            </a>
-          </li>
-          <li className="border-t border-t-gray-300">
-            <a
-              href="my-account.html"
-              className="flex p-2 gap-1"
-            >
-              <span className="material-icons-outlined">
-                construction
-              </span>{' '}
-              <span className="">Account Settings</span>
-            </a>
-          </li>
-          <li className="border-t border-t-gray-300">
-            <a href="/" className="flex p-2 gap-1">
-              <span className="material-icons-outlined">
-                help_outline
-              </span>{' '}
-              <span className="">Help</span>
-            </a>
-          </li>
-          <li className="border-t-2 border-t-gray-300">
-            <a href="/" className="flex p-2 gap-1">
-              <span className="material-icons-outlined">
-                logout
-              </span>{' '}
-              <span className="">Sign Out</span>
-            </a>
-          </li>
-        </ul>
-      </div> */}
         {showModal === 'login' && <LoginModal modalHandler={setShowModal} />}
         {showModal === 'forgot' && <ForgotModal modalHandler={setShowModal} />}
       </div>

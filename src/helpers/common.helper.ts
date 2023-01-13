@@ -1,11 +1,15 @@
-import { __Cookie } from '@constants/global.constant';
+import { __Cookie, __Params } from '@constants/global.constant';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { _RedefineAppServices } from '@services/app.service';
+import { _GiftCardService } from '@services/gift.service';
 import { _HeaderServices } from '@services/header.service';
 import { _HomeServices } from '@services/home.service';
 import { _ProductDetailService } from '@services/product.service';
 import { _SlugServices } from '@services/slug.service';
 import { _UserServices } from '@services/user.service';
+import { CartLogoPersonModel, CartReq } from '@type/APIs/cart.req';
+import { _ProductColor } from '@type/APIs/colors.res';
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { SendAsyncV2 } from '@utils/axios.util';
 import config from 'api.config';
 import axios from 'axios';
@@ -13,6 +17,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import router from 'next/router';
 import { __domain } from 'page.config';
 import { ParsedUrlQuery } from 'querystring';
+import getLocation from './getLocation';
 import { conditionalLog, conditionalLogV2, __console } from './global.console';
 
 //////////////////////////////////////////////////////////////////////
@@ -31,6 +36,7 @@ interface _ExtractCookies {
     storeTypeId: number;
     isAttributeSaparateProduct: boolean;
   };
+  tempCustomerId: string | null;
 }
 
 interface _GET {
@@ -103,6 +109,7 @@ export const extractCookies = (
     userId: null,
     loggedIN: false,
     storeInfo: null,
+    tempCustomerId: null,
   };
 
   const server = isItServer();
@@ -122,10 +129,15 @@ export const extractCookies = (
       .find((cookie) => cookie.split('=')[0] === __Cookie.storeInfo)
       ?.split('=')[1];
 
+    const tempCustomerId = _cookiesArr
+      .find((cookie) => cookie.split('=')[0] === __Cookie.tempCustomerId)
+      ?.split('=')[1];
+
     return {
       userId: userId ? +userId : null,
       loggedIN: Boolean(userId),
       storeInfo: (storeInfo && JSON.parse(storeInfo)) || null,
+      tempCustomerId: tempCustomerId || null,
     };
   }
   return expectedCookies;
@@ -145,6 +157,11 @@ export function setCookie(
   }
   const expires = 'expires=' + date.toUTCString();
   document.cookie = cName + '=' + cValue + '; ' + expires;
+}
+
+export function deleteCookie(cookieName: string) {
+  document.cookie =
+    cookieName + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 export function nextJsSetCookie({ res, cookie }: _NextJsSetCookie) {
@@ -236,6 +253,7 @@ export const CallAPI = async <T>({
     | _RedefineAppServices
     | _SlugServices
     | _HomeServices
+    | _GiftCardService
     | _UserServices;
   request: _GET | _POST;
 }) => {
@@ -387,4 +405,136 @@ export const extractSlugName = (contextParam?: ParsedUrlQuery) => {
     }
   }
   return { slug, slugID };
+};
+
+interface _ParamsReturn {
+  giftId: string | null;
+}
+
+export const extractIdFromPathName = (
+  contextParam: ParsedUrlQuery | undefined,
+): _ParamsReturn => {
+  const params: _ParamsReturn = {
+    giftId: null,
+  };
+
+  if (contextParam) {
+    const giftId = contextParam[__Params.giftId];
+    if (giftId && typeof giftId === 'string') {
+      params.giftId = giftId;
+    }
+  }
+
+  return {
+    giftId: params.giftId,
+  };
+};
+
+type _Props = {
+  userId: number;
+  note: string;
+  sizeQtys: Array<{
+    price: number;
+    qty: number;
+    size: string;
+    color?: string | undefined;
+  }> | null;
+  productDetails: {
+    productId: number;
+    image: {
+      id: number;
+      imageUrl: string;
+      altTag: string;
+    };
+    color: _ProductColor;
+    inventory: null | _ProductInventoryTransfomed;
+  };
+  total: {
+    totalPrice: number;
+    totalQty: number;
+  };
+};
+
+export const getAddToCartObject = async (product: _Props) => {
+  const location = await getLocation();
+  const tempCustId = extractCookies(
+    __Cookie.tempCustomerId,
+    'browserCookie',
+  ).tempCustomerId;
+
+  const { userId, note, sizeQtys, productDetails, total } = product;
+  const { totalPrice, totalQty } = total;
+
+  const cartLogoPersonModel: CartLogoPersonModel[] = [];
+
+  sizeQtys?.map((res) =>
+    cartLogoPersonModel.push({
+      attributeOptionId: 0,
+      attributeOptionValue: res.size,
+      code: '',
+      price: res.price,
+      quantity: res.qty,
+      logoPrice: 0,
+      logoQty: 0,
+      logoFile: 'string',
+      estimateDate: new Date('2022-11-03T05:09:52.659Z'),
+      isEmployeeLoginPrice: 0,
+      cartLogoPersonDetailModels: [
+        {
+          location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
+          logoTotal: 0,
+          colorImagePath: 'string',
+          logoUniqueId: 'string',
+          price: 0,
+          logoFile: 'string',
+          LogoLocation: 'string',
+          LogoPositionImage: 'string',
+          logoColors: 'string',
+          logoNotes: 'string',
+          logoDate: new Date('2022-11-03T05:09:52.659Z'),
+          logoNames: 'string',
+          digitalPrice: 0,
+          logoPositionImagePath: 'string',
+          oldFilePath: 'string',
+          originalLogoFilePath: 'string',
+        },
+      ],
+    }),
+  );
+
+  const cartObject: CartReq = {
+    addToCartModel: {
+      customerId: userId ? userId : tempCustId ? parseInt(tempCustId) : 0,
+      productId: productDetails.productId,
+      storeId: 4,
+      shoppingCartItemModel: {
+        id: 0,
+        price: totalPrice / totalQty,
+        quantity: totalQty,
+        weight: 0,
+        productType: 0,
+        discountPrice: 0,
+        logoTitle: productDetails.color.altTag,
+        logogImagePath: productDetails.color.imageUrl,
+        perQuantity: 0,
+        appQuantity: 0,
+        status: 2,
+        discountPercentage: 0,
+        productCustomizationId: 0,
+        itemNotes: note || '',
+        isEmployeeLoginPrice: 0,
+      },
+      shoppingCartItemsDetailModels: [
+        {
+          attributeOptionName: 'Color',
+          attributeOptionValue: productDetails.color.name,
+          attributeOptionId: productDetails.color.attributeOptionId,
+        },
+      ],
+      cartLogoPersonModel: cartLogoPersonModel,
+      cartLinePersonModels: [],
+    },
+  };
+
+  return cartObject;
 };

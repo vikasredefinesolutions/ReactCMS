@@ -9,14 +9,15 @@ import { _modals } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
 import React, { useEffect, useRef, useState } from 'react';
 // import { AddToCart } from 'services/user.service';
+import { __Cookie } from '@constants/global.constant';
 import { addToCart } from '@services/cart.service';
 import { FetchInventoryById } from '@services/product.service';
 import Price from 'appComponents/reUsable/Price';
 import StartOrderAvailableColors from 'Components/ProductDetails/StartOrderAvailableColors';
-import { CartLogoPersonModel, CartReq } from 'definations/APIs/cart.req';
 import { _CartItem } from 'definations/APIs/cart.res';
-import getLocation from 'helpers/getLocation';
+import { getAddToCartObject, setCookie } from 'helpers/common.helper';
 import { highLightError } from 'helpers/global.console';
+
 interface _props {
   product: _ProductDetails;
   // eslint-disable-next-line no-unused-vars
@@ -30,7 +31,7 @@ const StartOrderModal: React.FC<_props> = (props) => {
 
   // ----------------------------STATES ---------------------------------------
   const [allColors, showAllColors] = useState<boolean>(false);
-  const { clearToCheckout, showModal, setShowLoader, updateProductProperties } =
+  const { clearToCheckout, showModal, setShowLoader, updateProductProperties, fetchCartDetails } =
     useActions();
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
 
@@ -45,83 +46,39 @@ const StartOrderModal: React.FC<_props> = (props) => {
   const selectedProduct = useTypedSelector((state) => state.product.selected);
 
   const addToCartHandler = async () => {
-    const location = await getLocation();
-    const tempCustId = localStorage.getItem('tempCustomerId');
     const note = textRef.current?.value;
 
-    const cartLogoPersonModel: CartLogoPersonModel[] = [];
+    const { sizeQtys, totalPrice,
+      totalQty } = toCheckout;
+    const cartObject = await getAddToCartObject({
+      userId: customerId || 0,
+      note: note || '',
+      sizeQtys: sizeQtys,
+      productDetails: selectedProduct,
+      total: {
+        totalPrice,
+        totalQty
+      }
+    })
+    if (totalQty < toCheckout.minQty) {
+      showModal({
+        message: `The minimum order for this color is ${toCheckout.minQty} pieces. Please increase your quantity and try again.`,
+        type: 'Requeird'
+      })
+      return;
+    }
 
-    toCheckout.sizeQtys?.map((res) =>
-      cartLogoPersonModel.push({
-        attributeOptionId: 0,
-        attributeOptionValue: res.size,
-        code: '',
-        price: res.price,
-        quantity: res.qty,
-        logoPrice: 0,
-        logoQty: 0,
-        logoFile: 'string',
-        estimateDate: new Date('2022-11-03T05:09:52.659Z'),
-        isEmployeeLoginPrice: 0,
-        cartLogoPersonDetailModels: [
-          {
-            location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
-            logoTotal: 0,
-            colorImagePath: 'string',
-            logoUniqueId: 'string',
-            price: 0,
-            logoColors: 'string',
-            logoNotes: 'string',
-            logoDate: new Date('2022-11-03T05:09:52.659Z'),
-            logoNames: 'string',
-            digitalPrice: 0,
-            logoPositionImagePath: 'string',
-            oldFilePath: 'string',
-            originalLogoFilePath: 'string',
-          },
-        ],
-      }),
-    );
 
-    const cartObject: CartReq = {
-      addToCartModel: {
-        customerId: customerId || (tempCustId ? ~~tempCustId : 0),
-        productId: selectedProduct.productId,
-        storeId: 4,
-        shoppingCartItemModel: {
-          id: 0,
-          price: toCheckout.totalPrice,
-          quantity: toCheckout.totalQty,
-          weight: 0,
-          productType: 0,
-          discountPrice: 0,
-          logoTitle: selectedProduct.color.altTag,
-          logogImagePath: selectedProduct.color.imageUrl,
-          perQuantity: 0,
-          appQuantity: 0,
-          status: 2,
-          discountPercentage: 0,
-          productCustomizationId: 0,
-          itemNotes: note || '',
-          isEmployeeLoginPrice: 0,
-        },
-        shoppingCartItemsDetailModels: [
-          {
-            attributeOptionName: 'Color',
-            attributeOptionValue: selectedProduct.color.name,
-            attributeOptionId: selectedProduct.color.attributeOptionId,
-          },
-        ],
-        cartLogoPersonModel: cartLogoPersonModel,
-        cartLinePersonModels: [],
-      },
-    };
     if (cartObject) {
       try {
+        let c_id = customerId;
         const res = await addToCart(cartObject);
+
         if (!customerId) {
-          localStorage.setItem('tempCustomerId', res);
+          c_id = res;
+          setCookie(__Cookie.tempCustomerId, res, 7);
         }
+        fetchCartDetails(c_id || 0);
         showModal({
           message: 'Added to cart Successfully',
           type: 'Success',

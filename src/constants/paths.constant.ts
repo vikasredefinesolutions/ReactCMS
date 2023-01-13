@@ -3,13 +3,17 @@ export const queryParam = {
   INDIVIDUAL: 'individual',
 };
 
+export const defaultRoute = '/';
+
 export const paths = {
-  HOME: '/',
+  HOME: defaultRoute,
   PRODUCT: '/product',
   SPECIAL_REQUEST: '/special_request',
   PRODUCT_LISTING: '/product-list',
   NOT_FOUND: '/not-found',
   CHECKOUT: '/checkout',
+  GIFT_CARDS: '/giftcards',
+  GIFT_CARD_DETAILS: '/giftcards/:giftId',
   loggedInMenu: {
     title: '/myaccount/accountsettings',
     order: '/Orders',
@@ -29,7 +33,7 @@ export const paths = {
   THANK_YOU: '/Orders/Thankyou',
   CART: '/cart.html',
   cart: {
-    keepShopping: '/',
+    keepShopping: defaultRoute,
   },
   BRAND: '/brands.html',
   WISHLIST: '/wishlist',

@@ -151,14 +151,16 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                 key={product.attributeOptionId}
                 onClick={() => setColor(product)}
               >
-                <div className={`w-20 h-20 border ${highlight} p-1 mb-1`}>
+                <div
+                  className={`w-20 h-20 border ${highlight} p-1 mb-1 mx-auto`}
+                >
                   <Image
                     src={product.imageUrl}
                     alt={product.altTag}
                     className="max-h-full mx-auto"
                   />
                 </div>
-                <div className="text-primary">{product.name}</div>
+                <div className="text-primary break-word">{product.name}</div>
               </div>
             );
           })}

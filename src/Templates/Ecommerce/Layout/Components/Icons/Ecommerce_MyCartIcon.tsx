@@ -1,13 +1,40 @@
+import { __Cookie } from '@constants/global.constant';
+import Image from 'appComponents/reUsable/Image';
+import Price from 'appComponents/reUsable/Price';
 import { paths } from 'constants/paths.constant';
-import { useTypedSelector } from 'hooks';
+import CartSummaryController from 'Controllers/cartSummarryController';
+import { extractCookies } from 'helpers/common.helper';
+import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const MyCartIcon: React.FC = () => {
   const router = useRouter();
+  const { fetchCartDetails } = useActions();
+  const [totalCartQty, setTotalCartQty] = useState(0)
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const cart = useTypedSelector((state) => state.cart);
+  const customerId = useTypedSelector((state) => state.user.id);
+  const { getTotalProduct, getTotalPrice } = CartSummaryController();
+  const { totalPrice } = getTotalPrice();
+  const [Focus, setFocus] = useState(false);
+
+  useEffect(() => {
+    const tempCustomerId = extractCookies(__Cookie.tempCustomerId, 'browserCookie').tempCustomerId;
+
+    if (customerId || tempCustomerId) {
+      fetchCartDetails(customerId || ~~(tempCustomerId || 0))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [customerId]);
+
+  useEffect(() => {
+    const totalQty = getTotalProduct();
+    setTotalCartQty(totalQty);
+  }, [cart])
+
   if (storeLayout === _Store.type2) {
     return (
       <div className="flow-root">
@@ -41,7 +68,7 @@ const MyCartIcon: React.FC = () => {
   }
   if (storeLayout === _Store.type1) {
     return (
-      <div className="flow-root relative" x-data="{ open: false }">
+      <div onMouseOver={() => setFocus(true)} onMouseLeave={() => setFocus(false)} className="flow-root relative" x-data="{ open: false }">
         <Link href={paths.CART}>
           <a className="text-primary hover:text-anchor-hover group flex items-center gap-1 relative py-2 pr-2">
             {/* <span className="text-sm hidden xl:inline-block">my cart</span>{' '} */}
@@ -62,10 +89,70 @@ const MyCartIcon: React.FC = () => {
               ></path>
             </svg>{' '}
             <span className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-gray-200 text-[10px] font-medium text-gray-500">
-              0
+              {totalCartQty}
             </span>
           </a>
         </Link>
+        {Focus && totalCartQty > 0 && <div
+          className="absolute top-full right-0 w-80 text-sm shadow"
+        >
+          <div
+            className="absolute inset-0 top-1/2 bg-white shadow"
+            aria-hidden="true"
+          ></div>
+          <div className="relative bg-gray-100 z-50">
+            <div className="border-t first:border-t-0 border-gray-300 py-3 px-3 h-60 overflow-auto">
+              <ul className="">
+                {
+                  cart.cart?.map(cartItem => (
+                    <li key={cartItem.attributeOptionId} className="border-t first:border-t-0 border-gray-300 pt-3 first:pt-0 pb-3 last:pb-0">
+                      <div className="flex flex-wrap -mx-1">
+                        <div className="w-1/4 px-1">
+                          <Image src={cartItem.colorImage} alt="cartItem" className='' />
+                        </div>
+                        <div className="w-3/4 px-1">
+                          <div className="">
+                            <Link
+                              className="inline-block"
+                              href="product-page.html"
+                            >
+                              {
+                                cartItem.productName
+                              }
+                            </Link>
+                          </div>
+                          <div className="flex flex-wrap justify-between -mx-1 mt-2 text-xs">
+                            <div className="px-1">
+                              QTY : <span>{cartItem.totalQty}</span>
+                            </div>
+                            <div className="px-1">
+                              Subtotal : <span><Price value={cartItem.totalPrice * cartItem.totalQty} /></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))
+                }
+
+              </ul>
+            </div>
+            <div className="border-t first:border-t-0 border-gray-300 py-3 px-3">
+              <div className="mb-3 font-semibold text-right">
+                <div className="">{totalCartQty} ITEMS IN CART</div>
+                <div className="">Total <Price value={totalPrice} /></div>
+              </div>
+              <div className="">
+                <Link
+                  href={'/checkout.html'}
+                  className="btn btn-primary w-full text-center"
+                >
+                  CHECKOUT NOW
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>}
       </div>
     );
   }

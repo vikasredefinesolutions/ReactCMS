@@ -69,31 +69,40 @@ const FilterBarLayout3: React.FC<props> = ({
                 <div className="z-10 origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1 text-sm" role="none">
                     <button
-                      className="font-medium text-gray-900 block px-4 py-2"
-                      id="menu-item-0"
+                       onClick={() => sortProductJson(1)}
+                       className="font-medium text-gray-900 block px-4 py-2 text-sm"
+                       role="menuitem"
+                       id="menu-item-0"
                     >
                       Most Popular{' '}
                     </button>
                     <button
-                      className="text-gray-500 block px-4 py-2"
+                      onClick={() => sortProductJson(4)}
+                      className="text-gray-500 block px-4 py-2 text-sm"
                       id="menu-item-1"
                     >
                       Best Rating{' '}
                     </button>
                     <button
-                      className="text-gray-500 block px-4 py-2"
+                      onClick={() => sortProductJson(5)}
+                      className="text-gray-500 block px-4 py-2 text-sm"
+                      role="menuitem"
                       id="menu-item-2"
                     >
                       Newest{' '}
                     </button>
                     <button
-                      className="text-gray-500 block px-4 py-2"
-                      id="menu-item-3"
+                     onClick={() => sortProductJson(2)}
+                     className="text-gray-500 block px-4 py-2 text-sm"
+                     role="menuitem"
+                     id="menu-item-3"
                     >
                       Price: Low to High{' '}
                     </button>
                     <button
-                      className="text-gray-500 block px-4 py-2"
+                      onClick={() => sortProductJson(3)}
+                      className="text-gray-500 block px-4 py-2 text-sm"
+                      role="menuitem"
                       id="menu-item-4"
                     >
                       Price: High to Low

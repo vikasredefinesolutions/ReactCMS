@@ -174,7 +174,7 @@ const AddressPopupLayout1 = ({
           </div>
         </div>
       </div>
-      {addressType && (
+      {Boolean(addressType) && (
         <AddAddress
           {...{
             closePopupHandler,

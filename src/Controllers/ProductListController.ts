@@ -14,7 +14,7 @@ const ProductListController = (
   // const location = useLocation();
   const Router = useRouter();
   const [allProduct, setAllProduct] = useState(data.product);
-  const perPageCount = 18;
+  const perPageCount = 16;
   const [currentCount, setCurrentCount] = useState(perPageCount);
   const [filterOption, setFilterOption] = useState<
     Array<{

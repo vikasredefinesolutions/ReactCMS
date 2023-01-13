@@ -13,6 +13,7 @@ import moment from 'moment';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 type _OrderDetails = Array<{
@@ -22,12 +23,16 @@ type _OrderDetails = Array<{
 
 const Orders: NextPage = () => {
   const { setShowLoader } = useActions();
-  const [orderDetails, setOrderDetails] = useState<_OrderDetails | null>(null);
+  const router = useRouter();
+  const [orderDetails, setOrderDetails] = useState<_OrderDetails | null | []>(
+    null,
+  );
   const { id: storeId } = useTypedSelector((state) => state.store);
   const { id: userId } = useTypedSelector((state) => state.user);
 
   const fetchMultipleOrderDetails = async (ids: number[] | null) => {
     if (ids === null) {
+      setOrderDetails([]);
       //Handle if no orders founds
       return;
     }
@@ -41,6 +46,14 @@ const Orders: NextPage = () => {
     });
 
     setOrderDetails(orders);
+  };
+
+  const viewDetailsHandler = (orderId: number | undefined) => {
+    if (!orderId) {
+      return;
+    }
+
+    router.push(`${paths.myAccount.order_details}?ordernumber=${orderId}`);
   };
 
   const mergeAllSizes = (items: ShoppingCartItemDetailsViewModel[]) => {
@@ -65,7 +78,7 @@ const Orders: NextPage = () => {
         userId,
       })
         .then((ids) => fetchMultipleOrderDetails(ids))
-        .catch((err) => 'handle Error here')
+        .catch((err) => setOrderDetails([]))
         .finally(() => setShowLoader(false));
     }
   }, []);
@@ -80,6 +93,11 @@ const Orders: NextPage = () => {
       <MyAccountTabs />
       <section className="container mx-auto  bg-gray-100  px-6 py-6 mt-5 mb-5">
         <div className="mx-auto space-y-10 sm:px-4 lg:px-0 pb-2">
+          {orderDetails?.length === 0 && (
+            <div className="text-center mt-20">
+              <h1>No orders made.</h1>
+            </div>
+          )}
           {orderDetails?.map((order, index) => {
             return (
               <div
@@ -93,7 +111,7 @@ const Orders: NextPage = () => {
                         ORDER NUMBER
                       </dt>
                       <dd className="mt-1 text-gray-900">
-                        {order?.billing?.orderGUID}
+                        {order?.billing?.id}
                       </dd>
                     </div>
                     <div className="hidden sm:block">
@@ -113,17 +131,28 @@ const Orders: NextPage = () => {
                         TOTAL PRICE
                       </dt>
                       <dd className="mt-1 font-semibold text-gray-900">
-                        <Price value={order?.billing?.orderTotal} />
+                        <Price
+                          value={order?.billing?.orderTotal}
+                          addColon={false}
+                        />
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-gray-900 font-semibold uppercase">
+                        ORDER STATUS
+                      </dt>
+                      <dd className="mt-1 text-gray-900">
+                        {order?.billing?.orderStatus}
                       </dd>
                     </div>
                   </div>
                   <div className="hidden lg:col-span-2 lg:flex lg:items-center lg:justify-end lg:space-x-4">
-                    <Link
-                      href={`${paths.myAccount.order_details}?ordernumber=${order?.billing?.id}`}
+                    <button
+                      onClick={() => viewDetailsHandler(order?.billing?.id)}
                       className="btn btn-primary"
                     >
                       <span>View Order Details</span>
-                    </Link>
+                    </button>
                   </div>
                 </div>
                 <ul role="list" className="divide-y divide-gray-200">

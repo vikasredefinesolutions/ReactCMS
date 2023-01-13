@@ -33,13 +33,14 @@ const RedefineFwInput: React.FC<_props> = ({
           type={type}
           id={name}
           name={name}
+          autoComplete={'off'}
           placeholder={placeHolder}
           value={value}
           onChange={onChange}
           className="form-input"
         />
       </div>
-      <ErrorMessage name={name} />
+      <ErrorMessage name={name} className="text-rose-500" component={'p'} />
     </div>
   );
 };

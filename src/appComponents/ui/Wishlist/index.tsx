@@ -4,6 +4,7 @@ import { _modals } from '@type/product.type';
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import LoginModal from 'appComponents/modals/LoginModal';
 import axios from 'axios';
+import { useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
 import { AddToWishlist, removeWishlist } from 'services/wishlist.service';
 const Wishlist = ({
@@ -23,7 +24,7 @@ const Wishlist = ({
 }) => {
   const [showModal, setShowModal] = useState<null | string>(null);
   const [wishlist, setWishlist] = useState(false);
-  const customerId = null;
+  const customerId = useTypedSelector((state) => state.user.id);
   const wishlistHandler = async () => {
     if (!customerId) {
       setShowModal('login');

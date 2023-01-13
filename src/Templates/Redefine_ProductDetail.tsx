@@ -6,16 +6,15 @@ import Corporate_ProductDetails from './CorporateStore/ProductDetail';
 import Ecommerce_ProductDetail from './Ecommerce/ProductDetail';
 import StoreBuilder_ProductDetail from './StoreBuilder/ProductDetail';
 
-const Redefine_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
-  props,
-) => {
+const Redefine_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (props) => {
+  // const storeTypeId = useTypedSelector((state) => state.store.storeTypeId);
+  // const storeTypeId = 1;
   conditionalLogV2({
     data: props,
     show: __console.productDetails.page,
     type: 'PAGE',
     name: 'Redefine_ProductDetails - Props',
   });
-
   if (props.storeTypeId === 1) {
     return <Corporate_ProductDetails {...props} />;
   }

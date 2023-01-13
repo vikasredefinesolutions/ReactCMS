@@ -46,7 +46,7 @@ const RedefineSelect: React.FC<_props> = ({
           ))}
         </select>
       </div>
-      <ErrorMessage name={name} />
+      <ErrorMessage name={name} className="text-rose-500" component={'p'} />
     </div>
   );
 };

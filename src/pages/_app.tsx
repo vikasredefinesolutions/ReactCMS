@@ -1,11 +1,11 @@
 import { __Cookie } from '@constants/global.constant';
-import { FetchThemeConfigs } from '@services/app.service';
 import { GetStoreCustomer } from '@services/user.service';
 
 import SuccessErrorModal from 'appComponents/modals/successErrorModal';
 import Spinner from 'appComponents/ui/spinner';
 import Redefine_Screen from 'Templates/Redefine_Screen';
 
+import { FetchThemeConfigs } from '@services/app.service';
 import * as _AppController from 'Controllers/_AppController.async';
 import { _TransformedThemeConfig } from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
@@ -26,7 +26,7 @@ import { useEffect } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
 import { _Expected_AppProps, _MenuItems } from 'show.type';
 import { _globalStore } from 'store.global';
-import '../../styles/output.css';
+// import '../../styles/output.css';
 import '../app.css';
 
 type AppOwnProps = {
@@ -175,13 +175,13 @@ RedefineCustomApp.getInitialProps = async (
 
       if (expectedProps.store?.storeId) {
         expectedProps.configs.header = await FetchThemeConfigs({
-          store_id: expectedProps.store?.storeId,
-          config_name: 'header_config',
+          storeid: expectedProps.store?.storeId,
+          configname: 'header_config',
         });
 
-        expectedProps.menuItems = await _AppController.fetchMenuItems(
-          expectedProps.store.storeId,
-        );
+        // expectedProps.menuItems = await _AppController.fetchMenuItems(
+        //   expectedProps.store.storeId,
+        // );
 
         if (res && cookies.storeInfo === null) {
           nextJsSetCookie({

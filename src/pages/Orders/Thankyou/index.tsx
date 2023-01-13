@@ -1,3 +1,4 @@
+import { paths } from '@constants/paths.constant';
 import { FetchOrderDetails } from '@services/user.service';
 import {
   _MyAcc_OrderBillingDetails,
@@ -27,7 +28,7 @@ const ThankYou: NextPage = () => {
       return;
     }
     if (!orderId) {
-      push('/');
+      push(paths.HOME);
     }
   }, []);
 

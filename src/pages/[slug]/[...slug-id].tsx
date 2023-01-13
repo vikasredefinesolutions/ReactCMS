@@ -1,12 +1,16 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import {
   _SlugServerSideProps,
-  _SlugServerSide_WentWrong,
+  _SlugServerSide_WentWrong
 } from '@type/slug.type';
 import PageNotFound from 'appComponents/reUsable/404';
 import SeoHead from 'appComponents/reUsable/SeoHead';
 import ProductList from 'Components/ProductList';
 import { cLog } from 'helpers/global.console';
+import { useActions } from 'hooks';
+import _ from 'lodash';
 import { NextPage } from 'next';
+import { useEffect } from 'react';
 import Redefine_ProductDetails from 'Templates/Redefine_ProductDetail';
 import { getServerSideProps } from '../../Components/Slug/getServerSideProps';
 const ProductListing: NextPage<
@@ -17,7 +21,14 @@ const ProductListing: NextPage<
     return <>{error}</>;
   }
 
+  const { updatePageType } = useActions();
   const { _store, pageMetaData, page } = props;
+
+  useEffect(() => {
+    if (!_.isEmpty(pageMetaData)) {
+      updatePageType(pageMetaData);
+    }
+  }, [pageMetaData])
 
   if (!_store || !pageMetaData || !page) {
     cLog('No page data found', '404');

@@ -150,10 +150,9 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         </div>
 
         <ProductCompanion
-          link={product.companionProductLink}
           name={product.companionProductName}
           storeCode={storeCode}
-          id={product.companionProductId}
+          seName={product.companionProductSEName}
           imageUrl={product.companionProductImage}
         />
 
@@ -221,6 +220,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         <div className="mb-4">
           <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
           <ProductFeatures storeCode={storeCode} />
+          <ProductSKU storeCode={storeCode} skuID={product.sku} />
           <ProductPrice
             storeCode={storeCode}
             ourCost={product.ourCost}
@@ -228,7 +228,6 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
             imap={product.imap}
             salePrice={product.salePrice}
           />
-          <ProductSKU storeCode={storeCode} skuID={product.sku} />
         </div>
         <MinimumQuantity
           storeCode={storeCode}
@@ -399,9 +398,8 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         <ProductCompanion
           storeCode={storeCode}
           name={product.companionProductName}
-          id={product.companionProductId}
+          seName={product.companionProductSEName}
           imageUrl={product.companionProductImage}
-          link={product.companionProductLink}
         />
         <div className="bg-gray-100 p-4 flex flex-wrap items-end justify-between gap-2 text-sm mb-5">
           <div className="">

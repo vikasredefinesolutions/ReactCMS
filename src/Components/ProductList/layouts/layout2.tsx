@@ -1,11 +1,12 @@
 import { GetlAllProductList } from '@type/productList.type';
+import BarComponent from 'appComponents/reUsable/Bar';
 import { properties } from 'mock/properties.mock';
 import { Fragment } from 'react';
 import { list_FnProps } from '..';
 import FilterBarLayout2 from '../components/FilterBar/layout2';
 import FilterChips from '../components/Filters/filterChips';
 import FlyOutFilter from '../components/Filters/flyoutFilter';
-import SideFilter from '../components/Filters/sideFilter';
+import FilterLayout2 from '../components/Filters/Layout2';
 import ListView from '../components/PorudctComponent/ListView';
 import ProductComponent from '../components/PorudctComponent/Product';
 
@@ -31,8 +32,9 @@ const Layout2 = ({
     return (
         <section id="">
             <div className="container mx-auto bg-white overflow-hidden">
+                   <BarComponent/>
                 <div className="flex flex-wrap gap-y-6 -mx-4">
-                    <div className="w-full md:w-3/12 lg:w-3/12 px-4">
+                    <div className="w-full md:w-3/12 lg:w-3/12 px-4" >
                         {filters.length > 0 &&
                             (properties.filter_box.layout === 'flyout' ? (
                                 showFilter && (
@@ -44,7 +46,7 @@ const Layout2 = ({
                                     />
                                 )
                             ) : (
-                                <SideFilter
+                                <FilterLayout2
                                     filters={filters}
                                     handleChange={handleChange}
                                     checkedFilters={checkedFilters}
@@ -60,7 +62,7 @@ const Layout2 = ({
                     </div>
 
                     <div
-                        className={`w-full ${properties.filter_box.layout === 'flyout' ? '' : ' lg:w-9/12'
+                        className={`w-full md:w-9/12 ${properties.filter_box.layout === 'flyout' ? '' : ' lg:w-9/12'
                             } px-4`}
                     >
                         <FilterBarLayout2

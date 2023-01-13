@@ -245,29 +245,18 @@ const OrderedProductDetails = async (
 ): Promise<_MyAcc_OrderProductDetails[] | null> => {
   const orderProductDetailsURL = `Order/GetOrderedShoppingCartItemsDetail/${orderId}.json`;
 
-  try {
-    const res = await SendAsyncV2<_MyAcc_OrderProductDetails[]>({
+  const response = await CallAPI<_MyAcc_OrderProductDetails[]>({
+    name: {
+      service: 'user',
+      api: 'OrderedProductDetails',
+    },
+    request: {
       url: orderProductDetailsURL,
       method: 'GET',
-    });
-    conditionalLog({
-      data: res.data,
-      name: 'OrderedProductDetails',
-      type: 'API',
-      show: res.data === null,
-    });
+    },
+  });
 
-    return res.data;
-  } catch (error) {
-    conditionalLog({
-      data: error,
-      name: 'OrderedProductDetails',
-      type: 'API',
-      show: _showConsoles.services.user,
-      error: true,
-    });
-    return null;
-  }
+  return response;
 };
 
 export const FetchOrderDetails = async ({

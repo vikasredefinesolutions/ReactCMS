@@ -57,4 +57,7 @@ export const properties = {
     add_to_cart: true,
     tags: false,
   },
+  product: {
+    size_input: 'select',
+  },
 };

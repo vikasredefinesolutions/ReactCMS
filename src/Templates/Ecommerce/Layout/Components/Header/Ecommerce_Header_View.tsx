@@ -46,37 +46,37 @@ const Ecommerce_Header: React.FC = () => {
 
   if (storeLayout === _Store.type1) {
     return (
-      <section className="bg-white sticky top-0 z-40">
-        <div className="bg-white">
-          {mobileView && <MenuItems screen="MOBILE" />}
+      <section className='bg-white sticky top-0 z-40'>
+        <div className='bg-white'>
+          {mobileView && <MenuItems screen='MOBILE' />}
 
-          <header className="relative">
-            <nav aria-label="Top">
-              <div className="bg-white shadow-md">
-                <div className="container mx-auto">
-                  <div className="">
-                    <div className="py-3 lg:py-4 flex items-center justify-between">
+          <header className='relative'>
+            <nav aria-label='Top'>
+              <div className='bg-white shadow-md'>
+                <div className='container mx-auto'>
+                  <div className=''>
+                    <div className='py-3 lg:py-4 flex items-center justify-between'>
                       <Logo
-                        screen="DESKTOP"
+                        screen='DESKTOP'
                         headerdata={headerdata?.config_value}
                       />
 
-                      <MenuItems screen="DESKTOP" />
+                      <MenuItems screen='DESKTOP' />
 
-                      <div className="flex items-center lg:hidden space-x-4 pr-4">
+                      <div className='flex items-center lg:hidden space-x-4 pr-4'>
                         <MenuIcon />
-                        {mobileView && <SearchBar screen="MOBILE" />}
+                        {mobileView && <SearchBar screen='MOBILE' />}
                       </div>
 
                       {mobileView && (
                         <Logo
-                          screen="MOBILE"
+                          screen='MOBILE'
                           headerdata={headerdata?.config_value}
                         />
                       )}
-                      <div className="flex items-center justify-end">
-                        <div className="flex items-center lg:ml-6">
-                          <div className="flex items-center space-x-4">
+                      <div className='flex items-center justify-end'>
+                        <div className='flex items-center lg:ml-6'>
+                          <div className='flex items-center space-x-4'>
                             {show.searchBar && <SearchBar screen={'DESKTOP'} />}
                             <WishListIcon />
                             <LoginIcon />
@@ -99,38 +99,38 @@ const Ecommerce_Header: React.FC = () => {
   }
   if (storeLayout === _Store.type2) {
     return (
-      <section className="bg-white sticky top-0 z-40">
-        <div className="container mx-auto">
-          <div x-data="{ open: false }" className="bg-white">
-            {mobileView && <MenuItems screen="MOBILE" />}
-            <header className="relative bg-white border-b border-gray-200">
-              <nav aria-label="Top">
-                <div className="">
-                  <div className="py-3 lg:py-4 flex items-center justify-between gap-3">
+      <section className='bg-white sticky top-0 z-40'>
+        <div className='container mx-auto'>
+          <div x-data='{ open: false }' className='bg-white'>
+            {mobileView && <MenuItems screen='MOBILE' />}
+            <header className='relative bg-white border-b border-gray-200'>
+              <nav aria-label='Top'>
+                <div className=''>
+                  <div className='py-3 lg:py-4 flex items-center justify-between gap-3'>
                     <Logo
-                      screen="DESKTOP"
+                      screen='DESKTOP'
                       headerdata={headerdata?.config_value}
                     />
 
                     {/* MOBILE VIEW ---- START */}
                     {mobileView && (
-                      <div className="flex items-center lg:hidden space-x-3">
+                      <div className='flex items-center lg:hidden space-x-3'>
                         <MenuIcon />
-                        <SearchBar screen="MOBILE" />
+                        <SearchBar screen='MOBILE' />
                       </div>
                     )}
                     {/* MOBILE VIEW ---- END */}
 
-                    <SearchBar screen="DESKTOP" />
+                    <SearchBar screen='DESKTOP' />
                     {mobileView && (
                       <Logo
-                        screen="MOBILE"
+                        screen='MOBILE'
                         headerdata={headerdata?.config_value}
                       />
                     )}
-                    <div className="flex items-center justify-end">
-                      <div className="flex items-center">
-                        <div className="flex items-center space-x-3">
+                    <div className='flex items-center justify-end'>
+                      <div className='flex items-center'>
+                        <div className='flex items-center space-x-3'>
                           <LoginIcon />
                           <LoggedInMenu />
                           <CompareIcon />
@@ -145,50 +145,50 @@ const Ecommerce_Header: React.FC = () => {
             </header>
           </div>
         </div>
-        <MenuItems screen="DESKTOP" />
+        <MenuItems screen='DESKTOP' />
       </section>
     );
   }
   if (storeLayout === _Store.type3) {
     return (
       <section
-        className="bg-white sticky top-0 left-0 right-0 z-40 border-b-2 border-b-gray-300"
-        id=""
+        className='bg-white sticky top-0 left-0 right-0 z-40 border-b-2 border-b-gray-300'
+        id=''
       >
-        <div className="container mx-auto">
-          {mobileView && <MenuItems screen="MOBILE" />}
-          <header className="relative border-b border-b-gray-200">
+        <div className='container mx-auto'>
+          {mobileView && <MenuItems screen='MOBILE' />}
+          <header className='relative border-b border-b-gray-200'>
             {/* <!-- <div className="lg:hidden text-center">
                   <a href="index.html" className="inline-block pt-4">
                       <img src="../images/logo.png" alt="" className="h-14 w-auto">
                   </a>
               </div> --> */}
-            <nav aria-label="Top">
-              <div className="">
-                <div className="py-3 flex items-center justify-between gap-3">
+            <nav aria-label='Top'>
+              <div className=''>
+                <div className='py-3 flex items-center justify-between gap-3'>
                   <Logo
-                    screen="DESKTOP"
+                    screen='DESKTOP'
                     headerdata={headerdata?.config_value}
                   />
                   {mobileView && (
-                    <div className="flex items-center lg:hidden space-x-3">
+                    <div className='flex items-center lg:hidden space-x-3'>
                       <MenuIcon />
-                      <SearchBar screen="MOBILE" />
+                      <SearchBar screen='MOBILE' />
                     </div>
                   )}
 
-                  <SearchBar screen="DESKTOP" />
+                  <SearchBar screen='DESKTOP' />
 
                   {mobileView && (
                     <Logo
-                      screen="MOBILE"
+                      screen='MOBILE'
                       headerdata={headerdata?.config_value}
                     />
                   )}
 
-                  <div className="flex items-center justify-end">
-                    <div className="flex items-center">
-                      <div className="flex items-center space-x-3">
+                  <div className='flex items-center justify-end'>
+                    <div className='flex items-center'>
+                      <div className='flex items-center space-x-3'>
                         <LoginIcon />
                         <LoggedInMenu />
                         <CompareIcon />
@@ -203,7 +203,7 @@ const Ecommerce_Header: React.FC = () => {
           </header>
         </div>
 
-        <MenuItems screen="DESKTOP" />
+        <MenuItems screen='DESKTOP' />
       </section>
     );
   }
@@ -211,43 +211,43 @@ const Ecommerce_Header: React.FC = () => {
     return (
       <section
         className="sticky top-0 z-40 bg-[url('https://www.drivingi.com/images/home-bg.jpg')] bg-cover"
-        id="header"
+        id='header'
       >
-        <div className="">
-          {mobileView && <MenuItems screen="MOBILE" />}
-          <header className="relative">
-            <nav aria-label="Top">
-              <div className="">
-                <div className="container mx-auto">
-                  <div className="py-3 lg:py-4 flex items-center justify-between">
+        <div className=''>
+          {mobileView && <MenuItems screen='MOBILE' />}
+          <header className='relative'>
+            <nav aria-label='Top'>
+              <div className=''>
+                <div className='container mx-auto'>
+                  <div className='py-3 lg:py-4 flex items-center justify-between'>
                     <Logo
-                      screen="DESKTOP"
+                      screen='DESKTOP'
                       headerdata={headerdata?.config_value}
                     />
-                    <MenuItems screen="DESKTOP" />
+                    <MenuItems screen='DESKTOP' />
 
                     {mobileView && (
-                      <div className="flex items-center lg:hidden space-x-4">
+                      <div className='flex items-center lg:hidden space-x-4'>
                         <MenuIcon />
-                        <SearchBar screen="MOBILE" />
+                        <SearchBar screen='MOBILE' />
                       </div>
                     )}
 
                     {mobileView && (
                       <Logo
-                        screen="MOBILE"
+                        screen='MOBILE'
                         headerdata={headerdata?.config_value}
                       />
                     )}
-                    <div className="flex items-center justify-end">
-                      <div className="flex items-center lg:ml-6">
-                        <div className="flex items-center space-x-4">
-                          <SearchBar screen="DESKTOP" />
+                    <div className='flex items-center justify-end'>
+                      <div className='flex items-center lg:ml-6'>
+                        <div className='flex items-center space-x-4'>
+                          <SearchBar screen='DESKTOP' />
                           <LoginIcon />
                           <LoggedInMenu />
                           <CompareIcon />
                           <MyCartIcon />
-                          <OnePercentLogo position="HEADER" />
+                          <OnePercentLogo position='HEADER' />
                         </div>
                       </div>
                     </div>

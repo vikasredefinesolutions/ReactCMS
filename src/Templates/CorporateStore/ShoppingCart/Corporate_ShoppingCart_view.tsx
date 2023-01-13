@@ -6,8 +6,8 @@ import { SC_ItemsInCart_withoutPersonalization } from './Components/SC_ItemsInCa
 
 const Corporate_ShoppingCart: React.FC = () => {
   // const { fetchCartDetails } = useActions();
-  const Cart = useTypedSelector(
-    (state) => state.cart.corporateStoreCart.products,
+  const cartItems = useTypedSelector(
+    (state) => state.cart.corporateStoreCart.items,
   );
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Corporate_ShoppingCart: React.FC = () => {
     }
   });
 
-  if (Cart.length === 0) {
+  if (cartItems.length === 0) {
     return (
       <div className="text-center mt-20">
         <h1>Your Cart is Empty.</h1>
@@ -60,7 +60,7 @@ const Corporate_ShoppingCart: React.FC = () => {
   //   );
   // }
 
-  //return <></>;
+  // return <></>;
 };
 
 export default Corporate_ShoppingCart;

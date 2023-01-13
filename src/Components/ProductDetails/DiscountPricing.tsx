@@ -24,6 +24,7 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
     (state) => state.product.selected.color,
   );
   const unitUnits = minQuantity > 1 ? 'units' : 'unit';
+  const showMinQuantity = minQuantity > 0;
 
   if (storeCode === _Store.type4) {
     return (
@@ -67,15 +68,16 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
             <span className="text-lg font-semibold text-white">
               Discount Pricing:
             </span>
-            <button
-              onClick={() => setShowMsg((show) => !show)}
-              className="text-white py-1 md:px-2 flex flex-wrap text-sm font-semibold uppercase items-center"
-              data-target="#minimum-order"
-              id="aMinOrder"
-            >
-              <span>MINIMUM ORDER :</span>
-              {` ${minQuantity} ${unitUnits} per color`}
-            </button>
+            {showMinQuantity ? (
+              <button
+                onClick={() => setShowMsg((show) => !show)}
+                className="text-white py-1 md:px-2 flex flex-wrap text-sm font-semibold uppercase items-center"
+                id="aMinOrder"
+              >
+                <span>MINIMUM ORDER :</span>
+                {` ${minQuantity} ${unitUnits} per color`}
+              </button>
+            ) : null}
           </div>
           <div className="text-sm text-gray-900 flex flex-wrap justify-between items-center mt-2">
             <p className="">
@@ -84,14 +86,15 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
               </span>
               per item
             </p>
-            <button
-              onClick={() => setShowMsg((show) => !show)}
-              className="uppercase items-center"
-              data-target="#minimum-order"
-              id="aMinOrder"
-            >
-              <strong>DISCOUNT PRICING AVAILABLE!</strong>
-            </button>
+            {showMinQuantity ? (
+              <button
+                onClick={() => setShowMsg((show) => !show)}
+                className="uppercase items-center"
+                id="aMinOrder"
+              >
+                <strong>DISCOUNT PRICING AVAILABLE!</strong>
+              </button>
+            ) : null}
           </div>
           {showPriceTable && <QtyPriceTable storeCode={storeCode} />}
           {showMsg && (

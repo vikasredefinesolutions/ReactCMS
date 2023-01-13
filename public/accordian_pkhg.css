@@ -1,0 +1,40 @@
+.sidebar .MuiPaper-root {
+  box-shadow: unset;
+  margin-bottom: 0 !important;
+}
+.sidebar .MuiPaper-root:before {
+  display: none;
+}
+.sidebar .MuiAccordionSummary-content.Mui-expanded {
+  margin: 10px 0;
+}
+.sidebar .MuiTypography-root {
+  font-weight: 500;
+  color: #000;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+.sidebar .sidebarTextInput > * {
+  font-size: 12.25px;
+}
+.sidebar .sidebarTextInput input {
+  color: #4b5563;
+}
+.sidebar .MuiAccordionDetails-root {
+  padding-bottom: 0px;
+}
+.sidebar .MuiPaper-root.Mui-expanded {
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
+}
+.sidebar .MuiAccordionSummary-content {
+  margin: 0;
+}
+.sidebar .MuiAccordionSummary-root.Mui-expanded {
+  min-height: unset;
+}
+
+/* product page */
+#gridview [type='checkbox']:focus {
+  --tw-ring-inset: #fff;
+}

@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import { __Cookie } from '@constants/global.constant';
+import { paths } from '@constants/paths.constant';
 import {
   checkCustomerAlreadyExist,
   placeOrder as PlaceOrderService,
@@ -10,8 +12,11 @@ import {
   checkoutPasswordMessages,
   checkoutUserLoginMessages,
 } from 'constants/validationMessages';
+import CartSummaryController from 'Controllers/cartSummarryController';
 import { CustomerAddress } from 'definations/APIs/user.res';
+import { deleteCookie, extractCookies } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 const cardArray = [
@@ -36,6 +41,8 @@ const cardArray = [
 export type AddressType = CustomerAddress;
 export type CreditCardType = typeof cardArray;
 const CheckoutController = () => {
+  const { getTotalPrice } = CartSummaryController();
+  const router = useRouter();
   const { showModal, fetchCartDetails } = useActions();
 
   const customer = useTypedSelector((state) => state.user.customer);
@@ -43,7 +50,8 @@ const CheckoutController = () => {
   const { id: storeId, ...store } = useTypedSelector((state) => state.store);
   const cartProducts = useTypedSelector((state) => state.cart.cart);
   const cart = useTypedSelector((state) => state.cart);
-  const isLoggedIn = false;
+  const [custId, setCustId] = useState<string | number | null>(null);
+  const isLoggedIn = Boolean(customer?.id);
 
   const [address, setAddress] = useState<Array<CustomerAddress>>([]);
   const [showEmail, setShowEmail] = useState(true);
@@ -89,10 +97,18 @@ const CheckoutController = () => {
   });
 
   useEffect(() => {
-    const tempCustomerId = localStorage.getItem('tempCustomerId');
-    if (customer?.id || tempCustomerId) {
-      fetchCartDetails(customer?.id || ~~(tempCustomerId || 0));
+    let c_id: string | null | number;
+
+    if (customer?.id) {
+      c_id = customer?.id;
+    } else {
+      c_id = extractCookies(
+        __Cookie.tempCustomerId,
+        'browserCookie',
+      ).tempCustomerId;
     }
+    setCustId(c_id);
+    fetchCartDetails(c_id ? ~~c_id : 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customer?.id]);
 
@@ -135,17 +151,20 @@ const CheckoutController = () => {
   }, [storeId]);
 
   const placeOrder = async () => {
+    const { subTotal, totalPrice, salesTax, logoSetupCharges, discount } =
+      getTotalPrice();
+
     let order = {
       orderModel: {
         id: 0,
         storeID: storeId,
         isNew: true,
         shoppingCartID: 0,
-        customerID: 48,
+        customerID: custId,
         firstName: customer?.firstname || billingAdress?.firstname,
         lastName: customer?.lastName || billingAdress?.lastName,
         email: customer?.email || billingAdress?.email,
-        notes: 'string',
+        notes: 'this is an order',
         billingEqualsShipping: useShippingAddress,
         billingEmail: billingAdress?.email,
         billingFirstName: billingAdress?.firstname,
@@ -171,7 +190,7 @@ const CheckoutController = () => {
         shippingZip: shippingAdress?.postalCode,
         shippingCountry: shippingAdress?.countryName,
         shippingPhone: shippingAdress?.phone,
-        shippingMethod: 'string',
+        shippingMethod: 'Bluedart',
         okToEmail: true,
         cardName: 'Debit Card',
         cardType: 'Visa',
@@ -180,43 +199,43 @@ const CheckoutController = () => {
         cardExpirationMonth: '11',
         cardExpirationYear: '25',
         couponCode: '',
-        couponDiscountAmount: 0,
+        couponDiscountAmount: discount,
         giftCertiSerialNumber: '',
         giftCertificateDiscountAmount: 0,
         quantityDiscountAmount: 0,
         levelDiscountPercent: 0,
         levelDiscountAmount: 0,
         customDiscount: 0,
-        orderSubtotal: 0,
-        orderTax: 0,
+        orderSubtotal: subTotal,
+        orderTax: salesTax,
         orderShippingCosts: 0,
-        orderTotal: 0,
-        authorizationCode: 'string',
-        authorizationResult: 'string',
-        authorizationPNREF: 'string',
-        transactionCommand: 'string',
-        lastIPAddress: 'string',
-        paymentGateway: 'string',
-        paymentMethod: 'string',
-        orderStatus: 'string',
-        transactionStatus: 'string',
-        avsResult: 'string',
-        captureTxCommand: 'string',
-        captureTXResult: 'string',
+        orderTotal: totalPrice,
+        authorizationCode: '',
+        authorizationResult: '',
+        authorizationPNREF: '',
+        transactionCommand: '',
+        lastIPAddress: '',
+        paymentGateway: '',
+        paymentMethod: '',
+        orderStatus: 'E',
+        transactionStatus: 'P',
+        avsResult: '',
+        captureTxCommand: '',
+        captureTXResult: '',
         authorizedOn: new Date(),
         capturedOn: new Date(),
         orderDate: new Date(),
         deleted: true,
-        referrer: 'string',
+        referrer: '',
         refundedAmount: 0,
         chargeAmount: 0,
         authorizedAmount: 0,
         adjustmentAmount: 0,
-        orderNotes: 'string',
+        orderNotes: '',
         isGiftWrap: true,
         giftWrapAmt: 0,
         inventoryWasReduced: true,
-        refOrderID: 'string',
+        refOrderID: '',
         isMobileOrder: true,
         batchId: 0,
         shippingLabelCost: 0,
@@ -232,7 +251,7 @@ const CheckoutController = () => {
         shipPromotionDiscount: 0,
         isFullFillment: true,
         isAmazonuplaod: true,
-        cvvResult: 'string',
+        cvvResult: '',
         isMailSend: true,
         shippedByStamps: true,
         logoFinalTotal: 0,
@@ -255,7 +274,9 @@ const CheckoutController = () => {
     };
 
     try {
-      await PlaceOrderService(order);
+      deleteCookie(__Cookie.tempCustomerId);
+      const res = await PlaceOrderService(order);
+      router.push(`${paths.THANK_YOU}?orderNumber=${res.id}`);
     } catch (error) {
       console.log(error);
     }
@@ -352,47 +373,6 @@ const CheckoutController = () => {
     // if (!isLoggedIn) {
     //   setShowChangeAddressPopup(1);
     // }
-  };
-
-  const getTotalPrice = () => {
-    let priceObject = {
-      totalPrice: 0,
-      subTotal: 0,
-      smallRunFee: 0,
-      logoSetupCharges: 0,
-      salesTax: 0,
-    };
-
-    if (cartProducts && cartProducts.length > 0) {
-      let totalQty = 0;
-      cartProducts.forEach((res: any) => {
-        priceObject.totalPrice += res.totalPrice;
-        priceObject.subTotal += res.totalPrice;
-        totalQty += res.totalQty;
-      });
-
-      if (store.cartCharges) {
-        const {
-          isSmallRun,
-          smallRunLimit,
-          smallRunFeesCharges,
-          isLogoSetupCharges,
-          logoSetupCharges,
-        } = store.cartCharges;
-        if (isSmallRun) {
-          if (totalQty < smallRunLimit) {
-            priceObject.totalPrice += smallRunFeesCharges;
-            priceObject.smallRunFee = smallRunFeesCharges;
-          }
-        }
-        if (isLogoSetupCharges) {
-          priceObject.totalPrice += logoSetupCharges;
-          priceObject.logoSetupCharges = logoSetupCharges;
-        }
-      }
-    }
-
-    return priceObject;
   };
 
   const addressChangeHandler = (

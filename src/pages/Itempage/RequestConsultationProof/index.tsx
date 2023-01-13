@@ -9,7 +9,7 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,
   _ProductsAlike,
-  _ProductSEO,
+  _ProductSEO
 } from 'definations/APIs/productDetail.res';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
@@ -83,7 +83,7 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
         <RequestConsultationForm />
         <RequestFeatures />
       </div>
-      <ProductAlike title={'YOU MAY ALSO LIKE'} products={alike} />
+      <ProductAlike title={'YOU MAY ALSO LIKE'} products={alike} storeCode={''} />
     </section>
   );
 };

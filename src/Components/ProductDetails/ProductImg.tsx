@@ -35,7 +35,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
   const selectImgHandler = (img: _OtherImage) => {
     setImage(img);
   };
-
+  
   // UseEffect's  ----------------------------------------
 
   useEffect(() => {
@@ -186,14 +186,13 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                 );
               })}
           </div>
-          <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
+          <HeartIcon className="absolute right-2 top-8 w-6 h-6" />
         </div>
         <AvailableColors storeCode={storeCode} />
         <ProductCompanion
           storeCode={storeCode}
           name={product.companionProductName}
-          id={product.companionProductId}
-          link={product.companionProductLink}
+          seName={product.companionProductSEName}
           imageUrl={product.companionProductImage}
         />
       </div>

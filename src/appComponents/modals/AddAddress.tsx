@@ -1,4 +1,5 @@
 // import AddressForm from 'appComponents/ui/AddressForm';
+import AddressForm from 'appComponents/ui/AddressForm';
 import { AddUpdateAddressRequest } from 'definations/APIs/address.req';
 import { CustomerAddress } from 'definations/APIs/user.res';
 
@@ -47,10 +48,14 @@ const AddAddress = ({
                 </svg>
               </button>
             </div>
-            {/* <AddressForm {...{
+            <AddressForm {...{
               submitHandler,
               closePopupHandler,
-            }} /> */}
+              editData: null,
+              addressType: 'B',
+              hideButtons: true,
+              padding: true
+            }} />
           </div>
         </div>
       </div>

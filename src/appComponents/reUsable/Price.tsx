@@ -4,9 +4,10 @@ import React from 'react';
 interface _props {
   value: number | string | undefined;
   prices?: { msrp: number; ourCost: number; salePrice: number };
+  addColon?: boolean;
 }
 
-const Price: React.FC<_props> = ({ value, prices }) => {
+const Price: React.FC<_props> = ({ value, prices, addColon = true }) => {
   let price = 0;
 
   const currency = useTypedSelector((state) => state.store.currency);
@@ -18,6 +19,15 @@ const Price: React.FC<_props> = ({ value, prices }) => {
   }
 
   const toShow = price.toFixed(2);
+
+  if (addColon) {
+    return (
+      <>
+        : {currency}
+        {toShow}
+      </>
+    );
+  }
 
   return (
     <>

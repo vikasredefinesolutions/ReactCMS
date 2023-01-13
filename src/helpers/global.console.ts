@@ -12,13 +12,13 @@ export const __Show = {
   all: true,
   services: {
     payload: true,
-    response: false,
+    response: true,
     error: true,
   },
   component: false,
   controllers: false,
   serverMethods: false,
-  page: false,
+  page: true,
   functions: false,
   catch: true,
 };
@@ -28,7 +28,7 @@ export const __console: __Console = {
   app: {
     controller: false,
     serverMethod: false,
-    page: false,
+    page: true,
     service: {
       FetchThemeConfigs: true,
       GetStoreID: true,
@@ -45,7 +45,7 @@ export const __console: __Console = {
   },
   slug: {
     serverMethod: false,
-    page: false,
+    page: true,
     service: {
       getPageType: false,
     },
@@ -77,7 +77,7 @@ export const __console: __Console = {
       similarProducts: false,
     },
     serverMethod: false,
-    page: false,
+    page: true,
   },
   user: {
     service: {
@@ -93,12 +93,24 @@ export const __console: __Console = {
   requestConsultation: {
     controller: false,
     serverMethod: false,
-    page: false,
+    page: true,
   },
   compare: {
     controller: false,
     serverMethod: false,
-    page: false,
+    page: true,
+  },
+  giftCard: {
+    serverMethod: false,
+    controller: false,
+    component: {
+      details: false,
+      list: false,
+    },
+    service: {
+      FetchGiftCardsList: true,
+      FetchGiftCardDetailsBySename: true,
+    },
   },
 };
 

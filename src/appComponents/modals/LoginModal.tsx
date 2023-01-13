@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { __length, __messages } from '@constants/form.config';
-import { __Cookie, __Cookie_Expiry } from '@constants/global.constant';
+import {
+  __Cookie,
+  __Cookie_Expiry
+} from '@constants/global.constant';
+import { updateCartByNewUserId } from '@services/cart.service';
 import { paths, queryParam } from 'constants/paths.constant';
 import { _modals } from 'definations/product.type';
 import { Form, Formik } from 'formik';
-import { setCookie } from 'helpers/common.helper';
+import { deleteCookie, extractCookies, setCookie } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
@@ -50,7 +54,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
     })
       .then((user) => {
         if (user.credentials === 'INVALID') {
-          setErrorMsg(__messages.credentials.invalid);
+          setErrorMsg(user.message);
         }
         if (user.credentials === 'VALID') {
           modalHandler(null);
@@ -60,9 +64,16 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
           setCookie(__Cookie.userId, user.id, __Cookie_Expiry.userId);
 
           GetStoreCustomer(+user.id).then((res) => {
-            if (res !== null) {
-              updateCustomer({ customer: res });
+            if (res === null) return;
+            if (localStorage) {
+              const tempCustomerId = extractCookies(__Cookie.tempCustomerId, 'browserCookie').tempCustomerId;
+
+              if (tempCustomerId) {
+                updateCartByNewUserId(~~tempCustomerId, res.id);
+                deleteCookie(__Cookie.tempCustomerId);
+              }
             }
+            updateCustomer({ customer: res });
           });
         }
       })
@@ -132,7 +143,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                               }
                               handleChange(ev);
                             }}
-                            type={'email'}
+                            type={'text'}
                             required={false}
                             id={'email'}
                           />
@@ -506,7 +517,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                               }}
                               className="btn btn-lg btn-secondary w-full !flex items-center justify-center"
                             >
-                              CREATE NEW ACOOUNT
+                              CREATE NEW ACCOUNT
                             </button>
                           </div>
                         </div>

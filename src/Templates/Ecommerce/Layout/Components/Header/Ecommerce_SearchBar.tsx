@@ -12,7 +12,7 @@ interface _props {
 
 const SearchBar: React.FC<_props> = ({
   screen = 'DESKTOP',
-  onSearchInput = () => {},
+  onSearchInput = () => { },
 }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
@@ -59,7 +59,6 @@ const SearchBar: React.FC<_props> = ({
                       type="text"
                       className="outline-none text-secondary text-lg w-full border-0 focus:ring-0"
                       placeholder="Search"
-                      value={values.text}
                       name="text"
                       min={1}
                       id="txtSearch"
@@ -134,7 +133,6 @@ const SearchBar: React.FC<_props> = ({
                   <div className="border border-gray-400 p-2 pr-10 text-gray-400 hover:text-gray-500 relative">
                     <input
                       type="text"
-                      value={values.text}
                       name="text"
                       min={1}
                       id="txtSearch"

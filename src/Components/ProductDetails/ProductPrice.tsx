@@ -18,7 +18,6 @@ const ProductPrice: React.FC<_props & { storeCode: string }> = ({
       <div className="text-gray-700 pt-1 text-sm">
         <span className="font-semibold inline-block w-16">MSRP </span>
         <span>
-          {`: `}
           <Price value={msrp} />
         </span>
       </div>
@@ -30,7 +29,6 @@ const ProductPrice: React.FC<_props & { storeCode: string }> = ({
       <div className="text-black mb-5 text-[16px] flex items-center">
         <span className="font-bold w-32">MSRP </span>
         <span>
-          {`: `}
           <Price value={msrp} />
         </span>
       </div>

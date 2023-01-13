@@ -1,37 +1,32 @@
 import { font as fonts } from '@constants/fonts.constant';
 import {
   CartProducts,
-  _CI_ShoppingCartItemDetailsViewModel,
+  _CI_ShoppingCartItemDetailsViewModel
 } from '@type/APIs/cart.res';
 import ImageComponent from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
+import CartSummaryController from 'Controllers/cartSummarryController';
 import Link from 'next/link';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 const CartLayout3 = ({
   cartProducts,
   deleteCartItem,
-  getTotalPrice,
 }: {
   cartProducts: CartProducts;
   deleteCartItem: (id: number) => void;
-  getTotalPrice: () => {
-    totalPrice: number;
-    subTotal: number;
-    smallRunFee: number;
-    logoSetupCharges: number;
-    salesTax: number;
-  };
 }) => {
+  const { getTotalPrice } = CartSummaryController();
+
   const [currentEditor, setCurrentEditor] = useState<number | null>(null);
   // const [threadColor, setThreadColor] = useState('');
   const [inputIds, setInputId] = useState<string[]>([]);
   const [personliseLineArray, setPersonliseLineArray] = useState<
     | {
-        line1: string;
-        line2: string;
-        size: string;
-      }[]
+      line1: string;
+      line2: string;
+      size: string;
+    }[]
     | null
   >(null);
   // const [font, setFont] = useState<string>(fonts[0].name);
@@ -39,10 +34,10 @@ const CartLayout3 = ({
 
   const [personalizeDetails, setPersonalizeDetails] = useState<
     | {
-        font: string;
-        threadColor: string;
-        personlaizeLogo: string;
-      }[]
+      font: string;
+      threadColor: string;
+      personlaizeLogo: string;
+    }[]
     | null
   >(null);
 
@@ -418,11 +413,10 @@ const CartLayout3 = ({
                                     className="w-full lg:w-1/3 px-3"
                                   >
                                     <div
-                                      className={`border-2${
-                                        fnt.name === font
-                                          ? ' border-primary'
-                                          : ''
-                                      }`}
+                                      className={`border-2${fnt.name === font
+                                        ? ' border-primary'
+                                        : ''
+                                        }`}
                                     >
                                       <img
                                         src={fnt.image}
@@ -455,11 +449,10 @@ const CartLayout3 = ({
                                         index,
                                       )
                                     }
-                                    className={`w-8 h-8 border-2 p-1${
-                                      threadColor === 'white'
-                                        ? ' border-secondary'
-                                        : ''
-                                    }`}
+                                    className={`w-8 h-8 border-2 p-1${threadColor === 'white'
+                                      ? ' border-secondary'
+                                      : ''
+                                      }`}
                                   >
                                     <div className="bg-white w-full h-full"></div>
                                   </div>
@@ -471,11 +464,10 @@ const CartLayout3 = ({
                                         index,
                                       )
                                     }
-                                    className={`w-8 h-8 border-2 p-1${
-                                      threadColor === 'black'
-                                        ? ' border-secondary'
-                                        : ''
-                                    }`}
+                                    className={`w-8 h-8 border-2 p-1${threadColor === 'black'
+                                      ? ' border-secondary'
+                                      : ''
+                                      }`}
                                   >
                                     <div className="bg-black w-full h-full"></div>
                                   </div>
@@ -487,11 +479,10 @@ const CartLayout3 = ({
                                         index,
                                       )
                                     }
-                                    className={`h-8 border-2 p-1${
-                                      !'white,black'.includes(threadColor)
-                                        ? ' border-secondary'
-                                        : ''
-                                    }`}
+                                    className={`h-8 border-2 p-1${!'white,black'.includes(threadColor)
+                                      ? ' border-secondary'
+                                      : ''
+                                      }`}
                                   >
                                     Custom
                                   </div>

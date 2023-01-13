@@ -113,7 +113,7 @@ const initialState: _ProductStore = {
           id: 0,
         },
       ],
-      minQuantity: 0,
+      minQuantity: 5,
       multipleQuantity: 0,
     },
   },
@@ -217,7 +217,8 @@ export const productSlice = createSlice({
       }
 
       state.selected.color = action.payload;
-      state.toCheckout.minQty = action.payload.minQuantity;
+      // state.toCheckout.minQty = action.payload.minQuantity;
+      state.toCheckout.minQty = 5;
       state.selected.productId = action.payload.productId;
     },
     setMinQty: (
@@ -226,7 +227,8 @@ export const productSlice = createSlice({
         payload: number;
       },
     ) => {
-      state.toCheckout.minQty = action.payload;
+      // state.toCheckout.minQty = action.payload;
+      state.toCheckout.minQty = 5;
     },
     setImage: (
       state,

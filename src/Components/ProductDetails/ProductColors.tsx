@@ -17,12 +17,16 @@ const ProductColors: React.FC = () => {
           <span className="font-bold">Colors:</span>{' '}
         </div>
         <div className="flex flex-wrap text-center pl-0">
-          {colors.map((product) => {
+          {colors.map((product, index) => {
             return (
-              <div className="w-8" key={product.productId}>
+              <div className="w-8 mr-2" key={product.productId}>
                 <button
                   onClick={() => setColor(product)}
-                  className="w-8 h-8 border-2 text-center inline-block border-transparent hover:border-primary border-primary"
+                  className={
+                    index == 0
+                      ? 'w-8 h-8 border-2 text-center inline-block border-transparent hover:border-primary border-primary'
+                      : 'w-8 h-8 border-2 text-center inline-block border-transparent hover:border-primary'
+                  }
                 >
                   <Image
                     src={product.imageUrl}

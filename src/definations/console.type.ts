@@ -1,4 +1,5 @@
 import { _RedefineAppAPIs } from '@services/app.service';
+import { _GiftCardAPIs } from '@services/gift.service';
 import { _HeaderAPIs } from '@services/header.service';
 import { _HomeAPIs } from '@services/home.service';
 import { _ProducDetailAPIs } from '@services/product.service';
@@ -49,5 +50,14 @@ export interface __Console {
       featuredItems: boolean;
     };
     service: Record<_HomeAPIs, boolean>;
+  };
+  giftCard: {
+    serverMethod: false;
+    controller: boolean;
+    component: {
+      details: boolean;
+      list: boolean;
+    };
+    service: Record<_GiftCardAPIs, boolean>;
   };
 }

@@ -41,6 +41,7 @@ const RedefineInput: React.FC<_props> = ({
           name={name}
           placeholder={placeHolder}
           value={value}
+          autoComplete="off"
           onChange={onChange}
           className="form-input"
         />
@@ -50,7 +51,7 @@ const RedefineInput: React.FC<_props> = ({
           setShowPassword={setShowPassword}
         />
       </div>
-      <ErrorMessage name={name} />
+      <ErrorMessage name={name} className="text-rose-500" component={'p'} />
     </div>
   );
 };

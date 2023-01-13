@@ -6,6 +6,7 @@ export enum __Cookie {
   loggedIn = 'loggedIn',
   userId = 'userId',
   storeInfo = 'storeInfo',
+  tempCustomerId = 'tempCustomerId',
 }
 
 // cookie_expiry in days
@@ -22,4 +23,8 @@ export const __LocalStorage = {
   recetlyViewedProducts: '_rcvwp',
   compareProducts: '_cmpPdts',
   tempCustomerId: 'tempCustomerId',
+};
+
+export const __Params = {
+  giftId: 'giftId',
 };

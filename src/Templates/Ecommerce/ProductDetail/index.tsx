@@ -1,6 +1,5 @@
 import ProductDescription from 'Components/ProductDetails/ProductDescription';
 import ProductDetails from 'Components/ProductDetails/ProductDetails';
-import ProductFeatures from 'Components/ProductDetails/ProductFeatures';
 import SizeChart from 'Components/ProductDetails/SizeChartModal';
 import { useActions, useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
@@ -9,6 +8,7 @@ import React, { useEffect } from 'react';
 import { FetchInventoryById } from '@services/product.service';
 import { _StoreCache } from '@type/slug.type';
 import ProductAlike from 'Components/ProductDetails/ProductAlike';
+import ProductFeatures from 'Components/ProductDetails/ProductFeatures';
 import ProductReviews from 'Components/ProductDetails/ProductReviews';
 import { _ProductDetailsProps } from 'definations/APIs/productDetail.res';
 import Head from 'next/head';
@@ -93,8 +93,8 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
   const HeadTag = (
     <Head>
       <title>{_SEO.title}</title>
-      <meta name="description" content={_SEO.desc} key="desc" />
-      <meta name="keywords" content={_SEO.keywords} />
+      <meta name='description' content={_SEO.desc} key='desc' />
+      <meta name='keywords' content={_SEO.keywords} />
     </Head>
   );
 
@@ -107,7 +107,11 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
             product={product.details}
             storeCode={product.storeCode}
           />
-          <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
+          <ProductAlike
+            storeCode={product.storeCode}
+            title='YOU MAY ALSO LIKE'
+            products={product.alike}
+          />
           <ProductReviews reviews={null} storeCode={product.storeCode} />
         </div>
       </>
@@ -125,12 +129,16 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
           />
           <ProductFeatures fewFeatures storeCode={product.storeCode} />
           <ProductDescription
-            heading="DESCRIPTION"
+            heading='DESCRIPTION'
             text={product.details.description}
             storeCode={product.storeCode}
           />
           <ProductReviews reviews={null} storeCode={product.storeCode} />
-          <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
+          <ProductAlike
+            storeCode={product.storeCode}
+            title='YOU MAY ALSO LIKE'
+            products={product.alike}
+          />
         </div>
       </>
     );
@@ -146,7 +154,7 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
             storeCode={product.storeCode}
           />
           <ProductDescription
-            heading="Description"
+            heading='Information'
             text={product.details.description}
             storeCode={product.storeCode}
           />
@@ -155,7 +163,11 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
             modal={'NO'}
             storeCode={product.storeCode}
           />
-          <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
+          <ProductAlike
+            storeCode={product.storeCode}
+            title='YOU MAY ALSO LIKE'
+            products={product.alike}
+          />
         </div>
       </>
     );
@@ -171,11 +183,15 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
             storeCode={product.storeCode}
           />
           <ProductDescription
-            heading="Description"
+            heading='Description'
             text={product.details.description}
             storeCode={product.storeCode}
           />
-          <ProductAlike title="YOU MAY ALSO LIKE" products={product.alike} />
+          <ProductAlike
+            storeCode={product.storeCode}
+            title='YOU MAY ALSO LIKE'
+            products={product.alike}
+          />
           <ProductReviews reviews={null} storeCode={product.storeCode} />
         </div>
       </>

@@ -27,7 +27,7 @@ export type InititalValueAddress = typeof _initialValues;
 type Props = {
     submitHandler: (arg: AddUpdateAddressRequest) => void;
     closePopupHandler: () => void;
-    customChangeHandler: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    customChangeHandler?: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     addressType: string;
     editData: any | null;
     padding?: boolean | null;
@@ -136,7 +136,7 @@ const AddressForm: React.FC<Props> = ({
                                         value={values.countryName}
                                         onChange={(e) => {
                                             handleChange(e);
-                                            customChangeHandler(e);
+                                            customChangeHandler && customChangeHandler(e);
                                             loadState(e.target.value);
                                         }}
                                         onBlur={handleBlur}
@@ -162,7 +162,7 @@ const AddressForm: React.FC<Props> = ({
                                             name="firstname"
                                             id="firstname"
                                             className="form-input"
-                                            onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                            onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
 
                                             onBlur={handleBlur}
                                         />
@@ -181,7 +181,7 @@ const AddressForm: React.FC<Props> = ({
                                             id="region"
                                             className="form-input"
                                             value={values.lastName}
-                                            onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                            onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                             onBlur={handleBlur}
                                         />
                                     </div>
@@ -202,7 +202,7 @@ const AddressForm: React.FC<Props> = ({
                                         autoComplete="street-address"
                                         placeholder="Email"
                                         className="form-input"
-                                        onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                        onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                         onBlur={handleBlur}
                                     />
                                 </div>
@@ -222,7 +222,7 @@ const AddressForm: React.FC<Props> = ({
                                         autoComplete="street-address"
                                         placeholder="Street Address"
                                         className="form-input"
-                                        onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                        onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                         onBlur={handleBlur}
                                     />
                                 </div>
@@ -263,7 +263,7 @@ const AddressForm: React.FC<Props> = ({
                                         autoComplete="Apt-suit"
                                         placeholder="Apt/Suit/Other(optional)"
                                         className="form-input"
-                                        onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                        onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                         onBlur={handleBlur}
                                     />
                                 </div>
@@ -285,7 +285,7 @@ const AddressForm: React.FC<Props> = ({
                                             value={values.postalCode}
                                             placeholder="Zip Code"
                                             className="form-input"
-                                            onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                            onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                             onBlur={handleBlur}
                                         />
                                     </div>
@@ -305,7 +305,7 @@ const AddressForm: React.FC<Props> = ({
                                             placeholder="Company Name"
                                             value={values.companyName}
                                             className="form-input"
-                                            onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                            onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                             onBlur={handleBlur}
                                         />
                                     </div>
@@ -328,7 +328,7 @@ const AddressForm: React.FC<Props> = ({
                                             placeholder="1-(000)-000-0000"
                                             value={values.phone}
                                             className="form-input"
-                                            onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                            onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                             onBlur={handleBlur}
                                         />
                                     </div>
@@ -345,7 +345,7 @@ const AddressForm: React.FC<Props> = ({
                                             name="fax"
                                             id="region"
                                             className="form-input"
-                                            onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                            onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                             value={values.fax}
                                             onBlur={handleBlur}
                                         />
@@ -366,7 +366,7 @@ const AddressForm: React.FC<Props> = ({
                                             value={values.city}
                                             id="city"
                                             className="form-input"
-                                            onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                            onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                             onBlur={handleBlur}
                                         />
                                     </div>
@@ -384,7 +384,7 @@ const AddressForm: React.FC<Props> = ({
                                             name="state"
                                             autoComplete="country-name"
                                             className="form-input"
-                                            onChange={(e) => { handleChange(e); customChangeHandler(e); }}
+                                            onChange={(e) => { handleChange(e); customChangeHandler && customChangeHandler(e); }}
                                             onBlur={handleBlur}
                                             value={values.state}
                                         >

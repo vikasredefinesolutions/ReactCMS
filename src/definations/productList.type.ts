@@ -192,6 +192,8 @@ export type FilterType = Array<{
     productCount: number;
     displayOrder: number;
     colorCode: string;
+    label: string;
+    sename?: string;
   }>;
 }>;
 

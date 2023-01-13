@@ -51,28 +51,28 @@ export const Cyxtera_Header: React.FC = () => {
                     <div className="hidden h-full lg:flex items-center justify-center flex-1">
                       <div
                         className="ml-6"
-                        // x-data="Components.popoverGroup()"
-                        // x-init="init()"
+                      // x-data="Components.popoverGroup()"
+                      // x-init="init()"
                       >
                         <div className="h-full flex justify-center space-x-6 relative text-sm">
                           <div
                             className="flex relative"
-                            // x-data="Components.popover({ open: false, focus: false })"
-                            // x-init="init()"
-                            //  @keydown.escape="onEscape"
-                            //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
+                          // x-data="Components.popover({ open: false, focus: false })"
+                          // x-init="init()"
+                          //  @keydown.escape="onEscape"
+                          //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
                           >
                             <div className="relative flex">
-                              <a
+                              <Link
                                 href="/"
                                 // x-state:on="Item active"
                                 className="relative z-10 flex items-center transition-colors ease-out duration-200 py-2 text-gray-200 hover:text-white border-b-2 border-b-transparent hover:border-b-anchor"
 
-                                // :className="{ '': open, '': !(open) }"
-                                // @mouseover="open = true" :aria-expanded="open.toString()"
+                              // :className="{ '': open, '': !(open) }"
+                              // @mouseover="open = true" :aria-expanded="open.toString()"
                               >
                                 <span className="">Apparel</span>
-                              </a>
+                              </Link>
                             </div>
                             <div
                               // x-transition:enter="transition ease-out duration-200"
@@ -83,8 +83,8 @@ export const Cyxtera_Header: React.FC = () => {
                               // x-transition:leave-end="opacity-0"
                               // x-description="'Men' mega menu, show/hide based on flyout menu state."
                               className="absolute top-full left-0 w-80 text-gray-500 sm:text-sm"
-                              // x-ref="panel"
-                              // @mouseover="open = true"
+                            // x-ref="panel"
+                            // @mouseover="open = true"
                             >
                               {/* <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
                               <div
@@ -131,18 +131,18 @@ export const Cyxtera_Header: React.FC = () => {
                           </div>
                           <div
                             className="flex relative"
-                            // x-data="Components.popover({ open: false, focus: false })"
-                            // x-init="init()"
-                            //  @keydown.escape="onEscape"
-                            //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
+                          // x-data="Components.popover({ open: false, focus: false })"
+                          // x-init="init()"
+                          //  @keydown.escape="onEscape"
+                          //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
                           >
                             <div className="relative flex">
                               <Link
                                 href="/"
                                 // x-state:on="Item active"
                                 className="relative z-10 flex items-center transition-colors ease-out duration-200 py-2 text-gray-200 hover:text-white border-b-2 border-b-transparent hover:border-b-anchor"
-                                // :className="{ '': open, '': !(open) }"
-                                // @mouseover="open = true" :aria-expanded="open.toString()"
+                              // :className="{ '': open, '': !(open) }"
+                              // @mouseover="open = true" :aria-expanded="open.toString()"
                               >
                                 <span className="">Accessories</span>
                               </Link>
@@ -156,8 +156,8 @@ export const Cyxtera_Header: React.FC = () => {
                               // x-transition:leave-end="opacity-0"
                               // x-description="'Men' mega menu, show/hide based on flyout menu state."
                               className="absolute top-full left-0 w-80 text-gray-500 sm:text-sm"
-                              // x-ref="panel"
-                              //  @mouseover="open = true"
+                            // x-ref="panel"
+                            //  @mouseover="open = true"
                             >
                               {/* <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
                               <div
@@ -240,7 +240,7 @@ export const Cyxtera_Header: React.FC = () => {
                         type="button"
                         // x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
                         className="py-2 rounded-md text-primary  hover:text-primary-hover"
-                        // @click="open = true"
+                      // @click="open = true"
                       >
                         <span className="sr-only">Open menu</span>
                         <svg
@@ -262,7 +262,7 @@ export const Cyxtera_Header: React.FC = () => {
                       </button>
 
                       {/* <!-- Search --> */}
-                      <a
+                      <Link
                         href="/"
                         className="py-2 text-primary hover:text-primary-hover hover:text-gray-500 "
                       >
@@ -283,7 +283,7 @@ export const Cyxtera_Header: React.FC = () => {
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                           ></path>
                         </svg>
-                      </a>
+                      </Link>
                     </div>
 
                     {/* <!-- Logo (lg-) --> */}
@@ -334,7 +334,7 @@ export const Cyxtera_Header: React.FC = () => {
                                               </a>
                                           </div> --> */}
                           <div className="flex">
-                            <a
+                            <Link
                               href="/"
                               className="text-primary flex items-center gap-1"
                               data-modal-toggle="LoginModal"
@@ -356,19 +356,19 @@ export const Cyxtera_Header: React.FC = () => {
                                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                 ></path>
                               </svg>
-                            </a>
+                            </Link>
                           </div>
 
                           {/* <!-- <span className="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span> --> */}
 
                           <div
                             className="flow-root relative"
-                            // @mouseover.away = "open = false"
+                          // @mouseover.away = "open = false"
                           >
                             <a
                               href="cart.html"
                               className="text-primary  group flex items-center gap-1 relative py-2 pr-2"
-                              //  @mouseover="open = true"
+                            //  @mouseover="open = true"
                             >
                               <span className="hidden">my cart</span>
                               <svg
@@ -400,8 +400,8 @@ export const Cyxtera_Header: React.FC = () => {
                               // x-transition:leave-end="opacity-0"
                               // x-description="'Men' mega menu, show/hide based on flyout menu state."
                               className="absolute top-full right-0 w-80 text-sm shadow"
-                              // x-ref="panel"
-                              //  @mouseover="open = true"
+                            // x-ref="panel"
+                            //  @mouseover="open = true"
                             >
                               {/* <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
                               <div
@@ -555,7 +555,7 @@ export const GilabanCo_Header: React.FC = () => {
         {/* <!-- Mobile menu --> */}
         <div
           className="relative z-40 lg:hidden"
-          //  x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
+        //  x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
         >
           <div
 
@@ -569,7 +569,7 @@ export const GilabanCo_Header: React.FC = () => {
                 <button
                   type="button"
                   className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
-                  //  @click="open = false"
+                //  @click="open = false"
                 >
                   <span className="sr-only">Close menu</span>
                   <svg
@@ -606,11 +606,11 @@ export const GilabanCo_Header: React.FC = () => {
                   <div className="flex items-center justify-between py-2 pr-2">
                     <button
                       className="flex items-center grow group"
-                      //  @click.prevent="open = !open" :aria-expanded="open" aria-expanded="false"
+                    //  @click.prevent="open = !open" :aria-expanded="open" aria-expanded="false"
                     >
                       <svg
                         className="w-8 h-8 shrink-0 fill-current text-anchor"
-                        //  :className="{ 'text-anchor-hover rotate-180': open }" viewBox="0 0 32 32"
+                      //  :className="{ 'text-anchor-hover rotate-180': open }" viewBox="0 0 32 32"
                       >
                         <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
                       </svg>
@@ -661,7 +661,7 @@ export const GilabanCo_Header: React.FC = () => {
                   <div className="flex items-center justify-between py-2 pr-2">
                     <button
                       className="flex items-center grow group"
-                      //  @click.prevent="open = !open" :aria-expanded="open" aria-expanded="false"
+                    //  @click.prevent="open = !open" :aria-expanded="open" aria-expanded="false"
                     >
                       <svg
                         className="w-8 h-8 shrink-0 fill-current text-anchor"
@@ -931,7 +931,7 @@ export const GilabanCo_Header: React.FC = () => {
                               <a
                                 href="product-listing.html"
                                 className="relative z-10 flex items-center transition-colors ease-out duration-200 py-2 border-b-2 border-b-transparent hover:border-b-anchor"
-                                // :className="{ '': open, '': !(open) }" @click="toggle"
+                              // :className="{ '': open, '': !(open) }" @click="toggle"
                               >
                                 <span className="">What's New</span>
                               </a>
@@ -941,19 +941,19 @@ export const GilabanCo_Header: React.FC = () => {
                             className="flex relative"
                             x-data="Components.popover({ open: false, focus: false })"
                             x-init="init()"
-                            //  @keydown.escape="onEscape"
-                            //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
+                          //  @keydown.escape="onEscape"
+                          //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
                           >
                             <div className="relative flex">
-                              <a
+                              <Link
                                 href="/"
                                 // x-state:on="Item active"
                                 className="relative z-10 flex items-center transition-colors ease-out duration-200 py-2 border-b-2 border-b-transparent hover:border-b-anchor"
-                                // :className="{ '': open, '': !(open) }"
-                                // @mouseover="open = true" aria-expanded="false" :aria-expanded="open.toString()"
+                              // :className="{ '': open, '': !(open) }"
+                              // @mouseover="open = true" aria-expanded="false" :aria-expanded="open.toString()"
                               >
                                 <span className="">Apparel</span>
-                              </a>
+                              </Link>
                             </div>
                             <div
                             //  x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0"
@@ -1010,19 +1010,19 @@ export const GilabanCo_Header: React.FC = () => {
                             className="flex relative"
                             x-data="Components.popover({ open: false, focus: false })"
                             x-init="init()"
-                            //  @keydown.escape="onEscape"
-                            //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
+                          //  @keydown.escape="onEscape"
+                          //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
                           >
                             <div className="relative flex">
-                              <a
+                              <Link
                                 href="/"
                                 // x-state:on="Item active"
                                 className="relative z-10 flex items-center transition-colors ease-out duration-200 py-2 border-b-2 border-b-transparent hover:border-b-anchor"
-                                // :className="{ '': open, '': !(open) }"
-                                // @mouseover="open = true" aria-expanded="false" :aria-expanded="open.toString()"
+                              // :className="{ '': open, '': !(open) }"
+                              // @mouseover="open = true" aria-expanded="false" :aria-expanded="open.toString()"
                               >
                                 <span className="">Accessories</span>
-                              </a>
+                              </Link>
                             </div>
                             <div
                               // x-transition:enter="transition ease-out duration-200"
@@ -1033,8 +1033,8 @@ export const GilabanCo_Header: React.FC = () => {
                               // x-transition:leave-end="opacity-0"
                               // x-description="'Men' mega menu, show/hide based on flyout menu state."
                               className="absolute top-full left-0 w-80 text-gray-500 sm:text-sm"
-                              // x-ref="panel"
-                              // @mouseover="open = true"
+                            // x-ref="panel"
+                            // @mouseover="open = true"
                             >
                               {/* <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
                               <div
@@ -1161,7 +1161,7 @@ export const GilabanCo_Header: React.FC = () => {
                         type="button"
                         x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
                         className="bg-white py-2 rounded-md text-primary hover:text-primary-hover"
-                        // @click="open = true"
+                      // @click="open = true"
                       >
                         <span className="sr-only">Open menu</span>
                         <svg
@@ -1183,7 +1183,7 @@ export const GilabanCo_Header: React.FC = () => {
                       </button>
 
                       {/* <!-- Search --> */}
-                      <a
+                      <Link
                         href="/"
                         className="py-2 text-primary hover:text-primary-hover"
                       >
@@ -1204,7 +1204,7 @@ export const GilabanCo_Header: React.FC = () => {
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                           ></path>
                         </svg>
-                      </a>
+                      </Link>
                     </div>
 
                     {/* <!-- Logo (lg-) --> */}
@@ -1255,7 +1255,7 @@ export const GilabanCo_Header: React.FC = () => {
                                               </a>
                                           </div> --> */}
                           <div className="flex">
-                            <a
+                            <Link
                               href="/"
                               className="text-primary hover:text-primary-hover flex items-center gap-1"
                               data-modal-toggle="LoginModal"
@@ -1277,19 +1277,19 @@ export const GilabanCo_Header: React.FC = () => {
                                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                 ></path>
                               </svg>
-                            </a>
+                            </Link>
                           </div>
 
                           {/* <!-- <span className="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span> --> */}
 
                           <div
                             className="flow-root relative"
-                            //  @mouseover.away = "open = false"
+                          //  @mouseover.away = "open = false"
                           >
                             <a
                               href="cart.html"
                               className="text-primary hover:text-primary-hover group flex items-center gap-1 relative py-2 pr-2"
-                              // @mouseover="open = true"
+                            // @mouseover="open = true"
                             >
                               <span className="hidden">my cart</span>
                               <svg
@@ -1474,7 +1474,7 @@ export const HumanaHeroes_Header: React.FC = () => {
             <div
               // x-show="open"
               className="relative z-40 lg:hidden"
-              // x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
+            // x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
             >
               <div
                 // x-show="open"
@@ -1498,13 +1498,13 @@ export const HumanaHeroes_Header: React.FC = () => {
                   // x-transition:leave-end="-translate-x-full"
                   // x-description="Off-canvas menu, show/hide based on off-canvas menu state."
                   className="relative max-w-xs w-full bg-white shadow-xl pb-6 flex flex-col overflow-y-auto"
-                  // @click.away="open = false"
+                // @click.away="open = false"
                 >
                   <div className="px-4 pt-5 pb-2 flex">
                     <button
                       type="button"
                       className="p-2 rounded-md inline-flex items-center justify-center text-gray-600"
-                      // @click="open = false"
+                    // @click="open = false"
                     >
                       <span className="sr-only">Close menu</span>
                       <svg
@@ -1578,7 +1578,7 @@ export const HumanaHeroes_Header: React.FC = () => {
                         type="button"
                         x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
                         className="py-2 rounded-md text-gray-600"
-                        //  @click="open = true"
+                      //  @click="open = true"
                       >
                         <span className="sr-only">Open menu</span>
                         <svg
@@ -1600,7 +1600,7 @@ export const HumanaHeroes_Header: React.FC = () => {
                       </button>
 
                       {/* <!-- Search --> */}
-                      <a href="/" className="text-gray-600 hover:text-primary">
+                      <Link href="/" className="text-gray-600 hover:text-primary">
                         <span className="sr-only">Search</span>
                         <svg
                           className="w-6 h-6"
@@ -1618,7 +1618,7 @@ export const HumanaHeroes_Header: React.FC = () => {
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                           ></path>
                         </svg>
-                      </a>
+                      </Link>
                     </div>
 
                     <div className="hidden lg:flex flex-grow max-w-[500px]">
@@ -1667,13 +1667,13 @@ export const HumanaHeroes_Header: React.FC = () => {
                           <div
                             className="flex relative"
                             x-data="{ open : false }"
-                            //  @mouseover.away = "open = false"
+                          //  @mouseover.away = "open = false"
                           >
-                            <a
+                            <Link
                               href="/"
                               className="text-anchor hover:text-anchor-hover flex items-center gap-1"
                               data-modal-toggle="LoginModal"
-                              //  @mouseover="open = true"
+                            //  @mouseover="open = true"
                             >
                               <span className="hidden">John</span>
                               <svg
@@ -1692,7 +1692,7 @@ export const HumanaHeroes_Header: React.FC = () => {
                                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                 ></path>
                               </svg>
-                            </a>
+                            </Link>
                             <div className="absolute right-0 top-full border-2 border-black bg-white z-40 w-52">
                               <ul className="">
                                 <li className="border-t border-t-gray-300">
@@ -1718,12 +1718,12 @@ export const HumanaHeroes_Header: React.FC = () => {
                                   </a>
                                 </li>
                                 <li className="border-t-2 border-t-gray-300">
-                                  <a href="/" className="flex p-2 gap-1">
+                                  <Link href="/" className="flex p-2 gap-1">
                                     <span className="material-icons-outlined">
                                       logout
                                     </span>
                                     <span className="">Sign Out</span>
-                                  </a>
+                                  </Link>
                                 </li>
                               </ul>
                             </div>
@@ -1783,8 +1783,8 @@ export const HumanaHeroes_Header: React.FC = () => {
           {/* <!-- Mega menus --> */}
           <div
             className="border-b border-b-gray-200"
-            // x-data="Components.popoverGroup()"
-            // x-init="init()"
+          // x-data="Components.popoverGroup()"
+          // x-init="init()"
           >
             <div className="h-full flex justify-center space-x-5 xl:space-x-8 relative text-sm">
               <div className="flex">
@@ -1845,8 +1845,8 @@ export const TheHardFord_Header: React.FC = () => {
         <div
           // x-show="open"
           className="relative z-40 lg:hidden"
-          // x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
-          // x-ref="dialog"
+        // x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
+        // x-ref="dialog"
         >
           <div
             // x-show="open"
@@ -1868,7 +1868,7 @@ export const TheHardFord_Header: React.FC = () => {
                 <button
                   type="button"
                   className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
-                  //  @click="open = false"
+                //  @click="open = false"
                 >
                   <span className="sr-only">Close menu</span>
                   <svg
@@ -1953,8 +1953,8 @@ export const TheHardFord_Header: React.FC = () => {
                     <div className="hidden h-full lg:flex items-center justify-center flex-1">
                       <div
                         className="ml-6"
-                        // x-data="Components.popoverGroup()"
-                        // x-init="init()"
+                      // x-data="Components.popoverGroup()"
+                      // x-init="init()"
                       >
                         <div className="h-full flex justify-center space-x-6 relative text-sm">
                           <div className="flex">
@@ -2007,7 +2007,7 @@ export const TheHardFord_Header: React.FC = () => {
                         type="button"
                         // x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
                         className="bg-white py-2 rounded-md text-secondary hover:text-gray-500"
-                        // @click="open = true"
+                      // @click="open = true"
                       >
                         <span className="sr-only">Open menu</span>
                         <svg
@@ -2029,7 +2029,7 @@ export const TheHardFord_Header: React.FC = () => {
                       </button>
 
                       {/* <!-- Search --> */}
-                      <a
+                      <Link
                         href="/"
                         className="py-2 text-secondary hover:text-gray-500"
                       >
@@ -2050,7 +2050,7 @@ export const TheHardFord_Header: React.FC = () => {
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                           ></path>
                         </svg>
-                      </a>
+                      </Link>
                     </div>
 
                     {/* <!-- Logo (lg-) --> */}
@@ -2101,7 +2101,7 @@ export const TheHardFord_Header: React.FC = () => {
                                               </a>
                                           </div> --> */}
                           <div className="flex">
-                            <a
+                            <Link
                               href="/"
                               className="text-secondary hover:text-gray-500 flex items-center gap-1"
                               data-modal-toggle="LoginModal"
@@ -2123,19 +2123,19 @@ export const TheHardFord_Header: React.FC = () => {
                                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                 ></path>
                               </svg>
-                            </a>
+                            </Link>
                           </div>
                           {/*                                           
                                           <!-- <span className="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span> --> */}
 
                           <div
                             className="flow-root relative"
-                            //  @mouseover.away = "open = false"
+                          //  @mouseover.away = "open = false"
                           >
                             <a
                               href="cart.html"
                               className="text-secondary hover:text-gray-500 group flex items-center gap-1 relative py-2 pr-2"
-                              // @mouseover="open = true"
+                            // @mouseover="open = true"
                             >
                               <span className="hidden">my cart</span>
                               <svg
@@ -2169,7 +2169,7 @@ export const TheHardFord_Header: React.FC = () => {
                               // x-description="'Men' mega menu, show/hide based on flyout menu state."
                               className="absolute top-full right-0 w-80 text-sm shadow"
                               x-ref="panel"
-                              //  @mouseover="open = true"
+                            //  @mouseover="open = true"
                             >
                               {/* <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
                               <div
@@ -2323,8 +2323,8 @@ export const UsaaClaims_Header: React.FC = () => {
         <div
           // x-show="open"
           className="relative z-40 lg:hidden"
-          // x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
-          // x-ref="dialog"
+        // x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
+        // x-ref="dialog"
         >
           <div
             // x-show="open"
@@ -2348,13 +2348,13 @@ export const UsaaClaims_Header: React.FC = () => {
               // x-transition:leave-end="-translate-x-full"
               // x-description="Off-canvas menu, show/hide based on off-canvas menu state."
               className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto"
-              // @click.away="open = false"
+            // @click.away="open = false"
             >
               <div className="px-4 pt-5 pb-2 flex">
                 <button
                   type="button"
                   className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
-                  // @click="open = false"
+                // @click="open = false"
                 >
                   <span className="sr-only">Close menu</span>
                   <svg
@@ -2572,7 +2572,7 @@ export const UsaaClaims_Header: React.FC = () => {
                         type="button"
                         x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
                         className="bg-white py-2 rounded-md text-secondary hover:text-gray-500"
-                        //  @click="open = true"
+                      //  @click="open = true"
                       >
                         <span className="sr-only">Open menu</span>
                         <svg
@@ -2594,7 +2594,7 @@ export const UsaaClaims_Header: React.FC = () => {
                       </button>
 
                       {/* <!-- Search --> */}
-                      <a
+                      <Link
                         href="/"
                         className="py-2 text-secondary hover:text-gray-500"
                       >
@@ -2615,7 +2615,7 @@ export const UsaaClaims_Header: React.FC = () => {
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                           ></path>
                         </svg>
-                      </a>
+                      </Link>
                     </div>
 
                     {/* <!-- Logo (lg-) --> */}
@@ -2663,7 +2663,7 @@ export const UsaaClaims_Header: React.FC = () => {
                                              </a>
                                          </div> --> */}
                           <div className="flex">
-                            <a
+                            <Link
                               href="/"
                               className="text-secondary hover:text-gray-500 flex items-center gap-1"
                               data-modal-toggle="LoginModal"
@@ -2685,19 +2685,19 @@ export const UsaaClaims_Header: React.FC = () => {
                                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                 ></path>
                               </svg>
-                            </a>
+                            </Link>
                           </div>
                           {/*                                          
                                          <!-- <span className="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span> --> */}
 
                           <div
                             className="flow-root relative"
-                            // @mouseover.away = "open = false"
+                          // @mouseover.away = "open = false"
                           >
                             <a
                               href="cart.html"
                               className="text-secondary hover:text-gray-500 group flex items-center gap-1 relative py-2 pr-2"
-                              // @mouseover="open = true"
+                            // @mouseover="open = true"
                             >
                               <span className="hidden">my cart</span>
                               <svg
@@ -2730,7 +2730,7 @@ export const UsaaClaims_Header: React.FC = () => {
                               // x-transition:leave-end="opacity-0"
                               // x-description="'Men' mega menu, show/hide based on flyout menu state."
                               className="absolute top-full right-0 w-80 text-sm shadow"
-                              //  x-ref="panel" @mouseover="open = true"
+                            //  x-ref="panel" @mouseover="open = true"
                             >
                               {/* //  <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
                               <div
@@ -2923,13 +2923,13 @@ export const WayFair_Header: React.FC = () => {
                 // x-transition:leave-end="-translate-x-full"
                 // x-description="Off-canvas menu, show/hide based on off-canvas menu state."
                 className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto"
-                // @click.away="open = false"
+              // @click.away="open = false"
               >
                 <div className="px-4 pt-5 pb-2 flex">
                   <button
                     type="button"
                     className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
-                    //  @click="open = false"
+                  //  @click="open = false"
                   >
                     <span className="sr-only">Close menu</span>
                     <svg
@@ -2955,7 +2955,7 @@ export const WayFair_Header: React.FC = () => {
                   {/* <!-- Start --> */}
                   <div
                     className="text-sm border-b border-gray-300"
-                    // x-data="{ open: false }"
+                  // x-data="{ open: false }"
                   >
                     <div className="flex items-center justify-between py-3 px-2 pl-8">
                       <div className="">
@@ -3187,7 +3187,7 @@ export const WayFair_Header: React.FC = () => {
                                   // x-state:on="Item active"
                                   // x-state:off="Item inactive"
                                   className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 border-t-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary"
-                                  //  :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
+                                //  :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
                                 >
                                   <span className="uppercase text-secondary hover:text-primary">
                                     What's New
@@ -3197,18 +3197,18 @@ export const WayFair_Header: React.FC = () => {
                             </div>
                             <div
                               className="flex"
-                              // x-data="Components.popover({ open: false, focus: false })"
-                              // x-init="init()"
-                              // @keydown.escape="onEscape"
-                              //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
+                            // x-data="Components.popover({ open: false, focus: false })"
+                            // x-init="init()"
+                            // @keydown.escape="onEscape"
+                            //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
                             >
                               <div className="relative flex">
                                 <button
                                   type="button"
                                   // x-state:on="Item active"
                                   className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover"
-                                  // :className="{ 'border-b-primary text-primary-hover': open, 'border-transparent text-white hover:text-primary-hover': !(open) }"
-                                  // @mouseover="open = true" aria-expanded="false" :aria-expanded="open.toString()"
+                                // :className="{ 'border-b-primary text-primary-hover': open, 'border-transparent text-white hover:text-primary-hover': !(open) }"
+                                // @mouseover="open = true" aria-expanded="false" :aria-expanded="open.toString()"
                                 >
                                   <span className="uppercase text-secondary hover:text-primary">
                                     Apparel
@@ -3223,7 +3223,7 @@ export const WayFair_Header: React.FC = () => {
                                 //     x-description="'Men' mega menu, show/hide based on flyout menu state."
                                 className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
                                 x-ref="panel"
-                                // @mouseover="open = true"
+                              // @mouseover="open = true"
                               >
                                 {/* <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
                                 <div
@@ -3270,16 +3270,16 @@ export const WayFair_Header: React.FC = () => {
                               className="flex"
                               x-data="Components.popover({ open: false, focus: false })"
                               x-init="init()"
-                              // @keydown.escape="onEscape"
-                              //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
+                            // @keydown.escape="onEscape"
+                            //     @close-popover-group.window="onClosePopoverGroup" @mouseover.away = "open = false"
                             >
                               <div className="relative flex">
                                 <button
                                   type="button"
                                   // x-state:on="Item active"
                                   className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover"
-                                  // :className="{ 'border-b-primary text-primary-hover': open, 'border-transparent text-white hover:text-primary-hover': !(open) }"
-                                  // @mouseover="open = true" aria-expanded="false" :aria-expanded="open.toString()"
+                                // :className="{ 'border-b-primary text-primary-hover': open, 'border-transparent text-white hover:text-primary-hover': !(open) }"
+                                // @mouseover="open = true" aria-expanded="false" :aria-expanded="open.toString()"
                                 >
                                   <span className="uppercase text-secondary hover:text-primary">
                                     Accessories
@@ -3296,7 +3296,7 @@ export const WayFair_Header: React.FC = () => {
                                 // x-transition:leave-end="opacity-0"
                                 // x-description="'Men' mega menu, show/hide based on flyout menu state."
                                 className="absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm"
-                                // x-ref="panel" @mouseover="open = true"
+                              // x-ref="panel" @mouseover="open = true"
                               >
                                 {/* <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
                                 <div
@@ -3357,7 +3357,7 @@ export const WayFair_Header: React.FC = () => {
                                   // x-state:on="Item active"
                                   // x-state:off="Item inactive"
                                   className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 border-t-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary"
-                                  // :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
+                                // :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
                                 >
                                   <span className="uppercase text-secondary hover:text-primary">
                                     Sister Brands
@@ -3372,7 +3372,7 @@ export const WayFair_Header: React.FC = () => {
                                   // x-state:on="Item active"
                                   // x-state:off="Item inactive"
                                   className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 border-t-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary"
-                                  // :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
+                                // :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
                                 >
                                   <span className="uppercase text-secondary hover:text-primary">
                                     Custom Requests
@@ -3387,7 +3387,7 @@ export const WayFair_Header: React.FC = () => {
                                   // x-state:on="Item active"
                                   // x-state:off="Item inactive"
                                   className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 border-t-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary"
-                                  // :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
+                                // :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
                                 >
                                   <span className="uppercase text-secondary hover:text-primary">
                                     FAQ
@@ -3402,7 +3402,7 @@ export const WayFair_Header: React.FC = () => {
                                   // x-state:on="Item active"
                                   // x-state:off="Item inactive"
                                   className="relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 border-t-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary"
-                                  // :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
+                                // :className="{ 'border-blue-500 text-anchor-hover': open, 'border-transparent text-gray-700 hover:text-gray-800': !(open) }" @click="toggle" @mousedown="if (open) $event.preventDefault()" aria-expanded="false" :aria-expanded="open.toString()"
                                 >
                                   <span className="uppercase text-secondary hover:text-primary">
                                     Gift Card
@@ -3420,7 +3420,7 @@ export const WayFair_Header: React.FC = () => {
                           type="button"
                           x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
                           className="bg-white py-2 rounded-md text-primary hover:text-anchor-hover"
-                          //  @click="open = true"
+                        //  @click="open = true"
                         >
                           <span className="sr-only">Open menu</span>
                           <svg
@@ -3441,7 +3441,7 @@ export const WayFair_Header: React.FC = () => {
                           </svg>
                         </button>
                         {/* <!-- Search --> */}
-                        <a
+                        <Link
                           href="/"
                           className="py-2 text-primary hover:text-anchor-hover"
                         >
@@ -3462,7 +3462,7 @@ export const WayFair_Header: React.FC = () => {
                               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                             ></path>
                           </svg>
-                        </a>
+                        </Link>
                       </div>
                       {/* <!-- Logo (lg-) --> */}
                       <a href="index.html" className="xl:hidden">
@@ -3515,12 +3515,12 @@ export const WayFair_Header: React.FC = () => {
                             <div
                               className="flow-root relative"
                               x-data="{ open: false }"
-                              //  @mouseover.away = "open = false"
+                            //  @mouseover.away = "open = false"
                             >
                               <a
                                 href="cart.html"
                                 className="text-primary hover:text-anchor-hover group flex items-center gap-1 relative py-2 pr-2"
-                                //  @mouseover="open = true"
+                              //  @mouseover="open = true"
                               >
                                 <span className="text-sm hidden">my cart</span>
                                 <svg
@@ -3553,8 +3553,8 @@ export const WayFair_Header: React.FC = () => {
                                 // x-transition:leave-end="opacity-0"
                                 // x-description="'Men' mega menu, show/hide based on flyout menu state."
                                 className="absolute top-full right-0 w-80 text-sm shadow"
-                                // x-ref="panel"
-                                // @mouseover="open = true"
+                              // x-ref="panel"
+                              // @mouseover="open = true"
                               >
                                 {/* <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
                                 <div

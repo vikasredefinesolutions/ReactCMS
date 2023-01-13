@@ -7,15 +7,11 @@ import { _Store } from 'page.config';
 const Ecommerce_ShoppingCart = () => {
   const {
     cartProducts,
-    coupon,
     showEdit,
     product,
     currentCartProduct,
     loadProduct,
     deleteCartItem,
-    getTotalPrice,
-    setCoupon,
-    couponCodeSubmit,
     setShowEdit,
   } = CartController();
   const storeLayout = useTypedSelector((state) => state.store.layout);
@@ -38,10 +34,6 @@ const Ecommerce_ShoppingCart = () => {
           cartProducts,
           loadProduct,
           deleteCartItem,
-          getTotalPrice,
-          setCoupon,
-          coupon,
-          couponCodeSubmit,
           showEdit,
           product,
           setShowEdit,
@@ -56,10 +48,6 @@ const Ecommerce_ShoppingCart = () => {
           cartProducts,
           loadProduct,
           deleteCartItem,
-          getTotalPrice,
-          setCoupon,
-          coupon,
-          couponCodeSubmit,
           showEdit,
           product,
           setShowEdit,
@@ -72,7 +60,6 @@ const Ecommerce_ShoppingCart = () => {
       <CartLayout3
         cartProducts={cartProducts}
         deleteCartItem={deleteCartItem}
-        getTotalPrice={getTotalPrice}
       />
     );
   } else if (storeLayout === _Store.type4) {
@@ -80,7 +67,6 @@ const Ecommerce_ShoppingCart = () => {
       <CartLayout3
         cartProducts={cartProducts}
         deleteCartItem={deleteCartItem}
-        getTotalPrice={getTotalPrice}
       />
     );
   }

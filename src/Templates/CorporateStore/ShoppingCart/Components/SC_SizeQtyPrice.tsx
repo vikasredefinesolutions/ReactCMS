@@ -3,7 +3,7 @@ import MsgContainer from 'appComponents/modals/MsgContainer';
 import Price from 'appComponents/reUsable/Price';
 import { useActions } from 'hooks';
 import React, { useState } from 'react';
-import { _InCart_Item_attributes_model } from 'redux/slices/slices';
+import { _InCart_productAttributes_model } from 'redux/slices/_slices';
 import SC_QtyInput from './SC_QtyInput';
 
 export const SC_SizeQtyPriceRow_withEdit_n_RemoveButton: React.FC<
@@ -47,14 +47,14 @@ interface _HIDE_MSG {
 }
 
 export const SC_SizeQtyPriceTable: React.FC<{
-  details: _InCart_Item_attributes_model[];
+  details: _InCart_productAttributes_model[];
   toRemove: {
     productName: string;
     productId: number;
     colorId: number;
   };
 }> = ({ details, toRemove }) => {
-  const { cart_update } = useActions();
+  const { cart_update_item } = useActions();
   const [showAlert, setShowAlert] = useState<{ size: string } | null>(null);
 
   const toggleConfirmationMsg = (action: _DELETE_MSG | _HIDE_MSG) => {
@@ -74,10 +74,11 @@ export const SC_SizeQtyPriceTable: React.FC<{
 
   const qtyChangeHandler = (item: { qty: number; size: string }) => {
     if (item.qty > -1) {
-      cart_update({
+      cart_update_item({
         type: 'update_qty',
         data: {
           ...toRemove,
+          itemType: 'product',
           attributes: {
             size: item.size,
             qty: item.qty,

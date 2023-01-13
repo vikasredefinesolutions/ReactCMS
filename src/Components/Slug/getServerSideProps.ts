@@ -223,7 +223,10 @@ export const getServerSideProps: GetServerSideProps = async (
         const element = ProductFilt[key];
         if (element.length > 0 && key !== 'getlAllProductList') {
           _filters.push({
-            label: element[0].label || element[0].name || '',
+            label:
+              key === 'storeCategoryProductCategoryListViewModel'
+                ? 'Category'
+                : element[0].label || element[0].name || '',
             options: element as FilterOption[],
           });
         } else if (key === 'getlAllProductList') {

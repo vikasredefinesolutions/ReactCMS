@@ -36,6 +36,9 @@ export type CartLogoPersonDetailModel = {
   logoPositionImagePath: string;
   oldFilePath: string;
   originalLogoFilePath: string;
+  logoFile: string;
+  LogoLocation: string;
+  LogoPositionImage: string;
 };
 
 export type CartLogoPersonModel = {

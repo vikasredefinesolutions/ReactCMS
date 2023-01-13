@@ -192,9 +192,8 @@ const ProductReview = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.comment}
-                      >
-                        {' '}
-                      </textarea>
+                      />
+
                       <div className="text-red-500 text-s mt-1">
                         {touched.comment && errors.comment}
                       </div>

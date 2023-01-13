@@ -1,8 +1,13 @@
-import { FetchInventoryById } from '@services/product.service';
+import {
+  FetchDiscountTablePrices,
+  FetchInventoryById,
+} from '@services/product.service';
+import { _ProductDiscountTable } from '@type/APIs/discountTable.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import { useActions, useTypedSelector } from 'hooks';
+import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
 import React, { useEffect, useState } from 'react';
 import InventoryInput from './InventoryInput';
@@ -12,13 +17,25 @@ interface _props {
 }
 
 const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
+  const router = useRouter();
+  const slug: string | undefined | string[] = router.query.slug;
+  const sename: string | undefined =
+    typeof slug === 'string' ? slug.split('.')[0] : '';
   const { updatePrice } = useActions();
   const { color } = useTypedSelector((state) => state.product.selected);
   const { totalPrice } = useTypedSelector((state) => state.product.toCheckout);
-  const { price, colors } = useTypedSelector((state) => state.product.product);
+  const { price, colors, name } = useTypedSelector(
+    (state) => state.product.product,
+  );
+  const { attributeOptionId } = useTypedSelector(
+    (state) => state.product.selected.color,
+  );
+  const { id } = useTypedSelector((state) => state.store);
 
   const [inventory, setInventory] =
     useState<null | _ProductInventoryTransfomed>(null);
+
+  const [discount, setDiscount] = useState<null | _ProductDiscountTable>(null);
 
   useEffect(() => {
     updatePrice({ price: price?.msrp || 0 });
@@ -33,11 +50,28 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
     // .catch((err) => console.log('err', err))
     // .finally(() => );
   };
+
+  const discountTable = (payload: {
+    storeId: number;
+    seName: string;
+    customerId: number;
+    attributeOptionId: number;
+  }) => {
+    FetchDiscountTablePrices(payload).then((res) => {
+      setDiscount(res);
+    });
+  };
   useEffect(() => {
     if (colors === null) return;
     showInventoryFor({
       productId: colors[0].productId,
       attributeOptionId: [colors[0].attributeOptionId],
+    });
+    discountTable({
+      storeId: id === null ? 0 : id,
+      seName: sename,
+      customerId: 0,
+      attributeOptionId: attributeOptionId,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
@@ -45,22 +79,22 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
 
   if (storeCode === _Store.type3) {
     return (
-      <div className="mb-4">
-        <div className="">
-          <div className="flex flex-wrap justify-between bg-gray-300 py-3 font-semibold">
-            <div className="px-2">Size</div>
-            <div className="">Availability</div>
-            <div className="w-20">QTY</div>
+      <div className='mb-4'>
+        <div className=''>
+          <div className='flex flex-wrap justify-between bg-gray-300 py-3 font-semibold'>
+            <div className='px-2'>Size</div>
+            <div className=''>Availability</div>
+            <div className='w-20'>QTY</div>
           </div>
           {inventory?.sizes.map((product) => {
             if (product.colorAttributeOptionId === color.attributeOptionId) {
               return product.sizeArr.map((size) => (
                 <div
                   key={size}
-                  className="flex flex-wrap items-center justify-between border-b border-b-gray-300 py-2"
+                  className='flex flex-wrap items-center justify-between border-b border-b-gray-300 py-2'
                 >
-                  <div className="font-semibold px-2">{size}</div>
-                  <div className="">
+                  <div className='font-semibold px-2'>{size}</div>
+                  <div className=''>
                     {inventory.inventory.find(
                       (int) =>
                         int.colorAttributeOptionId ===
@@ -92,20 +126,20 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
 
   if (storeCode === _Store.type4) {
     return (
-      <div className="">
-        <div className="text-xs bg-gray-100 mb-5">
-          <div className="hidden md:flex flex-wrap gap-y-5 bg-secondary text-white">
-            <div className="p-2 w-full md:w-2/12">
-              <div className="font-semibold">Color</div>
+      <div className=''>
+        <div className='text-xs bg-gray-100 mb-5'>
+          <div className='hidden md:flex flex-wrap gap-y-5 bg-secondary text-white'>
+            <div className='p-2 w-full md:w-2/12'>
+              <div className='font-semibold'>Color</div>
             </div>
-            <div className="flex flex-wrap justify-evenly text-center gap-y-5 w-full md:w-10/12">
+            <div className='flex flex-wrap justify-evenly text-center gap-y-5 w-full md:w-10/12'>
               {inventory?.sizes.map((product) => {
                 if (
                   product.colorAttributeOptionId === color.attributeOptionId
                 ) {
                   return product.sizeArr.map((size, index) => (
-                    <div key={index} className="p-2 w-1/2 md:w-1/12">
-                      <div className="font-semibold">{size}</div>
+                    <div key={index} className='p-2 w-1/2 md:w-1/12'>
+                      <div className='font-semibold'>{size}</div>
                     </div>
                   ));
                 }
@@ -118,22 +152,22 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
           {colors?.map((color) => (
             <div
               key={color.attributeOptionId}
-              className="flex flex-wrap gap-y-5 border-b last:border-b-0 border-b-gray-300 mb-5 md:mb-0"
+              className='flex flex-wrap gap-y-5 border-b last:border-b-0 border-b-gray-300 mb-5 md:mb-0'
             >
-              <div className="p-2 w-full md:w-2/12 text-center md:text-left">
-                <div className="md:hidden font-semibold text-center mb-1">
+              <div className='p-2 w-full md:w-2/12 text-center md:text-left'>
+                <div className='md:hidden font-semibold text-center mb-1'>
                   Color:
                 </div>
-                <div className="mb-1 text-center w-10 h-10 mx-auto md:m-0 border-gray-300 p-1 bg-white">
+                <div className='mb-1 text-center w-10 h-10 mx-auto md:m-0 border-gray-300 p-1 bg-white'>
                   <Image
                     src={color.imageUrl}
                     alt={color.altTag}
-                    className="max-h-full inline-block"
+                    className='max-h-full inline-block'
                   />
                 </div>
-                <div className="">{color.name}</div>
+                <div className=''>{color.name}</div>
               </div>
-              <div className="flex flex-wrap justify-evenly text-center gap-y-5 w-full md:w-10/12">
+              <div className='flex flex-wrap justify-evenly text-center gap-y-5 w-full md:w-10/12'>
                 {inventory?.sizes.map((product) => {
                   if (
                     product.colorAttributeOptionId === color.attributeOptionId
@@ -152,8 +186,8 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                       );
                       return inv > 0 ? (
                         <>
-                          <div key={index} className="p-2 w-1/2 md:w-1/12">
-                            <div className="mb-1">{inv > 50 ? '50+' : inv}</div>
+                          <div key={index} className='p-2 w-1/2 md:w-1/12'>
+                            <div className='mb-1'>{inv > 50 ? '50+' : inv}</div>
                             <InventoryInput
                               size={size}
                               storeCode={storeCode}
@@ -165,9 +199,9 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                           </div>
                         </>
                       ) : (
-                        <div className="p-2 w-1/2 md:w-1/12">
-                          <div className="border-bottom p-b-10">
-                            <strong className="text-center center"> - </strong>{' '}
+                        <div className='p-2 w-1/2 md:w-1/12'>
+                          <div className='border-bottom p-b-10'>
+                            <strong className='text-center center'> - </strong>{' '}
                           </div>
                         </div>
                       );
@@ -185,11 +219,11 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
   if (storeCode === _Store.type2) {
     return (
       <>
-        <div className="mb-4">
-          <div className="text-left pl-0 block">
-            <div className="flex items-center font-bold justify-between border-b border-b-gray-300 py-3 px-4 bg-[#cfd2d3]">
-              <div className="">Size</div>
-              <div className="">QTY.</div>
+        <div className='mb-4'>
+          <div className='text-left pl-0 block'>
+            <div className='flex items-center font-bold justify-between border-b border-b-gray-300 py-3 px-4 bg-[#cfd2d3]'>
+              <div className=''>Size</div>
+              <div className=''>QTY.</div>
             </div>
 
             {inventory?.sizes.map((product) => {
@@ -197,9 +231,9 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                 return product.sizeArr.map((size, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between border-b border-b-gray-300 py-3 pl-4"
+                    className='flex items-center justify-between border-b border-b-gray-300 py-3 pl-4'
                   >
-                    <div className="">{size}</div>
+                    <div className=''>{size}</div>
                     <InventoryInput
                       size={size}
                       storeCode={storeCode}
@@ -219,14 +253,18 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
             })}
           </div>
         </div>
-        <div className="mb-3 font-bold bg-[#051C2C] px-4 py-2.5 text-white tracking-widest text-center">
-          Add 12 more of this johnnie-O Men's The Original 4-Button Polo to your
-          cart to save an additional $8.00 per Item!
+        <div className='mb-3 font-bold bg-[#051C2C] px-4 py-2.5 text-white tracking-widest text-center'>
+          Add {discount?.subRows[0].displayQuantity} more of {name} to your cart
+          to save an additional $
+          {price?.msrp && discount
+            ? price?.msrp - parseInt(discount?.subRows[0]?.discountPrice)
+            : '0'}{' '}
+          per Item!
         </div>
-        <div className="bg-[#d8dfe1] text-sm text-gray-900 flex flex-wrap p-5 items-center gap-2 tracking-wider mb-3">
-          <span className="">Price Per Item</span>
-          <span className="text-4xl font-bold">
-            <Price value={totalPrice} />
+        <div className='bg-[#d8dfe1] text-sm text-gray-900 flex flex-wrap p-5 items-center gap-2 tracking-wider mb-3'>
+          <span className=''>Price Per Item</span>
+          <span className='text-4xl font-bold'>
+            <Price value={price?.salePrice} />
           </span>
         </div>
       </>

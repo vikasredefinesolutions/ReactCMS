@@ -2,10 +2,11 @@ import { paths } from '@constants/paths.constant';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import React from 'react';
+import SC_GiftCartItem from './SC_GiftCartItem';
 import {
-  SC_CartItem_withoutPersonalization,
-  SC_CartItem_withPersonalization,
-} from './SC_CartItem';
+  SC_ProductCartItem_withoutPersonalization,
+  SC_ProductCartItem_withPersonalization,
+} from './SC_ProductCartItem';
 
 // NO NEED TO CALL THIS COMPONENT IN CORPORATE STORES
 
@@ -31,7 +32,7 @@ export const SC_ItemsInCart_withPersonalization: React.FC = () => {
         className="overflow-hidden border border-gray-300 p-2 md:p-5"
       >
         {CartItems?.map((item, index) => (
-          <SC_CartItem_withPersonalization key={index} {...item} />
+          <SC_ProductCartItem_withPersonalization key={index} {...item} />
         ))}
       </ul>
       <div className="mt-4 mb-4">
@@ -48,7 +49,7 @@ export const SC_ItemsInCart_withPersonalization: React.FC = () => {
 
 export const SC_ItemsInCart_withoutPersonalization: React.FC = () => {
   const CartItems = useTypedSelector(
-    (state) => state.cart.corporateStoreCart.products,
+    (state) => state.cart.corporateStoreCart.items,
   );
 
   return (
@@ -66,9 +67,22 @@ export const SC_ItemsInCart_withoutPersonalization: React.FC = () => {
         Items in your shopping cart
       </h2>
       <ul role="list" className=" overflow-hidden">
-        {CartItems?.map((item, index) => (
-          <SC_CartItem_withoutPersonalization key={index} {...item} />
-        ))}
+        {CartItems?.map((item, index) => {
+          if (item.type === 'giftCard') {
+            return <SC_GiftCartItem key={index} {...item} />;
+          }
+
+          if (item.type === 'product') {
+            return (
+              <SC_ProductCartItem_withoutPersonalization
+                key={index}
+                {...item}
+              />
+            );
+          }
+
+          return <></>;
+        })}
       </ul>
       <div className="my-2">
         <Link href={paths.cart.keepShopping} className="btn btn-primary">

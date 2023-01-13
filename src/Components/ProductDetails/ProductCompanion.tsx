@@ -3,23 +3,22 @@ import { _Store } from 'page.config';
 import React from 'react';
 interface _props {
   name: string | null;
-  id: number | null;
+  seName: string | null;
   imageUrl: string | null;
-  link: string | null;
 }
 
 const ProductCompanion: React.FC<_props & { storeCode: string }> = ({
   name,
   imageUrl,
-  id,
+  seName,
   storeCode,
 }) => {
   const router = useRouter();
   if (name === null) return <></>;
 
-  const goToProduct = (id: number | null) => {
-    if (id === null) return;
-    router.push(`/product/${id}`);
+  const goToProduct = (seName: string | null) => {
+    if (seName === null) return;
+    router.push(`${seName}`);
   };
 
   if (storeCode === _Store.type3) {
@@ -28,7 +27,7 @@ const ProductCompanion: React.FC<_props & { storeCode: string }> = ({
         <div className="mb-2 text-2xl">COMPANION</div>
 
         <div className="" key={name}>
-          <div className="" onClick={() => goToProduct(id)}>
+          <div className="" onClick={() => goToProduct(seName)}>
             <img
               src={imageUrl || '/dummyShirtImage.jpg'}
               alt={name}
@@ -45,7 +44,7 @@ const ProductCompanion: React.FC<_props & { storeCode: string }> = ({
     return (
       <div className="text-black mb-5 text-sm">
         <span className="font-bold mr-1">Companion Product</span> :
-        <div className="" key={name} onClick={() => goToProduct(id)}>
+        <div className="" key={name} onClick={() => goToProduct(seName)}>
           <button className="text-anchor hover:text-anchor-hover">
             {name}
           </button>
@@ -59,7 +58,7 @@ const ProductCompanion: React.FC<_props & { storeCode: string }> = ({
       <div className="font-semibold">Companion Product:</div>
       <div key={name}>
         <button
-          onClick={() => goToProduct(id)}
+          onClick={() => goToProduct(seName)}
           className="text-indigo-500 text-sm font-semibold underline"
         >
           {name}

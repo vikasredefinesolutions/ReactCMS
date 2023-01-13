@@ -1,9 +1,13 @@
+import { __Cookie } from '@constants/global.constant';
 import { checkCoupon, deleteItemCart } from '@services/cart.service';
 import { FetchColors, FetchProductById } from '@services/product.service';
 import { _CartItem } from '@type/APIs/cart.res';
 import { _ProductDetails } from '@type/APIs/productDetail.res';
+import { extractCookies } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
+import * as _ from 'lodash';
 import { useEffect, useState } from 'react';
+
 const CartController = () => {
   const {
     fetchCartDetails,
@@ -15,7 +19,7 @@ const CartController = () => {
   const [customerId, setCustomerId] = useState(0);
   const storeId = useTypedSelector((state) => state.store.id);
   const store = useTypedSelector((state) => state.store);
-
+  const userId = useTypedSelector((state) => state.user.id);
   useEffect(() => {
     if (customerId) {
       fetchCartDetails(customerId);
@@ -24,16 +28,24 @@ const CartController = () => {
   }, [customerId]);
 
   useEffect(() => {
-    if (localStorage) {
-      const id = localStorage.getItem('tempCustomerId');
+    if (userId) {
+      setCustomerId(~~userId);
+    } else if (localStorage) {
+      const id = extractCookies(
+        __Cookie.tempCustomerId,
+        'browserCookie',
+      ).tempCustomerId;
+
       if (id) setCustomerId(~~id);
     }
-  }, []);
+  }, [userId]);
 
   const [showEdit, setShowEdit] = useState(false);
   const [product, setProduct] = useState<_ProductDetails>();
   const [currentCartProduct, setCurrentCartProduct] = useState<_CartItem>();
   const [coupon, setCoupon] = useState('');
+  const [hidePromocode, setHidePromocode] = useState(false);
+  const [couponDiscount, setCouponDiscount] = useState(0);
 
   const loadProduct = (product: _CartItem) => {
     if (storeId) {
@@ -111,11 +123,14 @@ const CartController = () => {
           shippingCost: 0,
         },
       });
-      if (response.errors) {
+      if (!_.isEmpty(response.errors)) {
         setCoupon(response.errors.errorDesc);
         setTimeout(() => {
           setCoupon('');
         }, 3000);
+      } else {
+        setHidePromocode(true);
+        setCouponDiscount(response.data.discountAmount);
       }
     }
   };
@@ -132,8 +147,9 @@ const CartController = () => {
       smallRunFee: 0,
       logoSetupCharges: 0,
       salesTax: 0,
+      discount: couponDiscount,
     };
-    // let smallRunFee = 99;
+
     let totalQty = 0;
     if (cartProducts !== null) {
       cartProducts.forEach((res: any) => {
@@ -163,6 +179,7 @@ const CartController = () => {
       }
     }
 
+    priceObject.totalPrice -= couponDiscount;
     return priceObject;
   };
 
@@ -172,6 +189,7 @@ const CartController = () => {
     showEdit,
     product,
     currentCartProduct,
+    hidePromocode,
     loadProduct,
     deleteCartItem,
     getTotalPrice,

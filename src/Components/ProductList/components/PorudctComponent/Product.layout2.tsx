@@ -2,7 +2,6 @@ import { GetlAllProductList } from '@type/productList.type';
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
-import { getCompareLink } from 'helpers/compare.helper';
 import Link from 'next/link';
 import ProductBoxController from './ProductBox.controller';
 
@@ -28,9 +27,19 @@ const ProductLayout2 = ({
     colorChangeHandler,
   });
 
+  // let flag:boolean = product.getProductImageOptionList.length > 4 ? true : false;
+  // let countImage:Number = product.getProductImageOptionList.length - 4;
+  let flag:boolean = false;
+
+  let countImage:Number;
+
+
+
+
   return productView === 'grid' ? (
     <li className="text-center relative border border-gray-100 hover:border-gray-300 hover:shadow-md pb-10">
-      <div className="w-full overflow-hidden aspect-w-1 aspect-h-1">
+      <a  href={`${origin}/${product.sename}.html?v=product-detail&altview=1`} className="relative">
+        <div className="w-full overflow-hidden aspect-w-1 aspect-h-1">
         <ImageComponent
           src={currentProduct.imageName}
           alt=""
@@ -40,9 +49,10 @@ const ProductLayout2 = ({
           key={currentProduct.id}
         />
       </div>
+      </a>
       <div className="mt-6">
         <div className="hover:text-primary text-lg">
-          <a href="product-page.html" className="relative">
+          <a  href={`${origin}/${product.sename}.html?v=product-detail&altview=1`} className="relative">
             {product.name}
           </a>
         </div>
@@ -60,23 +70,24 @@ const ProductLayout2 = ({
             />{' '}
             {
               <>
-                {skuList.length && skuList.includes(product.sku) ? (
+                {/* {skuList.length && skuList.includes(product.sku) ? (
                   <Link href={getCompareLink()}>
                     <a>Compare {skuList.length}</a>
                   </Link>
-                ) : (
+                ) : ( */}
                   <>Add to Compare</>
-                )}
+                {/* )}  */}
               </>
             }
           </label>
         </div>
         <ul role="list" className="flex items-center justify-center mt-4">
           {product.getProductImageOptionList.map((option, index) => (
+            index < 4 ?
             <li
               key={index}
               className={`w-8 h-8 text-center border-2${
-                option.id === currentProduct.id ? ' border-secondary' : ''
+                option.id === currentProduct.id ? ' border-primary' : ''
               } hover:border-primary`}
               onClick={() => {
                 colorChangeHandler(
@@ -94,14 +105,26 @@ const ProductLayout2 = ({
                 className="max-h-full m-auto"
               />
             </li>
+            : <>{flag = true}</>
           ))}
+          {
+            flag ?
+            <li className='extra w-8 h-8 text-center border-2xtra'><span> +</span>{ product.getProductImageOptionList.length - 4 }</li>
+            : null
+          }
+          
         </ul>
       </div>
     </li>
   ) : (
     <li className="border border-gray-100 hover:border-gray-300 hover:shadow-md p-3 lg:p-6 mb-8">
       <div className="relative flex flex-wrap -mx-3">
-        <div className="w-full md:w-1/4 px-3">
+      <Link
+        key={product.id}
+        href={`${origin}/${product.sename}.html?v=product-detail&altview=1`}
+        className="relative"
+      >
+        <div className="w-full md:w-1/4 px-3 cursor-pointer">
           <ImageComponent
             src={currentProduct.imageName}
             alt=""
@@ -111,6 +134,7 @@ const ProductLayout2 = ({
             key={currentProduct.id}
           />
         </div>
+        </Link>
         <div className="w-full md:w-3/4 px-3">
           <div className="hover:text-primary text-lg">
             <Link
@@ -135,13 +159,13 @@ const ProductLayout2 = ({
               />{' '}
               {
                 <>
-                  {skuList.length && skuList.includes(product.sku) ? (
+                  {/* {skuList.length && skuList.includes(product.sku) ? (
                     <Link href={getCompareLink()}>
                       <a>Compare {skuList.length}</a>
                     </Link>
-                  ) : (
+                  ) : ( */}
                     <>Add to Compare</>
-                  )}
+                  {/* )} */}
                 </>
               }
             </label>
@@ -151,7 +175,7 @@ const ProductLayout2 = ({
               <li
                 key={index}
                 className={`w-8 h-8 text-center border-2${
-                  option.id === currentProduct.id ? ' border-secondary' : ''
+                  option.id === currentProduct.id ? ' border-primary' : ''
                 } hover:border-primary`}
                 onClick={() => {
                   colorChangeHandler(
