@@ -7,7 +7,7 @@ import Document, {
   NextScript
 } from 'next/document';
 import { _globalStore } from 'store.global';
-
+import "styles/output.css"; 
 let storeId: null | number = null;
 
 class MyDocument extends Document {
