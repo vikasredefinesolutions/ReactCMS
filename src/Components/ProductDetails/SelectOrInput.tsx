@@ -79,7 +79,7 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (qty <= 0) {
+  if (qty < 0) {
     return (
       <>
         {email === 'SENT' ? (
