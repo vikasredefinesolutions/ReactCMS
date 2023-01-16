@@ -26,13 +26,13 @@ const RedefineInput: React.FC<_props> = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="w-full lg:w-1/2 px-3">
+    <div className='w-full lg:w-1/2 px-3'>
       <label
         htmlFor={name}
-        className="block text-base font-medium text-gray-700"
+        className='block text-base font-medium text-gray-700'
       >
         {label}{' '}
-        <span className="text-rose-500">{`${required ? `*` : ''}`}</span>
+        <span className='text-rose-500'>{`${required ? `*` : ''}`}</span>
       </label>
       <div className={`${type === 'password' ? 'relative mb-2' : 'mt-2'} `}>
         <input
@@ -41,17 +41,21 @@ const RedefineInput: React.FC<_props> = ({
           name={name}
           placeholder={placeHolder}
           value={value}
-          autoComplete="off"
+          autoComplete='off'
           onChange={onChange}
-          className="form-input"
+          className='form-input'
         />
-        <InfoButton />
-        <EyeButton
-          showPassword={showPassword}
-          setShowPassword={setShowPassword}
-        />
+        {type === 'password' ? (
+          <>
+            <InfoButton />
+            <EyeButton
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+            />
+          </>
+        ) : null}
       </div>
-      <ErrorMessage name={name} className="text-rose-500" component={'p'} />
+      <ErrorMessage name={name} className='text-rose-500' component={'p'} />
     </div>
   );
 };

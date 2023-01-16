@@ -2,7 +2,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Typography,
+  Typography
 } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
 

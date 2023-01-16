@@ -17,9 +17,7 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
   const selectedProduct = useTypedSelector((state) => state.product.selected);
 
   const addToCartHandler = async () => {
-
-    const { sizeQtys, totalPrice,
-      totalQty } = toCheckout;
+    const { sizeQtys, totalPrice, totalQty } = toCheckout;
     const cartObject = await getAddToCartObject({
       userId: customerId || 0,
       note: '',
@@ -27,9 +25,9 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
       productDetails: selectedProduct,
       total: {
         totalPrice,
-        totalQty
-      }
-    })
+        totalQty,
+      },
+    });
 
     if (cartObject) {
       try {
@@ -39,7 +37,7 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
         }
         showModal({
           message: 'Added to cart Successfully',
-          type: 'Success',
+          title: 'Success',
         });
       } catch (error) {
         highLightError({ error, component: 'StartOrderModal' });
@@ -49,9 +47,9 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
 
   return (
     <button
-      type="button"
+      type='button'
       className={className}
-      data-modal-toggle="addToCart"
+      data-modal-toggle='addToCart'
       onClick={addToCartHandler}
     >
       {title}

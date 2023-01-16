@@ -1,6 +1,5 @@
 const LogoLocation = ({ item, logoSelected, setLogoSelected }: any) => {
   const handleLogoSelected = (event: any) => {
-    console.log(event, 'eventsfalkdjflksa');
     setLogoSelected(item?.name);
   };
   return (

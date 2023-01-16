@@ -43,7 +43,7 @@ export type CreditCardType = typeof cardArray;
 const CheckoutController = () => {
   const { getTotalPrice } = CartSummaryController();
   const router = useRouter();
-  const { showModal, fetchCartDetails } = useActions();
+  const { showModal, fetchCartDetails, cart_userUpdate } = useActions();
 
   const customer = useTypedSelector((state) => state.user.customer);
   // const storeId = useTypedSelector((state) => state.store.id);
@@ -325,8 +325,23 @@ const CheckoutController = () => {
           value.email,
           ~~storeId,
         );
+        if (!response) return;
         setShowEmail(false);
         setEmail(value.email);
+
+        if (response.isGuestCustomer) {
+          cart_userUpdate({
+            type: 'guestLogin',
+            data: {
+              showThankYou: true,
+              email: value.email,
+              guestId: response.id,
+              isCustomerExist: response.isCustomerExist,
+              isGuestCustomer: response.isGuestCustomer,
+            },
+          });
+        }
+
         if (response?.isCustomerExist) {
           setShowPassword(true);
         } else {
@@ -356,7 +371,7 @@ const CheckoutController = () => {
           } else {
             showModal({
               message: response.toString(),
-              type: 'error',
+              title: 'error',
             });
           }
         }

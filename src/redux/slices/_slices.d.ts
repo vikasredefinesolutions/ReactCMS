@@ -55,8 +55,15 @@ export interface _cart_guestLogin_model {
   };
 }
 
+export interface _cart_resetGuestStatus_model {
+  type: 'noMoreAGuest';
+  data: {
+    isGuestCustomer: false;
+  };
+}
+
 export interface _Cart_userUpdate_Action {
-  payload: _cart_guestLogin_model;
+  payload: _cart_guestLogin_model | _cart_resetGuestStatus_model;
 }
 
 // ---------------- Product ------------------------

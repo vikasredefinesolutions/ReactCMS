@@ -31,6 +31,9 @@ export const paths = {
   },
   SIGN_UP: '/CreateAccount/SignUp',
   THANK_YOU: '/Orders/Thankyou',
+  thankYou: {
+    notAuthorized: defaultRoute,
+  },
   CART: '/cart.html',
   cart: {
     keepShopping: defaultRoute,

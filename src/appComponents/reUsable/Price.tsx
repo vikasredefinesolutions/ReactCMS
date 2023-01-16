@@ -8,17 +8,24 @@ interface _props {
 }
 
 const Price: React.FC<_props> = ({ value, prices, addColon = true }) => {
-  let price = 0;
+  let priceToDisplay = 0;
 
   const currency = useTypedSelector((state) => state.store.currency);
+  const loggedIn = useTypedSelector((state) => state.user.id);
 
-  if (value) prices === null ? (price = 0) : (price = +value);
-
-  if (prices) {
-    prices === null ? (price = 0) : prices.msrp;
+  if (value) {
+    priceToDisplay = +value;
   }
 
-  const toShow = price.toFixed(2);
+  if (prices && loggedIn) {
+    if (prices?.salePrice < prices?.msrp) {
+      priceToDisplay = prices.salePrice;
+    } else {
+      priceToDisplay = prices.msrp;
+    }
+  }
+
+  const toShow = priceToDisplay.toFixed(2);
 
   if (addColon) {
     return (

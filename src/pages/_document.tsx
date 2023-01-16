@@ -44,8 +44,6 @@ class MyDocument extends Document {
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
           />
-          
-
           <link
             rel="stylesheet"
             type="text/css"

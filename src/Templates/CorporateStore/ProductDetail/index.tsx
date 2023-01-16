@@ -6,7 +6,10 @@ import config from 'api.config';
 import Price from 'appComponents/reUsable/Price';
 import ProductImg from 'Components/ProductDetails/ProductImg';
 import SizeChartModal from 'Components/ProductDetails/SizeChartModal';
-import { _ProductDetails, _ProductDetailsProps } from 'definations/APIs/productDetail.res';
+import {
+  _ProductDetails,
+  _ProductDetailsProps,
+} from 'definations/APIs/productDetail.res';
 import { getAddToCartObject, setCookie } from 'helpers/common.helper';
 import { highLightError } from 'helpers/global.console';
 import { useActions, useTypedSelector } from 'hooks';
@@ -14,17 +17,14 @@ import { properties } from 'mock/properties.mock';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
-const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (product) => {
+const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
+  product,
+) => {
   const { showModal } = useActions();
-  const storeLayout = useTypedSelector((state) => state.store.layout);
   const selectedproduct = useTypedSelector((state) => state.product.selected);
   const customerId = useTypedSelector((state) => state.user.id);
-  const {
-    store_productDetails,
-    setColor,
-    setShowLoader,
-    updateProductProperties,
-  } = useActions();
+  const { store_productDetails, setColor, setShowLoader, product_storeData } =
+    useActions();
   const [color, setColors] = useState<string | null>(null);
   const [size, setSize] = useState<string | null>(null);
   const [qty, setQty] = useState<number>(1);
@@ -65,7 +65,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
       });
       if (product.colors) {
         setColor(product.colors[0]);
-        setColors(product.colors[0].name)
+        setColors(product.colors[0].name);
         const allColorAttributes = product.colors.map(
           (color) => color.attributeOptionId,
         );
@@ -74,7 +74,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
           productId: product.details.id,
           attributeOptionId: allColorAttributes,
         }).then((res) =>
-          updateProductProperties({
+          product_storeData({
             type: 'INVENTORY_LIST',
             data: res,
           }),
@@ -109,7 +109,9 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
       <meta name="keywords" content={_SEO.keywords} />
     </Head>
   );
-  const multipleQtyChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const multipleQtyChangeHandler = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const { name: _size, value } = e.target;
     const _qty = ~~value;
     let multipleArray = multipleQty !== null ? [...multipleQty] : [];
@@ -124,47 +126,57 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
         multipleArray?.push({
           qty: _qty,
           size: _size,
-          price
-        })
+          price,
+        });
       }
       setMultipleQty(multipleArray);
     }
-  }
+  };
 
   const getMultipleQtyValue = (_size: string) => {
     const qtyObject = multipleQty?.find(({ size }) => _size === size);
     if (qtyObject) {
-      return qtyObject.qty
+      return qtyObject.qty;
     }
     return 0;
-  }
+  };
 
   const getTotals = () => {
     let totalQty = 0;
     let price = 0;
     if (product.details) {
-      price = product.details.salePrice
+      price = product.details.salePrice;
     }
-    multipleQty?.forEach(({ qty }) => totalQty += qty);
+    multipleQty?.forEach(({ qty }) => (totalQty += qty));
 
     return {
-      totalQty, totalPrice: totalQty * price
-    }
-  }
+      totalQty,
+      totalPrice: totalQty * price,
+    };
+  };
 
   const buyNowHandler = async () => {
     if (showMultipleSize) {
       if (multipleQty === null) {
-        showModal({ message: 'Please select any one size.', type: 'Required Size' });
+        showModal({
+          message: 'Please select any one size.',
+          title: 'Required Size',
+        });
         return;
       }
     } else {
       if (!color || !size) {
-        showModal({ message: 'Please select any one size.', type: 'Required Size' });
+        showModal({
+          message: 'Please select any one size.',
+          title: 'Required Size',
+        });
         return;
       }
       if (qty < 1) {
-        showModal({ message: 'Please enter valid quantity.', type: 'Required Quantity' });
+        showModal({
+          message: 'Please enter valid quantity.',
+          title: 'Required Quantity',
+        });
         return;
       }
     }
@@ -173,17 +185,23 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
       const cartObject = await getAddToCartObject({
         userId: customerId || 0,
         note: '',
-        sizeQtys: showMultipleSize ? multipleQty : [{
-          qty,
-          size: size || '',
-          price
-        }],
+        sizeQtys: showMultipleSize
+          ? multipleQty
+          : [
+              {
+                qty,
+                size: size || '',
+                price,
+              },
+            ],
         productDetails: selectedproduct,
-        total: showMultipleSize ? getTotals() : {
-          totalPrice: price * qty,
-          totalQty: qty
-        }
-      })
+        total: showMultipleSize
+          ? getTotals()
+          : {
+              totalPrice: price * qty,
+              totalQty: qty,
+            },
+      });
       if (cartObject) {
         try {
           const res = await addToCart(cartObject);
@@ -192,15 +210,14 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
           }
           showModal({
             message: 'Added to cart Successfully',
-            type: 'Success',
+            title: 'Success',
           });
         } catch (error) {
           highLightError({ error, component: 'StartOrderModal' });
         }
       }
     }
-
-  }
+  };
 
   return (
     <>
@@ -208,107 +225,202 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
       <div className={`font-Outfit`}>
         <div className="container mx-auto mt-6">
           <div className="lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start">
-            <ProductImg product={product as unknown as _ProductDetails} storeCode={product.storeCode || ''} />
+            <ProductImg
+              product={product as unknown as _ProductDetails}
+              storeCode={product.storeCode || ''}
+            />
             <div className="">
               <div className="mb-4 border-b border-b-gray-300">
-                <div className="text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title mb-4">{product.details.name}</div>
+                <div className="text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title mb-4">
+                  {product.details.name}
+                </div>
               </div>
               <div className="mb-4">
-                <div className="text-gray-700 text-sm"> <span
-                  className="inline-block w-32 font-semibold">Product Code :</span> <span>
-                    {product.details.sku}</span></div>
+                <div className="text-gray-700 text-sm">
+                  {' '}
+                  <span className="inline-block w-32 font-semibold">
+                    Product Code :
+                  </span>{' '}
+                  <span>{product.details.sku}</span>
+                </div>
               </div>
               <div className="flex align-top mb-4">
-                <div className="w-32 text-sm"> <span className="text-sm font-semibold">Colors:</span> </div>
+                <div className="w-32 text-sm">
+                  {' '}
+                  <span className="text-sm font-semibold">Colors:</span>{' '}
+                </div>
                 <div className="flex flex-wrap gap-1 text-sm text-center">
-                  {
-                    product.colors?.map(colour => {
-                      const colorName = colour.name;
-                      return <div onClick={() => { setColor(colour); setColors(colour.name) }} key={colour.name} className="w-8">
-                        <div className={`border border-gray-300 p-px cursor-pointer${color && colorName === color ? ' border-secondary' : ''}`}>
-                          <img src={`${config.mediaBaseUrl}${colour.imageUrl}`} alt="" className="w-full object-center object-cover" />
+                  {product.colors?.map((colour) => {
+                    const colorName = colour.name;
+                    return (
+                      <div
+                        onClick={() => {
+                          setColor(colour);
+                          setColors(colour.name);
+                        }}
+                        key={colour.name}
+                        className="w-8"
+                      >
+                        <div
+                          className={`border border-gray-300 p-px cursor-pointer${
+                            color && colorName === color
+                              ? ' border-secondary'
+                              : ''
+                          }`}
+                        >
+                          <img
+                            src={`${config.mediaBaseUrl}${colour.imageUrl}`}
+                            alt=""
+                            className="w-full object-center object-cover"
+                          />
                         </div>
                         <div className="hidden">{colour.name}</div>
                       </div>
-                    })
-                  }
+                    );
+                  })}
                 </div>
               </div>
 
-              {!showMultipleSize && <div className="flex flex-wrap mb-4">
-                <div className="w-32 text-sm items-center"> <span className="text-sm font-semibold">Size:</span>
+              {!showMultipleSize && (
+                <div className="flex flex-wrap mb-4">
+                  <div className="w-32 text-sm items-center">
+                    {' '}
+                    <span className="text-sm font-semibold">Size:</span>
+                  </div>
+
+                  <div className="text-sm flex flex-wrap items-center gap-1">
+                    {properties.product.size_input === 'checkbox' ? (
+                      product.details.sizes.split(',').map((_size) => (
+                        <div
+                          onClick={() => setSize(_size)}
+                          key={_size}
+                          className={`border border-gray-300 hover:border-secondary h-8 w-8 flex items-center justify-center cursor-pointer${
+                            _size === size ? ' border-secondary' : ''
+                          }`}
+                        >
+                          {_size}
+                        </div>
+                      ))
+                    ) : (
+                      <select
+                        className="form-input"
+                        onChange={(e) => setSize(e.target.value)}
+                      >
+                        <option>Select Size</option>
+                        {product.details.sizes.split(',').map((_size) => (
+                          <option value={_size} key={_size}>
+                            {_size}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                    <div className="">
+                      <button
+                        onClick={() => setShowSizeChart(true)}
+                        data-modal-toggle="sizechartModal"
+                      >
+                        Size Chart
+                      </button>
+                    </div>
+                  </div>
                 </div>
-
-                <div className="text-sm flex flex-wrap items-center gap-1">
-                  {properties.product.size_input === 'checkbox' ?
-
-                    product.details.sizes.split(',').map(_size => (
-                      <div onClick={() => setSize(_size)} key={_size} className={`border border-gray-300 hover:border-secondary h-8 w-8 flex items-center justify-center cursor-pointer${_size === size ? ' border-secondary' : ''}`}>{_size}</div>
-                    ))
-                    : <select className='form-input' onChange={(e) => setSize(e.target.value)}>
-                      <option>Select Size</option>
-                      {
-                        product.details.sizes.split(',').map(_size => (
-                          <option value={_size} key={_size}>{_size}</option>
-                        ))
-                      }
-                    </select>
-                  }
-                  <div className=""><button onClick={() => setShowSizeChart(true)} data-modal-toggle="sizechartModal">Size Chart</button></div>
-                </div>
-
-
-              </div>}
+              )}
               <div className="flex flex-wrap items-center mb-4">
-                <div className="w-32 text-sm items-center"> <span className="text-sm font-semibold">Qty:</span>
+                <div className="w-32 text-sm items-center">
+                  {' '}
+                  <span className="text-sm font-semibold">Qty:</span>
                 </div>
                 <div className="text-sm">
-                  {!showMultipleSize ?
-
+                  {!showMultipleSize ? (
                     <div className="w-28">
-                      <input onChange={(e) => setQty(~~e.target.value)} value={qty} type="number" className="form-input" id="QTY" placeholder="" />
-                    </div> : <div className='mb-4'>
-                      {
-                        product.details.sizes.split(',').map(_size => (
-                          <div className='flex flex-wrap item-center mb-4' key={_size}>
-                            <p className='w-32 item-center'>{_size}</p>
-                            <p className='w-32 item-center'>100</p>
-                            <div className="w-28">
-                              <input name={_size} onChange={multipleQtyChangeHandler} value={getMultipleQtyValue(_size)} type="number" className="form-input w-32 pr-0" id="QTY" placeholder="" />
-                            </div>
-                          </div>
-
-                        ))
-                      }
+                      <input
+                        onChange={(e) => setQty(~~e.target.value)}
+                        value={qty}
+                        type="number"
+                        className="form-input"
+                        id="QTY"
+                        placeholder=""
+                      />
                     </div>
-                  }
-                  <button onClick={() => { setShowMultipleSize(!showMultipleSize) }}>Click here to add {showMultipleSize ? 'single' : 'mutiple'} sizes</button>
+                  ) : (
+                    <div className="mb-4">
+                      {product.details.sizes.split(',').map((_size) => (
+                        <div
+                          className="flex flex-wrap item-center mb-4"
+                          key={_size}
+                        >
+                          <p className="w-32 item-center">{_size}</p>
+                          <p className="w-32 item-center">100</p>
+                          <div className="w-28">
+                            <input
+                              name={_size}
+                              onChange={multipleQtyChangeHandler}
+                              value={getMultipleQtyValue(_size)}
+                              type="number"
+                              className="form-input w-32 pr-0"
+                              id="QTY"
+                              placeholder=""
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <button
+                    onClick={() => {
+                      setShowMultipleSize(!showMultipleSize);
+                    }}
+                  >
+                    Click here to add {showMultipleSize ? 'single' : 'mutiple'}{' '}
+                    sizes
+                  </button>
                 </div>
               </div>
               <div>
                 <div className="mt-3 bg-gray-100 p-4">
                   <div className="text-sm text-gray-900 flex flex-wrap items-end">
-                    <div className="w-28"><span className="">You Pay</span></div>
-                    <div className=""><span className="text-2xl tracking-wider"><Price value={showMultipleSize ? getTotals().totalPrice : product.details.salePrice * qty} /></span></div>
+                    <div className="w-28">
+                      <span className="">You Pay</span>
+                    </div>
+                    <div className="">
+                      <span className="text-2xl tracking-wider">
+                        <Price
+                          value={
+                            showMultipleSize
+                              ? getTotals().totalPrice
+                              : product.details.salePrice * qty
+                          }
+                        />
+                      </span>
+                    </div>
                   </div>
                   <div className="w-full text-left flex justify-end mt-4">
-                    <button type="button" onClick={buyNowHandler} className="btn btn-secondary w-full text-center !font-bold">BUY NOW</button>
+                    <button
+                      type="button"
+                      onClick={buyNowHandler}
+                      className="btn btn-secondary w-full text-center !font-bold"
+                    >
+                      BUY NOW
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
             {/* <ProductInfo product={product} /> */}
-            {
-              showSizeChart &&
-              <SizeChartModal modalHandler={() => { setShowSizeChart(false) }} storeCode={product.storeCode || ''} />
-            }
+            {showSizeChart && (
+              <SizeChartModal
+                modalHandler={() => {
+                  setShowSizeChart(false);
+                }}
+                storeCode={product.storeCode || ''}
+              />
+            )}
           </div>
         </div>
       </div>
     </>
   );
-  // return <>No store layout found</>; 
-
+  // return <>No store layout found</>;
 };
 
 export default Corporate_ProductDetails;

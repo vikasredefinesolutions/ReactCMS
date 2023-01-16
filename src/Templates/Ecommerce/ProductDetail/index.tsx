@@ -1,7 +1,7 @@
 import ProductDescription from 'Components/ProductDetails/ProductDescription';
 import ProductDetails from 'Components/ProductDetails/ProductDetails';
 import SizeChart from 'Components/ProductDetails/SizeChartModal';
-import { useActions, useTypedSelector } from 'hooks';
+import { useActions } from 'hooks';
 import { _Store } from 'page.config';
 import React, { useEffect } from 'react';
 
@@ -16,13 +16,8 @@ import Head from 'next/head';
 const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
   product,
 ) => {
-  const storeLayout = useTypedSelector((state) => state.store.layout);
-  const {
-    store_productDetails,
-    setColor,
-    setShowLoader,
-    updateProductProperties,
-  } = useActions();
+  const { store_productDetails, setColor, setShowLoader, product_storeData } =
+    useActions();
 
   // const addParams = () => {
   //   router.query.altview = '1';
@@ -62,7 +57,7 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
           productId: product.details.id,
           attributeOptionId: allColorAttributes,
         }).then((res) =>
-          updateProductProperties({
+          product_storeData({
             type: 'INVENTORY_LIST',
             data: res,
           }),

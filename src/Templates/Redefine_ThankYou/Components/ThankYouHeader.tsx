@@ -6,6 +6,7 @@ import {
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
 import React from 'react';
+import ThankYouCreatePassword from './ThankYouCreatePassword';
 
 interface _props {
   order: {
@@ -16,6 +17,10 @@ interface _props {
 
 const ThankYouHeader: React.FC<_props> = ({ order }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const isLoggedIn = useTypedSelector((state) => state.user.id);
+  const isGuestCustomer = useTypedSelector(
+    (state) => state.cart.isGuestCustomer,
+  );
 
   if (storeLayout === _Store.type4) {
     return (
@@ -40,20 +45,21 @@ const ThankYouHeader: React.FC<_props> = ({ order }) => {
                 <div className="md:flex md:justify-between md:items-center text-center md:text-left">
                   <div className="pt-2">
                     <div className="text-2xl pb-2">
-                      YOUR ORDER NUMBER IS:{order.billing?.refOrderID}
+                      YOUR ORDER NUMBER IS:{order.billing?.id}
                     </div>
                     <div className="pb-2 pr-5">
                       You will receive a confirmation shortly at
-                      {order.billing?.email}, You can access your account at
-                      your account
+                      {` ${order.billing?.email}`}, You can access your account
+                      at your account
                     </div>
                     <div className="pb-2">
-                      <a
+                      <button
+                        onClick={() => window.print()}
                         title="Print Reciept"
                         className="underline hover:no-underline"
                       >
                         Print Reciept
-                      </a>
+                      </button>
                     </div>
                   </div>
                   <div className="pt-2">
@@ -98,44 +104,22 @@ const ThankYouHeader: React.FC<_props> = ({ order }) => {
               <div className="md:flex md:justify-between md:items-center text-center md:text-left">
                 <div className="pt-2">
                   <span className="text-2xl pb-2 block text-white">
-                    YOUR ORDER NUMBER IS:{order.billing?.refOrderID}
+                    YOUR ORDER NUMBER IS:{` ${order.billing?.id}`}
                   </span>
                   <span className="pb-2 text-sm text-white block pr-5">
                     You will receive a confirmation shortly at
-                    {order.billing?.email}, You can access your account at your
-                    account
+                    {` ${order.billing?.email}`}, You can access your account at
+                    your account
                   </span>
-                  <div className="pt-2">
-                    <div className="pb-2 text-sm text-white font-semibold">
-                      Create Password{' '}
-                    </div>
-                    <div className="flex mb-6 items-start gap-2">
-                      <div className="relative z-0">
-                        <input
-                          type="password"
-                          name="EmailPassword"
-                          placeholder="Enter Password"
-                          required
-                          className="form-input"
-                        />
-                        <div className="text-sm text-white">
-                          combination of letters
-                        </div>{' '}
-                      </div>
-                      <div>
-                        <button type="submit" className="btn btn-secondary">
-                          Create Account
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  {isGuestCustomer && !isLoggedIn && <ThankYouCreatePassword />}
                   <span className="text-white block text-sm pb-2">
-                    <a
+                    <button
+                      onClick={() => window.print()}
                       title="Print Reciept"
                       className="text-white underline hover:no-underline"
                     >
                       Print Reciept
-                    </a>
+                    </button>
                   </span>
                 </div>
                 <div className="pt-2">
@@ -150,7 +134,7 @@ const ThankYouHeader: React.FC<_props> = ({ order }) => {
                       title="Email"
                       className="text-white underline hover:no-underline"
                     >
-                      Email
+                      Email : 'email'
                     </a>
                   </span>
                 </div>

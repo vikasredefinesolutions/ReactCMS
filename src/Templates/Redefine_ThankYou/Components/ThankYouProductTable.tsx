@@ -18,10 +18,10 @@ const ThankYouProductTable: React.FC<_props> = ({ product }) => {
 
       {product.shoppingCartItemDetailsViewModels.map((prod, index) => (
         <div key={index} className="flex justify-between py-2">
-          <div className="text-base w-28">{prod.attributeOptionId} </div>
+          <div className="text-base w-28">{prod.attributeOptionValue} </div>
           <div className="text-base w-16 text-center">{prod.qty}</div>
           <div className="text-base w-20 text-right">
-            <Price value={prod.price} />
+            <Price addColon={false} value={prod.price} />
           </div>
         </div>
       ))}
@@ -30,7 +30,7 @@ const ThankYouProductTable: React.FC<_props> = ({ product }) => {
         <div className="text-base w-28">Product Total: </div>
         <div className="text-base w-16 text-center">{product.totalQty}</div>
         <div className="text-base w-20 text-right">
-          <Price value={product.totalPrice} />
+          <Price addColon={false} value={product.totalPrice} />
         </div>
       </div>
     </div>

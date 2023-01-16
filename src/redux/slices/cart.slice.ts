@@ -71,6 +71,10 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     cart_userUpdate: (state, { payload }: _Cart_userUpdate_Action) => {
+      if (payload.type === 'noMoreAGuest') {
+        state.isGuestCustomer = payload.data.isGuestCustomer;
+      }
+
       if (payload.type === 'guestLogin') {
         state.isCustomerExist = payload.data.isCustomerExist;
         state.guestId = payload.data.guestId;

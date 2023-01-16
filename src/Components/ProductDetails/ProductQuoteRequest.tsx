@@ -3,7 +3,8 @@ import { _modals } from 'definations/product.type';
 import { Form, Formik } from 'formik';
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
-import React from 'react';
+import React, { useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import * as Yup from 'yup';
 import ProductQuoteRequestInput from './ProductQuoteRequestInput';
 
@@ -37,20 +38,35 @@ const __QuoteRequestSchema = Yup.object().shape({
 interface _props {
   // eslint-disable-next-line no-unused-vars
   modalHandler: (param: null | _modals) => void;
+  product?:string|undefined
 }
 
 const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
   modalHandler,
   storeCode,
+  product
 }) => {
-  const { name: productName } = useTypedSelector(
+ const[verifiedRecaptch,setverifiedRecaptch]= useState(false)
+  const { name } = useTypedSelector(
     (state) => state.product.product,
   );
-  const { color: productColor } = useTypedSelector(
+  
+  const { color  } = useTypedSelector(
     (state) => state.product.selected,
   );
 
-  const quoteRequestHandler = () => {};
+
+
+  const productName=product?product:name;
+  const productColor=product?'':color.name;
+  const quoteRequestHandler = (value:any) => {
+    alert(value)
+    modalHandler(null)
+  };
+  function onChange(value:any) {
+    console.log(value)
+    setverifiedRecaptch(true)
+  }
 
   // const show = useTypedSelector((state) => state.store.display.footer);
   if (storeCode === _Store.type2) {
@@ -101,10 +117,10 @@ const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
                           <div className="">Product Name :</div>
                           <div className="">{productName}</div>
                         </div>
-                        <div className="flex flex-wrap gap-1 pt-4 first:pt-0 font-semibold">
+                     { productColor &&  <div className="flex flex-wrap gap-1 pt-4 first:pt-0 font-semibold">
                           <div className="">Color :</div>
-                          <div className="">{productColor.name}</div>
-                        </div>
+                          <div className="">{productColor}</div>
+                        </div>}
                         <ProductQuoteRequestInput
                           label={'Name'}
                           placeHolder={'Name'}
@@ -163,7 +179,11 @@ const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
                           onChange={handleChange}
                           type={'textArea'}
                           required={false}
-                          containerClass={'pt-4 first:pt-0'}
+                          containerClass={'pt-4 first:pt-0 '}
+                        />
+                        <ReCAPTCHA className='pt-4 first:pt-0'
+                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHASITEKEY || ''}
+                            onChange={onChange}
                         />
                       </div>
                       <div className="flex items-center justify-end p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
@@ -172,9 +192,9 @@ const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
                           className="btn btn-primary"
                           onClick={() => modalHandler(null)}
                         >
-                          Cancel
+                          Close
                         </button>
-                        <button type="submit" className="btn btn-secondary">
+                        <button type="submit" className={`btn btn-secondary ${verifiedRecaptch ? '' : 'opacity-50'}  ` }disabled={!verifiedRecaptch}>
                           Send
                         </button>
                       </div>

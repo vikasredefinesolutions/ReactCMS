@@ -6,7 +6,7 @@ import { _Store } from 'page.config';
 import React, { useEffect } from 'react';
 
 const QtyPriceTable: React.FC<{ storeCode: string }> = ({ storeCode }) => {
-  const { updateProductProperties } = useActions();
+  const { product_storeData } = useActions();
   const { id: storeId } = useTypedSelector((state) => state.store);
   const customerId = useTypedSelector((state) => state.user.id);
   const selectedColor = useTypedSelector(
@@ -15,14 +15,20 @@ const QtyPriceTable: React.FC<{ storeCode: string }> = ({ storeCode }) => {
   const { discounts } = useTypedSelector((state) => state.product.product);
 
   useEffect(() => {
-    if (storeId && customerId && selectedColor && storeCode === _Store.type1) {
+    if (
+      storeId &&
+      customerId &&
+      selectedColor &&
+      storeCode === _Store.type1 &&
+      discounts === null
+    ) {
       FetchDiscountTablePrices({
         storeId: storeId,
         seName: c_getSeName('PRODUCT DETAILS'),
         customerId: customerId,
         attributeOptionId: selectedColor.attributeOptionId,
       }).then((res) =>
-        updateProductProperties({
+        product_storeData({
           type: 'DISOCUNT_TABLE_PRICES',
           data: res,
         }),

@@ -26,7 +26,7 @@ import { useEffect } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
 import { _Expected_AppProps, _MenuItems } from 'show.type';
 import { _globalStore } from 'store.global';
- import '../../styles/output.css';
+// import '../../styles/output.css';
 import '../app.css';
 
 type AppOwnProps = {

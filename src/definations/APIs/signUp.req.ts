@@ -34,6 +34,7 @@ export interface StoreCustomerAddress {
   firstname: string;
   lastName: string;
   email: string;
+  CompanyName: string;
   address1: string;
   address2: string;
   suite: string;

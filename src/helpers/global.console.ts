@@ -88,6 +88,7 @@ export const __console: __Console = {
       FetchOrderIds: false,
       GetStoreCustomer: false,
       FetchOrderDetails: false,
+      UpdatePasswordForGuestEmail: false,
     },
   },
   requestConsultation: {

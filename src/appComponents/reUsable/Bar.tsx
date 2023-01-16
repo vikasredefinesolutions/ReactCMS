@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 const BarComponent: React.FC=()=>{
 return(
-    <div className="container mx-full text-center">
+    <div className="container mx-auto bg-white overflow-hidden">
     <div className="bg-[#061b2c] text-white uppercase md:py-5 mb-5">
       <div className="max-w-2xl mx-auto tracking-wider leading-none">
         <div className="flex flex-wrap -mx-3">

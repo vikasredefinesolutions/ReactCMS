@@ -8,7 +8,7 @@ import {
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import MyAccountTabs from 'Components/MyAccountTabs';
-import { useActions, useTypedSelector } from 'hooks';
+import { useTypedSelector } from 'hooks';
 import moment from 'moment';
 import { NextPage } from 'next';
 import Head from 'next/head';
@@ -22,7 +22,6 @@ type _OrderDetails = Array<{
 } | null>;
 
 const Orders: NextPage = () => {
-  const { setShowLoader } = useActions();
   const router = useRouter();
   const [orderDetails, setOrderDetails] = useState<_OrderDetails | null | []>(
     null,
@@ -72,16 +71,24 @@ const Orders: NextPage = () => {
 
   useEffect(() => {
     if (storeId && userId) {
-      setShowLoader(true);
       FetchOrderIds({
         storeId,
         userId,
       })
         .then((ids) => fetchMultipleOrderDetails(ids))
-        .catch((err) => setOrderDetails([]))
-        .finally(() => setShowLoader(false));
+        .catch((err) => setOrderDetails([]));
     }
   }, []);
+
+  if (orderDetails === null) {
+    return (
+      <div id="root">
+        <div className="loader-wrapper">
+          <div className="loader"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

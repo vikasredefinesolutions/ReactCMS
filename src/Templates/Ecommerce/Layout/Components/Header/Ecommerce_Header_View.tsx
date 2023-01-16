@@ -9,7 +9,7 @@ import {
   Logo,
   MenuIcon,
   MyCartIcon,
-  WishListIcon,
+  WishListIcon
 } from '../Icons';
 
 import OnePercentLogo from '../Icons/OnePercentLogo';

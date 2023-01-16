@@ -1,5 +1,6 @@
 import { GetlAllProductList } from '@type/productList.type';
 import BarComponent from 'appComponents/reUsable/Bar';
+import ProductDetailsPageBanner from 'Components/ProductDetails/Banner';
 import { properties } from 'mock/properties.mock';
 import { Fragment } from 'react';
 import { list_FnProps } from '..';
@@ -8,7 +9,7 @@ import FilterChips from '../components/Filters/filterChips';
 import FlyOutFilter from '../components/Filters/flyoutFilter';
 import FilterLayout2 from '../components/Filters/Layout2';
 import ListView from '../components/PorudctComponent/ListView';
-import ProductComponent from '../components/PorudctComponent/Product';
+import ProductLayout2 from '../components/PorudctComponent/Productlayout2';
 
 const Layout2 = ({
     filters,
@@ -28,12 +29,14 @@ const Layout2 = ({
     sortProductJson,
     clearFilters,
     compareCheckBoxHandler,
+    slug
 }: list_FnProps) => {
     return (
         <section id="">
+                <ProductDetailsPageBanner slug={slug}/>
+                 <BarComponent/>
             <div className="container mx-auto bg-white overflow-hidden">
-                   <BarComponent/>
-                <div className="flex flex-wrap gap-y-6 -mx-4">
+                <div className="  flex flex-wrap gap-y-6 -mx-4">
                     <div className="w-full md:w-3/12 lg:w-3/12 px-4" >
                         {filters.length > 0 &&
                             (properties.filter_box.layout === 'flyout' ? (
@@ -91,7 +94,7 @@ const Layout2 = ({
                                             (product: GetlAllProductList, index: number) => (
                                                 <Fragment key={index}>
                                                     {productView === 'grid' ? (
-                                                        <ProductComponent
+                                                        <ProductLayout2
                                                             skuList={skuList}
                                                             compareCheckBoxHandler={compareCheckBoxHandler}
                                                             product={product}

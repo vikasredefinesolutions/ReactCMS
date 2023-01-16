@@ -108,16 +108,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
             <h2 className="sr-only">Product information</h2>
           </div>
           <div>
-            <DiscountPricing
-              storeCode={storeCode}
-              showPriceTable={true}
-              price={{
-                ourCost: product.ourCost,
-                msrp: product.msrp,
-                imap: product.imap,
-                salePrice: product.salePrice,
-              }}
-            />
+            <DiscountPricing storeCode={storeCode} showMsrpLine={true} />
             {!product.isDiscontinue && (
               <AskToLogin modalHandler={modalHandler} />
             )}
@@ -384,16 +375,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           salePrice={product.salePrice}
         />
         <MinimumQuantity storeCode={storeCode} pricingLabel={''} />
-        <DiscountPricing
-          storeCode={storeCode}
-          showPriceTable={true}
-          price={{
-            salePrice: product.salePrice,
-            imap: product.imap,
-            msrp: product.msrp,
-            ourCost: product.ourCost,
-          }}
-        />
+        <DiscountPricing storeCode={storeCode} showMsrpLine={true} />
         <Inventory storeCode={storeCode} productId={product.id} />
         <ProductCompanion
           storeCode={storeCode}

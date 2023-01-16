@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 // Define a type for the slice state
 export interface _ModalState {
   showModal: boolean;
-  type: string;
+  title: string;
   message: string;
 }
 
 // Define the initial state using that type
 const initialState: _ModalState = {
   showModal: false,
-  type: '',
+  title: '',
   message: '',
 };
 
@@ -23,22 +23,20 @@ export const successSlice = createSlice({
       action: {
         payload: {
           message: string;
-          type: string;
+          title: string;
         };
       },
     ) => {
       state.showModal = true;
-      state.type = action.payload.type;
+      state.title = action.payload.title;
       state.message = action.payload.message;
     },
-    hideModal: (
-        state,
-        action: {},
-      ) => {
-        state.showModal = false;
-        state.type = '';
-        state.message = '';
-      }
+
+    hideModal: (state) => {
+      state.showModal = false;
+      state.title = '';
+      state.message = '';
+    },
   },
 });
 

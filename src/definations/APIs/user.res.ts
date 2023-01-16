@@ -267,3 +267,38 @@ export interface ShoppingCartLogoPersonViewModel {
   size: null;
   name: null;
 }
+
+export interface _UpdatePasswordForGuestEmail {
+  id: number;
+  firstname: string;
+  lastName: string;
+  email: string;
+  password: string;
+  companyId: number;
+  tierId: number;
+  isRegistered: number;
+  storeId: number;
+  sharedCustomerId: number;
+  isLocked: boolean;
+  navCustomerId: string;
+  isSuperuser: boolean;
+  customerType: string;
+  isTaxableuser: boolean;
+  industryId: number;
+  customerRoleId: number;
+  birthDate: null;
+  gender: null;
+  isForceAdminForResetPassword: boolean;
+  resetPasswordRequestDate: null;
+  resetPasswordChangedDate: null;
+  forgotPasswordResetToken: string;
+  recStatus: string;
+  createdDate: Date;
+  createdBy: number;
+  modifiedDate: Date;
+  modifiedBy: number;
+  rowVersion: string;
+  location: string;
+  ipAddress: string;
+  macAddress: string;
+}

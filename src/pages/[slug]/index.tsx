@@ -11,7 +11,7 @@ import { cLog } from 'helpers/global.console';
 import { useActions, useTypedSelector } from 'hooks';
 import _ from 'lodash';
 import { NextPage } from 'next';
-import Home from 'pages/Home';
+import Home from 'pages/home';
 import { useEffect } from 'react';
 import Redefine_ProductDetails from 'Templates/Redefine_ProductDetail';
 import Redefine_ProductList from 'Templates/Redefine_ProductList';

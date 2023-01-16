@@ -1,0 +1,14 @@
+@import url('react-inner-image-zoom/lib/InnerImageZoom/styles.css');
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback);
+@import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0');
+@import url(https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap);
+.carousel .slide img {
+  width: auto !important;
+  max-width: 100% !important;
+}
+.carousel .slide iframe {
+  margin: 0 !important;
+  width: 100% !important;
+}

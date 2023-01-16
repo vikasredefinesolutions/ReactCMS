@@ -8,8 +8,7 @@ import SeoHead from 'appComponents/reUsable/SeoHead';
 import { getServerSideProps } from 'Components/Slug/getServerSideProps';
 import { cLog } from 'helpers/global.console';
 import { NextPage } from 'next';
-import Home from 'pages/Home';
-
+import Home from 'pages/home';
 
 const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
   props,

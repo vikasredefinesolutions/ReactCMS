@@ -160,11 +160,22 @@ interface _UpdateProperties_Action {
   payload: _updateDiscountTablePrices | _updateInventoryList;
 }
 
+interface _SetValue_MinQty {
+  type: 'MINIMUM_QTY';
+  data: {
+    qty: number;
+  };
+}
+
+interface _Product_SetValues_Action {
+  payload: _SetValue_MinQty;
+}
+
 export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    updateProductProperties: (state, { payload }: _UpdateProperties_Action) => {
+    product_storeData: (state, { payload }: _UpdateProperties_Action) => {
       if (payload.type === 'DISOCUNT_TABLE_PRICES') {
         state.product.discounts = payload.data;
       }
@@ -174,23 +185,12 @@ export const productSlice = createSlice({
       }
     },
 
-    setPropertyValues: (
-      state,
-      action: {
-        payload: {
-          propertyName: 'DISCOUNT';
-          data: _ProductDiscountTable | null;
-        };
-      },
-    ) => {
-      const propertyToSet = action.payload.propertyName;
-      if (propertyToSet === 'DISCOUNT') {
-        state.product.discounts = action.payload.data;
+    product_setValues: (state, { payload }: _Product_SetValues_Action) => {
+      if (payload.type === 'MINIMUM_QTY') {
+        state.toCheckout.minQty = payload.data.qty;
       }
     },
-    // filterInventoryByColorId: (state, action) => {
 
-    // },
     setColor: (
       state,
       action: {
@@ -217,19 +217,10 @@ export const productSlice = createSlice({
       }
 
       state.selected.color = action.payload;
-      // state.toCheckout.minQty = action.payload.minQuantity;
-      state.toCheckout.minQty = 5;
+      state.toCheckout.minQty = action.payload.minQuantity;
       state.selected.productId = action.payload.productId;
     },
-    setMinQty: (
-      state,
-      action: {
-        payload: number;
-      },
-    ) => {
-      // state.toCheckout.minQty = action.payload;
-      state.toCheckout.minQty = 5;
-    },
+
     setImage: (
       state,
       action: {
@@ -335,6 +326,7 @@ export const productSlice = createSlice({
           ) || null;
         state.toCheckout.allowNextLogo = true;
       }
+
       if (addOrRemove === 'ADD') {
         state.toCheckout.availableOptions?.push({
           label: action.payload.label,
@@ -373,6 +365,7 @@ export const productSlice = createSlice({
           },
         };
       }
+
       if (addOrSubtract === 'subtract') {
         const removedPrice = state.toCheckout.logo.price?.filter(
           (price, index) => {
@@ -479,16 +472,31 @@ export const productSlice = createSlice({
       if (totalQty < state.toCheckout.minQty) {
         state.toCheckout.minQtyCheck = false;
       }
+
+      const allDiscounts = state.product.discounts;
+      let foundThePrice = false;
+
+      allDiscounts?.subRows.forEach((discount) => {
+        if (foundThePrice) return;
+        const bulkQtyDiscount = +discount.displayQuantity.split('+')[0];
+        if (totalQty >= bulkQtyDiscount) {
+          productPrice = +discount.discountPrice;
+        } else {
+          foundThePrice = true;
+        }
+      });
+
       // TOTAL PRICE
-      let totalPrice =
-        totalQty * state.toCheckout.price + updateAdditionalLogoCharge;
+      let totalPrice = totalQty * productPrice + updateAdditionalLogoCharge;
 
       // STATE UPDATES
       state.toCheckout.additionalLogoCharge = updateAdditionalLogoCharge;
       state.toCheckout.sizeQtys = updatedSizeQtys || null;
+      state.toCheckout.price = productPrice;
       state.toCheckout.totalQty = totalQty;
       state.toCheckout.totalPrice = totalPrice;
     },
+
     updateQuantities2: (
       state,
       action: {
@@ -677,16 +685,6 @@ export const productSlice = createSlice({
       },
     ) => {
       state.product.colors = action.payload.colors;
-    },
-    updateOnEditCart: (
-      state,
-      action: {
-        payload: {
-          toCheckout: toCheckout;
-        };
-      },
-    ) => {
-      state.toCheckout = action.payload.toCheckout;
     },
   },
 });

@@ -7,6 +7,9 @@ const SizePriceQtyTable: React.FC = () => {
   const { price, inventory } = useTypedSelector(
     (state) => state.product.product,
   );
+  const discountedPrice = useTypedSelector(
+    (state) => state.product.toCheckout.price,
+  );
   const { color } = useTypedSelector((state) => state.product.selected);
   const { sizeQtys } = useTypedSelector((state) => state.product.toCheckout);
 
@@ -62,7 +65,7 @@ const SizePriceQtyTable: React.FC = () => {
                     </td>
                     <td className="px-2 py-4">
                       <div className="">
-                        <Price value={price?.msrp!} />
+                        <Price value={discountedPrice} />
                       </div>
                     </td>
                     <SelectOrInput

@@ -61,6 +61,7 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
       setDiscount(res);
     });
   };
+
   useEffect(() => {
     if (colors === null) return;
     showInventoryFor({
@@ -75,6 +76,7 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
+
   if (inventory === null) return <></>;
 
   if (storeCode === _Store.type3) {

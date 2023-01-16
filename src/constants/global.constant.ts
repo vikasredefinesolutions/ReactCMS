@@ -28,3 +28,10 @@ export const __LocalStorage = {
 export const __Params = {
   giftId: 'giftId',
 };
+
+export const __UserMessages = {
+  signUpPage: {
+    SomethingWentWrong: 'Something went wrong. Try again later!!!',
+    SuccessFullyAccountCreated: 'Account Created Successfully!!!',
+  },
+};

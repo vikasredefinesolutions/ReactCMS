@@ -2,9 +2,11 @@ import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 
+import { __UserMessages } from '@constants/global.constant';
 import RedefineFwInput from 'Components/SignUp/RedefineFwInput';
 import RedefineInput from 'Components/SignUp/RedefineInput';
 import RedefineSelect from 'Components/SignUp/RedefineSelect';
+import RedefineStateNcountries from 'Components/SignUp/RedefineStateNcountries';
 import {
   signup_payload,
   _Signup_Payload,
@@ -12,17 +14,12 @@ import {
 import { paths, queryParam } from 'constants/paths.constant';
 import { signupPageMessages } from 'constants/validationMessages';
 import { _SignUpPayload } from 'definations/APIs/signUp.req';
-import { _Country, _Industry, _State } from 'definations/user.type';
+import { _Industry } from 'definations/user.type';
 import getLocation from 'helpers/getLocation';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
-import {
-  CreateNewAccount,
-  GetCountriesList,
-  GetIndustriesList,
-  GetStatesList,
-} from 'services/user.service';
+import { CreateNewAccount, GetIndustriesList } from 'services/user.service';
 import * as Yup from 'yup';
 
 const _SignupSchema = Yup.object().shape({
@@ -73,13 +70,7 @@ const _SignupSchema = Yup.object().shape({
 
 const SignUp: NextPage = () => {
   const router = useRouter();
-  const [stateContries, setStateContries] = useState<{
-    state: _State[] | null;
-    country: _Country[] | null;
-  }>({
-    state: null,
-    country: null,
-  });
+  const { showModal } = useActions();
   const [industries, setIndustries] = useState<null | _Industry[]>(null);
   const display = '';
 
@@ -89,10 +80,7 @@ const SignUp: NextPage = () => {
   );
 
   /* ------------------------------- FUNCTIONS ------------------------------  */
-  const loginSubmitHandler = async (
-    enteredInputs: _Signup_Payload,
-    // actions: FormikHelpers<typeof signup_payload>,
-  ) => {
+  const loginSubmitHandler = async (enteredInputs: _Signup_Payload) => {
     const location = await getLocation();
 
     const payload: _SignUpPayload = {
@@ -106,6 +94,7 @@ const SignUp: NextPage = () => {
           {
             ...enteredInputs.storeCustomerAddress[0],
             addressType: 'b',
+            CompanyName: enteredInputs.companyName,
             firstname: enteredInputs.firstname,
             lastName: enteredInputs.lastName,
             email: enteredInputs.email,
@@ -115,28 +104,23 @@ const SignUp: NextPage = () => {
         recStatus: 'A',
       },
     };
-    CreateNewAccount(payload).then(() => router.push(paths.HOME));
-    // .catch((err) => console.log('err', err));
-    // .finally(() => console.log('close loader'));
-  };
-
-  const getStatesList = (id: number) => {
-    GetStatesList(id).then((state) => {
-      setStateContries((country) => ({
-        ...country,
-        state: state,
-      }));
+    CreateNewAccount(payload).then((res) => {
+      if (res === null) {
+        showModal({
+          message: __UserMessages.signUpPage.SomethingWentWrong,
+          title: 'Error',
+        });
+        return;
+      }
+      showModal({
+        message: __UserMessages.signUpPage.SuccessFullyAccountCreated,
+        title: 'Success',
+      });
+      router.push(paths.HOME);
     });
   };
 
   useEffect(() => {
-    GetCountriesList()
-      .then((countries) => {
-        setStateContries({ state: null, country: countries });
-        return countries[0].id;
-      })
-      .then(getStatesList);
-
     GetIndustriesList().then((indus) => setIndustries(indus));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -149,36 +133,30 @@ const SignUp: NextPage = () => {
         storeCustomerAddress: [
           {
             ...signup_payload.storeCustomerAddress[0],
-            state: stateContries.state ? stateContries.state[0].name : '',
-            countryCode: stateContries.country
-              ? stateContries.country[0].name
-              : '',
-            countryName: stateContries.country
-              ? stateContries.country[0].name
-              : '',
+            state: '',
+            countryCode: '',
+            countryName: '',
           },
         ],
         showIndustries: storeLayout === _Store.type3,
       }}
       onSubmit={loginSubmitHandler}
       validationSchema={_SignupSchema}
-      enableReinitialize
     >
       {({ values, handleChange, setFieldValue }) => {
         return (
           <Form>
-            <div className="w-full mx-auto max-w-7xl">
-              <div className="flex flex-wrap -mx-3 gap-y-6">
+            <div className='w-full mx-auto max-w-7xl'>
+              <div className='flex flex-wrap -mx-3 gap-y-6'>
                 {storeLayout === _Store.type3 && industries !== null && (
                   <RedefineSelect
-                    label={'Country'}
-                    placeHolder={'Select Country'}
+                    label={'Industry'}
+                    placeHolder={'Select Industry'}
                     name={'companyId'}
                     value={values.companyId}
                     options={industries}
                     onChange={(event) => {
                       setFieldValue('companyId', event.target.value);
-                      getStatesList(+event?.target.value);
                     }}
                     required={false}
                   />
@@ -295,39 +273,11 @@ const SignUp: NextPage = () => {
                   type={'text'}
                   onChange={(event) => handleChange(event)}
                 />
-                {stateContries.country !== null && (
-                  <RedefineSelect
-                    label={'Country'}
-                    placeHolder={'Select Country'}
-                    name={'storeCustomerAddress[0].countryName'}
-                    value={values.storeCustomerAddress[0].countryName}
-                    options={stateContries.country}
-                    onChange={(event) => {
-                      setFieldValue(
-                        'storeCustomerAddress[0].countryName',
-                        event.target.value,
-                      );
-                      getStatesList(+event?.target.value);
-                    }}
-                    required={false}
-                  />
-                )}
-                {stateContries.state !== null && (
-                  <RedefineSelect
-                    label={'State'}
-                    placeHolder={'Select State'}
-                    name={'storeCustomerAddress[0].state'}
-                    value={values.storeCustomerAddress[0].state}
-                    options={stateContries.state}
-                    onChange={(event) => {
-                      setFieldValue(
-                        'storeCustomerAddress[0].state',
-                        +event.target.value,
-                      );
-                    }}
-                    required={false}
-                  />
-                )}
+
+                <RedefineStateNcountries
+                  setFieldValue={setFieldValue}
+                  values={values}
+                />
 
                 {storeLayout === _Store.type3 && (
                   <RedefineFwInput
@@ -343,8 +293,8 @@ const SignUp: NextPage = () => {
                     required={false}
                   />
                 )}
-                <div className="w-full lg:w-full px-3">
-                  <button type="submit" className="btn btn-primary">
+                <div className='w-full lg:w-full px-3'>
+                  <button type='submit' className='btn btn-primary'>
                     Submit
                   </button>
                 </div>
@@ -363,8 +313,8 @@ const SignUp: NextPage = () => {
     return (
       <>
         {display === queryParam.TEAM && (
-          <section className="container mx-auto mt-8 mb-8">
-            <div className="">
+          <section className='container mx-auto mt-8 mb-8'>
+            <div className=''>
               <Formik
                 initialValues={signup_payload}
                 onSubmit={loginSubmitHandler}
@@ -372,11 +322,11 @@ const SignUp: NextPage = () => {
                 {({ values, handleChange }) => {
                   return (
                     <Form>
-                      <div className="w-full mx-auto max-w-7xl">
-                        <div className="text-xl md:text-2xl lg:text-sub-title font-sub-title pb-2 mb-4 border-b border-b-gray-300">
+                      <div className='w-full mx-auto max-w-7xl'>
+                        <div className='text-xl md:text-2xl lg:text-sub-title font-sub-title pb-2 mb-4 border-b border-b-gray-300'>
                           Personal Information
                         </div>
-                        <div className="flex flex-wrap -mx-3 gap-y-6 mb-8">
+                        <div className='flex flex-wrap -mx-3 gap-y-6 mb-8'>
                           <RedefineInput
                             label={'First Name'}
                             placeHolder={'First Name'}
@@ -548,8 +498,8 @@ const SignUp: NextPage = () => {
         )}
         {display === queryParam.INDIVIDUAL && (
           <>
-            <section className="container mx-auto mt-8 mb-8">
-              <div className="">{CreateMyAccountForm}</div>
+            <section className='container mx-auto mt-8 mb-8'>
+              <div className=''>{CreateMyAccountForm}</div>
             </section>
           </>
         )}
@@ -563,8 +513,8 @@ const SignUp: NextPage = () => {
     storeLayout === _Store.type3
   ) {
     return (
-      <section className="container mx-auto  bg-gray-100 mb-6 ">
-        <div className="gird grid-cols-1 lg:flex lg:items-center gap-6 lg:py-8 lg:px-12 px-4 py-4 lg:my-5">
+      <section className='container mx-auto  bg-gray-100 mb-6 '>
+        <div className='gird grid-cols-1 lg:flex lg:items-center gap-6 lg:py-8 lg:px-12 px-4 py-4 lg:my-5'>
           {CreateMyAccountForm}
         </div>
       </section>

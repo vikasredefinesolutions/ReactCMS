@@ -4,22 +4,18 @@ import { _Store } from 'page.config';
 import React, { useState } from 'react';
 import QtyPriceTable from './PriceTable';
 interface _props {
-  price: {
-    ourCost: number;
-    msrp: number;
-    imap: number;
-    salePrice: number;
-  };
-  showPriceTable: boolean;
+  showMsrpLine: boolean;
 }
 
 const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
-  showPriceTable,
-  price,
+  showMsrpLine,
   storeCode,
 }) => {
   const [showMsg, setShowMsg] = useState(false);
 
+  const discountedPrice = useTypedSelector(
+    (state) => state.product.toCheckout.price,
+  );
   const { minQuantity } = useTypedSelector(
     (state) => state.product.selected.color,
   );
@@ -79,24 +75,26 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
               </button>
             ) : null}
           </div>
-          <div className="text-sm text-gray-900 flex flex-wrap justify-between items-center mt-2">
-            <p className="">
-              <span className="text-lg font-semibold mr-1">
-                Price: <Price value={price.msrp} />
-              </span>
-              per item
-            </p>
-            {showMinQuantity ? (
-              <button
-                onClick={() => setShowMsg((show) => !show)}
-                className="uppercase items-center"
-                id="aMinOrder"
-              >
-                <strong>DISCOUNT PRICING AVAILABLE!</strong>
-              </button>
-            ) : null}
-          </div>
-          {showPriceTable && <QtyPriceTable storeCode={storeCode} />}
+          {showMsrpLine && (
+            <div className="text-sm text-gray-900 flex flex-wrap justify-between items-center mt-2">
+              <p className="">
+                <span className="text-lg font-semibold mr-1">
+                  Price: <Price value={discountedPrice} />
+                </span>
+                per item
+              </p>
+              {showMinQuantity ? (
+                <button
+                  onClick={() => setShowMsg((show) => !show)}
+                  className="uppercase items-center"
+                  id="aMinOrder"
+                >
+                  <strong>DISCOUNT PRICING AVAILABLE!</strong>
+                </button>
+              ) : null}
+            </div>
+          )}
+          <QtyPriceTable storeCode={storeCode} />
           {showMsg && (
             <div className="text-xs p-3 pb-0" id="divMinorder">
               <p>

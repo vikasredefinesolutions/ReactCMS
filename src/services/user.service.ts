@@ -3,6 +3,7 @@ import {
   UserType,
   _MyAcc_OrderBillingDetails,
   _MyAcc_OrderProductDetails,
+  _UpdatePasswordForGuestEmail,
 } from '@type/APIs/user.res';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _SignUpPayload } from 'definations/APIs/signUp.req';
@@ -33,7 +34,8 @@ export type _UserAPIs =
   | 'OrderedProductDetails'
   | 'FetchOrderIds'
   | 'GetStoreCustomer'
-  | 'FetchOrderDetails';
+  | 'FetchOrderDetails'
+  | 'UpdatePasswordForGuestEmail';
 export interface _UserServices {
   service: 'user';
   api: _UserAPIs;
@@ -371,4 +373,26 @@ export const updateUserData = async (payload: {
     });
     return null;
   }
+};
+
+export const UpdatePasswordForGuestEmail = async (payload: {
+  customerId: number;
+  email: string;
+  password: string;
+}): Promise<_UpdatePasswordForGuestEmail | null> => {
+  const url = `StoreCustomer/updatestorecustomeremailpassword.json`;
+
+  const response = await CallAPI<_UpdatePasswordForGuestEmail>({
+    name: {
+      service: 'user',
+      api: 'UpdatePasswordForGuestEmail',
+    },
+    request: {
+      url: url,
+      method: 'POST',
+      data: payload,
+    },
+  });
+
+  return response;
 };

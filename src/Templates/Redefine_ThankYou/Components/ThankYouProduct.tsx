@@ -1,9 +1,10 @@
 import { _MyAcc_OrderProductDetails } from '@type/APIs/user.res';
-import ImageComponent from 'appComponents/reUsable/Image';
+import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import { paths } from 'constants/paths.constant';
 
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
 import React from 'react';
@@ -30,23 +31,22 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
     return (
       <li className="flex py-6 flex-wrap px-4">
         <div className="w-full lg:w-4/12 px-3 mt-3">
-          <button onClick={() => navigateTo(product?.seName)}>
-            <ImageComponent
+          <Link href={product.seName!}>
+            <Image
               src={product.colorImage}
               alt={product.productName}
               className="rounded-md object-center object-cover"
             />
-          </button>
+          </Link>
         </div>
 
         <div className="w-full lg:w-8/12 px-3 mt-3">
           <div className="text-lg font-semibold">
-            <button
-              onClick={() => navigateTo(product?.seName)}
-              className="text-black hover:text-anchor-hover"
-            >
-              {product.productName}
-            </button>
+            <Link href={product.seName!}>
+              <a className="text-black hover:text-anchor-hover">
+                {product.productName}
+              </a>
+            </Link>
           </div>
           <div className="w-full flex flex-wrap">
             <div className="sm:w-2/3 mt-2">
@@ -66,7 +66,8 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
             <div className="mt-2 sm:w-1/3">
               <div className="bold text-lg text-right">
                 <span className="">
-                  Item Total: <Price value={product.totalPrice} />
+                  Item Total:{' '}
+                  <Price addColon={false} value={product.totalPrice} />
                 </span>
               </div>
             </div>
@@ -93,23 +94,22 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
     return (
       <li className="flex py-6 flex-wrap px-4">
         <div className="w-full lg:w-4/12 px-3 mt-3">
-          <button onClick={() => navigateTo(product?.seName)}>
-            <ImageComponent
+          <Link href={product.seName!}>
+            <Image
               src={product.colorImage}
               alt={product.productName}
               className="rounded-md object-center object-cover"
             />
-          </button>
+          </Link>
         </div>
 
         <div className="w-full lg:w-8/12 px-3 mt-3">
           <div className="text-lg font-semibold">
-            <button
-              onClick={() => navigateTo(product?.seName)}
-              className="text-black hover:text-blue-500"
-            >
-              {product.productName}
-            </button>
+            <Link href={product.seName!}>
+              <a className="text-black hover:text-blue-500">
+                {product.productName}
+              </a>
+            </Link>
           </div>
           <div className="w-full flex flex-wrap">
             <div className="sm:w-2/3 mt-2">
@@ -129,7 +129,8 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
             <div className="mt-2 sm:w-1/3">
               <div className="bold text-lg text-right">
                 <span className="">
-                  Item Total: <Price value={product.totalPrice} />
+                  Item Total:{' '}
+                  <Price addColon={false} value={product.totalPrice} />
                 </span>
               </div>
             </div>
@@ -155,23 +156,22 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
   return (
     <li className="flex py-6 flex-wrap px-4">
       <div className="w-full lg:w-4/12 px-3 mt-3">
-        <button onClick={() => navigateTo(product?.seName)}>
-          <ImageComponent
+        <Link href={product?.seName!}>
+          <Image
             src={product.colorImage}
             alt={product.productName}
             className="rounded-md object-center object-cover"
           />
-        </button>
+        </Link>
       </div>
 
       <div className="w-full lg:w-8/12 px-3 mt-3">
         <div className="text-lg font-semibold">
-          <button
-            onClick={() => navigateTo(product?.seName)}
-            className="text-black hover:text-anchor-hover"
-          >
-            {product.productName}
-          </button>
+          <Link href={product.seName!}>
+            <a className="text-black hover:text-anchor-hover">
+              {product.productName}
+            </a>
+          </Link>
         </div>
         <div className="w-full flex flex-wrap">
           <div className="sm:w-2/3 mt-2">
@@ -191,7 +191,8 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
           <div className="mt-2 sm:w-1/3">
             <div className="bold text-lg text-right">
               <span className="">
-                Item Total: <Price value={product.totalPrice} />
+                Item Total:{' '}
+                <Price addColon={false} value={product.totalPrice} />
               </span>
             </div>
           </div>

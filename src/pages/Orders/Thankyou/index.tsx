@@ -4,58 +4,65 @@ import {
   _MyAcc_OrderBillingDetails,
   _MyAcc_OrderProductDetails,
 } from '@type/APIs/user.res';
-import ThankYouAccordion from 'Components/ThankYou/ThankYouAccordion';
-import ThankYouHeader from 'Components/ThankYou/ThankYouHeader';
+import { useTypedSelector } from 'hooks';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Redefine_ThankYou from 'Templates/Redefine_ThankYou';
 
 const ThankYou: NextPage = () => {
-  const { query, push } = useRouter();
-  const orderId = query.orderNumber;
+  const router = useRouter();
+  const orderId = router.query.orderNumber;
 
-  const [showLoader, setShowLoader] = useState(true);
-  const [order, setOrderDetails] = useState<{
-    billing: _MyAcc_OrderBillingDetails | null;
-    product: _MyAcc_OrderProductDetails[] | null;
-  } | null>(null);
+  const [order, setOrderDetails] = useState<
+    | {
+        billing: _MyAcc_OrderBillingDetails | null;
+        product: _MyAcc_OrderProductDetails[] | null;
+      }
+    | null
+    | 'SOMETHING WENT WRONG'
+  >(null);
+  const showThankYou = useTypedSelector((state) => state.cart.showThankYou);
 
   useEffect(() => {
+    if (!showThankYou) {
+      router.push(paths.thankYou.notAuthorized);
+      return;
+    }
+
     if (orderId && order === null) {
       FetchOrderDetails({ orderId: +orderId })
         .then((details) => setOrderDetails(details))
-        .finally(() => setShowLoader(false));
+        .catch(() => setOrderDetails('SOMETHING WENT WRONG'));
       return;
     }
+
     if (!orderId) {
-      push(paths.HOME);
+      router.push(paths.HOME);
     }
   }, []);
 
-  if (order === null && showLoader) {
+  if (!showThankYou) {
+    return <></>;
+  }
+
+  if (order === null) {
     return (
-      <div id="root">
-        <div className="loader-wrapper">
-          <div className="loader"></div>
+      <div id='root'>
+        <div className='loader-wrapper'>
+          <div className='loader'></div>
         </div>
       </div>
     );
   }
 
-  if (order === null) {
-    return <>Something went wrong, could redirect after 2 secs</>;
+  if (order === 'SOMETHING WENT WRONG') {
+    return <>Something went wrong!!!</>;
   }
 
   return (
     <>
-      <ThankYouHeader order={order} />
-      <section id="">
-        <div className="bg-white">
-          <div className="container mx-auto">
-            <ThankYouAccordion order={order} />
-          </div>
-        </div>
-      </section>
+      <Redefine_ThankYou {...order} />
     </>
   );
 };

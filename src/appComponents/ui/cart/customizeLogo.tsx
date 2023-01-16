@@ -15,7 +15,6 @@ const CustomizeLogo = ({ logoId = 1926 }) => {
     const res = await axios.get(
       `https://redefine-front-dev.redefinecommerce.io/StoreProduct/getproductlogolocationdetails/${logoId}.json`,
     );
-    console.log(res, '----');
     setLogoData(res?.data?.data);
   };
 

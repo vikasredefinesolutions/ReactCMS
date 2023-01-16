@@ -30,6 +30,7 @@ export type list_FnProps = {
   setProductView: (arg: string) => void;
   setShowFilter: (arg: boolean) => void;
   clearFilters: () => void;
+  slug?:string;
 };
 const ProductList = ({ pageData, slug }: { pageData: any | null; slug: string }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
@@ -92,6 +93,7 @@ const ProductList = ({ pageData, slug }: { pageData: any | null; slug: string })
         setShowFilter={setShowFilter}
         clearFilters={clearFilters}
         compareCheckBoxHandler={compareCheckBoxHandler}
+        slug={slug}
       />
     );
   } else {
