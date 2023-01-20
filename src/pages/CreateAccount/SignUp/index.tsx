@@ -9,7 +9,7 @@ import RedefineSelect from 'Components/SignUp/RedefineSelect';
 import RedefineStateNcountries from 'Components/SignUp/RedefineStateNcountries';
 import {
   signup_payload,
-  _Signup_Payload,
+  _Signup_Payload
 } from 'Components/SignUp/signup.payload';
 import { paths, queryParam } from 'constants/paths.constant';
 import { signupPageMessages } from 'constants/validationMessages';
@@ -105,9 +105,9 @@ const SignUp: NextPage = () => {
       },
     };
     CreateNewAccount(payload).then((res) => {
-      if (res === null) {
+      if (res === null || typeof res === 'string') {
         showModal({
-          message: __UserMessages.signUpPage.SomethingWentWrong,
+          message: res || __UserMessages.signUpPage.SomethingWentWrong,
           title: 'Error',
         });
         return;

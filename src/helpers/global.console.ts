@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import {
   hide_All_Consoles,
   hide_No_Data_Found_Error,
-  __fileNames,
+  __fileNames
 } from 'show.config';
 import { isItServer } from './common.helper';
 
@@ -34,6 +34,11 @@ export const __console: __Console = {
       GetStoreID: true,
     },
   },
+  footer:{
+    service:{
+      FetchFooter:false
+    }
+  }  ,
   header: {
     service: {
       FetchBrands: false,

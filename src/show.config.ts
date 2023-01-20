@@ -26,5 +26,6 @@ export const _showConsoles = {
     header: false,
     page: true,
     user: true,
+    logo: true,
   },
 };

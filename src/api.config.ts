@@ -13,7 +13,7 @@ const dev = {
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
-  CMS: 'https://www.redefinecommerce.net/',
+  CMS: 'https://redefine-front-dev.redefinecommerce.io/',
 };
 
 const stage = {
@@ -22,7 +22,7 @@ const stage = {
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
-  CMS: 'https://www.redefinecommerce.net/',
+  CMS: 'https://redefine-front-dev.redefinecommerce.io/',
 };
 
 const prod = {
@@ -31,7 +31,7 @@ const prod = {
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
-  CMS: 'https://www.redefinecommerce.net/',
+  CMS: 'https://redefine-front-dev.redefinecommerce.io/',
 };
 
 let config: _Config;

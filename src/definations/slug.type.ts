@@ -19,13 +19,13 @@ export interface _TopicHomeProps {
 }
 
 export interface _GetPageType {
-  store_id: number;
+  storeId: number;
   slug: string;
   id: number;
   type: _PageTypesAvailable;
-  meta_title: string;
-  meta_keywords: string;
-  meta_description: string;
+  meta_Title: string;
+  meta_Keywords: string;
+  meta_Description: string;
 }
 
 export interface _SlugServerSide_WentWrong {

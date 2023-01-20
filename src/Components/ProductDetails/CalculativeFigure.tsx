@@ -21,13 +21,12 @@ const CalculativeFigure: React.FC = () => {
         <div className="mb-2">
           <span className="inline-block w-40">First Logo:</span>
           <span className="font-semibold text-base">
-            {`${
-              logo.price?.length && logo.price[0] !== 'FREE' ? (
-                <Price value={logo.price[0]} />
-              ) : (
-                'FREE'
-              )
-            }`}
+            {`${logo.price?.length && logo.price[0] !== 'FREE' ? (
+              <Price value={logo.price[0]} />
+            ) : (
+              'FREE'
+            )
+              }`}
           </span>
         </div>
         <div className="mb-2">

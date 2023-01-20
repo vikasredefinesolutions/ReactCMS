@@ -14,15 +14,14 @@ import React, { useState } from 'react';
 import AskToLogin from './AskToLogin';
 import AvailableColors from './AvailableColors';
 import AvailableInventoryModal from './AvailableInventoryModal';
-import ColorName from './ColorName';
 import DiscountPrice from './DiscountPrice';
 import DiscountPricing from './DiscountPricing';
 import PersonalizationFontModal from './PersonalizationFontModal';
 import QtyPriceTable from './PriceTable';
 import ProducAvailableSizes from './ProductAvailableSizes';
-import ProductColors from './ProductColors';
 import ProductCompanion from './ProductCompanion';
 import ProductDescription from './ProductDescription';
+import ProductDiscountBanner from './ProductDiscountBanner';
 import ProductFeatures from './ProductFeatures';
 import Inventory from './ProductInventory';
 import MinimumQuantity from './ProductMinimumQuantity';
@@ -44,12 +43,12 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
   const { setShowLoader } = useActions();
   const [openModal, setOpenModal] = useState<null | _modals>(null);
   const { id: userId } = useTypedSelector((state) => state.user);
-
   const {
     price: pricePerItem,
     totalPrice,
     totalQty,
     minQtyCheck,
+    sizeQtys,
   } = useTypedSelector((state) => state.product.toCheckout);
 
   // const show = useTypedSelector((state) => state.store.display.footer);
@@ -70,7 +69,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
     }
 
     if (isLoggedIn === true) {
-      if (minQtyCheck === false) {
+      if (sizeQtys === null || sizeQtys[0]?.qty === 0) {
         modalHandler('requiredQty');
         return;
       }
@@ -225,8 +224,8 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           pricingLabel={'Discount Pricing'}
         />
         <QtyPriceTable storeCode={storeCode} />
-        <ProductColors />
-        <ColorName storeCode={storeCode} />
+        <AvailableColors storeCode={storeCode} />
+        {/* <ColorName storeCode={storeCode} /> */}
         <div className="mb-4 flex items-center justify-end gap-2">
           <button
             className="inline-block"
@@ -242,17 +241,19 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           </button>
         </div>
         <Inventory storeCode={storeCode} productId={product.id} />
-        <div className="mb-4 text-rose-500 text-sm">
-          PLEASE SIGN INTO YOUR ACCOUNT TO VIEW LIVE INVENTORY AND VOLUME
-          DISCOUNTS
-        </div>
+        {!userId && (
+          <div className="mb-4 text-rose-500 text-sm">
+            PLEASE SIGN INTO YOUR ACCOUNT TO VIEW LIVE INVENTORY AND VOLUME
+            DISCOUNTS {userId}
+          </div>
+        )}
         <div className="mb-4 bg-[#ececec] py-4 px-2">
           <DiscountPrice
             storeCode={storeCode}
             ourCost={product.ourCost}
             msrp={product.msrp}
             imap={product.imap}
-            salePrice={product.salePrice}
+            salePrice={pricePerItem}
           />
           <button
             type="button"
@@ -264,7 +265,9 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           >
             {product.isDiscontinue
               ? 'Discontinued'
-              : 'LOGIN TO SHOP NOW WITH LIVE INVENTORY'}
+              : userId
+                ? 'CUSTOMIZE NOW AND ADD TO CART'
+                : 'LOGIN TO SHOP NOW WITH LIVE INVENTORY'}
           </button>
         </div>
 
@@ -291,6 +294,9 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
             message="Please select one size"
             modalHandler={modalHandler}
           />
+        )}
+        {openModal === 'startOrder' && (
+          <StartOrderModal modalHandler={modalHandler} product={product} />
         )}
       </div>
     );
@@ -330,8 +336,25 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         />
         <MinimumQuantity storeCode={storeCode} pricingLabel={''} />
         <AvailableColors storeCode={storeCode} />
-        <Inventory storeCode={storeCode} productId={product.id} />
+        <QtyPriceTable storeCode={storeCode} />
+        {/* <Inventory storeCode={storeCode} productId={product.id} /> */}
+        <ProductDiscountBanner storeCode={storeCode} />
         <div className="mb-3">
+          <button
+            disabled={product.isDiscontinue}
+            type="button"
+            className="btn btn-lg btn-secondary w-full"
+            onClick={() => {
+              setShowLoader(true);
+              setOpenModal('startOrder');
+            }}
+          >
+            {product.isEnableLogolocation
+              ? 'START PERSONALIZING'
+              : 'ADD TO CART'}
+          </button>
+        </div>
+        {/* <div className="mb-3">
           <button
             disabled={product.isDiscontinue}
             type="button"
@@ -342,7 +365,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
               ? 'Discontinued'
               : 'CLICK HERE TO SUBMIT A QUOTE REQUEST'}
           </button>
-        </div>
+        </div> */}
         {product.isDiscontinue && (
           <TopRatedProducts
             title={'Top Rated Alternatives'}
@@ -354,6 +377,9 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
             storeCode={storeCode}
             modalHandler={modalHandler}
           />
+        )}
+        {openModal === 'startOrder' && (
+          <StartOrderModal modalHandler={modalHandler} product={product} />
         )}
       </div>
     );

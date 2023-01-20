@@ -36,8 +36,37 @@ export type SubRow = {
   brandGuideLines: boolean;
 };
 
-export type LogoList = {
+export type LogoListPosition = {
   isFirstLogoFree: boolean;
   productId: number;
   subRow: SubRow[];
 };
+
+export interface Item {
+  logoId: number;
+  logo: string;
+  logoName: string;
+  logoNumber?: any;
+  logoSize?: any;
+  embroideryColor?: any;
+  productType: string;
+  logoLocation: string;
+  uploadDate: Date;
+  approvedDate?: any;
+  status: string;
+  logoLocationImage: string;
+}
+
+export interface Data {
+  pageIndex: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+  items: Item[];
+}
+
+export interface Errors {}
+
+export type LogoList = Data;

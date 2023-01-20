@@ -18,7 +18,7 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
   color,
 }) => {
   const { updateQuantities, updateQuantities2 } = useActions();
-  const [value, setValue] = useState<number>(0);
+  const [value, setValue] = useState<number | string>(0);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(+event.target.value);
@@ -77,11 +77,14 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
     return (
       <div className="w-20">
         <input
+          // onFocus={() => setValue('')}
+          // onBlur={() => setValue(value => value === '' ? 0 : value)}
           type="number"
           name="qty"
           value={value}
           onChange={handleChange}
           min={0}
+          max={qty}
           className="form-input !pr-3  w-full"
         />
       </div>

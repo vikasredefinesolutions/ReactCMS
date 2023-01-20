@@ -6,8 +6,10 @@ import {
 import ImageComponent from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import CartSummaryController from 'Controllers/cartSummarryController';
+import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { ChangeEvent, useEffect, useState } from 'react';
+
 
 const CartLayout3 = ({
   cartProducts,
@@ -17,6 +19,7 @@ const CartLayout3 = ({
   deleteCartItem: (id: number) => void;
 }) => {
   const { getTotalPrice } = CartSummaryController();
+  const cartProductsInfo = useTypedSelector((state) => state.cart.cart);
 
   const [currentEditor, setCurrentEditor] = useState<number | null>(null);
   // const [threadColor, setThreadColor] = useState('');
@@ -48,6 +51,7 @@ const CartLayout3 = ({
       pers[index] = { ...persOject, [name]: value };
       setPersonalizeDetails(pers);
     }
+
   };
 
   useEffect(() => {
@@ -191,6 +195,18 @@ const CartLayout3 = ({
   const { totalPrice, subTotal, smallRunFee, logoSetupCharges, salesTax } =
     getTotalPrice();
 
+  const updateCart = (index: number, size: string) => {
+    let pro = JSON.parse(JSON.stringify(products));
+    let productCartItem = [...pro[index].shoppingCartItemDetailsViewModels];
+    let productAttrIndex = productCartItem.findIndex(
+      (pro) => pro.attributeOptionValue == size,
+    );
+    let productAttr = productCartItem[productAttrIndex];
+    // console.log(cartProductsInfo);
+    // console.log('cartproducts ' , {...cartProductsInfo[index], shoppingCartItemDetailsViewModels: {...productAttr}});
+  }
+
+
   return (
     <section id="" className="mt-5">
       <div className="bg-white">
@@ -288,7 +304,7 @@ const CartLayout3 = ({
                                             <div className="font-semibold w-20">
                                               <input
                                                 type="number"
-                                                className="form-input w-20 pr-0"
+                                                className="w-20 p-2 "
                                                 value={qty.qty}
                                                 onChange={(e) =>
                                                   cartQtyUpdateHandler(
@@ -302,7 +318,7 @@ const CartLayout3 = ({
                                             </div>
                                             <div>
                                               {inputIds.includes(inputId) && (
-                                                <button className="btn btn-primary">
+                                                <button className="btn btn-primary" onClick={(e) => { e.preventDefault(); updateCart(index, qty.attributeOptionValue) }}>
                                                   Update
                                                 </button>
                                               )}
@@ -594,7 +610,7 @@ const CartLayout3 = ({
                               <button
                                 type={'button'}
                                 className="btn btn-secondary"
-                                onClick={() => savePersonlisation(index)}
+                                onClick={() => { setCurrentEditor(null); savePersonlisation(index) }}
                               >
                                 Save
                               </button>
@@ -606,12 +622,9 @@ const CartLayout3 = ({
                   })}
               </ul>
               <div className="mt-4 mb-4">
-                <a
-                  href="product-listing.html"
-                  className="btn btn-lg btn-secondary"
-                >
+                <Link href="/" className="btn btn-lg btn-secondary">
                   KEEP SHOPPING
-                </a>
+                </Link>
               </div>
             </section>
 
@@ -710,14 +723,14 @@ const CartLayout3 = ({
                 </div>
               </div>
               <div className="mt-4 ">
-                <Link href={'/Checkout'}>
+                <Link href={'/checkout.html'}>
                   <a className="btn btn-lg btn-primary !flex items-center justify-center w-full">
                     {' '}
                     <i
                       className="fa fa-shopping-cart mr-2"
                       aria-hidden="true"
                     ></i>{' '}
-                    CHECKOUT NOW{' '}
+                    CHECKOUT NOW{''}
                   </a>
                 </Link>
               </div>

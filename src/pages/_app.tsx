@@ -6,6 +6,8 @@ import Spinner from 'appComponents/ui/spinner';
 import Redefine_Screen from 'Templates/Redefine_Screen';
 
 import { FetchThemeConfigs } from '@services/app.service';
+import { Footer } from '@services/footer.service';
+import { _Footer } from '@type/APIs/footer.res';
 import * as _AppController from 'Controllers/_AppController.async';
 import { _TransformedThemeConfig } from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
@@ -15,7 +17,7 @@ import {
   extractCookies,
   nextJsSetCookie,
   setCookie,
-  _Logout,
+  _Logout
 } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import { useActions } from 'hooks';
@@ -34,6 +36,7 @@ type AppOwnProps = {
   menuItems: _MenuItems | null;
   configs: {
     header: _TransformedThemeConfig | null;
+    footer: _Footer | null
   };
 };
 
@@ -131,6 +134,7 @@ RedefineCustomApp.getInitialProps = async (
     menuItems: null,
     configs: {
       header: null,
+      footer: null,
     },
   };
 
@@ -174,6 +178,12 @@ RedefineCustomApp.getInitialProps = async (
       );
 
       if (expectedProps.store?.storeId) {
+
+        expectedProps.configs.footer = await Footer({
+          storeId: expectedProps.store?.storeId,
+          configname: 'footer'
+        })
+
         expectedProps.configs.header = await FetchThemeConfigs({
           storeid: expectedProps.store?.storeId,
           configname: 'header_config',

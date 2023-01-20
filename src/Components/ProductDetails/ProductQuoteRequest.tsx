@@ -38,7 +38,7 @@ const __QuoteRequestSchema = Yup.object().shape({
 interface _props {
   // eslint-disable-next-line no-unused-vars
   modalHandler: (param: null | _modals) => void;
-  product?:string|undefined
+  product?: string | undefined
 }
 
 const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
@@ -46,25 +46,24 @@ const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
   storeCode,
   product
 }) => {
- const[verifiedRecaptch,setverifiedRecaptch]= useState(false)
+  const [verifiedRecaptch, setverifiedRecaptch] = useState(false)
   const { name } = useTypedSelector(
     (state) => state.product.product,
   );
-  
-  const { color  } = useTypedSelector(
+
+  const { color } = useTypedSelector(
     (state) => state.product.selected,
   );
 
 
 
-  const productName=product?product:name;
-  const productColor=product?'':color.name;
-  const quoteRequestHandler = (value:any) => {
+  const productName = product ? product : name;
+  const productColor = product ? '' : color.name;
+  const quoteRequestHandler = (value: any) => {
     alert(value)
     modalHandler(null)
   };
-  function onChange(value:any) {
-    console.log(value)
+  function onChange(value: any) {
     setverifiedRecaptch(true)
   }
 
@@ -117,7 +116,7 @@ const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
                           <div className="">Product Name :</div>
                           <div className="">{productName}</div>
                         </div>
-                     { productColor &&  <div className="flex flex-wrap gap-1 pt-4 first:pt-0 font-semibold">
+                        {productColor && <div className="flex flex-wrap gap-1 pt-4 first:pt-0 font-semibold">
                           <div className="">Color :</div>
                           <div className="">{productColor}</div>
                         </div>}
@@ -182,8 +181,8 @@ const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
                           containerClass={'pt-4 first:pt-0 '}
                         />
                         <ReCAPTCHA className='pt-4 first:pt-0'
-                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHASITEKEY || ''}
-                            onChange={onChange}
+                          sitekey={process.env.NEXT_PUBLIC_RECAPTCHASITEKEY || ''}
+                          onChange={onChange}
                         />
                       </div>
                       <div className="flex items-center justify-end p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
@@ -194,7 +193,7 @@ const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
                         >
                           Close
                         </button>
-                        <button type="submit" className={`btn btn-secondary ${verifiedRecaptch ? '' : 'opacity-50'}  ` }disabled={!verifiedRecaptch}>
+                        <button type="submit" className={`btn btn-secondary ${verifiedRecaptch ? '' : 'opacity-50'}  `} disabled={!verifiedRecaptch}>
                           Send
                         </button>
                       </div>

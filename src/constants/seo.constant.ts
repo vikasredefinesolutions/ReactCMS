@@ -1,19 +1,17 @@
-export const BrandList = {
-  title: 'Personalized Brands Apperal',
-  description: 'Personalized Brands Apperal',
-  keywords: 'Gear',
-};
-
-export const __seo_tags = {
+export const seoTags = {
+  brandList: {
+    title: 'Personalized Brands Apperal',
+    description: 'Personalized Brands Apperal',
+    keywords: 'Gear',
+  },
   cartPage: {
     title: 'Cart',
     description: 'Cart Page',
     keywords: 'Cart',
   },
-};
-
-export const CheckoutPage = {
-  title: 'Checkout',
-  description: 'Checkout Page',
-  keywords: 'Checkout',
+  checkoutPage: {
+    title: 'Checkout',
+    description: 'Checkout Page',
+    keywords: 'Checkout',
+  },
 };

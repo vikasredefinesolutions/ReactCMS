@@ -117,3 +117,34 @@ export const UpdateCustomerUser = async (
     return null;
   }
 };
+
+export const ForgetCustomerPassword = async (
+  payload: any,
+): Promise<AxiosResponse | null> => {
+  try {
+
+    const url = `/StoreCustomer/customerchangepasswordlink/${payload.storeId}/${payload.email}.json`;
+    
+    const res: AxiosResponse = await SendAsyncV2({
+      url: url,
+      method: 'GET',
+      data: payload,
+    });
+    conditionalLog({
+      data: res.data,
+      name: 'ForgetCustomerPassword',
+      type: 'API',
+      show: true,
+    });
+    return res;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'ForgetCustomerPassword',
+      type: 'API',
+      show: _showConsoles.services.user,
+      error: true,
+    });
+    return null;
+  }
+};

@@ -96,22 +96,22 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
                 return (
                   <Form>
                     <input
-                      type="text"
-                      name="email"
-                      autoComplete="off"
+                      type='text'
+                      name='email'
+                      autoComplete='off'
                       value={values.email}
                       onChange={handleChange}
-                      className="block w-full border border-gray-600 shadow-sm text-sm py-1 px-2"
+                      className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
                     />
                     <button
-                      type="submit"
-                      className="bg-indigo-600 border-0 py-1 px-2 text-white"
+                      type='submit'
+                      className='bg-indigo-600 border-0 py-1 px-2 text-white'
                     >
                       Send
                     </button>
                     <ErrorMessage
                       name={'email'}
-                      className="text-rose-500"
+                      className='text-rose-500'
                       component={'p'}
                     />
                   </Form>
@@ -125,26 +125,26 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
   }
 
   return (
-    <td className="px-2 py-4">
+    <td className='px-2 py-4'>
       {inputOrSelect.type === 'select' && (
-        <div className="">
+        <div className=''>
           <select
-            className="block w-full border border-gray-600 shadow-sm text-sm py-1 px-2 pr-10"
+            className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2 pr-10'
             value={inputOrSelect.choosedValue}
             name={size}
             onChange={selectQtyHandler}
           >
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10+">10+</option>
+            <option value='0'>0</option>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
+            <option value='7'>7</option>
+            <option value='8'>8</option>
+            <option value='9'>9</option>
+            <option value='10+'>10+</option>
           </select>
         </div>
       )}
@@ -156,10 +156,10 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
           {({ values, handleChange }) => {
             return (
               <Form>
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                   <input
-                    type="number"
-                    name="itemCount"
+                    type='number'
+                    name='itemCount'
                     value={values.itemCount}
                     onFocus={() =>
                       setInputOrSelect((state) => ({
@@ -168,13 +168,13 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
                       }))
                     }
                     onChange={handleChange}
-                    className="block w-full border border-gray-600 shadow-sm text-sm py-1 px-2"
+                    className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
                   />
                   {inputOrSelect.focus && (
                     <>
                       <button
-                        type="submit"
-                        className="bg-indigo-600 border-0 py-1 px-2 text-white"
+                        type='submit'
+                        className='bg-indigo-600 border-0 py-1 px-2 text-white'
                       >
                         Save
                       </button>
@@ -186,7 +186,7 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
                             focus: false,
                           })
                         }
-                        className="bg-white border border-neutral-200 text-gray-500 py-1 px-2"
+                        className='bg-white border border-neutral-200 text-gray-500 py-1 px-2'
                       >
                         Cancel
                       </button>

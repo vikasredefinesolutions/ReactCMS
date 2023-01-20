@@ -53,6 +53,7 @@ export interface _ProductDetails {
   companionProductName: string | null;
   companionProductSEName: string | null;
   companionProductImage: string | null;
+  isEnableLogolocation:boolean;
   sku: string;
   brandID: number | null;
   brandName: string | null;

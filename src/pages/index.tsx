@@ -1,14 +1,14 @@
 import {
   _SlugServerSideProps,
   _SlugServerSide_WentWrong,
-  _TopicHomeProps,
+  _TopicHomeProps
 } from '@type/slug.type';
 import PageNotFound from 'appComponents/reUsable/404';
 import SeoHead from 'appComponents/reUsable/SeoHead';
 import { getServerSideProps } from 'Components/Slug/getServerSideProps';
 import { cLog } from 'helpers/global.console';
 import { NextPage } from 'next';
-import Home from 'pages/Home';
+import Home from 'pages/home';
 
 const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
   props,
@@ -30,9 +30,9 @@ const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     return (
       <>
         <SeoHead
-          title={pageMetaData?.meta_title || '404: No Page found'}
-          description={pageMetaData?.meta_description || ''}
-          keywords={pageMetaData?.meta_keywords || 'Branded Promotional'}
+          title={pageMetaData?.meta_Title || '404: No Page found'}
+          description={pageMetaData?.meta_Description || ''}
+          keywords={pageMetaData?.meta_Keywords || 'Branded Promotional'}
         />
         <PageNotFound />
       </>
@@ -49,13 +49,13 @@ const TopicHome: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     return (
       <>
         <SeoHead
-          title={pageMetaData?.meta_title ? pageMetaData?.meta_title : 'Home'}
+          title={pageMetaData?.meta_Title ? pageMetaData?.meta_Title : 'Home'}
           description={
-            pageMetaData?.meta_description ? pageMetaData?.meta_description : ''
+            pageMetaData?.meta_Description ? pageMetaData?.meta_Description : ''
           }
           keywords={
-            pageMetaData?.meta_keywords
-              ? pageMetaData?.meta_keywords
+            pageMetaData?.meta_Keywords
+              ? pageMetaData?.meta_Keywords
               : 'Branded Promotional'
           }
         />

@@ -8,7 +8,7 @@ import ProductImg from 'Components/ProductDetails/ProductImg';
 import SizeChartModal from 'Components/ProductDetails/SizeChartModal';
 import {
   _ProductDetails,
-  _ProductDetailsProps,
+  _ProductDetailsProps
 } from 'definations/APIs/productDetail.res';
 import { getAddToCartObject, setCookie } from 'helpers/common.helper';
 import { highLightError } from 'helpers/global.console';
@@ -50,6 +50,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
           url: product.details!.brandImage,
         },
         product: {
+          customization:product.details.isEnableLogolocation || false,
           id: product.details!.id || null,
           name: product.details!.name || null,
           sizes: product.details?.sizes || '',

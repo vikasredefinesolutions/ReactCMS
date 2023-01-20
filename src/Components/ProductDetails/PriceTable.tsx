@@ -19,7 +19,7 @@ const QtyPriceTable: React.FC<{ storeCode: string }> = ({ storeCode }) => {
       storeId &&
       customerId &&
       selectedColor &&
-      storeCode === _Store.type1 &&
+      storeCode &&
       discounts === null
     ) {
       FetchDiscountTablePrices({
@@ -86,6 +86,33 @@ const QtyPriceTable: React.FC<{ storeCode: string }> = ({ storeCode }) => {
           ))}
         </div>
       </div>
+    );
+  }
+
+  if (storeCode === _Store.type2) {
+    return (
+      <>
+        {customerId && (
+          <div className="mb-4 border border-black text-center">
+            <div className="bg-black p-2 font-bold text-white">
+              QUANTITY DISCOUNT
+            </div>
+            <div className="flex flex-wrap justify-center py-3">
+              {discounts?.subRows.map((row) => (
+                <div
+                  key={row.displayQuantity}
+                  className="border-r last:border-r-0 border-r-gray-300 px-6"
+                >
+                  <div className="font-bold">{row.displayQuantity}</div>
+                  <div className="font-bold">
+                    <Price value={row.discountPrice} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </>
     );
   }
 

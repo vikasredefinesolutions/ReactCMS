@@ -27,7 +27,7 @@ interface toCheckout {
         size: string;
         qty: number;
         price: number;
-        color?: string;
+        color?: string | undefined;
       }[]
     | null;
   logos:
@@ -40,6 +40,7 @@ interface toCheckout {
         location: {
           label: string;
           value: string;
+          imageUrl: string;
         };
       }[]
     | null;
@@ -77,6 +78,7 @@ interface _ProductStore {
       ourCost: number;
       salePrice: number;
     } | null;
+    customization: boolean;
     name: string | null;
     colors: _ProductColor[] | null;
     brand: {
@@ -127,6 +129,7 @@ const initialState: _ProductStore = {
     price: null,
     discounts: null,
     name: null,
+    customization:false
   },
   toCheckout: {
     minQty: 2,
@@ -254,6 +257,7 @@ export const productSlice = createSlice({
               ourCost: number;
               salePrice: number;
             } | null;
+            customization: boolean;
             colors: _ProductColor[] | null;
             sizeChart: null | _SizeChartTransformed;
             sizes: string;
@@ -268,6 +272,7 @@ export const productSlice = createSlice({
       state.product.sizes = action.payload.product.sizes;
       state.product.sizeChart = action.payload.product.sizeChart;
       state.product.colors = action.payload.product.colors;
+      state.product.customization=action.payload.product.customization
     },
 
     toggleNextLogoButton: (state, action: { payload: boolean }) => {
@@ -567,12 +572,28 @@ export const productSlice = createSlice({
       //   state.toCheckout.minQtyCheck = false;
       // }
       // TOTAL PRICE
+
+      const allDiscounts = state.product.discounts;
+      let foundThePrice = false;
+
+      allDiscounts?.subRows.forEach((discount) => {
+        if (foundThePrice) return;
+        const bulkQtyDiscount = +discount.displayQuantity.split('+')[0];
+        if (totalQty >= bulkQtyDiscount) {
+          productPrice = +discount.discountPrice;
+        } else {
+          foundThePrice = true;
+        }
+      });
+
+
       let totalPrice =
         totalQty * state.toCheckout.price + updateAdditionalLogoCharge;
 
       // STATE UPDATES
       state.toCheckout.additionalLogoCharge = updateAdditionalLogoCharge;
       state.toCheckout.sizeQtys = updatedSizeQtys || null;
+      state.toCheckout.price = productPrice;
       state.toCheckout.totalQty = totalQty;
       state.toCheckout.totalPrice = totalPrice;
     },
@@ -581,6 +602,7 @@ export const productSlice = createSlice({
       action: {
         payload: {
           location: {
+            imageUrl : string,
             label: string;
             value: string;
           };
@@ -601,6 +623,7 @@ export const productSlice = createSlice({
             name: upcomingLogo?.name || '',
           },
           location: upcomingLogo.location || {
+            imageUrl : '',
             label: '',
             value: '',
           },
@@ -636,6 +659,7 @@ export const productSlice = createSlice({
               name: upcomingLogo?.name || '',
             },
             location: upcomingLogo.location || {
+              imageUrl : '',
               value: '',
               label: '',
             },

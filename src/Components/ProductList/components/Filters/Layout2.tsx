@@ -1,10 +1,6 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
+import { ChevronDown } from 'mdi-material-ui';
 
 const FilterLayout2 = ({
   filters,
@@ -17,27 +13,19 @@ const FilterLayout2 = ({
 }) => {
   return (
     <>
-      <div className='relative sidebar'>
+
+
+      <div className="relative sidebar" >
+
         {filters.map((filter, index) => (
+
           // eslint-disable-next-line react/jsx-key
-          <Accordion>
-            <AccordionSummary
-              expandIcon={
-                <>
-                  <svg
-                    className='w-8 h-8 shrink-0 fill-current text-gray-400 group-hover:text-gray-500 ml-3 rotate-180'
-                    viewBox='0 0 32 32'
-                  >
-                    <path d='M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z'></path>
-                  </svg>
-                </>
-              }
-              aria-controls={`panel-content-${index + 1}`}
-              id={`panel-header-${index + 1}`}
-            >
-              <Typography style={{ fontWeight: '600', fontFamily: 'inherit' }}>
-                {filter?.label}
-              </Typography>
+          <Accordion >
+
+            <AccordionSummary expandIcon={<ChevronDown />} aria-controls={`panel-content-${index + 1}`} id={`panel-header-${index + 1}`} >
+
+              <Typography style={{ fontWeight: '600', fontFamily: 'inherit' }}>{filter?.label}</Typography>
+
             </AccordionSummary>
             <ul
               className={
@@ -46,27 +34,28 @@ const FilterLayout2 = ({
                   : 'pb-6 pt-2 space-y-3'
               }
             >
+
               {filter.options.map((option, ind) => {
                 const checked =
                   checkedFilters.findIndex(
                     (res: { name: string; value: string }) =>
-                      res.name === filter.label && res.value === option.name,
+                      res.name === filter.label &&
+                      res.value === option.name,
                   ) > -1;
 
                 // eslint-disable-next-line react/jsx-key
                 return (
+
                   <>
-                    <div
-                      className={filter.label == 'Color' ? 'color' : 'extra'}
-                    >
-                      <AccordionDetails>
+                    <div className={filter.label == 'Color' ? 'color' : 'extra'}>
+                      <AccordionDetails >
                         {option.name || option.colorCode ? (
                           filter.label === 'Color' ? (
                             <button
                               className={`w-8 h-8 border border-black border-opacity-10 bg-[#111827]`}
                               style={{
                                 background: option.colorCode,
-                                listStyle: 'none',
+                                listStyle: 'none'
                               }}
                               onClick={() => {
                                 handleChange(
@@ -77,39 +66,33 @@ const FilterLayout2 = ({
                               }}
                             ></button>
                           ) : (
-                            <li
-                              className='flex items-center'
-                              style={{ display: 'flex' }}
-                              key={ind}
-                            >
+                            <li className="flex items-center" style={{ display: 'flex' }} key={ind}>
                               <input
                                 id={`${option.name}-${ind}`}
                                 name={filter.label}
                                 value={option.name}
-                                checked={checked}
-                                type='checkbox'
+                                checked={
+                                  checked
+                                }
+                                type="checkbox"
                                 onChange={(e) => {
                                   const { name, value, checked } = e.target;
                                   handleChange(name, value, checked);
                                 }}
-                                className='h-4 w-4 border-gray-300 rounded text-indigo-600'
+                                className="h-4 w-4 border-gray-300 rounded text-indigo-600"
                               />
-                              {option.label === 'Size' ||
-                              option.label === 'Price Range' ? (
-                                <label
-                                  htmlFor={`${option.name}-${ind}`}
-                                  className='ml-3 text-sm text-gray-600'
-                                >
-                                  {option.name}
-                                </label>
-                              ) : (
-                                <label
-                                  htmlFor={`${option.name}-${ind}`}
-                                  className='ml-3 text-sm text-gray-600'
-                                >
-                                  {option.name} ({option?.productCount})
-                                </label>
-                              )}
+                              {option.label === 'Size' || option.label === 'Price Range' ? <label
+                                htmlFor={`${option.name}-${ind}`}
+                                className="ml-3 text-sm text-gray-600"
+                              >
+                                {option.name}
+                              </label> : <label
+                                htmlFor={`${option.name}-${ind}`}
+                                className="ml-3 text-sm text-gray-600"
+                              >
+                                {option.name} ({option?.productCount})
+                              </label>}
+
                             </li>
                           )
                         ) : null}
@@ -135,11 +118,14 @@ const FilterLayout2 = ({
                       </AccordionDetails>
                     </div>
                   </>
-                );
+                )
+
               })}
-            </ul>
+            </ul >
           </Accordion>
+
         ))}
+
       </div>
       {/* <div className="relative">
     <div className="p-4">
@@ -235,8 +221,9 @@ const FilterLayout2 = ({
       </div >
     </div >
   </div > */}
+
     </>
-  );
+  )
 };
 
 export default FilterLayout2;

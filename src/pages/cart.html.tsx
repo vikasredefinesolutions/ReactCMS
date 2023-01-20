@@ -1,4 +1,4 @@
-import { __seo_tags } from '@constants/seo.constant';
+import { seoTags } from '@constants/seo.constant';
 import SeoHead from 'appComponents/reUsable/SeoHead';
 import { NextPage } from 'next';
 import Redefine_ShoppingCart from 'Templates/Redefine_ShoppingCart';
@@ -6,7 +6,7 @@ import Redefine_ShoppingCart from 'Templates/Redefine_ShoppingCart';
 const CartPage: NextPage = () => {
   return (
     <>
-      <SeoHead {...__seo_tags.cartPage} />
+      <SeoHead {...seoTags.cartPage} />
       <Redefine_ShoppingCart />
     </>
   );

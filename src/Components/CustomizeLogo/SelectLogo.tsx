@@ -1,4 +1,3 @@
-import { icons } from 'Assets/images.asset';
 import { _LogoSteps } from 'definations/product.type';
 import { _PreLogos } from 'dummy/filters';
 import { useActions, useTypedSelector } from 'hooks';
@@ -104,7 +103,7 @@ const SelectLogo: React.FC<_props> = ({ setNextStep }) => {
                 onClick={() => setOpenModal(true)}
               >
                 <div className=''>
-                  <img className='inline-block' src={icons.addNewLogo} alt='' />
+                  <img className='inline-block' src={'/images/logo-addnewLogo.jpg'} alt='' />
                 </div>
               </div>
             </li>
@@ -113,7 +112,7 @@ const SelectLogo: React.FC<_props> = ({ setNextStep }) => {
         <div className='mt-3'>
           <button
             onClick={() => actionHandler('apply')}
-            className='btn btn-primary'
+            className='btn btn-primary mr-1'
           >
             APPLY LOGO
           </button>

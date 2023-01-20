@@ -9,7 +9,7 @@ import {
   Logo,
   MenuIcon,
   MyCartIcon,
-  WishListIcon
+  WishListIcon,
 } from '../Icons';
 
 import OnePercentLogo from '../Icons/OnePercentLogo';
@@ -26,6 +26,7 @@ const Ecommerce_Header: React.FC = () => {
   const [mobileView, setMobileView] = useState<boolean>(
     width <= __constant._header.mobileBreakPoint,
   );
+  const userId = useTypedSelector((state) => state.user.id);
   useEffect(() => {
     if (document) {
       const cookies = extractCookies('', 'browserCookie');
@@ -128,12 +129,11 @@ const Ecommerce_Header: React.FC = () => {
                         headerdata={headerdata?.config_value}
                       />
                     )}
-                    <div className='flex items-center justify-end'>
-                      <div className='flex items-center'>
-                        <div className='flex items-center space-x-3'>
-                          <LoginIcon />
-                          <LoggedInMenu />
-                          <CompareIcon />
+                    <div className="flex items-center justify-end">
+                      <div className="flex items-center">
+                        <div className="flex items-center space-x-3">
+                          {userId ? <LoggedInMenu /> : <LoginIcon />}
+                          {userId ? <CompareIcon /> : ''}
                           <WishListIcon />
                           <MyCartIcon />
                         </div>
@@ -192,7 +192,7 @@ const Ecommerce_Header: React.FC = () => {
                         <LoginIcon />
                         <LoggedInMenu />
                         <CompareIcon />
-                        <WishListIcon />
+                        {/* <WishListIcon /> */}
                         <MyCartIcon />
                       </div>
                     </div>

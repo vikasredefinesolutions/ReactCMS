@@ -187,12 +187,12 @@ export interface BrandFilter {
 export type FilterType = Array<{
   label: string;
   options: Array<{
+    label: string;
     id: number;
     name: string;
     productCount: number;
     displayOrder: number;
     colorCode: string;
-    label: string;
     sename?: string;
   }>;
 }>;

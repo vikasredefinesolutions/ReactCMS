@@ -88,9 +88,9 @@ export type _ThemeConfigsAvailable = 'header_config';
 
 export interface _ThemeConfigRes {
   id: number;
-  store_id: number;
-  config_name: string;
-  config_value: string;
+  store_Id: number;
+  config_Name: string;
+  config_Value: string;
   status: string;
   created_at: Date;
   updated_at: Date;

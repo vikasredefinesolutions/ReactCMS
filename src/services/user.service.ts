@@ -155,22 +155,52 @@ export const SubscribeToNewsLetter = async (payload: { email: string }) => {
 
 export const CreateNewAccount = async (
   payload: _SignUpPayload,
-): Promise<_AccCreated | null> => {
+): Promise<_AccCreated | string | null> => {
   const url = 'StoreCustomer/storecustomercreate.json';
 
-  const response = await CallAPI<_AccCreated>({
-    name: {
-      service: 'user',
-      api: 'CreateNewAccount',
-    },
-    request: {
+  conditionalLogV2({
+    data: payload,
+    show: __console.user.service.CreateNewAccount,
+    type: 'API-PAYLOAD',
+    name: 'CreateNewAccount',
+  });
+
+  try {
+    const res = await SendAsyncV2<_AccCreated>({
       url: url,
       method: 'POST',
       data: payload,
-    },
-  });
+    });
 
-  return response;
+    conditionalLogV2({
+      data: res,
+      show: __console.user.service.CreateNewAccount,
+      type: 'API-RESPONSE',
+      name: 'CreateNewAccount',
+    });
+
+    // @ts-ignore: Unreachable code error
+    if (!res.data || res.success === false) {
+      let transformedRes: null | string = 'Something went Wrong!!!';
+
+      // @ts-ignore: Unreachable code error
+      if (res.errors && 'storeCustomerModel.Email' in res.errors) {
+        // @ts-ignore: Unreachable code error
+        transformedRes = res.errors[`storeCustomerModel.Email`] as string;
+      }
+      return transformedRes;
+    }
+
+    return res.data;
+  } catch (error) {
+    conditionalLogV2({
+      data: error,
+      show: __console.user.service.CreateNewAccount,
+      type: 'API-ERROR',
+      name: 'CreateNewAccount',
+    });
+    return null;
+  }
 };
 
 export const AddToCart = async (payload: { note: string }) => {

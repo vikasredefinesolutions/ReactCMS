@@ -1,4 +1,5 @@
 import { _RedefineAppAPIs } from '@services/app.service';
+import { _FooterAPIs } from '@services/footer.service';
 import { _GiftCardAPIs } from '@services/gift.service';
 import { _HeaderAPIs } from '@services/header.service';
 import { _HomeAPIs } from '@services/home.service';
@@ -30,6 +31,9 @@ export interface __Console {
   header: {
     service: Record<_HeaderAPIs, boolean>;
   };
+  footer:{
+    service: Record<_FooterAPIs, boolean>;
+  }
   productDetails: {
     service: Record<_ProducDetailAPIs, boolean>;
     controller: boolean;

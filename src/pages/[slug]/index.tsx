@@ -11,7 +11,7 @@ import { cLog } from 'helpers/global.console';
 import { useActions, useTypedSelector } from 'hooks';
 import _ from 'lodash';
 import { NextPage } from 'next';
-import Home from 'pages/Home';
+import Home from 'pages/home';
 import { useEffect } from 'react';
 import Redefine_ProductDetails from 'Templates/Redefine_ProductDetail';
 import Redefine_ProductList from 'Templates/Redefine_ProductList';
@@ -41,9 +41,9 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     return (
       <>
         <SeoHead
-          title={pageMetaData.meta_title || '404: No Page found'}
-          description={pageMetaData.meta_description || ''}
-          keywords={pageMetaData.meta_keywords || 'Branded Promotional'}
+          title={pageMetaData.meta_Title || '404: No Page found'}
+          description={pageMetaData.meta_Description || ''}
+          keywords={pageMetaData.meta_Keywords || 'Branded Promotional'}
         />
         <PageNotFound />
       </>
@@ -56,9 +56,9 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     return (
       <>
         <SeoHead
-          title={pageMetaData.meta_title || 'Collection'}
-          description={pageMetaData.meta_description || ''}
-          keywords={pageMetaData.meta_keywords || 'Branded Promotional'}
+          title={pageMetaData.meta_Title || 'Collection'}
+          description={pageMetaData.meta_Description || ''}
+          keywords={pageMetaData.meta_Keywords || 'Branded Promotional'}
         />
         <>Collection Page would come here</>
       </>
@@ -90,13 +90,13 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     return (
       <>
         <SeoHead
-          title={pageMetaData?.meta_title ? pageMetaData.meta_title : 'Home'}
+          title={pageMetaData?.meta_Title ? pageMetaData.meta_Title : 'Home'}
           description={
-            pageMetaData?.meta_description ? pageMetaData.meta_description : ''
+            pageMetaData?.meta_Description ? pageMetaData.meta_Description : ''
           }
           keywords={
-            pageMetaData?.meta_keywords
-              ? pageMetaData.meta_keywords
+            pageMetaData?.meta_Keywords
+              ? pageMetaData.meta_Keywords
               : 'Branded Promotional'
           }
         />

@@ -130,6 +130,29 @@ const BreadCrumb: React.FC = () => {
         <div className="container mx-auto">
           <nav className="flex" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-2 font-semibold">
+              {breadCrumbs.map((item, index) => (
+                <li key={index} aria-current="page" >
+                  <Link
+                    href={item.url}
+                    className="inline-flex items-center text-secondary"
+                  >
+                    <span className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
+                      <div className="flex items-center">
+                        {index > 0 &&
+                          <span className="material-icons-outlined text-sm mr-1 md:mr-2">
+                            east
+                          </span>
+                        }
+                        <a className="text-secondary hover:text">
+                          {item.name}
+                        </a>
+                      </div>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+            {/* <ol className="inline-flex items-center space-x-1 md:space-x-2 font-semibold">
               <li className="inline-flex items-center">
                 <a
                   href="index.html"
@@ -147,8 +170,8 @@ const BreadCrumb: React.FC = () => {
                     Men
                   </a>
                 </div>
-              </li>
-              {/* <!-- <li aria-current="page">
+              </li>  */}
+            {/* <!-- <li aria-current="page">
                     <div className="flex items-center">
                         <span className="material-icons-outlined text-sm mr-1 md:mr-2">east</span>
                         <a href="product-listing.html" className="text-secondary">Polos</a>
@@ -160,7 +183,7 @@ const BreadCrumb: React.FC = () => {
                         <span className="text-secondary">Patagonia Men's Better Sweater Jacket</span>
                     </div>
                 </li> --> */}
-            </ol>
+            {/* </ol> */}
           </nav>
         </div>
       </section>
@@ -176,9 +199,32 @@ const BreadCrumb: React.FC = () => {
               className="flex flex-wrap items-center text-sm"
               aria-label="Breadcrumb"
             >
-              <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <ol className="inline-flex items-center space-x-1 md:space-x-2 font-semibold">
+                {breadCrumbs.map((item, index) => (
+                  <li key={index} aria-current="page" >
+                    <Link
+                      href={item.url}
+                      className="inline-flex items-center text-secondary"
+                    >
+                      <span className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
+                        <div className="flex items-center">
+                          {index > 0 &&
+                            <span className="material-icons-outlined text-sm mr-1 md:mr-2">
+                              east
+                            </span>
+                          }
+                          <a className="text-secondary hover:text">
+                            {item.name}
+                          </a>
+                        </div>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+              {/* <ol className="inline-flex items-center space-x-1 md:space-x-3">
                 <li className="inline-flex items-center">
-                  <Link href="index.html">
+                  <Link href="/">
                     <a
                       className="inline-flex items-center font-medium text-gray-700 hover:text-gray-900"
                       onClick={() => router.push('/')}
@@ -196,7 +242,7 @@ const BreadCrumb: React.FC = () => {
                   </Link>
                 </li>
                 <li>/ {pathRoute}</li>
-              </ol>
+              </ol> */}
             </nav>
             <div className="text-center">
               <img

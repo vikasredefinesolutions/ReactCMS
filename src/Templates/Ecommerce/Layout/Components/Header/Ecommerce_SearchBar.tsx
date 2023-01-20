@@ -53,7 +53,7 @@ const SearchBar: React.FC<_props> = ({
           <Formik initialValues={{ text: '' }} onSubmit={searchHandler}>
             {({ values, handleSubmit, handleChange, handleReset }) => {
               return (
-                <Form>
+                <Form className='flex-grow max-w-[500px]:'>
                   <div className="border border-secondary w-full p-2 pr-10 rounded-full text-white hover:text-[#CDDE00] relative">
                     <input
                       type="text"

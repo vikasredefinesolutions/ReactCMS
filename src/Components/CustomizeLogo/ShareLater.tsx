@@ -13,6 +13,11 @@ const ShareLater: React.FC<_props> = ({ setNextStep }) => {
   const { logos } = useTypedSelector((state) => state.product.toCheckout);
 
   const actionHandler = (action: 'CONTINUE' | 'CANCEL') => {
+    if (action === 'CANCEL') {
+      router.back();
+      return;
+    }
+
     if (action === 'CONTINUE') {
       if (logos !== null) {
         updateOptions({
@@ -28,35 +33,30 @@ const ShareLater: React.FC<_props> = ({ setNextStep }) => {
       setNextStep(['SELECT_LOCATION', 'SHARE_LATER', 'DONE']);
       return;
     }
-
-    if (action === 'CANCEL') {
-      router.back();
-      return;
-    }
   };
 
   return (
-    <div className="p-4">
-      <div className="text-lg md:text-xl lg:text-small-title font-small-title text-color-small-title mb-2">
+    <div className='p-4'>
+      <div className='text-lg md:text-xl lg:text-small-title font-small-title text-color-small-title mb-2'>
         2. Share Logo Later
       </div>
-      <div className="">
-        <div className="">
+      <div className=''>
+        <div className=''>
           No Worries! One of our gear guides will be contacting you after your
           order has been submitted. We can finalize decoration details at that
           time.
         </div>
       </div>
-      <div className="mt-3">
+      <div className='mt-3'>
         <button
           onClick={() => actionHandler('CONTINUE')}
-          className="btn btn-primary"
+          className='btn btn-primary mr-1'
         >
           CONTINUE
         </button>
         <button
           onClick={() => actionHandler('CANCEL')}
-          className="btn btn-primary"
+          className='btn btn-primary'
         >
           CANCEL
         </button>

@@ -38,6 +38,7 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
           sizes: product.details?.sizes || '',
           sizeChart: product.sizes || null,
           colors: product.colors || null,
+          customization:product.details?.isEnableLogolocation,
           price:
             {
               msrp: product.details!.msrp,

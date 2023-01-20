@@ -12,6 +12,8 @@ import * as Yup from 'yup';
 const ProductReview = () => {
   const storeId = useTypedSelector((state) => state.store.id);
   const customerId = useTypedSelector((state) => state.user.id);
+  const customerName = useTypedSelector((state) => state.user.customer?.firstname)
+  const productName = useTypedSelector((state) => state.product.product.name)
   const [files, setFilesFn] = useState<Array<{ file: File; preview: string }>>(
     [],
   );
@@ -120,12 +122,12 @@ const ProductReview = () => {
             <div className="">
               <div className="text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title">
                 <a className="">
-                  Peter Millar Men’s Solid Performance Polo - Knit Collar
+                  {productName}
                 </a>
               </div>
               <div className="flex items-center gap-2 mt-4">
                 <div className="">POST PUBLICLY AS:</div>
-                <div className="">Ankit</div>
+                <div className="">{customerName}</div>
                 <div className="">|</div>
                 <div className="">
                   <a className="">CLEAR</a>
@@ -141,9 +143,8 @@ const ProductReview = () => {
                   return (
                     <svg
                       key={index}
-                      className={`h-5 w-5 flex-shrink-0 text-${
-                        index < star ? 'primary-500' : 'gray-300'
-                      }`}
+                      className={`h-5 w-5 flex-shrink-0 text-${index < star ? 'primary-500' : 'gray-300'
+                        }`}
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                       fill="currentColor"

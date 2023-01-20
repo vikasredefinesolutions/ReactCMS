@@ -1,6 +1,7 @@
 import { __Cookie, __Params } from '@constants/global.constant';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { _RedefineAppServices } from '@services/app.service';
+import { _FooterServices } from '@services/footer.service';
 import { _GiftCardService } from '@services/gift.service';
 import { _HeaderServices } from '@services/header.service';
 import { _HomeServices } from '@services/home.service';
@@ -254,7 +255,8 @@ export const CallAPI = async <T>({
     | _SlugServices
     | _HomeServices
     | _GiftCardService
-    | _UserServices;
+    | _UserServices
+    |_FooterServices;
   request: _GET | _POST;
 }) => {
   conditionalLogV2({
@@ -467,12 +469,12 @@ export const getAddToCartObject = async (product: _Props) => {
 
   const cartLogoPersonModel: CartLogoPersonModel[] = [];
 
-  sizeQtys?.map((res) =>
+  sizeQtys?.map((res) => {
     cartLogoPersonModel.push({
-      attributeOptionId: 0,
+      attributeOptionId: productDetails.color.attributeOptionId,
       attributeOptionValue: res.size,
       code: '',
-      price: res.price,
+      price: totalPrice/totalQty,
       quantity: res.qty,
       logoPrice: 0,
       logoQty: 0,
@@ -499,8 +501,8 @@ export const getAddToCartObject = async (product: _Props) => {
           originalLogoFilePath: 'string',
         },
       ],
-    }),
-  );
+    });
+  });
 
   const cartObject: CartReq = {
     addToCartModel: {

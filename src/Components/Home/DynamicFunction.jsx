@@ -1,6 +1,6 @@
 export const numberingdiv = (dataArr, selectedObj) => {
     let strHTML = '';
-    if(dataArr.length > 0)
+    if(dataArr?.length)
     {
       let count = 1;
         dataArr.forEach(function (item) {

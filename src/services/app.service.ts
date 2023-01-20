@@ -56,9 +56,9 @@ export const FetchThemeConfigs = async (payload: {
 
   const transformedData: _TransformedThemeConfig = {
     id: response.id,
-    store_id: response.store_id,
-    config_name: response.config_name,
-    config_value: JSON.parse(response.config_value),
+    store_id: response.store_Id,
+    config_name: response.config_Name,
+    config_value: JSON.parse(response.config_Value),
   };
 
   return transformedData;

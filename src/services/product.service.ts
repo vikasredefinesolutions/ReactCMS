@@ -1,30 +1,30 @@
 /* eslint-disable no-unused-vars */
 import { CategoriesByPid } from '@type/APIs/category.res';
-import { LogoList } from '@type/APIs/logo.res';
+import { LogoListPosition } from '@type/APIs/logo.res';
 import { _BrandSEO } from '@type/slug.type';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import {
   _ProductInventory,
-  _ProductInventoryTransfomed,
+  _ProductInventoryTransfomed
 } from 'definations/APIs/inventory.res';
 import {
   _ProductBySku,
   _ProductDetails,
   _ProductDoNotExist,
   _ProductsAlike,
-  _ProductSEO,
+  _ProductSEO
 } from 'definations/APIs/productDetail.res';
 import {
   _SizeChart,
-  _SizeChartTransformed,
+  _SizeChartTransformed
 } from 'definations/APIs/sizeChart.res';
 import { _Reviews } from 'definations/product.type';
 import {
   BrandFilter,
   CategoryFilter,
-  FilterApiRequest,
+  FilterApiRequest
 } from 'definations/productList.type';
 import { CallAPI } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';
@@ -388,9 +388,9 @@ export const FetchBrandProductList = async ({
 
 export const getLogoPositionList = async (
   customerId: number,
-): Promise<LogoList> => {
+): Promise<LogoListPosition> => {
   const url = `/StoreProduct/getproductlogolocationdetails/${customerId}.json`;
-  const res = await SendAsyncV2<LogoList>({
+  const res = await SendAsyncV2<LogoListPosition>({
     url,
     method: 'GET',
   });

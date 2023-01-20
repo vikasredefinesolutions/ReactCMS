@@ -1,11 +1,12 @@
 import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductDiscountTable } from '@type/APIs/discountTable.res';
+import { _Footer } from '@type/APIs/footer.res';
 import {
   _StoreMenu,
   _TransformedThemeConfig,
   _t_Brands,
   _t_MenuCategory,
-  _t_MenuTopic,
+  _t_MenuTopic
 } from '@type/APIs/header.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { _ProductDetails, _ProductSEO } from '@type/APIs/productDetail.res';
@@ -54,5 +55,6 @@ export type _Expected_AppProps = {
   menuItems: _MenuItems | null;
   configs: {
     header: _TransformedThemeConfig | null;
+    footer:_Footer|null
   };
 };

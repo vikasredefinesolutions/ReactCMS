@@ -103,7 +103,7 @@ export const _PreLogos = [
     estimatedCost: 5,
     id: 1,
     image: {
-      url: 'images/Right-Chest-70-191.jpg',
+      url: 'http://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/images/cg-logo-1.jpg',
     },
   },
   {
@@ -112,7 +112,7 @@ export const _PreLogos = [
     estimatedCost: 5,
     id: 2,
     image: {
-      url: 'images/Right-Chest-70-191.jpg',
+      url: 'http://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/images/cg-logo-2.jpg',
     },
   },
 ];

@@ -54,7 +54,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
 
   return (
     <>
-      <section class="mainsection container mx-auto mt-20">
+      <section className="mainsection container mx-auto mt-20">
         {Object.keys(bannerArr).length > 0 && bannerArr.images != null && (
           <Carousel
             renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
@@ -119,14 +119,14 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                       <>
                         {image.video_type == 'Youtube' ? (
                           <iframe
-                            class="w-full aspect-video"
+                            className="w-full aspect-video"
                             src={`https://www.youtube.com/embed/${image.video_url}?rel=0`}
                             allow="autoplay; encrypted-media"
                             frameBorder="0"
                           ></iframe>
                         ) : (
                           <iframe
-                            class="p-0 w-full aspect-[7/3]"
+                            className="p-0 w-full aspect-[7/3]"
                             src={`https://player.vimeo.com/video/${image.video_url}?autoplay=1&amp;loop=1&amp;background=1&amp;muted=1`}
                             allow="autoplay; encrypted-media"
                             frameBorder="0"
@@ -145,13 +145,13 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                       } text-white`}
                     >
                       <div
-                        class=""
+                        className=""
                         style={{
                           background: `rgb(${image.text_bg_color}, ${image.bg_opacity})`,
                           padding: '20px',
                         }}
                       >
-                        <div class="">{image.headline}</div>
+                        <div className="">{image.headline}</div>
                         {image.button_display == 'Yes' && (
                           <>
                             <div>

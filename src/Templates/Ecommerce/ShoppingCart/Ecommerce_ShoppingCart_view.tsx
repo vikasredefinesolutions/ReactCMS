@@ -1,4 +1,5 @@
 import CartLayout1 from 'appComponents/ui/cart/Layouts/Layout1';
+import CartLayout2 from 'appComponents/ui/cart/Layouts/Layout2';
 import CartLayout3 from 'appComponents/ui/cart/Layouts/Layout3';
 import CartController from 'Controllers/CartController';
 import { useTypedSelector } from 'hooks';
@@ -43,7 +44,7 @@ const Ecommerce_ShoppingCart = () => {
     );
   } else if (storeLayout === _Store.type2) {
     layout = (
-      <CartLayout1
+      <CartLayout2
         {...{
           cartProducts,
           loadProduct,

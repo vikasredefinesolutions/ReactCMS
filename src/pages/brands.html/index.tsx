@@ -1,5 +1,5 @@
 import SeoHead from 'appComponents/reUsable/SeoHead';
-import { BrandList } from 'constants/seo.constant';
+import { seoTags } from 'constants/seo.constant';
 import { _Store } from 'page.config';
 import React from 'react';
 import BrandController from '../../Components/Brands/BrandController';
@@ -33,7 +33,7 @@ const Brands = (props: any) => {
 
   return (
     <>
-      <SeoHead {...BrandList} />
+      <SeoHead {...seoTags.brandList} />
       {layout}
     </>
   );

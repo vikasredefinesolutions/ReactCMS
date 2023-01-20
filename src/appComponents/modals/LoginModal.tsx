@@ -174,7 +174,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                             </button>
                           </div>
                           <div className="flex justify-between items-center">
-                            <div className="mb-3">
+                            <div className="mb-3 flex items-center">
                               <input
                                 checked={values.keepMeLoggedIn}
                                 onChange={(ev) => {
@@ -187,7 +187,7 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                                 id="'ChkKeepMeLogged'"
                                 name="keepMeLoggedIn"
                               />
-                              <label htmlFor="ChkKeepMeLogged">
+                              <label htmlFor="ChkKeepMeLogged" className='ml-2'>
                                 Keep me logged
                               </label>
                             </div>

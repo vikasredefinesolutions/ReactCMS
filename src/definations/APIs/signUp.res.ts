@@ -1,6 +1,6 @@
-export interface Welcome {
+export interface _CreateAccRes {
   success: boolean;
-  data: _AccCreated;
+  data: _AccCreated | false;
   errors: Errors;
   otherData: null;
 }
@@ -64,4 +64,10 @@ export interface StoreCustomerAddress {
   macAddress: string;
 }
 
-export interface Errors {}
+export interface Errors {
+  'storeCustomerModel.Email': string;
+  'storeCustomerModel.StoreId': string;
+  'storeCustomerModel.RecStatus': string;
+  'storeCustomerModel.StoreCustomerAddress[0].AddressType': string;
+  'storeCustomerModel.StoreCustomerAddress[0].CountryCode': string;
+}

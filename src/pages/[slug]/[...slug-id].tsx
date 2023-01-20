@@ -40,9 +40,9 @@ const ProductListing: NextPage<
     return (
       <>
         <SeoHead
-          title={pageMetaData?.meta_title || '404: No Page found'}
-          description={pageMetaData?.meta_description || ''}
-          keywords={pageMetaData?.meta_keywords || 'Branded Promotional'}
+          title={pageMetaData?.meta_Title || '404: No Page found'}
+          description={pageMetaData?.meta_Description || ''}
+          keywords={pageMetaData?.meta_Keywords || 'Branded Promotional'}
         />
         <PageNotFound />
       </>
@@ -53,9 +53,9 @@ const ProductListing: NextPage<
     return (
       <>
         <SeoHead
-          title={pageMetaData?.meta_title || 'Collection'}
-          description={pageMetaData?.meta_description || ''}
-          keywords={pageMetaData?.meta_keywords || 'Branded Promotional'}
+          title={pageMetaData?.meta_Title || 'Collection'}
+          description={pageMetaData?.meta_Description || ''}
+          keywords={pageMetaData?.meta_Keywords || 'Branded Promotional'}
         />
         <>Collection Page would come here</>
       </>
@@ -85,9 +85,9 @@ const ProductListing: NextPage<
   return (
     <>
       <SeoHead
-        title={pageMetaData?.meta_title || 'No Matches found'}
-        description={pageMetaData?.meta_description || ''}
-        keywords={pageMetaData?.meta_keywords || 'Branded Promotional'}
+        title={pageMetaData?.meta_Title || 'No Matches found'}
+        description={pageMetaData?.meta_Description || ''}
+        keywords={pageMetaData?.meta_Keywords || 'Branded Promotional'}
       />
       {cLog('No match found', '404')}
       <PageNotFound />

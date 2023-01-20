@@ -1,11 +1,6 @@
-import {
-  FetchDiscountTablePrices,
-  FetchInventoryById,
-} from '@services/product.service';
-import { _ProductDiscountTable } from '@type/APIs/discountTable.res';
+import { FetchInventoryById } from '@services/product.service';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import Image from 'appComponents/reUsable/Image';
-import Price from 'appComponents/reUsable/Price';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
@@ -18,24 +13,15 @@ interface _props {
 
 const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
   const router = useRouter();
-  const slug: string | undefined | string[] = router.query.slug;
-  const sename: string | undefined =
-    typeof slug === 'string' ? slug.split('.')[0] : '';
   const { updatePrice } = useActions();
   const { color } = useTypedSelector((state) => state.product.selected);
   const { totalPrice } = useTypedSelector((state) => state.product.toCheckout);
   const { price, colors, name } = useTypedSelector(
     (state) => state.product.product,
   );
-  const { attributeOptionId } = useTypedSelector(
-    (state) => state.product.selected.color,
-  );
-  const { id } = useTypedSelector((state) => state.store);
 
   const [inventory, setInventory] =
     useState<null | _ProductInventoryTransfomed>(null);
-
-  const [discount, setDiscount] = useState<null | _ProductDiscountTable>(null);
 
   useEffect(() => {
     updatePrice({ price: price?.msrp || 0 });
@@ -51,28 +37,11 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
     // .finally(() => );
   };
 
-  const discountTable = (payload: {
-    storeId: number;
-    seName: string;
-    customerId: number;
-    attributeOptionId: number;
-  }) => {
-    FetchDiscountTablePrices(payload).then((res) => {
-      setDiscount(res);
-    });
-  };
-
   useEffect(() => {
     if (colors === null) return;
     showInventoryFor({
       productId: colors[0].productId,
       attributeOptionId: [colors[0].attributeOptionId],
-    });
-    discountTable({
-      storeId: id === null ? 0 : id,
-      seName: sename,
-      customerId: 0,
-      attributeOptionId: attributeOptionId,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
@@ -100,7 +69,7 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                     {inventory.inventory.find(
                       (int) =>
                         int.colorAttributeOptionId ===
-                          color.attributeOptionId && int.name === size,
+                        color.attributeOptionId && int.name === size,
                     )?.inventory || 'Out of Stock'}
                   </div>
                   <InventoryInput
@@ -110,7 +79,7 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                       inventory.inventory.find(
                         (int) =>
                           int.colorAttributeOptionId ===
-                            color.attributeOptionId && int.name === size,
+                          color.attributeOptionId && int.name === size,
                       )?.inventory || 0
                     }
                     price={price?.msrp || 0}
@@ -179,12 +148,12 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                         inventory.inventory.find(
                           (int) =>
                             int.colorAttributeOptionId ===
-                              color.attributeOptionId && int.name === size,
+                            color.attributeOptionId && int.name === size,
                         )?.inventory || 0;
                       const inventry = inventory.inventory.find(
                         (int) =>
                           int.colorAttributeOptionId ===
-                            color.attributeOptionId && int.name === size,
+                          color.attributeOptionId && int.name === size,
                       );
                       return inv > 0 ? (
                         <>
@@ -243,7 +212,7 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                         inventory.inventory.find(
                           (int) =>
                             int.colorAttributeOptionId ===
-                              color.attributeOptionId && int.name === size,
+                            color.attributeOptionId && int.name === size,
                         )?.inventory || 0
                       }
                       price={price?.msrp || 0}
@@ -254,20 +223,6 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
               return <></>;
             })}
           </div>
-        </div>
-        <div className='mb-3 font-bold bg-[#051C2C] px-4 py-2.5 text-white tracking-widest text-center'>
-          Add {discount?.subRows[0].displayQuantity} more of {name} to your cart
-          to save an additional $
-          {price?.msrp && discount
-            ? price?.msrp - parseInt(discount?.subRows[0]?.discountPrice)
-            : '0'}{' '}
-          per Item!
-        </div>
-        <div className='bg-[#d8dfe1] text-sm text-gray-900 flex flex-wrap p-5 items-center gap-2 tracking-wider mb-3'>
-          <span className=''>Price Per Item</span>
-          <span className='text-4xl font-bold'>
-            <Price value={price?.salePrice} />
-          </span>
         </div>
       </>
     );

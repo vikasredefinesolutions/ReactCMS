@@ -27,7 +27,7 @@ export const removeWishlist = async (wishlistId: number) => {
   const url = '/StoreProductWishList/deletewishlistbyid.json';
   const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
     url: url,
-    method: 'DELETE',
+    method: 'POST',
     data: { wishlistId },
   });
 

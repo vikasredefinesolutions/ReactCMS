@@ -44,11 +44,11 @@ const LogoContainer: React.FC<_props> = ({
     >
       <div
         className={`border-2 hover:border-primary ${
-          selected ? 'border-primary' : 'border-gray-200'
+          selected?.id === id ? 'border-primary' : 'border-gray-200'
         } p-3 w-full text-ceter`}
       >
-        <div className="">
-          <img className="inline-block" src={image.url} alt="" />
+        <div className="w-28 h-28 inline-flex items-center justify-center">
+          <img className="inline-block max-h-full" src={image.url} alt="No Image" />
         </div>
         <div className="mt-2">{label}</div>
         <div className="mt-2">{status}</div>

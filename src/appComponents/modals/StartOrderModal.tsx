@@ -49,6 +49,7 @@ const StartOrderModal: React.FC<_props> = (props) => {
   );
   const customerId = useTypedSelector((state) => state.user.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
+  const customizationEnable = useTypedSelector((state) => state.product.product.customization)
 
   const addToCartHandler = async () => {
     const note = textRef.current?.value;
@@ -64,10 +65,11 @@ const StartOrderModal: React.FC<_props> = (props) => {
         totalQty,
       },
     });
-    if (totalQty < toCheckout.minQty) {
+    if (toCheckout.minQtyCheck ? totalQty < selectedProduct.color.minQuantity : totalQty < 1) {
+      modalHandler(null)
       showModal({
-        message: `The minimum order for this color is ${toCheckout.minQty} pieces. Please increase your quantity and try again.`,
-        title: 'Required',
+        message: `The minimum order for this color is ${toCheckout.minQtyCheck ? selectedProduct.color.minQuantity : 1} pieces. Please increase your quantity and try again.`,
+        title: 'Success',
       });
       return;
     }
@@ -181,7 +183,6 @@ const StartOrderModal: React.FC<_props> = (props) => {
 
                   {/* -------------------------------------------AVAILABLE COLORS ------------------------------------------ */}
                   {allColors && <StartOrderAvailableColors />}
-
                   {/* -------------------------------------------PRODUCT INFORMATION ------------------------------------------ */}
                   <div className='mt-3'>
                     <h2 className='sr-only'>Product information</h2>
@@ -197,7 +198,7 @@ const StartOrderModal: React.FC<_props> = (props) => {
 
                 {/* -------------------------------------------INVENTORY TABLE ------------------------------------------ */}
                 <SizePriceQtyTable />
-                <CustomizeLogoOptions />
+                {customizationEnable && <CustomizeLogoOptions />}
                 <CalculativeFigure />
 
                 <div className=''>

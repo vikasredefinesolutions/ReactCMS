@@ -94,9 +94,8 @@ const FilterLayout3 = ({
                         filter.label === 'Color' ? (
                           <li
                             key={index}
-                            className={`w-8 h-8 border-2 hover:border-secondary p-0.5 ${
-                              checked && 'border-secondary'
-                            }`}
+                            className={`w-8 h-8 border-2 hover:border-secondary p-0.5 ${checked && 'border-secondary'
+                              }`}
                             style={{
                               background: option.colorCode,
                             }}

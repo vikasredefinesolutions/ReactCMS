@@ -64,7 +64,7 @@ const CartController = () => {
         // seName : seName || 'Nike-Men-s-Club-Fleece-Sleeve-Swoosh-Pullover-Hoodie',
         seName: product.seName,
         storeId,
-        productId: 138,
+        productId: 0,
       }).then((resp) => {
         if (resp) {
           const res = resp as _ProductDetails;

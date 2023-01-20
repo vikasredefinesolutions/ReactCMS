@@ -1,5 +1,4 @@
 import Image from 'appComponents/reUsable/Image';
-import { paths } from 'constants/paths.constant';
 import { _OtherImage } from 'definations/APIs/colors.res';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
@@ -9,6 +8,7 @@ import React, { useEffect } from 'react';
 import InnerImageZoom from 'react-inner-image-zoom';
 import AvailableColors from './AvailableColors';
 import HeartIcon from './HeartIcon';
+import ProductColors from './ProductColors';
 import ProductCompanion from './ProductCompanion';
 
 interface _Props {
@@ -35,7 +35,6 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
   const selectImgHandler = (img: _OtherImage) => {
     setImage(img);
   };
-  
   // UseEffect's  ----------------------------------------
 
   useEffect(() => {
@@ -99,7 +98,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
     return (
       <div className="w-full lg:w-6/12 px-3">
         <div className="relative">
-          <div className="" onClick={() => router.push(paths.PRODUCT_LISTING)}>
+          <div className="" onClick={() => router.back()}>
             &lt;&lt; Back
           </div>
           {/* Display Image */}
@@ -140,7 +139,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
             This product is subject to order minimum and maximum quantity
             requirements
           </div>
-          <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
+          <HeartIcon className="absolute right-2 top-5 w-6 h-6" />
         </div>
       </div>
     );
@@ -186,9 +185,10 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                 );
               })}
           </div>
-          <HeartIcon className="absolute right-2 top-8 w-6 h-6" />
+          {/* <HeartIcon className="absolute right-2 top-4 w-6 h-6" /> */}
         </div>
-        <AvailableColors storeCode={storeCode} />
+        <ProductColors storeCode={storeCode} />
+
         <ProductCompanion
           storeCode={storeCode}
           name={product.companionProductName}

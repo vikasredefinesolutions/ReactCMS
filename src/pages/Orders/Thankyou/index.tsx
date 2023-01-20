@@ -4,11 +4,11 @@ import {
   _MyAcc_OrderBillingDetails,
   _MyAcc_OrderProductDetails,
 } from '@type/APIs/user.res';
+import Redefine_ThankYou from 'Templates/Redefine_ThankYou';
 import { useTypedSelector } from 'hooks';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Redefine_ThankYou from 'Templates/Redefine_ThankYou';
 
 const ThankYou: NextPage = () => {
   const router = useRouter();
@@ -16,19 +16,21 @@ const ThankYou: NextPage = () => {
 
   const [order, setOrderDetails] = useState<
     | {
-        billing: _MyAcc_OrderBillingDetails | null;
-        product: _MyAcc_OrderProductDetails[] | null;
-      }
+      billing: _MyAcc_OrderBillingDetails | null;
+      product: _MyAcc_OrderProductDetails[] | null;
+    }
     | null
     | 'SOMETHING WENT WRONG'
   >(null);
   const showThankYou = useTypedSelector((state) => state.cart.showThankYou);
 
   useEffect(() => {
-    if (!showThankYou) {
-      router.push(paths.thankYou.notAuthorized);
-      return;
-    }
+
+    // if (!showThankYou ) {
+
+    //   router.push(paths.thankYou.notAuthorized);
+    //   return;
+    // }
 
     if (orderId && order === null) {
       FetchOrderDetails({ orderId: +orderId })
@@ -42,9 +44,9 @@ const ThankYou: NextPage = () => {
     }
   }, []);
 
-  if (!showThankYou) {
-    return <></>;
-  }
+  // if (!showThankYou) {
+  //   return <></>;
+  // }
 
   if (order === null) {
     return (
@@ -55,6 +57,7 @@ const ThankYou: NextPage = () => {
       </div>
     );
   }
+
 
   if (order === 'SOMETHING WENT WRONG') {
     return <>Something went wrong!!!</>;

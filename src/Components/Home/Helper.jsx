@@ -7,7 +7,7 @@ export const updateSetProperties = (element) => {
   let x = document.getElementById('div' + element.no);
   if (element.selectedVal != undefined && element.selectedVal != '') {
     //      let elProperties;
-    Object.entries(element.selectedVal).map(([key, value]) => {
+    Object.entries(JSON.parse(element.selectedVal)).map(([key, value]) => {
       if (value.type == 'text') {
         if (x.querySelectorAll('#' + key).length > 0) {
           x.querySelectorAll('#' + key)[0].innerHTML = value.value;

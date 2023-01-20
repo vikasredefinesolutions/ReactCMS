@@ -1,10 +1,12 @@
 import MyAccountTabs from 'Components/MyAccountTabs';
 
+import MngLogo from 'Components/MyAccount/ManageLogo';
+
 const ManageLogo = () => {
   return (
     <>
       <MyAccountTabs />
-      <div>Add ManageLogo Section Here</div>
+      <MngLogo />
     </>
   );
 };
