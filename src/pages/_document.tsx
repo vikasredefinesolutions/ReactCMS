@@ -61,11 +61,12 @@ class MyDocument extends Document {
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
           />
+          */}
           <link
             rel="stylesheet"
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
-          />*/}
+          />
            <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone" rel="stylesheet" />
           <link
             rel="stylesheet"
