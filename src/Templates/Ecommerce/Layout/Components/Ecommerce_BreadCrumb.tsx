@@ -262,7 +262,7 @@ const BreadCrumb: React.FC = () => {
     );
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeLayout === _Store.type4  ||  storeLayout === _Store.type5) {
     return (
       <section id='' className='py-3 bg-white tracking-wider px-2 lg:px-0'>
         <div className='container mx-auto'>
@@ -271,43 +271,25 @@ const BreadCrumb: React.FC = () => {
               className='flex flex-wrap justify-between items-center'
               aria-label='Breadcrumb'
             >
-              <ol className='inline-flex items-center text-xs text-secondary'>
-                <li className='hidden lg:inline-flex items-center mr-4'>
-                  <a
-                    href='product-listing.html'
-                    className='inline-flex items-center text-secondary'
-                  >
-                    <span className='material-icons-outlined text-base mr-1'>
-                      keyboard_double_arrow_left
-                    </span>{' '}
-                    Back
-                  </a>
-                </li>
-                <li className='inline-flex items-center mr-1'>
-                  <a
-                    href='index.html'
-                    className='inline-flex items-center text-secondary'
-                  >
-                    Home
-                  </a>
-                </li>
-                <li className='inline-flex items-center mr-1'>
-                  <span className='mx-1'>/</span>{' '}
-                  <a
-                    href='product-listing.html'
-                    className='inline-flex items-center text-secondary'
-                  >
-                    Men
-                  </a>
-                </li>
-                <li aria-current='page'>
-                  <div className='flex items-center'>
-                    <span className='mx-1'>/</span>
-                    <span className=' md:ml-1 text-primary'>
-                      Adidas Men's Grind Polo
-                    </span>{' '}
-                  </div>
-                </li>
+              <ol className="inline-flex items-center text-xs text-secondary">
+                {breadCrumbs.map((item, index) => (
+                  <li key={index} aria-current="page">
+                    <Link
+                      href={item.url}
+                      className="inline-flex items-center font-medium text-gray-700 hover:text-gray-900"
+                    >
+                      <a className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
+
+                        <div className="flex items-center">
+                          {index > 0 && <span className="ml-1">/</span>}
+                          <span className="ml-1 md:ml-2 text-gray-500">
+                            {item.name}
+                          </span>
+                        </div>
+                      </a>
+                    </Link>
+                  </li>
+                ))}
               </ol>
               <div className='hidden md:inline-block'>
                 <img src='images/adidas.png' alt='' />

@@ -2,10 +2,10 @@ import { __Cookie } from '@constants/global.constant';
 import { addToCart } from '@services/cart.service';
 import { FetchInventoryById } from '@services/product.service';
 import { _StoreCache } from '@type/slug.type';
-import ProductImg from 'Components/ProductDetails/ProductImg';
-import SizeChartModal from 'Components/ProductDetails/SizeChartModal';
 import config from 'api.config';
 import Price from 'appComponents/reUsable/Price';
+import ProductImg from 'Components/ProductDetails/ProductImg';
+import SizeChartModal from 'Components/ProductDetails/SizeChartModal';
 import {
   _ProductDetails,
   _ProductDetailsProps
@@ -262,7 +262,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
     }
   }
 
-  if (product.storeCode === _Store.type22) {
+  if (product.storeCode === _Store.type22 || product.storeCode === _Store.type5) {
     return (
       <>
         {HeadTag}
@@ -367,15 +367,15 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                   </div>
                 )}
                 <div className="flex flex-wrap items-center mb-4">
-                  <div className="flex mr-2 items-center text-sm items-center">
+                  <div className="flex mr-2 items-center text-sm">
                     {' '}
                     <span className="text-sm font-semibold">Qty:</span>
                   </div>
                   <div className="text-sm">
                     {!showMultipleSize ? (
-                      <div className="w-16">
+                      <div className="w-28">
                         <input
-                          min={1}
+                          min={0}
                           onChange={(e) => {
                             singleChangeQuantity(e.target.value)
                           }}
@@ -397,6 +397,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                             <p className="w-32 item-center">100</p>
                             <div className="w-28">
                               <input
+                                min={0}
                                 name={_size}
                                 onChange={multipleQtyChangeHandler}
                                 value={getMultipleQtyValue(_size)}

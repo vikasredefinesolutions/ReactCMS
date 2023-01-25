@@ -1,6 +1,7 @@
 import { allAsyncActions } from './asyncActions';
 import { CartActions } from './slices/cart.slice';
 import { compareActions } from './slices/compare.slice';
+import { employeeActions } from './slices/employee.slice';
 import { homeActions } from './slices/home.slice';
 import { loaderActions } from './slices/loader.slice';
 import { modalActions } from './slices/modals.slice';
@@ -20,6 +21,7 @@ const actions = {
   ...loaderActions,
   ...successActions,
   ...homeActions,
+  ...employeeActions,
 };
 
 export default actions;

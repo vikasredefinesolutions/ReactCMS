@@ -1,6 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import cartReducer from './slices/cart.slice';
 import compareReducer from './slices/compare.slice';
+import employeeReducer from './slices/employee.slice';
 import homeReducer from './slices/home.slice';
 import loaderReducer from './slices/loader.slice';
 import modalsReducer from './slices/modals.slice';
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   loader: loaderReducer,
   success: successReducer,
   home: homeReducer,
+  employee: employeeReducer,
 });
 
 export default rootReducer;

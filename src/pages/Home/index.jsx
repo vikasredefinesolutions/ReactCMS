@@ -1,14 +1,11 @@
 //import React, { useState, useEffect, useRef } from "react";
 import ElementAccordionDisplay from 'Components/Home/ElementAccordionDisplay';
 import ElementCarouselDisplay from 'Components/Home/ElementCarouselDisplay';
-import FeaturedItems from 'Components/Home/FeaturedItems';
 import { useTypedSelector } from 'hooks';
-import { __constant } from 'page.config';
 import { useEffect, useState } from 'react';
 import * as helper from '../../Components/Home/Helper';
 
 const Home = (props) => {
-  const { featuredItems } = props;
   const pageData = props.props?.pageData;
   const [componentHtml, setComponentHtml] = useState([]);
 
@@ -20,7 +17,7 @@ const Home = (props) => {
 
   useEffect(() => {
     // let pageId = pageData.id;
-   // document.title = pageData?.seTitle;
+    // document.title = pageData?.seTitle;
     if (pageData.components !== undefined) {
       setComponentHtml(pageData?.components);
     }
@@ -89,8 +86,8 @@ const Home = (props) => {
   return (
     <>
       <>{storeTypeId} - dummy text</>
-      <div className="">
-       {/* {featuredItems?.products && (
+      <div className=''>
+        {/* {featuredItems?.products && (
           <FeaturedItems
             brands={__constant._Home.featuredItems.brands}
             products={featuredItems.products}
@@ -103,13 +100,14 @@ const Home = (props) => {
               return (
                 <div
                   key={index}
-                  className={`commondiv ${componentValue.visibility == 'off' ? 'hidden' : ''
-                    }`}
+                  className={`commondiv ${
+                    componentValue.visibility == 'off' ? 'hidden' : ''
+                  }`}
                   style={{ background: backgroundDefault }}
                   id={`div${componentValue.no}`}
-                // ref={ref => {
-                //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
-                // }}
+                  // ref={ref => {
+                  //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
+                  // }}
                 >
                   {Object.keys(componentValue.selectedVal).includes(
                     'carousel',
@@ -121,12 +119,12 @@ const Home = (props) => {
                     </>
                   ) : (
                     <>
-                      <section class="mainsection container mx-auto mt-20">
+                      <section className='mainsection container mx-auto mt-20'>
                         {Object.keys(componentValue.selectedVal).includes(
                           'FullAccordion',
                         ) ? (
                           <>
-                            <ul class="mt-4 w-full">
+                            <ul className='mt-4 w-full'>
                               <ElementAccordionDisplay
                                 acValues={
                                   componentValue.selectedVal.FullAccordion.value
@@ -137,7 +135,7 @@ const Home = (props) => {
                         ) : (
                           <>
                             <div
-                              className="commondiv"
+                              className='commondiv'
                               dangerouslySetInnerHTML={{
                                 __html: componentValue.html,
                               }}
@@ -154,16 +152,16 @@ const Home = (props) => {
             })
           ) : (
             <>
-              <section className="mainsection taillwind_content_block_22"></section>
+              <section className='mainsection taillwind_content_block_22'></section>
             </>
           )}
         </main>
       </div>
       <div
-        id="wrapperloading"
+        id='wrapperloading'
         style={{ position: 'fixed', zIndex: '10000000' }}
       >
-        <div id="loading"></div>
+        <div id='loading'></div>
       </div>
     </>
   );

@@ -35,3 +35,7 @@ export const __UserMessages = {
     SuccessFullyAccountCreated: 'Account Created Successfully!!!',
   },
 };
+
+export const employeeData = {
+  secretPass: 'XkhZG4fW2t2W',
+};

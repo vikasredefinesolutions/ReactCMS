@@ -34,7 +34,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-           
            {storeId == 4 && 
                <link
                   rel="stylesheet"
@@ -56,6 +55,15 @@ class MyDocument extends Document {
                   href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css'`}
                 />
            }
+
+           {storeId == 22 && 
+               <link
+                  rel="stylesheet"
+                  type="text/css"
+                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css'`}
+                />
+           }
+
            {/*<link
             rel="stylesheet"
             type="text/css"
@@ -68,6 +76,9 @@ class MyDocument extends Document {
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
           />
            <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone" rel="stylesheet" />
+          
+           
+
           <link
             rel="stylesheet"
             type="text/css"

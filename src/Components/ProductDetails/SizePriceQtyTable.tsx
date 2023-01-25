@@ -2,7 +2,6 @@ import Price from 'appComponents/reUsable/Price';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
 import SelectOrInput from './SelectOrInput';
-
 const SizePriceQtyTable: React.FC = () => {
   const { price, inventory } = useTypedSelector(
     (state) => state.product.product,
@@ -11,29 +10,28 @@ const SizePriceQtyTable: React.FC = () => {
     (state) => state.product.toCheckout,
   );
   const { color } = useTypedSelector((state) => state.product.selected);
-
   return (
-    <div className="">
-      <div className="overflow-x-auto max-h-screen">
+    <div className=''>
+      <div className='overflow-x-auto max-h-screen'>
         <table
-          cellPadding="0"
-          cellSpacing="0"
-          className="table-auto w-full text-xs text-center text-[#191919]"
+          cellPadding='0'
+          cellSpacing='0'
+          className='table-auto w-full text-xs text-center text-[#191919]'
         >
-          <thead className="text-xs font-semibold border-b border-neutral-200">
-            <tr className="">
-              <th className="px-2 py-4 w-32">
-                <div className="">Size</div>
+          <thead className='text-xs font-semibold border-b border-neutral-200'>
+            <tr className=''>
+              <th className='px-2 py-4 w-32'>
+                <div className=''>Size</div>
               </th>
-              <th className="px-2 py-4 w-32">
-                <div className="">Price</div>
+              <th className='px-2 py-4 w-32'>
+                <div className=''>Price</div>
               </th>
-              <th className="px-2 py-4 w-32">
-                <div className="">Qty</div>
+              <th className='px-2 py-4 w-32'>
+                <div className=''>Qty</div>
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200">
+          <tbody className='divide-y divide-slate-200'>
             {inventory?.sizes.map((colorWithAllSizes) => {
               const showOrNot =
                 colorWithAllSizes.colorAttributeOptionId ===
@@ -46,7 +44,7 @@ const SizePriceQtyTable: React.FC = () => {
                   (int) =>
                     int.name === size &&
                     int.colorAttributeOptionId ===
-                    colorWithAllSizes.colorAttributeOptionId,
+                      colorWithAllSizes.colorAttributeOptionId,
                 );
 
                 if (!foundWithSameSizeAndColor) return <></>;
@@ -58,12 +56,12 @@ const SizePriceQtyTable: React.FC = () => {
                       : false),
                 );
                 return (
-                  <tr className="" key={size}>
-                    <td className="px-2 py-4">
-                      <div className="">{size}</div>
+                  <tr className='' key={size}>
+                    <td className='px-2 py-4'>
+                      <div className=''>{size}</div>
                     </td>
-                    <td className="px-2 py-4">
-                      <div className="">
+                    <td className='px-2 py-4'>
+                      <div className=''>
                         <Price value={discountedPrice} />
                       </div>
                     </td>

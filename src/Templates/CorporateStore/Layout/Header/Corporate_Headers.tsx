@@ -1,7 +1,9 @@
 // @ts-nocheck
 import Link from 'next/link';
 import React from 'react';
+import { Bacardi_BrandsBar } from './Corporate_BrandsBar';
 import { Bacardi_HeaderBar } from './Corporate_HeaderBar';
+import { Bacardi_MenuItems } from './Corporate_MenuItems';
 import { Cyxtera_MobileMenuItem } from './Corporate_MobileMenuItem';
 import { Cyxtera_NotificationBar } from './Corporate_NotificationBar';
 
@@ -9,12 +11,12 @@ import { Cyxtera_NotificationBar } from './Corporate_NotificationBar';
 export const Bacardi_Header: React.FC = () => {
   return (
     <section
-      className="bg-white sticky top-0 left-0 right-0 z-50 border-b-2 border-b-transparent"
+      className="bg-white sticky top-0 left-0 right-0 z-50 border-b-2 border-b-transparent hidden"
       id=""
     >
       <Bacardi_HeaderBar />
-      {/* <Bacardi_BrandsBar /> */}
-      {/* <Bacardi_MenuItems /> */}
+      <Bacardi_BrandsBar />
+      <Bacardi_MenuItems />
     </section>
   );
 };

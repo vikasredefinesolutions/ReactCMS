@@ -8,6 +8,7 @@ import Redefine_Screen from 'Templates/Redefine_Screen';
 import { FetchThemeConfigs } from '@services/app.service';
 import { Footer } from '@services/footer.service';
 import { _Footer } from '@type/APIs/footer.res';
+import EmployeeController from 'Controllers/EmployeeController';
 import * as _AppController from 'Controllers/_AppController.async';
 import { _TransformedThemeConfig } from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
@@ -28,7 +29,7 @@ import { useEffect } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
 import { _Expected_AppProps, _MenuItems } from 'show.type';
 import { _globalStore } from 'store.global';
-//import '../../styles/output.css';
+import '../../styles/output.css';
 import '../app.css';
 
 type AppOwnProps = {
@@ -36,7 +37,7 @@ type AppOwnProps = {
   menuItems: _MenuItems | null;
   configs: {
     header: _TransformedThemeConfig | null;
-    footer: _Footer | null
+    footer: _Footer | null;
   };
 };
 
@@ -47,9 +48,10 @@ const RedefineCustomApp = ({
   menuItems,
   configs,
 }: AppProps & AppOwnProps) => {
+  EmployeeController();
   const router = useRouter();
-  const { logInUser } = useActions();
-  const { store_storeDetails, updateCustomerV2, setShowLoader } = useActions();
+  const { store_storeDetails, updateCustomerV2, setShowLoader, logInUser } =
+    useActions();
 
   const refreshHandler = () => {
     return setCookie(__Cookie.storeInfo, '', 'EPOCH');
@@ -178,11 +180,10 @@ RedefineCustomApp.getInitialProps = async (
       );
 
       if (expectedProps.store?.storeId) {
-
         expectedProps.configs.footer = await Footer({
           storeId: expectedProps.store?.storeId,
-          configname: 'footer'
-        })
+          configname: 'footer',
+        });
 
         expectedProps.configs.header = await FetchThemeConfigs({
           storeid: expectedProps.store?.storeId,

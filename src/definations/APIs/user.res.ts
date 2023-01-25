@@ -63,6 +63,12 @@ export interface UserType {
   macAddress: string;
 }
 
+export interface EmployeeType {
+  firstname: string;
+  lastName: string;
+  email: string;
+}
+
 export interface _MyAcc_OrderBillingDetails {
   id: number;
   storeID: number;

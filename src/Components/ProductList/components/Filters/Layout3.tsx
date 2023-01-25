@@ -5,6 +5,8 @@ import {
   Typography
 } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
+import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 
 const FilterLayout3 = ({
   filters,
@@ -15,6 +17,95 @@ const FilterLayout3 = ({
   handleChange: FilterChangeHandler;
   checkedFilters: any;
 }) => {
+
+  const { layout: storeLayout, id: storeId } = useTypedSelector((state) => state.store);
+
+  if(_Store.type5 === storeLayout){
+    return (
+      <>
+       <div className='filter-box sidebar'>
+        {filters.map((filter, index) => (
+          <Accordion key={`panel-header-${index + 1}`}>
+            <AccordionSummary
+              expandIcon={
+                <>
+                  <svg
+                    className='w-8 h-8 shrink-0 fill-current text-gray-400 group-hover:text-gray-500 ml-3 rotate-180'
+                    viewBox='0 0 32 32'
+                  >
+                    <path d='M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z'></path>
+                  </svg>
+                </>
+              }
+              aria-controls={`panel-content-${index + 1}`}
+              id={`panel-header-${index + 1}`}
+            >
+              <Typography>{filter?.label}</Typography>
+            </AccordionSummary>
+
+            <AccordionDetails>
+              <ul
+                className={
+                  filter.label == 'Color'
+                    ? 'flex flex-wrap items-center gap-x-1.5 gap-y-2'
+                    : 'pb-0 space-y-3'
+                }
+              >
+                {filter.options.map((option) => {
+                  const checked =
+                    checkedFilters.findIndex(
+                      (res: { name: string; value: string }) =>
+                        res.name === filter.label && res.value === option.name,
+                    ) > -1;
+                  return (
+                    <>
+                      {option.name || option.colorCode ? (
+                        filter.label === 'Color' ? (
+                          <li
+                            key={index}
+                            className={`w-8 h-8 border border-black p-0.5 mr-1 ${checked && 'border-secondary'
+                              }`}
+                            style={{
+                              background: option.colorCode,
+                            }}
+                            onClick={() =>
+                              handleChange(filter.label, option.name, !checked)
+                            }
+                          ></li>
+                        ) : (
+                          <li className='flex items-center sidebarTextInput'>
+                            <input
+                              name={filter.label}
+                              value={option.name}
+                              checked={checked}
+                              type='checkbox'
+                              onChange={(e) => {
+                                const { name, value, checked } = e.target;
+                                handleChange(name, value, checked);
+                              }}
+                              className='h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500'
+                            />
+                            <label
+                              htmlFor='brandfil-0'
+                              className='ml-3 text-black text-base'
+                            >
+                              {option.name} ({option.productCount})
+                            </label>
+                          </li>
+                        )
+                      ) : null}
+                    </>
+                  );
+                })}
+              </ul>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </div>
+      </>
+    )
+  }
+
   return (
     <>
       {/* <div className="filter-box">

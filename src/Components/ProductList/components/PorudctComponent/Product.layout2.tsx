@@ -163,8 +163,6 @@ const ProductLayout2 = ({
   }
 
 
-
-
   return productView === 'grid' ? (
     <li className="text-center relative border border-gray-100 hover:border-gray-300 hover:shadow-md pb-10">
       <Link href={`${origin}/${product.sename}.html`} className="relative">
@@ -187,7 +185,7 @@ const ProductLayout2 = ({
         </div>
         <div className="mt-4 text-gray-900">
           <span className="font-bold">
-            { } MSRP <Price value={product.salePrice} />
+            <Price value={product.salePrice} addColon={false} />
           </span>
         </div>
         <div className="form-group mt-4">
@@ -215,7 +213,7 @@ const ProductLayout2 = ({
             index < 4 ?
               <li
                 key={index}
-                className={`w-8 h-8 text-center border-2${option.id === currentProduct.id ? ' border-primary' : ''
+                className={`w-8 h-8 text-center mr-1 border ${option.id === currentProduct.id ? ' border-primary' : ''
                   } hover:border-primary`}
                 onClick={() => {
                   colorChangeHandler(
@@ -252,7 +250,7 @@ const ProductLayout2 = ({
           href={`${origin}/${product.sename}.html?v=product-detail&altview=1`}
           className="relative"
         >
-          <div className="w-full md:w-1/4 px-3 cursor-pointer">
+          <div className="md:w-1/4 px-3 cursor-pointer">
             <ImageComponent
               src={currentProduct.imageName}
               alt=""
@@ -263,7 +261,7 @@ const ProductLayout2 = ({
             />
           </div>
         </Link>
-        <div className="w-full md:w-3/4 px-3">
+        <div className="md:w-3/4 px-3">
           <div className="hover:text-primary text-lg">
             <Link
               key={product.id}
@@ -275,34 +273,34 @@ const ProductLayout2 = ({
           </div>
           <div className="mt-4 text-gray-900">
             <span className="font-bold">
-              MSRP <Price value={product.salePrice} />
+              <Price value={product.salePrice} addColon={false} />
             </span>
           </div>
           <div className="form-group mt-4">
-            <label className="checkbox-inline">
-              <input
-                checked={skuList.includes(product.sku)}
-                onChange={() => compareCheckBoxHandler(product.sku)}
-                type="checkbox"
-              />{' '}
-              {
-                <>
-                  {/* {skuList.length && skuList.includes(product.sku) ? (
-                    <Link href={getCompareLink()}>
-                      <a>Compare {skuList.length}</a>
-                    </Link>
-                  ) : ( */}
-                  <>Add to Compare</>
-                  {/* )} */}
-                </>
-              }
-            </label>
-          </div>
+          <label className="checkbox-inline">
+            <input
+              checked={skuList.includes(product.sku)}
+              onChange={() => compareCheckBoxHandler(product.sku)}
+              type="checkbox"
+            />{' '}
+            {
+              <>
+                {/* {skuList.length && skuList.includes(product.sku) ? (
+                  <Link href={getCompareLink()}>
+                    <a>Compare {skuList.length}</a>
+                  </Link>
+                ) : ( */}
+                <>Add to Compare</>
+                {/* )}  */}
+              </>
+            }
+          </label>
+        </div>
           <ul role="list" className="flex items-center mt-4">
             {product.getProductImageOptionList.map((option, index) => (
               <li
                 key={index}
-                className={`w-8 h-8 text-center border-2${option.id === currentProduct.id ? ' border-primary' : ''
+                className={`w-8 h-8 text-center border mr-1${option.id === currentProduct.id ? ' border-primary' : ''
                   } hover:border-primary`}
                 onClick={() => {
                   colorChangeHandler(

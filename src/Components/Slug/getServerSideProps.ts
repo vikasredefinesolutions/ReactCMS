@@ -14,7 +14,6 @@ import {
   Filter,
   FilterOption,
   Product,
-  _BrandSEO,
   _GetPageType,
   _ProductListProps,
   _SlugServerSideProps,
@@ -235,7 +234,14 @@ export const getServerSideProps: GetServerSideProps = async (
         }
       }
       page.productListing = {
-        brandSEO: {} as _BrandSEO,
+        brandSEO: {
+          seTitle: pageMetaData.meta_Title,
+          seDescription: pageMetaData.meta_Description,
+          seKeyWords: pageMetaData.meta_Keywords,
+          brandName: pageMetaData.slug,
+          brandId: pageMetaData.id,
+          seName: pageMetaData.slug,
+        },
         filters: _filters,
         product: product,
         checkedFilters: FilterOptions,

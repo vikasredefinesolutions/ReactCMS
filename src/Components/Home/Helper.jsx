@@ -31,7 +31,7 @@ export const updateSetProperties = (element) => {
               key +
               '_img_link"><img id="' +
               key +
-              '_img" class="" src="' +
+              '_img" className="" src="' +
               value.value +
               '" alt="" title="" /> </a>';
           }
@@ -50,7 +50,7 @@ export const updateSetProperties = (element) => {
               key +
               '_img_link"><img id="' +
               key +
-              '_img" class="" src="" alt="' +
+              '_img" className="" src="" alt="' +
               value.value +
               '" title="' +
               value.value +
@@ -128,7 +128,7 @@ export const updateSetProperties = (element) => {
               key +
               '_img_link"><img id="' +
               key +
-              '_img" class="" src=""/> </a>';
+              '_img" className="" src=""/> </a>';
           }
         }
       }
@@ -136,7 +136,7 @@ export const updateSetProperties = (element) => {
       if (value.type == 'Youtube') {
         if (x.querySelectorAll('#' + key).length > 0) {
           x.querySelectorAll('#' + key)[0].innerHTML =
-            '<iframe class="w-full aspect-video" src="https://www.youtube.com/embed/' +
+            '<iframe className="w-full aspect-video" src="https://www.youtube.com/embed/' +
             value.value +
             '?rel=0" allow="autoplay; encrypted-media" frameBorder="0"></iframe>';
         }
@@ -147,7 +147,7 @@ export const updateSetProperties = (element) => {
           x.querySelectorAll('#' + key)[0].innerHTML =
             '<iframe src="https://player.vimeo.com/video/' +
             value.value +
-            '?background=1" frameBorder="0" allow="autoplay; fullscreen" allowfullscreen="" style="" class="w-full aspect-video"></iframe>';
+            '?background=1" frameBorder="0" allow="autoplay; fullscreen" allowfullscreen="" style="" className="w-full aspect-video"></iframe>';
         }
       }
 
@@ -320,7 +320,7 @@ export const updateSetProperties = (element) => {
             }
           } else {
             x.querySelectorAll('#sectionLeft')[0].innerHTML =
-              '<div class="p-4 lg:p-8 flex w-full items-center"></div>';
+              '<div className="p-4 lg:p-8 flex w-full items-center"></div>';
           }
 
           if (Object.keys(finalArr).includes('Center')) {
@@ -335,7 +335,7 @@ export const updateSetProperties = (element) => {
             }
           } else {
             x.querySelectorAll('#sectionCenter')[0].innerHTML =
-              '<div class="p-4 lg:p-8 flex w-full items-center"></div>';
+              '<div className="p-4 lg:p-8 flex w-full items-center"></div>';
           }
           if (Object.keys(finalArr).includes('Right')) {
             if (finalArr.Right.display == 'Yes') {
@@ -347,7 +347,7 @@ export const updateSetProperties = (element) => {
             }
           } else {
             x.querySelectorAll('#sectionRight')[0].innerHTML =
-              '<div class="p-4 lg:p-8 flex w-full items-center"></div>';
+              '<div className="p-4 lg:p-8 flex w-full items-center"></div>';
           }
         }
       }
@@ -458,17 +458,17 @@ export const displayCarousel = (
   showThumb,
   dataArr,
 ) => {
-  let strHTML = `<div class="carousel-root">
-  <div class="carousel carousel-slider" style="width: 100%;">`;
+  let strHTML = `<div className="carousel-root">
+  <div className="carousel carousel-slider" style="width: 100%;">`;
   if (showIndicators == 'On') {
-    strHTML += '<ul class="control-dots">';
+    strHTML += '<ul className="control-dots">';
     if (dataArr.images != undefined && dataArr.images.length > 0) {
       dataArr.images.map((data, index) => {
         if (index == 0)
-          strHTML += `<li class="dot selected" role="button" tabindex="0" aria-label="slide item 1" value="0"></li>`;
+          strHTML += `<li className="dot selected" role="button" tabindex="0" aria-label="slide item 1" value="0"></li>`;
         else
           strHTML +=
-            `<li class="dot" role="button" tabindex="0" aria-label="slide item 2" value="` +
+            `<li className="dot" role="button" tabindex="0" aria-label="slide item 2" value="` +
             index +
             `"></li>`;
         strHTML += `</ul>`;
@@ -478,35 +478,35 @@ export const displayCarousel = (
 
   if (showArrow == 'On') {
     strHTML += `<button type="button" aria-label="previous slide / item"
-      class="control-arrow control-prev control-disabled"></button>`;
+      className="control-arrow control-prev control-disabled"></button>`;
   }
 
-  strHTML += `<div class="slider-wrapper axis-horizontal">`;
+  strHTML += `<div className="slider-wrapper axis-horizontal">`;
 
-  strHTML += `<ul class="slider animated" style="transform: translate3d(0px, 0px, 0px); transition-duration: 350ms;">`;
+  strHTML += `<ul className="slider animated" style="transform: translate3d(0px, 0px, 0px); transition-duration: 350ms;">`;
 
   if (dataArr.images != undefined && dataArr.images.length > 0) {
     dataArr.images.map((data) => {
       strHTML += `
-          <li class="slide selected previous">
+          <li className="slide selected previous">
               <div>`;
       if (data.image_or_video == undefined || data.image_or_video == 'Image') {
         strHTML += `<img src="` + data.image_url + `">`;
       } else {
         if (data.video_type == 'Youtube') {
           strHTML +=
-            `<iframe class="w-full aspect-video" src="https://www.youtube.com/embed/` +
+            `<iframe className="w-full aspect-video" src="https://www.youtube.com/embed/` +
             data.video_url +
             `?rel=0" allow="autoplay; encrypted-media" frameBorder="0"></iframe>`;
         } else if (data.video_type == 'Vimeo') {
           strHTML +=
-            `<iframe class="w-full aspect-video" src="https://player.vimeo.com/video/` +
+            `<iframe className="w-full aspect-video" src="https://player.vimeo.com/video/` +
             data.video_url +
             `?background=1"></iframe>`;
         }
       }
       strHTML +=
-        `<p class="legend">` +
+        `<p className="legend">` +
         data.headline +
         `</p>
               </div>
@@ -517,25 +517,25 @@ export const displayCarousel = (
   strHTML += `</ul>
       </div>`;
   if (showArrow == 'On') {
-    strHTML += `<button type="button" aria-label="next slide / item" class="control-arrow control-next"></button>`;
+    strHTML += `<button type="button" aria-label="next slide / item" className="control-arrow control-next"></button>`;
   }
 
   if (showStatus == 'On') {
-    strHTML += `<p class="carousel-status">1 of 3</p>`;
+    strHTML += `<p className="carousel-status">1 of 3</p>`;
   }
   strHTML += `</div>`;
 
   if (showThumb == 'On') {
     strHTML += `
-              <div class="carousel">
-                  <div class="thmbs-wrapper axis-vertical"><button type="button"
-                          class="control-arrow control-prev control-disabled" aria-label="previous slide / item"></button>
-                      <ul class="thumbs animated" style="transform: translate3d(0px, 0px, 0px); transition-duration: 350ms;">`;
+              <div className="carousel">
+                  <div className="thmbs-wrapper axis-vertical"><button type="button"
+                          className="control-arrow control-prev control-disabled" aria-label="previous slide / item"></button>
+                      <ul className="thumbs animated" style="transform: translate3d(0px, 0px, 0px); transition-duration: 350ms;">`;
     if (dataArr.images != undefined && dataArr.images.length > 0) {
       dataArr.images.map((data) => {
         strHTML +=
           `
-                                  <li class="thumb selected" aria-label="slide item 1" style="width: 80px;" role="button" tabindex="0">
+                                  <li className="thumb selected" aria-label="slide item 1" style="width: 80px;" role="button" tabindex="0">
                                       <img
                                           src="` +
           data.image_url +
@@ -544,7 +544,7 @@ export const displayCarousel = (
       });
     }
 
-    strHTML += `</ul><button type="button" class="control-arrow control-next control-disabled"
+    strHTML += `</ul><button type="button" className="control-arrow control-next control-disabled"
                           aria-label="next slide / item"></button>
                   </div>
               </div>`;
@@ -566,36 +566,38 @@ export const displayClass = (divid, classArr, x) => {
 export const displaySection = (obj, side, x) => {
   let strHTML = '';
   if (obj.contentType == 'Image') {
-    strHTML += '<div class="flex">';
+    strHTML += '<div className="flex">';
     strHTML +=
       '<a title="' +
       obj.image_alt +
       '" href="' +
       obj.image_link +
-      '" class="hrefurl no-underline">';
+      '" className="hrefurl no-underline">';
     strHTML +=
-      '<img class="w-full" src="' +
+      '<img className="w-full" src="' +
       obj.image +
       '" alt="' +
       obj.image_alt +
       '" title="' +
       obj.image_alt +
       '">';
-    strHTML += '<div class="text-center w-full bg-gray-50">';
+    strHTML += '<div className="text-center w-full bg-gray-50">';
     if (obj.headline != '' && obj.headline != null)
       strHTML +=
-        '<div class="text-base font-semibold p-4">' + obj.headline + '</div>';
+        '<div className="text-base font-semibold p-4">' +
+        obj.headline +
+        '</div>';
     strHTML += '</div>';
 
     //strHTML += '</div>';
     strHTML += '</a>';
     strHTML += '</div>';
   } else {
-    strHTML += '<div class="p-4 lg:p-8 flex w-full items-center">';
-    strHTML += '<div class="w-full">';
-    strHTML += '<div class="text-sub-title">' + obj.headline + '</div>';
+    strHTML += '<div className="p-4 lg:p-8 flex w-full items-center">';
+    strHTML += '<div className="w-full">';
+    strHTML += '<div className="text-sub-title">' + obj.headline + '</div>';
     strHTML +=
-      '<div class="text-default-text mt-2">' + obj.description + '</div>';
+      '<div className="text-default-text mt-2">' + obj.description + '</div>';
     strHTML += '</div>';
     strHTML += '</div>';
   }

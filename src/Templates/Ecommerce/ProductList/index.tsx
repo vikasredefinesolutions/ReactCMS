@@ -2,14 +2,14 @@ import {
   ColorChangeHandler,
   FilterChangeHandler,
   FilterType,
-  ProductList as ProductListType,
+  ProductList as ProductListType
 } from '@type/productList.type';
 import { _ProductListProps } from '@type/slug.type';
 
-import { SpinnerComponent } from 'appComponents/ui/spinner';
 import ProductListController, {
-  productListPageData,
+  productListPageData
 } from 'Controllers/ProductListController';
+import { SpinnerComponent } from 'appComponents/ui/spinner';
 import { useTypedSelector } from 'hooks';
 import dynamic from 'next/dynamic';
 import { _Store } from 'page.config';
@@ -95,6 +95,8 @@ const Ecommerce_ProductList = (props: _props) => {
     Layout = Layout3;
   } else if (storeLayout === _Store.type4) {
     Layout = Layout1;
+  }else if (storeLayout === _Store.type22) {
+    Layout = Layout3;
   }
 
   if (totalCount > 0 && Layout) {

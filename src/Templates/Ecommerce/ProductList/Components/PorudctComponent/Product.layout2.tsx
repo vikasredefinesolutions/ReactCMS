@@ -38,7 +38,7 @@ const ProductLayout2 = ({
 
   return productView === 'grid' ? (
     <li className="text-center relative border border-gray-100 hover:border-gray-300 hover:shadow-md pb-10">
-      <a  href={`${origin}/${product.sename}.html?v=product-detail&altview=1`} className="relative">
+      <Link  href={`${origin}/${product.sename}.html?v=product-detail&altview=1`} className="relative">
         <div className="w-full overflow-hidden aspect-w-1 aspect-h-1">
         <ImageComponent
           src={currentProduct.imageName}
@@ -49,12 +49,12 @@ const ProductLayout2 = ({
           key={currentProduct.id}
         />
       </div>
-      </a>
+      </Link>
       <div className="mt-6">
         <div className="hover:text-primary text-lg">
-          <a  href={`${origin}/${product.sename}.html?v=product-detail&altview=1`} className="relative">
+          <Link  href={`${origin}/${product.sename}.html?v=product-detail&altview=1`} className="relative">
             {product.name}
-          </a>
+          </Link>
         </div>
         <div className="mt-4 text-gray-900">
           <span className="font-bold">

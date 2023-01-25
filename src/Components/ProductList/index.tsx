@@ -79,7 +79,7 @@ const ProductList = ({
     Layout = Layout1;
   } else if (storeLayout === _Store.type2) {
     Layout = Layout2;
-  } else if (storeLayout === _Store.type3 || storeLayout === _Store.type22) {
+  } else if (storeLayout === _Store.type3 || storeLayout === _Store.type22 || storeLayout === _Store.type5) { 
     Layout = Layout3;
   } else if (storeLayout === _Store.type4) {
     Layout = Layout4;
