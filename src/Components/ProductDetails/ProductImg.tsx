@@ -69,7 +69,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
             />
           </div>
           {/* Images to select */}
-          <div className='sub-image md:absolute md:left-2 md:top-4 md:w-20 md:block'>
+          <div className='sub-image absolute left-2 top-4 w-20 block'>
             {selectedColor?.moreImages
               ?.map((img, index) => ({ ...img, id: index }))
               .map((img) => {
