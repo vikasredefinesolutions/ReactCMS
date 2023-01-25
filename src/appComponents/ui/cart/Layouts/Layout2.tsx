@@ -74,7 +74,7 @@ const CartLayout2 = ({
                 </h2>
 
                 <ul role="list" className=" overflow-hidden">
-                  {cartProducts.map((product: any, index: number) => (
+                  {products.map((product: any, index: number) => (
                     <li key={index} className="flex flex-wrap py-5 -mx-3">
                       <div className="w-full lg:w-1/3 px-3">
                         <ImageComponent

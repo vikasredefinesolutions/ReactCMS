@@ -45,7 +45,13 @@ const Ecommerce_Header: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
-  if (storeLayout === _Store.type1) {
+  // alert(storeLayout === _Store.type1 || storeLayout === _Store.type15 || storeLayout === _Store.type16);
+
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     return (
       <section className='bg-white sticky top-0 z-40'>
         <div className='bg-white'>
@@ -129,9 +135,9 @@ const Ecommerce_Header: React.FC = () => {
                         headerdata={headerdata?.config_value}
                       />
                     )}
-                    <div className="flex items-center justify-end">
-                      <div className="flex items-center">
-                        <div className="flex items-center space-x-3">
+                    <div className='flex items-center justify-end'>
+                      <div className='flex items-center'>
+                        <div className='flex items-center space-x-3'>
                           {userId ? <LoggedInMenu /> : <LoginIcon />}
                           {userId ? <CompareIcon /> : ''}
                           <WishListIcon />

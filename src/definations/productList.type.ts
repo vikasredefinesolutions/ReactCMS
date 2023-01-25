@@ -194,6 +194,13 @@ export type FilterType = Array<{
     displayOrder: number;
     colorCode: string;
     sename?: string;
+    subrows?: {
+      id: number;
+      name: string;
+      productCount: number;
+      displayOrder: number;
+      sename: string;
+    }[];
   }>;
 }>;
 

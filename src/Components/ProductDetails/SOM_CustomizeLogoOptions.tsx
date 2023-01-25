@@ -2,27 +2,56 @@ import { FieldArray, Form, Formik } from 'formik';
 import { useActions, useTypedSelector } from 'hooks';
 import { IndexLabels, logoPositions } from 'mock/startModal.mock';
 import React, { useState } from 'react';
-import LogoOption from './LogoOption';
 import NextLogoButton from './NextLogoButton';
+import SOM_LogoOption from './SOM_LogoOption';
 
-const CustomizeLogoOptions: React.FC = () => {
-  const { clearLogoUploadHistory, toggleNextLogoButton } = useActions();
+const SOM_CustomizeLogoOptions: React.FC = () => {
+  const { product_updateLogoDetails } = useActions();
   const [nowOrLater, setNowOrLater] = useState<'later' | 'now'>('later');
-  const { currency } = useTypedSelector((state) => state.product.toCheckout);
+  const { currency } = useTypedSelector(state => state.store)
 
   const showPrice = (price: 'FREE' | number) => {
     if (price === 'FREE') return `FREE`;
     return `${currency}${price}`;
   };
 
+  const logoNowOrLaterHandler = (action: 'now' | 'later') => {
+    if (action === 'later') {
+      product_updateLogoDetails({
+        type: 'Upload_Logo',
+        logo: 'Customize Later',
+      })
+      setNowOrLater('later')
+
+      return;
+    }
+
+    if (action === 'now') {
+      setNowOrLater('now');
+      product_updateLogoDetails({
+        type: 'Reset_Locations',
+        data: logoPositions.map((logo) => ({
+          image: {
+            url: logo.image.url,
+            alt: logo.image.alt,
+          },
+          label: logo.label,
+          value: logo.value,
+        })),
+      })
+
+      return;
+    }
+  }
+
+
   return (
     <div className="mb-6">
       <div className="">
         <label
           htmlFor="logo_later"
-          className={`block p-2 border mb-1 ${
-            nowOrLater === 'later' ? 'border-secondary' : 'border-slate-200'
-          }`}
+          className={`block p-2 border mb-1 ${nowOrLater === 'later' ? 'border-secondary' : 'border-slate-200'
+            }`}
         >
           <input
             type="radio"
@@ -30,15 +59,14 @@ const CustomizeLogoOptions: React.FC = () => {
             name="customize_logo"
             id="logo_later"
             checked={nowOrLater === 'later'}
-            onChange={() => setNowOrLater('later')}
+            onChange={() => logoNowOrLaterHandler('later')}
           />
           Customize Logo Later with Dedicated Account Specialist
         </label>
         <label
           htmlFor="logo_now"
-          className={`block p-2 border mb-1 ${
-            nowOrLater === 'now' ? 'border-secondary' : 'border-slate-200'
-          }`}
+          className={`block p-2 border mb-1 ${nowOrLater === 'now' ? 'border-secondary' : 'border-slate-200'
+            }`}
         >
           <input
             type="radio"
@@ -46,18 +74,7 @@ const CustomizeLogoOptions: React.FC = () => {
             name="customize_logo"
             id="logo_now"
             checked={nowOrLater === 'now'}
-            onChange={() => {
-              setNowOrLater('now');
-              clearLogoUploadHistory(
-                logoPositions.map((logo) => ({
-                  logo: {
-                    url: logo.image.url,
-                  },
-                  label: logo.label,
-                  value: logo.value,
-                })),
-              );
-            }}
+            onChange={() => logoNowOrLaterHandler('now')}
           />
           Customize Logo Now
         </label>
@@ -67,7 +84,7 @@ const CustomizeLogoOptions: React.FC = () => {
               initialValues={{
                 logos: [''],
               }}
-              onSubmit={() => {}}
+              onSubmit={() => { }}
             >
               {({ values }) => {
                 return (
@@ -78,19 +95,22 @@ const CustomizeLogoOptions: React.FC = () => {
                         return (
                           <>
                             {values.logos?.map((val, index) => (
-                              <LogoOption
+                              <SOM_LogoOption
                                 key={index}
                                 index={index}
+                                textIndex={values.logos.length}
                                 price={IndexLabels[index].price}
                                 onRemove={() => {
                                   arrayHelpers.remove(index);
-                                  toggleNextLogoButton(true);
+                                  product_updateLogoDetails({
+                                    type: 'Allow_Next_Logo',
+                                    allow: true,
+                                  })
                                 }}
-                                title={`${
-                                  IndexLabels[index].label
-                                } Logo (${showPrice(
-                                  IndexLabels[index].price,
-                                )})`}
+                                title={`${IndexLabels[index].label
+                                  } Logo (${showPrice(
+                                    IndexLabels[index].price,
+                                  )})`}
                                 id={`${index}-id`}
                                 name={`${index}-name`}
                               />
@@ -114,4 +134,4 @@ const CustomizeLogoOptions: React.FC = () => {
   );
 };
 
-export default CustomizeLogoOptions;
+export default SOM_CustomizeLogoOptions;

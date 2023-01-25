@@ -20,9 +20,13 @@ const ProductDetailsPageBanner = (slug: any) => {
     }
   }, [storeId]);
   if (banner === null || banner.length < 1) {
-    return <>Loading Banner....</>;
+    return <></>;
   }
-  if (storeLayout === _Store.type1) {
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     return (
       <>
         {/* <AskToLogin /> */}

@@ -1,9 +1,9 @@
-import { addCustomEvents } from 'helpers/common.helper';
-import { useTypedSelector } from 'hooks';
-import React, { useEffect } from 'react';
 import Corporate_Layout from 'Templates/CorporateStore/Layout';
 import Ecommerce_Layout from 'Templates/Ecommerce/Layout/Ecommerce_Layout_View';
 import StoreBuilder_Layout from 'Templates/StoreBuilder/Layout';
+import { addCustomEvents } from 'helpers/common.helper';
+import { useTypedSelector } from 'hooks';
+import React, { useEffect } from 'react';
 
 interface _props {
   children: React.ReactNode;

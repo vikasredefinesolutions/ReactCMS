@@ -1,94 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
-import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import config from 'api.config';
 import { _ProductColor } from 'definations/APIs/colors.res';
-import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
+import { updatedLogosHandler } from './product.slice.helper';
+import {
+  _ProductStore,
+  _Product_SetValues_Action,
+  _Product_UpdateLogoDetails_Actions,
+  _UpdateProperties_Action,
+} from './product.slice.types';
 
 // Define a type for the slice state
-interface toCheckout {
-  minQtyCheck: boolean;
-  minQty: number;
-  totalQty: number;
-  price: number;
-  totalPrice: number;
-  currency: string;
-  additionalLogoCharge: number;
-  availableOptions:
-    | { value: string; label: string; logo: { url: string } }[]
-    | null;
-  allowNextLogo: boolean;
-  logo: {
-    price: Array<number | 'FREE'> | null;
-  };
-  sizeQtys:
-    | {
-        size: string;
-        qty: number;
-        price: number;
-        color?: string | undefined;
-      }[]
-    | null;
-  logos:
-    | {
-        no: number;
-        logo: {
-          url: string;
-          name: string;
-        };
-        location: {
-          label: string;
-          value: string;
-          imageUrl: string;
-        };
-      }[]
-    | null;
-  lines:
-    | {
-        line1: string;
-        line2: string;
-        color: string;
-        font: string;
-        price: number;
-      }[]
-    | null;
-  chosenLogo: null | any[];
-}
-
-interface _ProductStore {
-  selected: {
-    productId: number;
-    image: {
-      id: number;
-      imageUrl: string;
-      altTag: string;
-    };
-    color: _ProductColor;
-    inventory: null | _ProductInventoryTransfomed;
-  };
-  product: {
-    id: number | null;
-    sizes: string;
-    discounts: _ProductDiscountTable | null;
-    sizeChart: _SizeChartTransformed | null;
-    inventory: null | _ProductInventoryTransfomed;
-    price: {
-      msrp: number;
-      ourCost: number;
-      salePrice: number;
-    } | null;
-    customization: boolean;
-    name: string | null;
-    colors: _ProductColor[] | null;
-    brand: {
-      id: number | null;
-      name: string | null;
-      url: string | null;
-    } | null;
-  };
-  toCheckout: toCheckout;
-}
 
 // Define the initial state using that type
 const initialState: _ProductStore = {
@@ -115,7 +38,7 @@ const initialState: _ProductStore = {
           id: 0,
         },
       ],
-      minQuantity: 5,
+      minQuantity: 1,
       multipleQuantity: 0,
     },
   },
@@ -129,50 +52,31 @@ const initialState: _ProductStore = {
     price: null,
     discounts: null,
     name: null,
-    customization:false
+    customization: false,
   },
   toCheckout: {
-    minQty: 2,
-    minQtyCheck: true,
+    minQty: 1,
+    allowAddToCart: false,
     totalQty: 0,
     price: 0,
     availableOptions: null,
-    currency: '$',
     sizeQtys: null,
     totalPrice: 0,
     additionalLogoCharge: 0,
     allowNextLogo: false,
     logo: { price: null },
     logos: null,
-    chosenLogo: null,
     lines: null,
   },
+  som_logos: {
+    prices: null,
+    details: null,
+    allowNextLogo: false,
+    availableOptions: null,
+    additionalLogoCharge: 0,
+    choosedLogoCompletionPending: null,
+  },
 };
-
-interface _updateDiscountTablePrices {
-  type: 'DISOCUNT_TABLE_PRICES';
-  data: _ProductDiscountTable | null;
-}
-
-interface _updateInventoryList {
-  type: 'INVENTORY_LIST';
-  data: null | _ProductInventoryTransfomed;
-}
-
-interface _UpdateProperties_Action {
-  payload: _updateDiscountTablePrices | _updateInventoryList;
-}
-
-interface _SetValue_MinQty {
-  type: 'MINIMUM_QTY';
-  data: {
-    qty: number;
-  };
-}
-
-interface _Product_SetValues_Action {
-  payload: _SetValue_MinQty;
-}
 
 export const productSlice = createSlice({
   name: 'product',
@@ -181,16 +85,141 @@ export const productSlice = createSlice({
     product_storeData: (state, { payload }: _UpdateProperties_Action) => {
       if (payload.type === 'DISOCUNT_TABLE_PRICES') {
         state.product.discounts = payload.data;
+        return;
       }
 
       if (payload.type === 'INVENTORY_LIST') {
         state.product.inventory = payload.data;
+        return;
       }
     },
 
     product_setValues: (state, { payload }: _Product_SetValues_Action) => {
       if (payload.type === 'MINIMUM_QTY') {
         state.toCheckout.minQty = payload.data.qty;
+        return;
+      }
+    },
+
+    product_updateLogoDetails: (
+      state,
+      { payload }: _Product_UpdateLogoDetails_Actions,
+    ) => {
+      if (payload.type === 'Location_Update_Pending') {
+        state.som_logos.choosedLogoCompletionPending = payload.pending;
+      }
+
+      if (payload.type === 'Upload_Logo') {
+        if (payload.logo === 'Customize Later') {
+          state.som_logos = {
+            prices: null,
+            details: null,
+            allowNextLogo: false,
+            availableOptions: null,
+            additionalLogoCharge: state.som_logos.additionalLogoCharge,
+            choosedLogoCompletionPending: null,
+          };
+          return;
+        }
+
+        const upcomingLogo = payload.logo;
+        const oldLogos = state.som_logos.details;
+        const updatedLogos = updatedLogosHandler(oldLogos, upcomingLogo);
+        state.som_logos = {
+          ...state.som_logos,
+          details: updatedLogos,
+          choosedLogoCompletionPending: null,
+        };
+        return;
+      }
+
+      if (payload.type === 'Update_TotalPrice_ByLogo') {
+        const price = payload.logo.price === 'FREE' ? 0 : payload.logo.price;
+        const addOrSubtract = payload.logo.addOrSubtract;
+
+        if (addOrSubtract === 'add') {
+          state.toCheckout = {
+            ...state.toCheckout,
+            additionalLogoCharge:
+              state.toCheckout.additionalLogoCharge +
+              price * state.toCheckout.totalQty,
+            totalPrice:
+              state.toCheckout.totalPrice + price * state.toCheckout.totalQty,
+            logo: {
+              price: state.toCheckout.logo.price
+                ? [...state.toCheckout.logo.price, payload.logo.price]
+                : [payload.logo.price],
+            },
+          };
+        }
+
+        if (addOrSubtract === 'subtract') {
+          const remainingPrices = state.toCheckout.logo.price?.filter(
+            (price, index) => {
+              if (index === payload.logo.index) return false;
+              return true;
+            },
+          );
+
+          state.toCheckout = {
+            ...state.toCheckout,
+            additionalLogoCharge:
+              state.toCheckout.additionalLogoCharge -
+              price * state.toCheckout.totalQty,
+            totalPrice:
+              state.toCheckout.totalPrice - price * state.toCheckout.totalQty,
+            logo: {
+              price: remainingPrices || null,
+            },
+          };
+        }
+        return;
+      }
+
+      if (payload.type === 'Allow_Next_Logo') {
+        state.som_logos = {
+          ...state.som_logos,
+          allowNextLogo: payload.allow,
+          choosedLogoCompletionPending: null,
+        };
+        return;
+      }
+
+      if (payload.type === 'Update_Location_Options') {
+        const addOrRemove = payload.location.addOrRemove;
+
+        if (addOrRemove === 'REMOVE') {
+          state.som_logos.availableOptions =
+            state.som_logos.availableOptions?.filter(
+              (opt) => opt.value !== payload.location.value,
+            ) || null;
+          state.som_logos.allowNextLogo = true;
+        }
+
+        if (addOrRemove === 'ADD') {
+          state.som_logos.availableOptions?.push({
+            label: payload.location.label,
+            value: payload.location.value,
+            image: payload.location.image,
+          });
+          state.som_logos.allowNextLogo = true;
+        }
+
+        return;
+      }
+
+      if (payload.type === 'Reset_Locations') {
+        state.som_logos = {
+          prices: null,
+          details: null,
+          allowNextLogo: false,
+          availableOptions: payload.data,
+          choosedLogoCompletionPending: null,
+
+          // Do not reset below states
+          additionalLogoCharge: state.som_logos.additionalLogoCharge,
+        };
+        return;
       }
     },
 
@@ -272,7 +301,7 @@ export const productSlice = createSlice({
       state.product.sizes = action.payload.product.sizes;
       state.product.sizeChart = action.payload.product.sizeChart;
       state.product.colors = action.payload.product.colors;
-      state.product.customization=action.payload.product.customization
+      state.product.customization = action.payload.product.customization;
     },
 
     toggleNextLogoButton: (state, action: { payload: boolean }) => {
@@ -292,20 +321,17 @@ export const productSlice = createSlice({
 
     clearToCheckout: (state) => {
       state.toCheckout = {
+        ...state.toCheckout,
         logos: null,
         totalQty: 0,
         price: 0,
-        minQty: 0,
-        minQtyCheck: false,
+        allowAddToCart: false,
         availableOptions: null,
-        currency: '$',
         sizeQtys: null,
         totalPrice: 0,
-        additionalLogoCharge: 0,
         allowNextLogo: false,
         logo: { price: null },
         lines: null,
-        chosenLogo: null,
       };
     },
 
@@ -408,6 +434,72 @@ export const productSlice = createSlice({
       state.toCheckout.availableOptions = action.payload;
     },
 
+    updateQuantitieSingle: (
+      state,
+      action: {
+        payload: {
+          size: string;
+          qty: number;
+          price: number;
+        };
+      },
+    ) => {
+      let productName = action.payload.size;
+      let productPrice = action.payload.price;
+      let productQty = action.payload.qty;
+      let totalQty = 0;
+      let updatedSizeQtys;
+
+        // IT CHECKOUT ARRAY DO NOT EXIST
+        updatedSizeQtys = [
+          {
+            size: productName,
+            qty: productQty,
+            price: productPrice,
+          },
+        ];
+        totalQty = productQty;
+      
+
+      // LOGO CHARGE
+      let updateAdditionalLogoCharge = 0;
+      state.toCheckout.logo?.price?.forEach((price) => {
+        if (price === 'FREE') return (updateAdditionalLogoCharge += 0);
+        return (updateAdditionalLogoCharge += price * totalQty);
+      });
+
+      if (totalQty >= state.toCheckout.minQty) {
+        state.toCheckout.allowAddToCart = true;
+      }
+
+      if (totalQty < state.toCheckout.minQty) {
+        state.toCheckout.allowAddToCart = false;
+      }
+
+      const allDiscounts = state.product.discounts;
+      let foundThePrice = false;
+
+      allDiscounts?.subRows.forEach((discount) => {
+        if (foundThePrice) return;
+        const bulkQtyDiscount = +discount.displayQuantity.split('+')[0];
+        if (totalQty >= bulkQtyDiscount) {
+          productPrice = +discount.discountPrice;
+        } else {
+          foundThePrice = true;
+        }
+      });
+
+      // TOTAL PRICE
+      let totalPrice = totalQty * productPrice + updateAdditionalLogoCharge;
+
+      // STATE UPDATES
+      state.toCheckout.additionalLogoCharge = updateAdditionalLogoCharge;
+      state.toCheckout.sizeQtys = updatedSizeQtys || null;
+      state.toCheckout.price = productPrice;
+      state.toCheckout.totalQty = totalQty;
+      state.toCheckout.totalPrice = totalPrice;
+    },
+
     updateQuantities: (
       state,
       action: {
@@ -471,11 +563,11 @@ export const productSlice = createSlice({
       });
 
       if (totalQty >= state.toCheckout.minQty) {
-        state.toCheckout.minQtyCheck = true;
+        state.toCheckout.allowAddToCart = true;
       }
 
       if (totalQty < state.toCheckout.minQty) {
-        state.toCheckout.minQtyCheck = false;
+        state.toCheckout.allowAddToCart = false;
       }
 
       const allDiscounts = state.product.discounts;
@@ -565,11 +657,11 @@ export const productSlice = createSlice({
       // });
 
       // if (totalQty >= state.toCheckout.minQty) {
-      //   state.toCheckout.minQtyCheck = true;
+      //   state.toCheckout.allowAddToCart = true;
       // }
 
       // if (totalQty < state.toCheckout.minQty) {
-      //   state.toCheckout.minQtyCheck = false;
+      //   state.toCheckout.allowAddToCart = false;
       // }
       // TOTAL PRICE
 
@@ -586,7 +678,6 @@ export const productSlice = createSlice({
         }
       });
 
-
       let totalPrice =
         totalQty * state.toCheckout.price + updateAdditionalLogoCharge;
 
@@ -602,7 +693,7 @@ export const productSlice = createSlice({
       action: {
         payload: {
           location: {
-            imageUrl : string,
+            imageUrl: string;
             label: string;
             value: string;
           };
@@ -623,7 +714,7 @@ export const productSlice = createSlice({
             name: upcomingLogo?.name || '',
           },
           location: upcomingLogo.location || {
-            imageUrl : '',
+            imageUrl: '',
             label: '',
             value: '',
           },
@@ -659,7 +750,7 @@ export const productSlice = createSlice({
               name: upcomingLogo?.name || '',
             },
             location: upcomingLogo.location || {
-              imageUrl : '',
+              imageUrl: '',
               value: '',
               label: '',
             },

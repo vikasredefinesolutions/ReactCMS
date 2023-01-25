@@ -1,6 +1,6 @@
 // import { FieldArrayRenderProps } from 'formik';
+import { useTypedSelector } from 'hooks';
 import React from 'react';
-import { useActions, useTypedSelector } from 'hooks';
 
 interface _props {
   cIndex: {
@@ -12,10 +12,10 @@ interface _props {
 }
 
 const NextLogoButton: React.FC<_props> = ({ cIndex, arrayHelpers }) => {
-  const { toggleNextLogoButton } = useActions();
-  const { allowNextLogo, currency } = useTypedSelector(
-    (state) => state.product.toCheckout,
+  const { allowNextLogo } = useTypedSelector(
+    (state) => state.product.som_logos,
   );
+  const { currency } = useTypedSelector(state => state.store)
 
   const showPrice = (price: 'FREE' | number) => {
     if (price === 'FREE') return `FREE`;
@@ -30,7 +30,6 @@ const NextLogoButton: React.FC<_props> = ({ cIndex, arrayHelpers }) => {
             className="text-indigo-600 font-semibold"
             onClick={() => {
               arrayHelpers.push('');
-              toggleNextLogoButton(false);
             }}
             type="button"
           >

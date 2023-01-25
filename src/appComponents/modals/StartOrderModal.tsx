@@ -1,22 +1,18 @@
+import { FetchInventoryById } from '@services/product.service';
+import Price from 'appComponents/reUsable/Price';
 import AskToLogin from 'Components/ProductDetails/AskToLogin';
 import CalculativeFigure from 'Components/ProductDetails/CalculativeFigure';
-import CustomizeLogoOptions from 'Components/ProductDetails/CustomizeLogoOptions';
 import DiscountPricing from 'Components/ProductDetails/DiscountPricing';
 import ProductSKU from 'Components/ProductDetails/ProductSKU';
 import SizePriceQtyTable from 'Components/ProductDetails/SizePriceQtyTable';
+import SOM_ActionsHandler from 'Components/ProductDetails/SOM_ActionsHandler';
+import SOM_CustomizeLogoOptions from 'Components/ProductDetails/SOM_CustomizeLogoOptions';
+import StartOrderAvailableColors from 'Components/ProductDetails/StartOrderAvailableColors';
+import { _CartItem } from 'definations/APIs/cart.res';
 import { _ProductDetails } from 'definations/APIs/productDetail.res';
 import { _modals } from 'definations/product.type';
 import { useActions, useTypedSelector } from 'hooks';
 import React, { useEffect, useRef, useState } from 'react';
-// import { AddToCart } from 'services/user.service';
-import { __Cookie } from '@constants/global.constant';
-import { addToCart } from '@services/cart.service';
-import { FetchInventoryById } from '@services/product.service';
-import Price from 'appComponents/reUsable/Price';
-import StartOrderAvailableColors from 'Components/ProductDetails/StartOrderAvailableColors';
-import { _CartItem } from 'definations/APIs/cart.res';
-import { getAddToCartObject, setCookie } from 'helpers/common.helper';
-import { highLightError } from 'helpers/global.console';
 
 interface _props {
   product: _ProductDetails;
@@ -25,77 +21,30 @@ interface _props {
   editDetails?: _CartItem;
 }
 
-const StartOrderModal: React.FC<_props> = (props) => {
+const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
   const { product, modalHandler } = props;
+  const {
+    clearToCheckout,
+    setShowLoader,
+    product_storeData,
+  } = useActions();
 
   // ----------------------------STATES ---------------------------------------
   const [allColors, showAllColors] = useState<boolean>(false);
-  const {
-    clearToCheckout,
-    showModal,
-    setShowLoader,
-    product_storeData,
-    fetchCartDetails,
-  } = useActions();
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
 
   const { name: colorName } = useTypedSelector(
     (state) => state.product.selected.color,
   );
-  const toCheckout = useTypedSelector((state) => state.product.toCheckout);
+  const { toCheckout } = useTypedSelector((state) => state.product);
   const { colors, inventory: allColorsInventory } = useTypedSelector(
     (state) => state.product.product,
   );
-  const customerId = useTypedSelector((state) => state.user.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
   const customizationEnable = useTypedSelector((state) => state.product.product.customization)
 
-  const addToCartHandler = async () => {
-    const note = textRef.current?.value;
 
-    const { sizeQtys, totalPrice, totalQty } = toCheckout;
-    const cartObject = await getAddToCartObject({
-      userId: customerId || 0,
-      note: note || '',
-      sizeQtys: sizeQtys,
-      productDetails: selectedProduct,
-      total: {
-        totalPrice,
-        totalQty,
-      },
-    });
-    if (toCheckout.minQtyCheck ? totalQty < selectedProduct.color.minQuantity : totalQty < 1) {
-      modalHandler(null)
-      showModal({
-        message: `The minimum order for this color is ${toCheckout.minQtyCheck ? selectedProduct.color.minQuantity : 1} pieces. Please increase your quantity and try again.`,
-        title: 'Success',
-      });
-      return;
-    }
-
-    if (cartObject) {
-      try {
-        let c_id = customerId;
-        const res = await addToCart(cartObject);
-
-        if (!customerId) {
-          c_id = res;
-          setCookie(__Cookie.tempCustomerId, res, 7);
-        }
-        fetchCartDetails(c_id || 0);
-        showModal({
-          message: 'Added to cart Successfully',
-          title: 'Success',
-        });
-      } catch (error) {
-        highLightError({ error, component: 'StartOrderModal' });
-      }
-    }
-
-    modalHandler(null);
-    // router.push('/cart');
-  };
 
   useEffect(() => {
     setShowLoader(false);
@@ -191,6 +140,7 @@ const StartOrderModal: React.FC<_props> = (props) => {
                     <DiscountPricing
                       storeCode={storeLayout!}
                       showMsrpLine={false}
+                      price={{ msrp: product.msrp, salePrice: product.salePrice }}
                     />
                     <AskToLogin modalHandler={modalHandler} />
                   </div>
@@ -198,7 +148,7 @@ const StartOrderModal: React.FC<_props> = (props) => {
 
                 {/* -------------------------------------------INVENTORY TABLE ------------------------------------------ */}
                 <SizePriceQtyTable />
-                {customizationEnable && <CustomizeLogoOptions />}
+                {customizationEnable && <SOM_CustomizeLogoOptions />}
                 <CalculativeFigure />
 
                 <div className=''>
@@ -214,22 +164,7 @@ const StartOrderModal: React.FC<_props> = (props) => {
                   ></textarea>
                 </div>
               </div>
-              <div className='p-6 pt-0'>
-                <button
-                  onClick={addToCartHandler}
-                  type='button'
-                  className='btn btn-lg btn-secondary !flex items-center justify-center w-full uppercase mb-2'
-                >
-                  Add to Cart
-                </button>
-                <button
-                  onClick={() => modalHandler(null)}
-                  type='button'
-                  className='block w-full text-gray-500 hover:text-gray-700'
-                >
-                  Cancel
-                </button>
-              </div>
+              <SOM_ActionsHandler closeStartOrderModal={() => modalHandler(null)} note={textRef.current?.value || ''} />
             </div>
           )}
         </div>
@@ -238,4 +173,4 @@ const StartOrderModal: React.FC<_props> = (props) => {
   );
 };
 
-export default StartOrderModal;
+export default Ecommerce_StartOrderModal;

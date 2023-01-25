@@ -23,7 +23,11 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(+event.target.value);
 
-    if (storeCode === _Store.type1) {
+    if (
+      storeCode === _Store.type1 ||
+      storeCode === _Store.type15 ||
+      storeCode === _Store.type16
+    ) {
       updateQuantities({
         size: size,
         qty: +event.target.value,
@@ -41,14 +45,15 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
 
   if (storeCode === _Store.type4) {
     return (
-      <div className="">
+      <div className=''>
         <input
-          type="number"
-          name="qty"
+          type='number'
+          name='qty'
           value={value}
           onChange={handleChange}
           min={0}
-          className="form-input"
+          max={qty}
+          className=' w-full'
           disabled={isDisabled}
         />
       </div>
@@ -56,36 +61,36 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
   }
 
   if (storeCode === _Store.type2) {
-    if (qty === 0) return <div className="">Call for Inventory</div>;
+    if (qty === 0) return <div className=''>Call for Inventory</div>;
 
     return (
-      <div className="">
+      <div className=''>
         <input
-          type="number"
-          name="qty"
+          type='number'
+          name='qty'
           value={value}
           onChange={handleChange}
           min={0}
-          className="border border-[#c2c2c2] px-2.5 py-1 w-20"
+          className='border border-[#c2c2c2] px-2.5 py-1 w-20'
         />
       </div>
     );
   }
 
   if (storeCode === _Store.type3) {
-    if (qty === 0) return <div className="">-</div>;
+    if (qty === 0) return <div className=''>-</div>;
     return (
-      <div className="w-20">
+      <div className='w-20'>
         <input
           // onFocus={() => setValue('')}
           // onBlur={() => setValue(value => value === '' ? 0 : value)}
-          type="number"
-          name="qty"
+          type='number'
+          name='qty'
           value={value}
           onChange={handleChange}
           min={0}
           max={qty}
-          className="form-input !pr-3  w-full"
+          className='form-input !pr-3  w-full'
         />
       </div>
     );

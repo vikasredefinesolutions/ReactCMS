@@ -3,11 +3,11 @@ import React from 'react';
 
 interface _props {
   value: number | string | undefined;
-  prices?: { msrp: number; ourCost: number; salePrice: number };
+  prices?: { msrp: number; ourCost?: number; salePrice: number };
   addColon?: boolean;
 }
 
-const Price: React.FC<_props> = ({ value, prices, addColon = true }) => {
+const Price: React.FC<_props> = ({ value, prices, addColon = false }) => {
   let priceToDisplay = 0;
 
   const currency = useTypedSelector((state) => state.store.currency);
@@ -19,10 +19,14 @@ const Price: React.FC<_props> = ({ value, prices, addColon = true }) => {
 
   if (prices && loggedIn) {
     if (prices?.salePrice < prices?.msrp) {
-      priceToDisplay = prices.salePrice;
+      priceToDisplay = +(prices.salePrice);
     } else {
-      priceToDisplay = prices.msrp;
+      priceToDisplay = +(prices.msrp);
     }
+  }
+
+  if (isNaN(priceToDisplay)) {
+    priceToDisplay = 0;
   }
 
   const toShow = priceToDisplay.toFixed(2);
@@ -30,16 +34,14 @@ const Price: React.FC<_props> = ({ value, prices, addColon = true }) => {
   if (addColon) {
     return (
       <>
-        : {currency}
-        {toShow}
+        {`: ${currency}${toShow}`}
       </>
     );
   }
 
   return (
     <>
-      {currency}
-      {toShow}
+      {`${currency}${toShow}`}
     </>
   );
 };

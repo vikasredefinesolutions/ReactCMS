@@ -38,7 +38,7 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
           sizes: product.details?.sizes || '',
           sizeChart: product.sizes || null,
           colors: product.colors || null,
-          customization:product.details?.isEnableLogolocation,
+          customization: product.details?.isEnableLogolocation,
           price:
             {
               msrp: product.details!.msrp,
@@ -181,6 +181,26 @@ const Ecommerce_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
           <ProductDescription
             heading='Description'
             text={product.details.description}
+            storeCode={product.storeCode}
+          />
+          <ProductAlike
+            storeCode={product.storeCode}
+            title='YOU MAY ALSO LIKE'
+            products={product.alike}
+          />
+          <ProductReviews reviews={null} storeCode={product.storeCode} />
+        </div>
+      </>
+    );
+  }
+
+  if (product.storeCode === _Store.type15) {
+    return (
+      <>
+        {HeadTag}
+        <div className={`font-Outfit`}>
+          <ProductDetails
+            product={product.details}
             storeCode={product.storeCode}
           />
           <ProductAlike

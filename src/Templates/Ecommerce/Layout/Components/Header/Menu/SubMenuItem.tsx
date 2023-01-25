@@ -15,20 +15,24 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
   );
   const { toggleSideMenu } = useActions();
 
-  if (storeLayout === _Store.type1) {
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     if (type === 'BRAND') {
       if (view === 'MOBILE') {
         return (
           <li
-            className="w-full flex items-center"
+            className='w-full flex items-center'
             onClick={() => toggleSideMenu('CLOSE')}
           >
-            <span className="material-icons-outlined text-lg">
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -37,13 +41,13 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
       }
       if (view === 'DESKTOP') {
         return (
-          <li className="flex items-center">
-            <span className="material-icons-outlined text-lg">
+          <li className='flex items-center'>
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -56,15 +60,15 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
       if (view === 'MOBILE') {
         return (
           <li
-            className="w-full lg:w-1/2 flex items-center"
+            className='w-full lg:w-1/2 flex items-center'
             onClick={() => toggleSideMenu('CLOSE')}
           >
-            <span className="material-icons-outlined text-lg">
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -74,13 +78,13 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
 
       if (view === 'DESKTOP') {
         return (
-          <li className="w-full lg:w-1/2 flex items-center">
-            <span className="material-icons-outlined text-lg">
+          <li className='w-full lg:w-1/2 flex items-center'>
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -95,12 +99,12 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
       if (view === 'MOBILE' || view === 'DESKTOP') {
         return (
           <li
-            className="flex items-center"
+            className='flex items-center'
             onClick={() => toggleSideMenu('CLOSE')}
           >
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -115,12 +119,12 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
       if (view === 'MOBILE') {
         return (
           <li
-            className="flex items-center"
+            className='flex items-center'
             onClick={() => toggleSideMenu('CLOSE')}
           >
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -129,13 +133,13 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
       }
       if (view === 'DESKTOP') {
         return (
-          <li className="w-full lg:w-1/2 flex items-center">
-            <span className="material-icons-outlined text-lg">
+          <li className='w-full lg:w-1/2 flex items-center'>
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -147,12 +151,12 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
       if (view === 'MOBILE') {
         return (
           <li
-            className="flex items-center"
+            className='flex items-center'
             onClick={() => toggleSideMenu('CLOSE')}
           >
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -161,13 +165,13 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
       }
       if (view === 'DESKTOP') {
         return (
-          <li className="w-full lg:w-1/2 flex items-center">
-            <span className="material-icons-outlined text-lg">
+          <li className='w-full lg:w-1/2 flex items-center'>
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -182,15 +186,15 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
       if (view === 'MOBILE') {
         return (
           <li
-            className="w-full lg:w-1/3 flex items-center"
+            className='w-full lg:w-1/3 flex items-center'
             onClick={() => toggleSideMenu('CLOSE')}
           >
-            <span className="material-icons-outlined text-lg">
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -200,13 +204,13 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
 
       if (view === 'DESKTOP') {
         return (
-          <li className="flex items-center">
-            <span className="material-icons-outlined text-lg">
+          <li className='flex items-center'>
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -218,15 +222,15 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
       if (view === 'MOBILE') {
         return (
           <li
-            className="w-full lg:w-1/3 flex items-center"
+            className='w-full lg:w-1/3 flex items-center'
             onClick={() => toggleSideMenu('CLOSE')}
           >
-            <span className="material-icons-outlined text-lg">
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>
@@ -236,13 +240,13 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
 
       if (view === 'DESKTOP') {
         return (
-          <li className="w-full lg:w-1/2 flex items-center">
-            <span className="material-icons-outlined text-lg">
+          <li className='w-full lg:w-1/2 flex items-center'>
+            <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>
             <Link
               href={`/${itemUrl}`}
-              className="text-anchor hover:text-anchor-hover"
+              className='text-anchor hover:text-anchor-hover'
             >
               {itemLabel}
             </Link>

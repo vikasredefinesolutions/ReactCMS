@@ -30,7 +30,10 @@ export const FetchFeaturedProducts = async (payload: {
   return response;
 };
 
-export const getPageComponents = async (payload: { pageId: number, type: string }) => {
+export const getPageComponents = async (payload: {
+  pageId: number;
+  type: string;
+}) => {
   const url = `CmsComponents/getpagecomponents.json`;
 
   const response = await CallCmsAPI<any>({
@@ -39,10 +42,11 @@ export const getPageComponents = async (payload: { pageId: number, type: string 
       api: 'getPageComponents',
     },
     request: {
-       url: url,
+      url: url,
       method: 'POST',
       data: payload,
     },
   });
+
   return response;
 };

@@ -12,7 +12,11 @@ interface _Props {
 const ProductDetails: React.FC<_Props> = ({ product, storeCode }) => {
   // const show = useTypedSelector((state) => state.store.display.footer);
 
-  if (storeCode === _Store.type1) {
+  if (
+    storeCode === _Store.type1 ||
+    storeCode === _Store.type15 ||
+    storeCode === _Store.type16
+  ) {
     return (
       <div className='container mx-auto mt-6'>
         <div className='lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start'>
@@ -68,6 +72,17 @@ const ProductDetails: React.FC<_Props> = ({ product, storeCode }) => {
           </div>
         </div>
       </section>
+    );
+  }
+
+  if (storeCode === _Store.type15) {
+    return (
+      <div className='container mx-auto mt-6'>
+        <div className='lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start'>
+          <ProductImg product={product} storeCode={storeCode} />
+          <ProductInfo product={product} storeCode={storeCode} />
+        </div>
+      </div>
     );
   }
 

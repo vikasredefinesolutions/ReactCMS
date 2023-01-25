@@ -5,6 +5,7 @@ export interface _InCart_productAttributes_model {
   qty: number;
   priceOfqty: number;
   minQtyRequired: number;
+  attributeOptionId: number;
 }
 
 export interface _InCart_Product_model {
@@ -86,6 +87,7 @@ export interface _cart_updateProduct_qty_model {
 export interface _cart_addProduct_model {
   type: 'add_item';
   data: {
+    cartItemId: number;
     itemType: 'product';
     seName: string;
     colorImageURL: string;
@@ -132,6 +134,7 @@ export interface _cart_updateGift_qty_model {
 export interface _cart_addGift_model {
   type: 'add_item';
   data: {
+    cartItemId: number;
     itemType: 'giftCard';
     giftId: number;
     qty: number;

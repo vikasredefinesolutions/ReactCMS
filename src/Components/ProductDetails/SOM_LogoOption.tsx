@@ -1,5 +1,7 @@
 import { UploadImage } from '@services/file.service';
+import config from 'api.config';
 import { useActions, useTypedSelector } from 'hooks';
+import { IndexLabels } from 'mock/startModal.mock';
 import React, { useEffect, useState } from 'react';
 
 const dummyLogoImage = 'images/logo-to-be-submitted.webp';
@@ -9,29 +11,31 @@ interface _props {
   title: string;
   id: string;
   name: string;
+  textIndex: number;
   price: 'FREE' | number;
   onRemove: () => void;
 }
 
-const LogoOption: React.FC<_props> = ({
+const SOM_LogoOption: React.FC<_props> = ({
   title,
   id,
   name,
   index,
-  price,
+  textIndex,
+  price: logoPrice,
   onRemove: removeHandler,
 }) => {
 
-  const selectedLogo = useTypedSelector(state => state.product.toCheckout.chosenLogo);
-  const { updatePriceByLogo, updateOptions } = useActions();
+  const { setShowLoader, showModal, product_updateLogoDetails } = useActions();
   const [logoStatus, setLogoStatus] = useState<null | 'submitted' | 'later'>(
     null,
   );
-  const [selected, setSelected] = useState<null | {
+  const [selectedLocation, setSelectedLocation] = useState<null | {
     label: string;
     value: string;
-    logo: {
+    image: {
       url: string;
+      alt: string;
     };
     show: boolean;
   }>(null);
@@ -43,46 +47,72 @@ const LogoOption: React.FC<_props> = ({
   } | null>(null);
 
   const availableOptions = useTypedSelector(
-    (state) => state.product.toCheckout.availableOptions,
+    (state) => state.product.som_logos.availableOptions,
   );
 
   const fileReader = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget?.files === null) return;
+    setShowLoader(true)
 
-    const file = {
-      name: event.currentTarget.files[0].name,
-      type: event.currentTarget.files[0].type,
-      previewURL: URL.createObjectURL(event.currentTarget.files[0]),
-    };
-    let logos: any[] = [];
-    if (selectedLogo) {
-      logos = [...selectedLogo];
-    }
-    const image = await UploadImage({ folderPath: '/rdc/1/store/4/images/', files: event.currentTarget?.files[0] });
-    let oldLogoIndex = logos?.findIndex(res => res.index === index && res.id === id);
+    try {
+      const file = {
+        name: event.currentTarget.files[0].name,
+        type: event.currentTarget.files[0].type,
+        previewURL: URL.createObjectURL(event.currentTarget.files[0]),
+      };
 
-    if (oldLogoIndex > -1) {
-      logos[oldLogoIndex] = { ...logos[oldLogoIndex], path: image }
-    } else {
-      logos.push({
-        index,
-        id,
-        path: image
+      const logoFileURL = await UploadImage({ folderPath: config.imageFolderPath, files: event.currentTarget?.files[0] });
+
+      product_updateLogoDetails({
+        type: 'Upload_Logo',
+        logo: {
+          status: 'LOGO SUBMITTED',
+          location: {
+            imageUrl: selectedLocation!.image.url,
+            name: selectedLocation!.label,
+            value: selectedLocation!.value,
+          },
+          title: file.name,
+          filePath: logoFileURL,
+          date: new Date(),
+          price: logoPrice === 'FREE' ? 0 : logoPrice,
+          quantity: 1,
+        }
+      })
+
+      setFileToUpload(file);
+      setLogoStatus('submitted');
+    } catch (error) {
+      showModal({
+        title: 'Error',
+        message: 'Something Went Wrong. Try again, later!!!'
       })
     }
-
-    setFileToUpload(file);
-    setLogoStatus('submitted');
+    setShowLoader(false)
   };
 
   const DisplayActions = () => {
     let text = <></>;
 
     const actionHandler = (action: null | 'later' | 'submitted' | '') => {
-      if (!selected?.value) return;
+      if (!selectedLocation?.value) return;
 
       if (action === 'later') {
         setLogoStatus('later');
+        product_updateLogoDetails({
+          type: 'Upload_Logo',
+          logo: {
+            status: 'WILL SUBMIT LATER',
+            location: {
+              imageUrl: selectedLocation!.image.url,
+              name: selectedLocation!.label,
+              value: selectedLocation!.value,
+            },
+            quantity: 1,
+            price: logoPrice === 'FREE' ? 0 : logoPrice,
+            date: new Date()
+          }
+        })
         return;
       }
       if (action === 'submitted') {
@@ -130,36 +160,60 @@ const LogoOption: React.FC<_props> = ({
 
   useEffect(() => {
     if (logoStatus === 'later' || logoStatus === 'submitted') {
-      updateOptions({
-        value: selected!.value,
-        label: selected!.label,
-        addOrRemove: 'REMOVE',
-        logo: selected!.logo,
-      });
 
-      setSelected((opt) => {
+      product_updateLogoDetails({
+        type: 'Update_Location_Options',
+        location: {
+          addOrRemove: 'REMOVE',
+          value: selectedLocation!.value,
+          label: selectedLocation!.label,
+          image: selectedLocation!.image
+        }
+      })
+
+      setSelectedLocation((opt) => {
         if (opt === null) return null;
         return { ...opt, show: true };
       });
     }
     return () => {
       if (logoStatus === 'later' || logoStatus === 'submitted') {
-        updateOptions({
-          value: selected!.value,
-          label: selected!.label,
-          addOrRemove: 'ADD',
-          logo: selected!.logo,
-        });
+        product_updateLogoDetails({
+          type: 'Location_Update_Pending',
+          pending: null
+        })
+
+        product_updateLogoDetails({
+          type: 'Update_Location_Options',
+          location: {
+            addOrRemove: 'ADD',
+            value: selectedLocation!.value,
+            label: selectedLocation!.label,
+            image: selectedLocation!.image
+          }
+        })
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logoStatus]);
 
   useEffect(() => {
-    updatePriceByLogo({ type: 'add', price, index });
+    product_updateLogoDetails({
+      type: 'Update_TotalPrice_ByLogo',
+      logo: {
+        addOrSubtract: 'add',
+        price: logoPrice, index
+      }
+    })
 
     return () => {
-      updatePriceByLogo({ type: 'subtract', price, index });
+      product_updateLogoDetails({
+        type: 'Update_TotalPrice_ByLogo',
+        logo: {
+          addOrSubtract: 'subtract',
+          price: logoPrice, index
+        }
+      })
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -188,24 +242,26 @@ const LogoOption: React.FC<_props> = ({
           id={name}
           className="block w-full border border-gray-600 shadow-sm text-sm py-1 px-2 pr-10"
           name={name}
-          disabled={selected?.show}
-          value={selected?.value || ''}
+          disabled={selectedLocation?.show}
+          value={selectedLocation?.value || ''}
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-            setSelected({
+            product_updateLogoDetails({
+              type: 'Location_Update_Pending',
+              pending: IndexLabels[textIndex - 1].label
+            })
+            setSelectedLocation({
               label: availableOptions!.find(
                 (opt) => opt.value === event.target.value,
               )!.label,
               value: event.target.value,
               show: false,
-              logo: availableOptions!.find(
-                (opt) => opt.value === event.target.value,
-              )!.logo,
+              image: availableOptions!.find(opt => opt.value === event.target.value)!.image
             });
           }}
         >
           <option value="">Select</option>
-          {selected?.show && (
-            <option value={selected?.value}>{selected?.label}</option>
+          {selectedLocation?.show && (
+            <option value={selectedLocation?.value}>{selectedLocation?.label}</option>
           )}
           {availableOptions?.map((location) => {
             return (
@@ -248,7 +304,7 @@ const LogoOption: React.FC<_props> = ({
               type="file"
               name={id}
               id={id}
-              // value={undefined}
+              value={logoStatus === null ? undefined : ''}
               className="sr-only"
               onChange={fileReader}
               accept={'image/*'}
@@ -260,4 +316,4 @@ const LogoOption: React.FC<_props> = ({
   );
 };
 
-export default LogoOption;
+export default SOM_LogoOption;

@@ -1,21 +1,49 @@
 import { CartProducts } from '@type/APIs/cart.res';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { CartReq, CouponReq } from 'definations/APIs/cart.req';
+import { CallAPI } from 'helpers/common.helper';
+
 import { conditionalLog } from 'helpers/global.console';
 import { SendAsyncV2 } from '../utils/axios.util';
+import { _AddToCart_Payload } from './product.service.type';
 
-export const fetchCart = async (
+export type _ShoppingCartAPIs = 'FetchCartDetails';
+
+export type _ShoppingCartService = {
+  service: 'ShoppingCart';
+  api: _ShoppingCartAPIs;
+};
+
+export const FetchCartDetails = async (
   customerId: number,
 ): Promise<CartProducts | null> => {
   const url = `/Store/GetShoppingCartItemsDetail/${customerId}.json`;
-  const res = await SendAsyncV2<CartProducts | null>({
+
+  const response = await CallAPI<CartProducts>({
+    name: {
+      service: 'ShoppingCart',
+      api: 'FetchCartDetails',
+    },
+    request: {
+      url: url,
+      method: 'GET',
+    },
+  });
+
+  return response;
+};
+
+export const addToCart = async (payload: CartReq) => {
+  const url = `/Store/addtocart.json`;
+  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
     url: url,
-    method: 'GET',
+    method: 'POST',
+    data: payload,
   });
   return res.data;
 };
 
-export const addToCart = async (payload: CartReq) => {
+export const AddItemsToTheCart = async (payload: _AddToCart_Payload) => {
   const url = `/Store/addtocart.json`;
   const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
     url: url,

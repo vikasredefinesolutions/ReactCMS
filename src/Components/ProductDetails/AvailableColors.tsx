@@ -19,15 +19,19 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
   const showAllColorsButton =
     colorsCount > __constant._productDetails.imagesInRow;
 
-  if (storeCode === _Store.type1) {
+  if (
+    storeCode === _Store.type1 ||
+    storeCode === _Store.type15 ||
+    storeCode === _Store.type16
+  ) {
     return (
       <div>
-        <div className="text-sm text-gray-600 bg-primary flex flex-wrap justify-between items-center p-2 md:p-0 md:pl-2 my-2">
-          <span className="text-lg font-bold text-white">
+        <div className='text-sm text-gray-600 bg-primary flex flex-wrap justify-between items-center p-2 md:p-0 md:pl-2 my-2'>
+          <span className='text-lg font-bold text-white'>
             Available Colors:
           </span>
         </div>
-        <div className="flex flex-wrap gap-5 text-sm text-center px-2 available-colors">
+        <div className='flex flex-wrap gap-5 text-sm text-center px-2 available-colors'>
           {colors.map((product, index) => {
             const show =
               showAllColors || index < __constant._productDetails.imagesInRow;
@@ -47,11 +51,11 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                   <Image
                     src={product.imageUrl}
                     alt={product.altTag}
-                    className="w-full object-center object-cover"
+                    className='w-full object-center object-cover'
                   />
                 </div>
                 <div
-                  className=""
+                  className=''
                   style={{
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -65,18 +69,18 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
           })}
         </div>
         {showAllColorsButton && (
-          <div className="text-right">
+          <div className='text-right'>
             <button
               onClick={() => setShowAllColors((showAll) => !showAll)}
-              className=""
+              className=''
             >
               {showAllColors ? (
-                <span className="span1">Show Less</span>
+                <span className='span1'>Show Less</span>
               ) : (
                 <>
-                  <span className="span1">See All</span>
-                  <span className="span2"> {colorsCount} </span>
-                  <span className="span3">Colors</span>
+                  <span className='span1'>See All</span>
+                  <span className='span2'> {colorsCount} </span>
+                  <span className='span3'>Colors</span>
                 </>
               )}
             </button>
@@ -89,16 +93,16 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
   if (storeCode === _Store.type2) {
     return (
       <>
-        <div className="text-black mb-5 flex items-center">
-          <span className="font-bold w-32">Color Name </span>
+        <div className='text-black mb-5 flex items-center'>
+          <span className='font-bold w-32'>Color Name </span>
           <span>: {selectedColor?.name}</span>
         </div>
-        <div className="flex justify-between flex-wrap items-end mb-5">
-          <div className="flex align-top">
-            <div className="w-32 flex flex-wrap items-center">
-              <span className="font-bold">Select Color</span>
+        <div className='flex justify-between flex-wrap items-end mb-5'>
+          <div className='flex align-top'>
+            <div className='w-32 flex flex-wrap items-center'>
+              <span className='font-bold'>Select Color</span>
             </div>
-            <div className="flex flex-wrap gap-1 text-sm text-center">
+            <div className='flex flex-wrap gap-1 text-sm text-center'>
               {colors.map((product) => {
                 const active =
                   product.attributeOptionId === selectedColor?.attributeOptionId
@@ -113,16 +117,16 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                     <Image
                       src={product.imageUrl}
                       alt={product.altTag}
-                      className="max-h-full mx-auto"
+                      className='max-h-full mx-auto'
                     />
                   </div>
                 );
               })}
             </div>
           </div>
-          <div className="">
+          <div className=''>
             <button onClick={() => setShowModal('sizeChart')}>
-              <img src="images/size-chart.jpg" alt="" />
+              <img src='images/size-chart.jpg' alt='' />
             </button>
           </div>
           {showModal && (
@@ -136,16 +140,16 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
   if (storeCode === _Store.type3) {
     return (
       <>
-        <div className="text-black mb-5 flex items-center">
-          <span className="font-bold w-32">Color Name </span>
+        <div className='text-black mb-5 flex items-center'>
+          <span className='font-bold w-32'>Color Name </span>
           <span>: {selectedColor?.name}</span>
         </div>
-        <div className="flex justify-between flex-wrap items-end mb-5">
-          <div className="flex align-top">
-            <div className="w-32 flex flex-wrap items-center">
-              <span className="font-bold">Select Color</span>
+        <div className='flex justify-between flex-wrap items-end mb-5'>
+          <div className='flex align-top'>
+            <div className='w-32 flex flex-wrap items-center'>
+              <span className='font-bold'>Select Color</span>
             </div>
-            <div className="flex flex-wrap gap-1 text-sm text-center">
+            <div className='flex flex-wrap gap-1 text-sm text-center'>
               {colors.map((product) => {
                 const active =
                   product.attributeOptionId === selectedColor?.attributeOptionId
@@ -160,16 +164,16 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                     <Image
                       src={product.imageUrl}
                       alt={product.altTag}
-                      className="max-h-full mx-auto"
+                      className='max-h-full mx-auto'
                     />
                   </div>
                 );
               })}
             </div>
           </div>
-          <div className="">
+          <div className=''>
             <button onClick={() => setShowModal('sizeChart')}>
-              <img src="images/size-chart.jpg" alt="" />
+              <img src='images/size-chart.jpg' alt='' />
             </button>
           </div>
           {showModal && (
@@ -183,10 +187,10 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
   if (storeCode === _Store.type4) {
     return (
       <>
-        <div className="w-full flex justify-center text-center gap-2 text-md font-bold mb-2">
+        <div className='w-full flex justify-center text-center gap-2 text-md font-bold mb-2'>
           Available Color:
         </div>
-        <div className="sub-image w-full flex justify-center text-center gap-2 text-xs">
+        <div className='sub-image w-full flex justify-center text-center gap-2 text-xs'>
           {colors.map((product) => {
             const hightlight =
               product.attributeOptionId === selectedColor?.attributeOptionId
@@ -196,17 +200,17 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
             return (
               <div
                 key={product.attributeOptionId}
-                className="overflow-hidden"
+                className='overflow-hidden'
                 onClick={() => setColor(product)}
               >
                 <div className={`w-20 h-20 border-2 ${hightlight} p-1 mb-1`}>
                   <Image
                     src={product.imageUrl}
                     alt={product.altTag}
-                    className="max-h-full mx-auto"
+                    className='max-h-full mx-auto'
                   />
                 </div>
-                <div className="text-primary">{product.name}</div>
+                <div className='text-primary'>{product.name}</div>
               </div>
             );
           })}

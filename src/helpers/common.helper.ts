@@ -1,6 +1,8 @@
 import { __Cookie, __Params } from '@constants/global.constant';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { _RedefineAppServices } from '@services/app.service';
+import { _CacheApiServices } from '@services/cache.service';
+import { _ShoppingCartService } from '@services/cart.service';
 import { _FooterServices } from '@services/footer.service';
 import { _GiftCardService } from '@services/gift.service';
 import { _HeaderServices } from '@services/header.service';
@@ -256,7 +258,9 @@ export const CallAPI = async <T>({
     | _HomeServices
     | _GiftCardService
     | _UserServices
-    |_FooterServices;
+    | _ShoppingCartService
+    | _CacheApiServices
+    | _FooterServices;
   request: _GET | _POST;
 }) => {
   conditionalLogV2({
@@ -474,12 +478,12 @@ export const getAddToCartObject = async (product: _Props) => {
       attributeOptionId: productDetails.color.attributeOptionId,
       attributeOptionValue: res.size,
       code: '',
-      price: totalPrice/totalQty,
+      price: totalPrice / totalQty,
       quantity: res.qty,
       logoPrice: 0,
       logoQty: 0,
       logoFile: 'string',
-      estimateDate: new Date('2022-11-03T05:09:52.659Z'),
+      estimateDate: new Date(),
       isEmployeeLoginPrice: 0,
       cartLogoPersonDetailModels: [
         {
@@ -493,7 +497,7 @@ export const getAddToCartObject = async (product: _Props) => {
           LogoPositionImage: 'string',
           logoColors: 'string',
           logoNotes: 'string',
-          logoDate: new Date('2022-11-03T05:09:52.659Z'),
+          logoDate: new Date(),
           logoNames: 'string',
           digitalPrice: 0,
           logoPositionImagePath: 'string',

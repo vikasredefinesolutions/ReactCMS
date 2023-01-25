@@ -34,7 +34,29 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-           <link
+           
+           {storeId == 4 && 
+               <link
+                  rel="stylesheet"
+                  type="text/css"
+                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css`}
+                />
+           }
+           {storeId == 5 && 
+               <link
+                  rel="stylesheet"
+                  type="text/css"
+                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css'`}
+                />
+           }
+           {storeId == 23 && 
+               <link
+                  rel="stylesheet"
+                  type="text/css"
+                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css'`}
+                />
+           }
+           {/*<link
             rel="stylesheet"
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
@@ -43,7 +65,7 @@ class MyDocument extends Document {
             rel="stylesheet"
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
-          />
+          />*/}
           <link
             rel="stylesheet"
             type="text/css"

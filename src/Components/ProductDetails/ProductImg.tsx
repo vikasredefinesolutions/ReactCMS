@@ -50,22 +50,26 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
 
   if (product === null) return <></>;
 
-  if (storeCode === _Store.type1) {
+  if (
+    storeCode === _Store.type1 ||
+    storeCode === _Store.type15 ||
+    storeCode === _Store.type16
+  ) {
     return (
-      <div className="col-span-1 grid grid-cols-12 gap-6">
-        <div className="col-span-12 border border-slate-200 relative">
+      <div className='col-span-1 grid grid-cols-12 gap-6'>
+        <div className='col-span-12 border border-slate-200 relative'>
           {/* Display Image */}
-          <div className="main-image max-w-lg mx-auto">
+          <div className='main-image max-w-lg mx-auto'>
             <InnerImageZoom
               src={selectedImage?.imageUrl}
               zoomType={'hover'}
               // alt={selectedImage.label}
               hideHint={true}
-              className="w-full object-center object-cover sm:rounded-lg main_image"
+              className='w-full object-center object-cover sm:rounded-lg main_image'
             />
           </div>
           {/* Images to select */}
-          <div className="sub-image md:absolute md:left-2 md:top-4 md:w-20 md:block">
+          <div className='sub-image md:absolute md:left-2 md:top-4 md:w-20 md:block'>
             {selectedColor?.moreImages
               ?.map((img, index) => ({ ...img, id: index }))
               .map((img) => {
@@ -82,13 +86,13 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                     <Image
                       src={img.imageUrl}
                       alt={img.altTag}
-                      className="w-full object-center object-cover"
+                      className='w-full object-center object-cover'
                     />
                   </div>
                 );
               })}
           </div>
-          <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
+          <HeartIcon className='absolute right-2 top-4 w-6 h-6' />
         </div>
       </div>
     );
@@ -96,23 +100,23 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
 
   if (storeCode === _Store.type2) {
     return (
-      <div className="w-full lg:w-6/12 px-3">
-        <div className="relative">
-          <div className="" onClick={() => router.back()}>
+      <div className='w-full lg:w-6/12 px-3'>
+        <div className='relative'>
+          <div className='' onClick={() => router.back()}>
             &lt;&lt; Back
           </div>
           {/* Display Image */}
-          <div className="main-image border border-[#f0f0f0] mb-3">
+          <div className='main-image border border-[#f0f0f0] mb-3'>
             <InnerImageZoom
               src={selectedImage?.imageUrl}
               zoomType={'hover'}
               // alt={selectedImage.label}
               hideHint={true}
-              className="max-h-full mx-auto"
+              className='max-h-full mx-auto'
             />
           </div>
           {/* Images to select */}
-          <div className="sub-image w-full flex justify-center text-center gap-2">
+          <div className='sub-image w-full flex justify-center text-center gap-2'>
             {selectedColor?.moreImages
               ?.map((img, index) => ({ ...img, id: index }))
               .map((img) => {
@@ -129,17 +133,17 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                     <Image
                       src={img.imageUrl}
                       alt={img.altTag}
-                      className="max-h-full mx-auto"
+                      className='max-h-full mx-auto'
                     />
                   </div>
                 );
               })}
           </div>
-          <div className="max-w-sm mx-auto text-center mt-5">
+          <div className='max-w-sm mx-auto text-center mt-5'>
             This product is subject to order minimum and maximum quantity
             requirements
           </div>
-          <HeartIcon className="absolute right-2 top-5 w-6 h-6" />
+          <HeartIcon className='absolute right-2 top-5 w-6 h-6' />
         </div>
       </div>
     );
@@ -147,22 +151,22 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
 
   if (storeCode === _Store.type3) {
     return (
-      <div className="relative">
-        <div className="relative">
+      <div className='relative'>
+        <div className='relative'>
           {/* Display Image */}
-          <div className="border border-gray-200 mb-3">
-            <div className="main-image max-w-xl mx-auto">
+          <div className='border border-gray-200 mb-3'>
+            <div className='main-image max-w-xl mx-auto'>
               <InnerImageZoom
                 src={selectedImage?.imageUrl}
                 zoomType={'hover'}
                 // alt={selectedImage.label}
                 hideHint={true}
-                className="max-h-full mx-auto"
+                className='max-h-full mx-auto'
               />
             </div>
           </div>
           {/* Images to select */}
-          <div className="sub-image absolute left-2 top-4 w-20 block">
+          <div className='sub-image absolute left-2 top-4 w-20 block'>
             {selectedColor?.moreImages
               ?.map((img, index) => ({ ...img, id: index }))
               .map((img) => {
@@ -179,7 +183,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                     <Image
                       src={img.imageUrl}
                       alt={img.altTag}
-                      className="w-full object-center object-cover"
+                      className='w-full object-center object-cover'
                     />
                   </div>
                 );
@@ -201,22 +205,22 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
 
   if (storeCode === _Store.type4) {
     return (
-      <div className="col-span-1">
+      <div className='col-span-1'>
         {/* <!-- Image selector --> */}
-        <div className="relative">
-          <div className="relative">
+        <div className='relative'>
+          <div className='relative'>
             {/* Display Image */}
-            <div className="main-image border border-gray-200 mb-3">
+            <div className='main-image border border-gray-200 mb-3'>
               <InnerImageZoom
                 src={selectedImage?.imageUrl}
                 zoomType={'hover'}
                 // alt={selectedImage.label}
                 hideHint={true}
-                className="max-h-full mx-auto"
+                className='max-h-full mx-auto'
               />
             </div>
             {/* Images to select */}
-            <div className="sub-image absolute left-2 top-4 w-20 block">
+            <div className='sub-image absolute left-2 top-4 w-20 block'>
               {selectedColor?.moreImages
                 ?.map((img, index) => ({ ...img, id: index }))
                 .map((img) => {
@@ -233,15 +237,58 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                       <Image
                         src={img.imageUrl}
                         alt={img.altTag}
-                        className="w-full object-center object-cover"
+                        className='w-full object-center object-cover'
                       />
                     </div>
                   );
                 })}
             </div>
-            <HeartIcon className="absolute right-2 top-4 w-6 h-6" />
+            {/* <HeartIcon className="absolute right-2 top-4 w-6 h-6" /> */}
           </div>
           <AvailableColors storeCode={storeCode} />
+        </div>
+      </div>
+    );
+  }
+
+  if (storeCode === _Store.type22) {
+    return (
+      <div className='lg:col-start-2 lg:col-end-7 grid grid-cols-12 gap-6'>
+        <div className='col-span-12 relative'>
+          <div className='relative'>
+            <div className='main-image border border-[#f0f0f0] mb-3'>
+              <InnerImageZoom
+                src={selectedImage?.imageUrl}
+                zoomType={'hover'}
+                hideHint={true}
+                className='max-h-full mx-auto'
+              />
+            </div>
+            <div className='sub-image w-full flex justify-center text-center gap-2'>
+              {selectedColor?.moreImages
+                ?.map((img, index) => ({ ...img, id: index }))
+                .map((img) => {
+                  const highlight =
+                    img.id === selectedImage.id
+                      ? 'border-black'
+                      : 'hover:border-gray-300';
+                  return (
+                    <div
+                      key={img.id}
+                      className={`w-20 h-20 overflow-hidden border border-gray-300 ${highlight} p-1`}
+                      onClick={() => selectImgHandler(img)}
+                    >
+                      <Image
+                        src={img.imageUrl}
+                        alt={img.altTag}
+                        className='max-h-full mx-auto'
+                      />
+                    </div>
+                  );
+                })}
+            </div>
+            {/* <HeartIcon className="absolute right-2 top-5 w-6 h-6 cursor-pointer" /> */}
+          </div>
         </div>
       </div>
     );

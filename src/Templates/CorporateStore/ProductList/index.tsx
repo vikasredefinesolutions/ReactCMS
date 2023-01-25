@@ -8,7 +8,9 @@ interface _props {
 }
 const Corporate_ProductList: React.FC<_props> = (props) => {
   const { productListing, slug } = props;
-  return <ProductList pageData={productListing} slug={slug} />;
+  return <>
+    <ProductList pageData={productListing} slug={slug} />
+  </>
 };
 
 export default Corporate_ProductList;

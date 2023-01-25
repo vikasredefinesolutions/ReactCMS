@@ -38,45 +38,38 @@ const __QuoteRequestSchema = Yup.object().shape({
 interface _props {
   // eslint-disable-next-line no-unused-vars
   modalHandler: (param: null | _modals) => void;
-  product?: string | undefined
+  product?: string | undefined;
 }
 
 const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
   modalHandler,
   storeCode,
-  product
+  product,
 }) => {
-  const [verifiedRecaptch, setverifiedRecaptch] = useState(false)
-  const { name } = useTypedSelector(
-    (state) => state.product.product,
-  );
+  const [verifiedRecaptch, setverifiedRecaptch] = useState(false);
+  const { name } = useTypedSelector((state) => state.product.product);
 
-  const { color } = useTypedSelector(
-    (state) => state.product.selected,
-  );
-
-
+  const { color } = useTypedSelector((state) => state.product.selected);
 
   const productName = product ? product : name;
   const productColor = product ? '' : color.name;
   const quoteRequestHandler = (value: any) => {
-    alert(value)
-    modalHandler(null)
+    modalHandler(null);
   };
   function onChange(value: any) {
-    setverifiedRecaptch(true)
+    setverifiedRecaptch(true);
   }
 
   // const show = useTypedSelector((state) => state.store.display.footer);
   if (storeCode === _Store.type2) {
     return (
       <div
-        id="QuoteRequestModal"
-        aria-hidden="true"
-        className=" overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center h-modal h-full inset-0"
+        id='QuoteRequestModal'
+        aria-hidden='true'
+        className=' overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center h-modal h-full inset-0'
       >
-        <div className="w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="relative px-4 w-full max-w-2xl h-fullborder border-neutral-200 inline-block h-auto">
+        <div className='w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
+          <div className='relative px-4 w-full max-w-2xl h-fullborder border-neutral-200 inline-block h-auto'>
             <Formik
               initialValues={__QuoteRequestInitials}
               onSubmit={quoteRequestHandler}
@@ -85,41 +78,43 @@ const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
               {({ values, handleChange }) => {
                 return (
                   <Form>
-                    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 max-h-screen overflow-y-auto">
-                      <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600 sticky top-0 left-0 bg-white">
-                        <div className="text-xl font-semibold text-gray-900 lg:text-2xl login-top-title dark:text-white">
+                    <div className='relative bg-white rounded-lg shadow dark:bg-gray-700 max-h-screen overflow-y-auto'>
+                      <div className='flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600 sticky top-0 left-0 bg-white'>
+                        <div className='text-xl font-semibold text-gray-900 lg:text-2xl login-top-title dark:text-white'>
                           Contact us
                         </div>
-                        <div className="flex items-center gap-x-2">
+                        <div className='flex items-center gap-x-2'>
                           <button
-                            type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            type='button'
+                            className='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white'
                             onClick={() => modalHandler(null)}
                           >
                             <svg
-                              className="w-5 h-5"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
+                              className='w-5 h-5'
+                              fill='currentColor'
+                              viewBox='0 0 20 20'
+                              xmlns='http://www.w3.org/2000/svg'
                             >
                               <path
-                                fillRule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clipRule="evenodd"
+                                fillRule='evenodd'
+                                d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+                                clipRule='evenodd'
                               ></path>
                             </svg>
                           </button>
                         </div>
                       </div>
-                      <div className="p-6">
-                        <div className="flex flex-wrap gap-1 pt-4 first:pt-0 font-semibold">
-                          <div className="">Product Name :</div>
-                          <div className="">{productName}</div>
+                      <div className='p-6'>
+                        <div className='flex flex-wrap gap-1 pt-4 first:pt-0 font-semibold'>
+                          <div className=''>Product Name :</div>
+                          <div className=''>{productName}</div>
                         </div>
-                        {productColor && <div className="flex flex-wrap gap-1 pt-4 first:pt-0 font-semibold">
-                          <div className="">Color :</div>
-                          <div className="">{productColor}</div>
-                        </div>}
+                        {productColor && (
+                          <div className='flex flex-wrap gap-1 pt-4 first:pt-0 font-semibold'>
+                            <div className=''>Color :</div>
+                            <div className=''>{productColor}</div>
+                          </div>
+                        )}
                         <ProductQuoteRequestInput
                           label={'Name'}
                           placeHolder={'Name'}
@@ -180,20 +175,29 @@ const ProductQuoteRequest: React.FC<_props & { storeCode: string }> = ({
                           required={false}
                           containerClass={'pt-4 first:pt-0 '}
                         />
-                        <ReCAPTCHA className='pt-4 first:pt-0'
-                          sitekey={process.env.NEXT_PUBLIC_RECAPTCHASITEKEY || ''}
+                        <ReCAPTCHA
+                          className='pt-4 first:pt-0'
+                          sitekey={
+                            process.env.NEXT_PUBLIC_RECAPTCHASITEKEY || ''
+                          }
                           onChange={onChange}
                         />
                       </div>
-                      <div className="flex items-center justify-end p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                      <div className='flex items-center justify-end p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600'>
                         <button
-                          type="button"
-                          className="btn btn-primary"
+                          type='button'
+                          className='btn btn-primary'
                           onClick={() => modalHandler(null)}
                         >
                           Close
                         </button>
-                        <button type="submit" className={`btn btn-secondary ${verifiedRecaptch ? '' : 'opacity-50'}  `} disabled={!verifiedRecaptch}>
+                        <button
+                          type='submit'
+                          className={`btn btn-secondary ${
+                            verifiedRecaptch ? '' : 'opacity-50'
+                          }  `}
+                          disabled={!verifiedRecaptch}
+                        >
                           Send
                         </button>
                       </div>

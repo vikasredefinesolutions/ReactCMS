@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 // tslint:disable:no-console
 import { __Console } from '@type/console.type';
 import chalk from 'chalk';
 import {
   hide_All_Consoles,
   hide_No_Data_Found_Error,
-  __fileNames
+  __fileNames,
 } from 'show.config';
 import { isItServer } from './common.helper';
 
@@ -30,15 +31,20 @@ export const __console: __Console = {
     serverMethod: false,
     page: true,
     service: {
-      FetchThemeConfigs: true,
+      FetchThemeConfigs: false,
       GetStoreID: true,
     },
   },
-  footer:{
-    service:{
-      FetchFooter:false
-    }
-  }  ,
+  files: {
+    service: {
+      UploadImage: false,
+    },
+  },
+  footer: {
+    service: {
+      FetchFooter: false,
+    },
+  },
   header: {
     service: {
       FetchBrands: false,
@@ -51,6 +57,7 @@ export const __console: __Console = {
   slug: {
     serverMethod: false,
     page: true,
+
     service: {
       getPageType: false,
     },
@@ -114,8 +121,19 @@ export const __console: __Console = {
       list: false,
     },
     service: {
-      FetchGiftCardsList: true,
-      FetchGiftCardDetailsBySename: true,
+      FetchGiftCardsList: false,
+      FetchGiftCardDetailsBySename: false,
+    },
+  },
+  cacheAPIs: {
+    service: {
+      ClearBrandCache: false,
+      ClearCategoryCache: false,
+    },
+  },
+  ShoppingCart: {
+    service: {
+      FetchCartDetails: true,
     },
   },
 };

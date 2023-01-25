@@ -2,7 +2,7 @@ import {
   ColorChangeHandler,
   FilterChangeHandler,
   FilterType,
-  ProductList as ProductListType
+  ProductList as ProductListType,
 } from '@type/productList.type';
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
@@ -11,6 +11,7 @@ import ProductListController from '../../Controllers/ProductListController';
 import Layout1 from './layouts/layout1';
 import Layout2 from './layouts/layout2';
 import Layout3 from './layouts/layout3';
+import Layout4 from './layouts/layout4';
 
 export type list_FnProps = {
   filters: FilterType;
@@ -30,13 +31,19 @@ export type list_FnProps = {
   setProductView: (arg: string) => void;
   setShowFilter: (arg: boolean) => void;
   clearFilters: () => void;
-  slug?:string;
+  slug?: string;
 };
-const ProductList = ({ pageData, slug }: { pageData: any | null; slug: string }) => {
+const ProductList = ({
+  pageData,
+  slug,
+}: {
+  pageData: any | null;
+  slug: string;
+}) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
   if (pageData === null) {
-    return <>No Product Found</>
+    return <>No Product Found</>;
   }
 
   const { checkedFilters } = pageData;
@@ -64,14 +71,18 @@ const ProductList = ({ pageData, slug }: { pageData: any | null; slug: string })
     pageData.brandId,
   );
   let Layout: React.FC<list_FnProps> | null = null;
-  if (storeLayout === _Store.type1) {
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     Layout = Layout1;
   } else if (storeLayout === _Store.type2) {
     Layout = Layout2;
-  } else if (storeLayout === _Store.type3) {
+  } else if (storeLayout === _Store.type3 || storeLayout === _Store.type22) {
     Layout = Layout3;
   } else if (storeLayout === _Store.type4) {
-    Layout = Layout1;
+    Layout = Layout4;
   }
   if (totalCount > 0 && Layout) {
     return (
@@ -102,7 +113,7 @@ const ProductList = ({ pageData, slug }: { pageData: any | null; slug: string })
         style={{
           padding: '150px',
         }}
-        className="text-center"
+        className='text-center'
       >
         {' '}
         No Product Found

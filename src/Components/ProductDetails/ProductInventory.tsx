@@ -28,6 +28,8 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price?.msrp]);
 
+  const attributeOptionIds = (colors &&
+    colors.map((clr: any) => clr.attributeOptionId)) || [0];
   const showInventoryFor = (payload: {
     productId: number;
     attributeOptionId: number[];
@@ -39,9 +41,13 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
 
   useEffect(() => {
     if (colors === null) return;
+    // colors.forEach(color => showInventoryFor({
+    //   productId: color.productId,
+    //   attributeOptionId: [...attributeOptionIds],
+    // }))
     showInventoryFor({
       productId: colors[0].productId,
-      attributeOptionId: [colors[0].attributeOptionId],
+      attributeOptionId: [...attributeOptionIds],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
@@ -109,7 +115,7 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                   product.colorAttributeOptionId === color.attributeOptionId
                 ) {
                   return product.sizeArr.map((size, index) => (
-                    <div key={index} className='p-2 w-1/2 md:w-1/12'>
+                    <div key={index} className='p-2 w-full md:w-2/12'>
                       <div className='font-semibold'>{size}</div>
                     </div>
                   ));
@@ -157,20 +163,20 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                       );
                       return inv > 0 ? (
                         <>
-                          <div key={index} className='p-2 w-1/2 md:w-1/12'>
-                            <div className='mb-1'>{inv > 50 ? '50+' : inv}</div>
+                          <div key={index} className='p-2 w-1/2 md:w-1/6'>
+                            <div className='mb-1'>{inv > 250 ? '250+' : inv}</div>
                             <InventoryInput
                               size={size}
                               storeCode={storeCode}
                               qty={inv}
-                              price={inventry?.price || 5}
+                              price={price?.msrp || 0}
                               color={color.name}
                               isDisabled={inv < 1}
                             />
                           </div>
                         </>
                       ) : (
-                        <div className='p-2 w-1/2 md:w-1/12'>
+                        <div className='p-2 w-1/2 md:w-1/6'>
                           <div className='border-bottom p-b-10'>
                             <strong className='text-center center'> - </strong>{' '}
                           </div>

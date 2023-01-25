@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import { AddRemoveToCompare, getSkuList } from 'helpers/compare.helper';
 import { useActions } from 'hooks';
 import { useRouter } from 'next/router';
+
+export type productListPageData = { product: ProductList; filters: FilterType };
+
 const ProductListController = (
-  data: { product: ProductList; filters: FilterType },
+  data: productListPageData,
   slug: string,
   checkedFilters: any,
   brandId: number,

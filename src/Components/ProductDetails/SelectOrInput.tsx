@@ -1,4 +1,4 @@
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { useActions } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
@@ -79,50 +79,50 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (qty < 0) {
-    return (
-      <>
-        {email === 'SENT' ? (
-          <div>Thanks for signing up!</div>
-        ) : (
-          <div>
-            Out of Stock. Get Inventory Alert.email{' '}
-            <Formik
-              initialValues={{ email: '' }}
-              onSubmit={sendEmailHandler}
-              validationSchema={validationSchema}
-            >
-              {({ values, handleChange }) => {
-                return (
-                  <Form>
-                    <input
-                      type='text'
-                      name='email'
-                      autoComplete='off'
-                      value={values.email}
-                      onChange={handleChange}
-                      className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
-                    />
-                    <button
-                      type='submit'
-                      className='bg-indigo-600 border-0 py-1 px-2 text-white'
-                    >
-                      Send
-                    </button>
-                    <ErrorMessage
-                      name={'email'}
-                      className='text-rose-500'
-                      component={'p'}
-                    />
-                  </Form>
-                );
-              }}
-            </Formik>
-          </div>
-        )}
-      </>
-    );
-  }
+  // if (qty <= 0) {
+  //   return (
+  //     <>
+  //       {email === 'SENT' ? (
+  //         <div>Thanks for signing up!</div>
+  //       ) : (
+  //         <div>
+  //           Out of Stock. Get Inventory Alert.email{' '}
+  //           <Formik
+  //             initialValues={{ email: '' }}
+  //             onSubmit={sendEmailHandler}
+  //             validationSchema={validationSchema}
+  //           >
+  //             {({ values, handleChange }) => {
+  //               return (
+  //                 <Form>
+  //                   <input
+  //                     type="text"
+  //                     name="email"
+  //                     autoComplete="off"
+  //                     value={values.email}
+  //                     onChange={handleChange}
+  //                     className="block w-full border border-gray-600 shadow-sm text-sm py-1 px-2"
+  //                   />
+  //                   <button
+  //                     type="submit"
+  //                     className="bg-indigo-600 border-0 py-1 px-2 text-white"
+  //                   >
+  //                     Send
+  //                   </button>
+  //                   <ErrorMessage
+  //                     name={'email'}
+  //                     className="text-rose-500"
+  //                     component={'p'}
+  //                   />
+  //                 </Form>
+  //               );
+  //             }}
+  //           </Formik>
+  //         </div>
+  //       )}
+  //     </>
+  //   );
+  // }
 
   return (
     <td className='px-2 py-4'>

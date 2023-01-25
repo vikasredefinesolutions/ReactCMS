@@ -7,11 +7,10 @@ const SizePriceQtyTable: React.FC = () => {
   const { price, inventory } = useTypedSelector(
     (state) => state.product.product,
   );
-  const discountedPrice = useTypedSelector(
-    (state) => state.product.toCheckout.price,
+  const { price: discountedPrice, sizeQtys } = useTypedSelector(
+    (state) => state.product.toCheckout,
   );
   const { color } = useTypedSelector((state) => state.product.selected);
-  const { sizeQtys } = useTypedSelector((state) => state.product.toCheckout);
 
   return (
     <div className="">
@@ -47,7 +46,7 @@ const SizePriceQtyTable: React.FC = () => {
                   (int) =>
                     int.name === size &&
                     int.colorAttributeOptionId ===
-                      colorWithAllSizes.colorAttributeOptionId,
+                    colorWithAllSizes.colorAttributeOptionId,
                 );
 
                 if (!foundWithSameSizeAndColor) return <></>;

@@ -19,77 +19,81 @@ const LoggedInMenu: React.FC = () => {
 
   if (!loggedIn) return <></>;
 
-  if (storeLayout === _Store.type1) {
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     return (
       <div>
         <div
-          className="flex relative"
+          className='flex relative'
           onMouseOver={() => setFocus(true)}
           onMouseLeave={() => setFocus(false)}
         >
           <Link href={paths.loggedInMenu.title}>
-            <a className="text-primary hover:text-anchor-hover flex items-center gap-1">
-              <span className="text-sm xl:inline-block">
+            <a className='text-primary hover:text-anchor-hover flex items-center gap-1'>
+              <span className='text-sm xl:inline-block'>
                 {customer?.firstname}
               </span>
               <svg
-                className="w-6 h-6"
-                x-description="Heroicon name: outline/user"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                aria-hidden="true"
+                className='w-6 h-6'
+                x-description='Heroicon name: outline/user'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth='2'
+                stroke='currentColor'
+                aria-hidden='true'
               >
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
                 ></path>
               </svg>
             </a>
           </Link>
           {focus && (
-            <div className="text-sm absolute right-0 top-full bg-white z-40 w-48 pt-2">
-              <ul className="border-2 border-black">
-                <li className="border-t border-t-gray-300">
+            <div className='text-sm absolute right-0 top-full bg-white z-40 w-48 pt-2'>
+              <ul className='border-2 border-black'>
+                <li className='border-t border-t-gray-300'>
                   <Link href={paths.loggedInMenu.order}>
-                    <a className="flex p-2 gap-1">
-                      <span className="material-icons-outlined">
+                    <a className='flex p-2 gap-1'>
+                      <span className='material-icons-outlined'>
                         shopping_cart
                       </span>
-                      <span className="">Order</span>
+                      <span className=''>Order</span>
                     </a>
                   </Link>
                 </li>
-                <li className="border-t border-t-gray-300">
+                <li className='border-t border-t-gray-300'>
                   <Link href={paths.loggedInMenu.settings}>
-                    <a className="flex p-2 gap-1">
-                      <span className="material-icons-outlined">
+                    <a className='flex p-2 gap-1'>
+                      <span className='material-icons-outlined'>
                         construction
                       </span>
-                      <span className="">Account Settings</span>
+                      <span className=''>Account Settings</span>
                     </a>
                   </Link>
                 </li>
-                <li className="border-t border-t-gray-300">
+                <li className='border-t border-t-gray-300'>
                   <Link href={paths.loggedInMenu.help}>
-                    <a className="flex p-2 gap-1">
-                      <span className="material-icons-outlined">
+                    <a className='flex p-2 gap-1'>
+                      <span className='material-icons-outlined'>
                         help_outline
                       </span>
-                      <span className="">Help</span>
+                      <span className=''>Help</span>
                     </a>
                   </Link>
                 </li>
-                <li className="border-t-2 border-t-gray-300">
+                <li className='border-t-2 border-t-gray-300'>
                   <button
                     onClick={() => logoutHandler()}
-                    className="flex p-2 gap-1"
+                    className='flex p-2 gap-1'
                   >
-                    <span className="material-icons-outlined">logout</span>
-                    <span className="">Sign Out</span>
+                    <span className='material-icons-outlined'>logout</span>
+                    <span className=''>Sign Out</span>
                   </button>
                 </li>
               </ul>
@@ -104,71 +108,71 @@ const LoggedInMenu: React.FC = () => {
     return (
       <div>
         <div
-          className="flex relative"
+          className='flex relative'
           onMouseOver={() => setFocus(true)}
           onMouseLeave={() => setFocus(false)}
         >
           <Link href={paths.loggedInMenu.title}>
-            <a className="text-gray-600 hover:text-[#CDDE00] flex items-center gap-1">
-              <span className="hidden">{customer?.firstname}</span>
+            <a className='text-gray-600 hover:text-[#CDDE00] flex items-center gap-1'>
+              <span className='hidden'>{customer?.firstname}</span>
               <svg
-                className="w-6 h-6"
-                x-description="Heroicon name: outline/user"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                aria-hidden="true"
+                className='w-6 h-6'
+                x-description='Heroicon name: outline/user'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth='2'
+                stroke='currentColor'
+                aria-hidden='true'
               >
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
                 ></path>
               </svg>
             </a>
           </Link>
           {focus && (
-            <div className="absolute right-0 top-full border-2 border-black bg-white z-40 w-40">
-              <ul className="">
-                <li className="border-t border-t-gray-300">
+            <div className='absolute right-0 top-full border-2 border-black bg-white z-40 w-40'>
+              <ul className=''>
+                <li className='border-t border-t-gray-300'>
                   <Link href={paths.loggedInMenu.order}>
-                    <a className="flex p-2 gap-1">
-                      <span className="material-icons-outlined">
+                    <a className='flex p-2 gap-1'>
+                      <span className='material-icons-outlined'>
                         shopping_cart
                       </span>
-                      <span className="">Order</span>
+                      <span className=''>Order</span>
                     </a>
                   </Link>
                 </li>
-                <li className="border-t border-t-gray-300">
+                <li className='border-t border-t-gray-300'>
                   <Link href={paths.loggedInMenu.settings}>
-                    <a className="flex p-2 gap-1">
-                      <span className="material-icons-outlined">
+                    <a className='flex p-2 gap-1'>
+                      <span className='material-icons-outlined'>
                         construction
                       </span>
-                      <span className="">Account Settings</span>
+                      <span className=''>Account Settings</span>
                     </a>
                   </Link>
                 </li>
-                <li className="border-t border-t-gray-300">
+                <li className='border-t border-t-gray-300'>
                   <Link href={paths.loggedInMenu.help}>
-                    <a className="flex p-2 gap-1">
-                      <span className="material-icons-outlined">
+                    <a className='flex p-2 gap-1'>
+                      <span className='material-icons-outlined'>
                         help_outline
                       </span>
-                      <span className="">Help</span>
+                      <span className=''>Help</span>
                     </a>
                   </Link>
                 </li>
-                <li className="border-t-2 border-t-gray-300">
+                <li className='border-t-2 border-t-gray-300'>
                   <button
                     onClick={() => logoutHandler()}
-                    className="flex p-2 gap-1"
+                    className='flex p-2 gap-1'
                   >
-                    <span className="material-icons-outlined">logout</span>
-                    <span className="">Sign Out</span>
+                    <span className='material-icons-outlined'>logout</span>
+                    <span className=''>Sign Out</span>
                   </button>
                 </li>
               </ul>
@@ -183,71 +187,71 @@ const LoggedInMenu: React.FC = () => {
     return (
       <div>
         <div
-          className="flex relative"
+          className='flex relative'
           onMouseOver={() => setFocus(true)}
           onMouseLeave={() => setFocus(false)}
         >
           <Link href={paths.loggedInMenu.title}>
-            <a className="text-gray-600 hover:text-primary flex items-center gap-1">
-              <span className="hidden">{customer?.firstname}</span>
+            <a className='text-gray-600 hover:text-primary flex items-center gap-1'>
+              <span className='hidden'>{customer?.firstname}</span>
               <svg
-                className="w-6 h-6"
-                x-description="Heroicon name: outline/user"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                aria-hidden="true"
+                className='w-6 h-6'
+                x-description='Heroicon name: outline/user'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth='2'
+                stroke='currentColor'
+                aria-hidden='true'
               >
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
                 ></path>
               </svg>
             </a>
           </Link>
           {focus && (
-            <div className="absolute right-0 top-full border-2 border-black bg-white z-40 w-52">
-              <ul className="">
-                <li className="border-t border-t-gray-300">
+            <div className='absolute right-0 top-full border-2 border-black bg-white z-40 w-52'>
+              <ul className=''>
+                <li className='border-t border-t-gray-300'>
                   <Link href={paths.loggedInMenu.order}>
-                    <a className="flex p-2 gap-1">
-                      <span className="material-icons-outlined">
+                    <a className='flex p-2 gap-1'>
+                      <span className='material-icons-outlined'>
                         shopping_cart
                       </span>
-                      <span className="">Order</span>
+                      <span className=''>Order</span>
                     </a>
                   </Link>
                 </li>
-                <li className="border-t border-t-gray-300">
+                <li className='border-t border-t-gray-300'>
                   <Link href={paths.loggedInMenu.order}>
-                    <a className="flex p-2 gap-1">
-                      <span className="material-icons-outlined">
+                    <a className='flex p-2 gap-1'>
+                      <span className='material-icons-outlined'>
                         design_services
                       </span>
-                      <span className="">Manage Logo</span>
+                      <span className=''>Manage Logo</span>
                     </a>
                   </Link>
                 </li>
-                <li className="border-t border-t-gray-300">
+                <li className='border-t border-t-gray-300'>
                   <Link href={paths.loggedInMenu.settings}>
-                    <a className="flex p-2 gap-1">
-                      <span className="material-icons-outlined">
+                    <a className='flex p-2 gap-1'>
+                      <span className='material-icons-outlined'>
                         construction
                       </span>
-                      <span className="">Account Settings</span>
+                      <span className=''>Account Settings</span>
                     </a>
                   </Link>
                 </li>
-                <li className="border-t-2 border-t-gray-300">
+                <li className='border-t-2 border-t-gray-300'>
                   <button
                     onClick={() => logoutHandler()}
-                    className="flex p-2 gap-1"
+                    className='flex p-2 gap-1'
                   >
-                    <span className="material-icons-outlined">logout</span>
-                    <span className="">Sign Out</span>
+                    <span className='material-icons-outlined'>logout</span>
+                    <span className=''>Sign Out</span>
                   </button>
                 </li>
               </ul>
@@ -269,82 +273,82 @@ const LoggedInMenu: React.FC = () => {
   return (
     <div>
       <div
-        className="flex relative"
+        className='flex relative'
         onMouseOver={() => setFocus(true)}
         onMouseLeave={() => setFocus(false)}
       >
         <Link
           href={paths.loggedInMenu.title}
-          className="text-primary hover:text-anchor-hover flex items-center gap-1"
+          className='text-primary hover:text-anchor-hover flex items-center gap-1'
         >
           <a>
-            <span className="text-sm xl:inline-block">
+            <span className='text-sm xl:inline-block'>
               {customer?.firstname}
             </span>
             <svg
-              className="w-6 h-6"
-              x-description="Heroicon name: outline/user"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              aria-hidden="true"
+              className='w-6 h-6'
+              x-description='Heroicon name: outline/user'
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth='2'
+              stroke='currentColor'
+              aria-hidden='true'
             >
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
               ></path>
             </svg>
           </a>
         </Link>
         {focus && (
-          <div className="text-sm absolute right-0 top-full bg-white z-40 w-48 pt-2">
-            <ul className="border-2 border-black">
-              <li className="border-t border-t-gray-300">
+          <div className='text-sm absolute right-0 top-full bg-white z-40 w-48 pt-2'>
+            <ul className='border-2 border-black'>
+              <li className='border-t border-t-gray-300'>
                 <Link
                   href={paths.loggedInMenu.order}
-                  className="flex p-2 gap-1"
+                  className='flex p-2 gap-1'
                 >
                   <a>
-                    <span className="material-icons-outlined">
+                    <span className='material-icons-outlined'>
                       shopping_cart
                     </span>
-                    <span className="">Order</span>
+                    <span className=''>Order</span>
                   </a>
                 </Link>
               </li>
-              <li className="border-t border-t-gray-300">
+              <li className='border-t border-t-gray-300'>
                 <Link
                   href={paths.loggedInMenu.settings}
-                  className="flex p-2 gap-1"
+                  className='flex p-2 gap-1'
                 >
                   <a>
-                    <span className="material-icons-outlined">
+                    <span className='material-icons-outlined'>
                       construction
                     </span>
-                    <span className="">Account Settings</span>
+                    <span className=''>Account Settings</span>
                   </a>
                 </Link>
               </li>
-              <li className="border-t border-t-gray-300">
-                <Link href={paths.loggedInMenu.help} className="flex p-2 gap-1">
+              <li className='border-t border-t-gray-300'>
+                <Link href={paths.loggedInMenu.help} className='flex p-2 gap-1'>
                   <a>
-                    <span className="material-icons-outlined">
+                    <span className='material-icons-outlined'>
                       help_outline
                     </span>
-                    <span className="">Help</span>
+                    <span className=''>Help</span>
                   </a>
                 </Link>
               </li>
-              <li className="border-t-2 border-t-gray-300">
+              <li className='border-t-2 border-t-gray-300'>
                 <button
                   onClick={() => logoutHandler()}
-                  className="flex p-2 gap-1"
+                  className='flex p-2 gap-1'
                 >
-                  <span className="material-icons-outlined">logout</span>
-                  <span className="">Sign Out</span>
+                  <span className='material-icons-outlined'>logout</span>
+                  <span className=''>Sign Out</span>
                 </button>
               </li>
             </ul>

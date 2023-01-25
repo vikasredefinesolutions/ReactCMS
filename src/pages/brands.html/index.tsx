@@ -11,7 +11,11 @@ const Brands = (props: any) => {
   let layout: React.ReactNode = <></>;
   const { storeLayout } = BrandController();
 
-  if (storeLayout === _Store.type1) {
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     layout = <Stroe1LayouBrand {...props} />;
   }
 

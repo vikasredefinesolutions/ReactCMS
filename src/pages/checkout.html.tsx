@@ -1,12 +1,12 @@
 import HelpIcon from '@mui/icons-material/Help';
-import { fetchCart } from '@services/cart.service';
+import { FetchCartDetails } from '@services/cart.service';
 import { CartProducts } from '@type/APIs/cart.res';
-import CartSummary from 'Components/CartSummary/CartSummary';
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import SeoHead from 'appComponents/reUsable/SeoHead';
 import AddressForm from 'appComponents/ui/AddressForm';
+import CartSummary from 'Components/CartSummary/CartSummary';
 import { seoTags as seoDetails } from 'constants/seo.constant';
 import { Formik, FormikProps } from 'formik';
 import _ from 'lodash';
@@ -737,7 +737,7 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                             laws
                         </div>
                         <div className="">
-                            {/* {!showReviewOrder && ( */}
+                            {!showReviewOrder && ( 
                             <button
                                 onClick={handleReviewOrder}
                                 // onClick={submitForm}
@@ -746,15 +746,15 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                             >
                                 REVIEW ORDER
                             </button>
-                            {/* )} */}
-                            {/* {showReviewOrder && ( */}
+                            )}
+                            {showReviewOrder && ( 
                             <button
                                 onClick={() => placeOrder()}
                                 className='btn btn-lg !w-full text-center btn-secondary mb-2'
                             >
                                 PLACE ORDER
                             </button>
-                            {/* )} */}
+                            )} 
                         </div>
                         <div className='bg-gray-100 p-3 text-center'>
                             <div className='text-2xl font-medium mb-4 align-middle'>
@@ -800,7 +800,7 @@ export const getServerSideProps: GetServerSideProps = async (context: {
     }
 
     if (userId && userId !== null) {
-        cart = await fetchCart(~~userId);
+        cart = await FetchCartDetails(~~userId);
         if (!_.isEmpty(cart)) {
             check = true;
         }

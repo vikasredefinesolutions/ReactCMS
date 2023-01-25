@@ -70,3 +70,27 @@ export interface Data {
 export interface Errors {}
 
 export type LogoList = Data;
+
+export interface Comment {
+  id: number;
+  senderName: string;
+  senderType: string;
+  message: string;
+  date: Date;
+  isApproved: boolean;
+  logoSize: string;
+  embroideryColor: string;
+}
+
+export interface Datum {
+  name: string;
+  imageUrl: string;
+  logoDate: Date;
+  isjpeglogo: boolean;
+  isApproved: boolean;
+  logoSize: string;
+  embroideryColor: string;
+  comments: Comment[];
+}
+
+export type LogoDetails = Datum[];

@@ -2860,6 +2860,301 @@ export const UsaaClaims_Header: React.FC = () => {
   );
 };
 
+export const Usaa_Header: React.FC = () => {
+  return (
+    <section className="container mx-auto sticky top-0 z-20">
+      <div className="bg-gray-100 p-2 hidden md:block">
+        <div className="">
+          <div className="flex flex-wrap justify-between items-center text-sm tracking-wider">
+            <div className="flex items-center"><span>Email customerservice@parsonskellogg.com</span> </div>
+            <div className="flex items-center"><span className="">Questions? Call us at (866) 602-8398</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-white">
+        <div className="relative z-40 lg:hidden">
+          <div className="fixed inset-0 bg-black bg-opacity-25" ></div>
+          <div className="fixed inset-0 flex z-40">
+            <div className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
+              <div className="px-4 pt-5 pb-2 flex">
+                <button type="button" className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400">
+                  <span className="sr-only">Close menu</span>
+                  <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div className="my-6 px-0 border-t border-gray-300">
+
+                <div className="text-sm border-b border-gray-300" >
+                  <div className="flex items-center justify-between py-2 pr-2">
+                    <button className="flex items-center grow group">
+                      <svg
+                        className="w-8 h-8 shrink-0 fill-current text-anchor"
+                        viewBox="0 0 32 32">
+                        <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
+                      </svg>
+                      <div className="text-anchor">APPAREL</div>
+                    </button>
+                    <div className=""><a href="product-listing.html" className="text-xs">Show All</a></div>
+                  </div>
+                  <div className="bg-gray-100">
+                    <div className="border-t first:border-t-0 py-5 px-6">
+                      <ul role="list" aria-labelledby="desktop-featured-heading-1" className="flex flex-wrap gap-y-2">
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> MEN'S APPAREL </a> </li>
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> WOMEN'S APPAREL </a> </li>
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> HEADWEAR </a> </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-sm border-b border-gray-300">
+                  <div className="flex items-center justify-between py-2 pr-2"><button className="flex items-center grow group"><svg
+                    className="w-8 h-8 shrink-0 fill-current text-anchor"
+                    viewBox="0 0 32 32">
+                    <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
+                  </svg>
+                    <div className="text-anchor">ACCESSORIES</div>
+                  </button>
+                    <div className=""><a href="product-listing.html" className="text-xs">Show All</a></div>
+                  </div>
+                  <div className="bg-gray-100">
+                    <div className="border-t first:border-t-0 py-5 px-6">
+                      <ul role="list" aria-labelledby="desktop-featured-heading-1" className="flex flex-wrap gap-y-2">
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> BAGS </a> </li>
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> DRINKWARE </a> </li>
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> GOLF AND OUTDOOR </a> </li>
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> OFFICE ACCESSORIES </a> </li>
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> TECH </a> </li>
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> WRITING INSTRUMENTS </a> </li>
+                        <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> MINIMUMS </a> </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-sm border-b border-gray-300">
+                  <div className="flex items-center justify-between py-3 px-2 pl-8">
+                    <div className=""><a href="product-listing.html" className="">CUSTOM REQUESTS</a></div>
+                  </div>
+                </div>
+                <div className="text-sm border-b border-gray-300">
+                  <div className="flex items-center justify-between py-3 px-2 pl-8">
+                    <div className=""><a href="product-listing.html" className="">FAQ</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <header className="relative">
+          <nav aria-label="Top">
+
+            <div className="bg-black">
+              <div className="container mx-auto">
+                <div className="">
+                  <div className="py-3 flex items-center justify-between">
+                    <div className="hidden lg:flex lg:items-center">
+                      <a href="index.html">
+                        <img className="h-24 w-auto" src="../images/logo.png" alt="Corporate Gear" />
+                      </a>
+                    </div>
+
+
+
+                    <div className="flex items-center lg:hidden space-x-4 pr-4">
+                      <a type="button" className="py-2 rounded-md text-white">
+                        <span className="sr-only">Open menu</span>
+                        <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                      </a>
+
+
+                      <a href="javascript:void(0);" className="py-2 text-white">
+                        <span className="sr-only">Search</span>
+                        <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                      </a>
+                    </div>
+
+
+                    <a href="index.html" className="lg:hidden">
+                      <img src="../images/logo.png" alt="" className="h-14 w-auto" />
+                    </a>
+
+                    <div className="flex items-center justify-end">
+                      <div className="flex items-center lg:ml-6">
+                        <div className="flex items-center space-x-4">
+                          <div className="hidden lg:flex">
+                            <div href="javascript:void(0);" className="border border-secondary p-2  text-gray-400 hover:text-gray-500 relative bg-white flex items-center justify-between">
+                              <input type="text" className="outline-none" />
+                              <button className="w-6 h-6">
+                                <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                          <div className="flow-root relative">
+                            <a href="cart.html" className="text-secondary hover:text-gray-500 group flex items-center gap-1 relative py-2 pr-2">
+                              <span className="hidden">my cart</span>
+                              <svg className="flex-shrink-0 h-6 w-6 text-white group-hover:text-secondary-hover" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                              </svg>
+                              <span className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-gray-200 text-[10px] font-medium text-gray-500">30</span>
+                            </a>
+                            {/* <div
+                              className="absolute top-full right-0 w-80 text-sm shadow"
+                            >
+
+                              <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"></div>
+                              <div className="relative bg-gray-100 z-50">
+                                <div className="border-t first:border-t-0 border-gray-300 py-3 px-3">
+                                  <ul className="">
+                                    <li className="border-t first:border-t-0 border-gray-300 pt-3 first:pt-0 pb-3 last:pb-0">
+                                      <div className="flex flex-wrap -mx-1">
+                                        <div className="w-1/4 px-1"><img src="../images/1040623_25528_STH.jpg" alt="/" /></div>
+                                        <div className="w-3/4 px-1">
+                                          <div className=""><a className="inline-block" href="product-page.html">Patagonia Men's Better Sweater Jacket</a></div>
+                                          <div className="flex flex-wrap justify-between -mx-1 mt-2 text-xs">
+                                            <div className="px-1">QTY : <span>10</span></div>
+                                            <div className="px-1">Subtotal : <span>$600.00</span></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </li>
+                                    <li className="border-t first:border-t-0 border-gray-300 pt-3 first:pt-0 pb-3 last:pb-0">
+                                      <div className="flex flex-wrap -mx-1">
+                                        <div className="w-1/4 px-1"><img src="../images/1040623_25528_STH.jpg" alt="" /></div>
+                                        <div className="w-3/4 px-1">
+                                          <div className=""><a className="inline-block" href="product-page.html">The North Face Men's ThermoBall Trekker Vest</a></div>
+                                          <div className="flex flex-wrap justify-between -mx-1 mt-2 text-xs">
+                                            <div className="px-1">QTY : <span>10</span></div>
+                                            <div className="px-1">Subtotal : <span>$1,390.00</span></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </li>
+                                    <li className="border-t first:border-t-0 border-gray-300 pt-3 first:pt-0 pb-3 last:pb-0">
+                                      <div className="flex flex-wrap -mx-1">
+                                        <div className="w-1/4 px-1"><img src="../images/1040623_25528_STH.jpg" alt="" /></div>
+                                        <div className="w-3/4 px-1">
+                                          <div className=""><a className="inline-block" href="product-page.html">Patagonia Men's Better Sweater Jacket</a></div>
+                                          <div className="flex flex-wrap justify-between -mx-1 mt-2 text-xs">
+                                            <div className="px-1">QTY : <span>10</span></div>
+                                            <div className="px-1">Subtotal : <span>$600.00</span></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div className="border-t first:border-t-0 border-gray-300 py-3 px-3">
+                                  <div className="mb-3 font-semibold text-right">
+                                    <div className="">10 ITEMS IN CART</div>
+                                    <div className="">Total $600.00</div>
+                                  </div>
+                                  <div className=""><a href="cart.html" className="btn btn-primary w-full text-center">CHECKOUT NOW</a></div>
+                                </div>
+                              </div>
+                            </div> */}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </header>
+
+        {/* <div className="bg-secondary mt-px">
+          <div className="container mx-auto">
+            <div className="hidden h-full lg:flex items-center justify-center flex-1">
+              <div className="ml-6">
+                <div className="h-full flex justify-center space-x-6 xl:space-x-10 relative text-sm">
+                  <div className="flex relative">
+                    <div className="relative flex">
+                      <a href="javascript:void(0);"
+                        className="relative z-10 flex items-center transition-colors ease-out p3.5 text-white hover hover:text-secondary-hover"
+                      > <span className="">APPAREL</span>
+                      </a>
+                    </div>
+                    <div
+                      className="absolute top-full left-0 w-60 text-gray-500 sm:text-sm"
+                    >
+                      <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"></div>
+                      <div className="relative bg-gray-100 z-50">
+                        <div className="max-w-7xl mx-auto">
+                          <div className="border-t first:border-t-0 py-5 px-5">
+                            <ul role="list" aria-labelledby="desktop-featured-heading-1" className="flex flex-wrap gap-y-2">
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> MEN'S APPAREL </a> </li>
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> WOMEN'S APPAREL </a> </li>
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> HEADWEAR </a> </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex relative">
+                    <div className="relative flex">
+                      <a href="javascript:void(0);"
+                        className="relative z-10 flex items-center transition-colors ease-out p3.5 text-white hover hover:text-secondary-hover"
+                      > <span className="">ACCESSORIES</span>
+                      </a>
+                    </div>
+                    <div
+                      className="absolute top-full left-0 w-60 text-gray-500 sm:text-sm"
+                    >
+
+                      <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"></div>
+                      <div className="relative bg-gray-100 z-50">
+                        <div className="max-w-7xl mx-auto">
+                          <div className="border-t first:border-t-0 py-5 px-5">
+                            <ul role="list" aria-labelledby="desktop-featured-heading-1" className="flex flex-wrap gap-y-2">
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> BAGS </a> </li>
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> DRINKWARE </a> </li>
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> GOLF AND OUTDOOR </a> </li>
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> OFFICE ACCESSORIES </a> </li>
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> TECH </a> </li>
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> WRITING INSTRUMENTS </a> </li>
+                              <li className="w-full flex items-center"> <a href="product-listing.html" className="text-anchor hover:text-anchor-hover"> MINIMUMS </a> </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative flex">
+                    <a href="product-listing.html"
+                      className="relative z-10 flex items-center transition-colors ease-out py-3 text-white hover hover:text-secondary-hover">
+                      <span className="">CUSTOM REQUESTS</span>
+                    </a>
+                  </div>
+                  <div className="relative flex">
+                    <a href="product-listing.html"
+                      className="relative z-10 flex items-center transition-colors ease-out py-3 text-white hover hover:text-secondary-hover">
+                      <span className="">FAQ</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> */}
+
+      </div>
+    </section>
+  );
+};
 // WayFair
 export const WayFair_Header: React.FC = () => {
   return (

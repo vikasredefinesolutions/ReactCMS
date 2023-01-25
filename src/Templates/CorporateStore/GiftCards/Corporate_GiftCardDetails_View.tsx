@@ -44,46 +44,47 @@ const Corporate_GiftCardDetails: React.FC<_props> = ({ giftCard }) => {
   const { cart_update_item } = useActions();
 
   const formHandler = (value: _InitialValues) => {
-    cart_update_item({
-      type: 'add_item',
-      data: {
-        itemType: 'giftCard',
-        giftId: giftCard.productId,
-        qty: 1,
-        seName: giftCard.seName,
-        giftPrice: +giftCard.salePrice,
-        giftImageURL: giftCard.imageName,
-        sender: {
-          name: '',
-          email: '',
-        },
-        recipient: {
-          name: value.recipientName,
-          email: value.recipientEmail,
-        },
-        messageForRecipient: value.messageForRecipient,
-      },
-    });
+    // Fix Abhishek
+    // cart_update_item({
+    //   type: 'add_item',
+    //   data: {
+    //     itemType: 'giftCard',
+    //     giftId: giftCard.productId,
+    //     qty: 1,
+    //     seName: giftCard.seName,
+    //     giftPrice: +giftCard.salePrice,
+    //     giftImageURL: giftCard.imageName,
+    //     sender: {
+    //       name: '',
+    //       email: '',
+    //     },
+    //     recipient: {
+    //       name: value.recipientName,
+    //       email: value.recipientEmail,
+    //     },
+    //     messageForRecipient: value.messageForRecipient,
+    //   },
+    // });
 
     router.push(paths.CART);
   };
 
   return (
-    <section className="">
-      <div className="container mx-auto">
-        <div className="bg-white pt-8">
-          <div className="lg:grid lg:grid-cols-12 lg:items-start px-3 gap-4">
-            <div className="lg:col-span-7">
-              <div className="relative">
-                <div className="main-image max-w-xl mx-auto mb-4">
-                  <img src={giftCard.imageName} alt="" className="" />
+    <section className=''>
+      <div className='container mx-auto'>
+        <div className='bg-white pt-8'>
+          <div className='lg:grid lg:grid-cols-12 lg:items-start px-3 gap-4'>
+            <div className='lg:col-span-7'>
+              <div className='relative'>
+                <div className='main-image max-w-xl mx-auto mb-4'>
+                  <img src={giftCard.imageName} alt='' className='' />
                 </div>
               </div>
             </div>
             {/* <!-- <div className="lg:col-end-13 lg:col-span-5 mt-4 md:mt-10 px-2 md:px-4 sm:px-0 sm:mt-16 lg:mt-0"> --> */}
-            <div className="lg:col-span-5">
-              <div className="mb-4 border-b border-b-gray-300">
-                <div className="text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title mb-4">
+            <div className='lg:col-span-5'>
+              <div className='mb-4 border-b border-b-gray-300'>
+                <div className='text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title mb-4'>
                   {giftCard.name}
                 </div>
               </div>
@@ -100,13 +101,13 @@ const Corporate_GiftCardDetails: React.FC<_props> = ({ giftCard }) => {
                   )[0];
                   return (
                     <Form>
-                      <div className="flex flex-wrap items-center mb-4">
-                        <div className="w-32 text-sm items-center">
-                          <span className="text-sm font-semibold">
+                      <div className='flex flex-wrap items-center mb-4'>
+                        <div className='w-32 text-sm items-center'>
+                          <span className='text-sm font-semibold'>
                             Recipient's Name:
                           </span>
                         </div>
-                        <div className="text-sm grow max-w-xs">
+                        <div className='text-sm grow max-w-xs'>
                           <GC_Input
                             type={'text'}
                             id={'recipientName'}
@@ -117,13 +118,13 @@ const Corporate_GiftCardDetails: React.FC<_props> = ({ giftCard }) => {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-wrap items-center mb-4">
-                        <div className="w-32 text-sm items-center">
-                          <span className="text-sm font-semibold">
+                      <div className='flex flex-wrap items-center mb-4'>
+                        <div className='w-32 text-sm items-center'>
+                          <span className='text-sm font-semibold'>
                             Recipient's Email:
                           </span>
                         </div>
-                        <div className="text-sm grow max-w-xs">
+                        <div className='text-sm grow max-w-xs'>
                           <GC_Input
                             type={'text'}
                             id={'recipientEmail'}
@@ -134,15 +135,15 @@ const Corporate_GiftCardDetails: React.FC<_props> = ({ giftCard }) => {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-wrap mb-4">
-                        <div className="w-32 text-sm items-center">
-                          <span className="text-sm font-semibold">
+                      <div className='flex flex-wrap mb-4'>
+                        <div className='w-32 text-sm items-center'>
+                          <span className='text-sm font-semibold'>
                             Message:
                           </span>
                         </div>
-                        <div className="text-sm grow max-w-xs">
+                        <div className='text-sm grow max-w-xs'>
                           <textarea
-                            className="form-input"
+                            className='form-input'
                             value={values.messageForRecipient}
                             id={'messageForRecipient'}
                             name={'messageForRecipient'}
@@ -152,24 +153,24 @@ const Corporate_GiftCardDetails: React.FC<_props> = ({ giftCard }) => {
                         </div>
                       </div>
                       <div>
-                        <div className="mt-3 bg-sky-50 p-4">
-                          <div className="text-sm text-gray-900 flex flex-wrap items-end">
-                            <div className="w-28">
-                              <span className="">You Pay</span>
+                        <div className='mt-3 bg-sky-50 p-4'>
+                          <div className='text-sm text-gray-900 flex flex-wrap items-end'>
+                            <div className='w-28'>
+                              <span className=''>You Pay</span>
                             </div>
-                            <div className="">
-                              <span className="text-2xl tracking-wider">
+                            <div className=''>
+                              <span className='text-2xl tracking-wider'>
                                 <Price value={giftCard.salePrice} />
                               </span>
                             </div>
                           </div>
                           <div
                             onClick={() => setShowErrorMsg(true)}
-                            className="w-full text-left flex justify-end mt-4"
+                            className='w-full text-left flex justify-end mt-4'
                           >
                             <button
-                              type="submit"
-                              className="btn btn-primary w-full text-center"
+                              type='submit'
+                              className='btn btn-primary w-full text-center'
                             >
                               BUY NOW
                             </button>

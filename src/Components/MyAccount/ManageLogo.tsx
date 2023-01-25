@@ -31,8 +31,6 @@ const ManageLogo = () => {
         };
 
         const logoList = await getLogoDetailsList(filter);
-        console.log(logoList);
-        setLogoList(logoList);
       }
     } catch (error) {
       console.log(error);

@@ -1,4 +1,7 @@
 import { _RedefineAppAPIs } from '@services/app.service';
+import { _CacheAPIs } from '@services/cache.service';
+import { _ShoppingCartAPIs } from '@services/cart.service';
+import { _FileUploadAPIs } from '@services/file.service';
 import { _FooterAPIs } from '@services/footer.service';
 import { _GiftCardAPIs } from '@services/gift.service';
 import { _HeaderAPIs } from '@services/header.service';
@@ -19,6 +22,9 @@ export interface __Console {
     page: boolean;
     service: Record<_SlugAPIs, boolean>;
   };
+  files: {
+    service: Record<_FileUploadAPIs, boolean>;
+  };
   user: {
     service: Record<_UserAPIs, boolean>;
   };
@@ -31,9 +37,9 @@ export interface __Console {
   header: {
     service: Record<_HeaderAPIs, boolean>;
   };
-  footer:{
+  footer: {
     service: Record<_FooterAPIs, boolean>;
-  }
+  };
   productDetails: {
     service: Record<_ProducDetailAPIs, boolean>;
     controller: boolean;
@@ -63,5 +69,11 @@ export interface __Console {
       list: boolean;
     };
     service: Record<_GiftCardAPIs, boolean>;
+  };
+  cacheAPIs: {
+    service: Record<_CacheAPIs, boolean>;
+  };
+  ShoppingCart: {
+    service: Record<_ShoppingCartAPIs, boolean>;
   };
 }

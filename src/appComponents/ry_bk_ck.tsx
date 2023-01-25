@@ -1,5 +1,5 @@
 // import HelpIcon from '@mui/icons-material/Help';
-// import { fetchCart } from '@services/cart.service';
+// import { FetchCartDetails } from '@services/cart.service';
 // import { CartProducts } from '@type/APIs/cart.res';
 // import CartSummary from 'Components/CartSummary/CartSummary';
 // import ForgotModal from 'appComponents/modals/ForgotModal';
@@ -801,7 +801,7 @@ const Checkout_old = () => {
     //     }
 
     //     if (userId && userId !== null) {
-    //         cart = await fetchCart(~~userId);
+    //         cart = await FetchCartDetails(~~userId);
     //         if (!_.isEmpty(cart)) {
     //             check = true;
     //         }

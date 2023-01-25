@@ -1,5 +1,7 @@
-import { __LocalStorage } from '@constants/global.constant';
-import { useTypedSelector } from 'hooks';
+import { __Cookie } from '@constants/global.constant';
+import { FetchCartDetails } from '@services/cart.service';
+import { extractCookies } from 'helpers/common.helper';
+import { useActions, useTypedSelector } from 'hooks';
 import React, { useEffect } from 'react';
 import { SC_CartSummary_withoutPersonalization } from './Components/SC_CartSummary';
 import { SC_ItemsInCart_withoutPersonalization } from './Components/SC_ItemsInCart';
@@ -9,17 +11,54 @@ const Corporate_ShoppingCart: React.FC = () => {
   const cartItems = useTypedSelector(
     (state) => state.cart.corporateStoreCart.items,
   );
+  const { cart_update_item } = useActions();
+
+  const loggedIn_userId = useTypedSelector((state) => state.user.id);
 
   useEffect(() => {
-    if (localStorage) {
-      const custID = localStorage.getItem(__LocalStorage.tempCustomerId);
+    let guest_or_loggedInUser_ID: string | null | number = (extractCookies(
+      __Cookie.tempCustomerId,
+      'browserCookie',
+    ).tempCustomerId);
 
-      // if (custID && typeof custID === 'string') {
-      // const _custID = +custID;
-      // fetchCartDetails(48);
-      // }
+    if (guest_or_loggedInUser_ID) {
+      guest_or_loggedInUser_ID = +(guest_or_loggedInUser_ID)
+
+      if (loggedIn_userId) {
+        guest_or_loggedInUser_ID = loggedIn_userId
+      }
+
+      FetchCartDetails(guest_or_loggedInUser_ID).then(res => {
+        res?.forEach(item => {
+          cart_update_item({
+            type: 'add_item',
+            data: {
+              cartItemId: item.shoppingCartItemsId,
+              itemType: 'product',
+              seName: item.seName,
+              colorImageURL: item.colorImage,
+              sku: item.sku,
+              productId: +item.attributeOptionId, // not getting productId 
+              colorId: +item.attributeOptionId,
+              productName: item.productName,
+              colorName: item.attributeOptionValue,
+              productPrice: item.totalPrice / item.totalQty,
+              attributes: item.shoppingCartItemDetailsViewModels.map(product => {
+                return ({
+                  size: product.attributeOptionValue,
+                  attributeOptionId: product.attributeOptionId,
+                  qty: product.qty,
+                  priceOfqty: product.price,
+                  minQtyRequired: 0, // not getting minRequired 
+                })
+              })
+            }
+          })
+        })
+      })
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn_userId]);
 
   if (cartItems.length === 0) {
     return (

@@ -22,26 +22,26 @@ const LoginIcon: React.FC = () => {
 
   if (storeLayout === _Store.type3) {
     return (
-      <div className="flex relative">
+      <div className='flex relative'>
         <button
           onClick={toggleLoginModal}
-          className="text-gray-600 hover:text-primary flex items-center gap-1"
+          className='text-gray-600 hover:text-primary flex items-center gap-1'
         >
-          <span className="hidden">John</span>
+          <span className='hidden'>John</span>
           <svg
-            className="w-6 h-6"
-            x-description="Heroicon name: outline/user"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            aria-hidden="true"
+            className='w-6 h-6'
+            x-description='Heroicon name: outline/user'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth='2'
+            stroke='currentColor'
+            aria-hidden='true'
           >
             <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
             ></path>
           </svg>
         </button>
@@ -54,27 +54,27 @@ const LoginIcon: React.FC = () => {
 
   if (storeLayout === _Store.type2) {
     return (
-      <div className="flex relative">
+      <div className='flex relative'>
         <button
           onClick={toggleLoginModal}
-          className="text-gray-600 hover:text-[#CDDE00] flex items-center gap-1"
-          data-modal-toggle="LoginModal"
+          className='text-gray-600 hover:text-[#CDDE00] flex items-center gap-1'
+          data-modal-toggle='LoginModal'
         >
-          <span className="hidden">John</span>
+          <span className='hidden'>John</span>
           <svg
-            className="w-6 h-6"
-            x-description="Heroicon name: outline/user"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            aria-hidden="true"
+            className='w-6 h-6'
+            x-description='Heroicon name: outline/user'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth='2'
+            stroke='currentColor'
+            aria-hidden='true'
           >
             <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
             ></path>
           </svg>
         </button>
@@ -87,14 +87,14 @@ const LoginIcon: React.FC = () => {
 
   if (storeLayout === _Store.type4) {
     return (
-      <div className="flex">
+      <div className='flex'>
         <button
           onClick={toggleLoginModal}
-          className="lg:mx-2 py-2 text-white hover:text-white flex items-center gap-1"
-          data-modal-toggle="LoginModal"
+          className='lg:mx-2 py-2 text-white hover:text-white flex items-center gap-1'
+          data-modal-toggle='LoginModal'
         >
-          <span className="lg:hidden material-icons-outlined">person</span>
-          <span className="hidden lg:inline-block">Login</span>
+          <span className='lg:hidden material-icons-outlined'>person</span>
+          <span className='hidden lg:inline-block'>Login</span>
         </button>
         {showModal === 'login' && <LoginModal modalHandler={setShowModal} />}
         {showModal === 'forgot' && <ForgotModal modalHandler={setShowModal} />}
@@ -102,28 +102,32 @@ const LoginIcon: React.FC = () => {
     );
   }
 
-  if (storeLayout === _Store.type1) {
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     return (
-      <div className="flex">
+      <div className='flex'>
         <button
-          className="text-primary hover:text-gray-500 flex items-center gap-1"
+          className='text-primary hover:text-gray-500 flex items-center gap-1'
           onClick={toggleLoginModal}
         >
-          <span className="hidden lg:inline-block">login</span>
+          <span className='hidden lg:inline-block'>login</span>
           <svg
-            className="w-6 h-6"
-            x-description="Heroicon name: outline/user"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            aria-hidden="true"
+            className='w-6 h-6'
+            x-description='Heroicon name: outline/user'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth='2'
+            stroke='currentColor'
+            aria-hidden='true'
           >
             <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
             ></path>
           </svg>
         </button>

@@ -6,10 +6,14 @@ const ProducAvailableSizes: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const sizes = useTypedSelector((state) => state.product.product.sizes);
 
-  if (storeLayout === _Store.type1) {
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     return (
-      <div className="text-lg">
-        <span className="font-semibold">Available Size(s):</span>
+      <div className='text-lg'>
+        <span className='font-semibold'>Available Size(s):</span>
         <span>{` ${sizes}`}</span>
       </div>
     );

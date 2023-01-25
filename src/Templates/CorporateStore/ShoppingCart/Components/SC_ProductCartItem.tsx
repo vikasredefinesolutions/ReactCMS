@@ -1,4 +1,3 @@
-import { _CartItem } from '@type/APIs/cart.res';
 import MsgContainer from 'appComponents/modals/MsgContainer';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
@@ -7,57 +6,9 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { _InCart_Product_model } from 'redux/slices/_slices';
 import {
-  SC_SizeQtyPriceRow_withEdit_n_RemoveButton,
-  SC_SizeQtyPriceTable,
+  SC_SizeQtyPriceTable
 } from './SC_SizeQtyPrice';
 
-export const SC_ProductCartItem_withPersonalization: React.FC<_CartItem> = (
-  item,
-) => {
-  return (
-    <li className="border-b border-b-gray-300">
-      <div className="flex flex-wrap py-5 -mx-3">
-        <div className="w-full lg:w-1/3 px-3">
-          <Link href={item.seName} className="block border border-gray-100">
-            <Image src={item.colorImage} alt={item.productName} className="" />
-          </Link>
-        </div>
-
-        <div className="w-full lg:w-2/3 px-3 flex flex-wrap lg:justify-between">
-          <div className="text-lg font-semibold">
-            <Link
-              href={item.seName}
-              className="text-black hover:text-anchor-hover"
-            >
-              {item.productName}
-            </Link>
-          </div>
-          <div className="w-full flex flex-wrap">
-            <div className="w-full mt-4">
-              <div className="flex justify-between">
-                <div className="text-base">
-                  <span className="font-semibold">SKU :</span> {item.sku}
-                </div>
-                <div className="text-base">
-                  <span className="font-semibold">Color :</span>
-                  {item.attributeOptionValue}
-                </div>
-              </div>
-              <div className="mt-4 border-t border-t-gray-500">
-                {item.shoppingCartItemDetailsViewModels.map((detail, index) => (
-                  <SC_SizeQtyPriceRow_withEdit_n_RemoveButton
-                    key={index}
-                    {...detail}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-  );
-};
 
 export const SC_ProductCartItem_withoutPersonalization: React.FC<
   _InCart_Product_model

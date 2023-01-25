@@ -9,7 +9,7 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import {
   _ProductDetails,
   _ProductsAlike,
-  _ProductSEO
+  _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
@@ -45,45 +45,49 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
     <Head>
       <title>{seo?.pageTitle || details.name}</title>
       <meta
-        name="description"
+        name='description'
         content={seo?.metaDescription || details.description}
-        key="desc"
+        key='desc'
       />
-      <meta name="keywords" content={seo?.metaKeywords || details.name} />
+      <meta name='keywords' content={seo?.metaKeywords || details.name} />
       <link
-        rel="stylesheet"
-        type="text/css"
-        charSet="UTF-8"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        rel='stylesheet'
+        type='text/css'
+        charSet='UTF-8'
+        href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css'
       />
       <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        rel='stylesheet'
+        type='text/css'
+        href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css'
       />
     </Head>
   );
 
   return (
-    <section className="container mx-auto border border-gray-300 p-3">
+    <section className='container mx-auto border border-gray-300 p-3'>
       <>{HeadTag}</>
-      <div className="flex flex-wrap items-center -mx-3">
-        <div className="w-full lg:w-4/12 px-3 text-center">
-          <div className="">
+      <div className='flex flex-wrap items-center -mx-3'>
+        <div className='w-full lg:w-4/12 px-3 text-center'>
+          <div className=''>
             <Image
               src={color?.imageUrl || null}
               alt={details.name}
               className={''}
             />
           </div>
-          <div className="text-lg md:text-xl lg:text-small-title font-small-title">
+          <div className='text-lg md:text-xl lg:text-small-title font-small-title'>
             <button onClick={() => router.back()}>{details.name}</button>
           </div>
         </div>
         <RequestConsultationForm />
         <RequestFeatures />
       </div>
-      <ProductAlike title={'YOU MAY ALSO LIKE'} products={alike} storeCode={''} />
+      <ProductAlike
+        title={'YOU MAY ALSO LIKE'}
+        products={alike}
+        storeCode={''}
+      />
     </section>
   );
 };

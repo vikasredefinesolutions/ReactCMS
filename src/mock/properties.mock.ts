@@ -59,5 +59,6 @@ export const properties = {
   },
   product: {
     size_input: 'select',
+    isMultiple: true
   },
 };

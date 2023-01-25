@@ -21,18 +21,22 @@ const Topic: React.FC<_props> = ({ title, url }) => {
   //   FetchHeaderTopics({ topicId: id }).then((res) => setTopicMenu(res));
   // }, []);
 
-  if (storeLayout === _Store.type1) {
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     if (view === 'MOBILE') {
       return (
-        <div className="text-sm border-b border-gray-300">
-          <div className="flex items-center justify-between py-3 px-2 pl-8">
-            <div className="">
+        <div className='text-sm border-b border-gray-300'>
+          <div className='flex items-center justify-between py-3 px-2 pl-8'>
+            <div className=''>
               <button
                 onClick={() => {
                   toggleSideMenu('CLOSE');
                   router.push(`/${url}`);
                 }}
-                className=""
+                className=''
               >
                 {title}
               </button>
@@ -44,19 +48,19 @@ const Topic: React.FC<_props> = ({ title, url }) => {
 
     if (view === 'DESKTOP') {
       return (
-        <Link href={`${url}`} className="flex">
-          <div className="">
+        <Link href={`${url}`} className='flex'>
+          <div className=''>
             <button
               onMouseOver={() => setFocus(true)}
               onMouseOut={() => setFocus(false)}
-              type="button"
+              type='button'
               className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
                 focus
                   ? `border-b-primary text-primary-hover`
                   : `border-transparent text-white hover:text-primary-hover`
               }`}
             >
-              <span className="uppercase text-primary">{title}</span>
+              <span className='uppercase text-primary'>{title}</span>
             </button>
           </div>
         </Link>
@@ -67,15 +71,15 @@ const Topic: React.FC<_props> = ({ title, url }) => {
   if (storeLayout === _Store.type2) {
     if (view === 'MOBILE') {
       return (
-        <div className="text-sm border-b border-gray-300">
-          <div className="flex items-center justify-between py-3 px-2 pl-8">
-            <div className="">
+        <div className='text-sm border-b border-gray-300'>
+          <div className='flex items-center justify-between py-3 px-2 pl-8'>
+            <div className=''>
               <button
                 onClick={() => {
                   toggleSideMenu('CLOSE');
                   router.push(`/${url}`);
                 }}
-                className=""
+                className=''
               >
                 FAQ
               </button>
@@ -87,11 +91,11 @@ const Topic: React.FC<_props> = ({ title, url }) => {
     if (view === 'DESKTOP') {
       return (
         <div
-          className="flex"
+          className='flex'
           onMouseOver={() => setFocus(true)}
           onMouseOut={() => setFocus(false)}
         >
-          <div className="">
+          <div className=''>
             <Link
               href={`${url}`}
               type={'button'}
@@ -101,7 +105,7 @@ const Topic: React.FC<_props> = ({ title, url }) => {
                   : `text-gray-700 hover:text-gray-800`
               }`}
             >
-              <span className="uppercase text-white">{title}</span>
+              <span className='uppercase text-white'>{title}</span>
             </Link>
           </div>
         </div>
@@ -113,15 +117,15 @@ const Topic: React.FC<_props> = ({ title, url }) => {
     if (view === 'MOBILE') {
       return (
         <div
-          className="text-sm border-b border-gray-300"
+          className='text-sm border-b border-gray-300'
           onClick={() => {
             toggleSideMenu('CLOSE');
             router.push(`/${url}`);
           }}
         >
-          <div className="flex items-center justify-between py-3 px-2 pl-8">
-            <div className="">
-              <button className="">Sale</button>
+          <div className='flex items-center justify-between py-3 px-2 pl-8'>
+            <div className=''>
+              <button className=''>Sale</button>
             </div>
           </div>
         </div>
@@ -130,17 +134,17 @@ const Topic: React.FC<_props> = ({ title, url }) => {
     if (view === 'DESKTOP') {
       return (
         <div
-          className="flex"
+          className='flex'
           onMouseOver={() => setFocus(true)}
           onMouseOut={() => setFocus(false)}
         >
-          <div className="">
+          <div className=''>
             <Link
               href={`${url}`}
               type={'button'}
-              className="flex items-center transition-colors ease-out duration-200 text-anchor py-2.5"
+              className='flex items-center transition-colors ease-out duration-200 text-anchor py-2.5'
             >
-              <span className="">{title}</span>
+              <span className=''>{title}</span>
             </Link>
           </div>
         </div>
@@ -152,15 +156,15 @@ const Topic: React.FC<_props> = ({ title, url }) => {
     if (view === 'MOBILE') {
       return (
         <div
-          className="text-sm border-b border-gray-300"
+          className='text-sm border-b border-gray-300'
           onClick={() => {
             toggleSideMenu('CLOSE');
             router.push(`/${url}`);
           }}
         >
-          <div className="flex items-center justify-between py-3 px-2 pl-8">
-            <div className="">
-              <button className="">{title}</button>
+          <div className='flex items-center justify-between py-3 px-2 pl-8'>
+            <div className=''>
+              <button className=''>{title}</button>
             </div>
           </div>
         </div>
@@ -169,11 +173,11 @@ const Topic: React.FC<_props> = ({ title, url }) => {
     if (view === 'DESKTOP') {
       return (
         <div
-          className="flex"
+          className='flex'
           onMouseOver={() => setFocus(true)}
           onMouseOut={() => setFocus(false)}
         >
-          <div className="">
+          <div className=''>
             <Link
               href={`${url}`}
               className={`relative z-10 flex items-center transition-colors ease-out duration-200 text-md font-medium border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary ${
@@ -182,7 +186,7 @@ const Topic: React.FC<_props> = ({ title, url }) => {
                   : 'border-transparent text-gray-700 hover:text-gray-800'
               }`}
             >
-              <span className="text-white">{title}</span>
+              <span className='text-white'>{title}</span>
             </Link>
           </div>
         </div>

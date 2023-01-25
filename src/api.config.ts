@@ -5,6 +5,7 @@ export interface _Config {
   CLIENT_ID: string;
   mediaBaseUrl: string;
   CMS: string;
+  imageFolderPath: string;
 }
 
 const dev = {
@@ -13,6 +14,7 @@ const dev = {
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
+  imageFolderPath: '/rdc/1/store/4/images/',
   CMS: 'https://redefine-front-dev.redefinecommerce.io/',
 };
 
@@ -22,6 +24,7 @@ const stage = {
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
+  imageFolderPath: '/rdc/1/store/4/images/',
   CMS: 'https://redefine-front-dev.redefinecommerce.io/',
 };
 
@@ -31,6 +34,7 @@ const prod = {
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
+  imageFolderPath: '/rdc/1/store/4/images/',
   CMS: 'https://redefine-front-dev.redefinecommerce.io/',
 };
 

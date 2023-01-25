@@ -23,12 +23,16 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
     return <></>;
   }
 
-  if (storeLayout === _Store.type1) {
+  if (
+    storeLayout === _Store.type1 ||
+    storeLayout === _Store.type15 ||
+    storeLayout === _Store.type16
+  ) {
     if (screen === 'MOBILE') {
       return (
-        <div className="relative z-40 lg:hidden">
+        <div className='relative z-40 lg:hidden'>
           <Backdrop />
-          <div className="fixed inset-0 flex z-40">
+          <div className='fixed inset-0 flex z-40'>
             <div
               // x-transition:enter="transition ease-in-out duration-300 transform"
               // x-transition:enter-start="-translate-x-full"
@@ -36,7 +40,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
               // x-transition:leave="transition ease-in-out duration-300 transform"
               // x-transition:leave-start="translate-x-0"
               // x-transition:leave-end="-translate-x-full"
-              className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto"
+              className='relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto'
             >
               <CloseIcon />
               {menuItems.items_content?.map((menu, index) => {
@@ -60,9 +64,9 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
     }
     if (screen === 'DESKTOP') {
       return (
-        <div className="hidden h-full xl:flex items-center justify-center flex-1">
-          <div className="ml-5">
-            <div className="h-full flex justify-center space-x-5 relative text-sm">
+        <div className='hidden h-full xl:flex items-center justify-center flex-1'>
+          <div className='ml-5'>
+            <div className='h-full flex justify-center space-x-5 relative text-sm'>
               {menuItems.items_content?.map((menu, index) => {
                 if (menu === null) {
                   return <></>;
@@ -87,9 +91,9 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
   if (storeLayout === _Store.type2) {
     if (screen === 'MOBILE') {
       return (
-        <div className="relative z-40 lg:hidden">
+        <div className='relative z-40 lg:hidden'>
           <Backdrop />
-          <div className="fixed inset-0 flex z-40">
+          <div className='fixed inset-0 flex z-40'>
             <div
               // x-transition:enter="transition ease-in-out duration-300 transform"
               // x-transition:enter-start="-translate-x-full"
@@ -97,10 +101,10 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
               // x-transition:leave="transition ease-in-out duration-300 transform"
               // x-transition:leave-start="translate-x-0"
               // x-transition:leave-end="-translate-x-full"
-              className="relative max-w-xs w-full bg-white shadow-xl pb-6 flex flex-col overflow-y-auto"
+              className='relative max-w-xs w-full bg-white shadow-xl pb-6 flex flex-col overflow-y-auto'
             >
               <CloseIcon />
-              <div className="my-6 px-0 border-t border-gray-300">
+              <div className='my-6 px-0 border-t border-gray-300'>
                 {menuItems.items_content?.map((menu, index) => {
                   if (menu === null) {
                     return <></>;
@@ -124,10 +128,10 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
 
     if (screen === 'DESKTOP') {
       return (
-        <div className="hidden h-full py-2 lg:flex items-center justify-center bg-[#051c2c] relative">
-          <div className="">
-            <div className="ml-6">
-              <div className="h-full flex justify-center gap-x-4 xl:gap-x-10 text-base xl:tracking-widest">
+        <div className='hidden h-full py-2 lg:flex items-center justify-center bg-[#051c2c] relative'>
+          <div className=''>
+            <div className='ml-6'>
+              <div className='h-full flex justify-center gap-x-4 xl:gap-x-10 text-base xl:tracking-widest'>
                 {menuItems.items_content?.map((menu, index) => {
                   if (menu === null) {
                     return <></>;
@@ -153,9 +157,9 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
   if (storeLayout === _Store.type3) {
     if (screen === 'MOBILE') {
       return (
-        <div className="relative z-40 lg:hidden">
+        <div className='relative z-40 lg:hidden'>
           <Backdrop />
-          <div className="fixed inset-0 flex z-40">
+          <div className='fixed inset-0 flex z-40'>
             <div
               // x-transition:enter="transition ease-in-out duration-300 transform"
               // x-transition:enter-start="-translate-x-full"
@@ -163,10 +167,10 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
               // x-transition:leave="transition ease-in-out duration-300 transform"
               // x-transition:leave-start="translate-x-0"
               // x-transition:leave-end="-translate-x-full"
-              className="relative max-w-xs w-full bg-white shadow-xl pb-6 flex flex-col overflow-y-auto"
+              className='relative max-w-xs w-full bg-white shadow-xl pb-6 flex flex-col overflow-y-auto'
             >
               <CloseIcon />
-              <div className="my-6 px-0 border-t border-gray-300">
+              <div className='my-6 px-0 border-t border-gray-300'>
                 {menuItems.items_content?.map((menu, index) => {
                   if (menu === null) {
                     return <></>;
@@ -189,10 +193,10 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
     }
     if (screen === 'DESKTOP') {
       return (
-        <div className="hidden h-full lg:flex items-center justify-center">
-          <div className="">
-            <div className="ml-6">
-              <div className="h-full flex justify-center space-x-6 xl:space-x-10 relative text-base xl:tracking-widest">
+        <div className='hidden h-full lg:flex items-center justify-center'>
+          <div className=''>
+            <div className='ml-6'>
+              <div className='h-full flex justify-center space-x-6 xl:space-x-10 relative text-base xl:tracking-widest'>
                 {menuItems.items_content?.map((menu, index) => {
                   if (menu === null) {
                     return <></>;
@@ -218,9 +222,9 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
   if (storeLayout === _Store.type4) {
     if (screen === 'MOBILE') {
       return (
-        <div className="relative z-40 lg:hidden">
+        <div className='relative z-40 lg:hidden'>
           <Backdrop />
-          <div className="fixed inset-0 flex z-40">
+          <div className='fixed inset-0 flex z-40'>
             <div
               // x-transition:enter="transition ease-in-out duration-300 transform"
               // x-transition:enter-start="-translate-x-full"
@@ -228,10 +232,10 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
               // x-transition:leave="transition ease-in-out duration-300 transform"
               // x-transition:leave-start="translate-x-0"
               // x-transition:leave-end="-translate-x-full"
-              className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto"
+              className='relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto'
             >
               <CloseIcon />
-              <div className="my-6 px-0 border-t border-gray-300">
+              <div className='my-6 px-0 border-t border-gray-300'>
                 {menuItems.items_content?.map((menu, index) => {
                   if (menu === null) {
                     return <></>;
@@ -254,9 +258,9 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
     }
     if (screen === 'DESKTOP') {
       return (
-        <div className="hidden h-full lg:flex items-center justify-center flex-1">
-          <div className="ml-6">
-            <div className="h-full flex justify-center space-x-6 relative">
+        <div className='hidden h-full lg:flex items-center justify-center flex-1'>
+          <div className='ml-6'>
+            <div className='h-full flex justify-center space-x-6 relative'>
               {menuItems.items_content?.map((menu, index) => {
                 if (menu === null) {
                   return <></>;

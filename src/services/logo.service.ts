@@ -1,16 +1,15 @@
-import { CustomerUsersObject } from '@type/APIs/customerUser.res';
 import { FetchLogoPayload } from '@type/APIs/logo.req';
-import { LogoList } from '@type/APIs/logo.res';
+import { LogoDetails, LogoList } from '@type/APIs/logo.res';
 import { SendAsyncV2 } from '@utils/axios.util';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
 
 export const getLogoDetailsById = async (
   logoId: number,
-): Promise<CustomerUsersObject[] | null> => {
+): Promise<LogoDetails | null> => {
   try {
     const url = `/StoreCustomerLogo/getalllistbycustomerlogoid/${logoId}.json`;
-    const res = await SendAsyncV2<CustomerUsersObject[]>({
+    const res = await SendAsyncV2<LogoDetails>({
       url: url,
       method: 'POST',
       data: logoId,

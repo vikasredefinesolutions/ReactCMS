@@ -1,15 +1,15 @@
 import { useTypedSelector } from 'hooks';
 import React from 'react';
-interface _props { }
-
-
+interface _props {}
 
 const Ecommerce_Footer: React.FC<_props> = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
-  const footerDetails = useTypedSelector((state) => state.store.configs.footer?.config_value)
+  const footerDetails = useTypedSelector(
+    (state) => state.store.configs.footer?.config_value,
+  );
 
-  // if (storeLayout === _Store.type1) {
+  // if (storeLayout === _Store.type1 || storeLayout === _Store.type15 || storeLayout === _Store.type16) {
   //   return (
   //     <footer className="bg-white pt-10" aria-labelledby="footer-heading">
   //       <h2 id="footer-heading" className="sr-only">
@@ -387,9 +387,11 @@ const Ecommerce_Footer: React.FC<_props> = () => {
   //     </footer>
   //   );
   // }
-  return <>
-    <div dangerouslySetInnerHTML={{ __html: footerDetails || '' }}></div>
-  </>;
+  return (
+    <>
+      <div dangerouslySetInnerHTML={{ __html: footerDetails || '' }}></div>
+    </>
+  );
 };
 
 export default Ecommerce_Footer;
