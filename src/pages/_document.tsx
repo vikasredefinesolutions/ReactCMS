@@ -45,22 +45,22 @@ class MyDocument extends Document {
                <link
                   rel="stylesheet"
                   type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css'`}
+                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css`}
                 />
            }
            {storeId == 23 && 
                <link
                   rel="stylesheet"
                   type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css'`}
+                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`}
                 />
            }
 
-           {storeId == 22 && 
+           {storeId == 108 && 
                <link
                   rel="stylesheet"
                   type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css'`}
+                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css`}
                 />
            }
 
