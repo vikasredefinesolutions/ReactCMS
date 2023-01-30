@@ -1,3 +1,5 @@
+import MsgContainer from 'appComponents/modals/MsgContainer';
+import { _modals } from 'definations/product.type';
 import { useActions } from 'hooks';
 import { _Store } from 'page.config';
 import React, { useState } from 'react';
@@ -19,15 +21,27 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
 }) => {
   const { updateQuantities, updateQuantities2 } = useActions();
   const [value, setValue] = useState<number | string>(0);
+  const [openModal, setOpenModal] = useState<null | _modals>(null);
+  const modalHandler = (param: null | _modals) => {
+    if (param) {
+      setOpenModal(param);
+      return;
+    }
+    setOpenModal(null);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(+event.target.value);
-
+    if (qty < +event.target.value) {
+      setOpenModal('InventoryLimit')
+      setValue(qty)
+    }
     if (
       storeCode === _Store.type1 ||
       storeCode === _Store.type15 ||
       storeCode === _Store.type16
     ) {
+
       updateQuantities({
         size: size,
         qty: +event.target.value,
@@ -45,6 +59,7 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
 
   if (storeCode === _Store.type4) {
     return (
+    <>
       <div className=''>
         <input
           type='number'
@@ -57,6 +72,14 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
           disabled={isDisabled}
         />
       </div>
+      {openModal === 'InventoryLimit' && (
+        <MsgContainer
+          title="Inventory Exceed"
+          message="please Enter Less Quantity than Inventory size "
+          modalHandler={modalHandler}
+        />
+      )}
+    </>
     );
   }
 

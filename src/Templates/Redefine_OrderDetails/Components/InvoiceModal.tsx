@@ -1,8 +1,10 @@
 import {
   _MyAcc_OrderBillingDetails,
-  _MyAcc_OrderProductDetails
+  _MyAcc_OrderProductDetails,
 } from '@type/APIs/user.res';
+import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
+import { useTypedSelector } from 'hooks';
 import React from 'react';
 import InvoiceItem from './InvoiceItem';
 interface _props {
@@ -14,36 +16,61 @@ interface _props {
 }
 
 const InvoiceModal: React.FC<_props> = ({ onClose, order }) => {
+  const { logoUrl, logoAlt } = useTypedSelector((state) => state.store);
+
   const getBillingAddress = (billing: _MyAcc_OrderBillingDetails | null) => {
     let address = '';
     if (billing?.billingAddress1) {
-      address += `${billing.billingAddress1}, `;
+      address += `${billing.billingAddress1}`;
     }
-    if (billing?.billingAddress2) {
-      address += `${billing.shippingAddress2}, `;
+    if (billing?.billingAddress2 && billing.billingAddress2.trim() !== '') {
+      address += ', ';
+      address += `${billing.shippingAddress2}`;
     }
     if (billing?.billingCity) {
-      address += `${billing.billingCity}, `;
+      address += ', ';
+      address += `${billing.billingCity}`;
+    }
+    if (billing?.billingState) {
+      address += ', ';
+      address += `${billing.billingState}`;
     }
     if (billing?.billingCountry) {
-      address += `${billing.billingCountry}, `;
+      address += ', ';
+      address += `${billing.billingCountry} `;
     }
+    if (billing?.billingZip) {
+      address += ', ';
+      address += `${billing.billingZip} `;
+    }
+
     return address;
   };
 
   const getShippingAddress = (billing: _MyAcc_OrderBillingDetails | null) => {
     let address = '';
     if (billing?.shippingAddress1) {
-      address += `${billing.shippingAddress1}, `;
+      address += `${billing.shippingAddress1}`;
     }
-    if (billing?.shippingAddress2) {
-      address += `${billing.shippingAddress2}, `;
+    if (billing?.shippingAddress2 && billing.shippingAddress2.trim() !== '') {
+      address += ', ';
+      address += `${billing.shippingAddress2}`;
     }
     if (billing?.shippingCity) {
-      address += `${billing.shippingCity}, `;
+      address += ', ';
+      address += `${billing.shippingCity}`;
+    }
+    if (billing?.shippingState) {
+      address += ', ';
+      address += `${billing.shippingState}`;
     }
     if (billing?.shippingCountry) {
-      address += `${billing.shippingCountry}, `;
+      address += ', ';
+      address += `${billing.shippingCountry}`;
+    }
+    if (billing?.shippingZip) {
+      address += ', ';
+      address += `${billing.billingZip}`;
     }
     return address;
   };
@@ -62,7 +89,6 @@ const InvoiceModal: React.FC<_props> = ({ onClose, order }) => {
                   type='button'
                   onClick={onClose}
                   className='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white'
-                  data-modal-toggle='viewinvoiceModal'
                 >
                   <svg
                     className='w-5 h-5'
@@ -80,14 +106,19 @@ const InvoiceModal: React.FC<_props> = ({ onClose, order }) => {
               </div>
             </div>
             <div className='border border-gray-300'>
-              <div className='p-4 border-b border-b-gray-300 last:border-b-0 text-center'>
-                <div className='h-12'>
-                  <img
-                    src='images/logo.png'
-                    alt=''
-                    className='max-h-full inline-block'
-                  />
-                </div>
+              <div
+                className='p-4 border-b border-b-gray-300 last:border-b-0 text-center w-1/3'
+                id={`logo-image-invoiceModal-orderDetailsSection`}
+              >
+                {logoUrl && (
+                  <div className='h-12'>
+                    <Image
+                      src={logoUrl}
+                      alt={`${logoAlt}`}
+                      className='max-h-full inline-block'
+                    />
+                  </div>
+                )}
               </div>
               <div className='p-4 border-b border-b-gray-300 last:border-b-0'>
                 <div className=''>Dear {order.billing?.firstName},</div>
@@ -106,10 +137,7 @@ const InvoiceModal: React.FC<_props> = ({ onClose, order }) => {
                     <div className='flex items-center justify-between'>
                       <dt className=''>Subtotal</dt>
                       <dd className='font-medium text-gray-900'>
-                        <Price
-                          addColon={false}
-                          value={order.billing?.orderSubtotal}
-                        />
+                        <Price value={order.billing?.orderSubtotal} />
                       </dd>
                     </div>
                     <div className='flex items-center justify-between'>
@@ -117,10 +145,7 @@ const InvoiceModal: React.FC<_props> = ({ onClose, order }) => {
                         <span>Shipping</span>
                       </dt>
                       <dd className='font-medium text-gray-900'>
-                        <Price
-                          addColon={false}
-                          value={order.billing?.orderShippingCosts}
-                        />
+                        <Price value={order.billing?.orderShippingCosts} />
                       </dd>
                     </div>
                     <div className='flex items-center justify-between'>
@@ -128,10 +153,7 @@ const InvoiceModal: React.FC<_props> = ({ onClose, order }) => {
                         <span>Order Tax</span>
                       </dt>
                       <dd className='font-medium text-gray-900'>
-                        <Price
-                          addColon={false}
-                          value={order.billing?.orderTax}
-                        />
+                        <Price value={order.billing?.orderTax} />
                       </dd>
                     </div>
                     <div className='flex items-center justify-between font-bold'>
@@ -139,10 +161,7 @@ const InvoiceModal: React.FC<_props> = ({ onClose, order }) => {
                         <span>Total</span>
                       </dt>
                       <dd className='text-gray-900'>
-                        <Price
-                          addColon={false}
-                          value={order.billing?.orderTotal}
-                        />
+                        <Price value={order.billing?.orderTotal} />
                       </dd>
                     </div>
                   </dl>

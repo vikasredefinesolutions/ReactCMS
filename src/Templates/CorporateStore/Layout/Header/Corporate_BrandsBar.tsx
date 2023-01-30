@@ -1,6 +1,21 @@
-import React from 'react';
+import { __Cookie } from '@constants/global.constant';
+import { extractCookies } from 'helpers/common.helper';
+import { useTypedSelector } from 'hooks';
+import React, { useState } from 'react';
+
 
 export const Bacardi_BrandsBar: React.FC = () => {
+  const [showmenu , setShowMenu] = useState(false)
+  const [userlogin , setUserlogin] = useState(false);
+  const [userId, setuserId] = useState<null | number>(null);
+  const  {id:logedIn} = useTypedSelector(state => state.user)
+  if(logedIn){
+    const tempUserId = extractCookies(__Cookie.tempCustomerId, 'browserCookie').tempCustomerId;
+    // setuserId(+tempUserId)
+    
+    
+  }
+  
   return (
     <div className="w-full lg:bg-[#efefef]">
       <div className="container mx-auto">
@@ -9,43 +24,17 @@ export const Bacardi_BrandsBar: React.FC = () => {
           className=""
         >
           {/* <!-- Mobile menu --> */}
-          <div
+          { showmenu && <div
             className="relative z-40 lg:hidden"
-            x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
-
-            //
           >
-            <div
-              // x-transition:enter="transition-opacity ease-linear duration-300"
-              // x-transition:enter-start="opacity-0"
-              // x-transition:enter-end="opacity-100"
-              // x-transition:leave="transition-opacity ease-linear duration-300"
-              // x-transition:leave-start="opacity-100"
-              // x-transition:leave-end="opacity-0"
-              // x-description="Off-canvas menu backdrop, show/hide based on off-canvas menu state."
-              className="fixed inset-0 bg-black bg-opacity-25"
-              //
-            ></div>
+            <div className="fixed inset-0 bg-black bg-opacity-25"></div>
             <div className="fixed inset-0 flex z-40">
-              <div
-                // x-transition:enter="transition ease-in-out duration-300 transform"
-                // x-transition:enter-start="-translate-x-full"
-                // x-transition:enter-end="translate-x-0"
-                // x-transition:leave="transition ease-in-out duration-300 transform"
-                // x-transition:leave-start="translate-x-0"
-                // x-transition:leave-end="-translate-x-full"
-                // x-description="Off-canvas menu, show/hide based on off-canvas menu state."
-                className="relative max-w-xs w-full bg-white shadow-xl pb-6 flex flex-col overflow-y-auto"
-
-                // @click.away="open = false"
-
-                //
-              >
+              <div className="relative max-w-xs w-full bg-white shadow-xl pb-6 flex flex-col overflow-y-auto" >
                 <div className="px-4 pt-5 pb-2 flex">
                   <button
                     type="button"
                     className="p-2 rounded-md inline-flex items-center justify-center text-gray-600"
-                    // @click="open = false"
+                    onClick={() => setShowMenu(false)}
                   >
                     <span className="sr-only">Close menu</span>
                     <svg
@@ -901,6 +890,7 @@ export const Bacardi_BrandsBar: React.FC = () => {
               </div>
             </div>
           </div>
+          }
 
           <header className="relative border-b border-gray-200">
             {/* <!-- <div className="lg:hidden text-center">
@@ -950,6 +940,7 @@ export const Bacardi_BrandsBar: React.FC = () => {
                       type="button"
                       x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
                       className="py-2 rounded-md text-gray-600"
+                      onClick={() => setShowMenu(true)}
                       //  @click="open = true"
                     >
                       <span className="sr-only">Open menu</span>
@@ -1021,11 +1012,9 @@ export const Bacardi_BrandsBar: React.FC = () => {
                           x-data="{ open : false }"
                           // @mouseover.away = "open = false"
                         >
-                          <a
-                            href="javascript:void(0);"
+                          <button
                             className="text-gray-600 hover:text-primary flex items-center gap-1"
-                            data-modal-toggle="LoginModal"
-                            // @mouseover="open = true"
+
                           >
                             <span className="hidden">John</span>
                             <svg
@@ -1044,7 +1033,7 @@ export const Bacardi_BrandsBar: React.FC = () => {
                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                               ></path>
                             </svg>
-                          </a>
+                          </button>
                           <div
                             className="absolute right-0 top-full border-2 border-black bg-white z-40 w-52"
                             //  @mouseover="open = true"

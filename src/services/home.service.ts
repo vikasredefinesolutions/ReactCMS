@@ -47,5 +47,6 @@ export const getPageComponents = async (payload: {
       data: payload,
     },
   });
+
   return response;
 };

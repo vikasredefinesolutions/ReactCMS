@@ -38,7 +38,7 @@ const Corporate_ShoppingCart: React.FC = () => {
               seName: item.seName,
               colorImageURL: item.colorImage,
               sku: item.sku,
-              productId: +item.attributeOptionId, // not getting productId 
+              productId: +item.productId, // not getting productId 
               colorId: +item.attributeOptionId,
               productName: item.productName,
               colorName: item.attributeOptionValue,
@@ -48,6 +48,7 @@ const Corporate_ShoppingCart: React.FC = () => {
                   size: product.attributeOptionValue,
                   attributeOptionId: product.attributeOptionId,
                   qty: product.qty,
+                  price:product.price,
                   priceOfqty: product.price,
                   minQtyRequired: 0, // not getting minRequired 
                 })

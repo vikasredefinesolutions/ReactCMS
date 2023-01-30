@@ -79,7 +79,7 @@ const Layout3 = ({
                     setShowFilter,
                   }}
                 />
-                <div className='newvalueis here'>
+                <div className=''>
                   <FilterChips
                     {...{ clearFilters, checkedFilters, handleChange }}
                   />

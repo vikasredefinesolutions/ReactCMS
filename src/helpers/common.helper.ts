@@ -7,6 +7,7 @@ import { _FooterServices } from '@services/footer.service';
 import { _GiftCardService } from '@services/gift.service';
 import { _HeaderServices } from '@services/header.service';
 import { _HomeServices } from '@services/home.service';
+import { _LogoApiService } from '@services/logo.service';
 import { _ProductDetailService } from '@services/product.service';
 import { _SlugServices } from '@services/slug.service';
 import { _UserServices } from '@services/user.service';
@@ -15,8 +16,10 @@ import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { SendAsyncV2 } from '@utils/axios.util';
 import config from 'api.config';
+import { __StaticImg } from 'Assets/images.asset';
 import axios from 'axios';
 import { IncomingMessage, ServerResponse } from 'http';
+import { StaticImageData } from 'next/image';
 import router from 'next/router';
 import { __domain } from 'page.config';
 import { ParsedUrlQuery } from 'querystring';
@@ -34,10 +37,12 @@ interface _ExtractCookies {
   loggedIN: boolean;
   storeInfo: null | {
     storeId: number;
+    isAttributeSaparateProduct: boolean;
     domain: string;
     storeCode: string;
     storeTypeId: number;
-    isAttributeSaparateProduct: boolean;
+    favicon: string;
+    logoUrl: string;
   };
   tempCustomerId: string | null;
 }
@@ -67,6 +72,8 @@ interface _cStoreInfo {
     domain: string;
     storeCode: string;
     storeTypeId: number;
+    favicon: string;
+    logoUrl: string;
   };
 }
 
@@ -201,6 +208,7 @@ export const CallCmsAPI = async <T>({
   });
 
   const url = `${config.CMS}${request.url}`;
+  console.log(url);
 
   try {
     if (request.method === 'POST') {
@@ -260,7 +268,8 @@ export const CallAPI = async <T>({
     | _UserServices
     | _ShoppingCartService
     | _CacheApiServices
-    | _FooterServices;
+    | _FooterServices
+    | _LogoApiService;
   request: _GET | _POST;
 }) => {
   conditionalLogV2({
@@ -459,6 +468,7 @@ type _Props = {
     totalPrice: number;
     totalQty: number;
   };
+  shoppingCartItemId?: number;
 };
 
 export const getAddToCartObject = async (product: _Props) => {
@@ -468,7 +478,8 @@ export const getAddToCartObject = async (product: _Props) => {
     'browserCookie',
   ).tempCustomerId;
 
-  const { userId, note, sizeQtys, productDetails, total } = product;
+  const { userId, note, sizeQtys, productDetails, total, shoppingCartItemId } =
+    product;
   const { totalPrice, totalQty } = total;
 
   const cartLogoPersonModel: CartLogoPersonModel[] = [];
@@ -514,7 +525,7 @@ export const getAddToCartObject = async (product: _Props) => {
       productId: productDetails.productId,
       storeId: 4,
       shoppingCartItemModel: {
-        id: 0,
+        id: shoppingCartItemId ? shoppingCartItemId : 0,
         price: totalPrice / totalQty,
         quantity: totalQty,
         weight: 0,
@@ -543,4 +554,23 @@ export const getAddToCartObject = async (product: _Props) => {
   };
 
   return cartObject;
+};
+
+export const generateImageUrl = (
+  src: null | string | StaticImageData,
+  isStatic: boolean,
+): string | StaticImageData => {
+  if (src === null) return __StaticImg.product;
+
+  if (isStatic) {
+    return src;
+  }
+
+  if (typeof src === 'string') {
+    const with_or_without_HTTP = src.includes('http');
+    if (with_or_without_HTTP) return src;
+    if (with_or_without_HTTP === false) return `${config.mediaBaseUrl}${src}`;
+  }
+
+  return __StaticImg.noImageFound;
 };

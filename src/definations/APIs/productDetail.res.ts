@@ -53,7 +53,7 @@ export interface _ProductDetails {
   companionProductName: string | null;
   companionProductSEName: string | null;
   companionProductImage: string | null;
-  isEnableLogolocation:boolean;
+  isEnableLogolocation: boolean;
   sku: string;
   brandID: number | null;
   brandName: string | null;
@@ -65,6 +65,19 @@ export interface _ProductDetails {
   discontinueDate: string;
   discontinueEndDate: string;
   suggestedProducts: _SuggestedProduct[];
+  isBrandOnline: boolean;
+  isPolicywithcheckbox: boolean,
+  policyMessage: string,
+  isEnduserDisplay: boolean
+}
+export interface _ProductPolicy {
+  storeId: number;
+  brandID: number | null;
+  brandName: string | null;
+  isBrandOnline: boolean;
+  isPolicywithcheckbox: boolean,
+  policyMessage: string,
+  isEnduserDisplay: boolean
 }
 
 export interface _SuggestedProduct {

@@ -10,7 +10,7 @@ import { Footer } from '@services/footer.service';
 import { _Footer } from '@type/APIs/footer.res';
 import EmployeeController from 'Controllers/EmployeeController';
 import * as _AppController from 'Controllers/_AppController.async';
-import { _TransformedThemeConfig } from 'definations/APIs/header.res';
+import { _TransformedHeaderConfig } from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
 import AuthGuard from 'Guard/AuthGuard';
 import {
@@ -18,7 +18,7 @@ import {
   extractCookies,
   nextJsSetCookie,
   setCookie,
-  _Logout
+  _Logout,
 } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import { useActions } from 'hooks';
@@ -29,14 +29,14 @@ import { useEffect } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
 import { _Expected_AppProps, _MenuItems } from 'show.type';
 import { _globalStore } from 'store.global';
-import '../../styles/output.css';
+//import '../../styles/output.css';
 import '../app.css';
 
 type AppOwnProps = {
   store: _StoreReturnType | null;
   menuItems: _MenuItems | null;
   configs: {
-    header: _TransformedThemeConfig | null;
+    header: _TransformedHeaderConfig | null;
     footer: _Footer | null;
   };
 };
@@ -105,10 +105,19 @@ const RedefineCustomApp = ({
     return () => window.removeEventListener('beforeunload', refreshHandler);
   }, []);
 
+  if (!store || !store.storeTypeId) {
+    return <>Store Details not found</>;
+  }
+
   return (
     <Spinner>
       <SuccessErrorModal />
-      <Redefine_Screen>
+      <Redefine_Screen
+        logoUrl={store.urls.logo}
+        storeCode={store.code}
+        storeTypeId={store.storeTypeId}
+        configs={configs}
+      >
         <Component {...pageProps} />
       </Redefine_Screen>
     </Spinner>
@@ -132,6 +141,10 @@ RedefineCustomApp.getInitialProps = async (
       storeTypeId: null,
       isAttributeSaparateProduct: false,
       cartCharges: null,
+      urls: {
+        logo: '',
+        favicon: '',
+      },
     },
     menuItems: null,
     configs: {
@@ -151,6 +164,10 @@ RedefineCustomApp.getInitialProps = async (
       cookies.storeInfo.isAttributeSaparateProduct;
     expectedProps.store.code = cookies.storeInfo.storeCode;
     expectedProps.store.storeTypeId = cookies.storeInfo.storeTypeId;
+    expectedProps.store.urls = {
+      logo: cookies.storeInfo.logoUrl,
+      favicon: cookies.storeInfo.favicon,
+    };
   }
 
   if (res && currentPath) {
@@ -206,6 +223,8 @@ RedefineCustomApp.getInitialProps = async (
                 storeTypeId: expectedProps.store.storeTypeId!,
                 isAttributeSaparateProduct:
                   expectedProps.store.isAttributeSaparateProduct,
+                favicon: expectedProps.store.urls.favicon,
+                logoUrl: expectedProps.store.urls.logo,
               },
             },
           });
@@ -241,6 +260,14 @@ RedefineCustomApp.getInitialProps = async (
     _globalStore.set({
       key: 'storeTypeId',
       value: expectedProps.store.storeTypeId,
+    });
+    _globalStore.set({
+      key: 'favicon',
+      value: expectedProps.store.urls.favicon,
+    });
+    _globalStore.set({
+      key: 'logoUrl',
+      value: expectedProps.store.urls.logo,
     });
   }
 

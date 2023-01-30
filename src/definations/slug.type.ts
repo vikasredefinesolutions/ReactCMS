@@ -33,8 +33,8 @@ export interface _SlugServerSide_WentWrong {
 }
 
 export interface _StoreCache {
-  storeCode: string | null;
-  storeTypeId: null | number;
+  storeCode: string;
+  storeTypeId: number;
 }
 
 export interface _SlugServerSideProps {

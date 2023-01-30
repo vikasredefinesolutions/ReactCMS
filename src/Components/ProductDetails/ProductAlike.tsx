@@ -14,6 +14,7 @@ interface _props {
 }
 
 const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
+
   const router = useRouter();
   const sliderRef = useRef<null | Slider>(null);
 
@@ -90,6 +91,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                                 <div className='text-secondary-hover font-bold'>
                                   MSRP <Price value={product.msrp} />
                                 </div>
+                            
                                 {/* <div className="mt-3 text-black text-base tracking-wider">
                                   <span className="font-semibold">
                                     MSRP <Price value={product.msrp} />
@@ -228,18 +230,22 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
     );
   }
 
-  if (storeCode === _Store.type4) {
+  if (storeCode === _Store.type4 || storeCode === _Store.type10) {
+    
     return (
       <>
         {products === null ? (
           <></>
         ) : (
           <>
+
             <section className='mainsection mt-10'>
               <div className='container mx-auto'>
-                <div className='w-full text-center text-2xl md:text-3xl lg:text-title font-title text-color-title text-color-title mb-4'>
+                {storeCode ===_Store.type10 ? <div className='w-full text-center text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title pt-5 mb-5'>
+                {title}</div> : <div className='w-full text-center text-2xl md:text-3xl lg:text-title font-title text-color-title text-color-title mb-4'>
                   {title}
-                </div>
+                </div>}
+            
                 <div className='relative' id='slider'>
                   <div
                     className={`${products.length > 3 ? 'absolute' : 'hidden'
@@ -262,8 +268,9 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                     {products.map((product) => {
                       return (
                         <>
-                          <div key={product.id} className='slide-item'>
-                            <div className='px-2'>
+                          <div key={product.id} className='slide-item '>
+
+                            {storeCode === _Store.type10 ?<div className='px-2 border border-transparent hover:border-gray-300 p-1'>
                               <div className='flex text-center lg:w-auto mb-6'>
                                 <div className='relative pb-4 w-full'>
                                   <div className='w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
@@ -301,10 +308,65 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                                         MSRP <Price value={product.msrp} />
                                       </span>
                                     </div>
+                                    <div className="flex justify-center mx-auto">
+                                      <a className="btn btn-secondary" href={`${encodeURIComponent(
+                                        product.seName,
+                                      )}.html?v=product-detail&altview=1`} title="">
+                                        <span className="material-icons text-sm">local_mall</span><span className="ml-1">ADD TO CART</span>
+                                      </a>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                            </div>: <div className='px-2 border border-transparent p-1'>
+                              <div className='flex text-center lg:w-auto mb-6'>
+                                <div className='relative pb-4 w-full'>
+                                  <div className='w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
+                                    <Link
+                                      href={`${encodeURIComponent(
+                                        product.seName,
+                                      )}.html?v=product-detail&altview=1`}
+                                    >
+                                      <div className='relative'>
+                                        {/* Issue: Using functional components as child of <Link/> causes ref-warnings */}
+                                        <Image
+                                          src={product.image}
+                                          alt={product.name}
+                                          className='w-auto h-auto max-h-max'
+                                        />
+                                      </div>
+                                    </Link>
+                                  </div>
+                                  <div className='mt-6'>
+                                    <a
+                                      href={`${encodeURIComponent(
+                                        product.seName,
+                                      )}.html?v=product-detail&altview=1`}
+                                    >
+                                      <div className='mt-1 text-anchor hover:text-anchor-hover'>
+                                        <div className='relative'>
+                                          <span className='absolute inset-0'></span>
+                                          {product.name}
+                                        </div>
+                                      </div>
+                                    </a>
+
+                                    <div className='mt-3 text-black text-base tracking-wider'>
+                                      <span className='mt-2 text-primary'>
+                                        MSRP <Price value={product.msrp} />
+                                      </span>
+                                    </div>
+                                    <div className="flex justify-center mx-auto">
+                                      <a className="btn btn-secondary" href={`${encodeURIComponent(
+                                        product.seName,
+                                      )}.html?v=product-detail&altview=1`} title="">
+                                        <span className="material-icons text-sm">local_mall</span><span className="ml-1">ADD TO CART</span>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>}
                           </div>
                         </>
                       );

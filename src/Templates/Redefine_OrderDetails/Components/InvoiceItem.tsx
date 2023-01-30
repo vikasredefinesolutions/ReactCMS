@@ -1,6 +1,8 @@
 import { _MyAcc_OrderProductDetails } from '@type/APIs/user.res';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
+import { __StaticImg } from 'Assets/images.asset';
+import { StaticImageData } from 'next/image';
 import React from 'react';
 
 const InvoiceItem: React.FC<_MyAcc_OrderProductDetails> = (prod) => {
@@ -10,10 +12,10 @@ const InvoiceItem: React.FC<_MyAcc_OrderProductDetails> = (prod) => {
       className='flex flex-wrap justify-between -mx-3 gap-y-4'
     >
       <div className='px-3'>
-        <div className='lg:flex-shrink-0 sm:w-32 sm:h-32 w-full h-auto overflow-hidden rounded-lg text-center'>
+        <div className='lg:flex-shrink-0 sm:w-52 sm:h-52 w-full h-auto overflow-hidden rounded-lg text-center'>
           <Image
-            src='images/1040623_25528_STH.jpg'
-            alt=''
+            src={prod.colorImage}
+            alt={`${prod.productName}`}
             className='max-h-full'
           />
         </div>
@@ -51,50 +53,62 @@ const InvoiceItem: React.FC<_MyAcc_OrderProductDetails> = (prod) => {
             </div>
           ))}
         </div>
+        <div className='border-b border-gray-200 my-4 py-4'>
+          {prod.shoppingCartLogoPersonViewModels.map((logo) => {
+            let logoToShow: string | StaticImageData = logo.logoImagePath;
+
+            if (logo.logoName === 'Add Logo Later') {
+              logoToShow = __StaticImg.orderDetails.logoWillComeHere;
+            }
+
+            if (logo.logoName === 'Customize Logo') {
+              logoToShow = logo.logoPositionImage;
+            }
+
+            return (
+              <div
+                key={logo?.logoImagePath}
+                className='flex flex-wrap justify-between -mx-3'
+              >
+                <div className='w-1/3 px-3'>
+                  <div className='font-semibold'>Logo</div>
+                  <div className='w-20 h-20 border flex items-center justify-center'>
+                    <Image
+                      className='inline-block max-h-full w-full h-full'
+                      src={logoToShow}
+                      alt=''
+                      width={100}
+                      height={100}
+                    />
+                  </div>
+                </div>
+                <div className='w-1/3 px-3'>
+                  <div className='font-semibold'>Location</div>
+                  <div className=''>{logo.logoLocation}</div>
+                </div>
+                <div className='w-1/3 px-3'>
+                  <div className='font-semibold'>Price</div>
+                  <div className=''>
+                    <Price value={logo.logoPrice} />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
         <div className='flex flex-wrap justify-between -mx-3'>
           <div className='w-1/2 px-3'>
             <div className='font-semibold'>UNIT TOTAL</div>
-            <div className=''>$1050.00</div>
+            <div className=''>
+              <Price value={prod.totalPrice} />
+            </div>
           </div>
           <div className='w-1/2 px-3'>
             <div className='font-semibold'>ESTIMATED PRICE</div>
-            <div className=''>$1050.00</div>
-          </div>
-        </div>
-        <div className='mt-4 border-t border-gray-200 pt-4'>
-          <div className='font-semibold'>LOGO</div>
-          {/*<div className="w-20 h-20 border flex items-center justify-center">
-            <img
-              className="inline-block max-h-full"
-              src="images/cg-logo-1.jpg"
-              alt=""
-            />
-          </div> */}
-          {prod.shoppingCartLogoPersonViewModels.map((logo) => (
-            <div
-              key={logo?.logoImagePath}
-              className='flex flex-wrap justify-between -mx-3'
-            >
-              <div className='w-1/3 px-3'>
-                <div className='font-semibold'>Logo</div>
-                <div className=''>
-                  <Image
-                    className='inline-block max-h-full'
-                    src={logo.logoImagePath}
-                    alt=''
-                  />
-                </div>
-              </div>
-              <div className='w-1/3 px-3'>
-                <div className='font-semibold'>Location</div>
-                <div className=''>{logo.logoLocation}</div>
-              </div>
-              <div className='w-1/3 px-3'>
-                <div className='font-semibold'>Price</div>
-                <div className=''>{logo.logoPrice}</div>
-              </div>
+            <div className=''>
+              <Price value={prod.totalPrice} />
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>

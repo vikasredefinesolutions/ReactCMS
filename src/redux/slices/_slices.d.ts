@@ -4,12 +4,14 @@ export interface _InCart_productAttributes_model {
   size: string;
   qty: number;
   priceOfqty: number;
+  price:number;
   minQtyRequired: number;
   attributeOptionId: number;
 }
 
 export interface _InCart_Product_model {
   type: 'product';
+  cartItemId: number;
   seName: string;
   name: string;
   productId: number;
@@ -25,6 +27,7 @@ export interface _InCart_Product_model {
 
 export interface _InCart_GiftCard_model {
   type: 'giftCard';
+  cartItemId: number;
   seName: string;
   name: string;
   giftId: number;

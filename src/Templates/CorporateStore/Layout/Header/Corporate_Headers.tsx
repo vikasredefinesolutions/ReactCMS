@@ -1,23 +1,340 @@
 // @ts-nocheck
+import ToogleCss from 'appComponents/reUsable/ToggleCss';
+import { useActions, useWindowDimensions } from 'hooks';
 import Link from 'next/link';
-import React from 'react';
-import { Bacardi_BrandsBar } from './Corporate_BrandsBar';
-import { Bacardi_HeaderBar } from './Corporate_HeaderBar';
-import { Bacardi_MenuItems } from './Corporate_MenuItems';
+import { __constant } from 'page.config';
+import React, { useEffect, useState } from 'react';
 import { Cyxtera_MobileMenuItem } from './Corporate_MobileMenuItem';
 import { Cyxtera_NotificationBar } from './Corporate_NotificationBar';
+import { Corporate_LoginIcon } from './Icons.tsx/Corporate_LoginIcon';
+import Corporate_MyCartIcon from './Icons.tsx/Corporate_MyCartIcon';
 
 // Bacardi - Bacard/GreyGoose - Bacardi Sub Store
 export const Bacardi_Header: React.FC = () => {
+  const { width } = useWindowDimensions();
+  const { setView, logInUser } = useActions();
+  const [mobileView, setMobileView] = useState<boolean>(
+    width <= __constant._header.mobileBreakPoint,
+  );
+  useEffect(() => {
+    const mobile = width <= __constant._header.mobileBreakPoint;
+    const showMobile = mobile ? 'MOBILE' : 'DESKTOP';
+    setView(showMobile);
+    setMobileView(mobile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width]);
+  const [showmenu , setShowMenu] = useState(false)
+  const [toogleCssName , setToogleCssName] = useState<string>('bacardigreygoose')
+
   return (
-    <section
-      className="bg-white sticky top-0 left-0 right-0 z-50 border-b-2 border-b-transparent hidden"
+    <>
+    <ToogleCss style={toogleCssName}/>
+    
+    <section className="bg-white sticky top-0 left-0 right-0 z-40 border-b-2 border-b-transparent" id="">
+      {!mobileView && <div className="bg-primary hidden md:block p-2 lg:p-1 lg:py-2">
+          <div className="container mx-auto">
+              <div className="sm:flex sm:flex-wrap sm:justify-between items-center text-xs lg:text-base ">
+                  <div className="text-center text-white"><span className="">ParsonsKellogg Corporate Stores </span></div>
+                  <div className="flex">
+                    <Corporate_LoginIcon />
+                    <span className="text-white mx-2">|</span>
+                    <Corporate_MyCartIcon />  
+                  </div>
+              </div>
+          </div>
+      </div>}
+      <div className="w-full lg:bg-[#efefef]">
+        <div className="container mx-auto">
+          <div className="" >
+            {/* <!-- Mobile menu --> */}
+            { showmenu && <div
+              className="relative z-40 lg:hidden"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25"></div>
+              <div className="fixed inset-0 flex z-40">
+                <div className="relative max-w-xs w-full bg-white shadow-xl pb-6 flex flex-col overflow-y-auto" >
+                  <div className="px-4 pt-5 pb-2 flex">
+                    <button
+                      type="button"
+                      className="p-2 rounded-md inline-flex items-center justify-center text-gray-600"
+                      onClick={() => setShowMenu(false)}
+                    >
+                      <span className="sr-only">Close menu</span>
+                      <svg
+                        className="h-6 w-6"
+                        x-description="Heroicon name: outline/x"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                  {/* <!-- Links --> */}
+                  
+                </div>
+              </div>
+            </div>
+            }
+
+            <header className="relative border-b border-gray-200">
+              {/* <!-- <div className="lg:hidden text-center">
+                          <a href="index.html" className="inline-block pt-4">
+                              <img src="../images/logo.png" alt="" className="h-14 w-auto">
+                          </a>
+                      </div> --> */}
+              <nav aria-label="Top">
+                {/* <!-- Secondary navigation --> */}
+                <div className="">
+                  <div className="py-3 flex items-center lg:justify-center justify-between gap-8">
+                    <div className="hidden lg:flex lg:items-center">
+                      <div className="relative">
+                      <button
+                          onClick={() => setToogleCssName('bacardi')}
+                        
+                          className="after:absolute after:w-full after:h-1 after:left-0 after:bottom-[-11px] after:bg-secondary"
+                        >
+                          <img
+                            className="max-h-20 w-auto"
+                            src="../images/logo.png"
+                            alt="bacardi"
+                          />
+                        </button>
+                      </div>
+                      <div className="ml-12">
+                        <button
+                          onClick={() => setToogleCssName('bacardigreygoose')}
+                        >
+                          <img
+                            className="max-h-20 w-auto opacity-30"
+                            src="../images/greygoose-logo.png"
+                            alt="bacardigreygoose"
+                            />
+                          </button>
+                      </div>
+                      <div className="ml-12">
+                        <a
+                          href="index.html"
+                          className="max-h-20 w-auto opacity-30"
+                        >
+                          What's New
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* <!-- Mobile menu and search (lg-) --> */}
+                    <div className="flex items-center lg:hidden space-x-3">
+                      <button
+                        type="button"
+                        x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
+                        className="py-2 rounded-md text-gray-600"
+                        onClick={() => setShowMenu(true)}
+                        //  @click="open = true"
+                      >
+                        <span className="sr-only">Open menu</span>
+                        <svg
+                          className="h-6 w-6"
+                          x-description="Heroicon name: outline/menu"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 6h16M4 12h16M4 18h16"
+                          ></path>
+                        </svg>
+                      </button>
+
+                      {/* <!-- Search --> */}
+                      <a
+                        href="javascript:void(0);"
+                        className="text-gray-600 hover:text-primary"
+                      >
+                        <span className="sr-only">Search</span>
+                        <svg
+                          className="w-6 h-6"
+                          x-description="Heroicon name: outline/search"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                          ></path>
+                        </svg>
+                      </a>
+                    </div>
+
+                    {/* <!-- Logo (lg-) --> */}
+                    <a href="index.html" className="lg:hidden">
+                      <img
+                        src="../images/logo.png"
+                        alt=""
+                        className="h-auto w-auto"
+                      />
+                    </a>
+
+                    <a href="index.html" className="lg:hidden">
+                      <img
+                        className="h-auto w-auto opacity-50"
+                        src="../images/greygoose-logo.png"
+                        alt="Corporate Gear"
+                      />
+                    </a>
+
+                    <div className="flex items-center justify-end lg:hidden">
+                      <div className="flex items-center">
+                        <div className="flex items-center space-x-3">
+                          <div
+                            className="flex relative"
+                            x-data="{ open : false }"
+                            // @mouseover.away = "open = false"
+                          >
+                            <button
+                              className="text-gray-600 hover:text-primary flex items-center gap-1"
+
+                            >
+                              <span className="hidden">John</span>
+                              <svg
+                                className="w-6 h-6"
+                                x-description="Heroicon name: outline/user"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="2"
+                                stroke="currentColor"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                ></path>
+                              </svg>
+                            </button>
+                            <div
+                              className="absolute right-0 top-full border-2 border-black bg-white z-40 w-52"
+                              //  @mouseover="open = true"
+                              //
+                            >
+                              <ul className="">
+                                <li className="border-t border-t-gray-300">
+                                  <a
+                                    href="my-orders.html"
+                                    className="flex p-2 gap-1"
+                                  >
+                                    <span className="material-icons-outlined">
+                                      shopping_cart
+                                    </span>
+                                    <span className="">Order</span>
+                                  </a>
+                                </li>
+                                <li className="border-t border-t-gray-300">
+                                  <a
+                                    href="customer-custom-logo.html"
+                                    className="flex p-2 gap-1"
+                                  >
+                                    <span className="material-icons-outlined">
+                                      design_services
+                                    </span>
+                                    <span className="">Manage Logo</span>
+                                  </a>
+                                </li>
+                                <li className="border-t border-t-gray-300">
+                                  <a
+                                    href="my-account.html"
+                                    className="flex p-2 gap-1"
+                                  >
+                                    <span className="material-icons-outlined">
+                                      construction
+                                    </span>
+                                    <span className="">Account Settings</span>
+                                  </a>
+                                </li>
+                                {/* <!-- <li className="border-t border-t-gray-300"><a href="javascript:void(0);" className="flex p-2 gap-1"><span className="material-icons-outlined">help_outline</span> <span className="">Help</span></a></li> --> */}
+                                <li className="border-t-2 border-t-gray-300">
+                                  <a
+                                    href="javascript:void(0);"
+                                    className="flex p-2 gap-1"
+                                  >
+                                    <span className="material-icons-outlined">
+                                      logout
+                                    </span>
+                                    <span className="">Sign Out</span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div className="flow-root">
+                            <a
+                              href="cart.html"
+                              className="text-gray-600 hover:text-primary group flex items-center gap-1 relative pr-2"
+                            >
+                              <span className="hidden">my cart</span>
+                              <svg
+                                className="h-6 w-6 text-gray-600 group-hover:text-primary"
+                                x-description="Heroicon name: outline/shopping-cart"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="2"
+                                stroke="currentColor"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                                ></path>
+                              </svg>
+                              <span className="absolute right-0 -top-2 w-4 h-4 rounded-full flex items-center justify-center bg-gray-200 text-[9px] font-medium text-gray-500">
+                                0
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            </header>
+          </div>
+        </div>
+      </div>
+      {/* {mobileView && <Bacardi_BrandsBar />} */}
+    </section>
+
+    {/* <section
+      className="bg-white sticky top-0 left-0 right-0 z-40 border-b-2 border-b-transparent hidden"
       id=""
     >
       <Bacardi_HeaderBar />
       <Bacardi_BrandsBar />
-      <Bacardi_MenuItems />
-    </section>
+      <Bacardi_MenuItems /> 
+    </section> */}
+    </>
+
+
   );
 };
 

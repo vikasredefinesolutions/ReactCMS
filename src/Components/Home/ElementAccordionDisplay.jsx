@@ -6,7 +6,7 @@ Modified By: <Modified By Name>
 Modified Date: <Modified Date> */
 //import { useEffect, useState } from 'react';
 
-const ElementAccordionDisplay = ({ acValues }) => {
+const ElementAccordionDisplay = ({ acValues, acClass, acBgColor }) => {
   const iconArr = {
     keyboard_arrow_up: 'keyboard_arrow_down',
     keyboard_arrow_down: 'keyboard_arrow_up',
@@ -42,10 +42,11 @@ const ElementAccordionDisplay = ({ acValues }) => {
             return (
               <li
                 key={index}
-                className="mb-4 last:mb-0 hasarr clonnable border-b border-black"
+                className={`mb-4 last:mb-0 hasarr clonnable border-b border-black ${acClass}`}
                 onClick={showHideAccordion}
               >
-                <button className="w-full flex justify-between items-center text-left font-bold font-heading px-2 py-4 border-0 hover:border-0">
+                <button className="w-full flex justify-between items-center text-left font-bold font-heading px-2 py-4 border-0 hover:border-0" style={{
+        backgroundColor: acBgColor }}>
                   <div className="text-defaule-text">{acValue.title}</div>
                   <span className="material-icons-outlined ml-3 pointer-class">
                     {acValue.openstatus == 'Yes' ? (

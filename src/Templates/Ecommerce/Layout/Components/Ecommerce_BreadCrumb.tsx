@@ -70,7 +70,7 @@ const BreadCrumb: React.FC = () => {
     storeLayout === _Store.type16
   ) {
     return (
-      <section id='' className='px-2 lg:px-0'>
+      <div id='' className='px-2 lg:px-0'>
         <div className='container mx-auto'>
           <div className='flex flex-wrap justify-between py-1 border-b border-gray-200'>
             <nav
@@ -127,13 +127,13 @@ const BreadCrumb: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 
   if (storeLayout === _Store.type2) {
     return (
-      <section id='' className='py-3 bg-[#e6e6e6] tracking-wider'>
+      <div id='' className='py-3 bg-[#e6e6e6] tracking-wider'>
         <div className='container mx-auto'>
           <nav className='flex' aria-label='Breadcrumb'>
             <ol className='inline-flex items-center space-x-1 md:space-x-2 font-semibold'>
@@ -191,13 +191,13 @@ const BreadCrumb: React.FC = () => {
             {/* </ol> */}
           </nav>
         </div>
-      </section>
+      </div>
     );
   }
 
   if (storeLayout === _Store.type3 || storeLayout === _Store.type22) {
     return (
-      <section id='' className='px-2 lg:px-0'>
+      <div id='' className='px-2 lg:px-0'>
         <div className='container mx-auto'>
           <div className='flex flex-wrap justify-between py-1 border-b border-gray-200'>
             <nav
@@ -258,31 +258,30 @@ const BreadCrumb: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 
-  if (storeLayout === _Store.type4  ||  storeLayout === _Store.type5) {
+  if (storeLayout === _Store.type4 || storeLayout === _Store.type5 || storeLayout === _Store.type8) {
     return (
-      <section id='' className='py-3 bg-white tracking-wider px-2 lg:px-0'>
+      <div id='' className='py-3 bg-white tracking-wider px-2 lg:px-0'>
         <div className='container mx-auto'>
           <div className='border-b border-[#f0f0f0] pb-2'>
             <nav
               className='flex flex-wrap justify-between items-center'
               aria-label='Breadcrumb'
             >
-              <ol className="inline-flex items-center text-xs text-secondary">
+              <ol className='inline-flex items-center text-xs text-secondary'>
                 {breadCrumbs.map((item, index) => (
-                  <li key={index} aria-current="page">
+                  <li key={index} aria-current='page'>
                     <Link
                       href={item.url}
-                      className="inline-flex items-center font-medium text-gray-700 hover:text-gray-900"
+                      className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'
                     >
                       <a className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
-
-                        <div className="flex items-center">
-                          {index > 0 && <span className="ml-1">/</span>}
-                          <span className="ml-1 md:ml-2 text-gray-500">
+                        <div className='flex items-center'>
+                          {index > 0 && <span className='ml-1'>/</span>}
+                          <span className='ml-1 md:ml-2 text-gray-500'>
                             {item.name}
                           </span>
                         </div>
@@ -297,7 +296,7 @@ const BreadCrumb: React.FC = () => {
             </nav>
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 

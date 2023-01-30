@@ -18,7 +18,8 @@ export type _modals =
   | 'forgot'
   | 'personalizationFonts'
   | 'qouteRequest'
-  | 'startOrder';
+  | 'startOrder'
+  | 'InventoryLimit';
 
 export interface _Reviews {}
 

@@ -19,6 +19,7 @@ export interface _CI_ShoppingCartLogoPersonViewModel {
 export interface _CartItem {
   colorImage: string;
   productName: string;
+  productId:number;
   sku: string;
   attributeOptionId: string;
   attributeOptionValue: string;

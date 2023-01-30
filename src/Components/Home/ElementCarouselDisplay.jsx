@@ -15,6 +15,9 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
         ? true
         : false
       : true;
+
+  const arrowType = bannerArr.arrowType != undefined
+      ? bannerArr.arrowType : "Arrow1";
   const showIndicators =
     bannerArr.showIndicators != undefined
       ? bannerArr.showIndicators == 'On'
@@ -60,44 +63,77 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
             renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
               hasPrev && (
                 <div className="absolute top-1/2 -translate-y-1/2 left-4 z-10 flex items-center">
-                  <button
-                    onClick={clickHandler}
-                    className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
-                  >
-                    <svg
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="chevron-left w-10 h-10"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
+                  {arrowType === "Arrow1" && 
+                        <button
+                          onClick={clickHandler}
+                          className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
+                        >
+                          <svg
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            className="chevron-left w-10 h-10"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                        </button>
+                      }
+                      {arrowType === "Arrow2" && 
+                          <button 
+                              onClick={clickHandler}
+                              className="bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
+                                  <svg viewBox="0 0 20 20" 
+                                      fill="currentColor" 
+                                      className="chevron-left w-6 h-6">
+                                          <path fill-rule="evenodd" 
+                                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" 
+                                              clip-rule="evenodd">
+                                          </path>
+                                  </svg>
+                          </button>
+                      }
                 </div>
               )
             }
             renderArrowNext={(clickHandler, hasNext, labelNext) =>
               hasNext && (
                 <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10 flex items-center">
-                  <button
-                    onClick={clickHandler}
-                    className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
-                  >
-                    <svg
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="chevron-right w-10 h-10"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
+                  {arrowType === "Arrow1" &&
+                      <button
+                        onClick={clickHandler}
+                        className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
+                      >
+                        <svg
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="chevron-right w-10 h-10"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clipRule="evenodd"
+                          ></path>
+                        </svg>
+                      </button>
+                    }
+                    {arrowType === "Arrow2"&&
+                      <button 
+                          onClick={clickHandler} 
+                          className="bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
+                              <svg viewBox="0 0 20 20" 
+                                   fill="currentColor" 
+                                   className="chevron-right w-6 h-6">
+                                      <path fill-rule="evenodd" 
+                                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" 
+                                          clip-rule="evenodd">
+                                      </path>
+                                  </svg>
+                              </button>
+
+                  }
                 </div>
               )
             }
@@ -152,9 +188,10 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                         }}
                       >
                         <div className="">{image.headline}</div>
+                         <div class="">{image.headline1}</div>
                         {image.button_display == 'Yes' && (
                           <>
-                            <div>
+                            <div className="pt-5">
                               <a
                                 href={image.button_link}
                                 target={

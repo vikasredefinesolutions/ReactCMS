@@ -267,7 +267,7 @@ export interface ShoppingCartLogoPersonViewModel {
   logoImagePath: string;
   logoPrice: number;
   logoLocation: null;
-  logoName: string;
+  logoName: 'Customize Logo' | 'Add Logo Later';
   logoPositionImage: string;
   sku: null;
   size: null;

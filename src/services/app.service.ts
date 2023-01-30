@@ -1,7 +1,7 @@
 import {
   _ThemeConfigRes,
   _ThemeConfigsAvailable,
-  _TransformedThemeConfig,
+  _TransformedHeaderConfig,
 } from '@type/APIs/header.res';
 import { _StoreDetails } from 'definations/APIs/storeDetails.res';
 import { CallAPI } from 'helpers/common.helper';
@@ -36,7 +36,7 @@ export const GetStoreID = async (
 export const FetchThemeConfigs = async (payload: {
   storeid: number;
   configname: _ThemeConfigsAvailable;
-}): Promise<_TransformedThemeConfig | null> => {
+}): Promise<_TransformedHeaderConfig | null> => {
   const url = `CmsStoreThemeConfigs/getstorethemeconfigs/${payload.storeid}/${payload.configname}.json`;
 
   const response = await CallAPI<_ThemeConfigRes>({
@@ -54,7 +54,7 @@ export const FetchThemeConfigs = async (payload: {
     return null;
   }
 
-  const transformedData: _TransformedThemeConfig = {
+  const transformedData: _TransformedHeaderConfig = {
     id: response.id,
     store_id: response.store_Id,
     config_name: response.config_Name,

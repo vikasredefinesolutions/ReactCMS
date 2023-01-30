@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 
 const Corporate_MyCartDropDown: React.FC = () => {
   return (
     <div className="relative bg-gray-100 z-50">
       <div className="border-t first:border-t-0 border-gray-300 py-3 px-3">
-        <ul className="">
+      <ul className="">
           <li className="border-t first:border-t-0 border-gray-300 pt-3 first:pt-0 pb-3 last:pb-0">
             <div className="flex flex-wrap -mx-1">
               <div className="w-1/4 px-1">
@@ -89,11 +90,9 @@ const Corporate_MyCartDropDown: React.FC = () => {
 };
 
 const Corporate_MyCartBtn: React.FC = () => {
+  
   return (
-    <button
-      className="text-white group flex items-center gap-1 relative pr-2"
-      // @mouseover="open = true"
-    >
+    <button className="text-white group flex items-center gap-1 relative pr-2" >
       <span className=" ">My Cart</span>
       <svg
         className="flex-shrink-0 h-6 w-6 text-white group-hover:text-secondary-hover hidden"
@@ -117,27 +116,18 @@ const Corporate_MyCartBtn: React.FC = () => {
 };
 
 const Corporate_MyCartIcon: React.FC = () => {
+  const [focus , setfocus] = useState(false);
   return (
-    <span
-      className="flow-root relative "
-      //  @mouseover.away = "open = false"
-    >
-      <Corporate_MyCartBtn />
-      <div
-        // x-transition:enter="transition ease-out duration-200"
-        // x-transition:enter-start="opacity-0"
-        // x-transition:enter-end="opacity-100"
-        // x-transition:leave="transition ease-in duration-150"
-        // x-transition:leave-start="opacity-100"
-        // x-transition:leave-end="opacity-0"
-        // x-description="'Men' mega menu, show/hide based on flyout menu state."
-        className="absolute top-full right-0 w-80 text-sm shadow"
-        // x-ref="panel" @mouseover="open = true"
-      >
-        {/* <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow --> */}
+    <span className="flow-root relative" onMouseEnter={() => setfocus(true)} onMouseLeave={() => setfocus(false)}>
+      <div className="cartBtn">
+        <Corporate_MyCartBtn />
+      </div>
+      {
+        focus && <div className="absolute top-full right-0 w-80 text-sm shadow z-50">
         <div className="absolute inset-0 top-1/2 bg-white shadow"></div>
         <Corporate_MyCartDropDown />
       </div>
+      }
     </span>
   );
 };

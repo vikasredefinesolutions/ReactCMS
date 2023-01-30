@@ -128,7 +128,7 @@ export const getServerSideProps: GetServerSideProps = async (
     if (pageMetaData.type === 'topic') {
       page.topicHome.components = await getPageComponents({
         pageId: pageMetaData.id,
-        type: '',
+        type: 'preview',
       });
 
       page.home.featuredItems = (

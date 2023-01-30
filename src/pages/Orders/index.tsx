@@ -55,18 +55,25 @@ const Orders: NextPage = () => {
     router.push(`${paths.myAccount.order_details}?ordernumber=${orderId}`);
   };
 
-  const mergeAllSizes = (items: ShoppingCartItemDetailsViewModel[]) => {
-    let allSizes = '';
+  function removeDuplicates(arr: string[]) {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
+  }
 
-    items.forEach((product, index) => {
-      if (index === items.length - 1) {
-        allSizes += `${product.attributeOptionValue} `;
+  const mergeAllSizes = (items: ShoppingCartItemDetailsViewModel[]) => {
+    let sizes = '';
+    const sizesList = removeDuplicates(
+      items.map((product) => product.attributeOptionValue),
+    );
+
+    sizesList.forEach((size, index, workingArr) => {
+      if (index === workingArr.length - 1) {
+        sizes += `${size} `;
         return;
       }
-      allSizes += `${product.attributeOptionValue}, `;
+      sizes += `${size}, `;
     });
 
-    return allSizes;
+    return sizes;
   };
 
   useEffect(() => {
@@ -83,9 +90,9 @@ const Orders: NextPage = () => {
 
   if (orderDetails === null) {
     return (
-      <div id="root">
-        <div className="loader-wrapper">
-          <div className="loader"></div>
+      <div id='root'>
+        <div className='loader-wrapper'>
+          <div className='loader'></div>
         </div>
       </div>
     );
@@ -219,7 +226,7 @@ const Orders: NextPage = () => {
                             <div className='w-full lg:w-1/2 px-3'>
                               <div className='font-semibold'>UNIT TOTAL</div>
                               <div className=''>
-                                <Price value={prod.totalQty} />
+                                <Price value={prod.totalPrice} />
                               </div>
                             </div>
                             <div className='w-full lg:w-1/2 px-3'>

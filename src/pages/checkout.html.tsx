@@ -9,8 +9,10 @@ import AddressForm from 'appComponents/ui/AddressForm';
 import CartSummary from 'Components/CartSummary/CartSummary';
 import { seoTags as seoDetails } from 'constants/seo.constant';
 import { Formik, FormikProps } from 'formik';
+import { useTypedSelector } from 'hooks';
 import _ from 'lodash';
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
+import { _Store } from 'page.config';
 import { createRef, useState } from 'react';
 import CheckoutController from '../Components/Checkout/CheckoutController';
 import AddressPopupLayout1 from '../Components/Checkout/components/AdressPopup/AdressPopupLayout1';
@@ -59,7 +61,6 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
     const billing = createRef();
     const [showReviewOrder, setShowReviewOrder] = useState(false);
     const [notloogedinForm, setNotloogedinForm] = useState(false);
-
     const handleReviewOrder = async () => {
         if (!isLoggedIn) {
             const form = shipping.current as FormikProps<any>;
@@ -72,7 +73,7 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
         setShowReviewOrder(!showReviewOrder);
         // }
     };
-
+    const storeCode = useTypedSelector((state) => state.store.layout)
     return (
         <>
             <SeoHead {...seoDetails.checkoutPage} />
@@ -705,7 +706,7 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className='flex justify-start items-center mb-3'>
+                                                {storeCode != _Store.type4 && <div className='flex justify-start items-center mb-3'>
                                                     <div>
                                                         <span className='material-icons text-[60px] mr-3'>
                                                             support_agent
@@ -720,7 +721,7 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                                                             customization of this product.
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>}
                                             </div>
                                         </div>
                                     </li>

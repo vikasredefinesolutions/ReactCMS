@@ -15,4 +15,8 @@ export interface _StoreReturnType {
   code: string;
   isAttributeSaparateProduct: boolean;
   cartCharges: null | CartCharges;
+  urls: {
+    logo: string;
+    favicon: string;
+  };
 }

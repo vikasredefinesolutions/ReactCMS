@@ -11,7 +11,7 @@ export const paths = {
   SPECIAL_REQUEST: '/special_request',
   PRODUCT_LISTING: '/product-list',
   NOT_FOUND: '/not-found',
-  CHECKOUT: '/checkout',
+  CHECKOUT: '/checkout.html',
   GIFT_CARDS: '/giftcards',
   GIFT_CARD_DETAILS: '/giftcards/:giftId',
   loggedInMenu: {
@@ -44,4 +44,6 @@ export const paths = {
   REQUEST_CONSULTATION: '/Itempage/RequestConsultationProof',
   CUSTOMIZE_LOGO: '/customize',
   PRODUCT_COMPARE: '/Itempage/Productcomapre',
+  Contact: '/Contact',
+  ThankYou: '/Thankyou'
 };

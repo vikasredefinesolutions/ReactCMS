@@ -16,28 +16,28 @@ export const CustomizationPrice = (
 
   return (
     <>
-      <div className="text-lg font-medium border-t border-gray-200 pt-2">
+      <div className='text-lg font-medium border-t border-gray-200 pt-2'>
         Customizations Price
       </div>
       {logoTotal > 0 && (
-        <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-          <dt className="">Logo</dt>
-          <dd className="font-medium text-gray-900">
+        <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+          <dt className=''>Logo</dt>
+          <dd className='font-medium text-gray-900'>
             <Price addColon={false} value={logoTotal} />
           </dd>
         </div>
       )}
       {lineTotal > 0 && (
-        <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-          <dt className="">Line</dt>
-          <dd className="font-medium text-gray-900">
+        <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+          <dt className=''>Line</dt>
+          <dd className='font-medium text-gray-900'>
             <Price addColon={false} value={lineTotal} />
           </dd>
         </div>
       )}
-      <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-        <dt className="">Subtotal</dt>
-        <dd className="font-medium text-gray-900">
+      <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+        <dt className=''>Subtotal</dt>
+        <dd className='font-medium text-gray-900'>
           <Price addColon={false} value={customizationTotal} />
         </dd>
       </div>
@@ -70,53 +70,53 @@ export const TotalSavings = (
 
   return (
     <>
-      <div className="text-lg font-medium border-t border-gray-200 pt-2">
+      <div className='text-lg font-medium border-t border-gray-200 pt-2'>
         Total Saving
       </div>
       {shipPromotionDiscount > 0 && (
-        <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-          <dt className="">Ship Promotion Discount</dt>
-          <dd className="font-medium text-gray-900">
+        <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+          <dt className=''>Ship Promotion Discount</dt>
+          <dd className='font-medium text-gray-900'>
             <Price value={shipPromotionDiscount} />
           </dd>
         </div>
       )}
       {couponDiscountAmount > 0 && (
-        <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-          <dt className="">Coupon Discount</dt>
-          <dd className="font-medium text-gray-900">
+        <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+          <dt className=''>Coupon Discount</dt>
+          <dd className='font-medium text-gray-900'>
             <Price value={couponDiscountAmount} />
           </dd>
         </div>
       )}
       {quantityDiscountAmount > 0 && (
-        <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-          <dt className="">Quantity Discount</dt>
-          <dd className="font-medium text-gray-900">
+        <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+          <dt className=''>Quantity Discount</dt>
+          <dd className='font-medium text-gray-900'>
             <Price value={quantityDiscountAmount} />
           </dd>
         </div>
       )}
       {levelDiscountAmount > 0 && (
-        <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-          <dt className="">Level Discount</dt>
-          <dd className="font-medium text-gray-900">
+        <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+          <dt className=''>Level Discount</dt>
+          <dd className='font-medium text-gray-900'>
             <Price value={levelDiscountAmount} />
           </dd>
         </div>
       )}
       {customDiscount > 0 && (
-        <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-          <dt className="">Custom Discount</dt>
-          <dd className="font-medium text-gray-900">
+        <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+          <dt className=''>Custom Discount</dt>
+          <dd className='font-medium text-gray-900'>
             <Price value={customDiscount} />
           </dd>
         </div>
       )}
 
-      <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-        <dt className="">Custom Discount</dt>
-        <dd className="font-medium text-gray-900">
+      <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+        <dt className=''>Custom Discount</dt>
+        <dd className='font-medium text-gray-900'>
           <Price value={totalSavings} />
         </dd>
       </div>
@@ -139,43 +139,43 @@ export const ShippingEstimationPrice = (
 
   return (
     <>
-      <div className="text-lg font-medium border-t border-gray-200 pt-2">
+      <div className='text-lg font-medium border-t border-gray-200 pt-2'>
         Estimated Shipping
       </div>
       {orderShippingCosts > 0 && (
-        <div className="flex items-center justify-between">
-          <dt className="">
+        <div className='flex items-center justify-between'>
+          <dt className=''>
             <span>Shipping</span>
           </dt>
-          <dd className="font-medium text-gray-900">
+          <dd className='font-medium text-gray-900'>
             <Price addColon={false} value={orderShippingCosts} />
           </dd>
         </div>
       )}
       {shippingLabelCost > 0 && (
-        <div className="flex items-center justify-between">
-          <dt className="">
+        <div className='flex items-center justify-between'>
+          <dt className=''>
             <span>Shipping Label</span>
           </dt>
-          <dd className="font-medium text-gray-900">
+          <dd className='font-medium text-gray-900'>
             <Price addColon={false} value={shippingLabelCost} />
           </dd>
         </div>
       )}
       {shippingPromotionDiscount > 0 && (
-        <div className="flex items-center justify-between">
-          <dt className="">
+        <div className='flex items-center justify-between'>
+          <dt className=''>
             <span>Shipping Promotion Discount</span>
           </dt>
-          <dd className="font-medium text-gray-900">
+          <dd className='font-medium text-gray-900'>
             -<Price addColon={false} value={shippingPromotionDiscount} />
           </dd>
         </div>
       )}
       {shippingEstimationTotal > 0 && (
-        <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-          <dt className="">Subtotal</dt>
-          <dd className="font-medium text-gray-900">
+        <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+          <dt className=''>Subtotal</dt>
+          <dd className='font-medium text-gray-900'>
             <Price addColon={false} value={shippingEstimationTotal} />
           </dd>
         </div>
@@ -201,58 +201,58 @@ export const AdditionalCosts = (
 
   return (
     <>
-      <div className="text-lg font-medium border-t border-gray-200 pt-2">
+      <div className='text-lg font-medium border-t border-gray-200 pt-2'>
         Additional Services
       </div>
       {sewOutTotal > 0 && (
-        <div className="flex items-center justify-between">
-          <dt className="">
+        <div className='flex items-center justify-between'>
+          <dt className=''>
             <span>Sew-Out</span>
           </dt>
-          <dd className="font-medium text-gray-900">
+          <dd className='font-medium text-gray-900'>
             <Price addColon={false} value={sewOutTotal} />
           </dd>
         </div>
       )}
 
       {orderTaxTotal > 0 && (
-        <div className="flex items-center justify-between">
-          <dt className="">
+        <div className='flex items-center justify-between'>
+          <dt className=''>
             <span>Order Tax</span>
           </dt>
-          <dd className="font-medium text-gray-900">
+          <dd className='font-medium text-gray-900'>
             <Price addColon={false} value={orderTaxTotal} />
           </dd>
         </div>
       )}
 
       {giftWrapAmt > 0 && (
-        <div className="flex items-center justify-between">
-          <dt className="">
+        <div className='flex items-center justify-between'>
+          <dt className=''>
             <span>Order Tax</span>
           </dt>
-          <dd className="font-medium text-gray-900">
+          <dd className='font-medium text-gray-900'>
             <Price addColon={false} value={giftWrapAmt} />
           </dd>
         </div>
       )}
 
       {giftWrapPrice > 0 && (
-        <div className="flex items-center justify-between">
-          <dt className="">
+        <div className='flex items-center justify-between'>
+          <dt className=''>
             <span>Order Tax</span>
           </dt>
-          <dd className="font-medium text-gray-900">
+          <dd className='font-medium text-gray-900'>
             <Price addColon={false} value={giftWrapPrice} />
           </dd>
         </div>
       )}
 
-      <div className="flex items-center justify-between">
-        <dt className="">
+      <div className='flex items-center justify-between'>
+        <dt className=''>
           <span>Subtotal</span>
         </dt>
-        <dd className="font-medium text-gray-900">
+        <dd className='font-medium text-gray-900'>
           <Price addColon={false} value={additionalCostsTotal} />
         </dd>
       </div>
@@ -267,10 +267,10 @@ export const ProductsPrice = (
 
   return (
     <>
-      <div className="text-lg font-medium">Products Price</div>
-      <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-        <dt className="">Subtotal</dt>
-        <dd className="font-medium text-gray-900">
+      <div className='text-lg font-medium'>Products Price</div>
+      <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
+        <dt className=''>Subtotal</dt>
+        <dd className='font-medium text-gray-900'>
           <Price addColon={false} value={productsTotal} />
         </dd>
       </div>
@@ -278,20 +278,30 @@ export const ProductsPrice = (
   );
 };
 
+function removeDuplicates(arr: string[]) {
+  return arr.filter((item, index) => arr.indexOf(item) === index);
+}
+
 export const mergeAllSizes = (
   items: _CI_ShoppingCartItemDetailsViewModel[],
 ) => {
-  let allSizes = '';
+  if (items.length === 0) return '';
 
-  items.forEach((product, index) => {
-    if (index === items.length - 1) {
-      allSizes += `${product.attributeOptionValue} `;
+  let sizes = '';
+
+  const sizesList = removeDuplicates(
+    items.map((product) => product.attributeOptionValue),
+  );
+
+  sizesList.forEach((size, index, workingArr) => {
+    if (index === workingArr.length - 1) {
+      sizes += `${size} `;
       return;
     }
-    allSizes += `${product.attributeOptionValue}, `;
+    sizes += `${size}, `;
   });
 
-  return allSizes;
+  return sizes;
 };
 
 export const BillingAddress = (
@@ -299,22 +309,34 @@ export const BillingAddress = (
 ) => {
   let address = '';
   if (billing?.billingAddress1) {
-    address += `${billing.billingAddress1}, `;
+    address += `${billing.billingAddress1}`;
   }
-  if (billing?.billingAddress2) {
-    address += `${billing.shippingAddress2}, `;
+  if (billing?.billingAddress2 && billing.billingAddress2.trim() !== '') {
+    address += ', ';
+    address += `${billing.shippingAddress2}`;
   }
   if (billing?.billingCity) {
-    address += `${billing.billingCity}, `;
+    address += ', ';
+    address += `${billing.billingCity}`;
+  }
+  if (billing?.billingState) {
+    address += ', ';
+    address += `${billing.billingState}`;
   }
   if (billing?.billingCountry) {
-    address += `${billing.billingCountry}, `;
+    address += ', ';
+    address += `${billing.billingCountry} `;
   }
+  if (billing?.billingZip) {
+    address += ', ';
+    address += `${billing.billingZip} `;
+  }
+
   return (
-    <div className="w-full lg:w-1/3 px-2">
-      <div className="border border-gray-200 h-full bg-white">
-        <div className="bg-gray-100 p-2 font-semibold">BILLING ADDRESS</div>
-        <div className="p-2">{address}</div>
+    <div className='w-full lg:w-1/3 px-2'>
+      <div className='border border-gray-200 h-full bg-white'>
+        <div className='bg-gray-100 p-2 font-semibold'>BILLING ADDRESS</div>
+        <div className='p-2'>{address}</div>
       </div>
     </div>
   );
@@ -325,23 +347,34 @@ export const ShippingAddress = (
 ) => {
   let address = '';
   if (billing?.shippingAddress1) {
-    address += `${billing.shippingAddress1}, `;
+    address += `${billing.shippingAddress1}`;
   }
-  if (billing?.shippingAddress2) {
-    address += `${billing.shippingAddress2}, `;
+  if (billing?.shippingAddress2 && billing.shippingAddress2.trim() !== '') {
+    address += ', ';
+    address += `${billing.shippingAddress2}`;
   }
   if (billing?.shippingCity) {
-    address += `${billing.shippingCity}, `;
+    address += ', ';
+    address += `${billing.shippingCity}`;
+  }
+  if (billing?.shippingState) {
+    address += ', ';
+    address += `${billing.shippingState}`;
   }
   if (billing?.shippingCountry) {
-    address += `${billing.shippingCountry}, `;
+    address += ', ';
+    address += `${billing.shippingCountry}`;
+  }
+  if (billing?.shippingZip) {
+    address += ', ';
+    address += `${billing.billingZip}`;
   }
 
   return (
-    <div className="w-full lg:w-1/3 px-2">
-      <div className="border border-gray-200 h-full bg-white">
-        <div className="bg-gray-100 p-2 font-semibold">SHIPPING ADDRESS</div>
-        <div className="p-2">{address}</div>
+    <div className='w-full lg:w-1/3 px-2'>
+      <div className='border border-gray-200 h-full bg-white'>
+        <div className='bg-gray-100 p-2 font-semibold'>SHIPPING ADDRESS</div>
+        <div className='p-2'>{address}</div>
       </div>
     </div>
   );

@@ -3,9 +3,7 @@ module.exports = {
   productionBrowserSourceMaps: true,
   images: {
     domains: [
-      'https://www.corporategear.com/',
       'redefinecommerce.blob.core.windows.net',
-      'https://redefinecommerce.blob.core.windows.netstring',
       'redefinecommerce.blob.core.windows.netstring',
     ],
     remotePatterns: [

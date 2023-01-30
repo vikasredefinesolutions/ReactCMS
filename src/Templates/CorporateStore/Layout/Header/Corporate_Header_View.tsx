@@ -1,50 +1,51 @@
-import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
 import React from 'react';
 import { Bacardi_Header, Usaa_Header } from './Corporate_Headers';
 
-const Corporate_Header: React.FC = () => {
-  const { layout: storeLayout } = useTypedSelector((state) => state.store);
+interface _props {
+  storeCode: string;
+}
 
+const Corporate_Header: React.FC<_props> = ({ storeCode }) => {
   if (
-    storeLayout === _Store.type5 ||
-    storeLayout === _Store.type6 ||
-    storeLayout === _Store.type7
+    storeCode === _Store.type5 ||
+    storeCode === _Store.type6 ||
+    storeCode === _Store.type7
   ) {
     return <Bacardi_Header />;
   }
 
-  if (storeLayout === _Store.type10) {
+  if (storeCode === _Store.type10) {
     return <Bacardi_Header />;
   }
 
-  if (storeLayout === _Store.type11) {
+  if (storeCode === _Store.type11) {
     return <Bacardi_Header />;
   }
 
-  if (storeLayout === _Store.type14) {
+  if (storeCode === _Store.type14) {
     return <Bacardi_Header />;
   }
 
   if (
-    storeLayout === _Store.type16 ||
-    storeLayout === _Store.type17 ||
-    storeLayout === _Store.type18 ||
-    storeLayout === _Store.type19 ||
-    storeLayout === _Store.type20
+    storeCode === _Store.type16 ||
+    storeCode === _Store.type17 ||
+    storeCode === _Store.type18 ||
+    storeCode === _Store.type19 ||
+    storeCode === _Store.type20
   ) {
     return <Bacardi_Header />;
   }
 
   if (
-    storeLayout === _Store.type22 ||
-    storeLayout === _Store.type23 ||
-    storeLayout === _Store.type24
+    storeCode === _Store.type22 ||
+    storeCode === _Store.type23 ||
+    storeCode === _Store.type24
   ) {
     return <Usaa_Header />;
   }
 
-  if (storeLayout === _Store.type25) {
+  if (storeCode === _Store.type25) {
     return <Bacardi_Header />;
   }
 

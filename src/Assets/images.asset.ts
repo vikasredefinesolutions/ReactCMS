@@ -1,9 +1,16 @@
 import loaderGif from './images/loading-load.gif';
 import defaultProductImage from './images/newNavy.png';
 
-export const icons = {
-  info: '',
-  defaultProduct: defaultProductImage,
+const defaultImages = {
+  logoWillComeHere: defaultProductImage,
+  product: defaultProductImage,
+};
+
+export const __StaticImg = {
   loaderGif: loaderGif,
-  addNewLogo: '',
+  noImageFound: defaultImages.product,
+  product: defaultImages.product,
+  orderDetails: {
+    logoWillComeHere: defaultImages.logoWillComeHere,
+  },
 };

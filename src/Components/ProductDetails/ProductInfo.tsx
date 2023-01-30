@@ -40,7 +40,7 @@ interface _Props {
 }
 
 const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
-  const { setShowLoader } = useActions();
+  const { setShowLoader, setOfflineProductSelected } = useActions();
   const [openModal, setOpenModal] = useState<null | _modals>(null);
   const { id: userId } = useTypedSelector((state) => state.user);
   const {
@@ -418,10 +418,12 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           showMsrpLine={true}
           price={{
             msrp: product.msrp,
-            salePrice: product.salePrice,
+            salePrice: product.salePrice
           }}
-        />
-        <Inventory storeCode={storeCode} productId={product.id} />
+           />
+        { 
+          product.isBrandOnline &&  <Inventory storeCode={storeCode} productId={product.id} />
+        }
         <ProductCompanion
           storeCode={storeCode}
           name={product.companionProductName}
@@ -450,10 +452,15 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         </div>
         <div className=''>
           {userId ? (
-            <AddToCart
-              title='ADD TO CART'
-              className='btn btn-lg btn-secondary w-full text-center !font-normal'
-            />
+            product.isBrandOnline ?
+              <AddToCart
+                title="ADD TO CART"
+                className="btn btn-lg btn-secondary w-full text-center !font-normal"
+              /> : <button className='btn btn-lg btn-secondary w-full'
+                onClick={() => {
+                  setOfflineProductSelected(product.name)
+                  router.push(paths.Contact)
+                }} >CONTACT US FOR AVAILABLE INVENTORY</button>
           ) : (
             <button
               type='button'

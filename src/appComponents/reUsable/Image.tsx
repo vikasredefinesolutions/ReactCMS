@@ -1,11 +1,12 @@
 // import axios from 'axios';
 
-import config from 'api.config';
-import { icons as _images } from 'Assets/images.asset';
+import { generateImageUrl } from 'helpers/common.helper';
 import NextImage, { StaticImageData } from 'next/image';
 import React from 'react';
+
 interface _props {
-  src: string | null;
+  isStatic?: boolean;
+  src: null | string | StaticImageData;
   alt: string;
   className: string;
   width?: number | string;
@@ -20,46 +21,22 @@ const Image: React.FC<_props> = ({
   height,
   width,
   cKey,
+  isStatic = false,
 }) => {
-  const getMediaURL = (src: string | null) => {
-    let url: string | StaticImageData = '';
-    if (src) {
-      const srcWithHTTPs = src.includes('http');
-
-      if (srcWithHTTPs) {
-        url = src;
-      }
-
-      if (srcWithHTTPs === false) {
-        url = `${config.mediaBaseUrl}${src}`;
-      }
-    }
-
-    if (src === null) {
-      url = _images.defaultProduct;
-    }
-
-    return url;
-  };
-
-  const mediaURL: string | StaticImageData = getMediaURL(src);
+  const imageUrl = generateImageUrl(src, isStatic);
 
   return (
-    // <div className='w-auto h-auto m-auto max-h-[400px]'>
-    <NextImage
-      src={mediaURL}
-      alt={alt || ''}
-      // layout="fill"
-      height={height || 1}
-      width={width || 1}
-      layout="responsive"
-      className={className}
-      loading={'eager'}
-      key={cKey || 0}
-      // objectFit='contain'
-    />
-    // <img src={imageSrc} className={className} alt={alt} />
-    // </div>
+    <div style={{ width: '100%' }} className={className}>
+      <NextImage
+        src={imageUrl}
+        alt={alt || ''}
+        height={height || 1}
+        width={width || 1}
+        layout='responsive'
+        loading={'eager'}
+        key={cKey || 0}
+      />
+    </div>
   );
 };
 

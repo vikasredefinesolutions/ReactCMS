@@ -1,23 +1,15 @@
 import MsgContainer from 'appComponents/modals/MsgContainer';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
-import { useActions } from 'hooks';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { _InCart_GiftCard_model } from 'redux/slices/_slices';
 
 const SC_GiftCartItem: React.FC<_InCart_GiftCard_model> = (gift) => {
-  const { cart_update_item } = useActions();
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const removeItemHandler = ({ giftId }: { giftId: number }) => {
-    cart_update_item({
-      type: 'remove_item',
-      data: {
-        itemType: 'giftCard',
-        giftId: ~~giftId,
-      },
-    });
+    // API to be called.
   };
 
   const toggleConfirmationMsg = (action: 'ALERT' | 'HIDE' | 'CONFIRM') => {

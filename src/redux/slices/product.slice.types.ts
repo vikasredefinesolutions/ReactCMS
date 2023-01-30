@@ -179,6 +179,7 @@ export interface _ProductStore {
   };
   toCheckout: _state_productToCheckout;
   som_logos: _state_SOM_Logos_Container;
+  offlineProductSelected:string;
 }
 
 export interface _updateDiscountTablePrices {

@@ -1,6 +1,7 @@
 import CartLayout1 from 'appComponents/ui/cart/Layouts/Layout1';
 import CartLayout2 from 'appComponents/ui/cart/Layouts/Layout2';
 import CartLayout3 from 'appComponents/ui/cart/Layouts/Layout3';
+import CartLayout4 from 'appComponents/ui/cart/Layouts/Layout4';
 import CartController from 'Controllers/CartController';
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
@@ -14,6 +15,9 @@ const Ecommerce_ShoppingCart = () => {
     loadProduct,
     deleteCartItem,
     setShowEdit,
+    getPolicyDetails,
+    productPolicy,
+    endUserDisplay
   } = CartController();
   const storeLayout = useTypedSelector((state) => state.store.layout);
   let layout = <></>;
@@ -69,9 +73,19 @@ const Ecommerce_ShoppingCart = () => {
     );
   } else if (storeLayout === _Store.type4) {
     layout = (
-      <CartLayout3
-        cartProducts={cartProducts}
-        deleteCartItem={deleteCartItem}
+      <CartLayout4
+        {...{
+          cartProducts,
+          loadProduct,
+          deleteCartItem,
+          showEdit,
+          product,
+          setShowEdit,
+          currentCartProduct,
+          getPolicyDetails,
+          productPolicy,
+          endUserDisplay
+        }}
       />
     );
   }

@@ -24,7 +24,7 @@ const FilterBarLayout3: React.FC<props> = ({
         <div className="flex items-center gap-2">
           <button
             className={`inline-block ${
-              productView === 'grid' && 'text-anchor-hover'
+              productView === 'grid' ? 'text-anchor-hover text-primary': 'hover:text-primary'
             }`}
             onClick={() => setProductView('grid')}
           >
@@ -34,7 +34,7 @@ const FilterBarLayout3: React.FC<props> = ({
 
           <button
             className={`inline-block ${
-              productView === 'list' && 'text-anchor-hover'
+              productView === 'list' ? 'text-anchor-hover text-primary': 'hover:text-primary'
             }`}
             onClick={() => setProductView('list')}
           >

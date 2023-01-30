@@ -1,8 +1,17 @@
 import { FetchLogoPayload } from '@type/APIs/logo.req';
 import { LogoDetails, LogoList } from '@type/APIs/logo.res';
 import { SendAsyncV2 } from '@utils/axios.util';
+import { CallAPI } from 'helpers/common.helper';
+import getLocation from 'helpers/getLocation';
 import { conditionalLog } from 'helpers/global.console';
 import { _showConsoles } from 'show.config';
+
+export type _LogoAPIs = 'UploadLogoWithDetails';
+
+export type _LogoApiService = {
+  service: 'Logo';
+  api: _LogoAPIs;
+};
 
 export const getLogoDetailsById = async (
   logoId: number,
@@ -60,4 +69,68 @@ export const getLogoDetailsList = async (
     });
     return null;
   }
+};
+
+interface _UploadLogoWithDetails {
+  customerId: number;
+  logo: string;
+  logoName: string;
+  description: null;
+  orderedCartLogoDetailId: number;
+  id: number;
+  rowVersion: string;
+  location: string;
+  ipAddress: string;
+  macAddress: string;
+}
+
+interface _UploadLogoWithDetails_Payload {
+  customerlogorequestmodel: {
+    id: number;
+    rowVersion: string;
+    location: string;
+    ipAddress: string;
+    macAddress: string;
+    customerId: number;
+    logo: string;
+    logoName: string;
+    description: string;
+    orderedCartLogoDetailId: number;
+  };
+}
+
+export const UploadLogoWithDetails = async (payload: {
+  id: number;
+  customerId: number;
+  logo: string;
+  logoName: string;
+  description: string;
+  orderedCartLogoDetailId: number;
+}): Promise<_UploadLogoWithDetails | null> => {
+  const url = `/StoreCustomerLogo/create.json`;
+
+  const location = await getLocation();
+  const data: _UploadLogoWithDetails_Payload = {
+    customerlogorequestmodel: {
+      rowVersion: '',
+      location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
+      ipAddress: location.IPv4,
+      macAddress: '00-00-00-00-00-00',
+      ...payload,
+    },
+  };
+
+  const response = await CallAPI<_UploadLogoWithDetails>({
+    name: {
+      service: 'Logo',
+      api: 'UploadLogoWithDetails',
+    },
+    request: {
+      url: url,
+      method: 'POST',
+      data: data,
+    },
+  });
+
+  return response;
 };

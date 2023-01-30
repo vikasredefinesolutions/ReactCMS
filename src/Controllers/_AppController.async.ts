@@ -222,6 +222,10 @@ export const fetchStoreDetails = async (
     storeTypeId: null,
     isAttributeSaparateProduct: false,
     cartCharges: null,
+    urls: {
+      logo: '',
+      favicon: '',
+    },
   };
   try {
     const res = await GetStoreID(domain);
@@ -240,6 +244,10 @@ export const fetchStoreDetails = async (
         logoSetupCharges: res.logoSetupCharges,
       };
       store.storeTypeId = res.storeTypeId;
+      store.urls = {
+        logo: res.logoUrl,
+        favicon: res.favicon!,
+      };
 
       conditionalLogV2({
         data: store,

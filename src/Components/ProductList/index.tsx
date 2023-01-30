@@ -2,7 +2,7 @@ import {
   ColorChangeHandler,
   FilterChangeHandler,
   FilterType,
-  ProductList as ProductListType,
+  ProductList as ProductListType
 } from '@type/productList.type';
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
@@ -79,7 +79,7 @@ const ProductList = ({
     Layout = Layout1;
   } else if (storeLayout === _Store.type2) {
     Layout = Layout2;
-  } else if (storeLayout === _Store.type3 || storeLayout === _Store.type22 || storeLayout === _Store.type5) { 
+  } else if (storeLayout === _Store.type3 || storeLayout === _Store.type22 || storeLayout === _Store.type5 || storeLayout === _Store.type10 || storeLayout === _Store.type8) {
     Layout = Layout3;
   } else if (storeLayout === _Store.type4) {
     Layout = Layout4;

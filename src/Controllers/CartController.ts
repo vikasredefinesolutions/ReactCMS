@@ -2,7 +2,7 @@ import { __Cookie } from '@constants/global.constant';
 import { checkCoupon, deleteItemCart } from '@services/cart.service';
 import { FetchColors, FetchProductById } from '@services/product.service';
 import { _CartItem } from '@type/APIs/cart.res';
-import { _ProductDetails } from '@type/APIs/productDetail.res';
+import { _ProductDetails, _ProductPolicy } from '@type/APIs/productDetail.res';
 import { extractCookies } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import * as _ from 'lodash';
@@ -46,7 +46,8 @@ const CartController = () => {
   const [coupon, setCoupon] = useState('');
   const [hidePromocode, setHidePromocode] = useState(false);
   const [couponDiscount, setCouponDiscount] = useState(0);
-
+  const [productPolicy, setproductPolicy] = useState<_ProductPolicy[]>();
+  const [endUserDisplay, setEndUserDisplay] = useState<boolean>(false);
   const loadProduct = (product: _CartItem) => {
     if (storeId) {
       const obj = {
@@ -183,8 +184,45 @@ const CartController = () => {
     return priceObject;
   };
 
+  const getPolicyDetails = (cartProducts: _CartItem[]) => {
+    let flag = false
+    let policydetailsArray: _ProductPolicy[] = []
+    cartProducts?.map((product) => {
+      if (storeId) {
+        FetchProductById({
+          seName: product.seName,
+          storeId: storeId,
+          productId: 0,
+        }).then((resp) => {
+          if (resp) {
+            const res = resp as _ProductDetails;
+            const PolicyDetails: _ProductPolicy = {
+              storeId: res.storeId,
+              brandID: res.brandID,
+              brandName: res.brandName,
+              isBrandOnline: res.isBrandOnline,
+              isPolicywithcheckbox: res.isPolicywithcheckbox,
+              policyMessage: res.policyMessage,
+              isEnduserDisplay: res.isEnduserDisplay
+            }
+            policydetailsArray.push(PolicyDetails)
+            const policybrandarray = policydetailsArray.map((item) => JSON.stringify(item))
+            const uniquePolicyProduct = new Set(policybrandarray)
+            const PolicyProduct = Array.from(uniquePolicyProduct).map((item) => JSON.parse(item))
+            if (res.isEnduserDisplay) {
+              setEndUserDisplay(true);
+            }
+            setproductPolicy([...PolicyProduct])
+          }
+        });
+      }
+    })
+
+  }
+
   return {
     cartProducts,
+    getPolicyDetails,
     coupon,
     showEdit,
     product,
@@ -196,6 +234,8 @@ const CartController = () => {
     setCoupon,
     couponCodeSubmit,
     setShowEdit,
+    productPolicy,
+    endUserDisplay
   };
 };
 

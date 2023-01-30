@@ -46,11 +46,11 @@ export const SC_ItemsInCart_withoutPersonalization: React.FC = () => {
           return <></>;
         })}
       </ul>
-      <div className="my-2">
-        <Link href={paths.cart.keepShopping} className="btn btn-primary">
-          CONTINUE SHOPPING
+      <button className="my-2 btn btn-primary text-white">
+        <Link href={paths.cart.keepShopping}>
+         <p className='text-white'> CONTINUE SHOPPING</p>
         </Link>
-      </div>
-    </section>
+      </button> 
+    </section>  
   );
 };

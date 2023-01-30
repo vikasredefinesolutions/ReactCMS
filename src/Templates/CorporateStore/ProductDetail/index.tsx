@@ -12,6 +12,7 @@ import {
 } from 'definations/APIs/productDetail.res';
 import { _Store } from 'page.config';
 
+import ProductAlike from 'Components/ProductDetails/ProductAlike';
 import { getAddToCartObject, setCookie } from 'helpers/common.helper';
 import { highLightError } from 'helpers/global.console';
 import { useActions, useTypedSelector } from 'hooks';
@@ -24,12 +25,15 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
 ) => {
   const { showModal, updateQuantities, updateQuantitieSingle } = useActions();
   const selectedproduct = useTypedSelector((state) => state.product.selected);
+  const productinventory=useTypedSelector((state) => state.product.product.inventory?.inventory)
   const customerId = useTypedSelector((state) => state.user.id);
   const { store_productDetails, setColor, setShowLoader, product_storeData } =
     useActions();
   const [color, setColors] = useState<string | null>(null);
   const [size, setSize] = useState<string | null>(null);
   const [qty, setQty] = useState<number>(0);
+  const [minquantity ,setMinQuantity] =useState<number>(0)
+  const [maxquantity,setMaxQuantity] =useState<number>(0)
   const [showMultipleSize, setShowMultipleSize] = useState(false);
   const [multipleQty, setMultipleQty] = useState<Array<{
     qty: number;
@@ -37,6 +41,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
     price: number;
   }> | null>(null);
   const [showSizeChart, setShowSizeChart] = useState(false);
+  const [availaibleSizes,setAvailaibleSizes] =useState<Array<string>>([])
   // const addParams = () => {
   //   router.query.altview = '1';
   //   router.query.v = 'product-detail';
@@ -74,16 +79,17 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
         const allColorAttributes = product.colors.map(
           (color) => color.attributeOptionId,
         );
-
         FetchInventoryById({
           productId: product.details.id,
           attributeOptionId: allColorAttributes,
-        }).then((res) =>
+        }).then((res) => {
           product_storeData({
             type: 'INVENTORY_LIST',
             data: res,
-          }),
-        );
+          })
+      }
+        )
+        availaibleSize()
       }
     }
 
@@ -144,12 +150,29 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
   };
 
   const getMultipleQtyValue = (_size: string) => {
-    const qtyObject = multipleQty?.find(({ size }) => _size === size);
+    const qtyObject = multipleQty?.find(({ size }) => _size === size)
     if (qtyObject) {
       return qtyObject.qty;
     }
     return 0;
   };
+
+  const availaibleSize = () => {
+    productinventory?.forEach((val) => {
+      if((selectedproduct.color.attributeOptionId === val.colorAttributeOptionId) && val.inventory === 0){
+        setAvailaibleSizes((prev) => [...prev,val.name])
+      }
+    })
+  }
+
+  const availaibleInventory = (_size :string) => {
+    productinventory?.forEach((val) => {
+        if((selectedproduct.color.attributeOptionId === val.colorAttributeOptionId) && (val.name === _size)){
+          setMinQuantity(val.minQuantity)
+          setMaxQuantity(val.inventory)
+        }
+      })
+  }
 
   const getTotals = () => {
     let totalQty = 0;
@@ -192,11 +215,20 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
         });
         return;
       }
-      if (qty < 1) {
+      if (qty < minquantity) {
         showModal({
-          message: 'Please enter valid quantity.',
+          message: `Please enter quantity greater than or equal to ${minquantity}.`,
           title: 'Required Quantity',
         });
+        setQty(minquantity)
+        return;
+      }
+      if (qty > maxquantity) {
+        showModal({
+          message: `Please enter quantity less than or equal to ${maxquantity}.`,
+          title: 'Required Quantity',
+        });
+        setQty(maxquantity)
         return;
       }
     }
@@ -222,7 +254,6 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
             totalQty: qty,
           },
       });
-
       if (cartObject) {
         try {
           const res = await addToCart(cartObject);
@@ -262,7 +293,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
     }
   }
 
-  if (product.storeCode === _Store.type22 || product.storeCode === _Store.type5) {
+  if (product.storeCode === _Store.type22 || product.storeCode === _Store.type5 || product.storeCode === _Store.type10) {
     return (
       <>
         {HeadTag}
@@ -300,6 +331,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                           onClick={() => {
                             setColor(colour);
                             setColors(colour.name);
+                            availaibleSize()
                           }}
                           key={colour.name}
                           className="w-8 h-8"
@@ -322,27 +354,36 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                     })}
                   </div>
                 </div>
-
                 {!showMultipleSize && (
                   <div className="flex flex-wrap mb-4">
                     <div className="flex mr-2 text-sm items-center">
                       {' '}
                       <span className="text-sm font-semibold">Size:</span>
                     </div>
-
                     <div className="text-sm flex items-center gap-1">
                       {properties.product.size_input === 'checkbox' ? (
                         product.details.sizes.split(',').map((_size) => (
-                          <div
+                          <button
                             onClick={() => setSize(_size)}
                             key={_size}
-                            className={`border border-gray-300 hover:border-secondary h-8 w-8 flex items-center justify-center cursor-pointer${_size === size ? ' border-secondary' : ''
+                            className={`border border-gray-300 hover:border-secondary h-8 w-8 flex items-center justify-center cursor-pointer ${_size === size ? ' border-secondary' : ''
                               }`}
                           >
                             {_size}
-                          </div>
+                          </button>
                         ))
-                      ) : (
+                      ) :properties.product.size_input === 'select' ? <>
+                        <div className="text-sm flex flex-wrap items-center gap-1">
+                        {product.details.sizes.split(',').map((_size) => (
+                            <button onClick={() => {
+                              availaibleInventory(_size)
+                              setSize(_size)}} key={_size}  className={`border border-gray-300 hover:bg-[#D40F8D]  h-8 w-8 flex items-center justify-center cursor-pointer ${_size === size ? 'bg-secondary' : ''
+                          }`} disabled={availaibleSizes.includes(_size)} >
+                              {_size}
+                            </button>
+                          ))}
+                        </div>
+                      </>:(
                         <select
                           className="form-input md:pr-3"
                           onChange={(e) => {
@@ -373,15 +414,16 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                   </div>
                   <div className="text-sm">
                     {!showMultipleSize ? (
-                      <div className="w-28">
+                      <div className="w-20">
                         <input
-                          min={0}
+                          min={minquantity}
+                          max={maxquantity}
                           onChange={(e) => {
                             singleChangeQuantity(e.target.value)
                           }}
                           value={qty}
                           type="number"
-                          className="form-input text-center"
+                          className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
                           id="QTY"
                           placeholder=""
                         />
@@ -395,14 +437,14 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                           >
                             <p className="w-32 item-center">{_size}</p>
                             <p className="w-32 item-center">100</p>
-                            <div className="w-28">
+                            <div className="w-32">
                               <input
                                 min={0}
                                 name={_size}
                                 onChange={multipleQtyChangeHandler}
                                 value={getMultipleQtyValue(_size)}
                                 type="number"
-                                className="form-input w-32 pr-0"
+                                className="form-input w-35 pl-5"
                                 id="QTY"
                                 placeholder=""
                               />
@@ -411,7 +453,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                         ))}
                       </div>
                     )}
-                    {properties.product.isMultiple ?
+                    {( product.storeCode=== _Store.type22 && properties.product.isMultiple)?
                       <button
                         onClick={() => {
                           updateQuantitieSingle({
@@ -474,11 +516,9 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
             <div className='description'>
               <div className="container mx-auto">
                 <div className="bg-white pt-10 pb-10 px-4">
-                  <div className="">
-                    <div className="bg-primary py-2 px-4 text-white inline-block">
+                    <div className="bg-secondary py-2 px-4 text-white inline-block rounded-t-md">
                       Description
                     </div>
-                  </div>
                   <div className="text-sm text-gray-700 tracking-widest p-6 border border-gray-300">
                     <p className='mb-4'>
                       {product.details.description}
@@ -488,7 +528,18 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
               </div>
             </div> : ''
           }
+
+        <ProductAlike
+        storeCode={product.storeCode}
+        title='YOU MAY ALSO LIKE'
+        products={product.alike}
+        />
+     
+         
         </div>
+
+        
+          
       </>
     );
   }

@@ -1,7 +1,8 @@
 import { _CI_ShoppingCartItemDetailsViewModel } from '@type/APIs/cart.res';
 import MsgContainer from 'appComponents/modals/MsgContainer';
 import Price from 'appComponents/reUsable/Price';
-import { useActions } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import React, { useState } from 'react';
 import { _InCart_productAttributes_model } from 'redux/slices/_slices';
 import SC_QtyInput from './SC_QtyInput';
@@ -57,6 +58,7 @@ export const SC_SizeQtyPriceTable: React.FC<{
   const { cart_update_item } = useActions();
   const [showAlert, setShowAlert] = useState<{ size: string } | null>(null);
 
+  const {layout}= useTypedSelector((state) =>  state.store)
   const toggleConfirmationMsg = (action: _DELETE_MSG | _HIDE_MSG) => {
     if (action.type === 'ALERT') {
       setShowAlert({ size: action.size });
@@ -95,7 +97,7 @@ export const SC_SizeQtyPriceTable: React.FC<{
         <div className="text-base font-semibold w-28">Size </div>
         <div className="text-base font-semibold w-16 text-center">Qty</div>
         <div className="text-base font-semibold w-20 text-right">Price</div>
-        {details.length > 1 ? (
+        {layout !==  _Store.type22 &&  details.length > 1 ? (
           <div className="text-base font-semibold w-20 text-right"></div>
         ) : null}
       </div>
@@ -112,14 +114,14 @@ export const SC_SizeQtyPriceTable: React.FC<{
           <div className="text-base w-20 text-right">
             <Price value={item.priceOfqty} />
           </div>
-          {details.length > 1 ? (
+          { layout !== _Store.type22 &&  details.length > 1 ? (
             <button
-              className="text-base w-20 text-right"
+            className="btn btn-primary text-white"
               onClick={() => {
                 toggleConfirmationMsg({ type: 'ALERT', size: item.size });
               }}
             >
-              delete
+             DELETE
             </button>
           ) : null}
         </div>

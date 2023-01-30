@@ -100,3 +100,10 @@ export const __QuoteRequestMessages = {
   email: { required: 'Please enter School / Organization.' },
   sport: { required: 'Please enter Sport.' },
 };
+
+export const contactPageMessage ={
+  name:  { required: 'Enter your name.' },
+  email: { required: 'Enter your Email.' },
+  companyName:  { required: 'Enter your Company name / ASI# or PPAI# .' },
+  message: { required: 'Enter your name.' },
+}

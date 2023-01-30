@@ -36,7 +36,7 @@ const ProductLayout2 = ({
 
   let countImage: Number;
 
-  if (storeLayout === _Store.type22) {
+  if (storeLayout === _Store.type22 || storeLayout === _Store.type10 || storeLayout === _Store.type8) {
     return productView === 'grid' ? (
       <li className="text-center relative border border-gray-100 hover:border-gray-300 hover:shadow-md pb-10">
         <Link href={`${origin}/${product.sename}.html`} className="relative">
@@ -58,9 +58,18 @@ const ProductLayout2 = ({
             </Link>
           </div>
           <div className="mt-4 text-gray-900">
-            <span className="font-bold">
-              <Price value={product.salePrice} addColon={false} />
-            </span>
+              {
+                storeLayout === _Store.type8 ? 
+                <span className="text-primary">
+                  <Price value={product.salePrice} addColon={false} />
+                </span> :
+                <span className="font-bold">
+                  <Price value={product.salePrice} addColon={false} />
+                </span>
+              }
+              <span className="font-bold hidden">
+                <Price value={product.salePrice} addColon={false} />
+              </span>
           </div>
 
           <ul role="list" className="flex items-center justify-center mt-4">
@@ -95,6 +104,19 @@ const ProductLayout2 = ({
             }
 
           </ul>
+         { storeLayout === _Store.type10 && <div className="gird-item-hover mt-3 mb-3">
+            <div className="flex justify-center mx-auto">
+            <Link
+                key={product.id}
+                href={`${origin}/${product.sename}.html?v=product-detail&altview=1`}
+                >
+                  <a className='btn btn-secondary'>
+                  <span className="material-icons text-sm">local_mall</span> 
+                  <span className="ml-1">ADD TO CART</span>
+                  </a>
+                </Link>
+            </div>
+          </div> }                                     
         </div>
       </li>
     ) : (
@@ -156,6 +178,19 @@ const ProductLayout2 = ({
                 </li>
               ))}
             </ul>
+            { storeLayout === _Store.type10 && <div className="gird-item-hover mt-3 mb-3">
+              <div className="flex justify-start">
+                <Link
+                key={product.id}
+                href={`${origin}/${product.sename}.html?v=product-detail&altview=1`}
+                >
+                  <a className='btn btn-secondary'>
+                  <span className="material-icons text-sm">local_mall</span> 
+                  <span className="ml-1">ADD TO CART</span>
+                  </a>
+                </Link>
+              </div>
+            </div>  }                                    
           </div>
         </div>
       </li>

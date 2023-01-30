@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { _Footer } from '@type/APIs/footer.res';
-import { _TransformedThemeConfig } from 'definations/APIs/header.res';
+import { _TransformedHeaderConfig } from 'definations/APIs/header.res';
 import { PageResponseType, _Show } from 'definations/app.type';
 import { CartCharges, _StoreReturnType } from 'definations/store.type';
 import { layoutToShow } from 'helpers/common.helper';
@@ -24,9 +24,11 @@ export interface _RedesignStore {
   isAttributeSaparateProduct: boolean;
   cartCharges: null | CartCharges;
   configs: {
-    header: _TransformedThemeConfig | null;
-    footer:_Footer|null
+    header: _TransformedHeaderConfig | null;
+    footer: _Footer | null;
   };
+  logoAlt: string | null;
+  logoUrl: string | null;
 }
 
 // Define the initial state using that type
@@ -45,8 +47,10 @@ const initialState: _RedesignStore = {
   cartCharges: null,
   configs: {
     header: null,
-    footer:null
+    footer: null,
   },
+  logoAlt: null,
+  logoUrl: null,
 };
 
 export const storeSlice = createSlice({
@@ -60,8 +64,8 @@ export const storeSlice = createSlice({
           store: _StoreReturnType;
           menuItems: _MenuItems | null;
           configs: {
-            header: _TransformedThemeConfig | null;
-            footer:_Footer|null
+            header: _TransformedHeaderConfig | null;
+            footer: _Footer | null;
           };
         };
       },

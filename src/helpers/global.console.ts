@@ -26,6 +26,11 @@ export const __Show = {
 
 export const __console: __Console = {
   allCatch: true,
+  Logo: {
+    service: {
+      UploadLogoWithDetails: true,
+    },
+  },
   app: {
     controller: false,
     serverMethod: false,

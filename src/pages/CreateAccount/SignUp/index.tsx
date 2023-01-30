@@ -9,7 +9,7 @@ import RedefineSelect from 'Components/SignUp/RedefineSelect';
 import RedefineStateNcountries from 'Components/SignUp/RedefineStateNcountries';
 import {
   signup_payload,
-  _Signup_Payload
+  _Signup_Payload,
 } from 'Components/SignUp/signup.payload';
 import { paths, queryParam } from 'constants/paths.constant';
 import { signupPageMessages } from 'constants/validationMessages';
@@ -124,7 +124,6 @@ const SignUp: NextPage = () => {
     GetIndustriesList().then((indus) => setIndustries(indus));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   /* -------------------------------- VIEW ------------------------------  */
   const CreateMyAccountForm = (
     <Formik
@@ -507,21 +506,13 @@ const SignUp: NextPage = () => {
     );
   }
 
-  if (
-    storeLayout === _Store.type1 ||
-    storeLayout === _Store.type4 ||
-    storeLayout === _Store.type3
-  ) {
-    return (
-      <section className='container mx-auto  bg-gray-100 mb-6 '>
-        <div className='gird grid-cols-1 lg:flex lg:items-center gap-6 lg:py-8 lg:px-12 px-4 py-4 lg:my-5'>
-          {CreateMyAccountForm}
-        </div>
-      </section>
-    );
-  }
-
-  return <></>;
+  return (
+    <section className='container mx-auto  bg-gray-100 mb-6 '>
+      <div className='gird grid-cols-1 lg:flex lg:items-center gap-6 lg:py-8 lg:px-12 px-4 py-4 lg:my-5'>
+        {CreateMyAccountForm}
+      </div>
+    </section>
+  );
 };
 
 export default SignUp;

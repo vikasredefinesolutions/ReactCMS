@@ -8,7 +8,7 @@ import {
   _ProductStore,
   _Product_SetValues_Action,
   _Product_UpdateLogoDetails_Actions,
-  _UpdateProperties_Action,
+  _UpdateProperties_Action
 } from './product.slice.types';
 
 // Define a type for the slice state
@@ -76,6 +76,7 @@ const initialState: _ProductStore = {
     additionalLogoCharge: 0,
     choosedLogoCompletionPending: null,
   },
+  offlineProductSelected:'',
 };
 
 export const productSlice = createSlice({
@@ -303,6 +304,12 @@ export const productSlice = createSlice({
       state.product.colors = action.payload.product.colors;
       state.product.customization = action.payload.product.customization;
     },
+    setOfflineProductSelected:(state,
+      action: {
+        payload: string;
+      },)=>{
+        state.offlineProductSelected=action.payload
+      },
 
     toggleNextLogoButton: (state, action: { payload: boolean }) => {
       state.toCheckout.allowNextLogo = action.payload;

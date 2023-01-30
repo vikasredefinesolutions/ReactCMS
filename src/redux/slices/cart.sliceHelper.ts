@@ -4,7 +4,7 @@ import {
   _cart_addProduct_model,
   _cart_updateProduct_qty_data,
   _InCart_productAttributes_model,
-  _InCart_Product_model,
+  _InCart_Product_model
 } from './_slices';
 
 import {
@@ -12,7 +12,7 @@ import {
   _cart_removeProduct_model,
   _cart_updateGift_qty_model,
   _cart_updateProduct_qty_model,
-  _InCart_GiftCard_model,
+  _InCart_GiftCard_model
 } from './_slices';
 
 export const calculatePriceNqty = (
@@ -148,6 +148,7 @@ export const addItemToCart = (
   if (payload.data.itemType === 'product') {
     item = {
       type: 'product',
+      cartItemId: payload.data.cartItemId,
       seName: payload.data.seName,
       name: payload.data.productName,
       productId: payload.data.productId,
@@ -165,6 +166,7 @@ export const addItemToCart = (
   if (payload.data.itemType === 'giftCard') {
     item = {
       type: 'giftCard',
+      cartItemId: payload.data.cartItemId,
       seName: payload.data.seName,
       name: payload.data.seName,
       giftId: payload.data.giftId,

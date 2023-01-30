@@ -96,7 +96,7 @@ export interface _ThemeConfigRes {
   updated_at: Date;
 }
 
-export interface _TransformedThemeConfig {
+export interface _TransformedHeaderConfig {
   id: number;
   store_id: number;
   config_name: string;

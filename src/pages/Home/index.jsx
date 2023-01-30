@@ -85,22 +85,28 @@ const Home = (props) => {
 
   return (
     <>
-      <>{storeTypeId} - dummy text</>
       <div className=''>
         {/* {featuredItems?.products && (
           <FeaturedItems
             brands={__constant._Home.featuredItems.brands}
             products={featuredItems.products}
-          />
+          />          
         )}*/}
         <main>
           {pageData?.components && pageData?.components.length > 0 ? (
             pageData.components.map((componentValue, index) => {
               const backgroundDefault = loadBackgroundDefault(componentValue);
+
+              let additionalclass = "";
+              if(componentValue.selectedVal && Object.keys(JSON.parse(componentValue.selectedVal)).includes("additionalclass"))
+              {
+                  additionalclass = JSON.parse(componentValue.selectedVal).additionalclass.value;                                                          
+              }
+              console.log("ADD", additionalclass, JSON.parse(componentValue.selectedVal))
               return (
                 <div
                   key={index}
-                  className={`commondiv ${
+                  className={`commondiv ${additionalclass} ${
                     componentValue.visibility == 'off' ? 'hidden' : ''
                   }`}
                   style={{ background: backgroundDefault }}
@@ -109,28 +115,29 @@ const Home = (props) => {
                   //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
                   // }}
                 >
-                  {Object.keys(componentValue.selectedVal).includes(
+                  {Object.keys(JSON.parse(componentValue.selectedVal)).includes(
                     'carousel',
                   ) ? (
                     <>
                       <ElementCarouselDisplay
-                        bannerArr={componentValue.selectedVal.carousel.value}
+                        bannerArr={JSON.parse(componentValue.selectedVal).carousel.value}
                       />
                     </>
                   ) : (
                     <>
-                      <section className='mainsection container mx-auto mt-20'>
-                        {Object.keys(componentValue.selectedVal).includes(
+                        {Object.keys(JSON.parse(componentValue.selectedVal)).includes(
                           'FullAccordion',
                         ) ? (
                           <>
+                          <section className="mainsection container mx-auto mt-6 white-all overflow-hidden">
                             <ul className='mt-4 w-full'>
                               <ElementAccordionDisplay
                                 acValues={
-                                  componentValue.selectedVal.FullAccordion.value
-                                }
+                                  JSON.parse(componentValue.selectedVal).FullAccordion.value
+                                } acClass={JSON.parse(componentValue.selectedVal)?.FullAccordion_accordion_class?.value} acBgColor={JSON.parse(componentValue.selectedVal)?.FullAccordion_ac_background?.value}
                               />
                             </ul>
+                            </section>
                           </>
                         ) : (
                           <>
@@ -142,7 +149,6 @@ const Home = (props) => {
                             ></div>
                           </>
                         )}
-                      </section>
                     </>
                   )}
                 </div>

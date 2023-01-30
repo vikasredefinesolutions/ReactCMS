@@ -3,7 +3,6 @@ import { _GiftCard } from '@services/gift.service.type';
 import MsgContainer from 'appComponents/modals/MsgContainer';
 import Price from 'appComponents/reUsable/Price';
 import { Form, Formik } from 'formik';
-import { useActions } from 'hooks';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
@@ -41,10 +40,8 @@ interface _props {
 const Corporate_GiftCardDetails: React.FC<_props> = ({ giftCard }) => {
   const router = useRouter();
   const [showErrorMsg, setShowErrorMsg] = useState(false);
-  const { cart_update_item } = useActions();
 
   const formHandler = (value: _InitialValues) => {
-    // Fix Abhishek
     // cart_update_item({
     //   type: 'add_item',
     //   data: {
