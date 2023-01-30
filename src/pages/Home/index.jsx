@@ -97,12 +97,11 @@ const Home = (props) => {
             pageData.components.map((componentValue, index) => {
               const backgroundDefault = loadBackgroundDefault(componentValue);
 
-              let additionalclass = "";
-              if(componentValue.selectedVal && Object.keys(JSON.parse(componentValue.selectedVal)).includes("additionalclass"))
+              let additionalclass = '';
+              if(componentValue.selectedVal && Object.keys(JSON.parse(componentValue.selectedVal)).includes('additionalclass'))
               {
                   additionalclass = JSON.parse(componentValue.selectedVal).additionalclass.value;                                                          
               }
-              console.log("ADD", additionalclass, JSON.parse(componentValue.selectedVal))
               return (
                 <div
                   key={index}

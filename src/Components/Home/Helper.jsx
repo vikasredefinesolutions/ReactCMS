@@ -60,15 +60,14 @@ export const updateSetProperties = (element) => {
       }
 
       if (value.type == 'fontsize') {
-            let propname = key.replace("_font_size", "");
-            console.log(propname, value);
+            let propname = key.replace('_font_size', '');
             x.querySelectorAll('#'+propname)[0].classList.add(value.value);
             
             if(element.properties.TextAppearance != null)
             {
                 if(element.properties.TextAppearance.fields != undefined)
                 {
-                  let fields = element.properties.TextAppearance.fields.split(",");
+                  let fields = element.properties.TextAppearance.fields.split(',');
                   let textBgColor = propname.text_bg_color ?? '';
                   let bgOpacity = propname.bg_opacity ?? '1';
                   let fontSize = propname.font_size ?? '';
@@ -76,9 +75,9 @@ export const updateSetProperties = (element) => {
       
       
                   fields.forEach(el => {
-                    if(x.querySelectorAll('#'+el+"_pos").length > 0) {
-                      x.querySelectorAll('#'+el+"_pos")[0].className = "flex items-center absolute "+fontSize+" inset-0 p-1 lg:p-4 text-white justify-"+textPos;
-                      x.querySelectorAll('#'+el+"_bg")[0].style = "background: rgb("+textBgColor+", "+bgOpacity+"); padding: 20px";
+                    if(x.querySelectorAll('#'+el+'_pos').length > 0) {
+                      x.querySelectorAll('#'+el+'_pos')[0].className = 'flex items-center absolute '+fontSize+' inset-0 p-1 lg:p-4 text-white justify-'+textPos;
+                      x.querySelectorAll('#'+el+'_bg')[0].style = 'background: rgb('+textBgColor+', '+bgOpacity+'); padding: 20px';
                       //x.querySelectorAll('#'+el)[0].className = "pb-2";
                     }
                   });   
@@ -92,7 +91,7 @@ export const updateSetProperties = (element) => {
               let propname = value.value;
             if(element.properties.TextAppearance?.fields != undefined)
             {
-              let fields = element.properties.TextAppearance.fields.split(",");
+              let fields = element.properties.TextAppearance.fields.split(',');
               let textBgColor = propname.text_bg_color ?? '';
               let bgOpacity = propname.bg_opacity ?? '1';
               let fontSize = propname.font_size ?? '';
@@ -100,10 +99,10 @@ export const updateSetProperties = (element) => {
   
   
               fields.forEach(el => {
-                if(x.querySelectorAll('#'+el+"_pos").length > 0) {
-                  x.querySelectorAll('#'+el+"_pos")[0].className = "flex items-center absolute "+fontSize+" inset-0 p-1 lg:p-4 text-white justify-"+textPos;
-                  x.querySelectorAll('#'+el+"_bg")[0].style = "background: rgb("+textBgColor+", "+bgOpacity+"); padding: 20px";
-                  x.querySelectorAll('#'+el)[0].className = "pb-2";
+                if(x.querySelectorAll('#'+el+'_pos').length > 0) {
+                  x.querySelectorAll('#'+el+'_pos')[0].className = 'flex items-center absolute '+fontSize+' inset-0 p-1 lg:p-4 text-white justify-'+textPos;
+                  x.querySelectorAll('#'+el+'_bg')[0].style = 'background: rgb('+textBgColor+', '+bgOpacity+'); padding: 20px';
+                  x.querySelectorAll('#'+el)[0].className = 'pb-2';
                 }
               });   
             }  

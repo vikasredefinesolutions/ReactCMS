@@ -17,7 +17,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
       : true;
 
   const arrowType = bannerArr.arrowType != undefined
-      ? bannerArr.arrowType : "Arrow1";
+      ? bannerArr.arrowType : 'Arrow1';
   const showIndicators =
     bannerArr.showIndicators != undefined
       ? bannerArr.showIndicators == 'On'
@@ -63,7 +63,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
             renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
               hasPrev && (
                 <div className="absolute top-1/2 -translate-y-1/2 left-4 z-10 flex items-center">
-                  {arrowType === "Arrow1" && 
+                  {arrowType === 'Arrow1' && 
                         <button
                           onClick={clickHandler}
                           className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
@@ -81,7 +81,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                           </svg>
                         </button>
                       }
-                      {arrowType === "Arrow2" && 
+                      {arrowType === 'Arrow2' && 
                           <button 
                               onClick={clickHandler}
                               className="bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
@@ -101,7 +101,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
             renderArrowNext={(clickHandler, hasNext, labelNext) =>
               hasNext && (
                 <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10 flex items-center">
-                  {arrowType === "Arrow1" &&
+                  {arrowType === 'Arrow1' &&
                       <button
                         onClick={clickHandler}
                         className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
@@ -119,7 +119,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                         </svg>
                       </button>
                     }
-                    {arrowType === "Arrow2"&&
+                    {arrowType === 'Arrow2' &&
                       <button 
                           onClick={clickHandler} 
                           className="bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">

@@ -138,6 +138,10 @@ export const getServerSideProps: GetServerSideProps = async (
       code: '',
       isAttributeSaparateProduct: false,
       cartCharges: null,
+       urls: {
+        favicon: '',
+        logo: '',
+      },
     },
     product: null,
     color: null,

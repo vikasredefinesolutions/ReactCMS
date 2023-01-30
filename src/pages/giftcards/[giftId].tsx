@@ -20,7 +20,7 @@ const GiftCardDetails: React.FC<_GiftCardDetails_ExpectedProps> = ({
   giftCard,
   store,
 }) => {
-  if (!giftCard || !store) {
+  if (!giftCard || !store || !store.storeTypeId || !store.storeCode) {
     return <>No data found</>;
   }
 
