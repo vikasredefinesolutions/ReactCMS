@@ -1,4 +1,4 @@
-import { PunchoutPostApi } from "@services/punchout.service";
+import { PunchoutPostApi } from '@services/punchout.service';
 
 const Puchout = ({req,res,punchout} : any) => {
 
