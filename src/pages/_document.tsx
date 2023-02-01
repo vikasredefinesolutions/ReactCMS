@@ -72,12 +72,12 @@ class MyDocument extends Document {
                 />
            }
 
-           {/*<link
+           {<link
             rel="stylesheet"
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
           />
-          */}
+          }
           <link
             rel='stylesheet'
             type='text/css'
