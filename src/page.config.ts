@@ -54,7 +54,7 @@ export const _StoreDomains = {
   domain19: 'theHardFordJuniorfireMarshal',
   domain20: 'theHardFordVolshirt',
   domain21: 'theHomeDepot',
-  domain22: 'react-cms-three.vercel.app',
+  domain22: 'humanadev.parsonskellogg.com',
   domain23: 'ussaClaimsApparel',
   domain24: 'ussaMilitarysAffairs',
   domain25: 'wayFair',
@@ -68,7 +68,7 @@ export const _StoreDomains = {
 
 export const __domain = {
   devMode: true, // for development features.
-  isSiteLive: false,
+  isSiteLive: true,
   localDomain: _StoreDomains.domain1,
   layoutToDisplay: _Store.type1,
 };
