@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  BreadCrumb,
-  NotificationBar,
-} from 'Templates/Ecommerce/Layout/Components';
+import { BreadCrumb, NotificationBar } from 'Templates/Ecommerce/Layout/Components';
+import Footer from './Footer/Corporate_Footer_View';
 import Header from './Header';
 
 interface _props {
@@ -18,6 +16,7 @@ const Corporate_Layout: React.FC<_props> = ({ children, storeCode }) => {
       <Header storeCode={storeCode} />
       <BreadCrumb />
       <>{children}</>
+      <Footer />
     </>
   );
 };

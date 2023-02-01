@@ -4,11 +4,13 @@ import { EmployeeType } from '@type/APIs/user.res';
 export interface _EmployeeState {
   empId: number | null;
   employee: EmployeeType | null;
+  loggedIn: boolean;
 }
 
 const initialState: _EmployeeState = {
-    empId: null,
+  empId: null,
   employee: null,
+  loggedIn: false,
 };
 
 export const employeeSlice = createSlice({
@@ -26,6 +28,7 @@ export const employeeSlice = createSlice({
     ) => {
       state.employee = action.payload.employee;
       state.empId = action.payload.empId;
+      state.loggedIn = true;
     },
     clearEmployeeDetails: (
       state,
@@ -35,8 +38,9 @@ export const employeeSlice = createSlice({
     ) => {
       state.employee = null;
       state.empId = null;
+      state.loggedIn = false;
     },
-  }
+  },
 });
 
 export const employeeActions = employeeSlice.actions;

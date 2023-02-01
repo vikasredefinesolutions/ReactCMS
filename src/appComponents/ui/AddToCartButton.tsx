@@ -15,14 +15,14 @@ type Props = {
   className: string;
 };
 interface _Selectedproduct {
-  color: _ProductColor,
+  color: _ProductColor;
   sizeQtys:
-  | {
-    size: string;
-    qty: number;
-    price: number;
-    color?: string | undefined;
-  }[],
+    | {
+        size: string;
+        qty: number;
+        price: number;
+        color?: string | undefined;
+      }[];
   image: {
     id: number;
     imageUrl: string;
@@ -37,11 +37,12 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
   const customerId = useTypedSelector((state) => state.user.customer?.id);
   const selectedProduct = useTypedSelector((state) => state.product.selected);
   const storeCode = useTypedSelector((state) => state.store.layout);
-
-  const [openModal, setOpenModal] = useState<null | _modals>(null);
-  const { colors } = useTypedSelector(
-    (state) => state.product.product,
+  const storeId = useTypedSelector((state) => state.store.id);
+  const isEmployeeLoggedIn = useTypedSelector(
+    (state) => state.employee.loggedIn,
   );
+  const [openModal, setOpenModal] = useState<null | _modals>(null);
+  const { colors } = useTypedSelector((state) => state.product.product);
 
   const modalHandler = (param: null | _modals) => {
     if (param) {
@@ -58,9 +59,9 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
       return;
     }
     if (storeCode == _Store.type4) {
-      const selectedProducts: _Selectedproduct[] = []
-      colors?.forEach(color => {
-        if (sizeQtys.map(c => c.color).includes(color.name)) {
+      const selectedProducts: _Selectedproduct[] = [];
+      colors?.forEach((color) => {
+        if (sizeQtys.map((c) => c.color).includes(color.name)) {
           selectedProducts.push({
             color: { ...color },
             sizeQtys: sizeQtys?.filter((size) => size.color == color.name),
@@ -70,14 +71,16 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
               imageUrl: color.imageUrl,
               altTag: '',
             },
-            inventory: null
-          })
+            inventory: null,
+          });
         }
-      })
+      });
 
       for (let Product of selectedProducts) {
         const cartObject = await getAddToCartObject({
           userId: customerId || 0,
+          storeId: storeId || 0,
+          isEmployeeLoggedIn,
           note: '',
           sizeQtys: Product.sizeQtys || [],
           productDetails: Product,
@@ -106,6 +109,8 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
       {
         const cartObject = await getAddToCartObject({
           userId: customerId || 0,
+          storeId: storeId || 0,
+          isEmployeeLoggedIn,
           note: '',
           sizeQtys: sizeQtys,
           productDetails: selectedProduct,
@@ -144,8 +149,8 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
       </button>
       {openModal === 'requiredQty' && (
         <MsgContainer
-          title="Required Size"
-          message="Please select one size"
+          title='Required Size'
+          message='Please select one size'
           modalHandler={modalHandler}
         />
       )}

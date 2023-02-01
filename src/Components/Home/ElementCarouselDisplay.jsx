@@ -16,8 +16,8 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
         : false
       : true;
 
-  const arrowType = bannerArr.arrowType != undefined
-      ? bannerArr.arrowType : 'Arrow1';
+  const arrowType =
+    bannerArr.arrowType != undefined ? bannerArr.arrowType : 'Arrow1';
   const showIndicators =
     bannerArr.showIndicators != undefined
       ? bannerArr.showIndicators == 'On'
@@ -57,83 +57,90 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
 
   return (
     <>
-      <section className="mainsection container mx-auto mt-20">
+      <section className='mainsection container mx-auto mt-20'>
         {Object.keys(bannerArr).length > 0 && bannerArr.images != null && (
           <Carousel
             renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
               hasPrev && (
-                <div className="absolute top-1/2 -translate-y-1/2 left-4 z-10 flex items-center">
-                  {arrowType === 'Arrow1' && 
-                        <button
-                          onClick={clickHandler}
-                          className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
-                        >
-                          <svg
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            className="chevron-left w-10 h-10"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      }
-                      {arrowType === 'Arrow2' && 
-                          <button 
-                              onClick={clickHandler}
-                              className="bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
-                                  <svg viewBox="0 0 20 20" 
-                                      fill="currentColor" 
-                                      className="chevron-left w-6 h-6">
-                                          <path fill-rule="evenodd" 
-                                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" 
-                                              clip-rule="evenodd">
-                                          </path>
-                                  </svg>
-                          </button>
-                      }
+                <div className='absolute top-1/2 -translate-y-1/2 left-4 z-10 flex items-center'>
+                  {arrowType === 'Arrow1' && (
+                    <button
+                      onClick={clickHandler}
+                      className='bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none'
+                    >
+                      <svg
+                        viewBox='0 0 20 20'
+                        fill='currentColor'
+                        className='chevron-left w-10 h-10'
+                      >
+                        <path
+                          fillRule='evenodd'
+                          d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+                          clipRule='evenodd'
+                        ></path>
+                      </svg>
+                    </button>
+                  )}
+                  {arrowType === 'Arrow2' && (
+                    <button
+                      onClick={clickHandler}
+                      className='bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'
+                    >
+                      <svg
+                        viewBox='0 0 20 20'
+                        fill='currentColor'
+                        className='chevron-left w-6 h-6'
+                      >
+                        <path
+                          fill-rule='evenodd'
+                          d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+                          clip-rule='evenodd'
+                        ></path>
+                      </svg>
+                    </button>
+                  )}
                 </div>
               )
             }
             renderArrowNext={(clickHandler, hasNext, labelNext) =>
               hasNext && (
-                <div className="absolute top-1/2 -translate-y-1/2 right-4 z-10 flex items-center">
-                  {arrowType === 'Arrow1' &&
-                      <button
-                        onClick={clickHandler}
-                        className="bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none"
+                <div className='absolute top-1/2 -translate-y-1/2 right-4 z-10 flex items-center'>
+                  {arrowType === 'Arrow1' && (
+                    <button
+                      onClick={clickHandler}
+                      className='bg-light-gray bg-opacity-90 flex justify-center items-center w-10 h-10 rounded-md shadow-md focus:outline-none'
+                    >
+                      <svg
+                        viewBox='0 0 20 20'
+                        fill='currentColor'
+                        className='chevron-right w-10 h-10'
                       >
-                        <svg
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          className="chevron-right w-10 h-10"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                            clipRule="evenodd"
-                          ></path>
-                        </svg>
-                      </button>
-                    }
-                    {arrowType === 'Arrow2' &&
-                      <button 
-                          onClick={clickHandler} 
-                          className="bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
-                              <svg viewBox="0 0 20 20" 
-                                   fill="currentColor" 
-                                   className="chevron-right w-6 h-6">
-                                      <path fill-rule="evenodd" 
-                                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" 
-                                          clip-rule="evenodd">
-                                      </path>
-                                  </svg>
-                              </button>
-
-                  }
+                        <path
+                          fillRule='evenodd'
+                          d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z'
+                          clipRule='evenodd'
+                        ></path>
+                      </svg>
+                    </button>
+                  )}
+                  {arrowType === 'Arrow2' && (
+                    <button
+                      onClick={clickHandler}
+                      className='bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'
+                    >
+                      <svg
+                        viewBox='0 0 20 20'
+                        fill='currentColor'
+                        className='chevron-right w-6 h-6'
+                      >
+                        <path
+                          fill-rule='evenodd'
+                          d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z'
+                          clip-rule='evenodd'
+                        ></path>
+                      </svg>
+                    </button>
+                  )}
                 </div>
               )
             }
@@ -147,25 +154,25 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
           >
             {bannerArr.images.map((image) => {
               return (
-                <div key={image} className="relative">
-                  <div className="overflow-hidden">
+                <div key={image} className='relative'>
+                  <div className='overflow-hidden'>
                     {image.image_or_video == 'Image' ? (
-                      <img src={image.image_url} alt="corousel" />
+                      <img src={image.image_url} alt='corousel' />
                     ) : (
                       <>
                         {image.video_type == 'Youtube' ? (
                           <iframe
-                            className="w-full aspect-video"
+                            className='w-full aspect-video'
                             src={`https://www.youtube.com/embed/${image.video_url}?rel=0`}
-                            allow="autoplay; encrypted-media"
-                            frameBorder="0"
+                            allow='autoplay; encrypted-media'
+                            frameBorder='0'
                           ></iframe>
                         ) : (
                           <iframe
-                            className="p-0 w-full aspect-[7/3]"
+                            className='p-0 w-full aspect-[7/3]'
                             src={`https://player.vimeo.com/video/${image.video_url}?autoplay=1&amp;loop=1&amp;background=1&amp;muted=1`}
-                            allow="autoplay; encrypted-media"
-                            frameBorder="0"
+                            allow='autoplay; encrypted-media'
+                            frameBorder='0'
                           ></iframe>
                         )}
                       </>
@@ -181,24 +188,24 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                       } text-white`}
                     >
                       <div
-                        className=""
+                        className=''
                         style={{
                           background: `rgb(${image.text_bg_color}, ${image.bg_opacity})`,
                           padding: '20px',
                         }}
                       >
-                        <div className="">{image.headline}</div>
-                         <div class="">{image.headline1}</div>
+                        <div className=''>{image.headline}</div>
+                        <div class=''>{image.headline1}</div>
                         {image.button_display == 'Yes' && (
                           <>
-                            <div className="pt-5">
+                            <div className='pt-5'>
                               <a
                                 href={image.button_link}
                                 target={
                                   image.button_link_window ? '_blank' : ''
                                 }
                                 className={`btn ${image.button_text_transform} ${image.button_size} ${image.button_style}`}
-                                rel="noreferrer"
+                                rel='noreferrer'
                               >
                                 {image.button_text}
                               </a>

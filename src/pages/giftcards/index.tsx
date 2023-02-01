@@ -16,7 +16,7 @@ interface _GiftCard_ExpectedProps {
 }
 
 const GiftCards: React.FC<_GiftCard_ExpectedProps> = ({ giftCards, store }) => {
-if (!giftCards || !store || !store.storeTypeId || !store.storeCode) {
+  if (!giftCards || !store || !store.storeTypeId || !store.storeCode) {
     return <>No data found</>;
   }
 

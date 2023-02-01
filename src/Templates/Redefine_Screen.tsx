@@ -1,3 +1,4 @@
+import { StoreLayout } from '@constants/enum';
 import { _Footer } from '@type/APIs/footer.res';
 import { _TransformedHeaderConfig } from '@type/APIs/header.res';
 import { _StoreCache } from '@type/slug.type';
@@ -29,7 +30,7 @@ const Screen: React.FC<_props & _StoreCache> = ({
     }
   }, []);
 
-  if (storeTypeId === 1) {
+  if (storeTypeId === StoreLayout.CorporateStore) {
     return (
       <Corporate_Layout logoUrl={logoUrl} storeCode={storeCode}>
         {children}
@@ -37,7 +38,7 @@ const Screen: React.FC<_props & _StoreCache> = ({
     );
   }
 
-  if (storeTypeId === 2) {
+  if (storeTypeId === StoreLayout.EcommerceStore) {
     return (
       <Ecommerce_Layout
         storeCode={storeCode}
@@ -49,7 +50,7 @@ const Screen: React.FC<_props & _StoreCache> = ({
     );
   }
 
-  if (storeTypeId === 3) {
+  if (storeTypeId === StoreLayout.StoreBuilderStore) {
     return <StoreBuilder_Layout>{children}</StoreBuilder_Layout>;
   }
 

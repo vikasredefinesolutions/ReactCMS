@@ -5,6 +5,7 @@ import { paths } from 'constants/paths.constant';
 import CartSummaryController from 'Controllers/cartSummarryController';
 import { extractCookies } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
+import _ from 'lodash';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
@@ -17,6 +18,9 @@ const MyCartIcon: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const cart = useTypedSelector((state) => state.cart);
   const customerId = useTypedSelector((state) => state.user.id);
+  const isEmployeeLoggedIn = useTypedSelector(
+    (state) => state.employee.loggedIn,
+  );
   const { getTotalProduct, getTotalPrice } = CartSummaryController();
   const { totalPrice } = getTotalPrice();
   const [Focus, setFocus] = useState(false);
@@ -26,9 +30,13 @@ const MyCartIcon: React.FC = () => {
       __Cookie.tempCustomerId,
       'browserCookie',
     ).tempCustomerId;
+    const C_id = _.isEmpty(customerId) ? tempCustomerId : customerId;
 
-    if (customerId || tempCustomerId) {
-      fetchCartDetails(customerId || ~~(tempCustomerId || 0));
+    if (C_id) {
+      fetchCartDetails({
+        customerId: C_id,
+        isEmployeeLoggedIn,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId]);

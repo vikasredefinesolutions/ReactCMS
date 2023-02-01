@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 
+import { StoreLayout } from '@constants/enum';
 import { _ProductListProps } from '@type/slug.type';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
@@ -17,18 +18,17 @@ interface _props {
   slug: string;
 }
 const Redefine_ProductList: React.FC<_props> = (props) => {
-  const storeTypeId = 1;
-  useTypedSelector((state) => state.store.storeTypeId);
+  const storeTypeId = useTypedSelector((state) => state.store.storeTypeId);
 
-  if (storeTypeId === 1) {
-    return <DynamicEcommerceProductList {...props} />;
-  }
-
-  if (storeTypeId === 2) {
+  if (storeTypeId === StoreLayout.CorporateStore) {
     return <Corporate_ProductList {...props} />;
   }
 
-  if (storeTypeId === 3) {
+  if (storeTypeId === StoreLayout.EcommerceStore) {
+    return <DynamicEcommerceProductList {...props} />;
+  }
+
+  if (storeTypeId === StoreLayout.StoreBuilderStore) {
     return <> </>;
   }
 

@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-Notes.md
+ig.md
 
 # testing
 /coverage
@@ -33,3 +33,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# CSS
+styles/output.css

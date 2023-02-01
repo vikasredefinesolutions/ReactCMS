@@ -4,13 +4,14 @@ import React, { useState } from 'react';
 const SC_QtyInput: React.FC<{
   qty: number;
   minQty: number;
+  maxQty:number;
   onChange: (qty: number) => void;
-}> = ({ qty, onChange, minQty }) => {
+}> = ({ qty, onChange, minQty,maxQty }) => {
   const [currentQty, setCurrentQty] = useState<number>(qty);
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const changeHandler = (value: number) => {
-    if (value < minQty) {
+    if (value < minQty || value>maxQty) {
       setShowModal(true);
       return;
     }
@@ -28,14 +29,15 @@ const SC_QtyInput: React.FC<{
         value={currentQty > -1 ? currentQty : minQty}
         type={'number'}
         min={0}
+        max={maxQty}
         onChange={(ev) => changeHandler(+ev.target.value)}
       />
       {showModal ? (
         <MsgContainer
           modalHandler={() => setShowModal(false)}
-          message={`Minimum ${minQty}-${
+          message={currentQty < minQty ? `Minimum ${minQty}-${
             minQty === 1 ? 'Qty' : 'Qtys'
-          } required`}
+          } required` : `Maximum ${maxQty}-Qtys can be entered`}
           title={'No Appropriate Inventory!'}
         />
       ) : null}

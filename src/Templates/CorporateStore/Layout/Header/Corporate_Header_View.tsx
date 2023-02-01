@@ -10,7 +10,8 @@ const Corporate_Header: React.FC<_props> = ({ storeCode }) => {
   if (
     storeCode === _Store.type5 ||
     storeCode === _Store.type6 ||
-    storeCode === _Store.type7
+    storeCode === _Store.type7 ||
+    storeCode === _Store.type13
   ) {
     return <Bacardi_Header />;
   }

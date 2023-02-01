@@ -208,7 +208,6 @@ export const CallCmsAPI = async <T>({
   });
 
   const url = `${config.CMS}${request.url}`;
-  console.log(url);
 
   try {
     if (request.method === 'POST') {
@@ -448,6 +447,8 @@ export const extractIdFromPathName = (
 type _Props = {
   userId: number;
   note: string;
+  storeId: number;
+  isEmployeeLoggedIn: boolean;
   sizeQtys: Array<{
     price: number;
     qty: number;
@@ -478,8 +479,16 @@ export const getAddToCartObject = async (product: _Props) => {
     'browserCookie',
   ).tempCustomerId;
 
-  const { userId, note, sizeQtys, productDetails, total, shoppingCartItemId } =
-    product;
+  const {
+    userId,
+    note,
+    sizeQtys,
+    productDetails,
+    total,
+    shoppingCartItemId,
+    storeId,
+    isEmployeeLoggedIn,
+  } = product;
   const { totalPrice, totalQty } = total;
 
   const cartLogoPersonModel: CartLogoPersonModel[] = [];
@@ -523,7 +532,8 @@ export const getAddToCartObject = async (product: _Props) => {
     addToCartModel: {
       customerId: userId ? userId : tempCustId ? parseInt(tempCustId) : 0,
       productId: productDetails.productId,
-      storeId: 4,
+      storeId: storeId,
+      isempLogin: isEmployeeLoggedIn,
       shoppingCartItemModel: {
         id: shoppingCartItemId ? shoppingCartItemId : 0,
         price: totalPrice / totalQty,

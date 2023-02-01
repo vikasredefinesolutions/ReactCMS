@@ -60,7 +60,7 @@ const BreadCrumb: React.FC = () => {
   const aspath = router.asPath.split('?')[0];
   const pathRoute = aspath.split('/').filter((v) => v.length > 0);
 
-  if (breadCrumbs.length === 0 && router.route === '/') {
+  if (breadCrumbs.length === 0 || router.route === '/') {
     return <></>;
   }
 

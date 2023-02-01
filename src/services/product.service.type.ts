@@ -6,6 +6,7 @@ export interface AddToCartModel {
   customerId: number;
   productId: number;
   storeId: number;
+  isempLogin: boolean;
   shoppingCartItemModel: _ShoppingCartItemModel;
   shoppingCartItemsDetailModels: _ShoppingCartItemsDetailModel[];
   cartLogoPersonModel: _CartLogoPersonModel[];
@@ -139,6 +140,7 @@ export interface _AddToCart_CartItems {
 export interface _AddToCart_PayloadGenerator_Attributes {
   storeId: number;
   userId: number;
+  isEmployeeLoggedIn: boolean;
   product: _AddToCart_ProductDetails;
   cartItems: _AddToCart_CartItems[];
   personalization: {

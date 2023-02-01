@@ -4,9 +4,13 @@ import { addToCart, FetchCartDetails } from 'services/cart.service';
 
 export const fetchCartDetails = createAsyncThunk(
   'cart/details',
-  async (customerId: number) => {
+  // set default value as false for isEmployeeLoggedIn
+  async (payload: {
+    customerId: number | string;
+    isEmployeeLoggedIn: boolean;
+  }) => {
     try {
-      const cart = await FetchCartDetails(customerId);
+      const cart = await FetchCartDetails(payload);
       return cart;
     } catch (error) {
       throw new Error('No Details found!!!');

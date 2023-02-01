@@ -59,6 +59,7 @@ export type AddToCartModel = {
   customerId: number;
   productId: number;
   storeId: number;
+  isempLogin: boolean;
   shoppingCartItemModel: ShoppingCartItemModel;
   shoppingCartItemsDetailModels: ShoppingCartItemsDetailModel[];
   cartLogoPersonModel: CartLogoPersonModel[];

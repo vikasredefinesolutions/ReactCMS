@@ -98,9 +98,14 @@ const Home = (props) => {
               const backgroundDefault = loadBackgroundDefault(componentValue);
 
               let additionalclass = '';
-              if(componentValue.selectedVal && Object.keys(JSON.parse(componentValue.selectedVal)).includes('additionalclass'))
-              {
-                  additionalclass = JSON.parse(componentValue.selectedVal).additionalclass.value;                                                          
+              if (
+                componentValue.selectedVal &&
+                Object.keys(JSON.parse(componentValue.selectedVal)).includes(
+                  'additionalclass',
+                )
+              ) {
+                additionalclass = JSON.parse(componentValue.selectedVal)
+                  .additionalclass.value;
               }
               return (
                 <div
@@ -119,35 +124,46 @@ const Home = (props) => {
                   ) ? (
                     <>
                       <ElementCarouselDisplay
-                        bannerArr={JSON.parse(componentValue.selectedVal).carousel.value}
+                        bannerArr={
+                          JSON.parse(componentValue.selectedVal).carousel.value
+                        }
                       />
                     </>
                   ) : (
                     <>
-                        {Object.keys(JSON.parse(componentValue.selectedVal)).includes(
-                          'FullAccordion',
-                        ) ? (
-                          <>
-                          <section className="mainsection container mx-auto mt-6 white-all overflow-hidden">
+                      {Object.keys(
+                        JSON.parse(componentValue.selectedVal),
+                      ).includes('FullAccordion') ? (
+                        <>
+                          <section className='mainsection container mx-auto mt-6 white-all overflow-hidden'>
                             <ul className='mt-4 w-full'>
                               <ElementAccordionDisplay
                                 acValues={
-                                  JSON.parse(componentValue.selectedVal).FullAccordion.value
-                                } acClass={JSON.parse(componentValue.selectedVal)?.FullAccordion_accordion_class?.value} acBgColor={JSON.parse(componentValue.selectedVal)?.FullAccordion_ac_background?.value}
+                                  JSON.parse(componentValue.selectedVal)
+                                    .FullAccordion.value
+                                }
+                                acClass={
+                                  JSON.parse(componentValue.selectedVal)
+                                    ?.FullAccordion_accordion_class?.value
+                                }
+                                acBgColor={
+                                  JSON.parse(componentValue.selectedVal)
+                                    ?.FullAccordion_ac_background?.value
+                                }
                               />
                             </ul>
-                            </section>
-                          </>
-                        ) : (
-                          <>
-                            <div
-                              className='commondiv'
-                              dangerouslySetInnerHTML={{
-                                __html: componentValue.html,
-                              }}
-                            ></div>
-                          </>
-                        )}
+                          </section>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            className='commondiv'
+                            dangerouslySetInnerHTML={{
+                              __html: componentValue.html,
+                            }}
+                          ></div>
+                        </>
+                      )}
                     </>
                   )}
                 </div>

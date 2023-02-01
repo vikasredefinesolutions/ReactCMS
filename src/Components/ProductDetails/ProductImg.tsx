@@ -251,7 +251,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
     );
   }
 
-  if (storeCode === _Store.type22 || storeCode === _Store.type5 || storeCode === _Store.type10 ) {
+  if (storeCode === _Store.type22 || storeCode === _Store.type5 || storeCode === _Store.type10 || storeCode === _Store.type8 || storeCode === _Store.type13 || storeCode === _Store.type6) {
     return (
       <div className='lg:col-start-2 lg:col-end-7 grid grid-cols-12 gap-6'>
         <div className='col-span-12 relative'>

@@ -27,6 +27,7 @@ export interface _addToCart_payload {
     customerId: number;
     productId: number;
     storeId: number;
+    isempLogin: boolean;
     shoppingCartItemModel: ShoppingCartItemModel;
     shoppingCartItemsDetailModels: ShoppingCartItemsDetailModel[];
     cartLogoPersonModel: never[];
@@ -39,6 +40,7 @@ export const addToCart_payload: _addToCart_payload = {
     customerId: 0,
     productId: 0,
     storeId: 0,
+    isempLogin: false,
     shoppingCartItemModel: {
       id: 0,
       price: 0,

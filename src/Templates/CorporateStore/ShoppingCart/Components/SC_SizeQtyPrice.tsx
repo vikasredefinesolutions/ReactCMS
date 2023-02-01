@@ -1,9 +1,11 @@
+import { FetchInventoryById } from '@services/product.service';
 import { _CI_ShoppingCartItemDetailsViewModel } from '@type/APIs/cart.res';
+import { _ProductInventory } from '@type/APIs/inventory.res';
 import MsgContainer from 'appComponents/modals/MsgContainer';
 import Price from 'appComponents/reUsable/Price';
 import { useActions, useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { _InCart_productAttributes_model } from 'redux/slices/_slices';
 import SC_QtyInput from './SC_QtyInput';
 
@@ -55,9 +57,20 @@ export const SC_SizeQtyPriceTable: React.FC<{
     colorId: number;
   };
 }> = ({ details, toRemove }) => {
+
+  useEffect(() => {
+    FetchInventoryById({
+      productId: toRemove.productId,
+      attributeOptionId: [toRemove.colorId],
+    }).then((res) => {
+      setInventoryResponse(res?.inventory)
+    });
+  }, [])
+  
+
   const { cart_update_item } = useActions();
   const [showAlert, setShowAlert] = useState<{ size: string } | null>(null);
-
+  const [inventoryResponse,setInventoryResponse] = useState<Array <_ProductInventory> | undefined>([])
   const {layout}= useTypedSelector((state) =>  state.store)
   const toggleConfirmationMsg = (action: _DELETE_MSG | _HIDE_MSG) => {
     if (action.type === 'ALERT') {
@@ -90,6 +103,16 @@ export const SC_SizeQtyPriceTable: React.FC<{
     }
   };
 
+  const maxQuantityInSize = (size: string) : number => {
+    let max=0;
+    inventoryResponse?.forEach((val) => {
+      if(val?.name === size){
+          max=val.inventory
+      }
+    })
+    return max
+  }
+
   return (
     <div className="mt-10">
       <div className="text-base font-semibold border-b pb-2">Item Details</div>
@@ -97,7 +120,7 @@ export const SC_SizeQtyPriceTable: React.FC<{
         <div className="text-base font-semibold w-28">Size </div>
         <div className="text-base font-semibold w-16 text-center">Qty</div>
         <div className="text-base font-semibold w-20 text-right">Price</div>
-        {layout !==  _Store.type22 &&  details.length > 1 ? (
+        {layout !==  _Store.type22 && layout !==  _Store.type10 && layout !== _Store.type8 && details.length > 1 ? (
           <div className="text-base font-semibold w-20 text-right"></div>
         ) : null}
       </div>
@@ -110,11 +133,12 @@ export const SC_SizeQtyPriceTable: React.FC<{
               qtyChangeHandler({ qty: upQty, size: item.size })
             }
             minQty={item.minQtyRequired}
+            maxQty={maxQuantityInSize(item.size)}
           />
           <div className="text-base w-20 text-right">
             <Price value={item.priceOfqty} />
           </div>
-          { layout !== _Store.type22 &&  details.length > 1 ? (
+          { layout !== _Store.type22 && layout !==  _Store.type10 && layout!== _Store.type8 && details.length > 1 ? (
             <button
             className="btn btn-primary text-white"
               onClick={() => {

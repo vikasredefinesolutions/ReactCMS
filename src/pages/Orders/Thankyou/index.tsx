@@ -2,13 +2,13 @@ import { paths } from '@constants/paths.constant';
 import { FetchOrderDetails } from '@services/user.service';
 import {
   _MyAcc_OrderBillingDetails,
-  _MyAcc_OrderProductDetails,
+  _MyAcc_OrderProductDetails
 } from '@type/APIs/user.res';
-import Redefine_ThankYou from 'Templates/Redefine_ThankYou';
 import { useTypedSelector } from 'hooks';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Redefine_ThankYou from 'Templates/Redefine_ThankYou';
 
 const ThankYou: NextPage = () => {
   const router = useRouter();

@@ -40,7 +40,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
               </div>
               <div className='relative' id='slider'>
                 <div
-                  className={`${products.length > 3 ? 'absolute' : 'hidden'
+                  className={`${products.length > __constant._productAlike.carouselCounter ? 'absolute' : 'hidden'
                     } inset-y-0 left-0 z-10 flex items-center`}
                 >
                   <button
@@ -106,7 +106,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                   })}
                 </Slider>
                 <div
-                  className={`${products.length > 3 ? 'absolute' : 'hidden'
+                  className={`${products.length > __constant._productAlike.carouselCounter ? 'absolute' : 'hidden'
                     } inset-y-0 right-0 z-10 flex items-center`}
                 >
                   <button
@@ -140,7 +140,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                 </div>
                 <div className='relative' id='slider'>
                   <div
-                    className={`${products.length > 3 ? 'absolute' : 'hidden'
+                    className={`${products.length > __constant._productAlike.carouselCounter ? 'absolute' : 'hidden'
                       } inset-y-0 left-0 z-10 flex items-center`}
                   >
                     <button
@@ -209,7 +209,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                     })}
                   </Slider>
                   <div
-                    className={`${products.length > 3 ? 'absolute' : 'hidden'
+                    className={`${products.length > __constant._productAlike.carouselCounter ? 'absolute' : 'hidden'
                       } inset-y-0 right-0 z-10 flex items-center`}
                   >
                     <button
@@ -230,7 +230,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
     );
   }
 
-  if (storeCode === _Store.type4 || storeCode === _Store.type10) {
+  if (storeCode === _Store.type4 || storeCode === _Store.type10 || storeCode === _Store.type8) {
     
     return (
       <>
@@ -248,7 +248,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
             
                 <div className='relative' id='slider'>
                   <div
-                    className={`${products.length > 3 ? 'absolute' : 'hidden'
+                    className={`${products.length > __constant._productAlike.carouselCounter ? 'absolute' : 'hidden'
                       } inset-y-0 left-0 z-10 flex items-center`}
                   >
                     <button
@@ -270,14 +270,15 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                         <>
                           <div key={product.id} className='slide-item '>
 
-                            {storeCode === _Store.type10 ?<div className='px-2 border border-transparent hover:border-gray-300 p-1'>
+                            {storeCode === _Store.type10 || storeCode === _Store.type8 ?<div className='px-2 border border-transparent hover:border-gray-300 p-1'>
                               <div className='flex text-center lg:w-auto mb-6'>
                                 <div className='relative pb-4 w-full'>
                                   <div className='w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
-                                    <Link
+                                    <a
                                       href={`${encodeURIComponent(
                                         product.seName,
                                       )}.html?v=product-detail&altview=1`}
+                                      className={'block'}
                                     >
                                       <div className='relative'>
                                         {/* Issue: Using functional components as child of <Link/> causes ref-warnings */}
@@ -287,7 +288,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                                           className='w-auto h-auto max-h-max'
                                         />
                                       </div>
-                                    </Link>
+                                    </a>
                                   </div>
                                   <div className='mt-6'>
                                     <a
@@ -373,7 +374,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                     })}
                   </Slider>
                   <div
-                    className={`${products.length > 3 ? 'absolute' : 'hidden'
+                    className={`${products.length > __constant._productAlike.carouselCounter ? 'absolute' : 'hidden'
                       } inset-y-0 right-0 z-10 flex items-center`}
                   >
                     <button

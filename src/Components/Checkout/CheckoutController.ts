@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
-import { __Cookie } from '@constants/global.constant';
+import { __Cookie, __Cookie_Expiry } from '@constants/global.constant';
 import { paths } from '@constants/paths.constant';
 import {
   checkCustomerAlreadyExist,
   placeOrder as PlaceOrderService,
+  updateCartByNewUserId,
 } from '@services/cart.service';
 import { getPaymentOption } from '@services/payment.servicee';
-import { signInUser } from '@services/user.service';
+import { GetStoreCustomer, signInUser } from '@services/user.service';
 import {
   checkoutNewAccountPasswordMessages,
   checkoutPasswordMessages,
@@ -14,7 +15,7 @@ import {
 } from 'constants/validationMessages';
 import CartSummaryController from 'Controllers/cartSummarryController';
 import { CustomerAddress } from 'definations/APIs/user.res';
-import { deleteCookie, extractCookies } from 'helpers/common.helper';
+import { deleteCookie, extractCookies, setCookie } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -43,13 +44,18 @@ export type CreditCardType = typeof cardArray;
 const CheckoutController = () => {
   const { getTotalPrice } = CartSummaryController();
   const router = useRouter();
-  const { showModal, fetchCartDetails, cart_userUpdate } = useActions();
+  const {
+    showModal,
+    fetchCartDetails,
+    cart_userUpdate,
+    updateCustomer,
+    logInUser: logInUserFn,
+  } = useActions();
+  const employeeData = useTypedSelector((state) => state.employee);
 
   const customer = useTypedSelector((state) => state.user.customer);
   // const storeId = useTypedSelector((state) => state.store.id);
   const { id: storeId, ...store } = useTypedSelector((state) => state.store);
-  const cartProducts = useTypedSelector((state) => state.cart.cart);
-  const cart = useTypedSelector((state) => state.cart);
   const [custId, setCustId] = useState<string | number | null>(null);
   const isLoggedIn = Boolean(customer?.id);
 
@@ -108,7 +114,11 @@ const CheckoutController = () => {
       ).tempCustomerId;
     }
     setCustId(c_id);
-    fetchCartDetails(c_id ? ~~c_id : 0);
+    if (c_id)
+      fetchCartDetails({
+        customerId: c_id,
+        isEmployeeLoggedIn: employeeData.loggedIn,
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customer?.id]);
 
@@ -361,19 +371,40 @@ const CheckoutController = () => {
           storeId: ~~storeId,
           userName: email,
         });
-        if (response) {
-          if (~~response > 0) {
-            setShowShippingScreen(true);
-            setShowPassword(false);
-            if (!isLoggedIn) {
-              setShowChangeAddressPopup(1);
-            }
-          } else {
-            showModal({
-              message: response.toString(),
-              title: 'error',
+        if (response.credentials === 'VALID') {
+          if (~~response.id > 0) {
+            logInUserFn({
+              id: +response.id,
             });
+            setCookie(__Cookie.userId, response.id, __Cookie_Expiry.userId);
+
+            GetStoreCustomer(+response.id).then((res) => {
+              if (res === null) return;
+              if (localStorage) {
+                const tempCustomerId = extractCookies(
+                  __Cookie.tempCustomerId,
+                  'browserCookie',
+                ).tempCustomerId;
+
+                if (tempCustomerId) {
+                  updateCartByNewUserId(~~tempCustomerId, res.id);
+                  deleteCookie(__Cookie.tempCustomerId);
+                  setShowShippingScreen(true);
+                  setShowPassword(false);
+                }
+              }
+              updateCustomer({ customer: res });
+            });
+
+            // if (!isLoggedIn) {
+            //   setShowChangeAddressPopup(1);
+            // }
           }
+        } else {
+          showModal({
+            message: response.message,
+            title: 'error',
+          });
         }
       } catch (error) {
         console.log(error);

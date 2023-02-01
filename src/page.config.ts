@@ -68,7 +68,7 @@ export const _StoreDomains = {
 
 export const __domain = {
   devMode: true, // for development features.
-  isSiteLive: true,
+  isSiteLive: false,
   localDomain: _StoreDomains.domain1,
   layoutToDisplay: _Store.type1,
 };
@@ -263,4 +263,9 @@ export const __constant = {
     mobileBreakPoint: 1024,
     imagesToShowInBrandDropdown: 5,
   },
+  _productAlike : {
+    carouselCounter : 5
+  },
 };
+
+

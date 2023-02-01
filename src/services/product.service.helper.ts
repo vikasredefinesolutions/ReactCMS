@@ -157,6 +157,7 @@ export const singleColor_addToCart_PayloadGenerator = async (
       customerId: cart.userId,
       storeId: cart.storeId,
       productId: cart.product.id,
+      isempLogin: cart.isEmployeeLoggedIn,
       shoppingCartItemModel: {
         ..._default_shoppingCartItemModel,
         price: cart.product.price,
