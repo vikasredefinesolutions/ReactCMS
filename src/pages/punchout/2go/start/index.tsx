@@ -22,7 +22,7 @@ export const getServerSideProps = async (context: any) => {
     props: {
       req: {
         data: {
-          body: { ...context.body },
+          body: { ...context.params },
           headers: { ...context.headers },
         },
         params: { ...context.req?.params },
