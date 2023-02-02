@@ -2,36 +2,42 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Link,
+  Link
 } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
+import { _Store } from 'page.config';
 
 const SideFilter = ({
   filters,
   handleChange,
   checkedFilters,
+  storeLayout
 }: {
   filters: FilterType;
   handleChange: FilterChangeHandler;
   checkedFilters: any;
+  storeLayout:string | null
 }) => {
   return (
     <div className='relative'>
-      <div className='bg-gray-100 p-4'>
+      <div className={storeLayout===_Store.type21?'border border-gray p-4':'bg-gray-100 p-4'}>
         <div className='mt-4 filter-box filter-type'>
           {filters &&
             filters.map((filter, index) => (
               <div
                 key={index}
-                className='py-1 border-t border-neutral-300 first:border-t-0 first:pt-0'
+                className={storeLayout===_Store.type21?'py-4 border-t border-neutral-300 first:border-t-0 first':'pt-0:py-1 border-t border-neutral-300 first:border-t-0 first:pt-0'}
               >
                 <Accordion
                   style={{
-                    background: '#f3f4f6',
+                    background:storeLayout===_Store.type21 ? 'none':'#f3f4f6',
                     boxShadow: 'none',
                   }}
                 >
                   <AccordionSummary
+                    style={{
+                      background:storeLayout===_Store.type21 ? '#f3f4f6':'none',
+                    }}
                     expandIcon={
                       <svg
                         className='w-8 h-8 shrink-0 fill-current text-gray-400 group-hover:text-gray-500 ml-3 rotate-180'
@@ -48,7 +54,11 @@ const SideFilter = ({
                       {filter.label}
                     </div>
                   </AccordionSummary>
-                  <AccordionDetails className='text-sm'>
+                  <AccordionDetails className='text-sm bg-transparent'
+                  style={{
+                    background:storeLayout===_Store.type21 ? '#fff':'',
+                  }}
+                  >
                     <ul
                       className={
                         filter.label === 'Color'

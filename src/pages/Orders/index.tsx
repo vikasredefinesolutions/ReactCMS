@@ -146,10 +146,7 @@ const Orders: NextPage = () => {
                         TOTAL PRICE
                       </dt>
                       <dd className='mt-1 font-semibold text-gray-900'>
-                        <Price
-                          value={order?.billing?.orderTotal}
-                          addColon={false}
-                        />
+                        <Price value={order?.billing?.orderTotal} />
                       </dd>
                     </div>
                     <div>

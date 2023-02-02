@@ -138,7 +138,7 @@ export const SC_SizeQtyPriceTable: React.FC<{
           <div className="text-base w-20 text-right">
             <Price value={item.priceOfqty} />
           </div>
-          { layout !== _Store.type22 && layout !==  _Store.type10 && layout!== _Store.type8 && details.length > 1 ? (
+          { layout !== _Store.type22 && layout !==  _Store.type10 && layout!== _Store.type8 && layout!== _Store.type21 && details.length > 1 ? (
             <button
             className="btn btn-primary text-white"
               onClick={() => {

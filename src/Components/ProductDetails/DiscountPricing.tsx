@@ -81,7 +81,7 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
                 <span className='text-lg font-semibold mr-1'>
                   Price:{' '}
                   <Price
-                    value={0}
+                    value={undefined}
                     prices={{
                       msrp: price.msrp,
                       salePrice: price.salePrice,
@@ -146,7 +146,7 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
                 <span className='text-lg font-semibold mr-1'>
                   Price:{' '}
                   <Price
-                    value={0}
+                    value={undefined}
                     prices={{
                       salePrice: price.salePrice,
                       msrp: price.msrp,

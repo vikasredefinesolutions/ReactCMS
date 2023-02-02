@@ -94,9 +94,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
             </h1>
             <ProductSKU skuID={product.sku} storeCode={storeCode} />
             <ProductPrice
-              ourCost={product.ourCost}
               msrp={product.msrp}
-              imap={product.imap}
               storeCode={storeCode}
               salePrice={product.salePrice}
             />
@@ -225,9 +223,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           <ProductSKU storeCode={storeCode} skuID={product.sku} />
           <ProductPrice
             storeCode={storeCode}
-            ourCost={product.ourCost}
             msrp={product.msrp}
-            imap={product.imap}
             salePrice={product.salePrice}
           />
         </div>
@@ -341,9 +337,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         </div>
         <ProductPrice
           storeCode={storeCode}
-          ourCost={product.ourCost}
           msrp={product.msrp}
-          imap={product.imap}
           salePrice={product.salePrice}
         />
         <MinimumQuantity storeCode={storeCode} pricingLabel={''} />
@@ -407,9 +401,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         <ProductSKU storeCode={storeCode} skuID={product.sku} />
         <ProductPrice
           storeCode={storeCode}
-          ourCost={product.ourCost}
           msrp={product.msrp}
-          imap={product.imap}
           salePrice={product.salePrice}
         />
         <MinimumQuantity storeCode={storeCode} pricingLabel={''} />
@@ -418,12 +410,12 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           showMsrpLine={true}
           price={{
             msrp: product.msrp,
-            salePrice: product.salePrice
+            salePrice: product.salePrice,
           }}
-           />
-        { 
-          product.isBrandOnline &&  <Inventory storeCode={storeCode} productId={product.id} />
-        }
+        />
+        {product.isBrandOnline && (
+          <Inventory storeCode={storeCode} productId={product.id} />
+        )}
         <ProductCompanion
           storeCode={storeCode}
           name={product.companionProductName}
@@ -452,15 +444,22 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         </div>
         <div className=''>
           {userId ? (
-            product.isBrandOnline ?
+            product.isBrandOnline ? (
               <AddToCart
-                title="ADD TO CART"
-                className="btn btn-lg btn-secondary w-full text-center !font-normal"
-              /> : <button className='btn btn-lg btn-secondary w-full'
+                title='ADD TO CART'
+                className='btn btn-lg btn-secondary w-full text-center !font-normal'
+              />
+            ) : (
+              <button
+                className='btn btn-lg btn-secondary w-full'
                 onClick={() => {
-                  setOfflineProductSelected(product.name)
-                  router.push(paths.Contact)
-                }} >CONTACT US FOR AVAILABLE INVENTORY</button>
+                  setOfflineProductSelected(product.name);
+                  router.push(paths.Contact);
+                }}
+              >
+                CONTACT US FOR AVAILABLE INVENTORY
+              </button>
+            )
           ) : (
             <button
               type='button'

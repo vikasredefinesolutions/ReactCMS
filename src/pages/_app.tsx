@@ -18,7 +18,7 @@ import {
   extractCookies,
   nextJsSetCookie,
   setCookie,
-  _Logout
+  _Logout,
 } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import { useActions } from 'hooks';

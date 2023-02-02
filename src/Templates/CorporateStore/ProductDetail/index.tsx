@@ -1,6 +1,6 @@
 import { __Cookie } from '@constants/global.constant';
 import { addToCart } from '@services/cart.service';
-import { FetchInventoryById } from '@services/product.service';
+import { FetchInventoryById, FetchProductRecentlyViewed, InsertProductRecentlyViewed } from '@services/product.service';
 import { _StoreCache } from '@type/slug.type';
 import config from 'api.config';
 import Price from 'appComponents/reUsable/Price';
@@ -9,15 +9,19 @@ import SizeChartModal from 'Components/ProductDetails/SizeChartModal';
 import {
   _ProductDetails,
   _ProductDetailsProps,
+  _ProductsRecentlyViewedResponse
 } from 'definations/APIs/productDetail.res';
 import { _Store } from 'page.config';
 
 import ProductAlike from 'Components/ProductDetails/ProductAlike';
+import ProductRecentlyViewed from 'Components/ProductDetails/ProductRecentlyViewed';
 import { getAddToCartObject, setCookie } from 'helpers/common.helper';
+import getLocation from 'helpers/getLocation';
 import { highLightError } from 'helpers/global.console';
 import { useActions, useTypedSelector } from 'hooks';
 import { properties } from 'mock/properties.mock';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
@@ -25,23 +29,24 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
 ) => {
   const { showModal, updateQuantities, updateQuantitieSingle } = useActions();
   const selectedproduct = useTypedSelector((state) => state.product.selected);
-  const productinventory = useTypedSelector(
-    (state) => state.product.product.inventory?.inventory,
-  );
+  const productinventory=useTypedSelector((state) => state.product.product.inventory?.inventory)
+  const storeId = useTypedSelector((state)=>state.store.id)
   const customerId = useTypedSelector((state) => state.user.id);
   const { store_productDetails, setColor, setShowLoader, product_storeData } =
     useActions();
   const [color, setColors] = useState<string | null>(null);
+  const router = useRouter()
   const [size, setSize] = useState<string | null>(null);
   const [qty, setQty] = useState<number>(0);
-  const [minquantity, setMinQuantity] = useState<number>(0);
-  const [maxquantity, setMaxQuantity] = useState<number>(0);
+  const [minquantity ,setMinQuantity] =useState<number>(0)
+  const [maxquantity,setMaxQuantity] =useState<number>(0)
+  const [recentlyViewedProduct, setRecentlyViewedProduct] = useState<Array< _ProductsRecentlyViewedResponse>>([])
   const [showMultipleSize, setShowMultipleSize] = useState(false);
   const [multipleQty, setMultipleQty] = useState<Array<{
     qty: number;
     size: string;
     price: number;
-  }> | null>(null);
+  }>>([]);
   const [showSizeChart, setShowSizeChart] = useState(false);
   const [availaibleSizes, setAvailaibleSizes] = useState<Array<string>>([]);
   // const addParams = () => {
@@ -50,10 +55,15 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
   //   router.push(router);
   // };
 
-  const salePrice = useTypedSelector(
-    (state) => state.product.product?.price?.salePrice,
-  );
-  const storeId = useTypedSelector((state) => state.store.id);
+ 
+
+  const salePrice = useTypedSelector((state) => state.product.product?.price?.salePrice)
+
+
+
+
+
+
   useEffect(() => {
     if (product.details) {
       store_productDetails({
@@ -92,14 +102,21 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
             data: res,
           });
         });
-        availaibleSize();
       }
     }
+   addRecentlyViewedProduct().then((res)=>{
+      setRecentlyViewedProduct(res)
+    })
+
+
 
     setShowLoader(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    availaibleSize();
+  }, [productinventory]);
   if (product === null) return <p>Product Page Loading...</p>;
 
   if (product?.details === null || product?.details === undefined) {
@@ -161,12 +178,8 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
   const availaibleSize = () => {
     setAvailaibleSizes([]);
     productinventory?.forEach((val) => {
-      if (
-        selectedproduct.color.attributeOptionId ===
-          val.colorAttributeOptionId &&
-        val.inventory === 0
-      ) {
-        setAvailaibleSizes((prev) => [...prev, val.name]);
+      if((selectedproduct.color.attributeOptionId === val.colorAttributeOptionId) && val.inventory === 0 && val.minQuantity>val.inventory){
+        setAvailaibleSizes((prev) => [...prev,val.name])
       }
     });
   };
@@ -180,6 +193,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
       ) {
         setMinQuantity(val.minQuantity);
         setMaxQuantity(val.inventory);
+        setQty(val.minQuantity);
       }
     });
   };
@@ -295,7 +309,13 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
     }
   };
   const singleChangeQuantity = (value: string) => {
-    setQty(+value);
+    if (+value > maxquantity) {
+      setQty(maxquantity);
+    } else if (+value < minquantity) {
+      setQty(minquantity);
+    } else {
+      setQty(+value);
+    }
     if (size != null) {
       updateQuantitieSingle({
         size: size,
@@ -305,7 +325,38 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
     }
   };
 
-  if (product.storeCode === _Store.type22 || product.storeCode === _Store.type5 || product.storeCode === _Store.type10 || product.storeCode === _Store.type8 || product.storeCode === _Store.type13 || product.storeCode === _Store.type6) {
+  const addRecentlyViewedProduct = async()=>{
+    const location = await getLocation()
+    const pageUrl = router.query
+      let payloadObj = {
+        recentViewModel: {
+          productId: product.SEO?.productId ||  0,
+          customerId:  customerId || 0,
+          pageName: 'descriptionPage',
+          pageUrl: `${pageUrl.slug}`,
+          ipAddress: `${location.IPv4}`,
+          recStatus: 'A'
+        }
+      }
+      InsertProductRecentlyViewed(payloadObj)
+    
+    if(storeId){
+      let fetchRecentlyViewedPayload = {
+        productId:  product.SEO?.productId ||  0,
+        storeId: storeId,
+        ipAddress :`${location.IPv4}`,
+        customerId: customerId || 0,
+        maximumItemsForFetch: 10 
+    }
+
+    return FetchProductRecentlyViewed(fetchRecentlyViewedPayload)
+  }
+      return []
+
+  }
+
+
+  if (product.storeCode === _Store.type22 || product.storeCode === _Store.type5 || product.storeCode === _Store.type10 || product.storeCode === _Store.type21 || product.storeCode === _Store.type6 || product.storeCode === _Store.type13 || product.storeCode === _Store.type6) {
     return (
       <>
         {HeadTag}
@@ -343,6 +394,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                           onClick={() => {
                             setColor(colour);
                             setColors(colour.name);
+                            setSize('');
                             availaibleSize();
                           }}
                           key={colour.name}
@@ -396,10 +448,14 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                                   setSize(_size);
                                 }}
                                 key={_size}
-                                className={`border border-gray-300 hover:bg-[#D40F8D]  h-8 w-8 flex items-center justify-center cursor-pointer ${
-                                  _size === size ? 'bg-secondary' : ''
-                                }`}
                                 disabled={availaibleSizes.includes(_size)}
+                                className={`border border-gray-300 hover:bg-[#D40F8D]  h-8 w-8 flex items-center justify-center ${
+                                  _size === size ? (product.storeCode !== _Store.type21 ? 'bg-secondary' : 'opacity-50') : ''
+                                } ${
+                                  availaibleSizes.includes(_size)
+                                    ? 'cursor-not-allowed opacity-50'
+                                    : 'cursor-pointer '
+                                }`}
                               >
                                 {_size}
                               </button>
@@ -421,17 +477,17 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                           ))}
                         </select>
                       )}
-                      <button
+                      {product.storeCode !== _Store.type21 && <button
                         className='ml-2'
                         onClick={() => setShowSizeChart(true)}
                       >
                         Size Chart
-                      </button>
+                      </button>}
                     </div>
                   </div>
                 )}
-                <div className='flex flex-wrap items-center mb-4'>
-                  <div className='flex mr-2 items-center text-sm'>
+                <div className="flex flex-wrap items-center mb-4">
+                  <div className={`${product.storeCode !== _Store.type21 ? 'flex mr-2 items-center text-sm' : 'w-32 text-sm items-center'}`}>
                     {' '}
                     <span className='text-sm font-semibold'>Qty:</span>
                   </div>
@@ -495,7 +551,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                   </div>
                 </div>
                 <div className='pay'>
-                  <div className='mt-3 bg-gray-100 p-4'>
+                  <div className={`mt-3 ${product.storeCode === _Store.type21 ? 'bg-light-gray' : 'bg-gray-100'} p-4`}>
                     <div className='text-sm text-gray-900 flex flex-wrap items-end'>
                       <div className='w-28'>
                         <span className=''>You Pay</span>
@@ -516,9 +572,9 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                       <button
                         type='button'
                         onClick={buyNowHandler}
-                        className='btn btn-secondary w-full text-center !font-bold'
+                        className={`btn ${product.storeCode === _Store.type21 ? 'btn-primary' : 'btn-secondary'}  w-full text-center !font-bold`}
                       >
-                        ADD TO CART
+                        {product.storeCode === _Store.type21 ? 'Buy Now' : 'ADD TO CART'}
                       </button>
                     </div>
                   </div>
@@ -548,12 +604,17 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                 </div>
               </div>
             </div> : ''
-          } 
-          {product.storeCode === _Store.type8 && <ProductAlike 
-            storeCode={product.storeCode}
-            title='YOU MAY ALSO LIKE'
-            products={product?.alike}
-          />}
+          }
+
+        <ProductAlike
+        storeCode={product.storeCode}
+        title='YOU MAY ALSO LIKE'
+        products={product.alike}
+        />
+        {recentlyViewedProduct.length > 4 ? <ProductRecentlyViewed
+        title='RECENTLY VIEWED'
+        products={recentlyViewedProduct}
+        />: <></> }    
         </div>
       </>
     );
@@ -602,7 +663,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                         className='w-8'
                       >
                         <div
-                          className={`border border-gray-300 p-px cursor-pointer${
+                          className={`border border-gray-300 p-px cursor-pointer hover:border-secondary ${
                             color && colorName === color
                               ? ' border-secondary'
                               : ''

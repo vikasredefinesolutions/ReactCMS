@@ -29,7 +29,8 @@ const Layout2 = ({
     sortProductJson,
     clearFilters,
     compareCheckBoxHandler,
-    slug
+    slug,
+    storeLayout
 }: list_FnProps) => {
     return (
         <section id="">
@@ -104,6 +105,7 @@ const Layout2 = ({
                                                         <ListView
                                                             product={product}
                                                             colorChangeHandler={colorChangeHandler}
+                                                            storeLayout={storeLayout}
                                                         />
                                                     )}
                                                 </Fragment>

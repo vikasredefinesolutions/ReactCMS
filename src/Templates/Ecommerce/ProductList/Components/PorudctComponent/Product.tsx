@@ -111,7 +111,14 @@ const ProductComponent = ({
                 </Link>
               </div>
               <div className='mt-2 text-black text-base tracking-wider'>
-                MSRP <Price value={product.salePrice} />
+                MSRP{' '}
+                <Price
+                  value={undefined}
+                  prices={{
+                    msrp: product.msrp,
+                    salePrice: product.salePrice,
+                  }}
+                />
               </div>
 
               <div className='form-group mt-2'>

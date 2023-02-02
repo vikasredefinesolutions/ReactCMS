@@ -27,10 +27,10 @@ const Layout3 = ({
   compareCheckBoxHandler,
 }: list_FnProps) => {
 
-  const {layout} = useTypedSelector((state) =>  state.store)
+  const { layout } = useTypedSelector((state) => state.store)
   return (
     <>
-      {layout !== _Store.type10 && layout !== _Store.type5  && layout !== _Store.type8 && <CateBand />}
+      {layout !== _Store.type10 && layout !== _Store.type5 && layout !== _Store.type8 && layout !== _Store.type24 && <CateBand />}
 
       <section id='layout3' className=''>
         <div className='container mx-auto'>

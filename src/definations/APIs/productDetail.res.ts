@@ -131,3 +131,49 @@ export interface _ProductsAlike {
   image: null | string;
   categoryId: number;
 }
+
+export interface _ProductsRecentlyViewed {
+
+    id: number;
+    customerId: number;
+    productId: number;
+    pageName: string;
+    pageUrl: string;
+    recStatus: string;
+    ipAddress: string;  
+}
+export interface _ProductsRecentlyViewedPayload {
+  
+  recentViewModel:{
+  customerId: number;
+  productId: number;
+  pageName: string;
+  pageUrl: string;
+  recStatus: string;
+  ipAddress: string;
+  }
+}
+export interface _ProductsRecentlyViewedResponse {
+  
+  id: number;
+  name: string;
+  msrp: number;
+  seName: string;
+  image: string;
+  categoryId: number;
+}
+
+export interface _FetchProductsRecentlyViewedPayload {
+
+  productId:number;
+  storeId:number;
+  ipAddress:string;
+  customerId:number;
+  maximumItemsForFetch:number;
+}
+
+
+
+
+
+

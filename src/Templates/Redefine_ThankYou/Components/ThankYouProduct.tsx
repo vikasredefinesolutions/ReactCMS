@@ -29,45 +29,44 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
 
   if (storeLayout === _Store.type2) {
     return (
-      <li className="flex py-6 flex-wrap px-4">
-        <div className="w-full lg:w-4/12 px-3 mt-3">
+      <li className='flex py-6 flex-wrap px-4'>
+        <div className='w-full lg:w-4/12 px-3 mt-3'>
           <Link href={product.seName!}>
             <Image
               src={product.colorImage}
               alt={product.productName}
-              className="rounded-md object-center object-cover"
+              className='rounded-md object-center object-cover'
             />
           </Link>
         </div>
 
-        <div className="w-full lg:w-8/12 px-3 mt-3">
-          <div className="text-lg font-semibold">
+        <div className='w-full lg:w-8/12 px-3 mt-3'>
+          <div className='text-lg font-semibold'>
             <Link href={product.seName!}>
-              <a className="text-black hover:text-anchor-hover">
+              <a className='text-black hover:text-anchor-hover'>
                 {product.productName}
               </a>
             </Link>
           </div>
-          <div className="w-full flex flex-wrap">
-            <div className="sm:w-2/3 mt-2">
-              <div className="flex justify-between">
-                <div className="text-base">
-                  <span className="font-semibold">SKU :</span>
+          <div className='w-full flex flex-wrap'>
+            <div className='sm:w-2/3 mt-2'>
+              <div className='flex justify-between'>
+                <div className='text-base'>
+                  <span className='font-semibold'>SKU :</span>
                   {product.sku}
                 </div>
               </div>
-              <div className="mt-1 flex">
-                <div className="text-base">
-                  <span className="font-semibold">Color :</span>
+              <div className='mt-1 flex'>
+                <div className='text-base'>
+                  <span className='font-semibold'>Color :</span>
                   {product.attributeOptionValue}
                 </div>
               </div>
             </div>
-            <div className="mt-2 sm:w-1/3">
-              <div className="bold text-lg text-right">
-                <span className="">
-                  Item Total:{' '}
-                  <Price addColon={false} value={product.totalPrice} />
+            <div className='mt-2 sm:w-1/3'>
+              <div className='bold text-lg text-right'>
+                <span className=''>
+                  Item Total: <Price value={product.totalPrice} />
                 </span>
               </div>
             </div>
@@ -92,45 +91,44 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
 
   if (storeLayout === _Store.type4) {
     return (
-      <li className="flex py-6 flex-wrap px-4">
-        <div className="w-full lg:w-4/12 px-3 mt-3">
+      <li className='flex py-6 flex-wrap px-4'>
+        <div className='w-full lg:w-4/12 px-3 mt-3'>
           <Link href={product.seName!}>
             <Image
               src={product.colorImage}
               alt={product.productName}
-              className="rounded-md object-center object-cover"
+              className='rounded-md object-center object-cover'
             />
           </Link>
         </div>
 
-        <div className="w-full lg:w-8/12 px-3 mt-3">
-          <div className="text-lg font-semibold">
+        <div className='w-full lg:w-8/12 px-3 mt-3'>
+          <div className='text-lg font-semibold'>
             <Link href={product.seName!}>
-              <a className="text-black hover:text-blue-500">
+              <a className='text-black hover:text-blue-500'>
                 {product.productName}
               </a>
             </Link>
           </div>
-          <div className="w-full flex flex-wrap">
-            <div className="sm:w-2/3 mt-2">
-              <div className="flex justify-between">
-                <div className="text-base">
-                  <span className="font-semibold">SKU :</span>
+          <div className='w-full flex flex-wrap'>
+            <div className='sm:w-2/3 mt-2'>
+              <div className='flex justify-between'>
+                <div className='text-base'>
+                  <span className='font-semibold'>SKU :</span>
                   {product.sku}
                 </div>
               </div>
-              <div className="mt-1 flex">
-                <div className="text-base">
-                  <span className="font-semibold">Color :</span>
+              <div className='mt-1 flex'>
+                <div className='text-base'>
+                  <span className='font-semibold'>Color :</span>
                   {product.attributeOptionValue}
                 </div>
               </div>
             </div>
-            <div className="mt-2 sm:w-1/3">
-              <div className="bold text-lg text-right">
-                <span className="">
-                  Item Total:{' '}
-                  <Price addColon={false} value={product.totalPrice} />
+            <div className='mt-2 sm:w-1/3'>
+              <div className='bold text-lg text-right'>
+                <span className=''>
+                  Item Total: <Price value={product.totalPrice} />
                 </span>
               </div>
             </div>
@@ -154,51 +152,52 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
   }
 
   if (_Store.type3 == storeLayout) {
-    return <><li className="flex py-6 flex-wrap px-4">
-      <div className="w-full lg:w-4/12 px-3 mt-3">
-        <Link href={product.seName!}>
-          <Image
-            src={product.colorImage}
-            alt={product.productName}
-            className="rounded-md object-center object-cover"
-          />
-        </Link>
-      </div>
-
-      <div className="w-full lg:w-8/12 px-3 mt-3">
-        <div className="text-lg font-semibold">
-          <Link href={product.seName!}>
-            <a className="text-black hover:text-anchor-hover">
-              {product.productName}
-            </a>
-          </Link>
-        </div>
-        <div className="w-full flex flex-wrap">
-          <div className="sm:w-2/3 mt-2">
-            <div className="flex justify-between">
-              <div className="text-base">
-                <span className="font-semibold">SKU :</span>
-                {product.sku}
-              </div>
-            </div>
-            <div className="mt-1 flex">
-              <div className="text-base">
-                <span className="font-semibold">Color :</span>
-                {product.attributeOptionValue}
-              </div>
-            </div>
-          </div>
-          <div className="mt-2 sm:w-1/3">
-            <div className="bold text-lg text-right">
-              <span className="">
-                Item Total:{' '}
-                <Price addColon={false} value={product.totalPrice} />
-              </span>
-            </div>
+    return (
+      <>
+        <li className='flex py-6 flex-wrap px-4'>
+          <div className='w-full lg:w-4/12 px-3 mt-3'>
+            <Link href={product.seName!}>
+              <Image
+                src={product.colorImage}
+                alt={product.productName}
+                className='rounded-md object-center object-cover'
+              />
+            </Link>
           </div>
 
-          <ThankYouProductTable product={product} />
-          {/* <!-- <div className="flex justify-start items-center mb-3">
+          <div className='w-full lg:w-8/12 px-3 mt-3'>
+            <div className='text-lg font-semibold'>
+              <Link href={product.seName!}>
+                <a className='text-black hover:text-anchor-hover'>
+                  {product.productName}
+                </a>
+              </Link>
+            </div>
+            <div className='w-full flex flex-wrap'>
+              <div className='sm:w-2/3 mt-2'>
+                <div className='flex justify-between'>
+                  <div className='text-base'>
+                    <span className='font-semibold'>SKU :</span>
+                    {product.sku}
+                  </div>
+                </div>
+                <div className='mt-1 flex'>
+                  <div className='text-base'>
+                    <span className='font-semibold'>Color :</span>
+                    {product.attributeOptionValue}
+                  </div>
+                </div>
+              </div>
+              <div className='mt-2 sm:w-1/3'>
+                <div className='bold text-lg text-right'>
+                  <span className=''>
+                    Item Total: <Price value={product.totalPrice} />
+                  </span>
+                </div>
+              </div>
+
+              <ThankYouProductTable product={product} />
+              {/* <!-- <div className="flex justify-start items-center mb-3">
                           <div>
                               <span className="material-icons text-[60px] mr-3">support_agent</span>
                           </div>
@@ -209,53 +208,52 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
                                   customization of this product.</div>
                           </div>
                       </div> --> */}
-        </div>
-      </div>
-    </li>
-    </>
-
+            </div>
+          </div>
+        </li>
+      </>
+    );
   }
 
   return (
-    <li className="flex py-6 flex-wrap px-4">
-      <div className="w-full lg:w-4/12 px-3 mt-3">
+    <li className='flex py-6 flex-wrap px-4'>
+      <div className='w-full lg:w-4/12 px-3 mt-3'>
         <Link href={product?.seName!}>
           <Image
             src={product.colorImage}
             alt={product.productName}
-            className="rounded-md object-center object-cover"
+            className='rounded-md object-center object-cover'
           />
         </Link>
       </div>
 
-      <div className="w-full lg:w-8/12 px-3 mt-3">
-        <div className="text-lg font-semibold">
+      <div className='w-full lg:w-8/12 px-3 mt-3'>
+        <div className='text-lg font-semibold'>
           <Link href={product.seName!}>
-            <a className="text-black hover:text-anchor-hover">
+            <a className='text-black hover:text-anchor-hover'>
               {product.productName}
             </a>
           </Link>
         </div>
-        <div className="w-full flex flex-wrap">
-          <div className="sm:w-2/3 mt-2">
-            <div className="flex justify-between">
-              <div className="text-base">
-                <span className="font-semibold">SKU :</span>
+        <div className='w-full flex flex-wrap'>
+          <div className='sm:w-2/3 mt-2'>
+            <div className='flex justify-between'>
+              <div className='text-base'>
+                <span className='font-semibold'>SKU :</span>
                 {product.sku}
               </div>
             </div>
-            <div className="mt-1 flex">
-              <div className="text-base">
-                <span className="font-semibold">Color :</span>
+            <div className='mt-1 flex'>
+              <div className='text-base'>
+                <span className='font-semibold'>Color :</span>
                 {product.attributeOptionValue}
               </div>
             </div>
           </div>
-          <div className="mt-2 sm:w-1/3">
-            <div className="bold text-lg text-right">
-              <span className="">
-                Item Total:{' '}
-                <Price addColon={false} value={product.totalPrice} />
+          <div className='mt-2 sm:w-1/3'>
+            <div className='bold text-lg text-right'>
+              <span className=''>
+                Item Total: <Price value={product.totalPrice} />
               </span>
             </div>
           </div>

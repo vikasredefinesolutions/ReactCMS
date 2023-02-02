@@ -102,60 +102,67 @@ const Ecommerce_CompareProduct: React.FC<_props> = (props) => {
   };
 
   return (
-    <section className="pt-10 pb-10">
+    <section className='pt-10 pb-10'>
       <Head>
         <title>{'Compare Products'}</title>
         {/* <meta name="description" content={_SEO.desc} key="desc" />
       <meta name="keywords" content={_SEO.keywords} /> */}
       </Head>
-      <div className="container mx-auto">
-        <div className="">
-          <div className="text-2xl md:text-3xl lg:text-title font-title text-color-title text-center mb-4">
+      <div className='container mx-auto'>
+        <div className=''>
+          <div className='text-2xl md:text-3xl lg:text-title font-title text-color-title text-center mb-4'>
             Compare
           </div>
         </div>
-        <div className="relative overflow-auto border border-gray-300">
-          <table className="w-full">
+        <div className='relative overflow-auto border border-gray-300'>
+          <table className='w-full'>
             {products?.details && products.details.length > 0 ? (
-              <tbody className="divide-y divide-y-gray-300">
+              <tbody className='divide-y divide-y-gray-300'>
                 <DisplayCompareImage onRemove={removeHandler} />
-                <tr className="divide-x divide-x-gray-300">
-                  <td className="">
-                    <div className="p-2">Title</div>
+                <tr className='divide-x divide-x-gray-300'>
+                  <td className=''>
+                    <div className='p-2'>Title</div>
                   </td>
                   {products?.details?.map((product, index) => (
-                    <td key={index} className="">
-                      <Link href={product.seName} className="p-2">
+                    <td key={index} className=''>
+                      <Link href={product.seName} className='p-2'>
                         {product.name}
                       </Link>
                     </td>
                   ))}
                 </tr>
-                <tr className="divide-x divide-x-gray-300">
-                  <td className="">
-                    <div className="p-2">SKU</div>
+                <tr className='divide-x divide-x-gray-300'>
+                  <td className=''>
+                    <div className='p-2'>SKU</div>
                   </td>
                   {products?.details?.map((product, index) => (
-                    <td key={index} className="">
-                      <div className="p-2">{product.sku}</div>
+                    <td key={index} className=''>
+                      <div className='p-2'>{product.sku}</div>
                     </td>
                   ))}
                 </tr>
-                <tr className="divide-x divide-x-gray-300">
-                  <td className="">
-                    <div className="p-2">Price</div>
+                <tr className='divide-x divide-x-gray-300'>
+                  <td className=''>
+                    <div className='p-2'>Price</div>
                   </td>
                   {products?.details?.map((product, index) => (
-                    <td key={index} className="">
-                      <div className="p-2">
-                        MSRP <Price value={product.msrp} />
+                    <td key={index} className=''>
+                      <div className='p-2'>
+                        MSRP{' '}
+                        <Price
+                          value={undefined}
+                          prices={{
+                            msrp: +product.msrp,
+                            salePrice: +product.salePrice,
+                          }}
+                        />
                       </div>
                     </td>
                   ))}
                 </tr>
-                <tr className="divide-x divide-x-gray-300">
-                  <td className="">
-                    <div className="p-2">Color</div>
+                <tr className='divide-x divide-x-gray-300'>
+                  <td className=''>
+                    <div className='p-2'>Color</div>
                   </td>
                   {products?.colors?.map((colors, index) => (
                     <AllColors
@@ -169,15 +176,15 @@ const Ecommerce_CompareProduct: React.FC<_props> = (props) => {
                     />
                   ))}
                 </tr>
-                <tr className="divide-x divide-x-gray-300">
-                  <td className="">
-                    <div className="p-2">Size</div>
+                <tr className='divide-x divide-x-gray-300'>
+                  <td className=''>
+                    <div className='p-2'>Size</div>
                   </td>
                   {products?.inventory?.map((inventory, index) => {
                     if (inventory === null) {
                       return (
-                        <td key={index} className="">
-                          <div className="p-2 flex flex-wrap gap-2">"-"</div>
+                        <td key={index} className=''>
+                          <div className='p-2 flex flex-wrap gap-2'>"-"</div>
                         </td>
                       );
                     }
@@ -186,14 +193,14 @@ const Ecommerce_CompareProduct: React.FC<_props> = (props) => {
                     ));
                   })}
                 </tr>
-                <tr className="divide-x divide-x-gray-300">
-                  <td className="">
-                    <div className="p-2">Description</div>
+                <tr className='divide-x divide-x-gray-300'>
+                  <td className=''>
+                    <div className='p-2'>Description</div>
                   </td>
                   {products?.details?.map((product, index) => (
-                    <td key={index} className="">
+                    <td key={index} className=''>
                       <div
-                        className="p-2"
+                        className='p-2'
                         dangerouslySetInnerHTML={{
                           __html: product.description,
                         }}
@@ -207,8 +214,8 @@ const Ecommerce_CompareProduct: React.FC<_props> = (props) => {
             )}
           </table>
         </div>
-        <div className="text-center mt-4">
-          <Link href={paths.PRODUCT_LISTING} className="btn btn-primary">
+        <div className='text-center mt-4'>
+          <Link href={paths.PRODUCT_LISTING} className='btn btn-primary'>
             SEND LINK
           </Link>
         </div>

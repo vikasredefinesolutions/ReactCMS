@@ -201,6 +201,66 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
       </>
     );
   }
+  else if (storeLayout === _Store.type21) {
+    return (<>
+        <li className="flex flex-wrap py-5 border border-gray-200 p-4">
+          <div className="w-full lg:w-1/3 px-3">
+            <Link href={item?.seName} title="" className="block border border-gray-100">
+              <Image src={item?.colorImageURL} alt={item?.name} className="" />
+            </Link></div>
+          <div className="lg:ml-4 sm:ml-0 flex-1 flex flex-wrap lg:justify-between">
+            <div className="text-lg font-semibold"><Link
+              href={item?.seName}
+              className="text-black hover:text-anchor-hover"
+            >
+              {item?.name}
+            </Link></div>
+            <div className="w-full flex flex-wrap">
+              <div className=" w-full mt-2">
+                <div className="flex justify-between">
+                  <div className="text-base"><span className="font-semibold">SKU :</span> {item?.sku}
+                  </div>
+                </div>
+                <div className="mt-1 flex">
+                  <div className="text-base"><span className="font-semibold">Color :</span>
+                    {item?.colorName}</div>
+                  <div className="lg:ml-10">
+                    <button
+                      onClick={() => updateHandler()}
+                      className="btn btn-primary !w-full !py-1 text-center"
+                    >
+                      UPDATE
+                    </button>
+                  </div>
+                  <div className="lg:ml-10">
+                  <button
+                          onClick={() => {
+                            deleteItemCart(item.cartItemId);
+                          }}
+                          className='btn btn-primary !w-full !py-1 text-center'
+                        >
+                          REMOVE
+                        </button>
+                  </div>
+                </div>
+                <div className="w-full  gap-2">
+                  <SC_SizeQtyPriceTable
+                    details={item?.attributes}
+                    toRemove={{
+                      productName: item.name,
+                      productId: item.productId,
+                      colorId: item.colorId,
+                    }}
+                  />
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </li>
+    </>)
+  }
+
 
   return (
     <li className='flex flex-wrap py-5 -mx-3'>

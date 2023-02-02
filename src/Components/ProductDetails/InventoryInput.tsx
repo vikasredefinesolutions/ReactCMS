@@ -44,13 +44,13 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
 
       updateQuantities({
         size: size,
-        qty: +event.target.value,
+        qty:  qty> +event.target.value? +event.target.value:qty,
         price: price,
       });
     } else {
       updateQuantities2({
         size: size,
-        qty: +event.target.value,
+        qty: qty> +event.target.value? +event.target.value:qty,
         price: price,
         color: color || '',
       });

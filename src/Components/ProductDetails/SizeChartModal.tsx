@@ -289,7 +289,12 @@ const SizeChart: React.FC<
     );
   }
 
-  if (storeCode === _Store.type22 || storeCode === _Store.type5 || storeCode === _Store.type8) {
+  if (
+    storeCode === _Store.type22 ||
+    storeCode === _Store.type5 ||
+    storeCode === _Store.type8 ||
+    storeCode === _Store.type10
+  ) {
     return (
       <div
         id='sizechartModal'

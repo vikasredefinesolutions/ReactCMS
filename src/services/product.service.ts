@@ -10,11 +10,15 @@ import {
   _ProductInventoryTransfomed
 } from 'definations/APIs/inventory.res';
 import {
+  _FetchProductsRecentlyViewedPayload,
   _ProductBySku,
   _ProductDetails,
   _ProductDoNotExist,
   _ProductsAlike,
-  _ProductSEO
+  _ProductSEO,
+  _ProductsRecentlyViewed,
+  _ProductsRecentlyViewedPayload,
+  _ProductsRecentlyViewedResponse
 } from 'definations/APIs/productDetail.res';
 import {
   _SizeChart,
@@ -423,3 +427,33 @@ export const fetchCategoryByCategoryId = async (
 
   return res.data;
 };
+
+
+export const InsertProductRecentlyViewed = async (payload:_ProductsRecentlyViewedPayload
+): Promise<_ProductsRecentlyViewed | null> => {
+  const url = `StoreProductRecentlyViewed/insertproductrecentlyview.json`;
+  try {
+    const res = await SendAsyncV2<_ProductsRecentlyViewed>({
+      url: url,
+      method: 'POST',
+      data:payload
+    });
+    return res.data;
+    
+  } catch (error) {
+    return null
+  }
+};
+
+export const FetchProductRecentlyViewed = async (payload:_FetchProductsRecentlyViewedPayload
+  ): Promise<_ProductsRecentlyViewedResponse[]> => {
+    const url = `StoreProductRecentlyViewed/getproductsrecentlyview.json`;
+
+      const res = await SendAsyncV2<_ProductsRecentlyViewedResponse[]>({
+        url: url,
+        method: 'POST',
+        data:payload
+      });
+      return res.data;
+ 
+  };

@@ -39,7 +39,6 @@ const ProductComponent = ({
     return <></>;
   }
 
-  // console.log(product);
   return (
     <li className='text-center flex'>
       <div className='h-hull w-full'>
@@ -48,8 +47,8 @@ const ProductComponent = ({
             <div className='w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
               <ImageComponent
                 src={currentProduct.imageName}
-                alt=''
-                className='w-auto h-auto m-auto max-h-[400px]'
+                alt=""
+                className="w-auto h-auto m-auto max-h-[400px] cursor-pointer"
                 height={400}
                 width={350}
                 cKey={currentProduct.id}
@@ -111,7 +110,14 @@ const ProductComponent = ({
                 </Link>
               </div>
               <div className='mt-2 text-black text-base tracking-wider'>
-                MSRP <Price value={product.salePrice} />
+                MSRP{' '}
+                <Price
+                  value={undefined}
+                  prices={{
+                    msrp: product.msrp,
+                    salePrice: product.salePrice,
+                  }}
+                />
               </div>
 
               <div className='form-group mt-2'>

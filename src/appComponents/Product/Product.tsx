@@ -33,18 +33,18 @@ const ProductComponent = ({
   }, []);
 
   return (
-    <li className="text-center flex">
-      <div className="h-hull w-full">
-        <div className="flex text-center lg:w-auto h-full">
-          <div className="relative border border-gray-200 pb-4 w-full">
-            <div className="w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1">
+    <li className='text-center flex'>
+      <div className='h-hull w-full'>
+        <div className='flex text-center lg:w-auto h-full'>
+          <div className='relative border border-gray-200 pb-4 w-full'>
+            <div className='w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
               <img
                 src={`${config.mediaBaseUrl}${currentProduct.imageName}`}
-                alt=""
-                className="w-auto h-auto m-auto max-h-[400px]"
+                alt=''
+                className='w-auto h-auto m-auto max-h-[400px]'
               />
-              <div className="absolute top-5 right-5 text-gray-800 p-1 z-5">
-                <button className="">
+              <div className='absolute top-5 right-5 text-gray-800 p-1 z-5'>
+                <button className=''>
                   <Wishlist
                     {...{
                       productId: product.id,
@@ -58,37 +58,44 @@ const ProductComponent = ({
                 </button>
               </div>
             </div>
-            <div className="mt-6">
-              <div className="mt-1 text-center">
+            <div className='mt-6'>
+              <div className='mt-1 text-center'>
                 <img
-                  className="inline-block"
+                  className='inline-block'
                   src={`${config.mediaBaseUrl}/rdc${product.brandlogo}`}
                   alt={product.brandlogo}
                   style={{ height: '45px' }}
                 />
               </div>
-              <div className="mt-1 text-anchor min-h-[48px]">
+              <div className='mt-1 text-anchor min-h-[48px]'>
                 <Link
-                  className="relative underline min-h-[48px]"
+                  className='relative underline min-h-[48px]'
                   href={`${product.sename}.html?v=product-detail`}
                 >
                   <>
-                    <span className="absolute inset-0"></span>
+                    <span className='absolute inset-0'></span>
                     {product.name}
                   </>
                 </Link>
               </div>
-              <div className="mt-3 text-black text-base tracking-wider">
-                <span className="font-semibold">
+              <div className='mt-3 text-black text-base tracking-wider'>
+                <span className='font-semibold'>
                   <>
-                    MSRP <Price value={product.salePrice} />
+                    MSRP{' '}
+                    <Price
+                      value={undefined}
+                      prices={{
+                        msrp: product.msrp,
+                        salePrice: product.salePrice,
+                      }}
+                    />
                   </>
                 </span>
               </div>
               {product.getProductImageOptionList.length > 0 && (
                 <ul
-                  role="list"
-                  className="flex items-center mt-2 justify-center space-x-1"
+                  role='list'
+                  className='flex items-center mt-2 justify-center space-x-1'
                 >
                   {product.getProductImageOptionList.map((subRow, index) =>
                     index < 6 ? (
@@ -109,9 +116,9 @@ const ProductComponent = ({
                       >
                         <img
                           src={`${config.mediaBaseUrl}${subRow.imageName}`}
-                          alt=""
-                          title=""
-                          className="max-h-full m-auto"
+                          alt=''
+                          title=''
+                          className='max-h-full m-auto'
                         />
                       </li>
                     ) : null,
