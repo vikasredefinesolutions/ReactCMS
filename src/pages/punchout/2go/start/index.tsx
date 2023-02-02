@@ -22,8 +22,8 @@ export const getServerSideProps = async (context: any) => {
     props: {
       req: {
         data: {
-          body: { ...context.req.body },
-          headers: { ...context.req.headers },
+          body: { ...context.body },
+          headers: { ...context.headers },
         },
         params: { ...context.req?.params },
         returnUrl: { ...context.req?.return_url },
