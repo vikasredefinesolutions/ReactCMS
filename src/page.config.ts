@@ -73,8 +73,8 @@ export const _StoreDomains = {
 export const __domain = {
   devMode: true, // for development features.
   isSiteLive: true,
-  localDomain: _StoreDomains.domain15,
-  layoutToDisplay: _Store.type15,
+  localDomain: _StoreDomains.domain1,
+  layoutToDisplay: _Store.type1,
 };
 
 export const __MockMenuItem = {

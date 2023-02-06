@@ -92,7 +92,7 @@ export const FetchMenuCategories = async (payload: {
   storeId: number;
   categoryId: number;
 }): Promise<_t_MenuCategory | null> => {
-  const url = `API/Category/getcategorysbyparentid/${payload.categoryId}/${payload.storeId}.json`;
+  const url = `Category/getcategorysbyparentid/${payload.categoryId}/${payload.storeId}.json`;
 
   const response = await CallCmsAPI<_MenuCategory[]>({
     name: {

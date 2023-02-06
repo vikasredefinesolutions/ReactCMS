@@ -47,12 +47,12 @@ const Ecommerce_Header: React.FC<_props> = ({
     setIsMobileView(isMobile);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
+
   if (
     storeCode === _Store.type1 ||
     storeCode === _Store.type15 ||
     storeCode === _Store.type16
   ) {
-
     return (
       <div className='bg-white sticky top-0 z-40'>
         <div className='bg-white'>
@@ -165,8 +165,8 @@ const Ecommerce_Header: React.FC<_props> = ({
                       />
                     )}
                     {/* MOBILE VIEW ---- END */}
- 
-                    {isMobileView ? null : <SearchBar screen='DESKTOP' />}
+
+                    {isMobileView ? <SearchBar screen='DESKTOP' /> : null}
                     {isMobileView ? (
                       <Logo
                         screen='MOBILE'
