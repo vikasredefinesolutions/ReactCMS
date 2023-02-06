@@ -42,7 +42,7 @@ class MyDocument extends Document {
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
           />*/}
-          {storeId == 4 && (
+          {(storeId == 4 || storeId == 106 || storeId == 107) && (
             <link
               rel='stylesheet'
               type='text/css'

@@ -18,8 +18,8 @@ export const _Store = {
   type12: 'healthyPoints',
   type13: 'bacardi',
   type14: 'humanaheroes',
-  type15: 'petermillar',
-  type16: 'southerntide',
+  type15: 'PM-CG',
+  type16: 'ST-CG',
   type17: 'theHardFord',
   type18: 'theHardFordClaimsapparel',
   type19: 'theHardFordJuniorfireMarshal',
@@ -73,8 +73,8 @@ export const _StoreDomains = {
 export const __domain = {
   devMode: true, // for development features.
   isSiteLive: true,
-  localDomain: _StoreDomains.domain1,
-  layoutToDisplay: _Store.type1,
+  localDomain: _StoreDomains.domain15,
+  layoutToDisplay: _Store.type15,
 };
 
 export const __MockMenuItem = {
