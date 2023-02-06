@@ -47,7 +47,6 @@ const Ecommerce_Header: React.FC<_props> = ({
     setIsMobileView(isMobile);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
-console.log("GHERERER", _Store.type1);
   if (
     storeCode === _Store.type1 ||
     storeCode === _Store.type15 ||
