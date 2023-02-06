@@ -3,28 +3,31 @@ import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store, __constant } from 'page.config';
 import React, { useState } from 'react';
-import BrandImage from './BrandImage';
-import SubMenuItem from './SubMenuItem';
+import BrandImage from './Ecommerce_BrandImage';
+import SubMenuItem from './Ecommerce_SubMenuItem';
 
 interface _props {
   url: string;
   title: string;
   content: _Brands[] | null;
+  storeCode: string;
 }
 
-const Brand: React.FC<_props> = ({ url, title, content }) => {
-  const { layout: storeLayout, view } = useTypedSelector(
-    (state) => state.store,
-  );
+const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
   const { toggleSideMenu } = useActions();
+
+  // -------------------------------------------------------------------
+  const { view } = useTypedSelector((state) => state.store);
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
+
+  // -------------------------------------------------------------------
   const [focus, setFocus] = useState<boolean>(false);
   const [showAllItems, setShowAllItems] = useState<boolean>(false);
 
   if (
-    storeLayout === _Store.type1 ||
-    storeLayout === _Store.type15 ||
-    storeLayout === _Store.type16
+    storeCode === _Store.type1 ||
+    storeCode === _Store.type15 ||
+    storeCode === _Store.type16
   ) {
     if (view === 'MOBILE') {
       return (
@@ -59,6 +62,8 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
                   {content?.map((brand) => {
                     return (
                       <SubMenuItem
+                        storeCode={storeCode}
+                        view={view}
                         key={brand.id}
                         itemLabel={brand.brandName}
                         itemUrl={brand.seName}
@@ -135,9 +140,12 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
                     <div className='border-t first:border-t-0 py-5 px-5'>
                       <div className='flex flex-wrap gap-y-2'>
                         <ul className='w-full lg:w-1/3'>
-                          {content?.map((brand) => {
+                          {content?.map((brand, index) => {
+                            if (index >= content.length / 2) return <></>;
                             return (
                               <SubMenuItem
+                                storeCode={storeCode}
+                                view={view}
                                 key={brand.id}
                                 itemLabel={brand.brandName}
                                 itemUrl={brand.seName}
@@ -147,9 +155,12 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
                           })}
                         </ul>
                         <ul className='w-full lg:w-1/3'>
-                          {content?.map((brand) => {
+                          {content?.map((brand, index) => {
+                            if (index < content.length / 2) return <></>;
                             return (
                               <SubMenuItem
+                                storeCode={storeCode}
+                                view={view}
                                 key={brand.id}
                                 itemLabel={brand.brandName}
                                 itemUrl={brand.seName}
@@ -170,7 +181,7 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
     }
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
@@ -218,6 +229,8 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
                         return (
                           <SubMenuItem
                             key={brand.id}
+                            storeCode={storeCode}
+                            view={view}
                             itemLabel={brand.brandName}
                             itemUrl={brand.seName}
                             type={'BRAND'}
@@ -289,6 +302,8 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
                             return (
                               <SubMenuItem
                                 key={index}
+                                storeCode={storeCode}
+                                view={view}
                                 itemLabel={brand.brandName}
                                 itemUrl={brand.seName}
                                 type={'BRAND'}
@@ -308,7 +323,7 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
     }
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
@@ -358,6 +373,8 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
                         return (
                           <SubMenuItem
                             key={brand.id}
+                            storeCode={storeCode}
+                            view={view}
                             itemLabel={brand.brandName}
                             itemUrl={brand.seName}
                             type={'BRAND'}
@@ -430,7 +447,7 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
     }
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
@@ -464,6 +481,8 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
                     return (
                       <SubMenuItem
                         key={brand.id}
+                        storeCode={storeCode}
+                        view={view}
                         itemLabel={brand.brandName}
                         itemUrl={brand.seName}
                         type={'BRAND'}
@@ -534,6 +553,8 @@ const Brand: React.FC<_props> = ({ url, title, content }) => {
                           {content?.map((brand) => {
                             return (
                               <SubMenuItem
+                                storeCode={storeCode}
+                                view={view}
                                 key={brand.id}
                                 itemLabel={brand.brandName}
                                 itemUrl={brand.seName}

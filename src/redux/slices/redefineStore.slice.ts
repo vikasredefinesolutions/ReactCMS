@@ -1,12 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { _Footer } from '@type/APIs/footer.res';
-import { _TransformedHeaderConfig } from 'definations/APIs/header.res';
 import { PageResponseType, _Show } from 'definations/app.type';
 import { CartCharges, _StoreReturnType } from 'definations/store.type';
 import { layoutToShow } from 'helpers/common.helper';
 import { showComponents } from 'mock/store.mock';
 import { __domain } from 'page.config';
-import { _MenuItems } from 'show.type';
 import { SetPageType } from '../asyncActions/redefineStore.async';
 
 // Define a type for the slice state
@@ -20,13 +17,8 @@ export interface _RedesignStore {
   currency: string;
   pageType: PageResponseType;
   view: 'DESKTOP' | 'MOBILE';
-  menuItems: _MenuItems | null;
   isAttributeSaparateProduct: boolean;
   cartCharges: null | CartCharges;
-  configs: {
-    header: _TransformedHeaderConfig | null;
-    footer: _Footer | null;
-  };
   logoAlt: string | null;
   logoUrl: string | null;
 }
@@ -43,12 +35,7 @@ const initialState: _RedesignStore = {
   currency: '$',
   pageType: {} as PageResponseType,
   view: 'DESKTOP',
-  menuItems: null,
   cartCharges: null,
-  configs: {
-    header: null,
-    footer: null,
-  },
   logoAlt: null,
   logoUrl: null,
 };
@@ -62,11 +49,6 @@ export const storeSlice = createSlice({
       action: {
         payload: {
           store: _StoreReturnType;
-          menuItems: _MenuItems | null;
-          configs: {
-            header: _TransformedHeaderConfig | null;
-            footer: _Footer | null;
-          };
         };
       },
     ) => {
@@ -82,8 +64,6 @@ export const storeSlice = createSlice({
         showProd: __domain.isSiteLive,
       });
       state.cartCharges = store.cartCharges;
-      state.menuItems = action.payload.menuItems;
-      state.configs = action.payload.configs;
       state.storeTypeId = store.storeTypeId;
     },
 
@@ -96,7 +76,7 @@ export const storeSlice = createSlice({
       state.layout = action.payload;
     },
 
-    setView: (
+    store_setAppView: (
       state,
       action: {
         payload: 'DESKTOP' | 'MOBILE';

@@ -46,18 +46,20 @@ export interface _Cart_Initials {
   } | null;
 }
 
+const corporateStoreCartInitial = {
+  items: [],
+  order: {
+    qty: 0,
+    tax: 0,
+    subTotal: 0,
+    shipping: 0,
+    total: 0,
+  },
+};
+
 const initialState: _Cart_Initials = {
   cart: [],
-  corporateStoreCart: {
-    items: [],
-    order: {
-      qty: 0,
-      tax: 0,
-      subTotal: 0,
-      shipping: 0,
-      total: 0,
-    },
-  },
+  corporateStoreCart: corporateStoreCartInitial,
   guestId: 0,
   email: '',
   isCustomerExist: false,
@@ -185,6 +187,19 @@ export const cartSlice = createSlice({
     },
     applyCoupon: (state, { payload }) => {
       state.discount = payload;
+    },
+    employeePriceQtyUpdate: (state, { payload }) => {
+      state.cart = payload;
+    },
+    logoutClearCart: (state) => {
+      state.cart = null;
+      state.corporateStoreCart = corporateStoreCartInitial;
+      state.guestId = 0;
+      state.email = '';
+      state.isCustomerExist = false;
+      state.showThankYou = false;
+      state.isGuestCustomer = false;
+      state.discount = null;
     },
   },
   extraReducers: (builder) => {

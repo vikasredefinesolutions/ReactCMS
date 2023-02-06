@@ -1,14 +1,14 @@
 import { _Footer } from '@type/APIs/footer.res';
-import { _TransformedHeaderConfig } from '@type/APIs/header.res';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { _MenuItems } from 'show.type';
 import { BreadCrumb, Footer, Header, NotificationBar } from './Components';
 
 interface _props {
   children: React.ReactNode;
   storeCode: string;
   logoUrl: string;
+  menuItems: _MenuItems | null;
   configs: {
-    header: _TransformedHeaderConfig | null;
     footer: _Footer | null;
   };
 }
@@ -16,20 +16,29 @@ interface _props {
 const Ecommerce_Layout: React.FC<_props> = ({
   children,
   storeCode,
+  menuItems,
   logoUrl,
+  configs,
 }) => {
-  return (
-    <>
-      <NotificationBar />
+  const HeaderComp = useMemo(() => {
+    return (
       <Header
         storeCode={storeCode}
         logoUrl={{
           desktop: logoUrl,
         }}
+        menuItems={menuItems}
       />
+    );
+  }, [storeCode, logoUrl, menuItems]);
+
+  return (
+    <>
+      <NotificationBar />
+      {HeaderComp}
       <BreadCrumb />
       <div style={{ flexGrow: 1 }}>{children}</div>
-      <Footer />
+      <Footer data={configs.footer} />
     </>
   );
 };

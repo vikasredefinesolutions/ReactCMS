@@ -1,4 +1,3 @@
-import { extractCookies } from 'helpers/common.helper';
 import { useActions, useTypedSelector, useWindowDimensions } from 'hooks';
 import { _Store, __constant } from 'page.config';
 import React, { useEffect, useState } from 'react';
@@ -13,40 +12,39 @@ import {
 } from '../Icons';
 
 import SearchIcon from '@mui/icons-material/Search';
+import { _MenuItems } from 'show.type';
 import SearchBar from './Ecommerce_SearchBar';
-import MenuItems from './Menu/MenuItems';
+import MenuItems from './Menu/Ecommerce_MenuItems';
 
 interface _props {
   storeCode: string;
   logoUrl: {
     desktop: string;
   };
+  menuItems: _MenuItems | null;
 }
 
-const Ecommerce_Header: React.FC<_props> = ({ storeCode, logoUrl }) => {
-  const show = useTypedSelector((state) => state.store.display.header);
+const Ecommerce_Header: React.FC<_props> = ({
+  storeCode,
+  logoUrl,
+  menuItems,
+}) => {
+  const { store_setAppView } = useActions();
   const { width } = useWindowDimensions();
-  const { setView, logInUser } = useActions();
-  const [mobileView, setMobileView] = useState<boolean>(
+
+  // ------------------------------------------------------------------------
+  const userId = useTypedSelector((state) => state.user.id);
+  const showSideMenu = useTypedSelector((state) => state.modals.sideMenu);
+
+  // ------------------------------------------------------------------------
+  const [isMobileView, setIsMobileView] = useState<boolean>(
     width <= __constant._header.mobileBreakPoint,
   );
-  const userId = useTypedSelector((state) => state.user.id);
-
   useEffect(() => {
-    if (document) {
-      const cookies = extractCookies('', 'browserCookie');
-      if (cookies.userId !== null) {
-        logInUser({ id: cookies.userId });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const mobile = width <= __constant._header.mobileBreakPoint;
-    const showMobile = mobile ? 'MOBILE' : 'DESKTOP';
-    setView(showMobile);
-    setMobileView(mobile);
+    const isMobile = width <= __constant._header.mobileBreakPoint;
+    const showMobile = isMobile ? 'MOBILE' : 'DESKTOP';
+    store_setAppView(showMobile);
+    setIsMobileView(isMobile);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
@@ -58,29 +56,45 @@ const Ecommerce_Header: React.FC<_props> = ({ storeCode, logoUrl }) => {
     return (
       <div className='bg-white sticky top-0 z-40'>
         <div className='bg-white'>
-          {mobileView && <MenuItems screen='MOBILE' />}
+          {isMobileView && (
+            <MenuItems
+              showSideMenu={showSideMenu}
+              storeCode={storeCode}
+              screen='MOBILE'
+              menuItems={menuItems}
+            />
+          )}
           <header className='relative'>
             <nav aria-label='Top'>
               <div className='bg-white shadow-md'>
                 <div className='container mx-auto'>
                   <div className=''>
                     <div className='py-3 lg:py-4 flex items-center justify-between'>
-                      <Logo
-                        screen='DESKTOP'
-                        logo={{
-                          desktop: logoUrl.desktop,
-                          mobile: '',
-                        }}
-                      />
+                      {isMobileView ? null : (
+                        <Logo
+                          screen='DESKTOP'
+                          logo={{
+                            desktop: logoUrl.desktop,
+                            mobile: '',
+                          }}
+                        />
+                      )}
 
-                      <MenuItems screen='DESKTOP' />
+                      {isMobileView ? null : (
+                        <MenuItems
+                          showSideMenu={showSideMenu}
+                          storeCode={storeCode}
+                          screen='DESKTOP'
+                          menuItems={menuItems}
+                        />
+                      )}
 
                       <div className='flex items-center lg:hidden space-x-4 pr-4'>
                         <MenuIcon />
-                        {mobileView && <SearchBar screen='MOBILE' />}
+                        {isMobileView ? <SearchBar screen='MOBILE' /> : null}
                       </div>
 
-                      {mobileView && (
+                      {isMobileView ? (
                         <Logo
                           screen='MOBILE'
                           logo={{
@@ -88,11 +102,13 @@ const Ecommerce_Header: React.FC<_props> = ({ storeCode, logoUrl }) => {
                             mobile: '',
                           }}
                         />
-                      )}
+                      ) : null}
                       <div className='flex items-center justify-end'>
                         <div className='flex items-center lg:ml-6'>
                           <div className='flex items-center space-x-4'>
-                            {show.searchBar && <SearchBar screen={'DESKTOP'} />}
+                            {isMobileView ? null : (
+                              <SearchBar screen={'DESKTOP'} />
+                            )}
                             <WishListIcon />
                             <LoginIcon />
                             <LoggedInMenu />
@@ -117,30 +133,41 @@ const Ecommerce_Header: React.FC<_props> = ({ storeCode, logoUrl }) => {
       <div className='bg-white sticky top-0 z-40'>
         <div className='container mx-auto'>
           <div x-data='{ open: false }' className='bg-white'>
-            {mobileView && <MenuItems screen='MOBILE' />}
+            {isMobileView ? (
+              <MenuItems
+                showSideMenu={showSideMenu}
+                storeCode={storeCode}
+                screen='MOBILE'
+                menuItems={menuItems}
+              />
+            ) : null}
             <header className='relative bg-white border-b border-gray-200'>
               <nav aria-label='Top'>
                 <div className=''>
                   <div className='py-3 lg:py-4 flex items-center justify-between gap-3'>
-                    <Logo
-                      screen='DESKTOP'
-                      logo={{
-                        desktop: logoUrl.desktop,
-                        mobile: '',
-                      }}
-                    />
+                    {isMobileView ? null : (
+                      <Logo
+                        screen='DESKTOP'
+                        logo={{
+                          desktop: logoUrl.desktop,
+                          mobile: '',
+                        }}
+                      />
+                    )}
 
                     {/* MOBILE VIEW ---- START */}
-                    {mobileView && (
-                      <div className='flex items-center lg:hidden space-x-3'>
-                        <MenuIcon />
-                        <SearchBar screen='MOBILE' />
-                      </div>
+                    {isMobileView ? null : (
+                      <MenuItems
+                        showSideMenu={showSideMenu}
+                        storeCode={storeCode}
+                        screen='DESKTOP'
+                        menuItems={menuItems}
+                      />
                     )}
                     {/* MOBILE VIEW ---- END */}
-
-                    <SearchBar screen='DESKTOP' />
-                    {mobileView && (
+ 
+                    {isMobileView ? null : <SearchBar screen='DESKTOP' />}
+                    {isMobileView ? (
                       <Logo
                         screen='MOBILE'
                         logo={{
@@ -148,7 +175,7 @@ const Ecommerce_Header: React.FC<_props> = ({ storeCode, logoUrl }) => {
                           mobile: '',
                         }}
                       />
-                    )}
+                    ) : null}
                     <div className='flex items-center justify-end'>
                       <div className='flex items-center'>
                         <div className='flex items-center space-x-3'>
@@ -165,7 +192,12 @@ const Ecommerce_Header: React.FC<_props> = ({ storeCode, logoUrl }) => {
             </header>
           </div>
         </div>
-        <MenuItems screen='DESKTOP' />
+        <MenuItems
+          showSideMenu={showSideMenu}
+          storeCode={storeCode}
+          screen={isMobileView ? 'MOBILE' : 'DESKTOP'}
+          menuItems={menuItems}
+        />
       </div>
     );
   }
@@ -177,7 +209,14 @@ const Ecommerce_Header: React.FC<_props> = ({ storeCode, logoUrl }) => {
         id=''
       >
         <div className='container mx-auto'>
-          {mobileView && <MenuItems screen='MOBILE' />}
+          {isMobileView && (
+            <MenuItems
+              showSideMenu={showSideMenu}
+              storeCode={storeCode}
+              screen='MOBILE'
+              menuItems={menuItems}
+            />
+          )}
           <header className='relative border-b border-b-gray-200'>
             {/* <!-- <div className="lg:hidden text-center">
                   <a href="index.html" className="inline-block pt-4">
@@ -187,20 +226,22 @@ const Ecommerce_Header: React.FC<_props> = ({ storeCode, logoUrl }) => {
             <nav aria-label='Top'>
               <div className=''>
                 <div className='py-3 flex items-center justify-between gap-3'>
-                  <Logo
-                    screen='DESKTOP'
-                    logo={{ desktop: logoUrl.desktop, mobile: '' }}
-                  />
-                  {mobileView && (
+                  {isMobileView ? null : (
+                    <Logo
+                      screen='DESKTOP'
+                      logo={{ desktop: logoUrl.desktop, mobile: '' }}
+                    />
+                  )}
+                  {isMobileView && (
                     <div className='flex items-center lg:hidden space-x-3'>
                       <MenuIcon />
                       <SearchBar screen='MOBILE' />
                     </div>
                   )}
 
-                  <SearchBar screen='DESKTOP' />
+                  {isMobileView ? null : <SearchBar screen='DESKTOP' />}
 
-                  {mobileView && (
+                  {isMobileView && (
                     <Logo
                       screen='MOBILE'
                       logo={{
@@ -227,7 +268,12 @@ const Ecommerce_Header: React.FC<_props> = ({ storeCode, logoUrl }) => {
           </header>
         </div>
 
-        <MenuItems screen='DESKTOP' />
+        <MenuItems
+          showSideMenu={showSideMenu}
+          storeCode={storeCode}
+          screen={isMobileView ? 'MOBILE' : 'DESKTOP'}
+          menuItems={menuItems}
+        />
       </div>
     );
   }

@@ -5,37 +5,27 @@ import {
   _t_MenuTopic,
 } from '@type/APIs/header.res';
 import React from 'react';
-import Brand from './Brand';
-import Category from './Category';
-import Custom from './Custom';
-import Topic from './Topic';
-
-// TODO - Remove Layout dropdown & type
-
-interface _layoutDropdown {
-  showLayoutsOption: boolean;
-  layouts: {
-    layoutType: string;
-    domain: string;
-    layoutName: string;
-  }[];
-}
+import Brand from './Ecommerce_BrandItem';
+import Category from './Ecommerce_CategoryItem';
+import Custom from './Ecommerce_CustomItem';
+import Topic from './Ecommerce_TopicItem';
 
 // -----------
 interface _props {
-  content:
-    | _t_MenuTopic
-    | _t_Brands
-    | _t_MenuCategory
-    | string
-    | null
-    | _layoutDropdown;
+  storeCode: string;
+  content: _t_MenuTopic | _t_Brands | _t_MenuCategory | string | null;
   type: 'BRANDS' | 'CATEGORY' | 'TOPIC' | 'CUSTOM' | 'LAYOUT_DROPDOWN';
   title: string;
   url: string | null;
 }
 
-const MenuItem: React.FC<_props> = ({ type, url, title, content }) => {
+const MenuItem: React.FC<_props> = ({
+  type,
+  url,
+  title,
+  content,
+  storeCode,
+}) => {
   let _titleURL = '/';
 
   if (url) {
@@ -52,7 +42,14 @@ const MenuItem: React.FC<_props> = ({ type, url, title, content }) => {
 
   if ('dataType' in content) {
     if (type === 'BRANDS' && content.dataType === 'BRANDS') {
-      return <Brand title={title} url={paths.BRAND} content={content.brands} />;
+      return (
+        <Brand
+          storeCode={storeCode}
+          title={title}
+          url={paths.BRAND}
+          content={content.brands}
+        />
+      );
     }
 
     if (type === 'CATEGORY' && content.dataType === 'CATEGORIES') {

@@ -17,21 +17,22 @@ export default Puchout;
 
 export const getServerSideProps = async (context: any) => {
   const res = await PunchoutPostApi();
-  console.log(context);
   return {
     props: {
       req: {
         data: {
           body: { ...context.req.body },
           headers: { ...context.req.headers },
+          params: { ...context.req?.params },
+          returnUrl: { ...context.req?.return_url },
         },
-        params: { ...context.req?.params },
-        returnUrl: { ...context.req?.return_url },
       },
       res: {
         data: {
           body: { ...context.res.body },
           headers: { ...context.res.headers },
+          params: { ...context.req?.params },
+          returnUrl: { ...context.req?.return_url },
         },
       },
       punchout: res,

@@ -6,14 +6,14 @@ import { _Store } from 'page.config';
 import React, { useState } from 'react';
 
 const LoggedInMenu: React.FC = () => {
-  const { logInUser } = useActions();
+  const { logInUser, logoutClearCart } = useActions();
   const { id: loggedIn, customer } = useTypedSelector((state) => state.user);
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
   const [focus, setFocus] = useState(false);
 
   const logoutHandler = () => {
     setFocus(false);
-
+    logoutClearCart();
     _Logout(logInUser);
   };
 

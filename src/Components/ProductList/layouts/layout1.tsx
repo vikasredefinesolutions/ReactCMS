@@ -31,7 +31,7 @@ const Layout1 = ({
   sortProductJson,
   clearFilters,
   compareCheckBoxHandler,
-  storeLayout
+  storeLayout,
 }: list_FnProps) => {
   return (
     <>
@@ -46,9 +46,8 @@ const Layout1 = ({
               <h2 id='products-heading' className='sr-only'>
                 Products
               </h2>
-              
+
               <div className='flex flex-wrap -mx-4'>
-                
                 <div
                   className={
                     properties.filter_box.layout !== 'flyout'
@@ -67,7 +66,6 @@ const Layout1 = ({
                         />
                       )
                     ) : (
-                      
                       <SideFilter
                         filters={filters}
                         handleChange={handleChange}
@@ -83,27 +81,33 @@ const Layout1 = ({
                       : ' lg:w-9/12'
                   } px-4`}
                 >
-                  {storeLayout === _Store.type21 ? <FilterBarLayout3
-                  {...{
-                    totalCount,
-                    showSortMenu,
-                    sortProductJson,
-                    sortOpenHandler: setShowSortMenu,
-                    setProductView,
-                    productView,
-                    setShowFilter,
-                  }} /> : <Layout1FilterBar
-                  {...{
-                    totalCount,
-                    showSortMenu,
-                    sortProductJson,
-                    sortOpenHandler: setShowSortMenu,
-                    setProductView,
-                    productView,
-                    setShowFilter,
-                  }}
-                />}
-                  
+                  {storeLayout === _Store.type21 ||
+                  storeLayout === _Store.type27 ? (
+                    <FilterBarLayout3
+                      {...{
+                        totalCount,
+                        showSortMenu,
+                        sortProductJson,
+                        sortOpenHandler: setShowSortMenu,
+                        setProductView,
+                        productView,
+                        setShowFilter,
+                      }}
+                    />
+                  ) : (
+                    <Layout1FilterBar
+                      {...{
+                        totalCount,
+                        showSortMenu,
+                        sortProductJson,
+                        sortOpenHandler: setShowSortMenu,
+                        setProductView,
+                        productView,
+                        setShowFilter,
+                      }}
+                    />
+                  )}
+
                   <FilterChips
                     {...{ clearFilters, checkedFilters, handleChange }}
                   />
@@ -129,6 +133,7 @@ const Layout1 = ({
                                   }
                                   product={product}
                                   colorChangeHandler={colorChangeHandler}
+                                  storeLayout={storeLayout}
                                 />
                               ) : (
                                 <ListView

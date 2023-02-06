@@ -2,7 +2,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Link
+  Link,
 } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
 import { _Store } from 'page.config';
@@ -11,32 +11,50 @@ const SideFilter = ({
   filters,
   handleChange,
   checkedFilters,
-  storeLayout
+  storeLayout,
 }: {
   filters: FilterType;
   handleChange: FilterChangeHandler;
   checkedFilters: any;
-  storeLayout:string | null
+  storeLayout: string | null;
 }) => {
   return (
     <div className='relative'>
-      <div className={storeLayout===_Store.type21?'border border-gray p-4':'bg-gray-100 p-4'}>
+      <div
+        className={
+          storeLayout === _Store.type21
+            ? 'border border-gray p-4'
+            : storeLayout === _Store.type27
+            ? 'p-4'
+            : 'bg-gray-100 p-4'
+        }
+      >
         <div className='mt-4 filter-box filter-type'>
           {filters &&
             filters.map((filter, index) => (
               <div
                 key={index}
-                className={storeLayout===_Store.type21?'py-4 border-t border-neutral-300 first:border-t-0 first':'pt-0:py-1 border-t border-neutral-300 first:border-t-0 first:pt-0'}
+                className={
+                  storeLayout === _Store.type21
+                    ? 'py-4 border-t border-neutral-300 first:border-t-0 first'
+                    : 'pt-0:py-1 border-t border-neutral-300 first:border-t-0 first:pt-0'
+                }
               >
                 <Accordion
                   style={{
-                    background:storeLayout===_Store.type21 ? 'none':'#f3f4f6',
+                    background:
+                      storeLayout === _Store.type21
+                        ? ''
+                        : storeLayout === _Store.type27
+                        ? '#fff'
+                        : '#f3f4f6',
                     boxShadow: 'none',
                   }}
                 >
                   <AccordionSummary
                     style={{
-                      background:storeLayout===_Store.type21 ? '#f3f4f6':'none',
+                      background:
+                        storeLayout === _Store.type21 ? '#f3f4f6' : '',
                     }}
                     expandIcon={
                       <svg
@@ -54,10 +72,11 @@ const SideFilter = ({
                       {filter.label}
                     </div>
                   </AccordionSummary>
-                  <AccordionDetails className='text-sm bg-transparent'
-                  style={{
-                    background:storeLayout===_Store.type21 ? '#fff':'',
-                  }}
+                  <AccordionDetails
+                    className='text-sm bg-transparent'
+                    style={{
+                      background: storeLayout === _Store.type21 ? '#fff' : '',
+                    }}
                   >
                     <ul
                       className={

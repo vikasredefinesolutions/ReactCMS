@@ -2,7 +2,7 @@ import {
   ColorChangeHandler,
   FilterChangeHandler,
   FilterType,
-  ProductList as ProductListType
+  ProductList as ProductListType,
 } from '@type/productList.type';
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
@@ -12,6 +12,7 @@ import Layout1 from './layouts/layout1';
 import Layout2 from './layouts/layout2';
 import Layout3 from './layouts/layout3';
 import Layout4 from './layouts/layout4';
+import Layout5 from './layouts/layout5';
 
 export type list_FnProps = {
   filters: FilterType;
@@ -75,16 +76,27 @@ const ProductList = ({
   if (
     storeLayout === _Store.type1 ||
     storeLayout === _Store.type15 ||
-    storeLayout === _Store.type16 || 
-    storeLayout === _Store.type21
+    storeLayout === _Store.type16 ||
+    storeLayout === _Store.type21 ||
+    storeLayout === _Store.type27
   ) {
     Layout = Layout1;
   } else if (storeLayout === _Store.type2) {
     Layout = Layout2;
-  } else if (storeLayout === _Store.type3 || storeLayout === _Store.type22 || storeLayout === _Store.type5 || storeLayout === _Store.type10 || storeLayout === _Store.type8 || storeLayout === _Store.type13 || storeLayout === _Store.type24) {
+  } else if (
+    storeLayout === _Store.type3 ||
+    storeLayout === _Store.type22 ||
+    storeLayout === _Store.type5 ||
+    storeLayout === _Store.type10 ||
+    storeLayout === _Store.type8 ||
+    storeLayout === _Store.type13 ||
+    storeLayout === _Store.type24
+  ) {
     Layout = Layout3;
   } else if (storeLayout === _Store.type4) {
     Layout = Layout4;
+  } else if (storeLayout === _Store.type26) {
+    Layout = Layout5;
   }
   if (totalCount > 0 && Layout) {
     return (

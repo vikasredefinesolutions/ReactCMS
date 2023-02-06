@@ -19,7 +19,6 @@ interface _props {
 }
 const Redefine_ProductList: React.FC<_props> = (props) => {
   const storeTypeId = useTypedSelector((state) => state.store.storeTypeId);
-
   if (storeTypeId === StoreLayout.CorporateStore) {
     return <Corporate_ProductList {...props} />;
   }

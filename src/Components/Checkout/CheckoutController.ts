@@ -18,7 +18,7 @@ import { CustomerAddress } from 'definations/APIs/user.res';
 import { deleteCookie, extractCookies, setCookie } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 const cardArray = [
   {
@@ -39,8 +39,16 @@ const cardArray = [
   },
 ];
 
+const creditCardInitital = {
+  cardNumber: '',
+  cardVarificationCode: '',
+  cardExpirationMonth: '',
+  cardExpirationYear: '',
+};
+
 export type AddressType = CustomerAddress;
 export type CreditCardType = typeof cardArray;
+export type CreditCardDetailsType = typeof creditCardInitital;
 const CheckoutController = () => {
   const { getTotalPrice } = CartSummaryController();
   const router = useRouter();
@@ -72,7 +80,8 @@ const CheckoutController = () => {
   const [billingAdress, setBillingAdress] = useState<CustomerAddress | null>(
     null,
   );
-  const [cardDetails, setCardDetails] = useState('');
+  const [cardDetails, setCardDetails] =
+    useState<CreditCardDetailsType>(creditCardInitital);
   const [showCVVHelpCard, setShowCVVHelpCard] = useState(false);
   const [purchaseOrder, setPurchaseOrder] = useState(false);
   const [showChangeAddressPopup, setShowChangeAddressPopup] = useState(NaN);
@@ -159,10 +168,14 @@ const CheckoutController = () => {
       );
     }
   }, [storeId]);
-
   const placeOrder = async () => {
     const { subTotal, totalPrice, salesTax, logoSetupCharges, discount } =
       getTotalPrice();
+    console.log(Object.values(cardDetails).some((x) => x === null || x === ''));
+    if (Object.values(cardDetails).some((x) => x === null || x === '')) {
+      showModal({ message: 'Invalid Card Details', title: 'Warning' });
+      return;
+    }
 
     let order = {
       orderModel: {
@@ -203,11 +216,11 @@ const CheckoutController = () => {
         shippingMethod: 'Bluedart',
         okToEmail: true,
         cardName: 'Debit Card',
-        cardType: 'Visa',
-        cardNumber: '9876543210123698',
-        cardVarificationCode: '125',
-        cardExpirationMonth: '11',
-        cardExpirationYear: '25',
+        cardType: creditCardType(cardDetails.cardNumber),
+        cardNumber: cardDetails.cardNumber,
+        cardVarificationCode: cardDetails.cardVarificationCode,
+        cardExpirationMonth: cardDetails.cardExpirationMonth,
+        cardExpirationYear: cardDetails.cardExpirationYear,
         couponCode: '',
         couponDiscountAmount: discount,
         giftCertiSerialNumber: '',
@@ -439,6 +452,14 @@ const CheckoutController = () => {
 
   const bindSubmitForm = () => {};
 
+  const ccInputHandler = (
+    ev: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    setCardDetails({ ...cardDetails, [ev.target.name]: ev.target.value });
+  };
+
+  console.log(cardDetails);
+
   return {
     creditCardType,
     setShowEmail,
@@ -447,7 +468,7 @@ const CheckoutController = () => {
     setShowShippingScreen,
     setShippingAdress,
     setUseShippingAddress,
-    setCardDetails,
+    setCardDetails: ccInputHandler,
     setShowCVVHelpCard,
     setPurchaseOrder,
     setShowChangeAddressPopup,

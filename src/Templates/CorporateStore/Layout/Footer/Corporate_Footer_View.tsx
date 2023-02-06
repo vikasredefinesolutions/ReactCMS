@@ -1,19 +1,13 @@
-import { useTypedSelector } from 'hooks';
+import { _Footer } from '@type/APIs/footer.res';
 import React from 'react';
-interface _props {}
+interface _props {
+  data: _Footer | null;
+}
 
 // If footer will come from api in all stores then this components should move to common folder
-const Corporate_Footer: React.FC<_props> = () => {
-  const storeLayout = useTypedSelector((state) => state.store.layout);
-
-  const footerDetails = useTypedSelector(
-    (state) => state.store.configs.footer?.config_value,
-  );
-
+const Corporate_Footer: React.FC<_props> = ({ data }) => {
   return (
-    <>
-      <div dangerouslySetInnerHTML={{ __html: footerDetails || '' }}></div>
-    </>
+    <div dangerouslySetInnerHTML={{ __html: data?.config_value || '' }}></div>
   );
 };
 

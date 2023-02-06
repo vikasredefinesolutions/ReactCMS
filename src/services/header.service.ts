@@ -1,11 +1,10 @@
 import { _BannerRes } from 'definations/APIs/banner.res';
 import {
+  _Brands,
   _MenuCategory,
-  _MenuTopic,
   _StoreMenu,
   _t_Brands,
   _t_MenuCategory,
-  _t_MenuTopic,
 } from 'definations/APIs/header.res';
 
 import { CallAPI, CallCmsAPI } from 'helpers/common.helper';
@@ -29,7 +28,7 @@ export const FetchBrands = async ({
 }): Promise<_t_Brands | null> => {
   const url = `Brand/getbrandbystoreid/${storeId}.json`;
 
-  const response = await CallAPI<_t_Brands>({
+  const response = await CallAPI<_Brands[]>({
     name: {
       api: 'FetchBrands',
       service: 'header',
@@ -40,7 +39,12 @@ export const FetchBrands = async ({
     },
   });
 
-  return response;
+  const transformed: _t_Brands = {
+    brands: response,
+    dataType: 'BRANDS',
+  };
+
+  return transformed;
 };
 
 export const FetchBannerDetails = async (payload: {
@@ -67,44 +71,21 @@ export const FetchBannerDetails = async (payload: {
 export const FetchStoreMenu = async (payload: {
   storeId: number;
 }): Promise<_StoreMenu[] | null> => {
-  const url = `API/api/store-menu/${payload.storeId}`;
+  const url = `CmsStoreThemeConfigs/getMenuConfig`;
 
-  const response = await CallCmsAPI<_StoreMenu[]>({
+  const response = await CallAPI<_StoreMenu[]>({
     name: {
       api: 'FetchStoreMenu',
       service: 'header',
     },
     request: {
       url: url,
-      method: 'GET',
+      method: 'POST',
+      data: payload,
     },
   });
 
   return response;
-};
-
-export const FetchMenuTopics = async (payload: {
-  topicId: number;
-}): Promise<_t_MenuTopic | null> => {
-  const url = `API/api/topics/${payload.topicId}`;
-
-  const response = await CallCmsAPI<_MenuTopic>({
-    name: {
-      api: 'FetchMenuTopics',
-      service: 'header',
-    },
-    request: {
-      url: url,
-      method: 'POST',
-    },
-  });
-
-  const transformed: _t_MenuTopic = {
-    topic: response,
-    dataType: 'TOPIC',
-  };
-
-  return transformed;
 };
 
 export const FetchMenuCategories = async (payload: {

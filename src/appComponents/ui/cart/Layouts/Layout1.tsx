@@ -1,24 +1,71 @@
+import { _CartItem } from '@type/APIs/cart.res';
+import { _ProductDetails } from '@type/APIs/productDetail.res';
 import AddOTFItemNo from 'appComponents/modals/AddOTFItems';
 import StartOrderModal from 'appComponents/modals/StartOrderModal';
 import ImageComponent from 'appComponents/reUsable/Image';
 import CartSummary from 'Components/CartSummary/CartSummary';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const CartLayout1 = ({
-  cartProducts,
-  loadProduct,
-  deleteCartItem,
-  showEdit,
-  product,
-  setShowEdit,
-  currentCartProduct,
-}: any) => {
+type _Props = {
+  cartProducts: _CartItem[];
+  loadProduct: (product: _CartItem) => void;
+  deleteCartItem: (id: number) => Promise<void>;
+  showEdit: boolean;
+  product: _ProductDetails | undefined;
+  setShowEdit: (arg: boolean) => void;
+  currentCartProduct: _CartItem | undefined;
+};
+
+const CartLayout1 = (props: _Props) => {
+  const {
+    cartProducts,
+    loadProduct,
+    deleteCartItem,
+    showEdit,
+    product,
+    setShowEdit,
+    currentCartProduct,
+  } = props;
+  const { updateCheckoutObject } = useActions();
+
+  const checkoutObject = useTypedSelector((state) => state.product.toCheckout);
+
   const isEmployeeLoggedIn = useTypedSelector(
     (state) => state.employee.loggedIn,
   );
   const [addOtf, setShowAddOtf] = useState(false);
+
+  const employeeAmtChangeHandler = (
+    value: string | number,
+    cartProductIndex: number,
+    cartProdDetailsIndex: number,
+  ) => {
+    const cartProduct = cartProducts[cartProductIndex];
+    let cartProductDetailsItem =
+      cartProduct.shoppingCartItemDetailsViewModels[cartProdDetailsIndex];
+    let totalPrice = 0;
+    const obj = {
+      totalQty: cartProduct.totalQty,
+      sizeQtys: cartProduct.shoppingCartItemDetailsViewModels.map(
+        (res, index) => {
+          const price =
+            cartProdDetailsIndex === index
+              ? +value * cartProductDetailsItem.qty
+              : res.price;
+          totalPrice += price;
+          return {
+            size: res.attributeOptionValue,
+            qty: res.qty,
+            price: price,
+          };
+        },
+      ),
+      totalPrice: totalPrice,
+    };
+    updateCheckoutObject(obj);
+  };
 
   return (
     <>
@@ -110,9 +157,9 @@ const CartLayout1 = ({
                               </div>
 
                               {product.shoppingCartItemDetailsViewModels.map(
-                                (item: any, index: number) => (
+                                (item: any, cartItemDetialsIndex: number) => (
                                   <div
-                                    key={index}
+                                    key={cartItemDetialsIndex}
                                     className='flex justify-between py-2'
                                   >
                                     <div className='text-base w-28'>
@@ -134,6 +181,13 @@ const CartLayout1 = ({
                                         <input
                                           className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
                                           value={item.price / item.qty}
+                                          onChange={(event) =>
+                                            employeeAmtChangeHandler(
+                                              event.target.value,
+                                              cartItemDetialsIndex,
+                                              index,
+                                            )
+                                          }
                                         />
                                       </div>
                                     )}

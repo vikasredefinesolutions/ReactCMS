@@ -1,10 +1,13 @@
+import { showcolors } from '@constants/global.constant';
 import { _ProductsRecentlyViewedResponse } from '@type/APIs/productDetail.res';
+import config from 'api.config';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
+import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { __constant } from 'page.config';
-import React, { useRef } from 'react';
+import { _Store, __constant } from 'page.config';
+import React, { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 interface _props {
@@ -12,7 +15,12 @@ interface _props {
   products: _ProductsRecentlyViewedResponse[] | null;
 }
 
+interface _selctedcolor {
+  productName: string;
+  imageurl: string | null;
+}
 const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
+  const [color, setColors] = useState<string | null>(null);
   const router = useRouter();
   const sliderRef = useRef<null | Slider>(null);
 
@@ -23,7 +31,9 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
   const goToPrevProduct = () => {
     sliderRef.current!.slickPrev();
   };
-
+  const storeLayout = useTypedSelector((state) => state.store.layout);
+  const [productImage, setProductImage] = useState<_selctedcolor>();
+  let flag: boolean = false;
   return (
     <>
       {products === null ? (
@@ -37,7 +47,9 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
             <div className='relative' id='slider'>
               <div
                 className={`${
-                  products.length > 3 ? 'absolute' : 'hidden'
+                  products.length > __constant._productAlike.carouselCounter
+                    ? 'absolute'
+                    : 'hidden'
                 } inset-y-0 left-0 z-10 flex items-center`}
               >
                 <button
@@ -69,7 +81,12 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
                                   <div className='relative'>
                                     {/* Issue: Using functional components as child of <Link/> causes ref-warnings */}
                                     <Image
-                                      src={product.image}
+                                      src={
+                                        product.name ==
+                                        productImage?.productName
+                                          ? productImage.imageurl
+                                          : product.image
+                                      }
                                       alt={product.name}
                                       className='w-auto h-auto max-h-max'
                                     />
@@ -95,20 +112,82 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
                                     MSRP <Price value={product.msrp} />
                                   </span>
                                 </div>
-                                <div className='flex justify-center mx-auto'>
-                                  <a
-                                    className='btn btn-secondary'
-                                    href={`${encodeURIComponent(
-                                      product.seName,
-                                    )}.html?v=product-detail&altview=1`}
-                                    title=''
-                                  >
-                                    <span className='material-icons text-sm'>
-                                      local_mall
-                                    </span>
-                                    <span className='ml-1'>ADD TO CART</span>
-                                  </a>
-                                </div>
+                                {storeLayout !== _Store.type27 && (
+                                  <div className='flex justify-center mx-auto mt-2'>
+                                    <a
+                                      className='btn btn-secondary'
+                                      href={`${encodeURIComponent(
+                                        product.seName,
+                                      )}.html?v=product-detail&altview=1`}
+                                      title=''
+                                    >
+                                      <span className='material-icons text-sm'>
+                                        local_mall
+                                      </span>
+                                      <span className='ml-1'>ADD TO CART</span>
+                                    </a>
+                                  </div>
+                                )}
+                                {storeLayout === _Store.type27 && (
+                                  <div className='flex flex-wrap gap-1 text-sm text-center justify-center space-x-1'>
+                                    {product.getProductImageOptionList?.map(
+                                      (colour, index) => {
+                                        const colorName = colour.colorName;
+                                        return index < showcolors ? (
+                                          <div
+                                            key={colour.colorName}
+                                            className='w-8 h-8'
+                                            onClick={() => {
+                                              setColors(colour.colorName);
+                                              setProductImage({
+                                                productName: product.name,
+                                                imageurl: colour.imageName,
+                                              });
+                                            }}
+                                          >
+                                            <div
+                                              className={`border border-gray-300 p-px cursor-pointer  hover:border-secondary ${
+                                                color && colorName === color
+                                                  ? ' border-secondary'
+                                                  : ''
+                                              }`}
+                                            >
+                                              <img
+                                                src={`${config.mediaBaseUrl}${colour.imageName}`}
+                                                alt=''
+                                                className='w-full object-center object-cover w-7 h-7'
+                                              />
+                                            </div>
+                                            <div className='hidden'>
+                                              {colour.colorName}
+                                            </div>
+                                          </div>
+                                        ) : (
+                                          <>{(flag = true)}</>
+                                        );
+                                      },
+                                    )}
+                                    {flag ? (
+                                      <a
+                                        href={`${encodeURIComponent(
+                                          product.seName,
+                                        )}.html?v=product-detail&altview=1`}
+                                      >
+                                        <ul
+                                          className={`border border-gray-300 p-px cursor-pointer   hover:border-secondary  w-7 h-8 pt-1`}
+                                        >
+                                          <span className=''>
+                                            {' '}
+                                            +
+                                            {product.getProductImageOptionList
+                                              .length - 4}
+                                          </span>
+                                          {(flag = false)}
+                                        </ul>
+                                      </a>
+                                    ) : null}
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -120,7 +199,9 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
               </Slider>
               <div
                 className={`${
-                  products.length > 3 ? 'absolute' : 'hidden'
+                  products.length > __constant._productAlike.carouselCounter
+                    ? 'absolute'
+                    : 'hidden'
                 } inset-y-0 right-0 z-10 flex items-center`}
               >
                 <button

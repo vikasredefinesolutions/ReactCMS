@@ -1,10 +1,12 @@
+import { showcolors } from '@constants/global.constant';
 import { _ProductsAlike } from '@type/APIs/productDetail.res';
+import config from 'api.config';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { _Store, __constant } from 'page.config';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 interface _props {
@@ -12,8 +14,14 @@ interface _props {
   title: string;
   products: _ProductsAlike[] | null;
 }
-
+interface _selectedcolor {
+  productName: string;
+  imageurl: string | null;
+}
 const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
+  const [color, setColors] = useState<string | null>(null);
+  const [productImage, setProductImage] = useState<_selectedcolor>();
+
   const router = useRouter();
   const sliderRef = useRef<null | Slider>(null);
 
@@ -24,6 +32,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
   const goToPrevProduct = () => {
     sliderRef.current!.slickPrev();
   };
+  let flag: boolean = false;
 
   if (storeCode === _Store.type2) {
     return (
@@ -129,7 +138,11 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
     );
   }
 
-  if (storeCode === _Store.type3) {
+  if (
+    storeCode === _Store.type3 ||
+    storeCode === _Store.type8 ||
+    storeCode === _Store.type27
+  ) {
     return (
       <>
         {products === null ? (
@@ -179,7 +192,12 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                                       <div className='relative'>
                                         {/* Issue: Using functional components as child of <Link/> causes ref-warnings */}
                                         <Image
-                                          src={product.image}
+                                          src={
+                                            product.name ==
+                                            productImage?.productName
+                                              ? productImage.imageurl
+                                              : product.image
+                                          }
                                           alt={product.name}
                                           className='w-auto h-auto max-h-max'
                                         />
@@ -188,13 +206,14 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                                   </div>
                                   <div className='mt-6'>
                                     <a
+                                      className='h-12'
                                       href={`${encodeURIComponent(
                                         product.seName,
                                       )}.html?v=product-detail&altview=1`}
                                     >
-                                      <div className='mt-1 text-anchor hover:text-anchor-hover'>
-                                        <div className='relative'>
-                                          <span className='absolute inset-0'></span>
+                                      <div className='w-full text-sm mb-2 tracking-wide'>
+                                        <div className='relative text-anchor'>
+                                          <span className='absolute inset-0 text-anchor h-15'></span>
                                           {product.name}
                                         </div>
                                       </div>
@@ -204,6 +223,64 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
                                       <span className='mt-2 text-primary'>
                                         MSRP <Price value={product.msrp} />
                                       </span>
+                                    </div>
+                                    <div className='flex flex-wrap gap-1 text-sm text-center justify-center space-x-1'>
+                                      {product.getProductImageOptionList?.map(
+                                        (colour, index) => {
+                                          const colorName = colour.colorName;
+                                          return index < showcolors ? (
+                                            <div
+                                              key={colour.colorName}
+                                              className='w-8 h-8'
+                                              onClick={() => {
+                                                setColors(colour.colorName);
+                                                setProductImage({
+                                                  productName: product.name,
+                                                  imageurl: colour.imageName,
+                                                });
+                                              }}
+                                            >
+                                              <div
+                                                className={`border border-gray-300 p-px cursor-pointer  hover:border-secondary ${
+                                                  color && colorName === color
+                                                    ? ' border-secondary'
+                                                    : ''
+                                                }`}
+                                              >
+                                                <img
+                                                  src={`${config.mediaBaseUrl}${colour.imageName}`}
+                                                  alt=''
+                                                  className='w-full object-center object-cover w-7 h-7'
+                                                />
+                                              </div>
+                                              <div className='hidden'>
+                                                {colour.colorName}
+                                              </div>
+                                            </div>
+                                          ) : (
+                                            <>{(flag = true)}</>
+                                          );
+                                        },
+                                      )}
+                                      {flag ? (
+                                        <a
+                                          href={`${encodeURIComponent(
+                                            product.seName,
+                                          )}.html?v=product-detail&altview=1`}
+                                        >
+                                          <ul
+                                            className={`border border-gray-300 p-px cursor-pointer   hover:border-secondary  w-7 h-8 pt-1`}
+                                          >
+                                            <span className=''>
+                                              {' '}
+                                              +
+                                              {product.getProductImageOptionList
+                                                .length - 4}
+                                            </span>
+                                            {(flag = false)}
+                                          </ul>
+                                        </a>
+                                      ) : null}
                                     </div>
                                   </div>
                                 </div>
@@ -242,6 +319,7 @@ const ProductAlike: React.FC<_props> = ({ storeCode, title, products }) => {
   if (
     storeCode === _Store.type4 ||
     storeCode === _Store.type10 ||
+    storeCode === _Store.type24 ||
     storeCode === _Store.type8
   ) {
     return (

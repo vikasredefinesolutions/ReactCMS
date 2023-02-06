@@ -1,4 +1,4 @@
-/* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css'); */
+/*@import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css');*/
 @import url('../src/Assets/css/spinner.css');
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css'); */
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css'); */
@@ -8,8 +8,10 @@
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/drivingi/main.css'); */
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/cyxtera/main.css'); */
 @import url('../public/accordian_pkhg.css');
-@import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/thehomedepot/main.css');
+/* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/thehomedepot/main.css'); */
+/*@import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css');*/
 /* @import url('https://ystore.us/HTML/RedefineCommerce/Ecom-front/drivingi/main.css'); */
+/* @import url('https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaamilitarysaffairs/main.css'); */
 
 @import url('react-inner-image-zoom/lib/InnerImageZoom/styles.css');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback');
@@ -26,7 +28,15 @@
   width: 100% !important;
 }
 
-
 .brand-logo span {
   position: unset !important;
+}
+.product-brand-logo span span {
+  display: none !important;
+}
+.product-brand-logo img {
+  position: relative !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: 4rem !important;
 }

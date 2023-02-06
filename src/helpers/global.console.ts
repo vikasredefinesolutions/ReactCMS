@@ -28,7 +28,7 @@ export const __console: __Console = {
   allCatch: true,
   Logo: {
     service: {
-      UploadLogoWithDetails: true,
+      UploadLogoWithDetails: false,
     },
   },
   app: {
@@ -37,7 +37,7 @@ export const __console: __Console = {
     page: true,
     service: {
       FetchThemeConfigs: false,
-      GetStoreID: true,
+      GetStoreID: false,
     },
   },
   files: {
@@ -53,7 +53,7 @@ export const __console: __Console = {
   header: {
     service: {
       FetchBrands: false,
-      FetchStoreMenu: false,
+      FetchStoreMenu: true,
       FetchMenuTopics: false,
       FetchBannerDetails: false,
       FetchMenuCategories: false,
@@ -138,7 +138,7 @@ export const __console: __Console = {
   },
   ShoppingCart: {
     service: {
-      FetchCartDetails: true,
+      FetchCartDetails: false,
     },
   },
 };

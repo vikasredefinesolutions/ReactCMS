@@ -51,10 +51,13 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   if (storeLayout === _Store.type2) {
     if (screen === 'DESKTOP') {
       return (
-        <div className='lg:flex lg:items-center'>
+        <div
+          className='lg:flex lg:items-center'
+          style={{ maxWidth: '240px', width: '100%', position: 'relative' }}
+        >
           <Link href={paths.HOME}>
             <Image
-              className='max-h-14 w-auto'
+              className='max-h-14 w-auto brand-logo'
               src={logo?.desktop}
               alt='Corporate Gear'
             />
@@ -74,10 +77,13 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   if (storeLayout === _Store.type3) {
     if (screen === 'DESKTOP') {
       return (
-        <div className='lg:flex lg:items-center'>
+        <div
+          className='lg:flex lg:items-center'
+          style={{ maxWidth: '240px', width: '100%', position: 'relative' }}
+        >
           <Link href={paths.HOME}>
             <Image
-              className='max-h-20 w-auto'
+              className='max-h-20 w-auto brand-logo'
               src={logo?.desktop}
               alt='Corporate Gear'
             />
@@ -98,12 +104,15 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   if (storeLayout === _Store.type4) {
     if (screen === 'DESKTOP') {
       return (
-        <div className='lg:flex lg:items-center'>
+        <div
+          className='lg:flex lg:items-center'
+          style={{ maxWidth: '240px', width: '100%', position: 'relative' }}
+        >
           <Link href={paths.HOME}>
             <>
               <span className='sr-only'>Workflow</span>
               <Image
-                className='h-16 w-auto'
+                className='h-16 w-auto brand-logo'
                 src={logo?.desktop}
                 alt='Corporate Gear'
               />

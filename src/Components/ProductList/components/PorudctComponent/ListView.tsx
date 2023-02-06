@@ -41,12 +41,25 @@ const ListView = ({
     setCurrentProduct(product.getProductImageOptionList[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
+
   return (
     <li className=''>
       <div className='w-full'>
         <div className='w-full'>
-          <div className='relative border border-gray-200 flex flex-wrap'>
-            <div className='bg-white overflow-hidden aspect-square max-w-xs border-r border-r-gray-200 text-center w-[400px]'>
+          <div
+            className={
+              storeLayout === _Store.type27
+                ? 'w-full md:grid md:grid-cols-3 gap-4 p-4 relative border border-gray-300'
+                : 'relative border border-gray-200 flex flex-wrap'
+            }
+          >
+            <div
+              className={
+                storeLayout === _Store.type27
+                  ? 'w-full md:col-span-3 lg:col-span-1 overflow-hidden flex flex-wrap justify-center items-center relative'
+                  : 'bg-white overflow-hidden aspect-square max-w-xs border-r border-r-gray-200 text-center w-[400px]'
+              }
+            >
               <Link
                 href={`${origin}/${product.sename}.html?v=product-detail`}
                 className='relative inline-flex items-center justify-center h-full'
@@ -56,11 +69,16 @@ const ListView = ({
                   width={400}
                   src={currentProduct.imageName}
                   alt={currentProduct.alttag}
-                  className='max-h-full inline-block'
+                  className={
+                    storeLayout === _Store.type27
+                      ? 'w-auto h-auto max-h-full'
+                      : 'max-h-full inline-block'
+                  }
                 />
               </Link>
 
-              {storeLayout === _Store.type21 ? (
+              {storeLayout === _Store.type21 ||
+              storeLayout === _Store.type27 ? (
                 <></>
               ) : (
                 <div className='absolute left-2 top-2 h-8 flex gap-1'>
@@ -73,7 +91,8 @@ const ListView = ({
                   </div>
                 </div>
               )}
-              {storeLayout === _Store.type21 ? (
+              {storeLayout === _Store.type21 ||
+              storeLayout === _Store.type27 ? (
                 <></>
               ) : (
                 <div className='absolute top-2 right-2 text-gray-800 p-1 z-5'>
@@ -94,7 +113,8 @@ const ListView = ({
               )}
             </div>
             <div className='ml-6 my-3'>
-              {storeLayout === _Store.type21 ? (
+              {storeLayout === _Store.type21 ||
+              storeLayout === _Store.type27 ? (
                 <></>
               ) : (
                 <div className='text-sm'>
@@ -121,6 +141,8 @@ const ListView = ({
                     />
                   </div>
                 </>
+              ) : storeLayout === _Store.type27 ? (
+                <></>
               ) : (
                 <div className='mt-1'>
                   <a className='inline-flex items-center gap-1'>
@@ -135,7 +157,13 @@ const ListView = ({
                   </a>
                 </div>
               )}
-              <div className='relative mt-1 text-anchor hover:text-anchor-hover'>
+              <div
+                className={
+                  storeLayout === _Store.type27
+                    ? 'mt-1 h-10 overflow-hidden text-sm text-anchor tracking-wider hover:text-primary-hover'
+                    : 'relative mt-1 text-anchor hover:text-anchor-hover'
+                }
+              >
                 <Link
                   href={`${origin}/${product.sename}.html?v=product-detail`}
                   className='relative underline'
@@ -143,9 +171,15 @@ const ListView = ({
                   {product.name}
                 </Link>
               </div>
-              <div className='mt-2 text-black text-base tracking-wider'>
+              <div
+                className={
+                  storeLayout === _Store.type27
+                    ? 'mt-4 text-default text-xl'
+                    : 'mt-2 text-black text-base tracking-wider'
+                }
+              >
                 <span className='font-semibold'>
-                  MSRP{' '}
+                  {storeLayout === _Store.type27 ? <></> : <>MSRP </>}
                   <Price
                     value={undefined}
                     prices={{
@@ -155,7 +189,8 @@ const ListView = ({
                   />
                 </span>
               </div>
-              {storeLayout === _Store.type21 ? (
+              {storeLayout === _Store.type21 ||
+              storeLayout === _Store.type27 ? (
                 <></>
               ) : (
                 <div className='form-group mt-2'>
@@ -194,7 +229,8 @@ const ListView = ({
                   ) : null,
                 )}
               </ul>
-              {storeLayout === _Store.type21 ? (
+              {storeLayout === _Store.type21 ||
+              storeLayout === _Store.type27 ? (
                 <></>
               ) : (
                 <div className='mt-3'>

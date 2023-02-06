@@ -1,6 +1,10 @@
 import { __Cookie } from '@constants/global.constant';
 import { addToCart } from '@services/cart.service';
-import { FetchInventoryById, FetchProductRecentlyViewed, InsertProductRecentlyViewed } from '@services/product.service';
+import {
+  FetchInventoryById,
+  FetchProductRecentlyViewed,
+  InsertProductRecentlyViewed,
+} from '@services/product.service';
 import { _StoreCache } from '@type/slug.type';
 import config from 'api.config';
 import Price from 'appComponents/reUsable/Price';
@@ -9,7 +13,7 @@ import SizeChartModal from 'Components/ProductDetails/SizeChartModal';
 import {
   _ProductDetails,
   _ProductDetailsProps,
-  _ProductsRecentlyViewedResponse
+  _ProductsRecentlyViewedResponse,
 } from 'definations/APIs/productDetail.res';
 import { _Store } from 'page.config';
 
@@ -29,24 +33,30 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
 ) => {
   const { showModal, updateQuantities, updateQuantitieSingle } = useActions();
   const selectedproduct = useTypedSelector((state) => state.product.selected);
-  const productinventory=useTypedSelector((state) => state.product.product.inventory?.inventory)
-  const storeId = useTypedSelector((state)=>state.store.id)
+  const productinventory = useTypedSelector(
+    (state) => state.product.product.inventory?.inventory,
+  );
+  const storeId = useTypedSelector((state) => state.store.id);
   const customerId = useTypedSelector((state) => state.user.id);
   const { store_productDetails, setColor, setShowLoader, product_storeData } =
     useActions();
   const [color, setColors] = useState<string | null>(null);
-  const router = useRouter()
+  const router = useRouter();
   const [size, setSize] = useState<string | null>(null);
   const [qty, setQty] = useState<number>(0);
-  const [minquantity ,setMinQuantity] =useState<number>(0)
-  const [maxquantity,setMaxQuantity] =useState<number>(0)
-  const [recentlyViewedProduct, setRecentlyViewedProduct] = useState<Array< _ProductsRecentlyViewedResponse>>([])
+  const [minquantity, setMinQuantity] = useState<number>(0);
+  const [maxquantity, setMaxQuantity] = useState<number>(0);
+  const [recentlyViewedProduct, setRecentlyViewedProduct] = useState<
+    Array<_ProductsRecentlyViewedResponse>
+  >([]);
   const [showMultipleSize, setShowMultipleSize] = useState(false);
-  const [multipleQty, setMultipleQty] = useState<Array<{
-    qty: number;
-    size: string;
-    price: number;
-  }>>([]);
+  const [multipleQty, setMultipleQty] = useState<
+    Array<{
+      qty: number;
+      size: string;
+      price: number;
+    }>
+  >([]);
   const [showSizeChart, setShowSizeChart] = useState(false);
   const [availaibleSizes, setAvailaibleSizes] = useState<Array<string>>([]);
   // const addParams = () => {
@@ -55,16 +65,12 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
   //   router.push(router);
   // };
 
- 
-
-  const salePrice = useTypedSelector((state) => state.product.product?.price?.salePrice)
-
-
-
-
-
+  const salePrice = useTypedSelector(
+    (state) => state.product.product?.price?.salePrice,
+  );
 
   useEffect(() => {
+    console.log(product.details, '=========');
     if (product.details) {
       store_productDetails({
         brand: {
@@ -104,11 +110,9 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
         });
       }
     }
-   addRecentlyViewedProduct().then((res)=>{
-      setRecentlyViewedProduct(res)
-    })
-
-
+    addRecentlyViewedProduct().then((res) => {
+      setRecentlyViewedProduct(res);
+    });
 
     setShowLoader(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -178,8 +182,13 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
   const availaibleSize = () => {
     setAvailaibleSizes([]);
     productinventory?.forEach((val) => {
-      if((selectedproduct.color.attributeOptionId === val.colorAttributeOptionId) && val.inventory === 0 && val.minQuantity>val.inventory){
-        setAvailaibleSizes((prev) => [...prev,val.name])
+      if (
+        selectedproduct.color.attributeOptionId ===
+          val.colorAttributeOptionId &&
+        val.inventory === 0 &&
+        val.minQuantity > val.inventory
+      ) {
+        setAvailaibleSizes((prev) => [...prev, val.name]);
       }
     });
   };
@@ -325,38 +334,45 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
     }
   };
 
-  const addRecentlyViewedProduct = async()=>{
-    const location = await getLocation()
-    const pageUrl = router.query
-      let payloadObj = {
-        recentViewModel: {
-          productId: product.SEO?.productId ||  0,
-          customerId:  customerId || 0,
-          pageName: 'descriptionPage',
-          pageUrl: `${pageUrl.slug}`,
-          ipAddress: `${location.IPv4}`,
-          recStatus: 'A'
-        }
-      }
-      InsertProductRecentlyViewed(payloadObj)
-    
-    if(storeId){
-      let fetchRecentlyViewedPayload = {
-        productId:  product.SEO?.productId ||  0,
-        storeId: storeId,
-        ipAddress :`${location.IPv4}`,
+  const addRecentlyViewedProduct = async () => {
+    const location = await getLocation();
+    const pageUrl = router.query;
+    let payloadObj = {
+      recentViewModel: {
+        productId: product.SEO?.productId || 0,
         customerId: customerId || 0,
-        maximumItemsForFetch: 10 
+        pageName: 'descriptionPage',
+        pageUrl: `${pageUrl.slug}`,
+        ipAddress: `${location.IPv4}`,
+        recStatus: 'A',
+      },
+    };
+    InsertProductRecentlyViewed(payloadObj);
+
+    if (storeId) {
+      let fetchRecentlyViewedPayload = {
+        productId: product.SEO?.productId || 0,
+        storeId: storeId,
+        ipAddress: `${location.IPv4}`,
+        customerId: customerId || 0,
+        maximumItemsForFetch: 10,
+      };
+
+      return FetchProductRecentlyViewed(fetchRecentlyViewedPayload);
     }
+    return [];
+  };
 
-    return FetchProductRecentlyViewed(fetchRecentlyViewedPayload)
-  }
-      return []
-
-  }
-
-
-  if (product.storeCode === _Store.type22 || product.storeCode === _Store.type5 || product.storeCode === _Store.type10 || product.storeCode === _Store.type21 || product.storeCode === _Store.type6 || product.storeCode === _Store.type13 || product.storeCode === _Store.type6) {
+  if (
+    product.storeCode === _Store.type22 ||
+    product.storeCode === _Store.type5 ||
+    product.storeCode === _Store.type10 ||
+    product.storeCode === _Store.type21 ||
+    product.storeCode === _Store.type24 ||
+    product.storeCode === _Store.type13 ||
+    product.storeCode === _Store.type6 ||
+    product.storeCode === _Store.type27
+  ) {
     return (
       <>
         {HeadTag}
@@ -450,7 +466,11 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                                 key={_size}
                                 disabled={availaibleSizes.includes(_size)}
                                 className={`border border-gray-300 hover:bg-[#D40F8D]  h-8 w-8 flex items-center justify-center ${
-                                  _size === size ? (product.storeCode !== _Store.type21 ? 'bg-secondary' : 'opacity-50') : ''
+                                  _size === size
+                                    ? product.storeCode !== _Store.type21
+                                      ? 'bg-secondary'
+                                      : 'opacity-50'
+                                    : ''
                                 } ${
                                   availaibleSizes.includes(_size)
                                     ? 'cursor-not-allowed opacity-50'
@@ -477,17 +497,25 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                           ))}
                         </select>
                       )}
-                      {product.storeCode !== _Store.type21 && <button
-                        className='ml-2'
-                        onClick={() => setShowSizeChart(true)}
-                      >
-                        Size Chart
-                      </button>}
+                      {product.storeCode !== _Store.type21 && (
+                        <button
+                          className='ml-2'
+                          onClick={() => setShowSizeChart(true)}
+                        >
+                          Size Chart
+                        </button>
+                      )}
                     </div>
                   </div>
                 )}
-                <div className="flex flex-wrap items-center mb-4">
-                  <div className={`${product.storeCode !== _Store.type21 ? 'flex mr-2 items-center text-sm' : 'w-32 text-sm items-center'}`}>
+                <div className='flex flex-wrap items-center mb-4'>
+                  <div
+                    className={`${
+                      product.storeCode !== _Store.type21
+                        ? 'flex mr-2 items-center text-sm'
+                        : 'w-32 text-sm items-center'
+                    }`}
+                  >
                     {' '}
                     <span className='text-sm font-semibold'>Qty:</span>
                   </div>
@@ -551,7 +579,13 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                   </div>
                 </div>
                 <div className='pay'>
-                  <div className={`mt-3 ${product.storeCode === _Store.type21 ? 'bg-light-gray' : 'bg-gray-100'} p-4`}>
+                  <div
+                    className={`mt-3 ${
+                      product.storeCode === _Store.type21
+                        ? 'bg-light-gray'
+                        : 'bg-gray-100'
+                    } p-4`}
+                  >
                     <div className='text-sm text-gray-900 flex flex-wrap items-end'>
                       <div className='w-28'>
                         <span className=''>You Pay</span>
@@ -572,12 +606,36 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                       <button
                         type='button'
                         onClick={buyNowHandler}
-                        className={`btn ${product.storeCode === _Store.type21 ? 'btn-primary' : 'btn-secondary'}  w-full text-center !font-bold`}
+                        className={`btn ${
+                          product.storeCode === _Store.type21 ||
+                          product.storeCode === _Store.type24
+                            ? 'btn-primary'
+                            : 'btn-secondary'
+                        }  w-full text-center !font-bold`}
                       >
-                        {product.storeCode === _Store.type21 ? 'Buy Now' : 'ADD TO CART'}
+                        {product.storeCode === _Store.type21
+                          ? 'Buy Now'
+                          : 'ADD TO CART'}
                       </button>
                     </div>
                   </div>
+
+                  {product.details.description &&
+                  product.storeCode === _Store.type27 ? (
+                    <div className='description'>
+                      <div className=' w-full'>
+                        <div className='bg-white pt-10 pb-10'>
+                          <div className='text-sm text-gray-700 tracking-widest p-6 border border-gray-300'>
+                            <p className='mb-4'>
+                              {product.details.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
               {showSizeChart && (
@@ -591,7 +649,8 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
             </div>
           </div>
 
-          { product.details.description ?
+          {product.details.description &&
+          product.storeCode !== _Store.type27 ? (
             <div className='description'>
               <div className='container mx-auto'>
                 <div className='bg-white pt-10 pb-10 px-4'>
@@ -603,18 +662,22 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                   </div>
                 </div>
               </div>
-            </div> : ''
-          }
+            </div>
+          ) : (
+            ''
+          )}
 
-        <ProductAlike
-        storeCode={product.storeCode}
-        title='YOU MAY ALSO LIKE'
-        products={product.alike}
-        />
-        {recentlyViewedProduct.length > 4 ? <ProductRecentlyViewed
-        title='RECENTLY VIEWED'
-        products={recentlyViewedProduct}
-        />: <></> }    
+          <ProductAlike
+            storeCode={product.storeCode}
+            title='YOU MAY ALSO LIKE'
+            products={product.alike}
+          />
+          {recentlyViewedProduct.length && (
+            <ProductRecentlyViewed
+              title='RECENTLY VIEWED'
+              products={recentlyViewedProduct}
+            />
+          )}
         </div>
       </>
     );
@@ -689,25 +752,55 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                     <span className='text-sm font-semibold'>Size:</span>
                   </div>
 
-                  <div className='text-sm flex flex-wrap items-center gap-1'>
+                  <div className='text-sm flex items-center gap-1'>
                     {properties.product.size_input === 'checkbox' ? (
                       product.details.sizes.split(',').map((_size) => (
-                        <div
+                        <button
                           onClick={() => setSize(_size)}
                           key={_size}
-                          className={`border border-gray-300 hover:border-secondary h-8 w-8 flex items-center justify-center cursor-pointer${
+                          className={`border border-gray-300 hover:border-secondary h-8 w-8 flex items-center justify-center cursor-pointer ${
                             _size === size ? ' border-secondary' : ''
                           }`}
                         >
                           {_size}
-                        </div>
+                        </button>
                       ))
+                    ) : properties.product.size_input === 'select' ? (
+                      <>
+                        <div className='text-sm flex flex-wrap items-center gap-1'>
+                          {product.details.sizes.split(',').map((_size) => (
+                            <button
+                              onClick={() => {
+                                availaibleInventory(_size);
+                                setSize(_size);
+                              }}
+                              key={_size}
+                              disabled={availaibleSizes.includes(_size)}
+                              className={`border border-gray-300 hover:bg-[#D40F8D]  h-8 w-8 flex items-center justify-center ${
+                                _size === size
+                                  ? product.storeCode !== _Store.type21
+                                    ? 'bg-secondary'
+                                    : 'opacity-50'
+                                  : ''
+                              } ${
+                                availaibleSizes.includes(_size)
+                                  ? 'cursor-not-allowed opacity-50'
+                                  : 'cursor-pointer '
+                              }`}
+                            >
+                              {_size}
+                            </button>
+                          ))}
+                        </div>
+                      </>
                     ) : (
                       <select
-                        className='form-input'
-                        onChange={(e) => setSize(e.target.value)}
+                        className='form-input md:pr-3'
+                        onChange={(e) => {
+                          singleChangeSize(e.target.value);
+                        }}
                       >
-                        <option>Select Size</option>
+                        <option>Select Size </option>
                         {product.details.sizes.split(',').map((_size) => (
                           <option value={_size} key={_size}>
                             {_size}
@@ -715,14 +808,14 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                         ))}
                       </select>
                     )}
-                    <div className=''>
+                    {product.storeCode !== _Store.type21 && (
                       <button
+                        className='ml-2'
                         onClick={() => setShowSizeChart(true)}
-                        data-modal-toggle='sizechartModal'
                       >
                         Size Chart
                       </button>
-                    </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -767,14 +860,14 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                       ))}
                     </div>
                   )}
-                  <button
+                  {/* <button
                     onClick={() => {
                       setShowMultipleSize(!showMultipleSize);
                     }}
                   >
                     Click here to add {showMultipleSize ? 'single' : 'mutiple'}{' '}
                     sizes
-                  </button>
+                  </button> */}
                 </div>
               </div>
               <div>
@@ -818,6 +911,28 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
             )}
           </div>
         </div>
+        {product.details.description ? (
+          <div className='description'>
+            <div className='container mx-auto'>
+              <div className='bg-white pt-10 pb-10 px-4'>
+                <div className='bg-secondary py-2 px-4 text-white inline-block rounded-t-md'>
+                  Description
+                </div>
+                <div className='text-sm text-gray-700 tracking-widest p-6 border border-gray-300'>
+                  <p className='mb-4'>{product.details.description}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
+
+        <ProductAlike
+          storeCode={product.storeCode}
+          title='YOU MAY ALSO LIKE'
+          products={product.alike}
+        />
       </div>
     </>
   );

@@ -2,14 +2,14 @@ import {
   ColorChangeHandler,
   FilterChangeHandler,
   FilterType,
-  ProductList as ProductListType
+  ProductList as ProductListType,
 } from '@type/productList.type';
 import { _ProductListProps } from '@type/slug.type';
 
-import ProductListController, {
-  productListPageData
-} from 'Controllers/ProductListController';
 import { SpinnerComponent } from 'appComponents/ui/spinner';
+import ProductListController, {
+  productListPageData,
+} from 'Controllers/ProductListController';
 import { useTypedSelector } from 'hooks';
 import dynamic from 'next/dynamic';
 import { _Store } from 'page.config';
@@ -44,6 +44,7 @@ export type list_FnProps = {
   setShowFilter: (arg: boolean) => void;
   clearFilters: () => void;
   slug?: string;
+  storeLayout: string | null;
 };
 
 interface _props {
@@ -95,7 +96,7 @@ const Ecommerce_ProductList = (props: _props) => {
     Layout = Layout3;
   } else if (storeLayout === _Store.type4) {
     Layout = Layout1;
-  }else if (storeLayout === _Store.type22) {
+  } else if (storeLayout === _Store.type22) {
     Layout = Layout3;
   }
 
@@ -120,6 +121,7 @@ const Ecommerce_ProductList = (props: _props) => {
         clearFilters={clearFilters}
         compareCheckBoxHandler={compareCheckBoxHandler}
         slug={slug}
+        storeLayout={storeLayout}
       />
     );
   } else {

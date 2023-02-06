@@ -61,6 +61,7 @@ const Layout1 = ({
   sortProductJson,
   clearFilters,
   compareCheckBoxHandler,
+  storeLayout,
 }: list_FnProps) => {
   // console.log(products);
   return (
@@ -145,6 +146,7 @@ const Layout1 = ({
                                   }
                                   product={product}
                                   colorChangeHandler={colorChangeHandler}
+                                  storeLayout={storeLayout}
                                 />
                               ) : (
                                 <ListView

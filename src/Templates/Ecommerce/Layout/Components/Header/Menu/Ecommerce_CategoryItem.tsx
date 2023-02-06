@@ -3,17 +3,15 @@ import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store } from 'page.config';
 import React, { useState } from 'react';
-import SubMenuItem from './SubMenuItem';
+import SubMenuItem from './Ecommerce_SubMenuItem';
 interface _props {
   title: string;
   url: string;
   content: _MenuCategory[] | null;
 }
 
-const Category: React.FC<_props> = ({ content, title, url }) => {
-  const { layout: storeLayout, view } = useTypedSelector(
-    (state) => state.store,
-  );
+const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
+  const { layout: storeCode, view } = useTypedSelector((state) => state.store);
   const { toggleSideMenu } = useActions();
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
   const [focus, setFocus] = useState(false);
@@ -24,9 +22,9 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
   }
 
   if (
-    storeLayout === _Store.type1 ||
-    storeLayout === _Store.type15 ||
-    storeLayout === _Store.type16
+    storeCode === _Store.type1 ||
+    storeCode === _Store.type15 ||
+    storeCode === _Store.type16
   ) {
     if (view === 'MOBILE') {
       return (
@@ -63,6 +61,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                   {content?.map((item, index) => (
                     <SubMenuItem
                       key={index}
+                      storeCode={storeCode}
+                      view={view}
                       itemLabel={item.categoryName}
                       itemUrl={item.seName}
                       type={'CATEGORY'}
@@ -118,6 +118,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                         {content.map((item, index) => (
                           <SubMenuItem
                             key={index}
+                            storeCode={storeCode}
+                            view={view}
                             itemLabel={item.categoryName}
                             itemUrl={item.seName}
                             type={'CATEGORY'}
@@ -135,7 +137,7 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
     }
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
@@ -172,6 +174,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                       {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
+                          view={view}
+                          storeCode={storeCode}
                           itemLabel={item.categoryName}
                           itemUrl={item.seName}
                           type={'CATEGORY'}
@@ -187,6 +191,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                       {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
+                          storeCode={storeCode}
+                          view={view}
                           itemLabel={item.categoryName}
                           itemUrl={item.seName}
                           type={'CATEGORY'}
@@ -269,6 +275,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                           <ul>
                             {content.map((item, index) => (
                               <SubMenuItem
+                                storeCode={storeCode}
+                                view={view}
                                 key={index}
                                 itemLabel={item.categoryName}
                                 itemUrl={item.seName}
@@ -285,6 +293,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                             {content.map((item, index) => (
                               <SubMenuItem
                                 key={index}
+                                storeCode={storeCode}
+                                view={view}
                                 itemLabel={item.categoryName}
                                 itemUrl={item.seName}
                                 type={'CATEGORY'}
@@ -330,7 +340,7 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
     }
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
@@ -367,6 +377,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                       {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
+                          storeCode={storeCode}
+                          view={view}
                           itemLabel={item.categoryName}
                           itemUrl={item.seName}
                           type={'CATEGORY'}
@@ -382,6 +394,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                       {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
+                          storeCode={storeCode}
+                          view={view}
                           itemLabel={item.categoryName}
                           itemUrl={item.seName}
                           type={'CATEGORY'}
@@ -394,6 +408,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                   <div className='w-full lg:w-1/3'>
                     <ul>
                       <SubMenuItem
+                        storeCode={storeCode}
+                        view={view}
                         itemLabel={`All ${title}`}
                         itemUrl={url}
                         type={'CATEGORY'}
@@ -403,6 +419,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                   <div className='w-full lg:w-1/3'>
                     <ul>
                       <SubMenuItem
+                        storeCode={storeCode}
+                        view={view}
                         itemLabel={`All ${title}`}
                         itemUrl={url}
                         type={'CATEGORY'}
@@ -450,6 +468,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                         {content.map((item, index) => (
                           <SubMenuItem
                             key={index}
+                            storeCode={storeCode}
+                            view={view}
                             itemLabel={item.categoryName}
                             itemUrl={item.seName}
                             type={'CATEGORY'}
@@ -467,7 +487,7 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
     }
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
@@ -503,6 +523,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                   {content.map((item, index) => (
                     <SubMenuItem
                       key={index}
+                      storeCode={storeCode}
+                      view={view}
                       itemLabel={item.categoryName}
                       itemUrl={item.seName}
                       type={'CATEGORY'}
@@ -557,6 +579,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                         {content.map((item, index) => (
                           <SubMenuItem
                             key={index}
+                            storeCode={storeCode}
+                            view={view}
                             itemLabel={item.categoryName}
                             itemUrl={item.seName}
                             type={'CATEGORY'}
@@ -577,4 +601,4 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
   return <></>;
 };
 
-export default Category;
+export default Ecommerce_Category;

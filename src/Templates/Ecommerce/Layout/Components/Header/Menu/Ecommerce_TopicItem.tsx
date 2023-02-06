@@ -10,16 +10,15 @@ interface _props {
 }
 
 const Topic: React.FC<_props> = ({ title, url }) => {
-  const { toggleSideMenu } = useActions();
   const router = useRouter();
+  const { toggleSideMenu } = useActions();
+
+  // --------------------------------------------------------------
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const view = useTypedSelector((state) => state.store.view);
 
+  // --------------------------------------------------------------
   const [focus, setFocus] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   FetchHeaderTopics({ topicId: id }).then((res) => setTopicMenu(res));
-  // }, []);
 
   if (
     storeLayout === _Store.type1 ||

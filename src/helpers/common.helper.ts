@@ -530,7 +530,8 @@ export const getAddToCartObject = async (product: _Props) => {
 
   const cartObject: CartReq = {
     addToCartModel: {
-      customerId: userId ? userId : tempCustId ? parseInt(tempCustId) : 0,
+      customerId:
+        userId && userId > 0 ? userId : tempCustId ? parseInt(tempCustId) : 0,
       productId: productDetails.productId,
       storeId: storeId,
       isempLogin: isEmployeeLoggedIn,

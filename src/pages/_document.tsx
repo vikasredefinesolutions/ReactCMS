@@ -37,66 +37,78 @@ class MyDocument extends Document {
       <Html lang='en'>
         <link rel='shortcut icon' href={faviconURL} />
         <Head>
-           {/*<link
+          {/*<link
             rel="stylesheet"
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
           />*/}
-        {storeId == 4 && 
-               <link
-                  rel="stylesheet"
-                  type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css`}
-                />
-           }
-           {storeId == 5 && 
-               <link
-                  rel="stylesheet"
-                  type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css`}
-                />
-           }
-           {storeId == 23 && 
-               <link
-                  rel="stylesheet"
-                  type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`}
-                />
-           }
+          {storeId == 4 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css`}
+            />
+          )
+        }
+          {storeId == 5 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css`}
+            />
+          )}
+          {storeId == 23 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`}
+            />
+          )}
 
-           {storeId == 108 && 
-               <link
-                  rel="stylesheet"
-                  type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css`}
-                />
-           }
+          {storeId == 108 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css`}
+            />
+          )}
+          {storeId == 27 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`http://ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css`}
+            />
+          )}
 
-           {/*<link
+          <link
             rel="stylesheet"
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
           />
-          */}
+        
+          
           <link
             rel='stylesheet'
             type='text/css'
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
           />
-           <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone" rel="stylesheet" />
           
-           
-           
+          <link
+            href='https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone'
+            rel='stylesheet'
+          />
+
           {/*<link
             rel="stylesheet"
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
           />
-          */}<link
-            rel="stylesheet"
-            type="text/css"
-            charSet="UTF-8"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          */}
+          <link
+            rel='stylesheet'
+            type='text/css'
+            charSet='UTF-8'
+            href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css'
           />
           {/* <link
             rel='stylesheet'

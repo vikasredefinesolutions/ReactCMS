@@ -2,6 +2,7 @@ import {
   fetchCategoryByCategoryId,
   fetchCategoryByproductId
 } from '@services/product.service';
+import ImageComp from 'appComponents/reUsable/Image';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,10 +14,11 @@ const BreadCrumb: React.FC = () => {
   const storeId = useTypedSelector((state) => state.store.id);
   const router = useRouter();
   const pageType = useTypedSelector((state) => state.store.pageType);
-
+  const product = useTypedSelector((state) => state.product.product);
   const [breadCrumbs, setBreadCrumbs] = useState<
     { name: string; url: string }[]
   >([]);
+  console.log(pageType.type);
   const getBreadCrubs = async () => {
     if (pageType.type === 'brand') {
       return [
@@ -118,13 +120,17 @@ const BreadCrumb: React.FC = () => {
                 ))}
               </ol>
             </nav>
-            <div className='text-center'>
-              <img
-                className='inline-block'
-                src='images/peter-millar.png'
-                alt=''
-              />
-            </div>
+            {pageType.type === 'product' && (
+              <div className='text-center w-auto product-brand-logo'>
+                <ImageComp
+                  src={product.brand?.url || ''}
+                  className='h-16 w-auto inline-block'
+                  // height={100}
+                  // width={100}
+                  alt=''
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -262,7 +268,11 @@ const BreadCrumb: React.FC = () => {
     );
   }
 
-  if (storeLayout === _Store.type4 || storeLayout === _Store.type5 || storeLayout === _Store.type8) {
+  if (
+    storeLayout === _Store.type4 ||
+    storeLayout === _Store.type5 ||
+    storeLayout === _Store.type8
+  ) {
     return (
       <div id='' className='py-3 bg-white tracking-wider px-2 lg:px-0'>
         <div className='container mx-auto'>

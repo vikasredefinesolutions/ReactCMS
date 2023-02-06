@@ -54,10 +54,15 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
     storeCode === _Store.type1 ||
     storeCode === _Store.type15 ||
     storeCode === _Store.type16 ||
+    storeCode === _Store.type8 ||
     storeCode === _Store.type21
   ) {
     return (
-      <div className={`${storeCode === _Store.type21 ? 'lg:col-span-7': 'col-span-1'} grid grid-cols-12 gap-6`}>
+      <div
+        className={`${
+          storeCode === _Store.type21 ? 'lg:col-span-7' : 'col-span-1'
+        } grid grid-cols-12 gap-6`}
+      >
         <div className='col-span-12 border border-slate-200 relative'>
           {/* Display Image */}
           <div className='main-image max-w-lg mx-auto'>
@@ -93,7 +98,10 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                 );
               })}
           </div>
-         {storeCode != _Store.type21 && <HeartIcon className='absolute right-2 top-4 w-6 h-6' />}
+          {storeCode != _Store.type21 ||
+            (storeCode != _Store.type8 && (
+              <HeartIcon className='absolute right-2 top-4 w-6 h-6' />
+            ))}
         </div>
       </div>
     );
@@ -252,7 +260,15 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
     );
   }
 
-  if (storeCode === _Store.type22 || storeCode === _Store.type5 || storeCode === _Store.type10 || storeCode === _Store.type8 || storeCode === _Store.type13 || storeCode === _Store.type6) {
+  if (
+    storeCode === _Store.type22 ||
+    storeCode === _Store.type5 ||
+    storeCode === _Store.type10 ||
+    storeCode === _Store.type13 ||
+    storeCode === _Store.type6 ||
+    storeCode === _Store.type24 ||
+    storeCode === _Store.type27
+  ) {
     return (
       <div className='lg:col-start-2 lg:col-end-7 grid grid-cols-12 gap-6'>
         <div className='col-span-12 relative'>

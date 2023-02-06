@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { useEffect, useState } from 'react';
 
 export const CartSummaryController = () => {
-  const { applyCoupon } = useActions();
+  const { applyCoupon, showModal } = useActions();
 
   const [coupon, setCoupon] = useState('');
   const [hidePromocode, setHidePromocode] = useState(false);
@@ -49,10 +49,11 @@ export const CartSummaryController = () => {
         },
       });
       if (!_.isEmpty(response.errors)) {
-        setCoupon(response.errors.errorDesc);
-        setTimeout(() => {
-          setCoupon('');
-        }, 3000);
+        showModal({
+          message: response.errors.errorDesc,
+          title: 'Error',
+        });
+        setCoupon('');
       } else {
         applyCoupon({
           coupon: coupon,

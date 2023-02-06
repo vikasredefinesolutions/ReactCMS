@@ -29,13 +29,15 @@ export const _Store = {
   type23: 'ussaClaimsApparel',
   type24: 'ussaMilitarysAffairs',
   type25: 'wayFair',
+  type26: 'healthypoints',
+  type27: 'bainCapital',
 };
 
 export const _StoreDomains = {
   // domain1: 'corporategear',
-  domain1: 'vercel.redefinecommerce.net',
-  domain2: 'vercel1.redefinecommerce.net',
-  domain3: 'pk',
+  domain1: 'cg.headlessmart.com',
+  domain2: 'gg.headlessmart.com',
+  domain3: 'pkhealth.headlessmart.com',
   domain4: 'drivingi',
   domain5: 'bacardiGreyGoose',
   domain6: 'bacardiToGo',
@@ -47,8 +49,8 @@ export const _StoreDomains = {
   domain12: 'healthyPoints',
   domain13: 'bacardi',
   domain14: 'humanaheroes',
-  domain15: 'petermillar',
-  domain16: 'southerntide',
+  domain15: 'petermillar.headlessmart.com',
+  domain16: 'southerntide.headlessmart.com',
   domain17: 'theHardFord',
   domain18: 'theHardFordClaimsapparel',
   domain19: 'theHardFordJuniorfireMarshal',
@@ -58,6 +60,8 @@ export const _StoreDomains = {
   domain23: 'ussaClaimsApparel',
   domain24: 'ussaMilitarysAffairs',
   domain25: 'wayFair',
+  domain26: 'healthypoints',
+  domain27: 'bainCapital',
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -68,9 +72,9 @@ export const _StoreDomains = {
 
 export const __domain = {
   devMode: true, // for development features.
-  isSiteLive: true,
-  localDomain: _StoreDomains.domain1,
-  layoutToDisplay: _Store.type1,
+  isSiteLive: false,
+  localDomain: _StoreDomains.domain2,
+  layoutToDisplay: _Store.type2,
 };
 
 export const __MockMenuItem = {
@@ -206,6 +210,16 @@ export const __MockMenuItem = {
         domain: _StoreDomains.domain25,
         layoutName: 'wayFair',
       },
+      {
+        layoutType: _Store.type26,
+        domain: _StoreDomains.domain26,
+        layoutName: 'healthypoints',
+      },
+      {
+        layoutType: _Store.type27,
+        domain: _StoreDomains.domain27,
+        layoutName: 'bainCapital',
+      },
     ],
   },
 };
@@ -247,6 +261,7 @@ export const __constant = {
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 1,
+        arrows: false,
       },
     },
     similarProducts: {
@@ -263,9 +278,7 @@ export const __constant = {
     mobileBreakPoint: 1024,
     imagesToShowInBrandDropdown: 5,
   },
-  _productAlike : {
-    carouselCounter : 5
+  _productAlike: {
+    carouselCounter: 5,
   },
 };
-
-

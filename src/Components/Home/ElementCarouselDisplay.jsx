@@ -195,7 +195,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                         }}
                       >
                         <div className=''>{image.headline}</div>
-                        <div class=''>{image.headline1}</div>
+                        <div className=''>{image.headline1}</div>
                         {image.button_display == 'Yes' && (
                           <>
                             <div className='pt-5'>

@@ -214,7 +214,8 @@ const SizeChart: React.FC<
   if (
     storeCode === _Store.type1 ||
     storeCode === _Store.type15 ||
-    storeCode === _Store.type16
+    storeCode === _Store.type16 ||
+    storeCode === _Store.type24
   ) {
     return (
       <div

@@ -401,11 +401,11 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                         </div>
                         <div className='relative z-0 w-full mb-6'>
                           <input
-                            name='CreditCardNumber'
                             placeholder='Credit Card Number '
                             className='form-input'
                             maxLength={16}
-                            onChange={(ev) => setCardDetails(ev.target.value)}
+                            name={'cardNumber'}
+                            onChange={setCardDetails}
                           />
                           <label className='sr-only'>
                             Credit Card Number *
@@ -415,7 +415,8 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                               <div
                                 key={card.name}
                                 className={`opacity-${
-                                  card.name === creditCardType(cardDetails)
+                                  card.name ===
+                                  creditCardType(cardDetails.cardNumber)
                                     ? '100'
                                     : '40'
                                 } ml-1 w-8`}
@@ -428,7 +429,11 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                         <div className='flex flex-wrap -mx-3 gap-y-6'>
                           <div className='w-3/12 px-3'>
                             <div className='relative z-0 w-full'>
-                              <select name='Month' className='form-input'>
+                              <select
+                                onChange={setCardDetails}
+                                name='cardExpirationMonth'
+                                className='form-input'
+                              >
                                 <option value=''>Month</option>
                                 <option value='1'>1</option>
                                 <option value='2'>2</option>
@@ -448,7 +453,11 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                           </div>
                           <div className='w-3/12 px-3'>
                             <div className='relative z-0 w-full'>
-                              <select name='Year' className='form-input'>
+                              <select
+                                onChange={setCardDetails}
+                                name='cardExpirationYear'
+                                className='form-input'
+                              >
                                 <option value=''>Year</option>
                                 <option value='2022'>2022</option>
                                 <option value='2023'>2023</option>
@@ -469,9 +478,10 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                           <div className='w-6/12 px-3'>
                             <div className='relative z-0 w-full'>
                               <input
-                                name='SecurityCode'
+                                name='cardVarificationCode'
                                 placeholder='Security Code (CCV) '
                                 className='form-input'
+                                onChange={setCardDetails}
                               />
                               <label className='sr-only'>
                                 Security Code (CCV) *

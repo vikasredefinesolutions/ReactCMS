@@ -15,22 +15,23 @@ const _TABS = [
 ];
 
 const MyAccountTabs: React.FC = () => {
-  const { logInUser } = useActions();
+  const { logInUser, logoutClearCart } = useActions();
   const { pathname: currentPath } = useRouter();
 
   const logoutHandler = () => {
     _Logout(logInUser);
+    logoutClearCart();
   };
 
   return (
     <>
       <section>
-        <div className="container mx-auto">
-          <div className="text-3xl font-primary uppercase text-center">
+        <div className='container mx-auto'>
+          <div className='text-3xl font-primary uppercase text-center'>
             MY ACCOUNT
           </div>
-          <div className="bg-gray-100 mt-5 mb-5 flex justify-center">
-            <ul className="flex flex-wrap gap-4">
+          <div className='bg-gray-100 mt-5 mb-5 flex justify-center'>
+            <ul className='flex flex-wrap gap-4'>
               {_TABS.map((tab, index) => {
                 if (tab.path === null) {
                   return (

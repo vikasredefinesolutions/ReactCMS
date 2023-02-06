@@ -39,3 +39,5 @@ export const __UserMessages = {
 export const employeeData = {
   secretPass: 'XkhZG4fW2t2W',
 };
+
+export const showcolors = 4;

@@ -5,7 +5,6 @@ import SuccessErrorModal from 'appComponents/modals/successErrorModal';
 import Spinner from 'appComponents/ui/spinner';
 import Redefine_Screen from 'Templates/Redefine_Screen';
 
-import { FetchThemeConfigs } from '@services/app.service';
 import { Footer } from '@services/footer.service';
 import { _Footer } from '@type/APIs/footer.res';
 import EmployeeController from 'Controllers/EmployeeController';
@@ -29,7 +28,7 @@ import { useEffect } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
 import { _Expected_AppProps, _MenuItems } from 'show.type';
 import { _globalStore } from 'store.global';
-import '../../styles/output.css';
+//import '../../styles/output.css';
 import '../app.css';
 
 type AppOwnProps = {
@@ -75,8 +74,6 @@ const RedefineCustomApp = ({
     if (store) {
       store_storeDetails({
         store: store,
-        menuItems: menuItems,
-        configs: configs,
       });
     }
 
@@ -117,6 +114,7 @@ const RedefineCustomApp = ({
         storeCode={store.code}
         storeTypeId={store.storeTypeId}
         configs={configs}
+        menuItems={menuItems}
       >
         <Component {...pageProps} />
       </Redefine_Screen>
@@ -202,14 +200,9 @@ RedefineCustomApp.getInitialProps = async (
           configname: 'footer',
         });
 
-        expectedProps.configs.header = await FetchThemeConfigs({
-          storeid: expectedProps.store?.storeId,
-          configname: 'header_config',
-        });
-
-        // expectedProps.menuItems = await _AppController.fetchMenuItems(
-        //   expectedProps.store.storeId,
-        // );
+        expectedProps.menuItems = await _AppController.fetchMenuItems(
+          expectedProps.store.storeId,
+        );
 
         if (res && cookies.storeInfo === null) {
           nextJsSetCookie({
