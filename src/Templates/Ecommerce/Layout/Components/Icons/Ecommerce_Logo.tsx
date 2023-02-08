@@ -32,7 +32,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
               <Image
                 className='h-16 w-auto brand-logo'
                 src={logo?.desktop}
-                
+                alt='CG'
               />
             </a>
           </Link>
