@@ -8,7 +8,7 @@ export const _Store = {
   type2: 'GG',
   type3: 'PKHG',
   type4: 'DI',
-  type5: 'bacardiGreyGoose',
+  type5: 'BG-GG',
   type6: 'bacardiToGo',
   type7: 'bbcpord',
   type8: 'bcorp',
@@ -39,7 +39,7 @@ export const _StoreDomains = {
   domain2: 'gg.headlessmart.com',
   domain3: 'pkhealth.headlessmart.com',
   domain4: 'drivingi',
-  domain5: 'bacardiGreyGoose',
+  domain5: 'https://bacardi.headlessmart.com',
   domain6: 'bacardiToGo',
   domain7: 'bbcpord',
   domain8: 'bcorp',
@@ -73,8 +73,8 @@ export const _StoreDomains = {
 export const __domain = {
   devMode: true, // for development features.
   isSiteLive: true,
-  localDomain: _StoreDomains.domain1,
-  layoutToDisplay: _Store.type1,
+  localDomain: _StoreDomains.domain5,
+  layoutToDisplay: _Store.type5,
 };
 
 export const __MockMenuItem = {

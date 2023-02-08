@@ -1,5 +1,5 @@
 import { PunchoutPostApi } from '@services/punchout.service';
-
+import qs from 'querystring';
 const Puchout = ({ req, res, punchout }: any) => {
   return (
     <>
@@ -16,14 +16,25 @@ const Puchout = ({ req, res, punchout }: any) => {
 export default Puchout;
 
 export const getServerSideProps = async (context: any) => {
+  const req = context.req;
+
+  let body = '';
+  if (req.method == 'POST') {
+    req.on('data', (chunk: any) => {
+      body += chunk;
+    });
+    req.on('end', () => {
+      console.log(qs.parse(body));
+    });
+  }
+
   const res = await PunchoutPostApi();
   return {
     props: {
       req: {
         data: {
-          body: { ...context.req.body },
+          body: body,
           headers: { ...context.req.headers },
-          params: { ...context.req?.params },
           returnUrl: { ...context.req?.return_url },
         },
       },

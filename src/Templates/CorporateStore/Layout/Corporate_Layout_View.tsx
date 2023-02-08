@@ -25,7 +25,7 @@ const Corporate_Layout: React.FC<_props> = ({
 }) => {
   return (
     <>
-      <NotificationBar />
+      {/*<NotificationBar />*/}
       <Header storeCode={storeCode} />
       <BreadCrumb />
       <>{children}</>

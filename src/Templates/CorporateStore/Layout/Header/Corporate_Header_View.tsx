@@ -7,6 +7,7 @@ interface _props {
 }
 
 const Corporate_Header: React.FC<_props> = ({ storeCode }) => {
+  console.log(storeCode, _Store.type5);
   if (
     storeCode === _Store.type5 ||
     storeCode === _Store.type6 ||
