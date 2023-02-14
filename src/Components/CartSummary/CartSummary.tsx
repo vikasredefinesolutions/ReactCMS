@@ -2,8 +2,14 @@ import Price from 'appComponents/reUsable/Price';
 import CartSummaryController from 'Controllers/cartSummarryController';
 
 const CartSummary = ({ title }: { title: string }) => {
-  const { getTotalPrice, setCoupon, coupon, hidePromocode, couponCodeSubmit } =
-    CartSummaryController();
+  const {
+    getTotalPrice,
+    setCoupon,
+    coupon,
+    hidePromocode,
+    couponCodeSubmit,
+    useBalance,
+  } = CartSummaryController();
 
   const {
     discount,
@@ -12,6 +18,7 @@ const CartSummary = ({ title }: { title: string }) => {
     smallRunFee,
     logoSetupCharges,
     salesTax,
+    creditBalance,
   } = getTotalPrice();
 
   return (
@@ -93,6 +100,17 @@ const CartSummary = ({ title }: { title: string }) => {
                 <Price value={0} />
               </dd>
             </div>
+            {useBalance && (
+              <div className='border-t border-gray-200 pt-2 flex items-center justify-between'>
+                <dt className='flex items-center text-base'>
+                  <span>Internal Credit</span>
+                </dt>
+                <dd className='text-base font-medium text-gray-900'>
+                  {' - '}
+                  <Price value={creditBalance} />
+                </dd>
+              </div>
+            )}
           </dl>
         </div>
         <div className='flex justify-between items-center bg-gray-200 w-full text-lg font-medium px-4 py-1'>

@@ -35,7 +35,7 @@ const Wishlist = ({
       storeproductWishListModel: {
         id: 0,
         rowVersion: '',
-        location: `${data.city}, ${data.state}, ${data.country_name}, ${data.postal}`,
+        location: `${data?.city}, ${data?.state}, ${data?.country_name}, ${data?.postal}`,
         ipAddress: data.IPv4,
         macAddress: '00-00-00-00-00-00',
         customerId: customerId || 0,

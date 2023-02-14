@@ -11,21 +11,22 @@ const ListView = ({
 }: {
   product: GetlAllProductList;
   colorChangeHandler: (
-    productid: number,
-    seName: string,
-    color: string,
+    productid: number | undefined,
+    seName: string | undefined,
+    color: string | undefined | null,
   ) => void;
 }) => {
   const { setShowLoader } = useActions();
   const [origin, setOrigin] = useState('');
   const [currentProduct, setCurrentProduct] = useState(
-    product.getProductImageOptionList[0],
+    product.getProductImageOptionList && product.getProductImageOptionList[0],
   );
   useEffect(() => {
     colorChangeHandler(
       product.id,
       product.sename || '',
-      product.getProductImageOptionList[0].colorName,
+      product.getProductImageOptionList &&
+        product.getProductImageOptionList[0].colorName,
     );
     if (window !== undefined) {
       setOrigin(window.location.origin);
@@ -34,7 +35,9 @@ const ListView = ({
   }, []);
 
   useEffect(() => {
-    setCurrentProduct(product.getProductImageOptionList[0]);
+    setCurrentProduct(
+      product.getProductImageOptionList && product.getProductImageOptionList[0],
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
@@ -51,8 +54,10 @@ const ListView = ({
                 <ImageComponent
                   height={400}
                   width={400}
-                  src={currentProduct.imageName}
-                  alt={currentProduct.alttag}
+                  src={
+                    currentProduct?.imageName ? currentProduct.imageName : ''
+                  }
+                  alt={currentProduct?.alttag ? currentProduct?.alttag : ''}
                   className='max-h-full inline-block'
                 />
               </Link>
@@ -134,31 +139,32 @@ const ListView = ({
                 role='list'
                 className='flex flex-wrap items-center mt-2 space-x-1 p-0'
               >
-                {product.getProductImageOptionList.map((subRow, index) =>
-                  index < 6 ? (
-                    <li
-                      className={`w-7 h-7 border-2${
-                        subRow.id === currentProduct.id
-                          ? ' border-secondary'
-                          : ''
-                      }`}
-                      onClick={() => {
-                        colorChangeHandler(
-                          product.id,
-                          product.sename || '',
-                          subRow.colorName,
-                        );
-                        setCurrentProduct(subRow);
-                      }}
-                    >
-                      <ImageComponent
-                        src={subRow.imageName}
-                        className='max-h-full m-auto'
-                        alt={subRow.alttag}
-                      />
-                    </li>
-                  ) : null,
-                )}
+                {product.getProductImageOptionList &&
+                  product.getProductImageOptionList.map((subRow, index) =>
+                    index < 6 ? (
+                      <li
+                        className={`w-7 h-7 border-2${
+                          subRow.id === currentProduct?.id
+                            ? ' border-secondary'
+                            : ''
+                        }`}
+                        onClick={() => {
+                          colorChangeHandler(
+                            product.id,
+                            product.sename || '',
+                            subRow.colorName,
+                          );
+                          setCurrentProduct(subRow);
+                        }}
+                      >
+                        <ImageComponent
+                          src={subRow.imageName ? subRow.imageName : ''}
+                          className='max-h-full m-auto'
+                          alt={subRow?.alttag ? subRow?.alttag : ''}
+                        />
+                      </li>
+                    ) : null,
+                  )}
               </ul>
               <div className='mt-3'>
                 <a className='btn btn-primary'>CONTACT US</a>

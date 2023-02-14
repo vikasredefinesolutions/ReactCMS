@@ -15,22 +15,22 @@ export const SC_SizeQtyPriceRow_withEdit_n_RemoveButton: React.FC<
   const removeSubItemHandler = (id: number) => {};
 
   return (
-    <div className="flex justify-between items-center py-3">
-      <div className="w-full md:w-1/3 flex flex-wrap items-center gap-2">
-        <div className="">Size</div>
-        <div className="font-semibold">{attributeOptionValue}</div>
+    <div className='flex justify-between items-center py-3'>
+      <div className='w-full md:w-1/3 flex flex-wrap items-center gap-2'>
+        <div className=''>Size</div>
+        <div className='font-semibold'>{attributeOptionValue}</div>
       </div>
-      <div className="w-full md:w-1/3 flex flex-wrap items-center gap-2">
-        <div className="">Qty</div>
-        <div className="font-semibold w-20">
-          <input type="text" className="form-input" value={qty} />
+      <div className='w-full md:w-1/3 flex flex-wrap items-center gap-2'>
+        <div className=''>Qty</div>
+        <div className='font-semibold w-20'>
+          <input type='text' className='form-input' value={qty} />
         </div>
       </div>
-      <div className="w-full md:w-1/3 flex flex-wrap items-center justify-between gap-2">
-        <div className="font-semibold">
+      <div className='w-full md:w-1/3 flex flex-wrap items-center justify-between gap-2'>
+        <div className='font-semibold'>
           <Price value={price} />
         </div>
-        <div className="">
+        <div className=''>
           <button onClick={() => removeSubItemHandler(attributeOptionId)}>
             Remove
           </button>
@@ -57,21 +57,22 @@ export const SC_SizeQtyPriceTable: React.FC<{
     colorId: number;
   };
 }> = ({ details, toRemove }) => {
-
   useEffect(() => {
     FetchInventoryById({
       productId: toRemove.productId,
       attributeOptionId: [toRemove.colorId],
     }).then((res) => {
-      setInventoryResponse(res?.inventory)
+      setInventoryResponse(res?.inventory);
     });
-  }, [])
-  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { cart_update_item } = useActions();
   const [showAlert, setShowAlert] = useState<{ size: string } | null>(null);
-  const [inventoryResponse,setInventoryResponse] = useState<Array <_ProductInventory> | undefined>([])
-  const {layout}= useTypedSelector((state) =>  state.store)
+  const [inventoryResponse, setInventoryResponse] = useState<
+    Array<_ProductInventory> | undefined
+  >([]);
+  const { layout } = useTypedSelector((state) => state.store);
   const toggleConfirmationMsg = (action: _DELETE_MSG | _HIDE_MSG) => {
     if (action.type === 'ALERT') {
       setShowAlert({ size: action.size });
@@ -88,7 +89,7 @@ export const SC_SizeQtyPriceTable: React.FC<{
   };
 
   const qtyChangeHandler = (item: { qty: number; size: string }) => {
-    if (item.qty > -1) {
+    if (item.qty > 0) {
       cart_update_item({
         type: 'update_qty',
         data: {
@@ -103,49 +104,58 @@ export const SC_SizeQtyPriceTable: React.FC<{
     }
   };
 
-  const maxQuantityInSize = (size: string) : number => {
-    let max=0;
+  const maxQuantityInSize = (size: string): number => {
+    let max = 0;
     inventoryResponse?.forEach((val) => {
-      if(val?.name === size){
-          max=val.inventory
+      if (val?.name === size) {
+        max = val.inventory;
       }
-    })
-    return max
-  }
+    });
+    return max;
+  };
 
   return (
-    <div className="mt-10">
-      <div className="text-base font-semibold border-b pb-2">Item Details</div>
-      <div className="flex justify-between py-2">
-        <div className="text-base font-semibold w-28">Size </div>
-        <div className="text-base font-semibold w-16 text-center">Qty</div>
-        <div className="text-base font-semibold w-20 text-right">Price</div>
-        {layout !==  _Store.type22 && layout !==  _Store.type10 && layout !== _Store.type8 && details.length > 1 ? (
-          <div className="text-base font-semibold w-20 text-right"></div>
+    <div className='mt-10'>
+      <div className='text-base font-semibold border-b pb-2'>Item Details</div>
+      <div className='flex justify-between py-2'>
+        <div className='text-base font-semibold w-28'>Size </div>
+        <div className='text-base font-semibold w-16 text-center'>Qty</div>
+        <div className='text-base font-semibold w-20 text-right'>Price</div>
+        {layout !== _Store.type22 &&
+        layout !== _Store.type10 &&
+        layout !== _Store.type8 &&
+        layout !== _Store.type23 &&
+        details.length > 1 ? (
+          <div className='text-base font-semibold w-20 text-right'></div>
         ) : null}
       </div>
       {details.map((item, index) => (
-        <div key={index} className="flex justify-between py-2">
-          <div className="text-base w-28">{item.size} </div>
+        <div key={index} className='flex justify-between py-2'>
+          <div className='text-base w-28'>{item.size} </div>
           <SC_QtyInput
             qty={item.qty}
             onChange={(upQty) =>
               qtyChangeHandler({ qty: upQty, size: item.size })
             }
-            minQty={item.minQtyRequired}
+            minQty={0}
             maxQty={maxQuantityInSize(item.size)}
           />
-          <div className="text-base w-20 text-right">
+          <div className='text-base w-20 text-right'>
             <Price value={item.priceOfqty} />
           </div>
-          { layout !== _Store.type22 && layout !==  _Store.type10 && layout!== _Store.type8 && layout!== _Store.type21 && details.length > 1 ? (
+          {layout !== _Store.type22 &&
+          layout !== _Store.type10 &&
+          layout !== _Store.type8 &&
+          layout !== _Store.type21 &&
+          layout !== _Store.type23 &&
+          details.length > 1 ? (
             <button
-            className="btn btn-primary text-white"
+              className='btn btn-primary text-white'
               onClick={() => {
                 toggleConfirmationMsg({ type: 'ALERT', size: item.size });
               }}
             >
-             DELETE
+              DELETE
             </button>
           ) : null}
         </div>

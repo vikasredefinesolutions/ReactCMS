@@ -156,14 +156,14 @@ const Ecommerce_Header: React.FC<_props> = ({
                     )}
 
                     {/* MOBILE VIEW ---- START */}
-                    {isMobileView ? null : (
+                    {/* {isMobileView ? null : (
                       <MenuItems
                         showSideMenu={showSideMenu}
                         storeCode={storeCode}
                         screen='DESKTOP'
                         menuItems={menuItems}
                       />
-                    )}
+                    )} */}
                     {/* MOBILE VIEW ---- END */}
 
                     {isMobileView ? <SearchBar screen='DESKTOP' /> : null}

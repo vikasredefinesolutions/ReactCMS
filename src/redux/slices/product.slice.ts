@@ -8,40 +8,41 @@ import {
   _ProductStore,
   _Product_SetValues_Action,
   _Product_UpdateLogoDetails_Actions,
-  _UpdateProperties_Action
+  _Product_UpdateSelectedValeus_Action,
+  _UpdateProperties_Action,
 } from './product.slice.types';
 
-// Define a type for the slice state
+const selected_initiaState = {
+  productId: 0,
+  inventory: null,
+  image: {
+    id: 0,
+    imageUrl: '',
+    altTag: '',
+  },
+  color: {
+    productId: 0,
+    attributeOptionId: 0,
+    name: '',
+    imageUrl: '',
+    displayOrder: 0,
+    altTag: '',
+    moreImages: [
+      {
+        displayOrder: 0,
+        imageUrl: '',
+        altTag: '',
+        id: 0,
+      },
+    ],
+    minQuantity: 1,
+    multipleQuantity: 0,
+  },
+};
 
 // Define the initial state using that type
 const initialState: _ProductStore = {
-  selected: {
-    productId: 297,
-    inventory: null,
-    image: {
-      id: 0,
-      imageUrl: '',
-      altTag: '',
-    },
-    color: {
-      productId: 0,
-      attributeOptionId: 0,
-      name: '',
-      imageUrl: '',
-      displayOrder: 0,
-      altTag: '',
-      moreImages: [
-        {
-          displayOrder: 0,
-          imageUrl: '',
-          altTag: '',
-          id: 0,
-        },
-      ],
-      minQuantity: 1,
-      multipleQuantity: 0,
-    },
-  },
+  selected: selected_initiaState,
   product: {
     sizeChart: null,
     inventory: null,
@@ -76,7 +77,7 @@ const initialState: _ProductStore = {
     additionalLogoCharge: 0,
     choosedLogoCompletionPending: null,
   },
-  offlineProductSelected:'',
+  offlineProductSelected: '',
 };
 
 export const productSlice = createSlice({
@@ -98,6 +99,21 @@ export const productSlice = createSlice({
     product_setValues: (state, { payload }: _Product_SetValues_Action) => {
       if (payload.type === 'MINIMUM_QTY') {
         state.toCheckout.minQty = payload.data.qty;
+        return;
+      }
+    },
+
+    product_UpdateSelectedValues: (
+      state,
+      { payload }: _Product_UpdateSelectedValeus_Action,
+    ) => {
+      if (payload.type === 'COLOR') {
+        state.selected.color = payload.data;
+        return;
+      }
+
+      if (payload.type === 'RESET_ALL') {
+        state.selected = selected_initiaState;
         return;
       }
     },
@@ -304,12 +320,14 @@ export const productSlice = createSlice({
       state.product.colors = action.payload.product.colors;
       state.product.customization = action.payload.product.customization;
     },
-    setOfflineProductSelected:(state,
+    setOfflineProductSelected: (
+      state,
       action: {
         payload: string;
-      },)=>{
-        state.offlineProductSelected=action.payload
       },
+    ) => {
+      state.offlineProductSelected = action.payload;
+    },
 
     toggleNextLogoButton: (state, action: { payload: boolean }) => {
       state.toCheckout.allowNextLogo = action.payload;
@@ -445,6 +463,7 @@ export const productSlice = createSlice({
       state,
       action: {
         payload: {
+          attributeOptionId: number;
           size: string;
           qty: number;
           price: number;
@@ -452,21 +471,22 @@ export const productSlice = createSlice({
       },
     ) => {
       let productName = action.payload.size;
+      let sizeAttributeOptionid = action.payload.attributeOptionId;
       let productPrice = action.payload.price;
       let productQty = action.payload.qty;
       let totalQty = 0;
       let updatedSizeQtys;
 
-        // IT CHECKOUT ARRAY DO NOT EXIST
-        updatedSizeQtys = [
-          {
-            size: productName,
-            qty: productQty,
-            price: productPrice,
-          },
-        ];
-        totalQty = productQty;
-      
+      // IT CHECKOUT ARRAY DO NOT EXIST
+      updatedSizeQtys = [
+        {
+          attributeOptionId: sizeAttributeOptionid,
+          size: productName,
+          qty: productQty,
+          price: productPrice,
+        },
+      ];
+      totalQty = productQty;
 
       // LOGO CHARGE
       let updateAdditionalLogoCharge = 0;
@@ -507,10 +527,11 @@ export const productSlice = createSlice({
       state.toCheckout.totalPrice = totalPrice;
     },
 
-    updateQuantities: (
+    storeBuilder_updateQtys: (
       state,
       action: {
         payload: {
+          attributeOptionId: number;
           size: string;
           qty: number;
           price: number;
@@ -520,6 +541,7 @@ export const productSlice = createSlice({
       let productName = action.payload.size;
       let productPrice = action.payload.price;
       let productQty = action.payload.qty;
+      let sizeAttributeOptionid = action.payload.attributeOptionId;
       let totalQty = 0;
       let updatedSizeQtys;
 
@@ -527,6 +549,7 @@ export const productSlice = createSlice({
         // IT CHECKOUT ARRAY DO NOT EXIST
         updatedSizeQtys = [
           {
+            attributeOptionId: sizeAttributeOptionid,
             size: productName,
             qty: productQty,
             price: productPrice,
@@ -554,6 +577,96 @@ export const productSlice = createSlice({
 
         if (!doesItemExist) {
           updatedSizeQtys.push({
+            attributeOptionId: sizeAttributeOptionid,
+            size: productName,
+            qty: productQty,
+            price: productPrice,
+          });
+          totalQty += productQty;
+        }
+      }
+
+      if (totalQty >= state.toCheckout.minQty) {
+        state.toCheckout.allowAddToCart = true;
+      }
+
+      if (totalQty < state.toCheckout.minQty) {
+        state.toCheckout.allowAddToCart = false;
+      }
+
+      const allDiscounts = state.product.discounts;
+      let foundThePrice = false;
+
+      allDiscounts?.subRows.forEach((discount) => {
+        if (foundThePrice) return;
+        const bulkQtyDiscount = +discount.displayQuantity.split('+')[0];
+        if (totalQty >= bulkQtyDiscount) {
+          productPrice = +discount.discountPrice;
+        } else {
+          foundThePrice = true;
+        }
+      });
+
+      // TOTAL PRICE
+      let totalPrice = totalQty * productPrice;
+
+      // STATE UPDATES
+      state.toCheckout.sizeQtys = updatedSizeQtys || null;
+      state.toCheckout.price = productPrice;
+      state.toCheckout.totalQty = totalQty;
+      state.toCheckout.totalPrice = totalPrice;
+    },
+    updateQuantities: (
+      state,
+      action: {
+        payload: {
+          attributeOptionId: number;
+          size: string;
+          qty: number;
+          price: number;
+        };
+      },
+    ) => {
+      let productName = action.payload.size;
+      let sizeAttributeOptionid = action.payload.attributeOptionId;
+      let productPrice = action.payload.price;
+      let productQty = action.payload.qty;
+      let totalQty = 0;
+      let updatedSizeQtys;
+
+      if (state.toCheckout.sizeQtys === null) {
+        // IT CHECKOUT ARRAY DO NOT EXIST
+        updatedSizeQtys = [
+          {
+            attributeOptionId: sizeAttributeOptionid,
+            size: productName,
+            qty: productQty,
+            price: productPrice,
+          },
+        ];
+        totalQty = productQty;
+      } else {
+        // IF PRODUCT ALREDY EXISTS
+        updatedSizeQtys = state.toCheckout.sizeQtys?.map((product) => {
+          if (product.size === productName) {
+            totalQty += productQty;
+            return {
+              ...product,
+              qty: productQty,
+            };
+          }
+          totalQty += product.qty;
+          return product;
+        });
+
+        // IF PRODUCT DO NOT EXIST IN THE CHECKOUT ARRAY
+        const doesItemExist = state.toCheckout.sizeQtys.find(
+          (product) => product.size === productName,
+        );
+
+        if (!doesItemExist) {
+          updatedSizeQtys.push({
+            attributeOptionId: sizeAttributeOptionid,
             size: productName,
             qty: productQty,
             price: productPrice,
@@ -605,6 +718,7 @@ export const productSlice = createSlice({
       state,
       action: {
         payload: {
+          attributeOptionId: number;
           size: string;
           qty: number;
           price: number;
@@ -614,6 +728,7 @@ export const productSlice = createSlice({
     ) => {
       let productName = action.payload.size;
       let productPrice = action.payload.price;
+      let sizeAttributeOptionid = action.payload.attributeOptionId;
       let productQty = action.payload.qty;
       let color = action.payload.color;
       let totalQty = 0;
@@ -622,6 +737,7 @@ export const productSlice = createSlice({
         // IT CHECKOUT ARRAY DO NOT EXIST
         updatedSizeQtys = [
           {
+            attributeOptionId: sizeAttributeOptionid,
             size: productName,
             qty: productQty,
             price: productPrice,
@@ -648,6 +764,7 @@ export const productSlice = createSlice({
 
         if (!doesItemExist) {
           updatedSizeQtys.push({
+            attributeOptionId: sizeAttributeOptionid,
             size: productName,
             qty: productQty,
             price: productPrice,

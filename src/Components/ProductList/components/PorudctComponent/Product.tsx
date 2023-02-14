@@ -1,3 +1,4 @@
+import { zeroValue } from '@constants/global.constant';
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
@@ -21,9 +22,9 @@ const ProductComponent = ({
   product: GetlAllProductList;
   skuList: string[];
   colorChangeHandler: (
-    productid: number,
-    seName: string,
-    color: string,
+    productid: number | undefined,
+    seName: string | undefined,
+    color: string | undefined | null,
   ) => void;
   compareCheckBoxHandler: (sku: string) => void;
   storeLayout: string | null;
@@ -34,7 +35,9 @@ const ProductComponent = ({
   });
 
   useEffect(() => {
-    setCurrentProduct(product.getProductImageOptionList[0]);
+    setCurrentProduct(
+      product.getProductImageOptionList && product.getProductImageOptionList[0],
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
@@ -60,14 +63,20 @@ const ProductComponent = ({
             }
           >
             <div className='w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
-              <ImageComponent
-                src={currentProduct.imageName}
-                alt=''
-                className='w-auto h-auto m-auto max-h-[400px] cursor-pointer'
-                height={400}
-                width={350}
-                cKey={currentProduct.id}
-              />
+              <Link href={`/${product.sename}.html?v=product-detail&altview=1`}>
+                <a className='w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
+                  <ImageComponent
+                    src={
+                      currentProduct?.imageName ? currentProduct.imageName : ''
+                    }
+                    alt=''
+                    className='w-auto h-auto m-auto max-h-[400px] cursor-pointer'
+                    height={400}
+                    width={350}
+                    cKey={currentProduct.id}
+                  />
+                </a>
+              </Link>
               {storeLayout === _Store.type27 ? (
                 <></>
               ) : (
@@ -75,13 +84,20 @@ const ProductComponent = ({
                   <button className=''>
                     <Wishlist
                       {...{
-                        productId: product.id,
-                        name: product.name,
-                        color: currentProduct.colorName,
+                        productId:
+                          product && product?.id ? product?.id : zeroValue,
+                        name: product?.name ? product.name : '',
+                        color: currentProduct?.colorName
+                          ? currentProduct?.colorName
+                          : '',
                         price: product.salePrice,
                         wishlistId: product.wishListId,
                       }}
-                      iswishlist={product.iswishlist}
+                      iswishlist={
+                        product && product?.iswishlist
+                          ? product?.iswishlist
+                          : false
+                      }
                     />
                   </button>
                 </div>
@@ -98,10 +114,10 @@ const ProductComponent = ({
                 <div className='mt-1'>
                   <img
                     className='inline-block max-h-12'
-                    src={`${config.mediaBaseUrl}/rdc${product.brandlogo.replace(
-                      '/rdc',
-                      '',
-                    )}`}
+                    src={`${config.mediaBaseUrl}/rdc${
+                      product?.brandlogo &&
+                      product?.brandlogo.replace('/rdc', '')
+                    }`}
                     alt={product.brandlogo}
                   />
                 </div>
@@ -123,13 +139,15 @@ const ProductComponent = ({
               <div
                 className={
                   storeLayout === _Store.type27
-                    ? 'mt-1 h-15 overflow-hidden text-sm text-anchor tracking-wider hover:text-primary-hover'
+                    ? 'mt-1 h-10 overflow-hidden text-sm text-anchor tracking-wider hover:text-primary-hover'
+                    : storeLayout === _Store.type21
+                    ? 'mt-1 text-anchor hover:text-anchor-hover underline'
                     : 'relative mt-1 text-anchor hover:text-anchor-hover h-14 text-ellipsis overflow-hidden line-clamp-2'
                 }
               >
                 <Link
                   key={product.id}
-                  href={`${origin}/${product.sename}.html?v=product-detail&altview=1`}
+                  href={`/${product.sename}.html?v=product-detail&altview=1`}
                   className='relative underline min-h-[48px] '
                 >
                   {product.name}
@@ -139,6 +157,8 @@ const ProductComponent = ({
                 className={
                   storeLayout === _Store.type27
                     ? 'mt-4 text-default text-xl'
+                    : storeLayout === _Store.type21
+                    ? 'mt-3 text-black text-base tracking-wider font-semibold'
                     : 'mt-2 text-black text-base tracking-wider'
                 }
               >
@@ -152,19 +172,25 @@ const ProductComponent = ({
                 />
               </div>
 
-              {storeLayout === _Store.type27 ? (
+              {storeLayout === _Store.type27 ||
+              storeLayout === _Store.type21 ? (
                 <></>
               ) : (
                 <div className='form-group mt-2'>
                   <label className='checkbox-inline'>
                     <input
-                      checked={skuList.includes(product.sku)}
-                      onChange={() => compareCheckBoxHandler(product.sku)}
+                      checked={skuList.includes(
+                        product?.sku ? product.sku : '',
+                      )}
+                      onChange={() =>
+                        compareCheckBoxHandler(product?.sku ? product.sku : '')
+                      }
                       type='checkbox'
                     />{' '}
                     {
                       <>
-                        {skuList.length && skuList.includes(product.sku) ? (
+                        {skuList.length &&
+                        skuList.includes(product?.sku ? product.sku : '') ? (
                           <Link href={getCompareLink()}>
                             <a>Compare {skuList.length}</a>
                           </Link>
@@ -176,39 +202,41 @@ const ProductComponent = ({
                   </label>
                 </div>
               )}
-              {product.getProductImageOptionList.length > 0 && (
-                <ul
-                  role='list'
-                  className='flex items-center mt-2 justify-center space-x-1'
-                >
-                  {product.getProductImageOptionList.map((subRow, index) =>
-                    index < 6 ? (
-                      <li
-                        className={`w-7 h-7 border-2${
-                          subRow.id === currentProduct.id
-                            ? ' border-secondary'
-                            : ''
-                        }`}
-                        onClick={() => {
-                          colorChangeHandler(
-                            product.id,
-                            product.sename || '',
-                            subRow.colorName,
-                          );
-                          setCurrentProduct(subRow);
-                        }}
-                      >
-                        <img
-                          src={`${config.mediaBaseUrl}${subRow.imageName}`}
-                          alt=''
-                          title=''
-                          className='max-h-full m-auto'
-                        />
-                      </li>
-                    ) : null,
-                  )}
-                </ul>
-              )}
+              {product.getProductImageOptionList &&
+                product.getProductImageOptionList.length && (
+                  <ul
+                    role='list'
+                    className='flex items-center mt-2 justify-center space-x-1'
+                  >
+                    {product.getProductImageOptionList.map((subRow, index) =>
+                      index < 6 ? (
+                        <li
+                          className={`w-7 h-7 border-2${
+                            subRow.id === currentProduct.id
+                              ? ' border-secondary'
+                              : ''
+                          }`}
+                          onClick={() => {
+                            colorChangeHandler(
+                              product.id,
+                              product.sename || '',
+                              subRow.colorName,
+                            );
+                            setCurrentProduct(subRow);
+                          }}
+                          key={subRow.id}
+                        >
+                          <img
+                            src={`${config.mediaBaseUrl}${subRow.imageName}`}
+                            alt=''
+                            title=''
+                            className='max-h-full m-auto'
+                          />
+                        </li>
+                      ) : null,
+                    )}
+                  </ul>
+                )}
               {/* <div className="mt-3">
                 <a  className="btn btn-primary">
                   CONTACT US

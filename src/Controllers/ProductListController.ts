@@ -125,15 +125,15 @@ const ProductListController = (
   };
 
   const colorChangeHandler = (
-    productId: number,
-    seName: string,
-    color: string,
+    productId: number | undefined,
+    seName: string | undefined,
+    color: string | undefined | null,
   ) => {
     const storageString = localStorage.getItem('selectedProducts');
     const selectedProducts: Array<{
-      productId: number;
-      seName: string;
-      color: string;
+      productId: number | undefined;
+      seName: string | undefined;
+      color: string | undefined | null;
     }> = storageString ? JSON.parse(storageString) : [];
     const index = selectedProducts.findIndex(
       (product) => product.productId === productId,
@@ -170,7 +170,9 @@ const ProductListController = (
     setCurrentCount(perPageCount);
     let newList = [...allProduct];
     if (type === 1) {
-      newList = newList.sort((pro1, pro2) => (pro1.id > pro2.id ? 1 : -1));
+      newList = newList.sort((pro1, pro2) =>
+        pro1?.id && pro2?.id && pro1?.id > pro2?.id ? 1 : -1,
+      );
     } else if (type === 2) {
       newList = newList.sort((pro1, pro2) =>
         pro1.salePrice > pro2.salePrice ? 1 : -1,

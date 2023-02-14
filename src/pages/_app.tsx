@@ -20,7 +20,7 @@ import {
   _Logout,
 } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';
-import { useActions } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { __domain } from 'page.config';
@@ -29,6 +29,8 @@ import { reduxWrapper } from 'redux/store.redux';
 import { _Expected_AppProps, _MenuItems } from 'show.type';
 import { _globalStore } from 'store.global';
 //import '../../styles/output.css';
+import { TrackFile } from '@services/tracking.service';
+
 import '../app.css';
 
 type AppOwnProps = {
@@ -49,6 +51,8 @@ const RedefineCustomApp = ({
 }: AppProps & AppOwnProps) => {
   EmployeeController();
   const router = useRouter();
+  const storeId = useTypedSelector((state) => state.store.id);
+
   const { store_storeDetails, updateCustomerV2, setShowLoader, logInUser } =
     useActions();
 
@@ -67,7 +71,41 @@ const RedefineCustomApp = ({
     router.events.on('routeChangeStart', handleStart);
     router.events.on('routeChangeComplete', handleComplete);
     router.events.on('routeChangeError', handleComplete);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
+
+  const trackingFile = async () => {
+    let data = {
+      trackingModel: {
+        id: 0,
+        storeId: extractCookies(__Cookie.storeInfo, 'browserCookie').storeInfo
+          ?.storeId,
+        sessionID: 'string',
+        visitorId: '',
+        gclId: router?.query?.gclid ?? '',
+        msclkId: router?.query?.msclkId ?? '',
+        initialReferrer: '',
+        initialLandingPage: '',
+        marketingTimeStamp: '',
+        marketingLandingPage: '',
+        marketingInitialReferrer: '',
+        utmSource: router?.query?.utmSource ?? '',
+        utmMedium: router?.query?.utmMedium ?? '',
+        utmTerm: router?.query?.utmTerm ?? '',
+        utmContent: router?.query?.utmContent ?? '',
+        utmCampaign: router?.query?.utm_campaign ?? '',
+        utmExpid: router?.query?.utm_expid ?? '',
+        utmReferrer: router?.query?.utm_referrer ?? '',
+        isNewVisitor: true,
+        ipAddress: '192.168.1.1',
+      },
+    };
+    await TrackFile(data);
+  };
+
+  useEffect(() => {
+    trackingFile();
+  }, []);
 
   useEffect(() => {
     const cookies = extractCookies('', 'browserCookie');
@@ -95,6 +133,7 @@ const RedefineCustomApp = ({
         });
     }
     setShowLoader(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -136,6 +175,7 @@ RedefineCustomApp.getInitialProps = async (
       pageType: '',
       pathName: '',
       code: '',
+      storeName: '',
       storeTypeId: null,
       isAttributeSaparateProduct: false,
       cartCharges: null,
@@ -193,7 +233,6 @@ RedefineCustomApp.getInitialProps = async (
         domain,
         pathName,
       );
-
       if (expectedProps.store?.storeId) {
         expectedProps.configs.footer = await Footer({
           storeId: expectedProps.store?.storeId,

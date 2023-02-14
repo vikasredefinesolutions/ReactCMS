@@ -20,6 +20,7 @@ export interface _Brands {
   brandName: string;
   seName: string;
   brandColorImageUrl: string;
+  brandCollectionUrl: string;
 }
 
 export interface _t_Brands {

@@ -30,3 +30,29 @@ export interface ReviewModel {
 export interface ProductReviewType {
   reviewModel: ReviewModel;
 }
+
+export interface ProductReviewCounts {
+  totalRatingCount: number;
+  ratingAverage: number;
+  fiveStarRatingCount: number;
+  fourStarRatingCount: number;
+  threeStarRatingCount: number;
+  twoStarRatingCount: number;
+  oneStarRatingCount: number;
+}
+export interface ProductReviewDetailsRes {
+  reviewId: number;
+  name: string;
+  email: string;
+  reviewDate: string;
+  rating: number;
+  commentHeading: number;
+  comments: string;
+  helpFullCount: number;
+  notHelpFullCount: number;
+  images: ReviewImages[];
+}
+export interface ReviewImages {
+  DisplayOrder: number;
+  ImageName: string | null;
+}

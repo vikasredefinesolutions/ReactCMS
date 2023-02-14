@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 interface _props {
+  sizeAttributeOptionId: number;
   qty: number;
   size: string;
   price: { msrp: number; ourCost: number; salePrice: number };
@@ -13,7 +14,12 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email().required('Please, enter a valid email address'),
 });
 
-const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
+const SelectOrInput: React.FC<_props> = ({
+  sizeAttributeOptionId,
+  qty,
+  size,
+  price,
+}) => {
   const { updateQuantities, updatePrice } = useActions();
   const [email, setEmail] = useState<null | 'SENT'>(null);
   const [inputOrSelect, setInputOrSelect] = useState<{
@@ -33,6 +39,7 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
     }
 
     updateQuantities({
+      attributeOptionId: sizeAttributeOptionId,
       size: size,
       qty: +event.target.value,
       price: price.msrp,
@@ -46,6 +53,7 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
   const enterQtyHandler = (value: { itemCount: number }) => {
     if (value.itemCount < 10) {
       updateQuantities({
+        attributeOptionId: sizeAttributeOptionId,
         size: size,
         qty: value.itemCount,
         price: price.msrp,
@@ -59,6 +67,7 @@ const SelectOrInput: React.FC<_props> = ({ qty, size, price }) => {
     }
 
     updateQuantities({
+      attributeOptionId: sizeAttributeOptionId,
       size: size,
       qty: value.itemCount,
       price: price.msrp,

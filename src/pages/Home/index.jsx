@@ -3,11 +3,13 @@ import ElementAccordionDisplay from 'Components/Home/ElementAccordionDisplay';
 import ElementCarouselDisplay from 'Components/Home/ElementCarouselDisplay';
 import { useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
+import FeaturedProducts from '../../Components/Home/FeaturedProducts';
 import * as helper from '../../Components/Home/Helper';
 
 const Home = (props) => {
   const pageData = props.props?.pageData;
   const [componentHtml, setComponentHtml] = useState([]);
+  const storeId = useTypedSelector((state) => state.store.id);
 
   // const pathArray = document.location.pathname.split('/');
   // const slug = pathArray.at(-1);
@@ -47,14 +49,17 @@ const Home = (props) => {
   const loadBackgroundDefault = (element) => {
     if (element.selectedVal != undefined) {
       if (Object.keys(element.selectedVal).length > 0) {
-        const bgPropertyName = Object.keys(element.properties).find(
-          (key) => element.properties[key] === 'background',
-        );
-        const attributes = Object.entries(element.selectedVal).map(
-          ([key, value]) => {
-            if (key == bgPropertyName) return value;
-          },
-        )[0];
+        const bgPropertyName = 'bg';
+        // Object.keys(JSON.parse(element.properties)).find(
+        //   (key) => JSON.parse(element.properties)[key] === 'background',
+        // );
+
+        let attributes;
+        Object.entries(element.selectedVal).map(([key, value]) => {
+          if (key == bgPropertyName) {
+            attributes = value;
+          }
+        });
 
         if (attributes != undefined && Object.keys(attributes).length > 0) {
           if (attributes.type == 'color') {
@@ -95,17 +100,22 @@ const Home = (props) => {
         <main>
           {pageData?.components && pageData?.components.length > 0 ? (
             pageData.components.map((componentValue, index) => {
+              if (typeof componentValue.selectedVal == 'string') {
+                componentValue.selectedVal = JSON.parse(
+                  componentValue.selectedVal,
+                );
+              }
               const backgroundDefault = loadBackgroundDefault(componentValue);
 
               let additionalclass = '';
               if (
                 componentValue.selectedVal &&
-                Object.keys(JSON.parse(componentValue.selectedVal)).includes(
+                Object.keys(componentValue.selectedVal).includes(
                   'additionalclass',
                 )
               ) {
-                additionalclass = JSON.parse(componentValue.selectedVal)
-                  .additionalclass.value;
+                additionalclass =
+                  componentValue.selectedVal.additionalclass.value;
               }
               return (
                 <div
@@ -119,49 +129,62 @@ const Home = (props) => {
                   //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
                   // }}
                 >
-                  {Object.keys(JSON.parse(componentValue.selectedVal)).includes(
-                    'carousel',
+                  {Object.keys(componentValue.selectedVal).includes(
+                    'featuredproducts_section_title',
+                  ) ||
+                  Object.keys(componentValue.selectedVal).includes(
+                    'featuredproducts_product_count',
                   ) ? (
                     <>
-                      <ElementCarouselDisplay
-                        bannerArr={
-                          JSON.parse(componentValue.selectedVal).carousel.value
-                        }
-                      />
+                      <FeaturedProducts dataArr={componentValue.selectedVal} />
                     </>
                   ) : (
                     <>
-                      {Object.keys(
-                        JSON.parse(componentValue.selectedVal),
-                      ).includes('FullAccordion') ? (
+                      {Object.keys(componentValue.selectedVal).includes(
+                        'carousel',
+                      ) ? (
                         <>
-                          <section className='mainsection container mx-auto mt-6 white-all overflow-hidden'>
-                            <ul className='mt-4 w-full'>
-                              <ElementAccordionDisplay
-                                acValues={
-                                  JSON.parse(componentValue.selectedVal)
-                                    .FullAccordion.value
-                                }
-                                acClass={
-                                  JSON.parse(componentValue.selectedVal)
-                                    ?.FullAccordion_accordion_class?.value
-                                }
-                                acBgColor={
-                                  JSON.parse(componentValue.selectedVal)
-                                    ?.FullAccordion_ac_background?.value
-                                }
-                              />
-                            </ul>
-                          </section>
+                          <ElementCarouselDisplay
+                            bannerArr={
+                              componentValue.selectedVal.carousel.value
+                            }
+                          />
                         </>
                       ) : (
                         <>
-                          <div
-                            className='commondiv'
-                            dangerouslySetInnerHTML={{
-                              __html: componentValue.html,
-                            }}
-                          ></div>
+                          {Object.keys(componentValue.selectedVal).includes(
+                            'FullAccordion',
+                          ) ? (
+                            <>
+                              <section className='mainsection container mx-auto mt-6 white-all overflow-hidden'>
+                                <ul className='mt-4 w-full'>
+                                  <ElementAccordionDisplay
+                                    acValues={
+                                      componentValue.selectedVal.FullAccordion
+                                        .value
+                                    }
+                                    acClass={
+                                      componentValue.selectedVal
+                                        ?.FullAccordion_accordion_class?.value
+                                    }
+                                    acBgColor={
+                                      componentValue.selectedVal
+                                        ?.FullAccordion_ac_background?.value
+                                    }
+                                  />
+                                </ul>
+                              </section>
+                            </>
+                          ) : (
+                            <>
+                              <div
+                                className='commondiv'
+                                dangerouslySetInnerHTML={{
+                                  __html: componentValue.html,
+                                }}
+                              ></div>
+                            </>
+                          )}
                         </>
                       )}
                     </>

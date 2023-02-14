@@ -1,4 +1,5 @@
 import { CartProducts } from '@type/APIs/cart.res';
+import config from 'api.config';
 import StartOrderModal from 'appComponents/modals/StartOrderModal';
 import ImageComponent from 'appComponents/reUsable/Image';
 import CartSummary from 'Components/CartSummary/CartSummary';
@@ -16,8 +17,7 @@ const CartLayout2 = ({
 }: any) => {
   const [products, setProducts] = useState<CartProducts>(cartProducts);
   const [inputIds, setInputId] = useState<string[]>([]);
-  useEffect(() => {
-  }, [cartProducts])
+  useEffect(() => {}, [cartProducts]);
 
   const cartQtyUpdateHandler = (
     size: string,
@@ -54,87 +54,87 @@ const CartLayout2 = ({
   };
   return (
     <>
-      <section id="" className="mt-5">
-        <div className="bg-white">
-          <div className="container mx-auto">
-            <div className="flex flex-wrap -mx-3 -mt-3 cart-box">
+      <section id='' className='mt-5'>
+        <div className='bg-white'>
+          <div className='container mx-auto'>
+            <div className='flex flex-wrap -mx-3 -mt-3 cart-box'>
               <section
-                aria-labelledby="cart-heading"
-                className="w-full lg:w-9/12 px-3 mt-3"
+                aria-labelledby='cart-heading'
+                className='w-full lg:w-9/12 px-3 mt-3'
               >
-                <div className="flex justify-between items-center bg-gray-200 w-full px-4 py-2">
-                  <div className="text-2xl mr-3">Shopping Cart</div>
-                  <div className="text-base">
+                <div className='flex justify-between items-center bg-gray-200 w-full px-4 py-2'>
+                  <div className='text-2xl mr-3'>Shopping Cart</div>
+                  <div className='text-base'>
                     {cartProducts.length} Item(s)
-                    <span className="hidden-xs"> in cart</span>
+                    <span className='hidden-xs'> in cart</span>
                   </div>
                 </div>
-                <h2 id="cart-heading" className="sr-only">
+                <h2 id='cart-heading' className='sr-only'>
                   Items in your shopping cart
                 </h2>
 
-                <ul role="list" className=" overflow-hidden">
+                <ul role='list' className=' overflow-hidden'>
                   {products.map((product: any, index: number) => (
-                    <li key={index} className="flex flex-wrap py-5 -mx-3">
-                      <div className="w-full lg:w-1/3 px-3">
+                    <li key={index} className='flex flex-wrap py-5 -mx-3'>
+                      <div className='w-full lg:w-1/3 px-3'>
                         <ImageComponent
                           src={product?.colorImage}
-                          alt="products"
-                          className=""
+                          alt='products'
+                          className=''
                         />
                       </div>
 
-                      <div className="w-full lg:w-2/3 px-3 flex flex-wrap lg:justify-between">
-                        <div className="text-lg font-semibold">
+                      <div className='w-full lg:w-2/3 px-3 flex flex-wrap lg:justify-between'>
+                        <div className='text-lg font-semibold'>
                           <Link
                             key={product?.seName}
                             href={`/${product.seName}`}
                             id={product?.seName}
-                            className="text-black hover:text-anchor-hover"
-                            title=""
+                            className='text-black hover:text-anchor-hover'
+                            title=''
                           >
                             {product?.productName}
                           </Link>
                         </div>
-                        <div className="w-full flex flex-wrap">
-                          <div className="w-full mt-4">
-                            <div className="flex justify-between">
-                              <div className="text-base">
-                                <span className="font-semibold">SKU :</span>
+                        <div className='w-full flex flex-wrap'>
+                          <div className='w-full mt-4'>
+                            <div className='flex justify-between'>
+                              <div className='text-base'>
+                                <span className='font-semibold'>SKU :</span>
                                 {product?.sku}
                               </div>
-                              <div className="text-base">
-                                <span className="font-semibold">Color :</span>{' '}
+                              <div className='text-base'>
+                                <span className='font-semibold'>Color :</span>{' '}
                                 {product?.attributeOptionValue}
                               </div>
                             </div>
-                            <div className="mt-4 border-t border-t-gray-500">
+                            <div className='mt-4 border-t border-t-gray-500'>
                               {product.shoppingCartItemDetailsViewModels.map(
                                 (item: any, indx: number) => (
                                   <div
                                     key={indx}
-                                    className="flex justify-between py-3 border-b border-b-gray-300"
+                                    className='flex justify-between py-3 border-b border-b-gray-300'
                                   >
-                                    <div className="w-full md:w-1/3">
-                                      <div className="mb-1">Size</div>
-                                      <div className="font-semibold">
+                                    <div className='w-full md:w-1/3'>
+                                      <div className='mb-1'>Size</div>
+                                      <div className='font-semibold'>
                                         {' '}
                                         {item.attributeOptionValue}{' '}
                                       </div>
                                     </div>
-                                    <div className="w-full md:w-1/3">
-                                      <div className="mb-1">Price</div>
-                                      <div className="font-semibold">
+                                    <div className='w-full md:w-1/3'>
+                                      <div className='mb-1'>Price</div>
+                                      <div className='font-semibold'>
                                         ${item.price}
                                       </div>
                                     </div>
-                                    <div className="w-full md:w-1/3">
-                                      <div className="mb-1">Qty</div>
+                                    <div className='w-full md:w-1/3'>
+                                      <div className='mb-1'>Qty</div>
 
-                                      <div className="font-semibold">
+                                      <div className='font-semibold'>
                                         <input
-                                          type="number"
-                                          className="p-2 w-full"
+                                          type='number'
+                                          className='p-2 w-full'
                                           value={item.qty}
                                           min={0}
                                           onChange={(e) =>
@@ -146,7 +146,7 @@ const CartLayout2 = ({
                                             )
                                           }
 
-                                        // disabled
+                                          // disabled
                                         />
                                       </div>
                                       {/* <div className="font-semibold">
@@ -162,7 +162,48 @@ const CartLayout2 = ({
                                                     <div className="text-base w-16 text-center">24</div>
                                                     <div className="text-base w-20 text-right">$2,964.00</div>
                                                 </div> --> */}
-                              <div className="flex justify-between py-3 border-b border-b-gray-300">
+                              {product.shoppingCartLogoPersonViewModels.map(
+                                (item: any, index: number) => {
+                                  return (
+                                    <div
+                                      key={`${item}-${index}`}
+                                      className='flex justify-between py-3'
+                                    >
+                                      <div className='text-base'>
+                                        <div className='mb-3 flex'>
+                                          <img
+                                            src={`${config.mediaBaseUrl}${item.logoImagePath}`}
+                                            title=''
+                                            alt=''
+                                          />
+                                          <span className='font-semibold ml-3'>
+                                            Logo
+                                            <br />
+                                            submitted
+                                          </span>
+                                        </div>
+                                        <div>
+                                          <span className='font-semibold'>
+                                            Location:
+                                          </span>
+                                          <span>{item.logoLocation}</span>
+                                        </div>
+                                      </div>
+                                      <div className='text-base text-right'>
+                                        <div className='font-semibold'>
+                                          Logo Price
+                                        </div>
+                                        <div>
+                                          {index === 0
+                                            ? 'First Logo Free'
+                                            : `$${item.logoPrice}`}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                },
+                              )}
+                              {/* <div className="flex justify-between py-3 border-b border-b-gray-300">
                                 <div className="w-full md:w-1/3">
                                   <div className="mb-1">Your Logo</div>
                                   <div className="font-semibold">
@@ -185,7 +226,7 @@ const CartLayout2 = ({
                                     Left Chest
                                   </div>
                                 </div>
-                              </div>
+                              </div> */}
                               {/* <div className="flex justify-between py-3 border-b border-b-gray-300">
                                                     <div className="w-full md:w-1/3">
                                                         <div className="mb-1">Your Logo</div>
@@ -204,10 +245,10 @@ const CartLayout2 = ({
                                                     </div>
                                                 </div> */}
                             </div>
-                            <div className="flex mt-5">
+                            <div className='flex mt-5'>
                               <button
                                 onClick={() => loadProduct(product)}
-                                className="btn btn-lg btn-primary !w-full text-center"
+                                className='btn btn-lg btn-primary !w-full text-center'
                               >
                                 UPDATE
                               </button>
@@ -215,7 +256,7 @@ const CartLayout2 = ({
                                 onClick={() =>
                                   deleteCartItem(product.shoppingCartItemsId)
                                 }
-                                className="btn btn-lg btn-secondary !w-full text-center"
+                                className='btn btn-lg btn-secondary !w-full text-center'
                               >
                                 DELETE
                               </button>
@@ -236,40 +277,40 @@ const CartLayout2 = ({
               </section>
 
               <section
-                aria-labelledby="summary-heading"
-                className="w-full lg:w-3/12 px-3 mt-3"
+                aria-labelledby='summary-heading'
+                className='w-full lg:w-3/12 px-3 mt-3'
               >
-                <CartSummary title="Cart Summary" />
-                <div className="mt-4">
-                  <Link id="checkout" key={'/checkout'} href="/checkout.html">
-                    <a className="btn btn-lg btn-primary !flex items-center justify-center w-full">
+                <CartSummary title='Cart Summary' />
+                <div className='mt-4'>
+                  <Link id='checkout' key={'/checkout'} href='/checkout.html'>
+                    <a className='btn btn-lg btn-primary !flex items-center justify-center w-full'>
                       <i
-                        className="fa fa-shopping-cart mr-2"
-                        aria-hidden="true"
+                        className='fa fa-shopping-cart mr-2'
+                        aria-hidden='true'
                       ></i>
                       CHECKOUT NOW
                     </a>
                   </Link>
                 </div>
-                <div className="mt-4">
-                  <Link id="keepshopping" key={'/'} href="/">
-                    <a className="btn btn-lg btn-secondary !flex items-center justify-center w-full">
+                <div className='mt-4'>
+                  <Link id='keepshopping' key={'/'} href='/'>
+                    <a className='btn btn-lg btn-secondary !flex items-center justify-center w-full'>
                       KEEP SHOPPING
                     </a>
                   </Link>
                 </div>
-                <div className="mt-4 bg-gray-200 px-4 py-4">
-                  <div className="flex items-center justify-center">
+                <div className='mt-4 bg-gray-200 px-4 py-4'>
+                  <div className='flex items-center justify-center'>
                     <img
-                      src="images/order-risk-free-icon.jpg"
-                      alt=""
-                      className="mr-2"
+                      src='images/order-risk-free-icon.jpg'
+                      alt=''
+                      className='mr-2'
                     />
-                    <span className="text-xl font-semibold">
+                    <span className='text-xl font-semibold'>
                       Order Risk-Free!
                     </span>
                   </div>
-                  <div className="flex items-center justify-center text-lg text-center mt-3">
+                  <div className='flex items-center justify-center text-lg text-center mt-3'>
                     Cancel your order without penalty anytime before your proof
                     is approved.
                   </div>

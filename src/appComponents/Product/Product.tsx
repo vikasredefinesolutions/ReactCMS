@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+import { zeroValue } from '@constants/global.constant';
 import config from 'api.config';
 import { GetlAllProductList } from 'definations/productList.type';
 import Price from '../reUsable/Price';
@@ -12,22 +13,23 @@ const ProductComponent = ({
   product,
   colorChangeHandler,
 }: {
-  product: GetlAllProductList;
+  product: NonNullable<GetlAllProductList>;
   colorChangeHandler: (
-    productid: number,
-    seName: string,
-    color: string,
+    productid: number | undefined,
+    seName: string | undefined,
+    color: string | undefined | null,
   ) => void;
 }) => {
   const [currentProduct, setCurrentProduct] = useState(
-    product.getProductImageOptionList[0],
+    product.getProductImageOptionList && product.getProductImageOptionList[0],
   );
 
   useEffect(() => {
     colorChangeHandler(
-      product.id,
-      product.sename || '',
-      product.getProductImageOptionList[0].colorName,
+      product?.id,
+      product?.sename || '',
+      product.getProductImageOptionList &&
+        product?.getProductImageOptionList[0]?.colorName,
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -39,7 +41,9 @@ const ProductComponent = ({
           <div className='relative border border-gray-200 pb-4 w-full'>
             <div className='w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
               <img
-                src={`${config.mediaBaseUrl}${currentProduct.imageName}`}
+                src={`${config.mediaBaseUrl}${
+                  currentProduct && currentProduct.imageName
+                }`}
                 alt=''
                 className='w-auto h-auto m-auto max-h-[400px]'
               />
@@ -47,13 +51,20 @@ const ProductComponent = ({
                 <button className=''>
                   <Wishlist
                     {...{
-                      productId: product.id,
-                      name: product.name,
-                      color: currentProduct.colorName,
+                      productId:
+                        product && product?.id ? product?.id : zeroValue,
+                      name: product?.name ? product.name : '',
+                      color: currentProduct?.colorName
+                        ? currentProduct?.colorName
+                        : '',
                       price: product.salePrice,
                       wishlistId: product.wishListId,
                     }}
-                    iswishlist={product.iswishlist}
+                    iswishlist={
+                      product && product?.iswishlist
+                        ? product?.iswishlist
+                        : false
+                    }
                   />
                 </button>
               </div>
@@ -92,38 +103,40 @@ const ProductComponent = ({
                   </>
                 </span>
               </div>
-              {product.getProductImageOptionList.length > 0 && (
-                <ul
-                  role='list'
-                  className='flex items-center mt-2 justify-center space-x-1'
-                >
-                  {product.getProductImageOptionList.map((subRow, index) =>
-                    index < 6 ? (
-                      <li
-                        className={`w-7 h-7 border-2${
-                          subRow.id === currentProduct.id
-                            ? ' border-secondary'
-                            : ''
-                        }`}
-                        onClick={() => {
-                          colorChangeHandler(
-                            product.id,
-                            product.sename || '',
-                            subRow.colorName,
-                          );
-                          setCurrentProduct(subRow);
-                        }}
-                      >
-                        <img
-                          src={`${config.mediaBaseUrl}${subRow.imageName}`}
-                          alt=''
-                          title=''
-                          className='max-h-full m-auto'
-                        />
-                      </li>
-                    ) : null,
-                  )}
-                  {/* 
+              {product?.getProductImageOptionList &&
+                product?.getProductImageOptionList.length && (
+                  <ul
+                    role='list'
+                    className='flex items-center mt-2 justify-center space-x-1'
+                  >
+                    {product.getProductImageOptionList.map((subRow, index) =>
+                      index < 6 ? (
+                        <li
+                          className={`w-7 h-7 border-2${
+                            subRow.id === currentProduct?.id
+                              ? ' border-secondary'
+                              : ''
+                          }`}
+                          onClick={() => {
+                            colorChangeHandler(
+                              product.id,
+                              product.sename || '',
+                              subRow.colorName,
+                            );
+                            setCurrentProduct(subRow);
+                          }}
+                          key={subRow.id}
+                        >
+                          <img
+                            src={`${config.mediaBaseUrl}${subRow.imageName}`}
+                            alt=''
+                            title=''
+                            className='max-h-full m-auto'
+                          />
+                        </li>
+                      ) : null,
+                    )}
+                    {/* 
                   {product.subRows.length > 6 && (
                     <li className="w-7 h-7 border-2 border-light-gray hover:border-secondary relative">
                       <img
@@ -137,8 +150,8 @@ const ProductComponent = ({
                       </span>
                     </li>
                   )} */}
-                </ul>
-              )}
+                  </ul>
+                )}
             </div>
           </div>
         </div>

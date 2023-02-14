@@ -1,3 +1,4 @@
+import { zeroValue } from '@constants/global.constant';
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
@@ -19,9 +20,9 @@ const ProductComponent = ({
   product: GetlAllProductList;
   skuList: string[];
   colorChangeHandler: (
-    productid: number,
-    seName: string,
-    color: string,
+    productid: number | undefined,
+    seName: string | undefined,
+    color: string | undefined | null,
   ) => void;
   compareCheckBoxHandler: (sku: string) => void;
 }) => {
@@ -31,7 +32,9 @@ const ProductComponent = ({
   });
 
   useEffect(() => {
-    setCurrentProduct(product.getProductImageOptionList[0]);
+    setCurrentProduct(
+      product.getProductImageOptionList && product.getProductImageOptionList[0],
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
@@ -47,7 +50,7 @@ const ProductComponent = ({
           <div className='relative border border-gray-200 pb-4 w-full'>
             <div className='w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
               <ImageComponent
-                src={currentProduct.imageName}
+                src={currentProduct?.imageName ? currentProduct.imageName : ''}
                 alt=''
                 className='w-auto h-auto m-auto max-h-[400px]'
                 height={400}
@@ -58,13 +61,20 @@ const ProductComponent = ({
                 <button className=''>
                   <Wishlist
                     {...{
-                      productId: product.id,
-                      name: product.name,
-                      color: currentProduct.colorName,
+                      productId:
+                        product && product?.id ? product?.id : zeroValue,
+                      name: product?.name ? product.name : '',
+                      color: currentProduct?.colorName
+                        ? currentProduct?.colorName
+                        : '',
                       price: product.salePrice,
                       wishlistId: product.wishListId,
                     }}
-                    iswishlist={product.iswishlist}
+                    iswishlist={
+                      product && product?.iswishlist
+                        ? product?.iswishlist
+                        : false
+                    }
                   />
                 </button>
               </div>
@@ -77,10 +87,9 @@ const ProductComponent = ({
               <div className='mt-1'>
                 <img
                   className='inline-block max-h-12'
-                  src={`${config.mediaBaseUrl}/rdc${product.brandlogo.replace(
-                    '/rdc',
-                    '',
-                  )}`}
+                  src={`${config.mediaBaseUrl}/rdc${
+                    product.brandlogo && product.brandlogo.replace('/rdc', '')
+                  }`}
                   alt={product.brandlogo}
                 />
               </div>
@@ -124,13 +133,16 @@ const ProductComponent = ({
               <div className='form-group mt-2'>
                 <label className='checkbox-inline'>
                   <input
-                    checked={skuList.includes(product.sku)}
-                    onChange={() => compareCheckBoxHandler(product.sku)}
+                    checked={skuList.includes(product?.sku ? product.sku : '')}
+                    onChange={() =>
+                      compareCheckBoxHandler(product?.sku ? product.sku : '')
+                    }
                     type='checkbox'
                   />{' '}
                   {
                     <>
-                      {skuList.length && skuList.includes(product.sku) ? (
+                      {skuList.length &&
+                      skuList.includes(product?.sku ? product.sku : '') ? (
                         <Link href={getCompareLink()}>
                           <a>Compare {skuList.length}</a>
                         </Link>
@@ -141,39 +153,40 @@ const ProductComponent = ({
                   }
                 </label>
               </div>
-              {product.getProductImageOptionList.length > 0 && (
-                <ul
-                  role='list'
-                  className='flex items-center mt-2 justify-center space-x-1'
-                >
-                  {product.getProductImageOptionList.map((subRow, index) =>
-                    index < 6 ? (
-                      <li
-                        className={`w-7 h-7 border-2${
-                          subRow.id === currentProduct.id
-                            ? ' border-secondary'
-                            : ''
-                        }`}
-                        onClick={() => {
-                          colorChangeHandler(
-                            product.id,
-                            product.sename || '',
-                            subRow.colorName,
-                          );
-                          setCurrentProduct(subRow);
-                        }}
-                      >
-                        <img
-                          src={`${config.mediaBaseUrl}${subRow.imageName}`}
-                          alt=''
-                          title=''
-                          className='max-h-full m-auto'
-                        />
-                      </li>
-                    ) : null,
-                  )}
-                </ul>
-              )}
+              {product.getProductImageOptionList &&
+                product.getProductImageOptionList.length && (
+                  <ul
+                    role='list'
+                    className='flex items-center mt-2 justify-center space-x-1'
+                  >
+                    {product.getProductImageOptionList.map((subRow, index) =>
+                      index < 6 ? (
+                        <li
+                          className={`w-7 h-7 border-2${
+                            subRow.id === currentProduct.id
+                              ? ' border-secondary'
+                              : ''
+                          }`}
+                          onClick={() => {
+                            colorChangeHandler(
+                              product.id,
+                              product.sename || '',
+                              subRow.colorName,
+                            );
+                            setCurrentProduct(subRow);
+                          }}
+                        >
+                          <img
+                            src={`${config.mediaBaseUrl}${subRow.imageName}`}
+                            alt=''
+                            title=''
+                            className='max-h-full m-auto'
+                          />
+                        </li>
+                      ) : null,
+                    )}
+                  </ul>
+                )}
               {/* <div className="mt-3">
                 <a  className="btn btn-primary">
                   CONTACT US

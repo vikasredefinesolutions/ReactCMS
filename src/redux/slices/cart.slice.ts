@@ -44,6 +44,10 @@ export interface _Cart_Initials {
     amount: null | number;
     percentage: null | number;
   } | null;
+  userCreditBalance: {
+    useBalance: boolean;
+    allowedBalance: number;
+  };
 }
 
 const corporateStoreCartInitial = {
@@ -66,6 +70,10 @@ const initialState: _Cart_Initials = {
   showThankYou: false,
   isGuestCustomer: false,
   discount: null,
+  userCreditBalance: {
+    useBalance: false,
+    allowedBalance: 0,
+  },
 };
 
 export const cartSlice = createSlice({
@@ -200,6 +208,9 @@ export const cartSlice = createSlice({
       state.showThankYou = false;
       state.isGuestCustomer = false;
       state.discount = null;
+    },
+    customerCreditBalanceUpdate: (state, { payload }) => {
+      state.userCreditBalance = payload;
     },
   },
   extraReducers: (builder) => {

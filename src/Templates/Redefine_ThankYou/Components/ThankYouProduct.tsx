@@ -32,11 +32,13 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
       <li className='flex py-6 flex-wrap px-4'>
         <div className='w-full lg:w-4/12 px-3 mt-3'>
           <Link href={product.seName!}>
-            <Image
-              src={product.colorImage}
-              alt={product.productName}
-              className='rounded-md object-center object-cover'
-            />
+            <div>
+              <Image
+                src={product.colorImage}
+                alt={product.productName}
+                className='rounded-md object-center object-cover'
+              />
+            </div>
           </Link>
         </div>
 
@@ -94,11 +96,13 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
       <li className='flex py-6 flex-wrap px-4'>
         <div className='w-full lg:w-4/12 px-3 mt-3'>
           <Link href={product.seName!}>
-            <Image
-              src={product.colorImage}
-              alt={product.productName}
-              className='rounded-md object-center object-cover'
-            />
+            <div>
+              <Image
+                src={product.colorImage}
+                alt={product.productName}
+                className='rounded-md object-center object-cover'
+              />
+            </div>
           </Link>
         </div>
 
@@ -157,11 +161,13 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
         <li className='flex py-6 flex-wrap px-4'>
           <div className='w-full lg:w-4/12 px-3 mt-3'>
             <Link href={product.seName!}>
-              <Image
-                src={product.colorImage}
-                alt={product.productName}
-                className='rounded-md object-center object-cover'
-              />
+              <div>
+                <Image
+                  src={product.colorImage}
+                  alt={product.productName}
+                  className='rounded-md object-center object-cover'
+                />
+              </div>
             </Link>
           </div>
 
@@ -219,11 +225,13 @@ const ThankYouProduct: React.FC<_props> = ({ product }) => {
     <li className='flex py-6 flex-wrap px-4'>
       <div className='w-full lg:w-4/12 px-3 mt-3'>
         <Link href={product?.seName!}>
-          <Image
-            src={product.colorImage}
-            alt={product.productName}
-            className='rounded-md object-center object-cover'
-          />
+          <div>
+            <Image
+              src={product.colorImage}
+              alt={product.productName}
+              className='rounded-md object-center object-cover'
+            />
+          </div>
         </Link>
       </div>
 

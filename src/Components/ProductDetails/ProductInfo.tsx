@@ -184,15 +184,15 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
               suggestedProducts={product.suggestedProducts}
             />
           )}
-          <div className='mt-5 text-center'>
-            <button
-              onClick={() => router.push(consultationURL)}
-              className='text-indigo-500 text-lg font-semibold underline'
-            >
-              Or request a free consultation with one of our experts
-            </button>
-          </div>
         </form>
+        <div className='mt-5 text-center'>
+          <button
+            onClick={() => router.push(consultationURL)}
+            className='text-indigo-500 text-lg font-semibold underline'
+          >
+            Or request a free consultation with one of our experts
+          </button>
+        </div>
         <ProductFeatures storeCode={storeCode} />
         <section aria-labelledby='details-heading' className='mt-12'>
           <h2 id='details-heading' className='sr-only'>
@@ -387,6 +387,8 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         {openModal === 'startOrder' && (
           <StartOrderModal modalHandler={modalHandler} product={product} />
         )}
+        {openModal === 'login' && <LoginModal modalHandler={modalHandler} />}
+        {openModal === 'forgot' && <ForgotModal modalHandler={modalHandler} />}
       </div>
     );
   }

@@ -1,4 +1,4 @@
-/*@import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css');*/
+/* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css'); */
 @import url('../src/Assets/css/spinner.css');
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css'); */
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css'); */
@@ -7,9 +7,11 @@
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/bcorp/main.css'); */
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/drivingi/main.css'); */
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/cyxtera/main.css'); */
+/* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/usaaclaimsaspparel/main.css'); */
 @import url('../public/accordian_pkhg.css');
+/* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/healthypoints/main.css'); */
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/thehomedepot/main.css'); */
-/*@import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css');*/
+/* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css'); */
 /* @import url('https://ystore.us/HTML/RedefineCommerce/Ecom-front/drivingi/main.css'); */
 /* @import url('https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaamilitarysaffairs/main.css'); */
 
@@ -33,6 +35,17 @@
 }
 .product-brand-logo span span {
   display: none !important;
+}
+.tab-container .css-heg063-MuiTabs-flexContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+  box-shadow: none;
+}
+.css-b33mht-MuiTabs-root {
+  border-bottom: 0;
 }
 .product-brand-logo img {
   position: relative !important;

@@ -14,22 +14,23 @@ const ListView = ({
 }: {
   product: GetlAllProductList;
   colorChangeHandler: (
-    productid: number,
-    seName: string,
-    color: string,
+    productid: number | undefined,
+    seName: string | undefined,
+    color: string | undefined | null,
   ) => void;
   storeLayout: string | null;
 }) => {
   const { setShowLoader } = useActions();
   const [origin, setOrigin] = useState('');
   const [currentProduct, setCurrentProduct] = useState(
-    product.getProductImageOptionList[0],
+    product.getProductImageOptionList && product.getProductImageOptionList[0],
   );
   useEffect(() => {
     colorChangeHandler(
-      product.id,
-      product.sename || '',
-      product.getProductImageOptionList[0].colorName,
+      product?.id,
+      product?.sename || '',
+      product.getProductImageOptionList &&
+        product.getProductImageOptionList[0].colorName,
     );
     if (window !== undefined) {
       setOrigin(window.location.origin);
@@ -38,7 +39,9 @@ const ListView = ({
   }, []);
 
   useEffect(() => {
-    setCurrentProduct(product.getProductImageOptionList[0]);
+    setCurrentProduct(
+      product.getProductImageOptionList && product.getProductImageOptionList[0],
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
@@ -67,8 +70,10 @@ const ListView = ({
                 <ImageComponent
                   height={400}
                   width={400}
-                  src={currentProduct.imageName}
-                  alt={currentProduct.alttag}
+                  src={
+                    currentProduct?.imageName ? currentProduct?.imageName : ''
+                  }
+                  alt={currentProduct?.alttag ? currentProduct?.alttag : ''}
                   className={
                     storeLayout === _Store.type27
                       ? 'w-auto h-auto max-h-full'
@@ -134,9 +139,10 @@ const ListView = ({
                   <div className='mt-1'>
                     <img
                       className='inline-block max-h-12'
-                      src={`${
-                        config.mediaBaseUrl
-                      }/rdc${product.brandlogo.replace('/rdc', '')}`}
+                      src={`${config.mediaBaseUrl}/rdc${
+                        product?.brandlogo &&
+                        product?.brandlogo.replace('/rdc', '')
+                      }`}
                       alt={product.brandlogo}
                     />
                   </div>
@@ -161,7 +167,9 @@ const ListView = ({
                 className={
                   storeLayout === _Store.type27
                     ? 'mt-1 h-10 overflow-hidden text-sm text-anchor tracking-wider hover:text-primary-hover'
-                    : 'relative mt-1 text-anchor hover:text-anchor-hover'
+                    : `relative mt-1 text-anchor hover:text-anchor-hover ${
+                        storeLayout === _Store.type21 ? 'underline' : ''
+                      }`
                 }
               >
                 <Link
@@ -203,31 +211,32 @@ const ListView = ({
                 role='list'
                 className='flex flex-wrap items-center mt-2 space-x-1 p-0'
               >
-                {product.getProductImageOptionList.map((subRow, index) =>
-                  index < 6 ? (
-                    <li
-                      className={`w-7 h-7 border-2${
-                        subRow.id === currentProduct.id
-                          ? ' border-secondary'
-                          : ''
-                      }`}
-                      onClick={() => {
-                        colorChangeHandler(
-                          product.id,
-                          product.sename || '',
-                          subRow.colorName,
-                        );
-                        setCurrentProduct(subRow);
-                      }}
-                    >
-                      <ImageComponent
-                        src={subRow.imageName}
-                        className='max-h-full m-auto'
-                        alt={subRow.alttag}
-                      />
-                    </li>
-                  ) : null,
-                )}
+                {product.getProductImageOptionList &&
+                  product.getProductImageOptionList.map((subRow, index) =>
+                    index < 6 ? (
+                      <li
+                        className={`w-7 h-7 border-2${
+                          subRow.id === currentProduct?.id
+                            ? ' border-secondary'
+                            : ''
+                        }`}
+                        onClick={() => {
+                          colorChangeHandler(
+                            product.id,
+                            product.sename || '',
+                            subRow.colorName,
+                          );
+                          setCurrentProduct(subRow);
+                        }}
+                      >
+                        <ImageComponent
+                          src={subRow.imageName ? subRow.imageName : ''}
+                          className='max-h-full m-auto'
+                          alt={subRow.alttag ? subRow.alttag : ''}
+                        />
+                      </li>
+                    ) : null,
+                  )}
               </ul>
               {storeLayout === _Store.type21 ||
               storeLayout === _Store.type27 ? (

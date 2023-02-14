@@ -35,9 +35,11 @@ const _default_shoppingCartItemModel: _ShoppingCartItemModel = {
 
 const personalization: {
   defaultLogo: _CartLogoPersonModel;
+  defaultLogoDetail: _CartLogoPersonDetailModel;
   defaultLine: _CartLinePersonModel;
 } = {
   defaultLogo: {
+    id: 0,
     attributeOptionId: 0,
     attributeOptionValue: '',
     code: '',
@@ -45,26 +47,24 @@ const personalization: {
     quantity: 0,
     estimateDate: new Date(),
     isEmployeeLoginPrice: 0,
-    cartLogoPersonDetailModels: [
-      {
-        logoPrice: 0,
-        logoQty: 0,
-        logoFile: '',
-        logoLocation: '',
-        logoTotal: 0,
-        colorImagePath: '',
-        logoUniqueId: '',
-        price: 0,
-        logoColors: '',
-        logoNotes: '',
-        logoDate: new Date(),
-        logoNames: '',
-        digitalPrice: 0,
-        logoPositionImage: '',
-        oldFilePath: '',
-        originalLogoFilePath: '',
-      },
-    ],
+  },
+  defaultLogoDetail: {
+    logoPrice: 0,
+    logoQty: 0,
+    logoFile: '',
+    logoLocation: '',
+    logoTotal: 0,
+    colorImagePath: '',
+    logoUniqueId: '',
+    price: 0,
+    logoColors: '',
+    logoNotes: '',
+    logoDate: new Date(),
+    logoNames: '',
+    digitalPrice: 0,
+    logoPositionImage: '',
+    oldFilePath: '',
+    originalLogoFilePath: '',
   },
   defaultLine: {
     attributeOptionId: 0,
@@ -94,6 +94,7 @@ export const singleColor_addToCart_PayloadGenerator = async (
 ): Promise<_AddToCart_Payload> => {
   let shoppingCartItemsDetailModel: _ShoppingCartItemsDetailModel[] = [];
   let cartLogoPersonModel: _CartLogoPersonModel[] = [];
+  let cartLogoPersonDetailModels: _CartLogoPersonDetailModel[] = [];
   let cartLinePersonModel: _CartLinePersonModel[] = [];
 
   if (cart.cartItems) {
@@ -102,20 +103,18 @@ export const singleColor_addToCart_PayloadGenerator = async (
 
   if (cart.personalization.logoCartItems.length > 0) {
     cartLogoPersonModel = cart.personalization.logoCartItems.map((item) => {
-      let LogoDetailsExist: _CartLogoPersonDetailModel[] | null = null;
-
       if (item.logo === 'Customize Later') {
-        LogoDetailsExist = [
+        cartLogoPersonDetailModels = [
           {
-            ...personalization.defaultLogo.cartLogoPersonDetailModels[0],
+            ...personalization.defaultLogoDetail,
             colorImagePath: item.product.color.imagePath,
             logoNames: 'Customize Logo',
           },
         ];
       } else {
-        LogoDetailsExist = item.logo.map((logo) => {
+        cartLogoPersonDetailModels = item.logo.map((logo) => {
           return {
-            ...personalization.defaultLogo.cartLogoPersonDetailModels[0],
+            ...personalization.defaultLogoDetail,
             logoPrice: logo.price,
             logoQty: logo.qty,
             logoFile: logo.filePathUrl,
@@ -125,7 +124,7 @@ export const singleColor_addToCart_PayloadGenerator = async (
             logoNames:
               logo.filePathUrl === '' ? 'Add Logo Later' : logo.filePathUrl,
             price: logo.price,
-            logoDate: logo.date,
+            logoDate: new Date(logo.date),
             logoPositionImage: logo.positionImage.path,
             originalLogoFilePath: logo.filePathUrl,
           };
@@ -134,12 +133,13 @@ export const singleColor_addToCart_PayloadGenerator = async (
 
       return {
         ...personalization.defaultLogo,
+        id: 0,
         attributeOptionId: item.product.attributeOptionId,
         attributeOptionValue: item.product.attributeOptionValue,
         price: item.product.price,
         quantity: item.product.qty,
         estimateDate: item.product.date,
-        cartLogoPersonDetailModels: LogoDetailsExist,
+        isEmployeeLoginPrice: 0,
       };
     });
   }
@@ -169,6 +169,7 @@ export const singleColor_addToCart_PayloadGenerator = async (
       },
       shoppingCartItemsDetailModels: shoppingCartItemsDetailModel,
       cartLogoPersonModel: cartLogoPersonModel,
+      cartLogoPersonDetailModels: cartLogoPersonDetailModels,
       cartLinePersonModels: cartLinePersonModel,
     },
   };
@@ -194,7 +195,7 @@ export const logoCartItems_Generator = (
             price: logo.price,
             qty: logo.quantity,
             total: logo.price,
-            date: logo.date,
+            date: new Date(),
           };
         }
 
@@ -207,7 +208,7 @@ export const logoCartItems_Generator = (
           price: logo.price,
           qty: logo.quantity,
           total: logo.price,
-          date: logo.date,
+          date: new Date(),
         };
       });
     }
@@ -218,7 +219,7 @@ export const logoCartItems_Generator = (
         color: {
           imagePath: product.color.imageUrl,
         },
-        attributeOptionId: product.color.attributeOptionId,
+        attributeOptionId: size.attributeOptionId,
         attributeOptionValue: size.size,
         price: size.price,
         qty: size.qty,

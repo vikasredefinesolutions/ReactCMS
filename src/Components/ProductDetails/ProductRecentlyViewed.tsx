@@ -13,14 +13,27 @@ import Slider from 'react-slick';
 interface _props {
   title: string;
   products: _ProductsRecentlyViewedResponse[] | null;
+  storeCode: string;
 }
 
 interface _selctedcolor {
   productName: string;
   imageurl: string | null;
 }
-const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
+const ProductRecentlyViewed: React.FC<_props> = ({
+  title,
+  products: productsData,
+  storeCode,
+}) => {
   const [color, setColors] = useState<string | null>(null);
+  const [products, setProducts] = useState(
+    Array.isArray(productsData)
+      ? productsData.map((productdata) => ({
+          ...productdata,
+          selected: productdata.image,
+        }))
+      : [],
+  );
   const router = useRouter();
   const sliderRef = useRef<null | Slider>(null);
 
@@ -32,7 +45,6 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
     sliderRef.current!.slickPrev();
   };
   const storeLayout = useTypedSelector((state) => state.store.layout);
-  const [productImage, setProductImage] = useState<_selctedcolor>();
   let flag: boolean = false;
   return (
     <>
@@ -50,13 +62,19 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
                   products.length > __constant._productAlike.carouselCounter
                     ? 'absolute'
                     : 'hidden'
-                } inset-y-0 left-0 z-10 flex items-center`}
+                } inset-y-0 ${
+                  storeCode == _Store.type10 ||
+                  storeCode === _Store.type27 ||
+                  storeCode === _Store.type24
+                    ? 'top-3/4'
+                    : 'top-1/2'
+                } -translate-x-3.5 lg:-translate-x-1/2 -trnaslate-y-1/2 left-0 z-10 flex items-center`}
               >
                 <button
                   onClick={() => goToPrevProduct()}
-                  className='bg-white flex justify-center items-center w-7 h-7 rounded-full shadow focus:outline-none'
+                  className='flex justify-center items-center w-6 h-6 focus:outline-none text-black'
                 >
-                  <span className='chevron-left ml-2 text-base material-symbols-outlined font-semibold'>
+                  <span className='chevron-left ml-2 text-base material-symbols-outlined font-semibold '>
                     arrow_back_ios
                   </span>
                 </button>
@@ -69,66 +87,70 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
                   return (
                     <>
                       <div key={product.id} className='slide-item '>
-                        <div className='px-2 border border-transparent p-1'>
+                        <div
+                          className={`px-2 border border-transparent p-1 ${
+                            storeCode === _Store.type23
+                              ? 'hover:border-gray-300'
+                              : ''
+                          } `}
+                        >
                           <div className='flex text-center lg:w-auto mb-6'>
                             <div className='relative pb-4 w-full'>
-                              <div className='w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
+                              <div className='w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1 cursor-pointer '>
                                 <Link
+                                  key={product.id}
                                   href={`${encodeURIComponent(
                                     product.seName,
                                   )}.html?v=product-detail&altview=1`}
+                                  className='relative underline min-h-[48px]'
                                 >
                                   <div className='relative'>
                                     {/* Issue: Using functional components as child of <Link/> causes ref-warnings */}
                                     <Image
-                                      src={
-                                        product.name ==
-                                        productImage?.productName
-                                          ? productImage.imageurl
-                                          : product.image
-                                      }
+                                      src={product.selected}
                                       alt={product.name}
                                       className='w-auto h-auto max-h-max'
                                     />
                                   </div>
                                 </Link>
                               </div>
-                              <div className='mt-6'>
-                                <a
+                              <div className='mt-6 cursor-pointer'>
+                                <Link
+                                  key={product.id}
                                   href={`${encodeURIComponent(
                                     product.seName,
                                   )}.html?v=product-detail&altview=1`}
+                                  className='relative underline min-h-[48px]'
                                 >
-                                  <div className='mt-1 text-anchor hover:text-anchor-hover'>
-                                    <div className='relative'>
-                                      <span className='absolute inset-0'></span>
+                                  <div className='w-full text-xl mb-3 h-14'>
+                                    <span className='text-secondary text-xl font-bold cursor-pointer hover:text-anchor-hover'>
                                       {product.name}
-                                    </div>
+                                    </span>
                                   </div>
-                                </a>
+                                </Link>
 
-                                <div className='mt-3 text-black text-base tracking-wider'>
-                                  <span className='mt-2 text-primary'>
-                                    MSRP <Price value={product.msrp} />
+                                <div
+                                  className={
+                                    storeCode === _Store.type23
+                                      ? 'text-anchor'
+                                      : 'mt-3 text-black text-base tracking-wider'
+                                  }
+                                >
+                                  <span
+                                    className={
+                                      storeCode === _Store.type23
+                                        ? ''
+                                        : 'mt-2 text-primary'
+                                    }
+                                  >
+                                    {storeCode === _Store.type27 ? '' : 'MSRP'}
+                                    <Price value={product.msrp} />
                                   </span>
                                 </div>
-                                {storeLayout !== _Store.type27 && (
-                                  <div className='flex justify-center mx-auto mt-2'>
-                                    <a
-                                      className='btn btn-secondary'
-                                      href={`${encodeURIComponent(
-                                        product.seName,
-                                      )}.html?v=product-detail&altview=1`}
-                                      title=''
-                                    >
-                                      <span className='material-icons text-sm'>
-                                        local_mall
-                                      </span>
-                                      <span className='ml-1'>ADD TO CART</span>
-                                    </a>
-                                  </div>
-                                )}
-                                {storeLayout === _Store.type27 && (
+
+                                {(storeLayout === _Store.type27 ||
+                                  storeLayout === _Store.type5 ||
+                                  storeLayout === _Store.type6) && (
                                   <div className='flex flex-wrap gap-1 text-sm text-center justify-center space-x-1'>
                                     {product.getProductImageOptionList?.map(
                                       (colour, index) => {
@@ -139,10 +161,20 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
                                             className='w-8 h-8'
                                             onClick={() => {
                                               setColors(colour.colorName);
-                                              setProductImage({
-                                                productName: product.name,
-                                                imageurl: colour.imageName,
-                                              });
+                                              setProducts((prev) =>
+                                                prev.map((productdata) => {
+                                                  if (
+                                                    productdata.name ==
+                                                    product.name
+                                                  )
+                                                    return {
+                                                      ...productdata,
+                                                      selected:
+                                                        colour.imageName,
+                                                    };
+                                                  return productdata;
+                                                }),
+                                              );
                                             }}
                                           >
                                             <div
@@ -188,6 +220,25 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
                                     ) : null}
                                   </div>
                                 )}
+                                {storeLayout !== _Store.type27 &&
+                                  storeLayout !== _Store.type2 && (
+                                    <div className='flex justify-center mx-auto mt-4'>
+                                      <a
+                                        className='btn btn-primary'
+                                        href={`${encodeURIComponent(
+                                          product.seName,
+                                        )}.html?v=product-detail&altview=1`}
+                                        title=''
+                                      >
+                                        <span className='material-icons text-sm'>
+                                          local_mall
+                                        </span>
+                                        <span className='ml-1'>
+                                          ADD TO CART
+                                        </span>
+                                      </a>
+                                    </div>
+                                  )}
                               </div>
                             </div>
                           </div>
@@ -202,7 +253,13 @@ const ProductRecentlyViewed: React.FC<_props> = ({ title, products }) => {
                   products.length > __constant._productAlike.carouselCounter
                     ? 'absolute'
                     : 'hidden'
-                } inset-y-0 right-0 z-10 flex items-center`}
+                } inset-y-0 ${
+                  storeCode == _Store.type10 ||
+                  storeCode === _Store.type27 ||
+                  storeCode === _Store.type24
+                    ? 'top-3/4'
+                    : 'top-1/2'
+                } -translate-x-3.5 lg:-translate-x-1/2 -trnaslate-y-1/2 right-0 z-10 flex items-center`}
               >
                 <button
                   onClick={() => goToNextProduct()}

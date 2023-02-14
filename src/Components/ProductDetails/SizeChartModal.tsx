@@ -215,7 +215,10 @@ const SizeChart: React.FC<
     storeCode === _Store.type1 ||
     storeCode === _Store.type15 ||
     storeCode === _Store.type16 ||
-    storeCode === _Store.type24
+    storeCode === _Store.type23 ||
+    storeCode === _Store.type24 ||
+    storeCode === _Store.type26 ||
+    storeCode === _Store.type12
   ) {
     return (
       <div
@@ -259,7 +262,7 @@ const SizeChart: React.FC<
                     <thead className='text-sm bg-gray-100 font-semibold uppercase border-b border-neutral-200'>
                       <tr className='divide-x divide-slate-200'>
                         <th className='px-2 py-4'>&nbsp;</th>
-                        {sizeChart?.measurements.map((size) => (
+                        {sizeChart?.sizeChartRange.map((size) => (
                           <th className='px-2 py-4' key={size}>
                             <div className=''>{size}</div>
                           </th>
@@ -267,13 +270,13 @@ const SizeChart: React.FC<
                       </tr>
                     </thead>
                     <tbody className='divide-y divide-slate-200'>
-                      {sizeChart?.sizeChartRange.map((piece) => (
+                      {sizeChart?.measurements.map((piece) => (
                         <tr className='divide-x divide-slate-200' key={piece}>
                           <td className='px-2 py-3 text-left'>{piece}</td>
-                          {sizeChart.measurements.map((length, index) => (
+                          {sizeChart.sizeChartRange.map((length, index) => (
                             <td className='px-2 py-3' key={length}>
                               <div className=''>
-                                {sizeChart.sizeChartView[`${length}${piece}`]}
+                                {sizeChart.sizeChartView[`${piece}${length}`]}
                               </div>
                             </td>
                           ))}

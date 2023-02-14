@@ -1,6 +1,6 @@
 import {
   fetchCategoryByCategoryId,
-  fetchCategoryByproductId
+  fetchCategoryByproductId,
 } from '@services/product.service';
 import ImageComp from 'appComponents/reUsable/Image';
 import { useTypedSelector } from 'hooks';
@@ -18,7 +18,6 @@ const BreadCrumb: React.FC = () => {
   const [breadCrumbs, setBreadCrumbs] = useState<
     { name: string; url: string }[]
   >([]);
-  console.log(pageType.type);
   const getBreadCrubs = async () => {
     if (pageType.type === 'brand') {
       return [
@@ -201,7 +200,7 @@ const BreadCrumb: React.FC = () => {
     );
   }
 
-  if (storeLayout === _Store.type3 || storeLayout === _Store.type22) {
+  if (storeLayout === _Store.type3) {
     return (
       <div id='' className='px-2 lg:px-0'>
         <div className='container mx-auto'>
@@ -310,35 +309,53 @@ const BreadCrumb: React.FC = () => {
     );
   }
 
-  if (storeLayout === _Store.type21) {
+  if (
+    storeLayout === _Store.type21 ||
+    storeLayout === _Store.type10 ||
+    storeLayout === _Store.type23 ||
+    storeLayout === _Store.type22
+  ) {
     return (
       <div id='' className='py-3 bg-white tracking-wider px-2 lg:px-0'>
         <div className='container mx-auto'>
           <div className='border-b border-[#f0f0f0] pb-2'>
-            
             <nav
               className='flex flex-wrap justify-between items-center'
               aria-label='Breadcrumb'
             >
               <ol className='inline-flex items-center space-x-1 md:space-x-3'>
                 {breadCrumbs.map((item, index) => (
-
-                  <li key={index} aria-current='page' className="inline-flex items-center">
+                  <li
+                    key={index}
+                    aria-current='page'
+                    className='inline-flex items-center'
+                  >
                     <Link
                       href={item.url}
                       className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'
                     >
                       <a className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
                         <div className='flex items-center'>
-                          {index > 0 && <span className="material-symbols-outlined text-sm">
-                            chevron_right
-                          </span>}
-                          {item.name == 'Home' ? <span className="material-symbols-outlined ml-1 text-sm  md:ml-2">
-                            home
-                          </span> :
-                            <span className={`ml-1 text-sm ${index===breadCrumbs.length-1?'text-anchor':''} md:ml-2`}>
+                          {index > 0 && (
+                            <span className='material-symbols-outlined text-sm'>
+                              chevron_right
+                            </span>
+                          )}
+                          {item.name == 'Home' ? (
+                            <span className='material-symbols-outlined ml-1 text-sm  md:ml-2'>
+                              home
+                            </span>
+                          ) : (
+                            <span
+                              className={`ml-1 text-sm ${
+                                index === breadCrumbs.length - 1
+                                  ? 'text-anchor'
+                                  : ''
+                              } md:ml-2`}
+                            >
                               {item.name}
-                            </span>}
+                            </span>
+                          )}
                         </div>
                       </a>
                     </Link>
@@ -351,53 +368,65 @@ const BreadCrumb: React.FC = () => {
             </nav>
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 
-  if (storeLayout === _Store.type24) {
+  if (storeLayout === _Store.type24 || storeLayout === _Store.type26) {
     return (
       <div id='' className='py-3 bg-white tracking-wider px-2 lg:px-0'>
         <div className='container mx-auto'>
-          <div className='border-b border-[#f0f0f0] pb-2'>
+          <div
+            className={
+              storeLayout === _Store.type24
+                ? 'border-b border-[#f0f0f0] pb-2'
+                : ''
+            }
+          >
             <nav
-              className='flex flex-wrap justify-between items-center'
+              className={`flex flex-wrap justify-between items-center ${
+                storeLayout === _Store.type26 ? 'bg-gray-100 p-2' : ''
+              }`}
               aria-label='Breadcrumb'
             >
               <ol className='inline-flex items-center text-xs text-secondary'>
                 {breadCrumbs.map((item, index) => (
-
-                  <li key={index} aria-current='page' data-breadcrumb={JSON.stringify(item)}>
-                    {
-                      item.name === 'Home' ?
-                        <Link
-                          href={item.url}
-                          className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'
-                        >
-                          <a className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
-                              </path>
-                            </svg>
-                          </a>
-                        </Link>
-                        :
-                        <Link
-                          href={item.url}
-                          className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'
-                        >
-                          <a className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
-                            <div className='flex items-center'>
-                              {index > 0 && <span className='ml-1 material-icons-outlined text-base leading-none'>chevron_right</span>}
-                              <span className='ml-1 md:ml-2 text-gray-500'>
-                                {item.name}
+                  <li key={index} aria-current='page'>
+                    {item.name === 'Home' ? (
+                      <Link
+                        href={item.url}
+                        className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'
+                      >
+                        <a className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
+                          <svg
+                            className='w-4 h-4'
+                            fill='currentColor'
+                            viewBox='0 0 20 20'
+                            xmlns='http://www.w3.org/2000/svg'
+                          >
+                            <path d='M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z'></path>
+                          </svg>
+                        </a>
+                      </Link>
+                    ) : (
+                      <Link
+                        href={item.url}
+                        className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'
+                      >
+                        <a className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
+                          <div className='flex items-center'>
+                            {index > 0 && (
+                              <span className='ml-1 material-icons-outlined text-base leading-none'>
+                                chevron_right
                               </span>
-                            </div>
-                          </a>
-                        </Link>
-                    }
+                            )}
+                            <span className='ml-1 md:ml-2 text-gray-500'>
+                              {item.name}
+                            </span>
+                          </div>
+                        </a>
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ol>

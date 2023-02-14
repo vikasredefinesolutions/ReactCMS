@@ -17,6 +17,9 @@ export const CartSummaryController = () => {
   const store = useTypedSelector((state) => state.store);
   const userId = useTypedSelector((state) => state.user.id);
   const discount = useTypedSelector((state) => state.cart.discount);
+  const { useBalance, allowedBalance } = useTypedSelector(
+    (state) => state.cart.userCreditBalance,
+  );
   useEffect(() => {
     if (userId) {
       setCustomerId(~~userId);
@@ -74,6 +77,7 @@ export const CartSummaryController = () => {
       logoSetupCharges: 0,
       salesTax: 0,
       discount: couponDiscount,
+      creditBalance: allowedBalance,
     };
 
     let totalQty = 0;
@@ -106,6 +110,15 @@ export const CartSummaryController = () => {
     }
 
     priceObject.totalPrice -= couponDiscount;
+    if (useBalance) {
+      if (allowedBalance > priceObject.totalPrice) {
+        priceObject.creditBalance = priceObject.totalPrice;
+        priceObject.totalPrice = 0;
+      } else {
+        priceObject.totalPrice -= allowedBalance;
+      }
+    }
+
     return priceObject;
   };
 
@@ -126,6 +139,7 @@ export const CartSummaryController = () => {
     setCoupon,
     getTotalPrice,
     couponCodeSubmit,
+    useBalance,
   };
 };
 

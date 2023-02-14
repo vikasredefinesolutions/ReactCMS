@@ -1,23 +1,41 @@
 import ProductDescription from 'Components/ProductDetails/ProductDescription';
 import ProductDetails from 'Components/ProductDetails/ProductDetails';
 import SizeChart from 'Components/ProductDetails/SizeChartModal';
-import { useActions } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { FetchInventoryById } from '@services/product.service';
+import {
+  FetchInventoryById,
+  FetchProductRecentlyViewed,
+  InsertProductRecentlyViewed,
+} from '@services/product.service';
 import { _StoreCache } from '@type/slug.type';
 import ProductAlike from 'Components/ProductDetails/ProductAlike';
 import ProductFeatures from 'Components/ProductDetails/ProductFeatures';
+import ProductRecentlyViewed from 'Components/ProductDetails/ProductRecentlyViewed';
 import ProductReviews from 'Components/ProductDetails/ProductReviews';
-import { _ProductDetailsProps } from 'definations/APIs/productDetail.res';
+import {
+  _ProductDetailsProps,
+  _ProductsRecentlyViewedResponse,
+} from 'definations/APIs/productDetail.res';
+import getLocation from 'helpers/getLocation';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 const Ecommerce_ProductDetails_View: React.FC<
   _ProductDetailsProps & _StoreCache
 > = (product) => {
   const { store_productDetails, setColor, setShowLoader, product_storeData } =
     useActions();
+
+  const [recentlyViewedProduct, setRecentlyViewedProduct] = useState<
+    Array<_ProductsRecentlyViewedResponse>
+  >([]);
+
+  const customerId = useTypedSelector((state) => state.user.id);
+  const storeId = useTypedSelector((state) => state.store.id);
+  const router = useRouter();
 
   // const addParams = () => {
   //   router.query.altview = '1';
@@ -66,9 +84,42 @@ const Ecommerce_ProductDetails_View: React.FC<
       }
     }
 
+    addRecentlyViewedProduct().then((res) => {
+      setRecentlyViewedProduct(res);
+    });
+
     setShowLoader(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [product.details]);
+
+  const addRecentlyViewedProduct = async () => {
+    const location = await getLocation();
+    const pageUrl = router.query;
+    let payloadObj = {
+      recentViewModel: {
+        productId: product.SEO?.productId || 0,
+        customerId: customerId || 0,
+        pageName: 'descriptionPage',
+        pageUrl: `${pageUrl.slug}`,
+        ipAddress: `${location.IPv4}`,
+        recStatus: 'A',
+      },
+    };
+    InsertProductRecentlyViewed(payloadObj);
+
+    if (storeId) {
+      let fetchRecentlyViewedPayload = {
+        productId: product.SEO?.productId || 0,
+        storeId: 4,
+        ipAddress: `${location.IPv4}`,
+        customerId: customerId || 0,
+        maximumItemsForFetch: 10,
+      };
+
+      return FetchProductRecentlyViewed(fetchRecentlyViewedPayload);
+    }
+    return [];
+  };
 
   if (product === null) return <p>Product Page Loading...</p>;
 
@@ -113,7 +164,6 @@ const Ecommerce_ProductDetails_View: React.FC<
       </>
     );
   }
-
   if (product.storeCode === _Store.type2) {
     return (
       <>
@@ -123,13 +173,22 @@ const Ecommerce_ProductDetails_View: React.FC<
             product={product.details}
             storeCode={product.storeCode}
           />
-          <ProductFeatures fewFeatures storeCode={product.storeCode} />
+          {product.details.isEnableLogolocation && (
+            <ProductFeatures fewFeatures storeCode={product.storeCode} />
+          )}
           <ProductDescription
             heading='DESCRIPTION'
             text={product.details.description}
             storeCode={product.storeCode}
           />
           <ProductReviews reviews={null} storeCode={product.storeCode} />
+          {recentlyViewedProduct.length && (
+            <ProductRecentlyViewed
+              storeCode={product.storeCode}
+              title='RECENTLY VIEWED'
+              products={recentlyViewedProduct}
+            />
+          )}
           <ProductAlike
             storeCode={product.storeCode}
             title='YOU MAY ALSO LIKE'
@@ -194,7 +253,10 @@ const Ecommerce_ProductDetails_View: React.FC<
     );
   }
 
-  if (product.storeCode === _Store.type15) {
+  if (
+    product.storeCode === _Store.type15 ||
+    product.storeCode === _Store.type16
+  ) {
     return (
       <>
         {HeadTag}

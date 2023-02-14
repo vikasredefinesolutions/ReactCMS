@@ -9,6 +9,7 @@ export interface AddToCartModel {
   isempLogin: boolean;
   shoppingCartItemModel: _ShoppingCartItemModel;
   shoppingCartItemsDetailModels: _ShoppingCartItemsDetailModel[];
+  cartLogoPersonDetailModels: _CartLogoPersonDetailModel[];
   cartLogoPersonModel: _CartLogoPersonModel[];
   cartLinePersonModels: _CartLinePersonModel[];
 }
@@ -36,6 +37,7 @@ export interface _CartLinePersonDetailModel {
 }
 
 export interface _CartLogoPersonModel {
+  id: number;
   attributeOptionId: number;
   attributeOptionValue: string;
   code: string;
@@ -43,7 +45,6 @@ export interface _CartLogoPersonModel {
   quantity: number;
   estimateDate: Date;
   isEmployeeLoginPrice: number;
-  cartLogoPersonDetailModels: _CartLogoPersonDetailModel[];
 }
 
 export interface _CartLogoPersonDetailModel {
@@ -98,7 +99,7 @@ export interface _LogoCartItems_LogoDetails {
   price: number;
   qty: number;
   total: number;
-  date: Date;
+  date: Date | string;
 }
 
 export interface _AddToCart_LogoCartItems {

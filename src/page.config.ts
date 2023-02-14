@@ -3,14 +3,15 @@
 /*                         STORE CONSTANTS                          */
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
+
 export const _Store = {
   type1: 'CG',
   type2: 'GG',
   type3: 'PKHG',
   type4: 'DI',
   type5: 'BG-GG',
-  type6: 'bacardiToGo',
-  type7: 'bbcpord',
+  type6: 'BCTOGO',
+  type7: 'BSTBEER',
   type8: 'bcorp',
   type9: 'betahumana',
   type10: 'cyxtera',
@@ -38,28 +39,28 @@ export const _StoreDomains = {
   domain1: 'cg.headlessmart.com',
   domain2: 'gg.headlessmart.com',
   domain3: 'pkhealth.headlessmart.com',
-  domain4: 'drivingi',
+  domain4: 'di.headlessmart.com',
   domain5: 'https://bacardi.headlessmart.com',
-  domain6: 'bacardiToGo',
-  domain7: 'bbcpord',
+  domain6: 'bacarditogo.headlessmart.com', // CLOSED
+  domain7: 'bbcprod.headlessmart.com',
   domain8: 'bcorp',
-  domain9: 'betahumana',
+  domain9: 'betahumana', // CLOSED
   domain10: 'cyxtera',
-  domain11: 'gilbaneco',
-  domain12: 'healthyPoints',
+  domain11: 'gilbaneco', // CLOSED
+  domain12: 'healthyPoints', // DUPLICATE
   domain13: 'bacardi',
-  domain14: 'humanaheroes',
+  domain14: 'humanaheroes', // CLOSED
   domain15: 'petermillar.headlessmart.com',
   domain16: 'southerntide.headlessmart.com',
-  domain17: 'theHardFord',
-  domain18: 'theHardFordClaimsapparel',
-  domain19: 'theHardFordJuniorfireMarshal',
-  domain20: 'theHardFordVolshirt',
+  domain17: 'theHardFord', // CLOSED
+  domain18: 'theHardFordClaimsapparel', // CLOSED
+  domain19: 'theHardFordJuniorfireMarshal', // CLOSED
+  domain20: 'theHardFordVolshirt', // CLOSED
   domain21: 'theHomeDepot',
-  domain22: 'react-cms-three.vercel.app',
+  domain22: 'humanadev.parsonskellogg.com',
   domain23: 'ussaClaimsApparel',
   domain24: 'ussaMilitarysAffairs',
-  domain25: 'wayFair',
+  domain25: 'wayFair', // CLOSED
   domain26: 'healthypoints',
   domain27: 'bainCapital',
 };
@@ -73,8 +74,8 @@ export const _StoreDomains = {
 export const __domain = {
   devMode: true, // for development features.
   isSiteLive: true,
-  localDomain: _StoreDomains.domain5,
-  layoutToDisplay: _Store.type5,
+  localDomain: _StoreDomains.domain3,
+  layoutToDisplay: _Store.type3,
 };
 
 export const __MockMenuItem = {
@@ -213,7 +214,7 @@ export const __MockMenuItem = {
       {
         layoutType: _Store.type26,
         domain: _StoreDomains.domain26,
-        layoutName: 'healthypoints',
+        layoutName: 'alphahealthypoints',
       },
       {
         layoutType: _Store.type27,
@@ -271,6 +272,7 @@ export const __constant = {
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 1,
+        arrows: false,
       },
     },
   },

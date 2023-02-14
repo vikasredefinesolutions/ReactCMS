@@ -32,10 +32,11 @@ const Layout1 = ({
   clearFilters,
   compareCheckBoxHandler,
   storeLayout,
+  seType,
 }: list_FnProps) => {
   return (
     <>
-      <ProductDetailsPageBanner slug={slug} />
+      <ProductDetailsPageBanner slug={slug} seType={seType} />
       <section id=''>
         <div className='bg-white'>
           <div className='container mx-auto px-2 lg:px-0'>

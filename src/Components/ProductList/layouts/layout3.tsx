@@ -1,6 +1,6 @@
 import CateBand from 'appComponents/reUsable/CateBand';
-import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
+import { Fragment } from 'react';
 import { list_FnProps } from '..';
 import FilterBarLayout3 from '../components/FilterBar/layout3';
 import FilterLayout3 from '../components/Filters/Layout3';
@@ -25,12 +25,15 @@ const Layout3 = ({
   sortProductJson,
   clearFilters,
   compareCheckBoxHandler,
+  storeLayout,
 }: list_FnProps) => {
-
-  const { layout } = useTypedSelector((state) => state.store)
   return (
     <>
-      {layout !== _Store.type10 && layout !== _Store.type5 && layout !== _Store.type8 && layout !== _Store.type24 && <CateBand />}
+      {storeLayout !== _Store.type10 &&
+        storeLayout !== _Store.type5 &&
+        storeLayout !== _Store.type8 &&
+        storeLayout !== _Store.type23 &&
+        storeLayout !== _Store.type24 && <CateBand />}
 
       <section id='layout3' className=''>
         <div className='container mx-auto'>
@@ -81,14 +84,16 @@ const Layout3 = ({
                         }
                       >
                         {products.map((product, index) => (
-                          <ProductLayout2
-                            key={index}
-                            productView={productView}
-                            skuList={skuList}
-                            compareCheckBoxHandler={compareCheckBoxHandler}
-                            product={product}
-                            colorChangeHandler={colorChangeHandler}
-                          />
+                          <Fragment key={index}>
+                            <ProductLayout2
+                              productView={productView}
+                              skuList={skuList}
+                              compareCheckBoxHandler={compareCheckBoxHandler}
+                              product={product}
+                              colorChangeHandler={colorChangeHandler}
+                              storeLayout={storeLayout}
+                            />
+                          </Fragment>
                         ))}
                       </ul>
                     </div>

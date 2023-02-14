@@ -25,7 +25,8 @@ export interface CustomerAddress {
   location?: any;
   ipAddress?: any;
   macAddress?: any;
-  companyName: string;
+  companyName?: string;
+  CompanyName: string;
 }
 
 export interface UserType {
@@ -261,6 +262,7 @@ export interface ShoppingCartItemDetailsViewModel {
   attributeOptionValue: string;
   qty: number;
   price: number;
+  id: number;
 }
 
 export interface ShoppingCartLogoPersonViewModel {

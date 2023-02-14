@@ -35,6 +35,7 @@ const MenuItems: React.FC<_props> = ({
     storeCode === _Store.type15 ||
     storeCode === _Store.type16
   ) {
+
     if (screen === 'MOBILE') {
       return (
         <div className='relative z-40 lg:hidden'>
@@ -72,10 +73,11 @@ const MenuItems: React.FC<_props> = ({
     }
     if (screen === 'DESKTOP') {
       return (
-        <div className='hidden h-full xl:flex items-center justify-center flex-1'>
+        <div className='h-full xl:flex items-center justify-center flex-1'>
           <div className='ml-5'>
             <div className='h-full flex justify-center space-x-5 relative text-sm'>
               {menuItems.items_content?.map((menu, index) => {
+
                 if (menu === null) {
                   return <></>;
                 }

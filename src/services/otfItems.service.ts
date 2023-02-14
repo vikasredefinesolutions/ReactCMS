@@ -27,3 +27,17 @@ export const getOtfItemVariant =
       return null;
     }
   };
+
+export const addOtfItem = async (payload: any) => {
+  const url = '/OtfItem/CreateOtfItem';
+  try {
+    const res = await SendAsyncV2<OTFItemVariantList | null>({
+      url,
+      method: 'POST',
+      data: payload,
+    });
+    return res.data;
+  } catch (error) {
+    return null;
+  }
+};

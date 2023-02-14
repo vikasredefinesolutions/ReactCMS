@@ -9,7 +9,6 @@ import Brand from './Ecommerce_BrandItem';
 import Category from './Ecommerce_CategoryItem';
 import Custom from './Ecommerce_CustomItem';
 import Topic from './Ecommerce_TopicItem';
-import Link from 'next/link';
 
 // -----------
 interface _props {
@@ -33,15 +32,15 @@ const MenuItem: React.FC<_props> = ({
     _titleURL = url;
   }
 
-  // if (content === null) {
-  //   return <></>;
-  // }
+  if (content === null) {
+    return <></>;
+  }
 
-  if (content !== null && typeof content === 'string') {
+  if (typeof content === 'string') {
     return <Custom title={title} url={_titleURL} content={content} />;
   }
 
-  if (content !== null && 'dataType' in content) {
+  if ('dataType' in content) {
     if (type === 'BRANDS' && content.dataType === 'BRANDS') {
       return (
         <Brand
@@ -64,15 +63,7 @@ const MenuItem: React.FC<_props> = ({
     return <Topic title={title} url={_titleURL} />;
   }
 
-  return <Link href={`${url}`} className='flex'>
-          <div className=''>
-            <button type='button'
-              className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover border-transparent text-white hover:text-primary-hover`}
-            >
-              <span className='uppercase text-primary'>{title}</span>
-            </button>
-          </div>
-          </Link>;
+  return <>dum</>;
 };
 
 export default MenuItem;

@@ -3,22 +3,29 @@ import { _BannerRes } from '@type/APIs/banner.res';
 import Image from 'appComponents/reUsable/Image';
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import Image from '../../../../components/reusables/Image';
-const ProductDetailsPageBanner = (slug: any) => {
+interface _props {
+  slug: string | undefined;
+  seType: string | undefined;
+}
+const ProductDetailsPageBanner: React.FC<_props> = (props) => {
+  const { slug, seType } = props;
+  const isbrand: boolean = seType === 'brand' ? true : false;
   const { layout: storeLayout, id: storeId } = useTypedSelector(
     (state) => state.store,
   );
   const [banner, setBanner] = useState<_BannerRes[] | null>(null);
   useEffect(() => {
-    if (storeId) {
+    if (storeId && slug) {
       FetchBannerDetails({
         storeId: storeId,
-        isBrand: true,
-        sename: slug.slug,
+        isBrand: isbrand,
+        sename: slug,
       }).then((res) => setBanner(res));
     }
   }, [storeId]);
+
   if (banner === null || banner.length < 1) {
     return <></>;
   }
@@ -37,13 +44,13 @@ const ProductDetailsPageBanner = (slug: any) => {
                 <div className='container mx-auto'>
                   <div className='flex gap-10 items-center p-16 px-20 bg-gray-100'>
                     <div className='w-full lg:w-1/2 flex items-center gap-2 h-full justify-around'>
-                      {banner[1] &&
-                        (banner[1].brandLogo || banner[1].banner) && (
+                      {banner[0] &&
+                        (banner[0].brandLogo || banner[0].banner) && (
                           <>
                             <div className='h-full w-full lg:w-1/2'>
                               <Image
                                 className='object-cover'
-                                src={banner[1].brandLogo || banner[1].banner}
+                                src={banner[0].brandLogo || banner[0].banner}
                                 alt={''}
                               />
                             </div>
@@ -70,9 +77,8 @@ const ProductDetailsPageBanner = (slug: any) => {
                         <div className="text-lg md:text-xl lg:text-small-title font-small-title mb-1">
                           {banner.subTitle}
                         </div> */}
-                        <p className='text-default-text font-default-text'>
-                          {banner[0].description}
-                        </p>
+                        <div className='text-default-text font-default-text' dangerouslySetInnerHTML={{__html: banner[0].description}}>
+                        </div>
                       </div>
                     )}
                   </div>

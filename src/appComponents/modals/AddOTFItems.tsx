@@ -1,23 +1,29 @@
 import { OTFItemValidation } from '@constants/validationMessages';
-import { getOtfItemNo, getOtfItemVariant } from '@services/otfItems.service';
+import {
+  addOtfItem,
+  getOtfItemNo,
+  getOtfItemVariant,
+} from '@services/otfItems.service';
 import { OTFItemNoList } from '@type/otfItem.res';
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 const AddOTFItemNo = ({ closeModal }: { closeModal: () => void }) => {
+  // const {} = useActions();
+
   const [otfItemNo, setOtfItemNo] = useState<OTFItemNoList | null>(null);
   const [otfItemVariant, setOtfItemVariant] = useState<OTFItemNoList | null>(
     null,
   );
 
   useEffect(() => {
-    async () => {
+    (async () => {
       const itmes = await getOtfItemNo();
       setOtfItemNo(itmes);
       const variants = await getOtfItemVariant();
       setOtfItemVariant(variants);
-    };
+    })();
   }, []);
 
   const initialValues = {
@@ -44,8 +50,18 @@ const AddOTFItemNo = ({ closeModal }: { closeModal: () => void }) => {
     qty: Yup.string().required(OTFItemValidation.qty.required),
   });
 
-  const submitHandler = () => {
-    closeModal();
+  const submitHandler = async (values: typeof initialValues) => {
+    try {
+      const res = await addOtfItem({
+        addOTFItemModel: {
+          id: 0,
+          ...values,
+        },
+      });
+      closeModal();
+    } catch (error) {
+      console.log('Error is here');
+    }
   };
 
   return (
@@ -116,6 +132,12 @@ const AddOTFItemNo = ({ closeModal }: { closeModal: () => void }) => {
                             className='form-input'
                             name='otfItemNo'
                           >
+                            <option
+                              disabled={Boolean(values.otfItemNo)}
+                              selected={true}
+                            >
+                              Select OTF Item No
+                            </option>
                             {otfItemNo &&
                               otfItemNo.map((itemNo) => (
                                 <option key={itemNo.value} value={itemNo.value}>
@@ -129,6 +151,7 @@ const AddOTFItemNo = ({ closeModal }: { closeModal: () => void }) => {
                             {errors.otfItemNo}
                           </p>
                         )}
+                        ``
                       </div>
                     </div>
                     <div className='flex flex-wrap'>
@@ -143,12 +166,18 @@ const AddOTFItemNo = ({ closeModal }: { closeModal: () => void }) => {
                       <div className='w-full lg:w-1/2'>
                         <div className='mt-2'>
                           <select
-                            value={values.otfItemNo}
+                            value={values.otfItemVariant}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             className='form-input'
                             name='otfItemVariant'
                           >
+                            <option
+                              selected={true}
+                              disabled={Boolean(values.otfItemVariant)}
+                            >
+                              Select OTF Item Variant
+                            </option>
                             {otfItemVariant &&
                               otfItemVariant.map((variant) => (
                                 <option

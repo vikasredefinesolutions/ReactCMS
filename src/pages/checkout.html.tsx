@@ -1,7 +1,7 @@
-import HelpIcon from '@mui/icons-material/Help';
 import { FetchCartDetails } from '@services/cart.service';
 import { CartProducts } from '@type/APIs/cart.res';
 import CartSummary from 'Components/CartSummary/CartSummary';
+import PaymentOption from 'Components/Checkout/components/PaymentOption';
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
@@ -21,31 +21,24 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
     setShowShippingScreen,
     setUseShippingAddress,
     setCardDetails,
-    setShowCVVHelpCard,
-    setPurchaseOrder,
     setShowChangeAddressPopup,
     changeAddres,
     closeShippingPopup,
     setShowAddAccount,
     checkCustomer,
     logInUser,
-    getTotalPrice,
     continueAsGuest,
-    bindSubmitForm,
     addressChangeHandler,
     placeOrder,
     addressArray,
     useShippingAddress,
-    cardArray,
     passwordValidationSchema,
     newAccountPasswordValidationSchema,
     showEmail,
     showPassword,
     showForgetPassword,
     billingAdress,
-    showCVVHelpCard,
     cardDetails,
-    purchaseOrder,
     showChangeAddressPopup,
     validationSchema,
     showShippingScreen,
@@ -53,24 +46,40 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
     showAddAccount,
     isLoggedIn,
     paymentOptions,
+    allowedBalance,
+    checkHandler,
+    setPaymentMethod,
+    paymentMethod,
+    purchaseOrder,
+    setPurchaseOrder,
+    submitCreateAccountHandler,
+    ccInputHandler,
   } = CheckoutController();
   const { cartDetails } = props;
   const shipping = createRef();
   const billing = createRef();
   const [showReviewOrder, setShowReviewOrder] = useState(false);
-  const [notloogedinForm, setNotloogedinForm] = useState(false);
 
   const handleReviewOrder = async () => {
     if (!isLoggedIn) {
       const form = shipping.current as FormikProps<any>;
+      const billingForm = billing.current as FormikProps<any>;
       await form.submitForm();
-      if (form.dirty && form.isValid) {
-        setShowReviewOrder(!showReviewOrder);
+      if (!useShippingAddress) {
+        await billingForm.submitForm();
       }
+      if (
+        form.dirty &&
+        form.isValid &&
+        billingForm.dirty &&
+        billingForm.isValid
+      ) {
+        setShowReviewOrder(!showReviewOrder);
+        return;
+      }
+    } else {
+      setShowReviewOrder(!showReviewOrder);
     }
-    //  else {
-    setShowReviewOrder(!showReviewOrder);
-    // }
   };
 
   return (
@@ -234,10 +243,7 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                         </div>
                         <Formik
                           validationSchema={newAccountPasswordValidationSchema}
-                          onSubmit={() => {
-                            setShowShippingScreen(true);
-                            setShowAddAccount(false);
-                          }}
+                          onSubmit={submitCreateAccountHandler}
                           initialValues={{
                             password: '',
                             passwordConfirmation: '',
@@ -378,193 +384,21 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                       </div>
                     </div>
                     <div className='w-full lg:w-1/2 px-3 mt-3'>
-                      <div
-                        id='PaymentCard'
-                        style={{
-                          display:
-                            showShippingScreen && !purchaseOrder
-                              ? 'unset'
-                              : 'none',
+                      <PaymentOption
+                        {...{
+                          setCardDetails,
+                          creditCardType,
+                          cardDetails,
+                          paymentOptions,
+                          checkHandler,
+                          allowedBalance,
+                          setPaymentMethod,
+                          paymentMethod,
+                          purchaseOrder,
+                          setPurchaseOrder,
+                          ccInputHandler,
                         }}
-                      >
-                        <div className='flex justify-between items-center my-3 pb-3 border-b border-gray-300'>
-                          <div className='text-xl'>Payment</div>
-                          <div>
-                            <button
-                              className='text-anchor'
-                              id='btn-use-purchase-order'
-                              onClick={() => setPurchaseOrder(true)}
-                            >
-                              Use Purchase Order
-                            </button>
-                          </div>
-                        </div>
-                        <div className='relative z-0 w-full mb-6'>
-                          <input
-                            placeholder='Credit Card Number '
-                            className='form-input'
-                            maxLength={16}
-                            name={'cardNumber'}
-                            onChange={setCardDetails}
-                          />
-                          <label className='sr-only'>
-                            Credit Card Number *
-                          </label>
-                          <div className='absolute top-2 right-2 flex items-center'>
-                            {cardArray.map((card) => (
-                              <div
-                                key={card.name}
-                                className={`opacity-${
-                                  card.name ===
-                                  creditCardType(cardDetails.cardNumber)
-                                    ? '100'
-                                    : '40'
-                                } ml-1 w-8`}
-                              >
-                                <img src={card.image} alt={card.name} />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        <div className='flex flex-wrap -mx-3 gap-y-6'>
-                          <div className='w-3/12 px-3'>
-                            <div className='relative z-0 w-full'>
-                              <select
-                                onChange={setCardDetails}
-                                name='cardExpirationMonth'
-                                className='form-input'
-                              >
-                                <option value=''>Month</option>
-                                <option value='1'>1</option>
-                                <option value='2'>2</option>
-                                <option value='3'>3</option>
-                                <option value='4'>4</option>
-                                <option value='5'>5</option>
-                                <option value='6'>6</option>
-                                <option value='7'>7</option>
-                                <option value='8'>8</option>
-                                <option value='9'>9</option>
-                                <option value='10'>10</option>
-                                <option value='11'>11</option>
-                                <option value='12'>12</option>
-                              </select>
-                              <label className='sr-only'>Month *</label>
-                            </div>
-                          </div>
-                          <div className='w-3/12 px-3'>
-                            <div className='relative z-0 w-full'>
-                              <select
-                                onChange={setCardDetails}
-                                name='cardExpirationYear'
-                                className='form-input'
-                              >
-                                <option value=''>Year</option>
-                                <option value='2022'>2022</option>
-                                <option value='2023'>2023</option>
-                                <option value='2024'>2024</option>
-                                <option value='2025'>2025</option>
-                                <option value='2026'>2026</option>
-                                <option value='2027'>2027</option>
-                                <option value='2028'>2028</option>
-                                <option value='2029'>2029</option>
-                                <option value='2030'>2030</option>
-                                <option value='2031'>2031</option>
-                                <option value='2032'>2032</option>
-                                <option value='2033'>2033</option>
-                              </select>
-                              <label className='sr-only'>Year *</label>
-                            </div>
-                          </div>
-                          <div className='w-6/12 px-3'>
-                            <div className='relative z-0 w-full'>
-                              <input
-                                name='cardVarificationCode'
-                                placeholder='Security Code (CCV) '
-                                className='form-input'
-                                onChange={setCardDetails}
-                              />
-                              <label className='sr-only'>
-                                Security Code (CCV) *
-                              </label>
-                              <div className='absolute top-2 right-2'>
-                                <div
-                                  className='relative'
-                                  onMouseEnter={() => setShowCVVHelpCard(true)}
-                                  onMouseLeave={() => setShowCVVHelpCard(false)}
-                                  x-data='{ open: false }'
-                                >
-                                  <HelpIcon
-                                    fontSize={'small'}
-                                    className={'text-base'}
-                                  />
-                                  <div className='z-10 absolute bottom-full left-1/2 transform -translate-x-1/2'>
-                                    <div
-                                      className={`bg-slate-800 p-2 rounded overflow-hidden mb-2 ${
-                                        showCVVHelpCard
-                                          ? 'transition ease-out duration-200 transform'
-                                          : ''
-                                      }`}
-                                      style={{
-                                        display: showCVVHelpCard
-                                          ? 'block'
-                                          : 'none',
-                                      }}
-                                    >
-                                      <div className='text-xs text-gray-200 font-light whitespace-nowrap'>
-                                        The last three digits
-                                        <br />
-                                        displayed on the
-                                        <br />
-                                        back of your card
-                                        <br />
-                                        or first four
-                                        <br />
-                                        digits on the front
-                                        <br />
-                                        of your AMEX.
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        id='PurchaseOrder'
-                        style={{
-                          display:
-                            purchaseOrder && showShippingScreen
-                              ? 'unset'
-                              : 'none',
-                        }}
-                      >
-                        <div className='flex justify-between items-center my-3 pb-3 border-b border-gray-300'>
-                          <div className='text-xl'>Payment</div>
-                          <div>
-                            <button
-                              onClick={() => setPurchaseOrder(false)}
-                              className='text-anchor'
-                              id='btn-use-credit-card'
-                            >
-                              Use Credit Card
-                            </button>
-                          </div>
-                        </div>
-                        <div className='relative z-0 w-full mb-6'>
-                          <input
-                            name='EnterPONumber'
-                            placeholder='Enter PO Number '
-                            className='form-input'
-                          />
-                          <label className='sr-only'>Enter PO Number *</label>
-                        </div>
-                        <div className='text-base'>
-                          Please enter your PO Number. We will contact you to
-                          confirm details of your payment.
-                        </div>
-                      </div>
+                      />
                       <div
                         id='BillingAddress'
                         style={{
@@ -621,6 +455,7 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                             formRef={billing}
                             customChangeHandler={addressChangeHandler}
                             addressType={'b'}
+                            isDisabled={useShippingAddress}
                           />
                         )}
                       </div>
@@ -641,9 +476,9 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                 role='list'
                 className='border-b border-gray-200 divide-y divide-gray-200'
               >
-                {cartDetails?.map((cart) => (
+                {cartDetails?.map((cart, index) => (
                   <li
-                    key={cart.attributeOptionId}
+                    key={`${cart.attributeOptionId}${index}`}
                     className='flex py-6 flex-wrap -mx-3 -mt-3'
                   >
                     <div className='w-full lg:w-4/12 px-3 mt-3'>
@@ -694,26 +529,30 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                               Price
                             </div>
                           </div>
-                          {cart.shoppingCartItemDetailsViewModels.map((res) => (
-                            <div
-                              key={res.attributeOptionId}
-                              className='flex justify-between py-2'
-                            >
-                              <div className='text-base w-28'>
-                                {res.attributeOptionValue}
+                          {cart.shoppingCartItemDetailsViewModels.map(
+                            (res, ind) => (
+                              <div
+                                key={`${res.attributeOptionId}${ind}`}
+                                className='flex justify-between py-2'
+                              >
+                                <div className='text-base w-28'>
+                                  {res.attributeOptionValue}
+                                </div>
+                                <div className='text-base w-16 text-center'>
+                                  {res.qty}
+                                </div>
+                                <div className='text-base w-20 text-right'>
+                                  <Price value={res.price} />
+                                </div>
                               </div>
-                              <div className='text-base w-16 text-center'>
-                                {res.qty}
-                              </div>
-                              <div className='text-base w-20 text-right'>
-                                <Price value={res.price} />
-                              </div>
-                            </div>
-                          ))}
+                            ),
+                          )}
 
                           <div className='flex justify-between py-3 border-t border-b'>
                             <div className='text-base w-28'>Product Total:</div>
-                            <div className='text-base w-16 text-center'>{cart.totalQty}</div>
+                            <div className='text-base w-16 text-center'>
+                              {cart.totalQty}
+                            </div>
                             <div className='text-base w-20 text-right'>
                               <Price value={cart.totalPrice} />
                             </div>

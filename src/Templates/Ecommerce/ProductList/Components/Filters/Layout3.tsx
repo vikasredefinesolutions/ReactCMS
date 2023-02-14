@@ -2,9 +2,10 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Typography
+  Typography,
 } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
+import { Fragment } from 'react';
 
 const FilterLayout3 = ({
   filters,
@@ -82,18 +83,17 @@ const FilterLayout3 = ({
                     : 'pb-0 space-y-3'
                 }
               >
-                {filter.options.map((option) => {
+                {filter.options.map((option, ind) => {
                   const checked =
                     checkedFilters.findIndex(
                       (res: { name: string; value: string }) =>
                         res.name === filter.label && res.value === option.name,
                     ) > -1;
                   return (
-                    <>
+                    <Fragment key={ind}>
                       {option.name || option.colorCode ? (
                         filter.label === 'Color' ? (
                           <li
-                            key={index}
                             className={`w-8 h-8 border-2 hover:border-secondary p-0.5 ${
                               checked && 'border-secondary'
                             }`}
@@ -126,7 +126,7 @@ const FilterLayout3 = ({
                           </li>
                         )
                       ) : null}
-                    </>
+                    </Fragment>
                   );
                 })}
               </ul>

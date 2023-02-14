@@ -66,7 +66,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                         view={view}
                         key={brand.id}
                         itemLabel={brand.brandName}
-                        itemUrl={brand.seName}
+                        itemUrl={brand.brandCollectionUrl || brand.seName}
                         type={'BRAND'}
                       />
                     );
@@ -121,13 +121,13 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                             index >
                             __constant._header.imagesToShowInBrandDropdown
                           ) {
-                            return <></>;
+                            return null;
                           }
                           if (brand.brandColorImageUrl) {
                             return (
                               <BrandImage
                                 key={brand.id}
-                                url={brand.seName}
+                                url={brand.brandCollectionUrl || brand.seName}
                                 alt={brand.brandName}
                                 src={brand.brandColorImageUrl}
                               />
@@ -141,14 +141,16 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                       <div className='flex flex-wrap gap-y-2'>
                         <ul className='w-full lg:w-1/3'>
                           {content?.map((brand, index) => {
-                            if (index >= content.length / 2) return <></>;
+                            if (index > ((content.length/3)+1)) return <></>;
                             return (
                               <SubMenuItem
                                 storeCode={storeCode}
                                 view={view}
                                 key={brand.id}
                                 itemLabel={brand.brandName}
-                                itemUrl={brand.seName}
+                                itemUrl={
+                                  brand.brandCollectionUrl || brand.seName
+                                }
                                 type={'BRAND'}
                               />
                             );
@@ -156,14 +158,35 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                         </ul>
                         <ul className='w-full lg:w-1/3'>
                           {content?.map((brand, index) => {
-                            if (index < content.length / 2) return <></>;
+                            
+                            if (index >= ((content.length/3)+1) && index <= (((content.length/3) * 2)+1)) 
                             return (
                               <SubMenuItem
                                 storeCode={storeCode}
                                 view={view}
                                 key={brand.id}
                                 itemLabel={brand.brandName}
-                                itemUrl={brand.seName}
+                                itemUrl={
+                                  brand.brandCollectionUrl || brand.seName
+                                }
+                                type={'BRAND'}
+                              />
+                            );
+                          })}
+                        </ul>
+                        <ul className='w-full lg:w-1/3'>
+                          {content?.map((brand, index) => {
+                            
+                            if (index > (((content.length/3) * 2)+1)) 
+                            return (
+                              <SubMenuItem
+                                storeCode={storeCode}
+                                view={view}
+                                key={brand.id}
+                                itemLabel={brand.brandName}
+                                itemUrl={
+                                  brand.brandCollectionUrl || brand.seName
+                                }
                                 type={'BRAND'}
                               />
                             );
@@ -214,7 +237,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                     return (
                       <BrandImage
                         key={brand.id}
-                        url={brand.seName}
+                        url={brand.brandCollectionUrl || brand.seName}
                         alt={brand.brandName}
                         src={brand.brandColorImageUrl}
                       />
@@ -232,7 +255,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                             storeCode={storeCode}
                             view={view}
                             itemLabel={brand.brandName}
-                            itemUrl={brand.seName}
+                            itemUrl={brand.brandCollectionUrl || brand.seName}
                             type={'BRAND'}
                           />
                         );
@@ -286,7 +309,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                           return (
                             <BrandImage
                               key={index}
-                              url={brand.seName}
+                              url={brand.brandCollectionUrl || brand.seName}
                               alt={brand.brandName}
                               src={brand.brandColorImageUrl}
                             />
@@ -305,7 +328,9 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                 storeCode={storeCode}
                                 view={view}
                                 itemLabel={brand.brandName}
-                                itemUrl={brand.seName}
+                                itemUrl={
+                                  brand.brandCollectionUrl || brand.seName
+                                }
                                 type={'BRAND'}
                               />
                             );
@@ -357,7 +382,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                       return (
                         <BrandImage
                           key={brand.id}
-                          url={brand.seName}
+                          url={brand.brandCollectionUrl || brand.seName}
                           alt={brand.brandName}
                           src={brand.brandColorImageUrl}
                         />
@@ -376,7 +401,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                             storeCode={storeCode}
                             view={view}
                             itemLabel={brand.brandName}
-                            itemUrl={brand.seName}
+                            itemUrl={brand.brandCollectionUrl || brand.seName}
                             type={'BRAND'}
                           />
                         );
@@ -428,7 +453,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                           return (
                             <BrandImage
                               key={brand.id}
-                              url={brand.seName}
+                              url={brand.brandCollectionUrl || brand.seName}
                               alt={brand.brandName}
                               src={brand.brandColorImageUrl}
                             />
@@ -484,7 +509,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                         storeCode={storeCode}
                         view={view}
                         itemLabel={brand.brandName}
-                        itemUrl={brand.seName}
+                        itemUrl={brand.brandCollectionUrl || brand.seName}
                         type={'BRAND'}
                       />
                     );
@@ -538,7 +563,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                           return (
                             <BrandImage
                               key={brand.id}
-                              url={brand.seName}
+                              url={brand.brandCollectionUrl || brand.seName}
                               alt={brand.brandName}
                               src={brand.brandColorImageUrl}
                             />
@@ -557,7 +582,9 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                 view={view}
                                 key={brand.id}
                                 itemLabel={brand.brandName}
-                                itemUrl={brand.seName}
+                                itemUrl={
+                                  brand.brandCollectionUrl || brand.seName
+                                }
                                 type={'BRAND'}
                               />
                             );

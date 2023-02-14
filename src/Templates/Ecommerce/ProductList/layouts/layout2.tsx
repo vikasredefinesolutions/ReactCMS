@@ -64,10 +64,11 @@ const Layout2 = ({
   clearFilters,
   compareCheckBoxHandler,
   slug,
+  seType,
 }: list_FnProps) => {
   return (
     <section id=''>
-      <ProductDetailsPageBanner slug={slug} />
+      <ProductDetailsPageBanner slug={slug} seType={seType} />
       <BarComponent />
       <div className='container mx-auto bg-white overflow-hidden'>
         <div className='  flex flex-wrap gap-y-6 -mx-4'>

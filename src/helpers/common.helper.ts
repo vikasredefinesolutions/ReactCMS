@@ -11,7 +11,10 @@ import { _LogoApiService } from '@services/logo.service';
 import { _ProductDetailService } from '@services/product.service';
 import { _SlugServices } from '@services/slug.service';
 import { _UserServices } from '@services/user.service';
-import { CartLogoPersonModel, CartReq } from '@type/APIs/cart.req';
+import {
+  CartLogoPersonDetailModel,
+  CartLogoPersonModel,
+} from '@type/APIs/cart.req';
 import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { SendAsyncV2 } from '@utils/axios.util';
@@ -450,6 +453,8 @@ type _Props = {
   storeId: number;
   isEmployeeLoggedIn: boolean;
   sizeQtys: Array<{
+    id?: number;
+    attributeOptionId: number;
     price: number;
     qty: number;
     size: string;
@@ -492,49 +497,65 @@ export const getAddToCartObject = async (product: _Props) => {
   const { totalPrice, totalQty } = total;
 
   const cartLogoPersonModel: CartLogoPersonModel[] = [];
+  const cartLogoPersonDetailModels: CartLogoPersonDetailModel[] = [];
 
   sizeQtys?.map((res) => {
     cartLogoPersonModel.push({
-      attributeOptionId: productDetails.color.attributeOptionId,
+      id: res.id || 0,
+      attributeOptionId: res.attributeOptionId,
       attributeOptionValue: res.size,
       code: '',
-      price: totalPrice / totalQty,
+      price: res.price / res.qty,
       quantity: res.qty,
-      logoPrice: 0,
-      logoQty: 0,
-      logoFile: 'string',
       estimateDate: new Date(),
       isEmployeeLoginPrice: 0,
-      cartLogoPersonDetailModels: [
-        {
-          location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
-          logoTotal: 0,
-          colorImagePath: 'string',
-          logoUniqueId: 'string',
-          price: 0,
-          logoFile: 'string',
-          LogoLocation: 'string',
-          LogoPositionImage: 'string',
-          logoColors: 'string',
-          logoNotes: 'string',
-          logoDate: new Date(),
-          logoNames: 'string',
-          digitalPrice: 0,
-          logoPositionImagePath: 'string',
-          oldFilePath: 'string',
-          originalLogoFilePath: 'string',
-        },
-      ],
+    });
+
+    // location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
+    //       logoTotal: 0,
+    //       colorImagePath: 'string',
+    //       logoUniqueId: 'string',
+    //       price: 0,
+    //       logoFile: 'string',
+    //       LogoLocation: 'string',
+    //       LogoPositionImage: 'string',
+    //       logoColors: 'string',
+    //       logoNotes: 'string',
+    //       logoDate: new Date(),
+    //       logoNames: 'string',
+    //       digitalPrice: 0,
+    //       logoPositionImagePath: 'string',
+    //       oldFilePath: 'string',
+    //       originalLogoFilePath: 'string',
+
+    cartLogoPersonDetailModels.push({
+      logoPrice: 0,
+      logoQty: 0,
+      logoFile: '',
+      logoLocation: '',
+      logoTotal: 0,
+      colorImagePath: '',
+      logoUniqueId: '',
+      price: 0,
+      logoColors: '',
+      logoNotes: '',
+      logoDate: new Date(),
+      logoNames: '',
+      digitalPrice: 0,
+      logoPositionImage: '',
+      oldFilePath: '',
+      originalLogoFilePath: '',
     });
   });
 
-  const cartObject: CartReq = {
+  const cartObject = {
     addToCartModel: {
       customerId:
         userId && userId > 0 ? userId : tempCustId ? parseInt(tempCustId) : 0,
       productId: productDetails.productId,
       storeId: storeId,
       isempLogin: isEmployeeLoggedIn,
+
       shoppingCartItemModel: {
         id: shoppingCartItemId ? shoppingCartItemId : 0,
         price: totalPrice / totalQty,
@@ -559,7 +580,9 @@ export const getAddToCartObject = async (product: _Props) => {
           attributeOptionId: productDetails.color.attributeOptionId,
         },
       ],
+      cartLogoPersonDetailModel: [],
       cartLogoPersonModel: cartLogoPersonModel,
+      cartLogoPersonDetailModels: cartLogoPersonDetailModels, // for corporate it will be []
       cartLinePersonModels: [],
     },
   };

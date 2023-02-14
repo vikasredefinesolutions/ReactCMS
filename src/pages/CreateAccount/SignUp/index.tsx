@@ -72,7 +72,7 @@ const SignUp: NextPage = () => {
   const router = useRouter();
   const { showModal } = useActions();
   const [industries, setIndustries] = useState<null | _Industry[]>(null);
-  const display = '';
+  const display = router.query._t;
 
   /* -------------------------------- STATES ------------------------------  */
   const { layout: storeLayout, id: storeId } = useTypedSelector(
@@ -148,17 +148,19 @@ const SignUp: NextPage = () => {
             <div className='w-full mx-auto max-w-7xl'>
               <div className='flex flex-wrap -mx-3 gap-y-6'>
                 {storeLayout === _Store.type3 && industries !== null && (
-                  <RedefineSelect
-                    label={'Industry'}
-                    placeHolder={'Select Industry'}
-                    name={'companyId'}
-                    value={values.companyId}
-                    options={industries}
-                    onChange={(event) => {
-                      setFieldValue('companyId', event.target.value);
-                    }}
-                    required={false}
-                  />
+                  <>
+                    <RedefineSelect
+                      label={'Industry'}
+                      placeHolder={'Select Industry'}
+                      name={'companyId'}
+                      value={values.companyId}
+                      options={industries}
+                      onChange={(event) => {
+                        setFieldValue('companyId', event.target.value);
+                      }}
+                      required={false}
+                    />
+                  </>
                 )}
                 <RedefineInput
                   required={false}
@@ -318,7 +320,7 @@ const SignUp: NextPage = () => {
                 initialValues={signup_payload}
                 onSubmit={loginSubmitHandler}
               >
-                {({ values, handleChange }) => {
+                {({ values, handleChange, setFieldValue }) => {
                   return (
                     <Form>
                       <div className='w-full mx-auto max-w-7xl'>
@@ -418,11 +420,11 @@ const SignUp: NextPage = () => {
                       </div>
 
                       {/* ----------------------------------- */}
-                      {/* <div className="w-full mx-auto max-w-7xl">
-                        <div className="text-xl md:text-2xl lg:text-sub-title font-sub-title pb-2 mb-4 border-b border-b-gray-300">
+                      <div className='w-full mx-auto max-w-7xl'>
+                        <div className='text-xl md:text-2xl lg:text-sub-title font-sub-title pb-2 mb-4 border-b border-b-gray-300'>
                           Your School / University / Organization Details
                         </div>
-                        <div className="flex flex-wrap -mx-3 gap-y-6 mb-8">
+                        <div className='flex flex-wrap -mx-3 gap-y-6 mb-8'>
                           <RedefineInput
                             label={'School / University / Organization Name'}
                             placeHolder={'Address 1'}
@@ -432,26 +434,27 @@ const SignUp: NextPage = () => {
                             type={'number'}
                             required={false}
                           />
-                          <RedefineSelect
+                          {/* <RedefineSelect
                             label={'School / Organization Type'}
                             placeHolder={'Select Organization Type'}
                             name={''}
                             value={''}
-                            options={[{ value: 'soccer', label: 'Soccer' }]}
+                            // options={[{ value: 'soccer', label: 'Soccer' }]}
                             onChange={(event) => {
                               handleChange(event);
                             }}
                             required={true}
-                          />
+                            options={[]}
+                          /> */}
                         </div>
-                      </div> */}
+                      </div>
 
                       {/* ------------------------------------ */}
-                      {/* <div className="w-full mx-auto max-w-7xl">
-                        <div className="text-xl md:text-2xl lg:text-sub-title font-sub-title pb-2 mb-4 border-b border-b-gray-300">
+                      <div className='w-full mx-auto max-w-7xl'>
+                        <div className='text-xl md:text-2xl lg:text-sub-title font-sub-title pb-2 mb-4 border-b border-b-gray-300'>
                           Your Address
                         </div>
-                        <div className="flex flex-wrap -mx-3 gap-y-6 mb-8">
+                        <div className='flex flex-wrap -mx-3 gap-y-6 mb-8'>
                           <RedefineInput
                             label={'Address 1'}
                             placeHolder={'Address 1 '}
@@ -462,32 +465,47 @@ const SignUp: NextPage = () => {
                             required={false}
                           />
                           <RedefineInput
-                            label={'City'}
-                            placeHolder={'City'}
-                            name={'instituteName'}
-                            value={''}
-                            onChange={(event) => handleChange(event)}
-                            type={'number'}
                             required={false}
+                            label={'Zip Code'}
+                            placeHolder={'Enter Your Zip Code'}
+                            name={'storeCustomerAddress[0].postalCode'}
+                            value={values.storeCustomerAddress[0].postalCode}
+                            type={'text'}
+                            onChange={(event) => handleChange(event)}
                           />
-                          <RedefineSelect
+                          <RedefineInput
+                            required={false}
+                            label={'City'}
+                            placeHolder={'Enter Your City'}
+                            name={'storeCustomerAddress[0].city'}
+                            value={values.storeCustomerAddress[0].city}
+                            type={'text'}
+                            onChange={(event) => handleChange(event)}
+                          />
+                          {/* <RedefineSelect
                             label={'Country'}
                             placeHolder={'Select Country'}
                             name={'country'}
                             value={''}
-                            options={[{ value: 'soccer', label: 'Soccer' }]}
+                            // options={[{ value: 'soccer', label: 'Soccer' }]}
                             onChange={(event) => {
                               handleChange(event);
                             }}
                             required={true}
+                            options={[]}
+                          /> */}
+
+                          <RedefineStateNcountries
+                            setFieldValue={setFieldValue}
+                            values={values}
                           />
-                          <div className="w-full lg:w-full px-3">
-                            <button type={'submit'} className="btn btn-primary">
+                          <div className='w-full lg:w-full px-3'>
+                            <button type={'submit'} className='btn btn-primary'>
                               Sign Up
                             </button>
                           </div>
                         </div>
-                      </div> */}
+                      </div>
                     </Form>
                   );
                 }}

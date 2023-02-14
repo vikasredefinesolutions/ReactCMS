@@ -35,6 +35,7 @@ type Props = {
   padding?: boolean | null;
   hideButtons?: boolean | null;
   formRef?: any;
+  isDisabled?: boolean;
 };
 const AddressForm: React.FC<Props> = ({
   submitHandler,
@@ -45,6 +46,7 @@ const AddressForm: React.FC<Props> = ({
   padding,
   hideButtons,
   formRef,
+  isDisabled = false,
 }) => {
   addressType;
   const [country, setCountry] = useState<Array<{ id: number; name: string }>>(
@@ -52,11 +54,14 @@ const AddressForm: React.FC<Props> = ({
   );
   const [state, setState] = useState<Array<{ id: number; name: string }>>([]);
   const [initialValues, setInitialValues] = useState(_initialValues);
+  const [showSecondLine, setShowSecondLine] = useState(false);
+
   const validationSchema = Yup.object().shape({
     firstname: Yup.string().required(addressMessages.firstName.required),
     lastName: Yup.string().required(addressMessages.lastName.required),
     email: Yup.string().email().required(addressMessages.email.required),
     address1: Yup.string().required(addressMessages.address1.required),
+    address2: Yup.string(),
     city: Yup.string().required(addressMessages.city.required),
     state: Yup.string().required(addressMessages.state.required),
     postalCode: Yup.string().required(addressMessages.postalCode.required),
@@ -65,6 +70,7 @@ const AddressForm: React.FC<Props> = ({
     countryName: Yup.string().required(addressMessages.countryName.required),
     companyName: Yup.string().required(addressMessages.companyName.required),
   });
+
   const loadState = async (countryName: string) => {
     const id = country.find(
       (res) => res.name.toLowerCase() === countryName.toLowerCase(),
@@ -79,7 +85,7 @@ const AddressForm: React.FC<Props> = ({
 
   useEffect(() => {
     if (editData && country.length > 0) {
-      loadState(editData.countryName).then(() => {
+      loadState(editData.countryName || '').then(() => {
         setInitialValues({
           firstname: editData.firstname,
           lastName: editData.lastName,
@@ -96,6 +102,9 @@ const AddressForm: React.FC<Props> = ({
           isDefault: editData.isDefault,
           companyName: editData.companyName,
         });
+        if (editData.address2 && editData.address2.length > 0) {
+          setShowSecondLine(true);
+        }
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -133,6 +142,7 @@ const AddressForm: React.FC<Props> = ({
                 <label className='text-base'>Country</label>
                 <div className='relative mt-2'>
                   <select
+                    disabled={isDisabled}
                     id='country'
                     name='countryName'
                     autoComplete='country-name'
@@ -162,6 +172,7 @@ const AddressForm: React.FC<Props> = ({
                   </label>
                   <div className='mt-1'>
                     <input
+                      disabled={isDisabled}
                       value={values.firstname}
                       name='firstname'
                       id='firstname'
@@ -183,6 +194,7 @@ const AddressForm: React.FC<Props> = ({
                   </label>
                   <div className='mt-1'>
                     <input
+                      disabled={isDisabled}
                       name='lastName'
                       id='region'
                       className='form-input'
@@ -205,6 +217,7 @@ const AddressForm: React.FC<Props> = ({
                 </label>
                 <div className='mt-2 mb-2'>
                   <input
+                    disabled={isDisabled}
                     id='street-address'
                     name='email'
                     value={values.email}
@@ -228,6 +241,7 @@ const AddressForm: React.FC<Props> = ({
                 </label>
                 <div className='mt-2 mb-2'>
                   <input
+                    disabled={isDisabled}
                     id='street-address'
                     name='address1'
                     value={values.address1}
@@ -245,23 +259,34 @@ const AddressForm: React.FC<Props> = ({
                   {touched.address1 && errors.address1}
                 </div>
               </fieldset>
-              <span className='text-indigo-600 mt-2 mb-2'>
-                <a title='Add Address Line 2'>+ Add Address Line 2</a>
-              </span>
+              {!isDisabled && !showSecondLine && (
+                <span className='text-indigo-600 mt-2 mb-2'>
+                  <button type='button' onClick={() => setShowSecondLine(true)}>
+                    + Add Address Line 2
+                  </button>
+                </span>
+              )}
               <fieldset
                 className='w-full mt-4'
-                style={{ display: 'none' }}
+                style={{ display: showSecondLine ? 'unset' : 'none' }}
                 id='AddAddressLine'
               >
-                <label htmlFor='street-address' className='text-base'>
-                  Street Address
+                <label htmlFor='address2' className='text-base'>
+                  Address 2
                 </label>
                 <div className='mt-2'>
                   <input
-                    id='street-address'
-                    name='street-address'
-                    autoComplete='street-address'
-                    placeholder='Street Address'
+                    disabled={isDisabled}
+                    id='address2'
+                    name='address2'
+                    value={values.address2}
+                    autoComplete='address2'
+                    placeholder='Address 2'
+                    onChange={(e) => {
+                      handleChange(e);
+                      customChangeHandler && customChangeHandler(e);
+                    }}
+                    onBlur={handleBlur}
                     className='form-input'
                   />
                 </div>
@@ -272,6 +297,7 @@ const AddressForm: React.FC<Props> = ({
                 </label>
                 <div className='mt-2'>
                   <input
+                    disabled={isDisabled}
                     id='Apt-suit'
                     name='suite'
                     value={values.suite}
@@ -297,6 +323,7 @@ const AddressForm: React.FC<Props> = ({
                   </label>
                   <div className='mt-1'>
                     <input
+                      disabled={isDisabled}
                       id='Zip-code'
                       name='postalCode'
                       autoComplete='Zip-code'
@@ -320,6 +347,7 @@ const AddressForm: React.FC<Props> = ({
                   </label>
                   <div className='mt-1'>
                     <input
+                      disabled={isDisabled}
                       id='Company Name'
                       name='companyName'
                       autoComplete='Company Name'
@@ -346,6 +374,7 @@ const AddressForm: React.FC<Props> = ({
                   </label>
                   <div className='mt-1'>
                     <input
+                      disabled={isDisabled}
                       id='Phone Number'
                       name='phone'
                       autoComplete='Phone Number'
@@ -369,6 +398,7 @@ const AddressForm: React.FC<Props> = ({
                   </label>
                   <div className='mt-1'>
                     <input
+                      disabled={isDisabled}
                       name='fax'
                       id='region'
                       className='form-input'
@@ -392,6 +422,7 @@ const AddressForm: React.FC<Props> = ({
                   </label>
                   <div className='mt-1'>
                     <input
+                      disabled={isDisabled}
                       name='city'
                       value={values.city}
                       id='city'
@@ -413,6 +444,7 @@ const AddressForm: React.FC<Props> = ({
                   </label>
                   <div className='mt-1'>
                     <select
+                      disabled={isDisabled}
                       id='state'
                       name='state'
                       autoComplete='country-name'
@@ -439,6 +471,7 @@ const AddressForm: React.FC<Props> = ({
                 <div className='mt-4'>
                   <label className='block text-base'>
                     <input
+                      disabled={isDisabled}
                       type='checkbox'
                       checked={values.isDefault}
                       onChange={(e) =>

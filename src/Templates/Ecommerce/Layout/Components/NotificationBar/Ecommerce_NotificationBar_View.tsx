@@ -1,5 +1,5 @@
 import { useActions, useTypedSelector } from 'hooks';
-import { _Store, __domain, __MockMenuItem } from 'page.config';
+import { _Store, __MockMenuItem, __domain } from 'page.config';
 import React from 'react';
 import DomainDropDown from './DomainDropDown';
 import LayoutDropDown from './LayoutDropDown';
@@ -18,8 +18,8 @@ const Ecommerce_NotificationBar: React.FC = () => {
     return (
       <div className='bg-primary text-white px-2 sm:px-0 hidden md:block'>
         <div className='container mx-auto'>
-          <div className='flex flex-wrap justify-between items-center text-sm tracking-wider'>
-            <div className='flex items-center'>
+          <div className='flex flex-wrap justify-end items-center text-sm tracking-wider'>
+            <div className='flex items-center hidden'>
               <span className='material-icons top-header-icon text-[#00b2e3] text-2xl mr-1'>
                 verified
               </span>

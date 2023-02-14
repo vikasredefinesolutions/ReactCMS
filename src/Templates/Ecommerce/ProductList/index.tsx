@@ -25,6 +25,20 @@ const Layout3 = dynamic(() => import('./layouts/layout3'), {
   loading: () => <SpinnerComponent />,
 });
 
+const Layout4 = dynamic(
+  () => import('Components/ProductList/layouts/layout4'),
+  {
+    loading: () => <SpinnerComponent />,
+  },
+);
+
+const Layout5 = dynamic(
+  () => import('Components/ProductList/layouts/layout5'),
+  {
+    loading: () => <SpinnerComponent />,
+  },
+);
+
 export type list_FnProps = {
   filters: FilterType;
   products: ProductListType;
@@ -45,15 +59,16 @@ export type list_FnProps = {
   clearFilters: () => void;
   slug?: string;
   storeLayout: string | null;
+  seType: string;
 };
-
 interface _props {
   productListing: _ProductListProps | null;
   slug: string;
+  seType: string;
 }
 const Ecommerce_ProductList = (props: _props) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
-  const { productListing: pageData, slug } = props;
+  const { productListing: pageData, slug, seType } = props;
 
   if (pageData === null) {
     return <>No Product Found</>;
@@ -87,17 +102,28 @@ const Ecommerce_ProductList = (props: _props) => {
   if (
     storeLayout === _Store.type1 ||
     storeLayout === _Store.type15 ||
-    storeLayout === _Store.type16
+    storeLayout === _Store.type16 ||
+    storeLayout === _Store.type21 ||
+    storeLayout === _Store.type27
   ) {
     Layout = Layout1;
   } else if (storeLayout === _Store.type2) {
     Layout = Layout2;
-  } else if (storeLayout === _Store.type3) {
+  } else if (
+    storeLayout === _Store.type3 ||
+    storeLayout === _Store.type22 ||
+    storeLayout === _Store.type5 ||
+    storeLayout === _Store.type10 ||
+    storeLayout === _Store.type8 ||
+    storeLayout === _Store.type13 ||
+    storeLayout === _Store.type23 ||
+    storeLayout === _Store.type24
+  ) {
     Layout = Layout3;
   } else if (storeLayout === _Store.type4) {
-    Layout = Layout1;
-  } else if (storeLayout === _Store.type22) {
-    Layout = Layout3;
+    Layout = Layout4;
+  } else if (storeLayout === _Store.type26 || storeLayout === _Store.type12) {
+    Layout = Layout5;
   }
 
   if (totalCount > 0 && Layout) {
@@ -122,6 +148,7 @@ const Ecommerce_ProductList = (props: _props) => {
         compareCheckBoxHandler={compareCheckBoxHandler}
         slug={slug}
         storeLayout={storeLayout}
+        seType={seType}
       />
     );
   } else {

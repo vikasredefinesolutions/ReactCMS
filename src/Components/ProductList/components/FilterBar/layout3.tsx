@@ -21,13 +21,20 @@ const FilterBarLayout3: React.FC<props> = ({
   setShowFilter,
 }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
-
   return (
-    <div className='flex justify-between items-center space-x-6 text-sm border-b border-slate-200 pb-4'>
+    <div
+      className={`flex justify-between items-center space-x-6 text-sm border-b border-slate-200 ${
+        storeLayout === _Store.type26 || storeLayout === _Store.type12
+          ? 'border-t py-2'
+          : 'pb-4'
+      }`}
+    >
       <div className='lg:flex-1 flex flex-wrap items-center gap-4 leading-none'>
         <div
           className={`flex items-center gap-2 ${
-            storeLayout === _Store.type26 ? 'hidden' : ''
+            storeLayout === _Store.type26 || storeLayout === _Store.type12
+              ? 'hidden'
+              : ''
           }`}
         >
           <button

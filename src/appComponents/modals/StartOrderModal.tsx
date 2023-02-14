@@ -24,11 +24,7 @@ interface _props {
 const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
   const { product, modalHandler } = props;
-  const {
-    clearToCheckout,
-    setShowLoader,
-    product_storeData,
-  } = useActions();
+  const { clearToCheckout, setShowLoader, product_storeData } = useActions();
 
   // ----------------------------STATES ---------------------------------------
   const [allColors, showAllColors] = useState<boolean>(false);
@@ -42,26 +38,24 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
     (state) => state.product.product,
   );
   const selectedProduct = useTypedSelector((state) => state.product.selected);
-  const customizationEnable = useTypedSelector((state) => state.product.product.customization)
-
-
-
+  const customizationEnable = useTypedSelector(
+    (state) => state.product.product.customization,
+  );
   useEffect(() => {
     setShowLoader(false);
     if (!allColorsInventory && colors) {
       const allColorAttributes = colors?.map(
         (color) => color.attributeOptionId,
       );
-
       FetchInventoryById({
         productId: selectedProduct.productId,
         attributeOptionId: allColorAttributes,
-      }).then((res) =>
+      }).then((res) => {
         product_storeData({
           type: 'INVENTORY_LIST',
           data: res,
-        }),
-      );
+        });
+      });
     }
 
     return () => {
@@ -104,7 +98,10 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
               <div className='p-6'>
                 <div className='flex flex-wrap mb-6'>
                   <div className='w-full lg:w-1/2'>
-                    <ProductSKU skuID={product.sku} storeCode={storeLayout!} />
+                    <ProductSKU
+                      skuID={product?.sku ? product.sku : ''}
+                      storeCode={storeLayout!}
+                    />
                     <div className=''>
                       <span className='font-semibold'>Color : </span>
                       <span>{colorName}</span>
@@ -140,7 +137,10 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
                     <DiscountPricing
                       storeCode={storeLayout!}
                       showMsrpLine={false}
-                      price={{ msrp: product.msrp, salePrice: product.salePrice }}
+                      price={{
+                        msrp: product.msrp,
+                        salePrice: product.salePrice,
+                      }}
                     />
                     <AskToLogin modalHandler={modalHandler} />
                   </div>
@@ -164,7 +164,10 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
                   ></textarea>
                 </div>
               </div>
-              <SOM_ActionsHandler closeStartOrderModal={() => modalHandler(null)} note={textRef.current?.value || ''} />
+              <SOM_ActionsHandler
+                closeStartOrderModal={() => modalHandler(null)}
+                note={textRef.current?.value || ''}
+              />
             </div>
           )}
         </div>

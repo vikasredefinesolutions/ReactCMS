@@ -37,26 +37,13 @@ class MyDocument extends Document {
       <Html lang='en'>
         <link rel='shortcut icon' href={faviconURL} />
         <Head>
-          {/*<link
-            rel="stylesheet"
-            type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
-          />*/}
-          {(storeId == 4 || storeId == 106 || storeId == 107) && (
+        {storeId == 4 && (
             <link
               rel='stylesheet'
               type='text/css'
               href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css`}
             />
-          )
-        }
-        {storeId == 125 && 
-          <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bacardi/main.css`}
-            />
-        }
+          )}
           {storeId == 5 && (
             <link
               rel='stylesheet'
@@ -79,6 +66,27 @@ class MyDocument extends Document {
               href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css`}
             />
           )}
+          {storeId == 134 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bacarditogo/main.css`}
+            />
+          )}
+          {storeId == 135 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bbcprod/main.css`}
+            />
+          )}
+          {storeId == 139 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css`}
+            />
+          )}
           {storeId == 27 && (
             <link
               rel='stylesheet'
@@ -86,31 +94,32 @@ class MyDocument extends Document {
               href={`http://ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css`}
             />
           )}
+          {storeId == 22 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`http://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`}
+            />
+          )}
 
-          <link
+          {<link
             rel="stylesheet"
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
           />
-        
-          
-          <link
-            rel='stylesheet'
-            type='text/css'
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
-          />
-          
+          }
+         
           <link
             href='https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone'
             rel='stylesheet'
           />
 
-          {/*<link
+          {<link
             rel="stylesheet"
             type="text/css"
             href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
           />
-          */}
+          }
           <link
             rel='stylesheet'
             type='text/css'

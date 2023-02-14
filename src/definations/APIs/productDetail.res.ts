@@ -169,3 +169,9 @@ export interface _FetchProductsRecentlyViewedPayload {
   customerId: number;
   maximumItemsForFetch: number;
 }
+export interface _FetchTagsName {
+  productId: number;
+  imagename: string;
+  productTagName: string;
+  tagPosition: string;
+}

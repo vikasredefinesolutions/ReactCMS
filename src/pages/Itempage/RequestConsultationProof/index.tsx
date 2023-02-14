@@ -11,7 +11,7 @@ import {
   _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
-import { conditionalLogV2, __console } from 'helpers/global.console';
+import { __console, conditionalLogV2 } from 'helpers/global.console';
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -136,6 +136,7 @@ export const getServerSideProps: GetServerSideProps = async (
       pageType: '',
       pathName: '',
       code: '',
+      storeName: '',
       isAttributeSaparateProduct: false,
       cartCharges: null,
       urls: {

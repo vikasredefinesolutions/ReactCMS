@@ -11,6 +11,10 @@ interface _MyCartDropDown_Props {
   onMouseLeave: () => void;
 }
 
+interface _MyCartIcon_Props {
+  screen: string;
+}
+
 const Corporate_MyCartDropDown: React.FC<_MyCartDropDown_Props> = ({
   onMouseLeave: mouseLeaveHandler,
   onMouseOver: mouseOverHandler,
@@ -102,7 +106,7 @@ const Corporate_MyCartDropDown: React.FC<_MyCartDropDown_Props> = ({
   );
 };
 
-const Corporate_MyCartIcon: React.FC = () => {
+const Corporate_MyCartIcon: React.FC<_MyCartIcon_Props> = ({ screen }) => {
   const router = useRouter();
   const [showDropDown, setShowDropDown] = useState<boolean>(false);
   const storeLayout = useTypedSelector((state) => state.store.layout);
@@ -113,7 +117,7 @@ const Corporate_MyCartIcon: React.FC = () => {
     router.push(paths.CART);
   };
 
-  if (storeLayout === _Store.type5) {
+  if (storeLayout === _Store.type5 || storeLayout === _Store.type6) {
     return (
       <span
         className='flow-root relative '
@@ -121,10 +125,45 @@ const Corporate_MyCartIcon: React.FC = () => {
         onMouseOver={() => setShowDropDown(true)}
         onMouseLeave={() => setShowDropDown(false)}
       >
-        <button className='text-white group flex items-center gap-1 relative pr-2'>
-          <span className=' '>My Cart</span>
+        <button className='group flex items-center gap-1 relative pr-2 ml-1 text-gray-800 lg:text-white hover:text-gray-800 lg:hover:text-white focus:text-white '>
+          <span
+            className={`flex w-6 h-6 ${
+              screen === 'DESKTOP' ? 'block' : 'hidden'
+            }`}
+          >
+            <svg
+              version='1.1'
+              id='Layer_1'
+              xmlns='http://www.w3.org/2000/svg'
+              x='0px'
+              y='0px'
+              viewBox='0 0 290.5 292.1'
+            >
+              <g>
+                <path
+                  className='fill-white'
+                  d='M196.3,115.9c-5.5,0-10-4.5-10-10V66.6c0-22.3-18.2-40.5-40.5-40.5c-22.3,0-40.5,18.2-40.5,40.5v39.4 c0,5.5-4.5,10-10,10s-10-4.5-10-10V66.6c0-33.3,27.1-60.5,60.5-60.5c33.3,0,60.5,27.1,60.5,60.5v39.4 C206.3,111.4,201.8,115.9,196.3,115.9z'
+                />
+              </g>
+              <g>
+                <path
+                  className='fill-white'
+                  d='M278.9,216.1L265.6,96.5c0-5.2-4.2-9.4-9.4-9.4h-39.6v18.9c0,11-9,20-20,20s-20-9-20-20V87h-60.9v18.9 c0,11-9,20-20,20s-20-9-20-20V87H35.4c-5.2,0-9.4,4.2-9.4,9.4L12.7,216.1H278.9z'
+                />
+                <path
+                  className='fill-white'
+                  d='M11.5,226.1l-5.6,50.5c0,5.2,4.2,9.4,9.4,9.4h260.8c5.2,0,9.4-4.2,9.4-9.4l-5.6-50.5H11.5z'
+                />
+              </g>
+            </svg>
+          </span>
+          <span
+            className={screen === 'DESKTOP' ? 'block text-white' : 'hidden'}
+          >
+            My Cart
+          </span>
           <svg
-            className='flex-shrink-0 h-6 w-6 text-white group-hover:text-secondary-hover hidden'
+            className={`flex-shrink-0 h-6 w-6 text-gray-800 group-hover:text-secondary-hover block lg:hidden`}
             x-description='Heroicon name: outline/shopping-cart'
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -139,7 +178,12 @@ const Corporate_MyCartIcon: React.FC = () => {
               d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z'
             ></path>
           </svg>
-          <span className=''>({items.length})</span>
+
+          <span
+            className={`absolute inline right-0 -top-2 w-5 h-5 rounded-full flex items-center justify-center bg-white text-[10px] font-medium text-gray-500 lg:hidden`}
+          >
+            ({items.length})
+          </span>
         </button>
 
         {items.length > 0 && showDropDown && (

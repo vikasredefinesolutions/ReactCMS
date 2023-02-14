@@ -1,13 +1,169 @@
 // @ts-nocheck
 import ToogleCss from 'appComponents/reUsable/ToggleCss';
-import { useActions, useWindowDimensions } from 'hooks';
+import { useActions, useTypedSelector, useWindowDimensions } from 'hooks';
 import Link from 'next/link';
 import { __constant } from 'page.config';
 import React, { useEffect, useState } from 'react';
+import { _MenuItems } from 'show.type';
+import { Bacardi_BrandsBar } from './Corporate_BrandsBar';
+import { Bacardi_HeaderBar } from './Corporate_HeaderBar';
+import CompanyLogo from './Corporate_Logo';
+import { Bacardi_MenuItems } from './Corporate_MenuItems';
 import { Cyxtera_MobileMenuItem } from './Corporate_MobileMenuItem';
 import { Cyxtera_NotificationBar } from './Corporate_NotificationBar';
+import SearchBar from './Corporate_SearchBar';
+import Corporate_SideMenu from './Corporate_SideMenu';
+import LoggedInMenu_Corporate from './Icons.tsx/Corporate_LoggedIn';
 import { Corporate_LoginIcon } from './Icons.tsx/Corporate_LoginIcon';
 import Corporate_MyCartIcon from './Icons.tsx/Corporate_MyCartIcon';
+
+interface _props {
+  storeCode: string;
+  logoUrl: {
+    desktop: string;
+  };
+  menuItems: _MenuItems | null;
+}
+export const BacardiSubStore_Header: React.FC<_props> = ({
+  storeCode,
+  logoUrl,
+  menuItems,
+}) => {
+  const { store_setAppView } = useActions();
+  const { toggleSideMenu } = useActions();
+
+  const { width } = useWindowDimensions();
+
+  // ------------------------------------------------------------------------
+  const userId = useTypedSelector((state) => state.user.id);
+  const showSideMenu = useTypedSelector((state) => state.modals.sideMenu);
+
+  // ------------------------------------------------------------------------
+  const [isMobileView, setIsMobileView] = useState<boolean>(
+    width <= __constant._header.mobileBreakPoint,
+  );
+  useEffect(() => {
+    const isMobile = width <= __constant._header.mobileBreakPoint;
+    const showMobile = isMobile ? 'MOBILE' : 'DESKTOP';
+    store_setAppView(showMobile);
+    setIsMobileView(isMobile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width]);
+  return (
+    <>
+      {!isMobileView && (
+        <div className='bg-primary hidden md:block p-2 lg:p-1 lg:py-2 '>
+          <div className='container mx-auto'>
+            <div className='sm:flex sm:flex-wrap sm:justify-between items-center text-xs lg:text-base '>
+              <div className='text-center text-white'>
+                <span className=''>ParsonsKellogg Corporate Stores </span>
+              </div>
+              <div className='flex'>
+                <Corporate_LoginIcon screen={'DESKTOP'} />
+                <LoggedInMenu_Corporate screen={'DESKTOP'} />
+                <span className='text-white mx-2'>|</span>
+                <Corporate_MyCartIcon screen={'DESKTOP'} />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className='bg-white sticky top-0 z-40'>
+        <div className='bg-white'>
+          {isMobileView && (
+            <Corporate_SideMenu
+              showSideMenu={showSideMenu}
+              storeCode={storeCode}
+              screen='MOBILE'
+              menuItems={menuItems}
+            />
+          )}
+
+          <header className='relative border-b border-gray-200 bg-gray-200'>
+            <nav aria-label='Top'>
+              <div className='container mx-auto'>
+                <div className=''>
+                  <div
+                    className={`py-3 lg:py-4 flex items-center ${
+                      isMobileView ? 'justify-between' : 'justify-center'
+                    }`}
+                  >
+                    {isMobileView ? (
+                      <div className='flex items-center lg:hidden space-x-4'>
+                        <button
+                          type='button'
+                          x-description="Mobile menu toggle, controls the 'mobileMenuOpen' state."
+                          className='py-2 rounded-md text-white hover:text-primary'
+                          onClick={() => toggleSideMenu('OPEN')}
+                        >
+                          <span className='sr-only'>Open menu</span>
+                          <svg
+                            className='h-6 w-6 text-gray-600'
+                            x-description='Heroicon name: outline/menu'
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            stroke-width='2'
+                            stroke='currentColor'
+                            aria-hidden='true'
+                          >
+                            <path
+                              stroke-linecap='round'
+                              stroke-linejoin='round'
+                              d='M4 6h16M4 12h16M4 18h16'
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    ) : (
+                      ''
+                    )}
+
+                    <CompanyLogo
+                      screen='DESKTOP'
+                      logo={{
+                        desktop: logoUrl.desktop,
+                        mobile: '',
+                      }}
+                    />
+                    <div className='mobile_icons flex text-gray-300'>
+                      <div className='mr-2 text-gray-400'>
+                        {isMobileView ? (
+                          <>
+                            {' '}
+                            <Corporate_LoginIcon /> <LoggedInMenu_Corporate />{' '}
+                          </>
+                        ) : (
+                          ''
+                        )}
+                      </div>
+                      {isMobileView ? <Corporate_MyCartIcon /> : ''}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </header>
+
+          {/* search bar */}
+          {!isMobileView ? (
+            <div>
+              <div className='container mx-auto'>
+                <div className='hidden h-full lg:flex items-center justify-end'>
+                  <div className='my-1'>
+                    <div className='hidden lg:flex flex-grow max-w-[500px]'>
+                      <SearchBar screen={'DESKTOP'} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </>
+  );
+};
 
 // Bacardi - Bacard/GreyGoose - Bacardi Sub Store
 export const Bacardi_Header: React.FC = () => {
@@ -326,14 +482,14 @@ export const Bacardi_Header: React.FC = () => {
         {/* {mobileView && <Bacardi_BrandsBar />} */}
       </section>
 
-      {/* <section
-      className="bg-white sticky top-0 left-0 right-0 z-40 border-b-2 border-b-transparent hidden"
-      id=""
-    >
-      <Bacardi_HeaderBar />
-      <Bacardi_BrandsBar />
-      <Bacardi_MenuItems /> 
-    </section> */}
+      <section
+        className='bg-white sticky top-0 left-0 right-0 z-40 border-b-2 border-b-transparent hidden'
+        id=''
+      >
+        <Bacardi_HeaderBar />
+        <Bacardi_BrandsBar />
+        <Bacardi_MenuItems />
+      </section>
     </>
   );
 };

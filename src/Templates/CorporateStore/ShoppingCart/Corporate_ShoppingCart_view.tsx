@@ -43,7 +43,7 @@ const Corporate_ShoppingCart: React.FC = () => {
               seName: item.seName,
               colorImageURL: item.colorImage,
               sku: item.sku,
-              productId: +item.productId, // not getting productId
+              productId: +item.productId,
               colorId: +item.attributeOptionId,
               productName: item.productName,
               colorName: item.attributeOptionValue,
@@ -51,6 +51,7 @@ const Corporate_ShoppingCart: React.FC = () => {
               attributes: item.shoppingCartItemDetailsViewModels.map(
                 (product) => {
                   return {
+                    id: product.id,
                     size: product.attributeOptionValue,
                     attributeOptionId: product.attributeOptionId,
                     qty: product.qty,

@@ -1,8 +1,10 @@
+import { showcolors } from '@constants/global.constant';
 import { GetlAllProductList } from '@type/productList.type';
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import Link from 'next/link';
+import { Fragment } from 'react';
 import ProductBoxController from './ProductBox.controller';
 
 const ProductLayout2 = ({
@@ -16,9 +18,9 @@ const ProductLayout2 = ({
   skuList: string[];
   productView: string;
   colorChangeHandler: (
-    productid: number,
-    seName: string,
-    color: string,
+    productid: number | undefined,
+    seName: string | undefined,
+    color: string | undefined | null,
   ) => void;
   compareCheckBoxHandler: (sku: string) => void;
 }) => {
@@ -41,12 +43,12 @@ const ProductLayout2 = ({
       >
         <div className='w-full overflow-hidden aspect-w-1 aspect-h-1'>
           <ImageComponent
-            src={currentProduct.imageName}
+            src={currentProduct?.imageName ? currentProduct.imageName : ''}
             alt=''
             className='w-auto h-auto m-auto max-h-[400px]'
             height={400}
             width={350}
-            key={currentProduct.id}
+            key={currentProduct?.id}
           />
         </div>
       </Link>
@@ -74,8 +76,10 @@ const ProductLayout2 = ({
         <div className='form-group mt-4'>
           <label className='checkbox-inline'>
             <input
-              checked={skuList.includes(product.sku)}
-              onChange={() => compareCheckBoxHandler(product.sku)}
+              checked={skuList.includes(product?.sku ? product.sku : '')}
+              onChange={() =>
+                compareCheckBoxHandler(product?.sku ? product.sku : '')
+              }
               type='checkbox'
             />{' '}
             {
@@ -92,37 +96,39 @@ const ProductLayout2 = ({
           </label>
         </div>
         <ul role='list' className='flex items-center justify-center mt-4'>
-          {product.getProductImageOptionList.map((option, index) =>
-            index < 4 ? (
-              <li
-                key={index}
-                className={`w-8 h-8 text-center border-2${
-                  option.id === currentProduct.id ? ' border-primary' : ''
-                } hover:border-primary`}
-                onClick={() => {
-                  colorChangeHandler(
-                    product.id,
-                    product.sename || '',
-                    option.colorName,
-                  );
-                  setCurrentProduct(option);
-                }}
-              >
-                <img
-                  src={`${config.mediaBaseUrl}${option.imageName}`}
-                  alt=''
-                  title=''
-                  className='max-h-full m-auto'
-                />
-              </li>
-            ) : (
-              <>{(flag = true)}</>
-            ),
-          )}
+          {product.getProductImageOptionList &&
+            product.getProductImageOptionList.map((option, index) =>
+              index < 4 ? (
+                <li
+                  key={index}
+                  className={`w-8 h-8 text-center border-2${
+                    option.id === currentProduct?.id ? ' border-primary' : ''
+                  } hover:border-primary`}
+                  onClick={() => {
+                    colorChangeHandler(
+                      product.id,
+                      product.sename || '',
+                      option.colorName,
+                    );
+                    setCurrentProduct(option);
+                  }}
+                >
+                  <img
+                    src={`${config.mediaBaseUrl}${option.imageName}`}
+                    alt=''
+                    title=''
+                    className='max-h-full m-auto'
+                  />
+                </li>
+              ) : (
+                <Fragment key={index}>{(flag = true)}</Fragment>
+              ),
+            )}
           {flag ? (
             <li className='extra w-8 h-8 text-center border-2xtra'>
               <span> +</span>
-              {product.getProductImageOptionList.length - 4}
+              {product.getProductImageOptionList &&
+                product.getProductImageOptionList.length - showcolors}
             </li>
           ) : null}
         </ul>
@@ -138,12 +144,12 @@ const ProductLayout2 = ({
         >
           <div className='w-full md:w-1/4 px-3 cursor-pointer'>
             <ImageComponent
-              src={currentProduct.imageName}
+              src={currentProduct?.imageName ? currentProduct.imageName : ''}
               alt=''
               className='w-auto h-auto max-h-max'
               height={400}
               width={350}
-              key={currentProduct.id}
+              key={currentProduct?.id}
             />
           </div>
         </Link>
@@ -172,8 +178,10 @@ const ProductLayout2 = ({
           <div className='form-group mt-4'>
             <label className='checkbox-inline'>
               <input
-                checked={skuList.includes(product.sku)}
-                onChange={() => compareCheckBoxHandler(product.sku)}
+                checked={skuList.includes(product?.sku ? product.sku : '')}
+                onChange={() =>
+                  compareCheckBoxHandler(product?.sku ? product.sku : '')
+                }
                 type='checkbox'
               />{' '}
               {
@@ -190,29 +198,30 @@ const ProductLayout2 = ({
             </label>
           </div>
           <ul role='list' className='flex items-center mt-4'>
-            {product.getProductImageOptionList.map((option, index) => (
-              <li
-                key={index}
-                className={`w-8 h-8 text-center border-2${
-                  option.id === currentProduct.id ? ' border-primary' : ''
-                } hover:border-primary`}
-                onClick={() => {
-                  colorChangeHandler(
-                    product.id,
-                    product.sename || '',
-                    option.colorName,
-                  );
-                  setCurrentProduct(option);
-                }}
-              >
-                <img
-                  src={`${config.mediaBaseUrl}${option.imageName}`}
-                  alt=''
-                  title=''
-                  className='max-h-full m-auto'
-                />
-              </li>
-            ))}
+            {product.getProductImageOptionList &&
+              product.getProductImageOptionList.map((option, index) => (
+                <li
+                  key={index}
+                  className={`w-8 h-8 text-center border-2${
+                    option.id === currentProduct?.id ? ' border-primary' : ''
+                  } hover:border-primary`}
+                  onClick={() => {
+                    colorChangeHandler(
+                      product.id,
+                      product.sename || '',
+                      option.colorName,
+                    );
+                    setCurrentProduct(option);
+                  }}
+                >
+                  <img
+                    src={`${config.mediaBaseUrl}${option.imageName}`}
+                    alt=''
+                    title=''
+                    className='max-h-full m-auto'
+                  />
+                </li>
+              ))}
           </ul>
         </div>
       </div>

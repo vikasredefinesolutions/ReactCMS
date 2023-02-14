@@ -16,6 +16,7 @@ const DynamicEcommerceProductList = dynamic(
 interface _props {
   productListing: _ProductListProps | null;
   slug: string;
+  seType: string;
 }
 const Redefine_ProductList: React.FC<_props> = (props) => {
   const storeTypeId = useTypedSelector((state) => state.store.storeTypeId);

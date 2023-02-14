@@ -33,7 +33,6 @@ const StoreBuilder_Header: React.FC<_props> = ({ logoUrl, menuItems }) => {
     setIsMobileView(isMobile);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
-
   return (
     <>
       <div className='bg-white sticky top-0 z-40'>

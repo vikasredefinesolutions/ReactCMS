@@ -2,6 +2,7 @@ import { GetlAllProductList } from '@type/productList.type';
 import { SpinnerComponent } from 'appComponents/ui/spinner';
 import { properties } from 'mock/properties.mock';
 import dynamic from 'next/dynamic';
+import { _Store } from 'page.config';
 import { Fragment } from 'react';
 import { list_FnProps } from '..';
 
@@ -32,11 +33,26 @@ const FlyOutFilter = dynamic(
     loading: () => <SpinnerComponent />,
   },
 );
-const SideFilter = dynamic(() => import('../Components/Filters/sideFilter'), {
-  loading: () => <SpinnerComponent />,
-});
+const SideFilter = dynamic(
+  () =>
+    import('../../../../Components/ProductList/components/Filters/sideFilter'),
+  {
+    loading: () => <SpinnerComponent />,
+  },
+);
 const ListView = dynamic(
-  () => import('../Components/PorudctComponent/ListView'),
+  () =>
+    import(
+      '../../../../Components/ProductList/components/PorudctComponent/ListView'
+    ),
+  {
+    loading: () => <SpinnerComponent />,
+  },
+);
+
+const FilterBarLayout3 = dynamic(
+  () =>
+    import('../../../../Components/ProductList/components/FilterBar/layout3'),
   {
     loading: () => <SpinnerComponent />,
   },
@@ -62,11 +78,13 @@ const Layout1 = ({
   clearFilters,
   compareCheckBoxHandler,
   storeLayout,
+  seType,
 }: list_FnProps) => {
   // console.log(products);
+
   return (
     <>
-      <ProductDetailsPageBanner slug={slug} />
+      <ProductDetailsPageBanner slug={slug} seType={seType} />
       <section id=''>
         <div className='bg-white'>
           <div className='container mx-auto px-2 lg:px-0'>
@@ -77,6 +95,7 @@ const Layout1 = ({
               <h2 id='products-heading' className='sr-only'>
                 Products
               </h2>
+
               <div className='flex flex-wrap -mx-4'>
                 <div
                   className={
@@ -100,6 +119,7 @@ const Layout1 = ({
                         filters={filters}
                         handleChange={handleChange}
                         checkedFilters={checkedFilters}
+                        storeLayout={storeLayout}
                       />
                     ))}
                 </div>
@@ -110,17 +130,33 @@ const Layout1 = ({
                       : ' lg:w-9/12'
                   } px-4`}
                 >
-                  <Layout1FilterBar
-                    {...{
-                      totalCount,
-                      showSortMenu,
-                      sortProductJson,
-                      sortOpenHandler: setShowSortMenu,
-                      setProductView,
-                      productView,
-                      setShowFilter,
-                    }}
-                  />
+                  {storeLayout === _Store.type21 ||
+                  storeLayout === _Store.type27 ? (
+                    <FilterBarLayout3
+                      {...{
+                        totalCount,
+                        showSortMenu,
+                        sortProductJson,
+                        sortOpenHandler: setShowSortMenu,
+                        setProductView,
+                        productView,
+                        setShowFilter,
+                      }}
+                    />
+                  ) : (
+                    <Layout1FilterBar
+                      {...{
+                        totalCount,
+                        showSortMenu,
+                        sortProductJson,
+                        sortOpenHandler: setShowSortMenu,
+                        setProductView,
+                        productView,
+                        setShowFilter,
+                      }}
+                    />
+                  )}
+
                   <FilterChips
                     {...{ clearFilters, checkedFilters, handleChange }}
                   />
@@ -152,6 +188,7 @@ const Layout1 = ({
                                 <ListView
                                   product={product}
                                   colorChangeHandler={colorChangeHandler}
+                                  storeLayout={storeLayout}
                                 />
                               )}
                             </Fragment>

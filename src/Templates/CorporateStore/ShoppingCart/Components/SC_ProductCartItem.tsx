@@ -1,7 +1,7 @@
 import { addToCart, deleteItemCart } from '@services/cart.service';
-import MsgContainer from 'appComponents/modals/MsgContainer';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
+import CartController from 'Controllers/CartController';
 import { getAddToCartObject } from 'helpers/common.helper';
 import { highLightError } from 'helpers/global.console';
 import { useActions, useTypedSelector } from 'hooks';
@@ -15,6 +15,7 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
   _InCart_Product_model
 > = (item) => {
   const { cart_update_item, showModal } = useActions();
+  const { deleteCartItem } = CartController();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const customerId = useTypedSelector((state) => state.user.id);
   const { layout: storeLayout, id: storeId } = useTypedSelector(
@@ -69,7 +70,7 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
       displayOrder: 1,
       altTag: '',
       moreImages: [],
-      minQuantity: item.attributes[0].minQtyRequired,
+      minQuantity: 0, //not getting minQuantity
       multipleQuantity: 1,
     },
     inventory: null,
@@ -174,7 +175,10 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
                     <div className='w-full flex gap-2'>
                       <div className=''>
                         <button
-                          onClick={() => updateHandler()}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            updateHandler();
+                          }}
                           className='btn btn-secondary !w-full !py-1 text-center'
                         >
                           UPDATE
@@ -182,8 +186,18 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
                       </div>
                       <div className='lg:ml-10'>
                         <button
-                          onClick={() => {
-                            deleteItemCart(item.cartItemId);
+                          onClick={async (e) => {
+                            e.preventDefault();
+                            await deleteItemCart(item.cartItemId).then(() =>
+                              cart_update_item({
+                                type: 'remove_item',
+                                data: {
+                                  itemType: 'product',
+                                  productId: item.productId,
+                                  colorId: item.colorId,
+                                },
+                              }),
+                            );
                           }}
                           className='btn btn-primary !w-full !py-1 text-center'
                         >
@@ -236,7 +250,10 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
                   </div>
                   <div className='lg:ml-10'>
                     <button
-                      onClick={() => updateHandler()}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        updateHandler();
+                      }}
                       className='btn btn-primary !w-full !py-1 text-center'
                     >
                       UPDATE
@@ -244,8 +261,18 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
                   </div>
                   <div className='lg:ml-10'>
                     <button
-                      onClick={() => {
-                        deleteItemCart(item.cartItemId);
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        await deleteItemCart(item.cartItemId).then(() =>
+                          cart_update_item({
+                            type: 'remove_item',
+                            data: {
+                              itemType: 'product',
+                              productId: item.productId,
+                              colorId: item.colorId,
+                            },
+                          }),
+                        );
                       }}
                       className='btn btn-primary !w-full !py-1 text-center'
                     >
@@ -319,8 +346,18 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
             </div>
             <div className='mt-3 lg:ml-10'>
               <button
-                onClick={() => {
-                  deleteItemCart(item.cartItemId);
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await deleteItemCart(item.cartItemId).then(() =>
+                    cart_update_item({
+                      type: 'remove_item',
+                      data: {
+                        itemType: 'product',
+                        productId: item.productId,
+                        colorId: item.colorId,
+                      },
+                    }),
+                  );
                 }}
                 className='btn btn-primary !w-full !py-1 text-center'
               >
@@ -329,7 +366,10 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
             </div>
             <div className={`mt-3 lg:ml-10`}>
               <button
-                onClick={() => updateHandler()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  updateHandler();
+                }}
                 className='btn btn-secondary !w-full !py-1 text-center'
               >
                 UPDATE
@@ -338,14 +378,14 @@ export const SC_ProductCartItem_withoutPersonalization: React.FC<
           </div>
         </div>
       </div>
-      {showAlert ? (
+      {/* {showAlert ? (
         <MsgContainer
           modalHandler={() => toggleConfirmationMsg('HIDE')}
           message={item.name}
           confirmButton={() => toggleConfirmationMsg('CONFIRM')}
           title={'Are you sure want to remove?'}
         />
-      ) : null}
+      ) : null} */}
     </li>
   );
 };

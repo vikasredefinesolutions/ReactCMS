@@ -34,13 +34,16 @@ export type list_FnProps = {
   clearFilters: () => void;
   slug?: string;
   storeLayout: string | null;
+  seType: string;
 };
 const ProductList = ({
   pageData,
   slug,
+  seType,
 }: {
   pageData: any | null;
   slug: string;
+  seType: string;
 }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
 
@@ -90,12 +93,13 @@ const ProductList = ({
     storeLayout === _Store.type10 ||
     storeLayout === _Store.type8 ||
     storeLayout === _Store.type13 ||
+    storeLayout === _Store.type23 ||
     storeLayout === _Store.type24
   ) {
     Layout = Layout3;
   } else if (storeLayout === _Store.type4) {
     Layout = Layout4;
-  } else if (storeLayout === _Store.type26) {
+  } else if (storeLayout === _Store.type26 || storeLayout === _Store.type12) {
     Layout = Layout5;
   }
   if (totalCount > 0 && Layout) {
@@ -120,6 +124,7 @@ const ProductList = ({
         compareCheckBoxHandler={compareCheckBoxHandler}
         slug={slug}
         storeLayout={storeLayout}
+        seType={seType}
       />
     );
   } else {

@@ -193,6 +193,7 @@ export const fetchStoreDetails = async (
     pathName: '',
     code: '',
     storeTypeId: null,
+    storeName: '',
     isAttributeSaparateProduct: false,
     cartCharges: null,
     urls: {
@@ -217,6 +218,7 @@ export const fetchStoreDetails = async (
         logoSetupCharges: res.logoSetupCharges,
       };
       store.storeTypeId = res.storeTypeId;
+      store.storeName = res.name;
       store.urls = {
         logo: res.logoUrl,
         favicon: res.favicon!,

@@ -5,6 +5,7 @@ import {
   Link,
 } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
+import { Fragment } from 'react';
 
 const SideFilter = ({
   filters,
@@ -20,10 +21,7 @@ const SideFilter = ({
       <div className='mt-4 filter-box filter-type'>
         {filters &&
           filters.map((filter, index) => (
-            <div
-              key={index}
-              className='py-1 border-t border-neutral-300 first:border-t-0 first:pt-0'
-            >
+            <div key={index}>
               <Accordion
                 style={{
                   background: '#f3f4f6',
@@ -65,7 +63,7 @@ const SideFilter = ({
                             res.value === option.name,
                         ) > -1;
                       return (
-                        <>
+                        <Fragment key={ind}>
                           {option.name || option.colorCode ? (
                             filter.label === 'Color' ? (
                               <li
@@ -148,7 +146,7 @@ const SideFilter = ({
                               </li>
                             )
                           ) : null}
-                        </>
+                        </Fragment>
                       );
                     })}
                   </ul>

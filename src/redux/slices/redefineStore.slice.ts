@@ -1,3 +1,4 @@
+import { StoreLayout } from '@constants/enum';
 import { createSlice } from '@reduxjs/toolkit';
 import { PageResponseType, _Show } from 'definations/app.type';
 import { CartCharges, _StoreReturnType } from 'definations/store.type';
@@ -11,6 +12,7 @@ export interface _RedesignStore {
   id: number | null;
   layout: null | string;
   storeTypeId: number | null;
+  storeName: string | null;
   display: _Show;
   pathName: string;
   companyName: string;
@@ -28,7 +30,8 @@ const initialState: _RedesignStore = {
   id: null,
   isAttributeSaparateProduct: false,
   layout: null,
-  storeTypeId: 2,
+  storeTypeId: StoreLayout.StoreBuilderStore,
+  storeName: '',
   display: showComponents,
   pathName: '',
   companyName: '',
@@ -65,6 +68,7 @@ export const storeSlice = createSlice({
       });
       state.cartCharges = store.cartCharges;
       state.storeTypeId = store.storeTypeId;
+      state.storeName = store.storeName;
     },
 
     change_Layout: (

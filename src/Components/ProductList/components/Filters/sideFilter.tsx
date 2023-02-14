@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
 import { _Store } from 'page.config';
+import { Fragment } from 'react';
 
 const SideFilter = ({
   filters,
@@ -29,7 +30,11 @@ const SideFilter = ({
             : 'bg-gray-100 p-4'
         }
       >
-        <div className='mt-4 filter-box filter-type'>
+        <div
+          className={`${
+            storeLayout === _Store.type21 ? 'mt-1' : 'mt-4'
+          } filter-box filter-type`}
+        >
           {filters &&
             filters.map((filter, index) => (
               <div
@@ -68,7 +73,16 @@ const SideFilter = ({
                     id='panel1a-header'
                     className='flex items-center justify-between w-full group mb-1'
                   >
-                    <div className='text-lg font-medium text-gray-900 block uppercase'>
+                    <div
+                      className={
+                        storeLayout === _Store.type27 ||
+                        storeLayout === _Store.type21
+                          ? 'text-lg font-medium text-gray-900 block capitalise'
+                          : storeLayout === _Store.type10
+                          ? 'font-medium'
+                          : 'text-lg font-medium text-gray-900 block uppercase'
+                      }
+                    >
                       {filter.label}
                     </div>
                   </AccordionSummary>
@@ -96,7 +110,7 @@ const SideFilter = ({
                           ) > -1;
 
                         return (
-                          <>
+                          <Fragment key={ind}>
                             {option.name || option.colorCode ? (
                               filter.label === 'Color' ? (
                                 <li
@@ -158,7 +172,7 @@ const SideFilter = ({
                                 </li>
                               )
                             ) : null}
-                          </>
+                          </Fragment>
                         );
                       })}
                     </ul>

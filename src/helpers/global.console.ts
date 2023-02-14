@@ -88,6 +88,7 @@ export const __console: __Console = {
       FetchColors: false,
       FetchProductById: false,
       FetchBrandProductList: false,
+      FetchProductsTagsName: false,
     },
     controller: false,
     components: {

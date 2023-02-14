@@ -1,9 +1,3 @@
-import { _StoreCache } from '@type/slug.type';
-import React from 'react';
+import StoreBuilder_ProductDetails from './StoreBuilder_ProductDetails_View';
 
-interface _props {}
-const StoreBuilder_ProductDetail: React.FC<_props & _StoreCache> = () => {
-  return <div>StoreBuilder_ProductDetail</div>;
-};
-
-export default StoreBuilder_ProductDetail;
+export default StoreBuilder_ProductDetails;

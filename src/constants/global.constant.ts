@@ -12,6 +12,9 @@ export enum __Cookie {
 // cookie_expiry in days
 export const __Cookie_Expiry = {
   userId: 2,
+  storeBuilder: {
+    tempCustomerId: 7,
+  },
 };
 
 export enum __Error {
@@ -41,3 +44,4 @@ export const employeeData = {
 };
 
 export const showcolors = 4;
+export const zeroValue = 0;

@@ -11,6 +11,7 @@ import {
 } from 'definations/APIs/inventory.res';
 import {
   _FetchProductsRecentlyViewedPayload,
+  _FetchTagsName,
   _ProductBySku,
   _ProductDetails,
   _ProductDoNotExist,
@@ -18,17 +19,17 @@ import {
   _ProductSEO,
   _ProductsRecentlyViewed,
   _ProductsRecentlyViewedPayload,
-  _ProductsRecentlyViewedResponse
+  _ProductsRecentlyViewedResponse,
 } from 'definations/APIs/productDetail.res';
 import {
   _SizeChart,
-  _SizeChartTransformed
+  _SizeChartTransformed,
 } from 'definations/APIs/sizeChart.res';
 import { _Reviews } from 'definations/product.type';
 import {
   BrandFilter,
   CategoryFilter,
-  FilterApiRequest
+  FilterApiRequest,
 } from 'definations/productList.type';
 import { CallAPI } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';
@@ -43,7 +44,8 @@ export type _ProducDetailAPIs =
   | 'FetchColors'
   | 'FetchProductById'
   | 'FetchInventoryById'
-  | 'FetchBrandProductList';
+  | 'FetchBrandProductList'
+  | 'FetchProductsTagsName';
 
 export type _ProductDetailService = {
   service: 'productDetails';
@@ -428,32 +430,50 @@ export const fetchCategoryByCategoryId = async (
   return res.data;
 };
 
-
-export const InsertProductRecentlyViewed = async (payload:_ProductsRecentlyViewedPayload
+export const InsertProductRecentlyViewed = async (
+  payload: _ProductsRecentlyViewedPayload,
 ): Promise<_ProductsRecentlyViewed | null> => {
   const url = `StoreProductRecentlyViewed/insertproductrecentlyview.json`;
   try {
     const res = await SendAsyncV2<_ProductsRecentlyViewed>({
       url: url,
       method: 'POST',
-      data:payload
+      data: payload,
     });
     return res.data;
-    
   } catch (error) {
-    return null
+    return null;
   }
 };
 
-export const FetchProductRecentlyViewed = async (payload:_FetchProductsRecentlyViewedPayload
-  ): Promise<_ProductsRecentlyViewedResponse[]> => {
-    const url = `StoreProductRecentlyViewed/getproductsrecentlyview.json`;
+export const FetchProductRecentlyViewed = async (
+  payload: _FetchProductsRecentlyViewedPayload,
+): Promise<_ProductsRecentlyViewedResponse[]> => {
+  const url = `StoreProductRecentlyViewed/getproductsrecentlyview.json`;
 
-      const res = await SendAsyncV2<_ProductsRecentlyViewedResponse[]>({
-        url: url,
-        method: 'POST',
-        data:payload
-      });
-      return res.data;
- 
-  };
+  const res = await SendAsyncV2<_ProductsRecentlyViewedResponse[]>({
+    url: url,
+    method: 'POST',
+    data: payload,
+  });
+  return res.data;
+};
+
+export const FetchTagsName = async (
+  productId: number,
+): Promise<_FetchTagsName[] | null> => {
+  const url = `StoreProduct/getproducttagimages/${productId}.json`;
+
+  const response = await CallAPI<_FetchTagsName[]>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchProductsTagsName',
+    },
+    request: {
+      url: url,
+      method: 'GET',
+    },
+  });
+
+  return response;
+};

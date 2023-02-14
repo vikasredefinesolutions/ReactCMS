@@ -25,8 +25,6 @@ const StoreBuilder_NavigationBar: React.FC<_props> = ({
 
   if (!menuItems) return <></>;
 
-  console.log('vw', screen, showSideMenu);
-
   if (screen === 'MOBILE' && showSideMenu === 'CLOSE') return <></>;
 
   if (screen === 'MOBILE') {

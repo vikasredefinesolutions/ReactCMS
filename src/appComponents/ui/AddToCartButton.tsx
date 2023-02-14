@@ -18,9 +18,11 @@ interface _Selectedproduct {
   color: _ProductColor;
   sizeQtys:
     | {
-        size: string;
-        qty: number;
+        id?: number | undefined;
+        attributeOptionId: number;
         price: number;
+        qty: number;
+        size: string;
         color?: string | undefined;
       }[];
   image: {

@@ -1,5 +1,8 @@
 import { PunchoutPostApi } from '@services/punchout.service';
-import qs from 'querystring';
+import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
+import fsPrmoises from 'fs/promises';
+import path from 'path';
+
 const Puchout = ({ req, res, punchout }: any) => {
   return (
     <>
@@ -18,22 +21,30 @@ export default Puchout;
 export const getServerSideProps = async (context: any) => {
   const req = context.req;
 
+  const filePath = path.join(process.cwd(), '/public/success.xml');
+  const xmlData = await fsPrmoises.readFile(filePath);
+  let xmlDoc = xmlData.toLocaleString();
+
+  const parser = new DOMParser();
+  var doc = parser.parseFromString(xmlDoc, 'text/xml');
+  const serialized = new XMLSerializer().serializeToString(doc);
+
   let body = '';
   if (req.method == 'POST') {
     req.on('data', (chunk: any) => {
       body += chunk;
     });
     req.on('end', () => {
-      console.log(qs.parse(body));
+      console.log(body);
     });
   }
 
-  const res = await PunchoutPostApi();
+  const res = await PunchoutPostApi(serialized);
   return {
     props: {
       req: {
         data: {
-          body: body,
+          body: serialized,
           headers: { ...context.req.headers },
           returnUrl: { ...context.req?.return_url },
         },

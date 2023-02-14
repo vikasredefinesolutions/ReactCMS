@@ -1,16 +1,37 @@
 import { _Store } from 'page.config';
 import React from 'react';
-import { Bacardi_Header, Usaa_Header } from './Corporate_Headers';
+import { _MenuItems } from 'show.type';
+import {
+  BacardiSubStore_Header,
+  Bacardi_Header,
+  Usaa_Header,
+} from './Corporate_Headers';
 
 interface _props {
   storeCode: string;
+  logoUrl: string;
+  menuItems: _MenuItems | null;
 }
 
-const Corporate_Header: React.FC<_props> = ({ storeCode }) => {
-  console.log(storeCode, _Store.type5);
+const Corporate_Header: React.FC<_props> = ({
+  storeCode,
+  logoUrl,
+  menuItems,
+}) => {
+  if (storeCode === _Store.type6) {
+    return (
+      <BacardiSubStore_Header
+        storeCode={storeCode}
+        logoUrl={{
+          desktop: logoUrl,
+        }}
+        menuItems={menuItems}
+      />
+    );
+  }
+
   if (
     storeCode === _Store.type5 ||
-    storeCode === _Store.type6 ||
     storeCode === _Store.type7 ||
     storeCode === _Store.type13
   ) {

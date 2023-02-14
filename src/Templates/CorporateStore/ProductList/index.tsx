@@ -5,12 +5,15 @@ import React from 'react';
 interface _props {
   productListing: _ProductListProps | null;
   slug: string;
+  seType: string;
 }
 const Corporate_ProductList: React.FC<_props> = (props) => {
-  const { productListing, slug } = props;
-  return <>
-    <ProductList pageData={productListing} slug={slug} />
-  </>
+  const { productListing, slug, seType } = props;
+  return (
+    <>
+      <ProductList pageData={productListing} slug={slug} seType={seType} />
+    </>
+  );
 };
 
 export default Corporate_ProductList;

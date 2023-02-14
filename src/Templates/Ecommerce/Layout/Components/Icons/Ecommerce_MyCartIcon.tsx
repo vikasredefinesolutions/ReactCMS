@@ -44,6 +44,7 @@ const MyCartIcon: React.FC = () => {
   useEffect(() => {
     const totalQty = getTotalProduct();
     setTotalCartQty(totalQty);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   if (storeLayout === _Store.type2) {
@@ -116,11 +117,7 @@ const MyCartIcon: React.FC = () => {
                             <div className='px-1'>
                               Subtotal :{' '}
                               <span>
-                                <Price
-                                  value={
-                                    cartItem.totalPrice * cartItem.totalQty
-                                  }
-                                />
+                                <Price value={cartItem.totalPrice} />
                               </span>
                             </div>
                           </div>
@@ -226,11 +223,7 @@ const MyCartIcon: React.FC = () => {
                             <div className='px-1'>
                               Subtotal :{' '}
                               <span>
-                                <Price
-                                  value={
-                                    cartItem.totalPrice * cartItem.totalQty
-                                  }
-                                />
+                                <Price value={cartItem.totalPrice} />
                               </span>
                             </div>
                           </div>
@@ -333,11 +326,7 @@ const MyCartIcon: React.FC = () => {
                             <div className='px-1'>
                               Subtotal :{' '}
                               <span>
-                                <Price
-                                  value={
-                                    cartItem.totalPrice * cartItem.totalQty
-                                  }
-                                />
+                                <Price value={cartItem.totalPrice} />
                               </span>
                             </div>
                           </div>

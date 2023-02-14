@@ -1,12 +1,18 @@
+import { CommanMessage } from '@constants/successErrorMessages.constant';
+import { addToCart } from '@services/cart.service';
 import { _CartItem } from '@type/APIs/cart.res';
+import { _ProductColor } from '@type/APIs/colors.res';
+import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { _ProductDetails } from '@type/APIs/productDetail.res';
+import config from 'api.config';
 import AddOTFItemNo from 'appComponents/modals/AddOTFItems';
 import StartOrderModal from 'appComponents/modals/StartOrderModal';
 import ImageComponent from 'appComponents/reUsable/Image';
 import CartSummary from 'Components/CartSummary/CartSummary';
+import { getAddToCartObject } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
-import { useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 type _Props = {
   cartProducts: _CartItem[];
@@ -16,6 +22,13 @@ type _Props = {
   product: _ProductDetails | undefined;
   setShowEdit: (arg: boolean) => void;
   currentCartProduct: _CartItem | undefined;
+};
+
+type CartReq = {
+  productId: number;
+  image: { id: number; imageUrl: string; altTag: string };
+  color: _ProductColor;
+  inventory: _ProductInventoryTransfomed | null;
 };
 
 const CartLayout1 = (props: _Props) => {
@@ -28,44 +41,122 @@ const CartLayout1 = (props: _Props) => {
     setShowEdit,
     currentCartProduct,
   } = props;
-  const { updateCheckoutObject } = useActions();
-
-  const checkoutObject = useTypedSelector((state) => state.product.toCheckout);
+  const { fetchCartDetails, setShowLoader, showModal } = useActions();
+  const storeId = useTypedSelector((state) => state.store.id);
+  const userId = useTypedSelector((state) => state.user.id);
 
   const isEmployeeLoggedIn = useTypedSelector(
     (state) => state.employee.loggedIn,
   );
   const [addOtf, setShowAddOtf] = useState(false);
+  const [cartQtyAmtAr, setCartQtyAmtAr] = useState<
+    Array<
+      Array<{
+        attributeOptionId: number;
+        size: string;
+        qty: number;
+        price: number;
+        id: number;
+      }>
+    >
+  >([]);
+  const getNewOptionAr = () =>
+    cartProducts.map((item) =>
+      item.shoppingCartItemDetailsViewModels.map((option) => ({
+        attributeOptionId: option.attributeOptionId,
+        size: option.attributeOptionValue,
+        qty: option.qty,
+        price: option.price / option.qty,
+        id: option.id,
+      })),
+    );
+
+  useEffect(() => {
+    if (cartProducts.length > 0) {
+      setCartQtyAmtAr(getNewOptionAr);
+    }
+  }, [cartProducts]);
 
   const employeeAmtChangeHandler = (
-    value: string | number,
-    cartProductIndex: number,
+    event: ChangeEvent<HTMLInputElement>,
     cartProdDetailsIndex: number,
+    cartProductIndex: number,
   ) => {
-    const cartProduct = cartProducts[cartProductIndex];
-    let cartProductDetailsItem =
-      cartProduct.shoppingCartItemDetailsViewModels[cartProdDetailsIndex];
-    let totalPrice = 0;
-    const obj = {
-      totalQty: cartProduct.totalQty,
-      sizeQtys: cartProduct.shoppingCartItemDetailsViewModels.map(
-        (res, index) => {
-          const price =
-            cartProdDetailsIndex === index
-              ? +value * cartProductDetailsItem.qty
-              : res.price;
-          totalPrice += price;
-          return {
-            size: res.attributeOptionValue,
-            qty: res.qty,
-            price: price,
-          };
-        },
-      ),
-      totalPrice: totalPrice,
+    const { name, value } = event.target;
+    const _cartQtyAmtAr = JSON.parse(JSON.stringify(cartQtyAmtAr));
+    const currentObj = _cartQtyAmtAr[cartProductIndex][cartProdDetailsIndex];
+    _cartQtyAmtAr[cartProductIndex][cartProdDetailsIndex] = {
+      ...currentObj,
+      [name]: +value,
     };
-    updateCheckoutObject(obj);
+    setCartQtyAmtAr(_cartQtyAmtAr);
   };
+
+  const amtQtyBlurHandler = useCallback(
+    async (cartItemIndex: number) => {
+      if (JSON.stringify(getNewOptionAr()) !== JSON.stringify(cartQtyAmtAr)) {
+        setShowLoader(true);
+        const cartProduct = cartProducts[cartItemIndex];
+        const cartItemSelected = cartQtyAmtAr[cartItemIndex];
+        if (cartProduct) {
+          let totalPrice = 0;
+          let totalQty = 0;
+          const sizeQtys = cartItemSelected.map((res) => {
+            const price = res.price * res.qty;
+            totalPrice += price;
+            totalQty += res.qty;
+
+            return {
+              attributeOptionId: res.attributeOptionId,
+              id: res.id,
+              size: res.size,
+              qty: res.qty,
+              price: price,
+            };
+          });
+
+          const cartObject = await getAddToCartObject({
+            userId: userId || 0,
+            note: '',
+            storeId: storeId || 0,
+            isEmployeeLoggedIn,
+            sizeQtys,
+            productDetails: {
+              color: {
+                altTag: cartProduct.colorImage,
+                imageUrl: cartProduct.colorImage,
+                name: cartProduct.attributeOptionValue,
+                attributeOptionId: +cartProduct.attributeOptionId,
+              } as _ProductColor,
+              productId: cartProduct.productId,
+            } as CartReq,
+            total: {
+              totalPrice,
+              totalQty,
+            },
+            shoppingCartItemId: cartProduct.shoppingCartItemsId,
+          });
+
+          try {
+            const customerId: number = await addToCart(cartObject);
+            await fetchCartDetails({
+              customerId,
+              isEmployeeLoggedIn,
+            });
+            setShowLoader(false);
+          } catch (error) {
+            setShowLoader(false);
+            showModal({
+              message: CommanMessage.Failed,
+              title: 'Failed',
+            });
+          }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }
+    },
+    [cartQtyAmtAr],
+  );
 
   return (
     <>
@@ -157,45 +248,72 @@ const CartLayout1 = (props: _Props) => {
                               </div>
 
                               {product.shoppingCartItemDetailsViewModels.map(
-                                (item: any, cartItemDetialsIndex: number) => (
-                                  <div
-                                    key={cartItemDetialsIndex}
-                                    className='flex justify-between py-2'
-                                  >
-                                    <div className='text-base w-28'>
-                                      {item.attributeOptionValue}
-                                    </div>
-
-                                    <div className='text-base w-16 text-center'>
-                                      {isEmployeeLoggedIn ? (
-                                        <input
-                                          className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
-                                          value={item.qty}
-                                        />
-                                      ) : (
-                                        item.qty
-                                      )}
-                                    </div>
-                                    {isEmployeeLoggedIn && (
-                                      <div className='text-base w-16 text-center'>
-                                        <input
-                                          className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
-                                          value={item.price / item.qty}
-                                          onChange={(event) =>
-                                            employeeAmtChangeHandler(
-                                              event.target.value,
-                                              cartItemDetialsIndex,
-                                              index,
-                                            )
-                                          }
-                                        />
+                                (item: any, cartItemDetialsIndex: number) => {
+                                  let qty = 0,
+                                    price = 0;
+                                  if (cartQtyAmtAr.length > 0) {
+                                    qty =
+                                      cartQtyAmtAr[index][cartItemDetialsIndex]
+                                        .qty;
+                                    price =
+                                      cartQtyAmtAr[index][cartItemDetialsIndex]
+                                        .price;
+                                  }
+                                  return (
+                                    <div
+                                      key={cartItemDetialsIndex}
+                                      className='flex justify-between py-2'
+                                    >
+                                      <div className='text-base w-28'>
+                                        {item.attributeOptionValue}
                                       </div>
-                                    )}
-                                    <div className='text-base w-20 text-right'>
-                                      ${item.price}
+
+                                      <div className='text-base w-16 text-center'>
+                                        {isEmployeeLoggedIn ? (
+                                          <input
+                                            className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
+                                            value={qty}
+                                            name='qty'
+                                            onChange={(event) =>
+                                              employeeAmtChangeHandler(
+                                                event,
+                                                cartItemDetialsIndex,
+                                                index,
+                                              )
+                                            }
+                                            onBlur={() =>
+                                              amtQtyBlurHandler(index)
+                                            }
+                                          />
+                                        ) : (
+                                          item.qty
+                                        )}
+                                      </div>
+                                      {isEmployeeLoggedIn && (
+                                        <div className='text-base w-16 text-center'>
+                                          <input
+                                            className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
+                                            value={price}
+                                            name='price'
+                                            onChange={(event) =>
+                                              employeeAmtChangeHandler(
+                                                event,
+                                                cartItemDetialsIndex,
+                                                index,
+                                              )
+                                            }
+                                            onBlur={() =>
+                                              amtQtyBlurHandler(index)
+                                            }
+                                          />
+                                        </div>
+                                      )}
+                                      <div className='text-base w-20 text-right'>
+                                        ${item.price}
+                                      </div>
                                     </div>
-                                  </div>
-                                ),
+                                  );
+                                },
                               )}
 
                               <div className='flex justify-between py-3 border-t border-b'>
@@ -205,40 +323,80 @@ const CartLayout1 = (props: _Props) => {
                                 <div className='text-base w-16 text-center'>
                                   {product.totalQty}
                                 </div>
-                                <div className='text-base w-16 text-center'></div>
+
                                 <div className='text-base w-20 text-right'>
                                   ${product.totalPrice}
                                 </div>
                               </div>
-
-                              <div className='flex justify-between py-3'>
-                                <div className='text-base'>
-                                  <div className='mb-3 flex'>
-                                    <img
-                                      src='images/logo-to-be-submitted.webp'
-                                      title=''
-                                      alt=''
-                                    />
-                                    <span className='font-semibold ml-3'>
-                                      Logo to be
-                                      <br />
-                                      submitted
-                                    </span>
+                              {product.shoppingCartLogoPersonViewModels.map(
+                                (item: any, index: number) => {
+                                  return (
+                                    <div
+                                      key={`${item}-${index}`}
+                                      className='flex justify-between py-3'
+                                    >
+                                      <div className='text-base'>
+                                        <div className='mb-3 flex'>
+                                          <img
+                                            src={`${config.mediaBaseUrl}${item.logoImagePath}`}
+                                            title=''
+                                            alt=''
+                                          />
+                                          <span className='font-semibold ml-3'>
+                                            Logo
+                                            <br />
+                                            submitted
+                                          </span>
+                                        </div>
+                                        <div>
+                                          <span className='font-semibold'>
+                                            Location:
+                                          </span>
+                                          <span>{item.logoLocation}</span>
+                                        </div>
+                                      </div>
+                                      <div className='text-base text-right'>
+                                        <div className='font-semibold'>
+                                          Logo Price
+                                        </div>
+                                        <div>
+                                          {index === 0
+                                            ? 'First Logo Free'
+                                            : `$${item.logoPrice}`}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                },
+                              )}
+                              {/* <div className='flex justify-between py-3'>
+                                  <div className='text-base'>
+                                    <div className='mb-3 flex'>
+                                      <img
+                                        src='images/logo-to-be-submitted.webp'
+                                        title=''
+                                        alt=''
+                                      />
+                                      <span className='font-semibold ml-3'>
+                                        Logo to be
+                                        <br />
+                                        submitted
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span className='font-semibold'>
+                                        Location:
+                                      </span>
+                                      <span>Right Sleeve</span>
+                                    </div>
                                   </div>
-                                  <div>
-                                    <span className='font-semibold'>
-                                      Location:
-                                    </span>
-                                    <span>Right Sleeve</span>
+                                  <div className='text-base text-right'>
+                                    <div className='font-semibold'>
+                                      Logo Price
+                                    </div>
+                                    <div>First Logo Free</div>
                                   </div>
-                                </div>
-                                <div className='text-base text-right'>
-                                  <div className='font-semibold'>
-                                    Logo Price
-                                  </div>
-                                  <div>First Logo Free</div>
-                                </div>
-                              </div>
+                                </div> */}
                             </div>
                           </div>
                           <div className='mt-2 lg:w-1/3 w-full'>

@@ -21,7 +21,6 @@ const Ecommerce_Layout: React.FC<_props> = ({
   configs,
 }) => {
   const HeaderComp = useMemo(() => {
-    
     return (
       <Header
         storeCode={storeCode}

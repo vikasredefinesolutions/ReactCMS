@@ -3,9 +3,7 @@ import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import React from 'react';
 import SC_GiftCartItem from './SC_GiftCartItem';
-import {
-  SC_ProductCartItem_withoutPersonalization
-} from './SC_ProductCartItem';
+import { SC_ProductCartItem_withoutPersonalization } from './SC_ProductCartItem';
 
 // NO NEED TO CALL THIS COMPONENT IN CORPORATE STORES
 

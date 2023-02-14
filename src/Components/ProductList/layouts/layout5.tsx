@@ -15,6 +15,7 @@ const Layout5 = ({
   loadMore,
   sortProductJson,
   compareCheckBoxHandler,
+  storeLayout,
 }: list_FnProps) => {
   return (
     <>
@@ -53,6 +54,7 @@ const Layout5 = ({
                             compareCheckBoxHandler={compareCheckBoxHandler}
                             product={product}
                             colorChangeHandler={colorChangeHandler}
+                            storeLayout={storeLayout}
                           />
                         ))}
                       </ul>

@@ -1,4 +1,5 @@
 export interface _CI_ShoppingCartItemDetailsViewModel {
+  id: number;
   attributeOptionId: number;
   attributeOptionValue: string;
   qty: number;
@@ -19,7 +20,7 @@ export interface _CI_ShoppingCartLogoPersonViewModel {
 export interface _CartItem {
   colorImage: string;
   productName: string;
-  productId:number;
+  productId: number;
   sku: string;
   attributeOptionId: string;
   attributeOptionValue: string;
