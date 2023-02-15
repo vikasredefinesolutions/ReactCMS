@@ -82,7 +82,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
         brand: {
           id: product.details!.brandID,
           name: product.details!.brandName,
-          url: product.details!.brandImage,
+          url: product.details!.brandColorLogoUrl,
         },
         product: {
           customization: product.details.isEnableLogolocation || false,

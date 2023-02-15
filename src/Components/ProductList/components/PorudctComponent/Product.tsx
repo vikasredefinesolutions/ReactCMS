@@ -1,4 +1,4 @@
-import { zeroValue } from '@constants/global.constant';
+import { listing_max_showcolors, zeroValue } from '@constants/global.constant';
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
@@ -29,6 +29,8 @@ const ProductComponent = ({
   compareCheckBoxHandler: (sku: string) => void;
   storeLayout: string | null;
 }) => {
+  let flag: boolean = false;
+
   const { currentProduct, origin, setCurrentProduct } = ProductBoxController({
     product,
     colorChangeHandler,
@@ -142,7 +144,7 @@ const ProductComponent = ({
                     ? 'mt-1 h-10 overflow-hidden text-sm text-anchor tracking-wider hover:text-primary-hover'
                     : storeLayout === _Store.type21
                     ? 'mt-1 text-anchor hover:text-anchor-hover underline'
-                    : 'relative mt-1 text-anchor hover:text-anchor-hover h-14 text-ellipsis overflow-hidden line-clamp-2'
+                    : 'relative mt-1 text-anchor hover:text-anchor-hover text-ellipsis overflow-hidden line-clamp-2'
                 }
               >
                 <Link
@@ -159,7 +161,9 @@ const ProductComponent = ({
                     ? 'mt-4 text-default text-xl'
                     : storeLayout === _Store.type21
                     ? 'mt-3 text-black text-base tracking-wider font-semibold'
-                    : 'mt-2 text-black text-base tracking-wider'
+                    : `mt-2 text-black text-base tracking-wider ${
+                        storeLayout === _Store.type1 ? 'font-semibold' : ''
+                      }`
                 }
               >
                 {storeLayout === _Store.type27 ? <></> : <>MSRP </>}
@@ -173,7 +177,8 @@ const ProductComponent = ({
               </div>
 
               {storeLayout === _Store.type27 ||
-              storeLayout === _Store.type21 ? (
+              storeLayout === _Store.type21 ||
+              storeLayout === _Store.type1 ? (
                 <></>
               ) : (
                 <div className='form-group mt-2'>
@@ -206,12 +211,12 @@ const ProductComponent = ({
                 product.getProductImageOptionList.length && (
                   <ul
                     role='list'
-                    className='flex items-center mt-2 justify-center space-x-1'
+                    className='flex items-center mt-2 justify-center space-x-1 testlayoutclass'
                   >
                     {product.getProductImageOptionList.map((subRow, index) =>
-                      index < 6 ? (
+                      index < listing_max_showcolors ? (
                         <li
-                          className={`w-7 h-7 border-2${
+                          className={`w-7 h-7 border-2 overflow-hidden hover:border-secondary ${
                             subRow.id === currentProduct.id
                               ? ' border-secondary'
                               : ''
@@ -230,11 +235,21 @@ const ProductComponent = ({
                             src={`${config.mediaBaseUrl}${subRow.imageName}`}
                             alt=''
                             title=''
-                            className='max-h-full m-auto'
+                            className='max-h-full m-auto w-full'
                           />
                         </li>
-                      ) : null,
+                      ) : (
+                        <>{(flag = true)}</>
+                      ),
                     )}
+                    {flag ? (
+                      <li className='extra w-7 h-7 text-center border-2 hover:border-secondary inset-0 bg-primary text-xs font-semibold flex items-center justify-center text-white'>
+                        <span> +</span>
+                        {product.getProductImageOptionList &&
+                          product.getProductImageOptionList.length -
+                            listing_max_showcolors}
+                      </li>
+                    ) : null}
                   </ul>
                 )}
               {/* <div className="mt-3">

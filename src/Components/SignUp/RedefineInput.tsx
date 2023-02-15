@@ -10,7 +10,7 @@ interface _props {
   value: string | number;
   // eslint-disable-next-line no-unused-vars
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  type: 'text' | 'number' | 'password';
+  type: 'text' | 'number' | 'password' | 'date';
   required: boolean;
 }
 

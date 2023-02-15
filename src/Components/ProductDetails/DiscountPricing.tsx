@@ -163,7 +163,9 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
                   className='uppercase items-center'
                   id='aMinOrder'
                 >
-                  <strong>DISCOUNT PRICING AVAILABLE!</strong>
+                  <strong className='text-indigo-500 hover:text-gray-700'>
+                    DISCOUNT PRICING AVAILABLE!
+                  </strong>
                 </button>
               ) : null}
             </div>

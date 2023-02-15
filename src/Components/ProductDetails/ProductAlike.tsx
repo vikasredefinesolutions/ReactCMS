@@ -41,7 +41,7 @@ const ProductAlike: React.FC<_props> = ({
   };
   let flag: boolean = false;
 
-  if (storeCode === _Store.type2) {
+  if (storeCode === _Store.type2 || storeCode === _Store.type1) {
     return (
       <>
         {products === null ? (
@@ -105,22 +105,29 @@ const ProductAlike: React.FC<_props> = ({
                                   )}.html?v=product-detail&altview=1`}
                                   className='relative underline min-h-[48px]'
                                 >
-                                  <div className='w-full text-xl mb-3 h-14'>
-                                    <span className='text-secondary text-xl font-bold cursor-pointer hover:text-anchor-hover'>
+                                  <div
+                                    className={`${
+                                      storeCode === _Store.type2
+                                        ? 'w-full text-xl mb-3 h-14'
+                                        : ' h-14 '
+                                    }`}
+                                  >
+                                    <span
+                                      className={`${
+                                        storeCode === _Store.type2
+                                          ? 'text-secondary text-xl font-bold cursor-pointer hover:text-anchor-hover'
+                                          : 'mt-1 text-anchor underline hover:text-anchor-hover whitespace-normal'
+                                      }`}
+                                    >
                                       {product.name}
                                     </span>
                                   </div>
                                 </Link>
-                                <div className='text-secondary-hover font-bold'>
-                                  {storeCode === _Store.type23 ? 'MSRP' : '$'}{' '}
-                                  <Price value={product.msrp} />
-                                </div>
-
-                                {/* <div className="mt-3 text-black text-base tracking-wider">
-                                  <span className="font-semibold">
+                                <div className='mt-3 text-black text-base tracking-wider'>
+                                  <span className='font-semibold'>
                                     MSRP <Price value={product.msrp} />
                                   </span>
-                                </div> */}
+                                </div>
                               </div>
                             </div>
                           </div>

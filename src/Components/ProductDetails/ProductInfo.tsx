@@ -40,13 +40,14 @@ interface _Props {
 }
 
 const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
-  const { setShowLoader, setOfflineProductSelected } = useActions();
+  const { showModal, setShowLoader, setOfflineProductSelected } = useActions();
   const [openModal, setOpenModal] = useState<null | _modals>(null);
   const { id: userId } = useTypedSelector((state) => state.user);
   const {
     price: pricePerItem,
     totalPrice,
     totalQty,
+    minQty,
     sizeQtys,
   } = useTypedSelector((state) => state.product.toCheckout);
   const color = useTypedSelector((state) => state.product.selected.color);
@@ -70,6 +71,14 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
     if (isLoggedIn === true) {
       if (sizeQtys === null || sizeQtys[0]?.qty === 0) {
         modalHandler('requiredQty');
+        return;
+      }
+      if (totalQty < minQty) {
+        showModal({
+          message: `Please enter quantity greater than or equal to ${minQty}.`,
+          title: 'Required Quantity',
+        });
+
         return;
       }
 
@@ -164,8 +173,8 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           heading={'Description'}
         />
 
-        <form className='mt-6'>
-          <div className='mt-10 bg-gray-700'>
+        <form className='m-3'>
+          <div className='bg-gray-700'>
             <button
               type='button'
               disabled={product.isDiscontinue}

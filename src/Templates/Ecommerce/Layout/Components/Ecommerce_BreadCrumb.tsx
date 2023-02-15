@@ -70,6 +70,7 @@ const BreadCrumb: React.FC = () => {
     storeLayout === _Store.type15 ||
     storeLayout === _Store.type16
   ) {
+    console.log(product);
     return (
       <div id='' className='px-2 lg:px-0'>
         <div className='container mx-auto'>
@@ -139,7 +140,7 @@ const BreadCrumb: React.FC = () => {
   if (storeLayout === _Store.type2) {
     return (
       <div id='' className='py-3 bg-[#e6e6e6] tracking-wider'>
-        <div className='container mx-auto'>
+        <div className='container mx-auto flex flex-wrap justify-between py-1'>
           <nav className='flex' aria-label='Breadcrumb'>
             <ol className='inline-flex items-center space-x-1 md:space-x-2 font-semibold'>
               {breadCrumbs.map((item, index) => (
@@ -195,6 +196,17 @@ const BreadCrumb: React.FC = () => {
                 </li> --> */}
             {/* </ol> */}
           </nav>
+          {pageType.type === 'product' && (
+            <div className='text-center w-auto product-brand-logo'>
+              <ImageComp
+                src={product.brand?.url || ''}
+                className='h-16 w-auto inline-block'
+                // height={100}
+                // width={100}
+                alt=''
+              />
+            </div>
+          )}
         </div>
       </div>
     );
@@ -254,13 +266,17 @@ const BreadCrumb: React.FC = () => {
                 <li>/ {pathRoute}</li>
               </ol> */}
             </nav>
-            <div className='text-center'>
-              <img
-                className='inline-block'
-                src='images/peter-millar.png'
-                alt=''
-              />
-            </div>
+            {pageType.type === 'product' && (
+              <div className='text-center w-auto product-brand-logo'>
+                <ImageComp
+                  src={product.brand?.url || ''}
+                  className='h-16 w-auto inline-block'
+                  // height={100}
+                  // width={100}
+                  alt=''
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -275,7 +291,7 @@ const BreadCrumb: React.FC = () => {
     return (
       <div id='' className='py-3 bg-white tracking-wider px-2 lg:px-0'>
         <div className='container mx-auto'>
-          <div className='border-b border-[#f0f0f0] pb-2'>
+          <div className='border-b border-[#f0f0f0] pb-2 flex flex-wrap justify-between py-1 border-b border-gray-200'>
             <nav
               className='flex flex-wrap justify-between items-center'
               aria-label='Breadcrumb'
@@ -299,10 +315,18 @@ const BreadCrumb: React.FC = () => {
                   </li>
                 ))}
               </ol>
-              <div className='hidden md:inline-block'>
-                <img src='images/adidas.png' alt='' />
-              </div>
             </nav>
+            {pageType.type === 'product' && (
+              <div className='text-center w-auto product-brand-logo'>
+                <ImageComp
+                  src={product.brand?.url || ''}
+                  className='h-16 w-auto inline-block'
+                  // height={100}
+                  // width={100}
+                  alt=''
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -318,7 +342,7 @@ const BreadCrumb: React.FC = () => {
     return (
       <div id='' className='py-3 bg-white tracking-wider px-2 lg:px-0'>
         <div className='container mx-auto'>
-          <div className='border-b border-[#f0f0f0] pb-2'>
+          <div className='border-b border-[#f0f0f0] pb-2 flex flex-wrap justify-between py-1 border-b border-gray-200'>
             <nav
               className='flex flex-wrap justify-between items-center'
               aria-label='Breadcrumb'
@@ -362,10 +386,18 @@ const BreadCrumb: React.FC = () => {
                   </li>
                 ))}
               </ol>
-              <div className='hidden md:inline-block'>
-                <img src='images/adidas.png' alt='' />
-              </div>
             </nav>
+            {pageType.type === 'product' && (
+              <div className='text-center w-auto product-brand-logo'>
+                <ImageComp
+                  src={product.brand?.url || ''}
+                  className='h-16 w-auto inline-block'
+                  // height={100}
+                  // width={100}
+                  alt=''
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -379,7 +411,7 @@ const BreadCrumb: React.FC = () => {
           <div
             className={
               storeLayout === _Store.type24
-                ? 'border-b border-[#f0f0f0] pb-2'
+                ? 'border-b border-[#f0f0f0] pb-2 flex flex-wrap justify-between py-1 border-b border-gray-200'
                 : ''
             }
           >
@@ -430,10 +462,18 @@ const BreadCrumb: React.FC = () => {
                   </li>
                 ))}
               </ol>
-              <div className='hidden md:inline-block'>
-                <img src='images/adidas.png' alt='' />
-              </div>
             </nav>
+            {pageType.type === 'product' && (
+              <div className='text-center w-auto product-brand-logo'>
+                <ImageComp
+                  src={product.brand?.url || ''}
+                  className='h-16 w-auto inline-block'
+                  // height={100}
+                  // width={100}
+                  alt=''
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

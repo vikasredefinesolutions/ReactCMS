@@ -7,20 +7,20 @@ import Redefine_Screen from 'Templates/Redefine_Screen';
 
 import { Footer } from '@services/footer.service';
 import { _Footer } from '@type/APIs/footer.res';
-import EmployeeController from 'Controllers/EmployeeController';
 import * as _AppController from 'Controllers/_AppController.async';
+import EmployeeController from 'Controllers/EmployeeController';
 import { _TransformedHeaderConfig } from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
 import AuthGuard from 'Guard/AuthGuard';
 import {
+  _Logout,
   domainToShow,
   extractCookies,
   nextJsSetCookie,
   setCookie,
-  _Logout,
 } from 'helpers/common.helper';
-import { conditionalLogV2, __console } from 'helpers/global.console';
-import { useActions, useTypedSelector } from 'hooks';
+import { __console, conditionalLogV2 } from 'helpers/global.console';
+import { useActions } from 'hooks';
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { __domain } from 'page.config';
@@ -51,8 +51,6 @@ const RedefineCustomApp = ({
 }: AppProps & AppOwnProps) => {
   EmployeeController();
   const router = useRouter();
-  const storeId = useTypedSelector((state) => state.store.id);
-
   const { store_storeDetails, updateCustomerV2, setShowLoader, logInUser } =
     useActions();
 
@@ -105,6 +103,7 @@ const RedefineCustomApp = ({
 
   useEffect(() => {
     trackingFile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -139,6 +138,7 @@ const RedefineCustomApp = ({
   useEffect(() => {
     window.addEventListener('beforeunload', refreshHandler);
     return () => window.removeEventListener('beforeunload', refreshHandler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!store || !store.storeTypeId) {
@@ -195,7 +195,12 @@ RedefineCustomApp.getInitialProps = async (
   const ctx = await App.getInitialProps(context);
   const cookies = extractCookies(context.ctx.req?.headers.cookie);
 
-  if (cookies.storeInfo?.storeId) {
+  const domain = domainToShow({
+    domain: context.ctx.req?.rawHeaders[1],
+    showProd: __domain.isSiteLive,
+  });
+
+  if (cookies.storeInfo?.storeId && cookies.storeInfo?.domain === domain) {
     APIsCalledOnce = true;
     expectedProps.store.storeId = cookies.storeInfo.storeId;
     expectedProps.store.isAttributeSaparateProduct =
@@ -222,17 +227,13 @@ RedefineCustomApp.getInitialProps = async (
     }
   }
 
-  const domain = domainToShow({
-    domain: context.ctx.req?.rawHeaders[1],
-    showProd: __domain.isSiteLive,
-  });
-
   try {
     if (APIsCalledOnce === false) {
       expectedProps.store = await _AppController.fetchStoreDetails(
         domain,
         pathName,
       );
+
       if (expectedProps.store?.storeId) {
         expectedProps.configs.footer = await Footer({
           storeId: expectedProps.store?.storeId,

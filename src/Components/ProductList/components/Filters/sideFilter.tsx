@@ -30,10 +30,13 @@ const SideFilter = ({
             : 'bg-gray-100 p-4'
         }
       >
+        <div className='text-lg font-medium text-gray-900 hidden lg:block border-b border-neutral-300 pb-4'>
+          Filters
+        </div>
         <div
           className={`${
-            storeLayout === _Store.type21 ? 'mt-1' : 'mt-4'
-          } filter-box filter-type`}
+            storeLayout === _Store.type21 ? 'mt-1' : ''
+          } filter-box filter-type sidebar`}
         >
           {filters &&
             filters.map((filter, index) => (
@@ -41,8 +44,8 @@ const SideFilter = ({
                 key={index}
                 className={
                   storeLayout === _Store.type21
-                    ? 'py-4 border-t border-neutral-300 first:border-t-0 first'
-                    : 'pt-0:py-1 border-t border-neutral-300 first:border-t-0 first:pt-0'
+                    ? 'py-4 border-t border-neutral-300 first:border-t-0 first sidebar_wrapper'
+                    : 'pt-0:py-1 border-t border-neutral-300 first:border-t-0  sidebar_wrapper'
                 }
               >
                 <Accordion
@@ -71,23 +74,23 @@ const SideFilter = ({
                     }
                     aria-controls='panel1a-content'
                     id='panel1a-header'
-                    className='flex items-center justify-between w-full group mb-1'
+                    className='flex items-center justify-between w-full group px-0 mb-0'
                   >
                     <div
-                      className={
+                      className={`${
                         storeLayout === _Store.type27 ||
                         storeLayout === _Store.type21
-                          ? 'text-lg font-medium text-gray-900 block capitalise'
+                          ? 'text-lg font-medium text-gray-900 block capitalize'
                           : storeLayout === _Store.type10
                           ? 'font-medium'
-                          : 'text-lg font-medium text-gray-900 block uppercase'
-                      }
+                          : 'text-sm font-medium text-gray-800 block capitalize'
+                      } `}
                     >
                       {filter.label}
                     </div>
                   </AccordionSummary>
                   <AccordionDetails
-                    className='text-sm bg-transparent'
+                    className='text-sm bg-transparent p-0'
                     style={{
                       background: storeLayout === _Store.type21 ? '#fff' : '',
                     }}
@@ -95,7 +98,7 @@ const SideFilter = ({
                     <ul
                       className={
                         filter.label === 'Color'
-                          ? 'flex flex-wrap items-center gap-x-1.5 gap-y-2'
+                          ? 'flex flex-wrap items-center gap-x-2 gap-y-2 pb-6 pt-2 '
                           : filter.label === 'Category'
                           ? 'ml-0 w-full'
                           : 'pb-6 pt-2 space-y-3'

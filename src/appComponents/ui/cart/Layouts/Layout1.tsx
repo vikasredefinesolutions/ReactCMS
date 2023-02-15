@@ -254,10 +254,10 @@ const CartLayout1 = (props: _Props) => {
                                   if (cartQtyAmtAr.length > 0) {
                                     qty =
                                       cartQtyAmtAr[index][cartItemDetialsIndex]
-                                        .qty;
+                                        ?.qty || 0;
                                     price =
                                       cartQtyAmtAr[index][cartItemDetialsIndex]
-                                        .price;
+                                        ?.price || 0;
                                   }
                                   return (
                                     <div
@@ -337,19 +337,39 @@ const CartLayout1 = (props: _Props) => {
                                     >
                                       <div className='text-base'>
                                         <div className='mb-3 flex'>
-                                          <img
-                                            src={`${config.mediaBaseUrl}${item.logoImagePath}`}
-                                            title=''
-                                            alt=''
-                                          />
-                                          <span className='font-semibold ml-3'>
-                                            Logo
-                                            <br />
-                                            submitted
-                                          </span>
+                                          {item.logoImagePath === '' ? (
+                                            <img
+                                              className='w-14 h-14'
+                                              src='images/logo-to-be-submitted.webp'
+                                              title=''
+                                              alt={item.logoImagePath}
+                                            />
+                                          ) : (
+                                            <img
+                                              className='w-14 h-14'
+                                              src={`${config.mediaBaseUrl}${item.logoImagePath}`}
+                                              title=''
+                                              alt={item.logoImagePath}
+                                            />
+                                          )}
+
+                                          {item.logoName ===
+                                          'Add Logo Later' ? (
+                                            <span className='font-semibold ml-3'>
+                                              Logo to be
+                                              <br />
+                                              submitted
+                                            </span>
+                                          ) : (
+                                            <span className='font-semibold ml-3'>
+                                              Logo
+                                              <br />
+                                              submitted
+                                            </span>
+                                          )}
                                         </div>
                                         <div>
-                                          <span className='font-semibold'>
+                                          <span className='font-semibold mr-1'>
                                             Location:
                                           </span>
                                           <span>{item.logoLocation}</span>

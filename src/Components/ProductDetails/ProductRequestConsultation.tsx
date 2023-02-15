@@ -29,9 +29,9 @@ const ProductRequestConsultation: React.FC<{ storeCode: string }> = ({
       <div className='w-full md:w-1/3 mt-2 md:text-right text-sm font-semibold text-indigo-500'>
         <button
           onClick={() => router.push(consultationURL)}
-          className='text-indigo-500 underline'
+          className='text-indigo-500 underline font-semibold'
         >
-          Request Consultation and Proof
+          Request Consultation and Proof{' '}
         </button>
         &gt;
       </div>

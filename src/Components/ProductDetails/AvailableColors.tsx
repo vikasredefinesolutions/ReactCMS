@@ -54,14 +54,7 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                     className='w-full object-center object-cover'
                   />
                 </div>
-                <div
-                  className=''
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
+                <div className='' style={{ lineHeight: 1.25 }}>
                   {product.name}
                 </div>
               </div>

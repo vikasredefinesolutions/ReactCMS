@@ -1,8 +1,9 @@
 // import axios from 'axios';
 
 import { generateImageUrl } from 'helpers/common.helper';
-import NextImage, { StaticImageData } from 'next/image';
 import React from 'react';
+
+import NextImage, { StaticImageData } from 'next/image';
 
 interface _props {
   isStatic?: boolean;
@@ -36,6 +37,7 @@ const Image: React.FC<_props> = ({
         loading={'eager'}
         key={cKey || 0}
       />
+    
     </div>
   );
 };

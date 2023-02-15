@@ -1,12 +1,12 @@
 import { FetchCartDetails } from '@services/cart.service';
 import { CartProducts } from '@type/APIs/cart.res';
-import CartSummary from 'Components/CartSummary/CartSummary';
-import PaymentOption from 'Components/Checkout/components/PaymentOption';
 import ForgotModal from 'appComponents/modals/ForgotModal';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import SeoHead from 'appComponents/reUsable/SeoHead';
 import AddressForm from 'appComponents/ui/AddressForm';
+import CartSummary from 'Components/CartSummary/CartSummary';
+import PaymentOption from 'Components/Checkout/components/PaymentOption';
 import { seoTags as seoDetails } from 'constants/seo.constant';
 import { Formik, FormikProps } from 'formik';
 import _ from 'lodash';
@@ -54,6 +54,7 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
     setPurchaseOrder,
     submitCreateAccountHandler,
     ccInputHandler,
+    checkPayment,
   } = CheckoutController();
   const { cartDetails } = props;
   const shipping = createRef();
@@ -74,10 +75,16 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
         billingForm.dirty &&
         billingForm.isValid
       ) {
+        if (!checkPayment()) {
+          return;
+        }
         setShowReviewOrder(!showReviewOrder);
         return;
       }
     } else {
+      if (!checkPayment()) {
+        return;
+      }
       setShowReviewOrder(!showReviewOrder);
     }
   };

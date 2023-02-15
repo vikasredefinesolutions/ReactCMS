@@ -7,10 +7,12 @@ export const updateSetProperties = (element) => {
   let x = document.getElementById('div' + element.no);
   if (element.selectedVal != undefined && element.selectedVal != '') {
     //      let elProperties;
+    console.log(element.selectedVal);
     Object.entries(element.selectedVal).map(([key, value]) => {
-      if (typeof element.selectedVal === 'string') {
-        console.log(element.selectedVal);
-        element.selectedVal = JSON.parse(element.selectedVal);
+        
+      if(typeof(element.properties) === 'string')
+      {
+        element.properties = JSON.parse(element.properties);
       }
 
       if (value.type == 'text') {
@@ -265,10 +267,10 @@ export const updateSetProperties = (element) => {
           x.querySelectorAll('#banner_display')[0].innerHTML = strHTML;
         }
       }
-
       if (value.type == 'dynamic') {
         if (element.properties[value.type] !== undefined) {
           let functionName = element.properties[value.type].html;
+          
           let strHTML = dynamicFunctions[functionName](value.value, element);
           x.querySelectorAll(
             '#' + element.properties[value.type].html,
@@ -293,19 +295,19 @@ export const updateSetProperties = (element) => {
           let classArr = [];
           let column = 0;
           if (!Object.keys(finalArr).includes('Right')) {
-            column = column + 1;
+            //column = column + 1;
           } else if (finalArr.Right.display == 'Yes') {
             column = column + 1;
           }
 
           if (!Object.keys(finalArr).includes('Center')) {
-            column = column + 1;
+            //column = column + 1;
           } else if (finalArr.Center.display == 'Yes') {
             column = column + 1;
           }
 
           if (!Object.keys(finalArr).includes('Left')) {
-            column = column + 1;
+            //column = column + 1;
           } else if (finalArr.Left.display == 'Yes') {
             column = column + 1;
           }
@@ -327,6 +329,7 @@ export const updateSetProperties = (element) => {
               x.querySelectorAll('#sectionLeft')[0].classList.add('hidden');
             }
           } else {
+            x.querySelectorAll('#sectionLeft')[0].classList.add('hidden');
             x.querySelectorAll('#sectionLeft')[0].innerHTML =
               '<div className="p-4 lg:p-8 flex w-full items-center"></div>';
           }
@@ -342,6 +345,7 @@ export const updateSetProperties = (element) => {
               x.querySelectorAll('#sectionCenter')[0].classList.add('hidden');
             }
           } else {
+            x.querySelectorAll('#sectionCenter')[0].classList.add('hidden');
             x.querySelectorAll('#sectionCenter')[0].innerHTML =
               '<div className="p-4 lg:p-8 flex w-full items-center"></div>';
           }
@@ -354,6 +358,7 @@ export const updateSetProperties = (element) => {
               x.querySelectorAll('#sectionRight')[0].classList.add('hidden');
             }
           } else {
+            x.querySelectorAll('#sectionRight')[0].classList.add('hidden');
             x.querySelectorAll('#sectionRight')[0].innerHTML =
               '<div className="p-4 lg:p-8 flex w-full items-center"></div>';
           }

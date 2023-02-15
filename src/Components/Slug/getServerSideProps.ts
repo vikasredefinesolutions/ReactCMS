@@ -3,7 +3,7 @@ import { paths } from '@constants/paths.constant';
 import { getPageComponents } from '@services/home.service';
 import {
   FetchFiltersJsonByBrand,
-  FetchFiltersJsonByCategory,
+  FetchFiltersJsonByCategory
 } from '@services/product.service';
 import { getPageType } from '@services/slug.service';
 import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
@@ -17,19 +17,17 @@ import {
   _GetPageType,
   _ProductListProps,
   _SlugServerSideProps,
-  _SlugServerSide_WentWrong,
+  _SlugServerSide_WentWrong
 } from '@type/slug.type';
-import * as HomeController from 'Controllers/HomeController.async';
 import { getProductDetailProps } from 'Controllers/ProductController.async';
 
 import { extractSlugName } from 'helpers/common.helper';
 import {
   conditionalLogV2,
   highLightError,
-  __console,
+  __console
 } from 'helpers/global.console';
 import { GetServerSideProps, GetServerSidePropsResult } from 'next';
-import { __constant } from 'page.config';
 import { _globalStore } from 'store.global';
 
 export interface _ExpectedSlugProps {
@@ -46,6 +44,7 @@ export interface _ExpectedSlugProps {
     topicHome: {
       components: any;
     };
+    slug: string | null;
     home: {
       featuredItems: null | Array<_FeaturedProduct[] | null>;
     };
@@ -63,6 +62,7 @@ const _expectedSlugProps: _ExpectedSlugProps = {
   page: {
     productDetails: null,
     productListing: null,
+    slug: null,
     topicHome: {
       components: null,
     },
@@ -102,7 +102,7 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 
   // ---------------------------------------------------------------
-
+  console.log(store.storeId, slug);
   pageMetaData = await getPageType({
     storeId: store.storeId,
     slug,
@@ -130,14 +130,9 @@ export const getServerSideProps: GetServerSideProps = async (
         pageId: pageMetaData.id,
         type: 'preview',
       });
+      page.slug = slug;
 
-      page.home.featuredItems = (
-        await HomeController.fetchFeaturedItems({
-          storeId: store.storeId,
-          brandIds: __constant._Home.featuredItems.brandsId,
-          maximumItemsForFetch: __constant._Home.featuredItems.noOfItemsToFetch,
-        })
-      ).products;
+      page.home.featuredItems = [];
     }
 
     if (pageMetaData.type === 'product') {

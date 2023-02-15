@@ -42,22 +42,21 @@ const BrandProduct: React.FC<_props> = (props) => {
               }
               alt='no image'
               className='w-auto h-auto m-auto max-h-[400px]'
-              height={400}
+              height={350}
               width={350}
               key={currentProduct?.id}
             />
           </div>
         </Link>
         <div className='mt-6 pb-4'>
-          <div className='hover:text-primary text-lg'>
+          <div className='hover:text-primary text-lg test'>
             <Link
               href={`${origin}/${product.productSEName}.html?v=product-detail&altview=1`}
-              className='relative'
             >
-              {product.productName}
+              <a className='relative text-sm'>{product.productName}</a>
             </Link>
           </div>
-          <div className='mt-4 text-gray-900'>
+          <div className='mt-3 text-gray-900'>
             <span className='font-bold'>
               MSRP{' '}
               <Price
@@ -69,7 +68,7 @@ const BrandProduct: React.FC<_props> = (props) => {
               />
             </span>
           </div>
-          <ul role='list' className='flex items-center justify-center mt-4'>
+          <ul role='list' className='flex items-center justify-center mt-2'>
             {product &&
               product?.moreImages &&
               product?.moreImages.map(
@@ -77,11 +76,11 @@ const BrandProduct: React.FC<_props> = (props) => {
                   index < showcolors ? (
                     <li
                       key={index}
-                      className={`border w-8 h-8 text-center ${
+                      className={`border-2  w-7 h-7 text-center overflow-hidden ${
                         option.displayOrder == currentProduct?.displayOrder
-                          ? 'border-primary'
+                          ? 'border-secondary'
                           : ''
-                      } hover:border-primary`}
+                      } hover:border-secondary`}
                       onClick={() => {
                         colorChangeHandler(
                           product.productId,

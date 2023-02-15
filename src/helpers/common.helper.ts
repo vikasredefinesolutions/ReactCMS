@@ -173,8 +173,8 @@ export function setCookie(
 }
 
 export function deleteCookie(cookieName: string) {
-  document.cookie =
-    cookieName + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  return (document.cookie =
+    cookieName + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;');
 }
 
 export function nextJsSetCookie({ res, cookie }: _NextJsSetCookie) {

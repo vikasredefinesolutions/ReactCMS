@@ -1,8 +1,4 @@
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-/*                         STORE CONSTANTS                          */
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
 export const _Store = {
   type1: 'CG',
@@ -74,8 +70,8 @@ export const _StoreDomains = {
 export const __domain = {
   devMode: true, // for development features.
   isSiteLive: true,
-  localDomain: _StoreDomains.domain3,
-  layoutToDisplay: _Store.type3,
+  localDomain: _StoreDomains.domain1,
+  layoutToDisplay: _Store.type1,
 };
 
 export const __MockMenuItem = {
@@ -138,7 +134,6 @@ export const __MockMenuItem = {
         domain: _StoreDomains.domain11,
         layoutName: 'gilbaneco',
       },
-
       {
         layoutType: _Store.type12,
         domain: _StoreDomains.domain12,
@@ -232,26 +227,6 @@ export const __MockMenuItem = {
 //////////////////////////////////////////////////////////////////////
 
 export const __constant = {
-  _Home: {
-    featuredItems: {
-      noOfItemsToFetch: 4,
-      brands: [
-        {
-          id: 21,
-          name: 'Adidas',
-        },
-        {
-          id: 11,
-          name: 'Nike',
-        },
-        {
-          id: 15,
-          name: 'Patagonia',
-        },
-      ],
-      brandsId: [21, 11, 15],
-    },
-  },
   _productDetails: {
     imagesInRow: 7,
     descriptionLength: 500,
@@ -279,8 +254,13 @@ export const __constant = {
   _header: {
     mobileBreakPoint: 1024,
     imagesToShowInBrandDropdown: 5,
+    brandImage: [198, 11, 187, 27],
   },
   _productAlike: {
     carouselCounter: 5,
+  },
+  _itemsList: {
+    token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6WyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciIsIlByYWRpcCJdLCJVc2VySWQiOiIxMzkiLCJTdG9yZUlkIjoiMTM5IiwiRnVsbE5hbWUiOiJQcmFkaXAgS2hlcjc0NyIsImVtYWlsIjoicHJhZGlwQHJlZGVmaW5lY29tbWVyY2UuY29tIiwicm9sZSI6IlN1cGVyQWRtaW4iLCJHdWlkIjoiOTc0YzMyZDYtYjM1OC00OGQzLTg4MjUtNjI1OThkMThhOWNhIiwibmJmIjoxNjc2MDI5NTE2LCJleHAiOjE2NzY0NjE1MTYsImlhdCI6MTY3NjAyOTUxNiwiaXNzIjoiSXNzdWVyIiwiYXVkIjoiQXVkaWVuY2UifQ.X6nqUgajllrrY1m15qahGx1CiW7Vt7bIXkSwPcETAPQ',
   },
 };

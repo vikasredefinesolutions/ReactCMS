@@ -48,7 +48,7 @@ const Ecommerce_ProductDetails_View: React.FC<
         brand: {
           id: product.details!.brandID,
           name: product.details!.brandName,
-          url: product.details!.brandImage,
+          url: product.details!.brandColorLogoUrl,
         },
         product: {
           id: product.details!.id || null,
@@ -159,7 +159,11 @@ const Ecommerce_ProductDetails_View: React.FC<
             title='YOU MAY ALSO LIKE'
             products={product.alike}
           />
-          <ProductReviews reviews={null} storeCode={product.storeCode} />
+          <ProductReviews
+            reviews={null}
+            storeCode={product.storeCode}
+            productId={product.details.id}
+          />
         </div>
       </>
     );
@@ -181,7 +185,11 @@ const Ecommerce_ProductDetails_View: React.FC<
             text={product.details.description}
             storeCode={product.storeCode}
           />
-          <ProductReviews reviews={null} storeCode={product.storeCode} />
+          <ProductReviews
+            reviews={null}
+            storeCode={product.storeCode}
+            productId={product.details.id}
+          />
           {recentlyViewedProduct.length && (
             <ProductRecentlyViewed
               storeCode={product.storeCode}
@@ -247,7 +255,11 @@ const Ecommerce_ProductDetails_View: React.FC<
             title='YOU MAY ALSO LIKE'
             products={product.alike}
           />
-          <ProductReviews reviews={null} storeCode={product.storeCode} />
+          <ProductReviews
+            reviews={null}
+            storeCode={product.storeCode}
+            productId={product.details.id}
+          />
         </div>
       </>
     );
@@ -270,7 +282,11 @@ const Ecommerce_ProductDetails_View: React.FC<
             title='YOU MAY ALSO LIKE'
             products={product.alike}
           />
-          <ProductReviews reviews={null} storeCode={product.storeCode} />
+          <ProductReviews
+            reviews={null}
+            storeCode={product.storeCode}
+            productId={product.details.id}
+          />
         </div>
       </>
     );

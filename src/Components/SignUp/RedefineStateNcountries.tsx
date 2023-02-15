@@ -6,6 +6,10 @@ import { _Signup_Payload } from './signup.payload';
 
 interface _props {
   values: _Signup_Payload;
+  value1: number | string;
+  value2: number | string;
+  name1: string;
+  name2: string;
   setFieldValue: (
     field: string,
     value: any,
@@ -13,6 +17,10 @@ interface _props {
   ) => void;
 }
 const RedefineStateNcountries: React.FC<_props> = ({
+  name1,
+  name2,
+  value1,
+  value2,
   values,
   setFieldValue,
 }) => {
@@ -48,8 +56,8 @@ const RedefineStateNcountries: React.FC<_props> = ({
         <RedefineSelect
           label={'Country'}
           placeHolder={'Select Country'}
-          name={'storeCustomerAddress[0].countryName'}
-          value={values.storeCustomerAddress[0].countryName}
+          name={name1}
+          value={value1}
           options={stateContries.country}
           onChange={(event) => {
             setFieldValue(
@@ -65,8 +73,8 @@ const RedefineStateNcountries: React.FC<_props> = ({
         <RedefineSelect
           label={'State'}
           placeHolder={'Select State'}
-          name={'storeCustomerAddress[0].state'}
-          value={values.storeCustomerAddress[0].state}
+          name={name2}
+          value={value2}
           options={stateContries.state}
           onChange={(event) => {
             setFieldValue('storeCustomerAddress[0].state', +event.target.value);

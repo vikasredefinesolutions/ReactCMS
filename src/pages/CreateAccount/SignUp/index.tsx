@@ -12,6 +12,14 @@ import {
   _Signup_Payload,
 } from 'Components/SignUp/signup.payload';
 import { paths, queryParam } from 'constants/paths.constant';
+import {
+  Gender,
+  Mascot,
+  OrganizationType,
+  SportData,
+  TeamGender,
+  year,
+} from 'constants/Signup.constant';
 import { signupPageMessages } from 'constants/validationMessages';
 import { _SignUpPayload } from 'definations/APIs/signUp.req';
 import { _Industry } from 'definations/user.type';
@@ -68,6 +76,66 @@ const _SignupSchema = Yup.object().shape({
     .min(1),
 });
 
+const _SignupSchemaWithOrganization = Yup.object().shape({
+  firstname: Yup.string().required(signupPageMessages.firstname.required),
+  lastName: Yup.string().required(signupPageMessages.lastName.required),
+  companyName: Yup.string().required(signupPageMessages.companyName.required),
+  companyId: Yup.string().when('showIndustries', {
+    is: true,
+    then: Yup.string().required(signupPageMessages.companyId.required),
+  }),
+  primarySport: Yup.string().required(),
+  gender: Yup.string().required(),
+  email: Yup.string().email().required(signupPageMessages.email.required),
+  password: Yup.string().required(signupPageMessages.password.required),
+  confirmPassword: Yup.string().test(
+    'passwords-match',
+    signupPageMessages.confirmPassword.mustMatch,
+    function (value) {
+      return this.parent.password === value;
+    },
+  ),
+  organization: Yup.object().shape({
+    organizationName: Yup.string().required(),
+    organizationType: Yup.string(),
+    mascot: Yup.string().required(),
+    teamgender: Yup.string().required(),
+    city: Yup.string().required(),
+    postalCode: Yup.string().required(),
+    jobPosition: Yup.string().required(),
+    organizationEmail: Yup.string()
+      .email()
+      .required(signupPageMessages.email.required),
+    organizationAddress1: Yup.string().required(),
+  }),
+  storeCustomerAddress: Yup.array()
+    .of(
+      Yup.object().shape({
+        address1: Yup.string().required(
+          signupPageMessages.storeCustomerAddress.address1.required,
+        ),
+        address2: Yup.string().required(
+          signupPageMessages.storeCustomerAddress.address2.required,
+        ),
+        city: Yup.string().required(
+          signupPageMessages.storeCustomerAddress.city.required,
+        ),
+        state: Yup.string().required(
+          signupPageMessages.storeCustomerAddress.state.required,
+        ),
+        postalCode: Yup.string().required(
+          signupPageMessages.storeCustomerAddress.postalCode.required,
+        ),
+        phone: Yup.string().required(
+          signupPageMessages.storeCustomerAddress.phone.required,
+        ),
+        countryName: Yup.string().required(
+          signupPageMessages.storeCustomerAddress.countryName.required,
+        ),
+      }),
+    )
+    .min(1),
+});
 const SignUp: NextPage = () => {
   const router = useRouter();
   const { showModal } = useActions();
@@ -124,6 +192,8 @@ const SignUp: NextPage = () => {
     GetIndustriesList().then((indus) => setIndustries(indus));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const [schoolColor, setSchoolColor] = useState<string>('#ffffff');
   /* -------------------------------- VIEW ------------------------------  */
   const CreateMyAccountForm = (
     <Formik
@@ -142,7 +212,7 @@ const SignUp: NextPage = () => {
       onSubmit={loginSubmitHandler}
       validationSchema={_SignupSchema}
     >
-      {({ values, handleChange, setFieldValue }) => {
+      {({ values, handleChange, setFieldValue, errors }) => {
         return (
           <Form>
             <div className='w-full mx-auto max-w-7xl'>
@@ -276,6 +346,10 @@ const SignUp: NextPage = () => {
                 />
 
                 <RedefineStateNcountries
+                  name1={'storeCustomerAddress[0].countryName'}
+                  name2={'storeCustomerAddress[0].state'}
+                  value1={values.storeCustomerAddress[0].countryName}
+                  value2={values.storeCustomerAddress[0].state}
                   setFieldValue={setFieldValue}
                   values={values}
                 />
@@ -317,10 +391,22 @@ const SignUp: NextPage = () => {
           <section className='container mx-auto mt-8 mb-8'>
             <div className=''>
               <Formik
-                initialValues={signup_payload}
+                initialValues={{
+                  ...signup_payload,
+                  storeCustomerAddress: [
+                    {
+                      ...signup_payload.storeCustomerAddress[0],
+                      state: '',
+                      countryCode: '',
+                      countryName: '',
+                    },
+                  ],
+                  showIndustries: storeLayout === _Store.type3,
+                }}
                 onSubmit={loginSubmitHandler}
+                validationSchema={_SignupSchemaWithOrganization}
               >
-                {({ values, handleChange, setFieldValue }) => {
+                {({ values, handleChange, setFieldValue, errors }) => {
                   return (
                     <Form>
                       <div className='w-full mx-auto max-w-7xl'>
@@ -329,37 +415,35 @@ const SignUp: NextPage = () => {
                         </div>
                         <div className='flex flex-wrap -mx-3 gap-y-6 mb-8'>
                           <RedefineInput
-                            label={'First Name'}
-                            placeHolder={'First Name'}
-                            name={'firstName'}
-                            value={values.firstname}
-                            onChange={(event) => handleChange(event)}
-                            type={'text'}
                             required={true}
+                            label={'First Name'}
+                            placeHolder={'Enter Your First Name'}
+                            name={'firstname'}
+                            value={values.firstname}
+                            type={'text'}
+                            onChange={(event) => handleChange(event)}
                           />
                           <RedefineInput
                             label={'Last Name'}
-                            placeHolder={'Last Name'}
+                            placeHolder={'Enter Your Last Name'}
                             name={'lastName'}
                             value={values.lastName}
                             onChange={(event) => handleChange(event)}
                             type={'text'}
                             required={true}
                           />
-                          {/* <RedefineSelect
+                          <RedefineSelect
                             label={'Gender'}
-                            placeHolder={''}
+                            placeHolder={'Select Gender'}
                             name={'gender'}
                             value={values.gender}
-                            options={[
-                              { value: 'male', label: 'Male' },
-                              { value: 'female', label: 'Female' },
-                            ]}
+                            options={Gender}
                             onChange={(event) => {
+                              setFieldValue('gender', event.target.value);
                               handleChange(event);
                             }}
                             required={true}
-                          /> */}
+                          />
                           <RedefineInput
                             label={'Email Address'}
                             placeHolder={'Email Address'}
@@ -369,26 +453,26 @@ const SignUp: NextPage = () => {
                             type={'text'}
                             required={true}
                           />
-                          {/* <RedefineInput
-                            label={'Phone'}
-                            placeHolder={'Phone'}
-                            name={'phone'}
-                            value={values.phone}
-                            onChange={(event) => handleChange(event)}
+                          <RedefineInput
+                            required={false}
+                            label={'Phone Number'}
+                            placeHolder={'Enter Your Phone Number'}
+                            name={'storeCustomerAddress[0].phone'}
+                            value={values.storeCustomerAddress[0].phone}
                             type={'text'}
-                            required={true}
-                          /> */}
-                          {/* <RedefineSelect
+                            onChange={(event) => handleChange(event)}
+                          />
+                          <RedefineSelect
                             label={'Primary Sport'}
                             placeHolder={'Primary Sport'}
                             name={'primarySport'}
-                            value={''}
-                            options={[{ value: 'soccer', label: 'Soccer' }]}
+                            value={values.primarySport}
+                            options={SportData}
                             onChange={(event) => {
                               handleChange(event);
                             }}
                             required={true}
-                          /> */}
+                          />
                           <RedefineInput
                             label={'Password'}
                             placeHolder={'Password'}
@@ -407,15 +491,17 @@ const SignUp: NextPage = () => {
                             type={'password'}
                             required={true}
                           />
-                          {/* <RedefineInput
-                            label={'Birthdate'}
+                          <RedefineInput
+                            label={'BirthDate'}
                             placeHolder={'MM/DD/YYYY'}
-                            name={'firstName'}
-                            value={values.firstName}
-                            onChange={(event) => handleChange(event)}
-                            type={'text'}
+                            name={'birthDate'}
+                            value={values.birthDate}
+                            onChange={(event) => {
+                              setFieldValue('birthDate', event.target.value);
+                            }}
+                            type={'date'}
                             required={false}
-                          /> */}
+                          />
                         </div>
                       </div>
 
@@ -427,13 +513,178 @@ const SignUp: NextPage = () => {
                         <div className='flex flex-wrap -mx-3 gap-y-6 mb-8'>
                           <RedefineInput
                             label={'School / University / Organization Name'}
-                            placeHolder={'Address 1'}
-                            name={'instituteName'}
-                            value={''}
-                            onChange={(event) => handleChange(event)}
-                            type={'number'}
+                            placeHolder={
+                              'School / University / Organization Name'
+                            }
+                            name={'organizationName'}
+                            value={values.organization.organizationName}
+                            onChange={(event) => {
+                              handleChange(event);
+                            }}
+                            type={'text'}
+                            required={true}
+                          />
+                          <RedefineSelect
+                            label={'SCHOOL / ORGANIZATION TYPE'}
+                            placeHolder={'Select Organization Type'}
+                            name={'organization.organizationType'}
+                            value={values.organization.organizationType}
+                            options={OrganizationType}
+                            onChange={(event) => {
+                              setFieldValue(
+                                'organizationType',
+                                event.target.value,
+                              );
+                              // handleChange(event);
+                            }}
                             required={false}
                           />
+                          <RedefineInput
+                            required={true}
+                            label={'YOUR POSITION'}
+                            placeHolder={'Enter Your Job POSITION'}
+                            name={'organization.jobPosition'}
+                            value={values.organization.jobPosition}
+                            type={'text'}
+                            onChange={(event) => {
+                              handleChange(event);
+                            }}
+                          />
+                          <RedefineInput
+                            label={'Email Address'}
+                            placeHolder={'Email Address'}
+                            name={'organization.organizationEmail'}
+                            value={values.organization.organizationEmail}
+                            onChange={(event) => handleChange(event)}
+                            type={'text'}
+                            required={true}
+                          />
+                          <RedefineInput
+                            label={'Address 1'}
+                            placeHolder={'Address 1 '}
+                            name={'organization.organizationAddress1'}
+                            value={values.organization.organizationAddress1}
+                            onChange={(event) => handleChange(event)}
+                            type={'text'}
+                            required={true}
+                          />
+                          <RedefineInput
+                            required={true}
+                            label={'Zip Code'}
+                            placeHolder={'Enter Your Zip Code'}
+                            name={'organization.postalCode'}
+                            value={values.organization.postalCode}
+                            type={'text'}
+                            onChange={(event) => handleChange(event)}
+                          />
+                          <RedefineInput
+                            required={true}
+                            label={'City'}
+                            placeHolder={'Enter Your City'}
+                            name={'organization.city'}
+                            value={values.organization.city}
+                            type={'text'}
+                            onChange={(event) => handleChange(event)}
+                          />
+
+                          <RedefineStateNcountries
+                            name1={'organization.countries'}
+                            name2={'organization.state'}
+                            value1={values.organization.countryName}
+                            value2={values.organization.state}
+                            setFieldValue={setFieldValue}
+                            values={values}
+                          />
+                          <RedefineSelect
+                            label={'TIME OF YEAR YOU PURCHASE'}
+                            placeHolder={'Select Time of Year You Purchase'}
+                            name={'organization.purchaseTime'}
+                            value={values.organization.purchaseTime}
+                            options={year}
+                            onChange={(event) => {
+                              setFieldValue('purchaseTime', event.target.value);
+                              handleChange(event);
+                            }}
+                            required={false}
+                          />
+                          <RedefineSelect
+                            label={'Team Gender'}
+                            placeHolder={'Select Team Gender'}
+                            name={'organization.teamgender'}
+                            value={values.organization.teamgender}
+                            options={TeamGender}
+                            onChange={(event) => {
+                              setFieldValue('teamgender', event.target.value);
+                              handleChange(event);
+                            }}
+                            required={true}
+                          />
+                          <div className='w-full lg:w-1/2 px-3'>
+                            <label className='block text-base font-medium text-gray-700'>
+                              Number Of Players OR Members
+                            </label>
+                            <div className='mt-1 flex items-center gap-2'>
+                              <input
+                                type='text'
+                                id='minTeamMember'
+                                name='organization.minTeamMember'
+                                placeholder=''
+                                value={values.organization.minTeamMember}
+                                className='form-input'
+                              />{' '}
+                              <span>-</span>{' '}
+                              <input
+                                type='text'
+                                id='maxTeamMember'
+                                name='organization.maxTeamMember'
+                                placeholder=''
+                                value={values.organization.maxTeamMember}
+                                className='form-input'
+                              />
+                            </div>
+                          </div>
+                          <RedefineSelect
+                            label={'Mascot'}
+                            placeHolder={'Mascot'}
+                            name={'organization.mascot'}
+                            value={values.organization.mascot}
+                            options={Mascot}
+                            onChange={(event) => {
+                              setFieldValue('mascot', event.target.value);
+                              handleChange(event);
+                            }}
+                            required={false}
+                          />
+                          <div className='w-full lg:w-1/2 px-3'>
+                            <label className='block text-base font-medium text-gray-700'>
+                              Select Color Of School / University / Organization
+                            </label>
+                            <div className='mt-1 flex items-center gap-2'>
+                              <span className=''>Primary Color</span>
+                              {/* <div className='w-9 h-9 bg-slate-500 rounded-full'></div> */}
+                              <input
+                                type='color'
+                                id='primarycolor'
+                                name='primarycolor'
+                                value={schoolColor}
+                                onChange={(e) => {
+                                  setFieldValue('primarycolor', e.target.value);
+                                  setSchoolColor(e.target.value);
+                                }}
+                                className='w-9 h-9'
+                              />
+                            </div>
+                          </div>
+                          {/* <BlockPicker />
+                          <GithubPicker /> */}
+                          {/* <input
+                            type='color'
+                            id=''
+                            name=''
+                            placeholder=''
+                            value=''
+                            className='form-input'
+                          /> */}
                           {/* <RedefineSelect
                             label={'School / Organization Type'}
                             placeHolder={'Select Organization Type'}
@@ -458,10 +709,10 @@ const SignUp: NextPage = () => {
                           <RedefineInput
                             label={'Address 1'}
                             placeHolder={'Address 1 '}
-                            name={'address1'}
-                            value={''}
+                            name={'storeCustomerAddress[0].address1'}
+                            value={values.storeCustomerAddress[0].address1}
                             onChange={(event) => handleChange(event)}
-                            type={'number'}
+                            type={'text'}
                             required={false}
                           />
                           <RedefineInput
@@ -496,6 +747,10 @@ const SignUp: NextPage = () => {
                           /> */}
 
                           <RedefineStateNcountries
+                            name1={'storeCustomerAddress[0].countryName'}
+                            name2={'storeCustomerAddress[0].state'}
+                            value1={values.storeCustomerAddress[0].countryName}
+                            value2={values.storeCustomerAddress[0].state}
                             setFieldValue={setFieldValue}
                             values={values}
                           />

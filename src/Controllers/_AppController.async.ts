@@ -1,10 +1,5 @@
 import { GetStoreID } from '@services/app.service';
-import {
-  _StoreMenu,
-  _t_Brands,
-  _t_MenuCategory,
-  _t_MenuTopic,
-} from '@type/APIs/header.res';
+import { _StoreMenu } from '@type/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
 import { conditionalLogV2, __console } from 'helpers/global.console';
 import * as HeaderService from 'services/header.service';
@@ -21,19 +16,11 @@ import {
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-type _CallMenuItemAPI = _t_Brands | _t_MenuTopic | _t_MenuCategory | null;
-
 type _menu_ = {
   items: null | _StoreMenu[];
   items_content:
     | (_CustomContent | _DynamicContent | _NoneContent | null)[]
     | null;
-};
-
-type _callMenuItemAPI_ = {
-  titleType: 'TOPIC' | 'CATEGORY' | 'BRANDS';
-  topicId: number;
-  storeId: number;
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -101,7 +88,6 @@ const getDynamicContent = async (
 
 const getNoneContent = async (
   item: _StoreMenu,
-  storeId: number,
 ): Promise<_NoneContent | null> => {
   if (item.category === 'topic') {
     return {
@@ -150,7 +136,7 @@ export const fetchMenuItems = async (
           return getDynamicContent(item, storeId);
         }
         if (item.type === 'none') {
-          return getNoneContent(item, storeId);
+          return getNoneContent(item);
         }
 
         return null;

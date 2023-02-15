@@ -8,8 +8,8 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
 import MuiTab from '@mui/material/Tab';
+import { styled } from '@mui/material/styles';
 import { FetchDataByBrand } from '@services/brand.service';
 import { _SelectedBrands } from '@type/APIs/storeDetails.res';
 import { GetlAllProductList } from '@type/productList.type';
@@ -92,7 +92,7 @@ const ProductsInfoTabs: React.FC<_props> = ({ dataArr }) => {
               return (
                 <Tab
                   key={index}
-                  className='mr-0.5 md:mr-0 font-semibold'
+                  className='mr-0.5 md:mr-0 font-semibold py-2 px-2 hover:text-primary hover:border-primary featured_title font-Outfit'
                   value={brand.value}
                   label={brand.label}
                 />

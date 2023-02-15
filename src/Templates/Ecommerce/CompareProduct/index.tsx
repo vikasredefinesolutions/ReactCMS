@@ -188,8 +188,8 @@ const Ecommerce_CompareProduct: React.FC<_props> = (props) => {
                         </td>
                       );
                     }
-                    return inventory.sizes.map((sizes) => (
-                      <AllSizes key={index} index={index} sizes={sizes} />
+                    return inventory.sizes.map((sizes, sIndex) => (
+                      <AllSizes key={sIndex} index={index} sizes={sizes} />
                     ));
                   })}
                 </tr>

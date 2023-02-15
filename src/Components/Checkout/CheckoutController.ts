@@ -184,9 +184,44 @@ const CheckoutController = () => {
     }
   }, [storeId]);
 
+  const checkPayment = () => {
+    let { totalPrice } = getTotalPrice();
+    if (totalPrice > 0) {
+      if (paymentEnum.creditCard === paymentMethod) {
+        if (Object.values(cardDetails).some((x) => x === null || x === '')) {
+          showModal({ message: 'Invalid Card Details', title: 'Warning' });
+          return;
+        }
+      } else if (paymentEnum.purchaseOrder === paymentMethod) {
+        if (purchaseOrder.length <= 0) {
+          showModal({
+            message: 'Invalid Purchase Order Details',
+            title: 'Warning',
+          });
+          return;
+        }
+      } else {
+        showModal({
+          message: 'Please select a valid payment method',
+          title: 'Warning',
+        });
+        return false;
+      }
+    }
+    return true;
+  };
+
   const placeOrder = async () => {
     let { subTotal, totalPrice, salesTax, discount, creditBalance } =
       getTotalPrice();
+
+    if (!checkPayment()) {
+      return;
+    }
+
+    if (useBalance && totalPrice === 0) {
+      totalPrice = creditBalance;
+    }
 
     if (addAccount) {
       const location = await getLocation();
@@ -211,16 +246,8 @@ const CheckoutController = () => {
           recStatus: 'A',
         },
       };
-      console.log(payload);
+
       await CreateNewAccount(payload);
-    }
-    if (totalPrice > 0) {
-      if (Object.values(cardDetails).some((x) => x === null || x === '')) {
-        showModal({ message: 'Invalid Card Details', title: 'Warning' });
-        return;
-      }
-    } else {
-      totalPrice = creditBalance;
     }
 
     const card = {
@@ -509,6 +536,7 @@ const CheckoutController = () => {
     paymentMethod,
     submitCreateAccountHandler,
     ccInputHandler,
+    checkPayment,
   };
 };
 

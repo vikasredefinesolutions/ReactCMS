@@ -16,15 +16,15 @@ const AllSizes: React.FC<_props> = ({ sizes, index }) => {
 
   if (selectedImages) {
     if (
-      sizes.colorAttributeOptionId === selectedImages[index].attibuteOptionId
+      sizes.colorAttributeOptionId === selectedImages[index]?.attibuteOptionId
     ) {
       return (
-        <td className="">
-          <div className="p-2 flex flex-wrap gap-2">
+        <td className=''>
+          <div className='p-2 flex flex-wrap gap-2'>
             {sizes.sizeArr.map((size, index) => (
               <div
                 key={index}
-                className="w-10 h-10 border border-gray-300 bg-gray-100 flex justify-center items-center"
+                className='w-10 h-10 border border-gray-300 bg-gray-100 flex justify-center items-center'
               >
                 {size}
               </div>

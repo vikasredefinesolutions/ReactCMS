@@ -8,7 +8,7 @@ interface _props {
   value: string | number;
   options: {
     name: string;
-    id: number;
+    id: number | string;
   }[];
   // eslint-disable-next-line no-unused-vars
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -22,31 +22,42 @@ const RedefineSelect: React.FC<_props> = ({
   onChange,
   required,
   value,
+  placeHolder,
 }) => {
   return (
-    <div className="w-full lg:w-1/2 px-3">
+    <div className='w-full lg:w-1/2 px-3'>
       <label
         htmlFor={name}
-        className="block text-base font-medium text-gray-700"
+        className='block text-base font-medium text-gray-700'
       >
         {label}
-        <span className="text-rose-500">{`${required ? `*` : ''}`}</span>
+        <span className='text-rose-500'>{`${required ? `*` : ''}`}</span>
       </label>
-      <div className="mt-1">
+      <div className='mt-1'>
         <select
-          className="form-input"
+          className='form-input'
           id={name}
           onChange={onChange}
           value={value}
         >
-          {options?.map((opt) => (
-            <option key={opt.id} value={opt.id}>
-              {opt.name}
+          <>
+            <option value='' disabled selected>
+              {placeHolder}
             </option>
-          ))}
+            {options?.map((opt) => (
+              <option
+                key={opt.id}
+                value={
+                  label == 'State' || label == 'Country' ? opt.id : opt.name
+                }
+              >
+                {opt.name}
+              </option>
+            ))}
+          </>
         </select>
       </div>
-      <ErrorMessage name={name} className="text-rose-500" component={'p'} />
+      <ErrorMessage name={name} className='text-rose-500' component={'p'} />
     </div>
   );
 };

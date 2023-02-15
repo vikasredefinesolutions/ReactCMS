@@ -2,12 +2,12 @@
 import { CategoriesByPid } from '@type/APIs/category.res';
 import { LogoListPosition } from '@type/APIs/logo.res';
 import { _BrandSEO } from '@type/slug.type';
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import {
   _ProductInventory,
-  _ProductInventoryTransfomed
+  _ProductInventoryTransfomed,
 } from 'definations/APIs/inventory.res';
 import {
   _FetchProductsRecentlyViewedPayload,
@@ -33,6 +33,7 @@ import {
 } from 'definations/productList.type';
 import { CallAPI } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';
+import { __constant } from 'page.config';
 import { SendAsyncV2 } from '../utils/axios.util';
 
 export type _ProducDetailAPIs =
@@ -367,6 +368,90 @@ export const FetchProductSEOtags = async ({
   });
 
   return response;
+};
+
+interface CategoryItem {
+  createdName: string;
+  modifiedName: string;
+  id: number;
+  name: string;
+  description: string;
+  collectionImageURl: string;
+  recStatus: string;
+  createdDate: Date;
+  createdBy: number;
+  modifiedDate: Date;
+  modifiedBy: number;
+  rowVersion: string;
+  location: Location;
+  ipAddress: string;
+  macAddress: string;
+}
+
+interface _t_CategoryItem {
+  id: number;
+  name: string;
+}
+
+export const FetchAllCategoires = async (): Promise<
+  _t_CategoryItem[] | null
+> => {
+  const url =
+    'https://redefine-admin-dev.redefinecommerce.io/Category/list.json';
+
+  const payload = {
+    args: {
+      pageIndex: 0,
+      pageSize: 0,
+      pagingStrategy: 0,
+      sortingOptions: [
+        {
+          field: 'string',
+          direction: 0,
+          priority: 0,
+        },
+      ],
+      filteringOptions: [
+        {
+          field: 'string',
+          operator: 0,
+          value: 'string',
+        },
+      ],
+    },
+  };
+
+  const headers = {
+    Authorization: `Bearer ${__constant._itemsList.token}`,
+  };
+
+  try {
+    const response: CategoryItem[] = await axios
+      .post(url, payload, { headers })
+      .then((res) => res.data.data.items);
+
+    if (!response) {
+      return null;
+    }
+
+    const transformedResponse: _t_CategoryItem[] = response.map(
+      (categoryItem) => ({
+        id: categoryItem.id,
+        name: categoryItem.name,
+      }),
+    );
+
+    return transformedResponse;
+  } catch (error) {
+    conditionalLogV2({
+      data: error,
+      name: `ProductList - FetchAllCategoires`,
+      type: 'API-ERROR',
+
+      show: true,
+    });
+    return null;
+  }
 };
 
 export const FetchBrandProductList = async ({

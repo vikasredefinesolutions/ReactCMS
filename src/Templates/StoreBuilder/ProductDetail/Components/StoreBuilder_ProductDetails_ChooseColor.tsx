@@ -20,6 +20,7 @@ const StoreBuilder_ProductDetails_ChooseColor: React.FC<_props> = ({
       type: 'COLOR',
       data: colors[0],
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

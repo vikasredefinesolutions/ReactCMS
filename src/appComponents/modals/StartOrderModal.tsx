@@ -23,7 +23,7 @@ interface _props {
 
 const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
-  const { product, modalHandler } = props;
+  const { product, modalHandler, editDetails } = props;
   const { clearToCheckout, setShowLoader, product_storeData } = useActions();
 
   // ----------------------------STATES ---------------------------------------
@@ -73,7 +73,7 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
         <div className='relative px-4 w-full max-w-3xl h-full md:h-auto'>
           {allColorsInventory && (
             <div className='relative bg-white shadow max-h-screen overflow-y-auto'>
-              <div className='flex justify-between items-start p-5 rounded-t border-b sticky top-0 left-0 bg-white'>
+              <div className='flex justify-between items-start p-5 rounded-t border-b sticky top-0 left-0 bg-white z-50'>
                 <h3 className='text-xl font-semibold text-gray-900 lg:text-2xl'>
                   {product.name}
                 </h3>

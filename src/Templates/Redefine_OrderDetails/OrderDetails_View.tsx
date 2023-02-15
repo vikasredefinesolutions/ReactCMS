@@ -87,6 +87,7 @@ const Redefine_OrderDetails: NextPage = () => {
         setOrderDetails(details),
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId]);
 
   return (

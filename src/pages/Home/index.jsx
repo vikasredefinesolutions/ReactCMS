@@ -4,8 +4,9 @@ import ElementCarouselDisplay from 'Components/Home/ElementCarouselDisplay';
 import { useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
 import FeaturedProducts from '../../Components/Home/FeaturedProducts';
-import * as helper from '../../Components/Home/Helper';
 
+import DIHomePage from '../../Components/Home/DIHomePage';
+import * as helper from '../../Components/Home/Helper';
 const Home = (props) => {
   const pageData = props.props?.pageData;
   const [componentHtml, setComponentHtml] = useState([]);
@@ -90,6 +91,9 @@ const Home = (props) => {
 
   return (
     <>
+    {(storeId === 22 && (props.props.slug === '/' || props.props.slug === ''))  ? (<>
+      <DIHomePage></DIHomePage>
+    </>) : ( <>
       <div className=''>
         {/* {featuredItems?.products && (
           <FeaturedItems
@@ -207,6 +211,8 @@ const Home = (props) => {
       >
         <div id='loading'></div>
       </div>
+      </>
+    )}
     </>
   );
 };

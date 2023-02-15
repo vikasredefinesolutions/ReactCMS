@@ -13,16 +13,18 @@ import ProductReviewRating from './ProductReviewRating';
 
 interface _Props {
   reviews: _Reviews | null;
+  productId: number;
 }
 
 const ProductReviews: React.FC<_Props & { storeCode: string }> = ({
   storeCode,
+  productId,
 }) => {
   const router = useRouter();
   const [openModal, setOpenModal] = useState<null | _modals>(null);
   const [reviewsCount, setReviewsCount] = useState<ProductReviewCounts>();
   const { id: userId } = useTypedSelector((state) => state.user);
-  const { id: productId } = useTypedSelector((state) => state.product.product);
+
   useEffect(() => {
     if (productId) {
       FetchProductReview(productId).then((count) => setReviewsCount(count));

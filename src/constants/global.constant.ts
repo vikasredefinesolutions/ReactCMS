@@ -44,4 +44,5 @@ export const employeeData = {
 };
 
 export const showcolors = 4;
+export const listing_max_showcolors = 7;
 export const zeroValue = 0;

@@ -1,4 +1,6 @@
 export interface _Signup_Payload {
+  primarySport: string;
+  gender: string;
   showIndustries: boolean;
   id: number;
   details: string;
@@ -8,6 +10,7 @@ export interface _Signup_Payload {
   macAddress: string;
   firstname: string;
   lastName: string;
+  birthDate: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -43,12 +46,30 @@ export interface _Signup_Payload {
       recStatus: 'A';
     },
   ];
+  organization: {
+    countryName: string;
+    state: string;
+    maxTeamMember: string;
+    minTeamMember: string;
+    city: string | number;
+    postalCode: string | number;
+    organizationAddress1: string | number;
+    mascot: string | number;
+    teamgender: string | number;
+    purchaseTime: string | number;
+    organizationEmail: string | number;
+    jobPosition: string | number;
+    organizationType: string | number;
+    organizationName: string | number;
+    primarycolor: string;
+  };
   recStatus: 'A';
 }
 
 export const signup_payload: _Signup_Payload = {
   showIndustries: false,
   id: 0,
+  gender: '',
   details: '',
   rowVersion: '',
   location: '',
@@ -57,6 +78,7 @@ export const signup_payload: _Signup_Payload = {
   firstname: '',
   lastName: '',
   email: '',
+  birthDate: '',
   password: '',
   confirmPassword: '',
   companyName: '',
@@ -92,4 +114,22 @@ export const signup_payload: _Signup_Payload = {
     },
   ],
   recStatus: 'A',
+  organization: {
+    countryName: '',
+    state: '',
+    maxTeamMember: '',
+    minTeamMember: '',
+    organizationName: '',
+    organizationType: '',
+    jobPosition: '',
+    organizationEmail: '',
+    purchaseTime: '',
+    teamgender: '',
+    mascot: '',
+    organizationAddress1: '',
+    primarycolor: '',
+    postalCode: '',
+    city: '',
+  },
+  primarySport: '',
 };

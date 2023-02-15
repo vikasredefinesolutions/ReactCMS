@@ -1,3 +1,32 @@
+export const numberdescriptionblock = (dataArr, selectedObj) => {
+  let strHTML = '';
+  if(dataArr.length > 0) {
+      let count = 1;
+      dataArr.forEach(function (item) {
+
+
+          strHTML += '<div class="w-full lg:w-1/3 px-4 mb-8">';
+          strHTML += '<div class="g-gray-50 text-center p-6 rounded" style="'+ (item.BlockBg ? 'background: '+item.BlockBg+';' : '') + '">';
+          strHTML += '<div class="inset-x-0 -mt-6 flex justify-center items-center w-12 h-12 mx-auto rounded-full bg-gray-500 text-gray-50 font-bold font-heading">';
+          if(item.ImageNumber === 'Number')
+              strHTML += count;
+          else
+              strHTML += '<img src="'+item.ImageNumber_image+'" />';
+          count++;
+          strHTML += '</div>';
+          strHTML += '<div class="text-box-h4 mt-4">'+item.Headline+'</div>'
+          strHTML += '<div class="text-box-h4 mt-4">';
+          strHTML += item.Description
+          strHTML += '</div>';
+          strHTML += '</div>';
+          strHTML += '</div>';
+
+      });
+  }
+
+  
+  return strHTML;
+}
 export const numberingdiv = (dataArr, selectedObj) => {
   let strHTML = '';
   if (dataArr?.length) {

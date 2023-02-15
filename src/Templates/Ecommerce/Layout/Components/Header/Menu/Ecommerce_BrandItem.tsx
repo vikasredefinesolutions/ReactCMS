@@ -60,6 +60,23 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                   className='flex flex-wrap gap-y-2'
                 >
                   {content?.map((brand) => {
+                    if (
+                      brand.brandColorImageUrl &&
+                      __constant._header.brandImage.includes(brand.id)
+                    ) {
+                      return (
+                        <BrandImage
+                          key={brand.id}
+                          url={brand.brandCollectionUrl || brand.seName}
+                          alt={brand.brandName}
+                          src={brand.brandColorImageUrl}
+                        />
+                      );
+                    }
+                    return <></>;
+                  })}
+
+                  {content?.map((brand) => {
                     return (
                       <SubMenuItem
                         storeCode={storeCode}
@@ -116,14 +133,11 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                   <div className='max-w-7xl mx-auto'>
                     {content && content.length > 0 && (
                       <div className='flex flex-wrap border-t first:border-t-0 py-5 px-5 border pt-8'>
-                        {content?.map((brand, index) => {
+                        {content?.map((brand) => {
                           if (
-                            index >
-                            __constant._header.imagesToShowInBrandDropdown
+                            brand.brandColorImageUrl &&
+                            __constant._header.brandImage.includes(brand.id)
                           ) {
-                            return null;
-                          }
-                          if (brand.brandColorImageUrl) {
                             return (
                               <BrandImage
                                 key={brand.id}
@@ -141,7 +155,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                       <div className='flex flex-wrap gap-y-2'>
                         <ul className='w-full lg:w-1/3'>
                           {content?.map((brand, index) => {
-                            if (index > ((content.length/3)+1)) return <></>;
+                            if (index > content.length / 3 + 1) return <></>;
                             return (
                               <SubMenuItem
                                 storeCode={storeCode}
@@ -158,38 +172,39 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                         </ul>
                         <ul className='w-full lg:w-1/3'>
                           {content?.map((brand, index) => {
-                            
-                            if (index >= ((content.length/3)+1) && index <= (((content.length/3) * 2)+1)) 
-                            return (
-                              <SubMenuItem
-                                storeCode={storeCode}
-                                view={view}
-                                key={brand.id}
-                                itemLabel={brand.brandName}
-                                itemUrl={
-                                  brand.brandCollectionUrl || brand.seName
-                                }
-                                type={'BRAND'}
-                              />
-                            );
+                            if (
+                              index >= content.length / 3 + 1 &&
+                              index <= (content.length / 3) * 2 + 1
+                            )
+                              return (
+                                <SubMenuItem
+                                  storeCode={storeCode}
+                                  view={view}
+                                  key={brand.id}
+                                  itemLabel={brand.brandName}
+                                  itemUrl={
+                                    brand.brandCollectionUrl || brand.seName
+                                  }
+                                  type={'BRAND'}
+                                />
+                              );
                           })}
                         </ul>
                         <ul className='w-full lg:w-1/3'>
                           {content?.map((brand, index) => {
-                            
-                            if (index > (((content.length/3) * 2)+1)) 
-                            return (
-                              <SubMenuItem
-                                storeCode={storeCode}
-                                view={view}
-                                key={brand.id}
-                                itemLabel={brand.brandName}
-                                itemUrl={
-                                  brand.brandCollectionUrl || brand.seName
-                                }
-                                type={'BRAND'}
-                              />
-                            );
+                            if (index > (content.length / 3) * 2 + 1)
+                              return (
+                                <SubMenuItem
+                                  storeCode={storeCode}
+                                  view={view}
+                                  key={brand.id}
+                                  itemLabel={brand.brandName}
+                                  itemUrl={
+                                    brand.brandCollectionUrl || brand.seName
+                                  }
+                                  type={'BRAND'}
+                                />
+                              );
                           })}
                         </ul>
                       </div>
@@ -233,7 +248,10 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
             <div className='bg-gray-100'>
               <div className='border-t first:border-t-0 py-5 px-4'>
                 {content?.map((brand) => {
-                  if (brand.brandColorImageUrl) {
+                  if (
+                    brand.brandColorImageUrl &&
+                    __constant._header.brandImage.includes(brand.id)
+                  ) {
                     return (
                       <BrandImage
                         key={brand.id}
@@ -378,7 +396,10 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
               <div className='border-t first:border-t-0 py-5 px-4'>
                 <div className='flex flex-wrap border-t first:border-t-0 py-3'>
                   {content?.map((brand) => {
-                    if (brand.brandColorImageUrl) {
+                    if (
+                      brand.brandColorImageUrl &&
+                      __constant._header.brandImage.includes(brand.id)
+                    ) {
                       return (
                         <BrandImage
                           key={brand.id}
@@ -502,6 +523,22 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                   aria-labelledby='desktop-featured-heading-1'
                   className='flex flex-wrap gap-y-2'
                 >
+                  {content?.map((brand) => {
+                    if (
+                      brand.brandColorImageUrl &&
+                      __constant._header.brandImage.includes(brand.id)
+                    ) {
+                      return (
+                        <BrandImage
+                          key={brand.id}
+                          url={brand.brandCollectionUrl || brand.seName}
+                          alt={brand.brandName}
+                          src={brand.brandColorImageUrl}
+                        />
+                      );
+                    }
+                    return <></>;
+                  })}
                   {content?.map((brand) => {
                     return (
                       <SubMenuItem

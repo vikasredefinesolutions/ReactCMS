@@ -93,7 +93,6 @@ const LoginIcon: React.FC = () => {
           className='lg:mx-2 py-2 text-white hover:text-white flex items-center gap-1'
           data-modal-toggle='LoginModal'
         >
-          <span className='lg:hidden material-icons-outlined'>person</span>
           <span className='hidden lg:inline-block'>Login</span>
         </button>
         {showModal === 'login' && <LoginModal modalHandler={setShowModal} />}

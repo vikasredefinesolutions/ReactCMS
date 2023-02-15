@@ -21,7 +21,11 @@ const ProductPrice: React.FC<_props & { storeCode: string }> = ({
       <div className='text-gray-700 pt-1 text-sm'>
         <span className='font-semibold inline-block w-16'>MSRP </span>
         <span>
-          <Price value={undefined} prices={{ msrp, salePrice }} />
+          <Price
+            value={undefined}
+            prices={{ msrp, salePrice }}
+            addColon={true}
+          />
         </span>
       </div>
     );

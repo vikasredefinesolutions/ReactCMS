@@ -144,7 +144,7 @@ const SearchBar: React.FC<_props> = ({
                       className='outline-none border-0 focus:ring-0'
                     />
                     <div
-                      className='w-6 h-6 absolute right-2 top-4 '
+                      className='w-6 h-6 absolute right-2 top-2 '
                       onClick={() => {
                         handleSubmit();
                         handleReset();
@@ -212,7 +212,7 @@ const SearchBar: React.FC<_props> = ({
               className='outline-none text-secondary text-lg w-full bg-transparent border-0 focus:ring-0'
               placeholder='Search'
             />
-            <div className='w-8 h-8 absolute rounded-full bg-[#415364] right-1.5 top-3 flex items-center justify-center'>
+            <div className='w-8 h-8 absolute rounded-full bg-[#415364] right-1.5 top-1.5 flex items-center justify-center'>
               <svg
                 className='w-4 h-4'
                 x-description='Heroicon name: outline/search'
