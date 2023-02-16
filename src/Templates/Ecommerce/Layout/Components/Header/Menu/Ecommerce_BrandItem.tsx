@@ -33,7 +33,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
       return (
         <div className='text-sm border-b border-gray-300'>
           <div className='flex items-center justify-between py-2 pr-2'>
-            <button className='flex items-center grow group'>
+            <button className='flex items-center grow group' title={title}>
               <svg
                 className={`w-8 h-8 shrink-0 fill-current text-anchor ${
                   sideMenu === 'OPEN' ? 'text-anchor-hover rotate-180' : ''
@@ -102,6 +102,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
           <>
             <div className='relative flex'>
               <button
+                title={title}
                 type='button'
                 onMouseOver={() => setFocus(true)}
                 onMouseLeave={() => setFocus(false)}

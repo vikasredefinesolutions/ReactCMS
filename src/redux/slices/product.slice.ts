@@ -820,7 +820,7 @@ export const productSlice = createSlice({
             imageUrl: string;
             label: string;
             value: string;
-          };
+          } | null;
           url?: string;
           name?: string;
         };

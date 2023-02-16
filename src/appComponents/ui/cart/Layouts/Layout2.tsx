@@ -171,19 +171,39 @@ const CartLayout2 = ({
                                     >
                                       <div className='text-base'>
                                         <div className='mb-3 flex'>
-                                          <img
-                                            src={`${config.mediaBaseUrl}${item.logoImagePath}`}
-                                            title=''
-                                            alt=''
-                                          />
-                                          <span className='font-semibold ml-3'>
-                                            Logo
-                                            <br />
-                                            submitted
-                                          </span>
+                                          {item.logoImagePath === '' ? (
+                                            <img
+                                              className='w-14 h-14'
+                                              src='images/logo-to-be-submitted.webp'
+                                              title=''
+                                              alt={item.logoImagePath}
+                                            />
+                                          ) : (
+                                            <img
+                                              className='w-14 h-14'
+                                              src={`${config.mediaBaseUrl}${item.logoImagePath}`}
+                                              title=''
+                                              alt={item.logoImagePath}
+                                            />
+                                          )}
+
+                                          {item.logoName ===
+                                          'Add Logo Later' ? (
+                                            <span className='font-semibold ml-3'>
+                                              Logo to be
+                                              <br />
+                                              submitted
+                                            </span>
+                                          ) : (
+                                            <span className='font-semibold ml-3'>
+                                              Logo
+                                              <br />
+                                              submitted
+                                            </span>
+                                          )}
                                         </div>
                                         <div>
-                                          <span className='font-semibold'>
+                                          <span className='font-semibold mr-1'>
                                             Location:
                                           </span>
                                           <span>{item.logoLocation}</span>
@@ -203,30 +223,7 @@ const CartLayout2 = ({
                                   );
                                 },
                               )}
-                              {/* <div className="flex justify-between py-3 border-b border-b-gray-300">
-                                <div className="w-full md:w-1/3">
-                                  <div className="mb-1">Your Logo</div>
-                                  <div className="font-semibold">
-                                    (You Will Provide Logo)
-                                  </div>
-                                </div>
-                                <div className="w-full md:w-1/3">
-                                  <div className="mb-1">Price</div>
-                                  <div className="font-semibold">
-                                    <div className="">$0.00</div>
-                                    <div className="">First Logo Free</div>
-                                    <div className="">
-                                      Logo Setup Fee Applied
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="w-full md:w-1/3">
-                                  <div className="mb-1">Location</div>
-                                  <div className="font-semibold">
-                                    Left Chest
-                                  </div>
-                                </div>
-                              </div> */}
+
                               {/* <div className="flex justify-between py-3 border-b border-b-gray-300">
                                                     <div className="w-full md:w-1/3">
                                                         <div className="mb-1">Your Logo</div>

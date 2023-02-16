@@ -15,6 +15,7 @@ interface _props {
 
 const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const storeName = useTypedSelector((state) => state.store.storeName);
 
   if (
     storeLayout === _Store.type1 ||
@@ -32,7 +33,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
               <Image
                 className='h-16 w-auto brand-logo'
                 src={logo?.desktop}
-                alt='CG'
+                alt={storeName ? storeName : ''}
               />
             </a>
           </Link>
@@ -42,7 +43,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME} className='xl:hidden'>
-          <Image src={logo?.mobile} alt='' className='h-14 w-auto' />
+          <Image src={logo?.mobile} alt={storeLayout} className='h-14 w-auto' />
         </Link>
       );
     }
@@ -59,7 +60,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
             <Image
               className='max-h-14 w-auto brand-logo'
               src={logo?.desktop}
-              alt='Corporate Gear'
+              alt={storeName ? storeName : ''}
             />
           </Link>
         </div>
@@ -68,7 +69,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME}>
-          <Image src={logo?.mobile} alt='' className='h-6 w-auto' />
+          <Image src={logo?.mobile} alt={storeLayout} className='h-6 w-auto' />
         </Link>
       );
     }
@@ -85,7 +86,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
             <Image
               className='max-h-20 w-auto brand-logo'
               src={logo?.desktop}
-              alt='Corporate Gear'
+              alt={storeName ? storeName : ''}
             />
           </Link>
         </div>
@@ -95,7 +96,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME}>
-          <Image src={logo?.mobile} alt='' className='h-6 w-auto' />
+          <Image src={logo?.mobile} alt={storeLayout} className='h-6 w-auto' />
         </Link>
       );
     }
@@ -114,7 +115,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
               <Image
                 className='h-16 w-auto brand-logo'
                 src={logo?.desktop}
-                alt='Corporate Gear'
+                alt={storeName ? storeName : ''}
               />
             </>
           </Link>
@@ -124,7 +125,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME}>
-          <Image src={logo?.mobile} alt='' className='h-8 w-auto' />
+          <Image src={logo?.mobile} alt={storeLayout} className='h-8 w-auto' />
         </Link>
       );
     }

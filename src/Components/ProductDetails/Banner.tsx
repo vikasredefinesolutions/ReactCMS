@@ -34,6 +34,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
     storeLayout === _Store.type15 ||
     storeLayout === _Store.type16
   ) {
+    console.log('description', banner[0].description);
     return (
       <>
         {/* <AskToLogin /> */}
@@ -42,7 +43,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
             <div className='relative'>
               <div className='relative w-full mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='container mx-auto'>
-                  <div className='flex gap-10 items-center p-16 px-20 bg-gray-100'>
+                  <div className='flex gap-10 items-center p-6 md:p-16 px-4 md:px-20 bg-gray-100 banner_section_col'>
                     <div className='w-full lg:w-1/2 flex items-center gap-2 h-full justify-around'>
                       {banner[0] &&
                         (banner[0].brandLogo || banner[0].banner) && (
@@ -77,8 +78,13 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
                         <div className="text-lg md:text-xl lg:text-small-title font-small-title mb-1">
                           {banner.subTitle}
                         </div> */}
-                        <div className='text-default-text font-default-text' dangerouslySetInnerHTML={{__html: banner[0].description}}>
-                        </div>
+
+                        <div
+                          className='text-default-text font-default-text banner_details'
+                          dangerouslySetInnerHTML={{
+                            __html: banner[0].description,
+                          }}
+                        ></div>
                       </div>
                     )}
                   </div>

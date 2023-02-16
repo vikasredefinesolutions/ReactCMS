@@ -1,10 +1,11 @@
+import config from 'api.config';
 import Document, {
   DocumentContext,
   DocumentInitialProps,
   Head,
   Html,
   Main,
-  NextScript
+  NextScript,
 } from 'next/document';
 import { _globalStore } from 'store.global';
 
@@ -35,9 +36,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang='en'>
-        <link rel='shortcut icon' href={faviconURL} />
+        <link rel='shortcut icon' href={config.mediaBaseUrl + faviconURL} />
         <Head>
-        {storeId == 4 && (
+          {storeId == 4 && (
             <link
               rel='stylesheet'
               type='text/css'
@@ -102,23 +103,25 @@ class MyDocument extends Document {
             />
           )}
 
-          {<link
-            rel="stylesheet"
-            type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
-          />
+          {
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
+            />
           }
-         
+
           <link
             href='https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone'
             rel='stylesheet'
           />
 
-          {<link
-            rel="stylesheet"
-            type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
-          />
+          {
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
+            />
           }
           <link
             rel='stylesheet'

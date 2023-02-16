@@ -49,7 +49,13 @@ const ProductAlike: React.FC<_props> = ({
         ) : (
           <section className='mainsection mt-10'>
             <div className='container mx-auto'>
-              <div className='w-full text-center text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title mb-4'>
+              <div
+                className={`w-full text-center ${
+                  storeCode === _Store.type1
+                    ? 'text-2xl md:text-3xl  lg:text-title font-title'
+                    : 'text-color-sub-title text-xl md:text-2xl lg:text-sub-title font-sub-title'
+                } mb-4`}
+              >
                 {title}
               </div>
               <div className='relative' id='slider'>

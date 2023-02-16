@@ -1,4 +1,5 @@
 import { _Footer } from '@type/APIs/footer.res';
+import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { _MenuItems } from 'show.type';
 import { BreadCrumb, Footer, Header, NotificationBar } from './Components';
@@ -26,6 +27,8 @@ const Ecommerce_Layout: React.FC<_props> = ({
     menuItems: _MenuItems | null;
   }>({ storeCode: storeCode, logoUrl: logoUrl, menuItems: menuItems });
 
+  const router = useRouter();
+
   useEffect(() => {
     setHeader((last) => ({
       ...last,
@@ -44,7 +47,8 @@ const Ecommerce_Layout: React.FC<_props> = ({
         }}
         menuItems={useMemo(() => header.menuItems, [header.menuItems])}
       />
-      <BreadCrumb />
+
+      {router.pathname !== '/cart.html' && <BreadCrumb />}
       <div style={{ flexGrow: 1 }}>{children}</div>
       <Footer data={configs.footer} />
     </>

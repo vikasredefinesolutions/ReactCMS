@@ -31,6 +31,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
         <div className='text-sm border-b border-gray-300'>
           <div className='flex items-center justify-between py-2 pr-2'>
             <button
+              title={title}
               className='flex items-center grow group'
               onClick={() => setShowAllItems((show) => !show)}
             >
@@ -82,6 +83,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
           <>
             <div className='relative flex'>
               <button
+                title={title}
                 type='button'
                 onMouseOver={() => setFocus(true)}
                 onMouseLeave={() => setFocus(false)}

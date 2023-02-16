@@ -182,6 +182,7 @@ export const Bacardi_Header: React.FC = () => {
   const [showmenu, setShowMenu] = useState(false);
   const [toogleCssName, setToogleCssName] =
     useState<string>('bacardigreygoose');
+  const storeName = useTypedSelector((state) => state.store.storeName);
 
   return (
     <>
@@ -357,7 +358,7 @@ export const Bacardi_Header: React.FC = () => {
                         <img
                           className='h-auto w-auto opacity-50'
                           src='../images/greygoose-logo.png'
-                          alt='Corporate Gear'
+                          alt={storeName ? storeName : ''}
                         />
                       </a>
 
@@ -496,6 +497,7 @@ export const Bacardi_Header: React.FC = () => {
 
 // Cyxtera
 export const Cyxtera_Header: React.FC = () => {
+  const storeName = useTypedSelector((state) => state.store.storeName);
   return (
     <section className='container mx-auto sticky top-0 z-40'>
       <Cyxtera_NotificationBar />
@@ -518,7 +520,7 @@ export const Cyxtera_Header: React.FC = () => {
                         <img
                           className='max-h-9 w-auto'
                           src='../images/logo.png'
-                          alt='Corporate Gear'
+                          alt={storeName ? storeName : ''}
                         />
                       </a>
                     </div>
@@ -1008,6 +1010,7 @@ export const Cyxtera_Header: React.FC = () => {
 
 // GilanCo_Header
 export const GilabanCo_Header: React.FC = () => {
+  const storeName = useTypedSelector((state) => state.store.storeName);
   return (
     <section className='container mx-auto sticky top-0 z-40'>
       <div className='bg-gray-100 p-2 hidden md:block'>
@@ -1389,7 +1392,7 @@ export const GilabanCo_Header: React.FC = () => {
                         <img
                           className='max-h-12 w-auto'
                           src='../images/logo.png'
-                          alt='Corporate Gear'
+                          alt={storeName ? storeName : ''}
                         />
                       </a>
                     </div>
@@ -1925,6 +1928,7 @@ export const GilabanCo_Header: React.FC = () => {
 
 // HumanaHeroes
 export const HumanaHeroes_Header: React.FC = () => {
+  const storeName = useTypedSelector((state) => state.store.storeName);
   return (
     <section className='sticky top-0 left-0 right-0 z-50' id=''>
       <div className='container mx-auto'>
@@ -2042,7 +2046,7 @@ export const HumanaHeroes_Header: React.FC = () => {
                         <img
                           className='max-h-14 w-auto'
                           src='../images/logo.png'
-                          alt='Corporate Gear'
+                          alt={storeName ? storeName : ''}
                         />
                       </a>
                     </div>
@@ -2301,6 +2305,7 @@ export const HumanaHeroes_Header: React.FC = () => {
 
 // TheHartFord - TheHardFordFireMarshal - TheHartFordVolunteerShirt - TheHartFortClaimsApparel
 export const TheHardFord_Header: React.FC = () => {
+  const storeName = useTypedSelector((state) => state.store.storeName);
   return (
     <section className='container mx-auto sticky top-0 z-20'>
       <div className='bg-gray-100 p-2 hidden md:block'>
@@ -2423,7 +2428,7 @@ export const TheHardFord_Header: React.FC = () => {
                         <img
                           className='h-24 w-auto'
                           src='../images/logo.png'
-                          alt='Corporate Gear'
+                          alt={storeName ? storeName : ''}
                         />
                       </a>
                     </div>
@@ -2779,6 +2784,7 @@ export const TheHardFord_Header: React.FC = () => {
 
 // UsaaClaims - UsaaMilitaryAffairs
 export const UsaaClaims_Header: React.FC = () => {
+  const storeName = useTypedSelector((state) => state.store.storeName);
   return (
     <section className='container mx-auto sticky top-0 z-20'>
       <div className='bg-gray-100 p-2 hidden md:block'>
@@ -3004,7 +3010,7 @@ export const UsaaClaims_Header: React.FC = () => {
                         <img
                           className='h-24 w-auto'
                           src='../images/logo.png'
-                          alt='Corporate Gear'
+                          alt={storeName ? storeName : ''}
                         />
                       </a>
                     </div>
@@ -3339,6 +3345,7 @@ export const UsaaClaims_Header: React.FC = () => {
 };
 
 export const Usaa_Header: React.FC = () => {
+  const storeName = useTypedSelector((state) => state.store.storeName);
   return (
     <section className='container mx-auto sticky top-0 z-20'>
       <div className='bg-gray-100 p-2 hidden md:block'>
@@ -3573,7 +3580,7 @@ export const Usaa_Header: React.FC = () => {
                         <img
                           className='h-24 w-auto'
                           src='../images/logo.png'
-                          alt='Corporate Gear'
+                          alt={storeName ? storeName : ''}
                         />
                       </a>
                     </div>
@@ -3826,6 +3833,7 @@ export const Usaa_Header: React.FC = () => {
 };
 // WayFair
 export const WayFair_Header: React.FC = () => {
+  const storeName = useTypedSelector((state) => state.store.storeName);
   return (
     <>
       <div className='bg-gray-100 text-primary px-2 sm:px-0 hidden md:block'>
@@ -4132,7 +4140,7 @@ export const WayFair_Header: React.FC = () => {
                           <img
                             className='h-16 w-auto'
                             src='https://wayfair.parsonskellogg.com/images/logo-new.png'
-                            alt='00Wayfair'
+                            alt={storeName ? storeName : ''}
                           />
                         </a>
                       </div>

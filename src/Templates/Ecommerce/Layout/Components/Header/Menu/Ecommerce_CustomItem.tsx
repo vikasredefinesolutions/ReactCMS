@@ -30,6 +30,7 @@ const Custom: React.FC<_props> = ({ content, title, url }) => {
             <button
               className='flex items-center grow group'
               onClick={() => setShowAllItems((show) => !show)}
+              title={title}
             >
               <svg
                 className={`w-8 h-8 shrink-0 fill-current text-anchor ${
@@ -65,6 +66,7 @@ const Custom: React.FC<_props> = ({ content, title, url }) => {
             <div className='relative flex'>
               <button
                 onMouseOver={() => setFocus(true)}
+                title={title}
                 onMouseLeave={() => setFocus(false)}
                 type='button'
                 className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${

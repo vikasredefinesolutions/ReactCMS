@@ -33,6 +33,7 @@ const Ecommerce_Header: React.FC<_props> = ({
 
   // ------------------------------------------------------------------------
   const userId = useTypedSelector((state) => state.user.id);
+  const storeName = useTypedSelector((state) => state.store.storeName);
   const showSideMenu = useTypedSelector((state) => state.modals.sideMenu);
 
   // ------------------------------------------------------------------------
@@ -111,7 +112,7 @@ const Ecommerce_Header: React.FC<_props> = ({
                             <WishListIcon />
                             <LoginIcon />
                             <LoggedInMenu />
-                            <CompareIcon />
+                            {storeCode !== _Store.type1 && <CompareIcon />}
                             {/* <!-- <span className="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span> --> */}
                             <MyCartIcon />
                           </div>

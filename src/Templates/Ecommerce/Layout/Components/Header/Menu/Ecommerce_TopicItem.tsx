@@ -31,6 +31,7 @@ const Topic: React.FC<_props> = ({ title, url }) => {
           <div className='flex items-center justify-between py-3 px-2 pl-8'>
             <div className=''>
               <button
+                title={title}
                 onClick={() => {
                   toggleSideMenu('CLOSE');
                   router.push(`/${url}`);
@@ -50,6 +51,7 @@ const Topic: React.FC<_props> = ({ title, url }) => {
         <Link href={`${url}`} className='flex'>
           <div className=''>
             <button
+              title={title}
               onMouseOver={() => setFocus(true)}
               onMouseOut={() => setFocus(false)}
               type='button'

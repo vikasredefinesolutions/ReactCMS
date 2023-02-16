@@ -3,6 +3,7 @@ import { GetlAllProductList } from '@type/productList.type';
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
+import { getCompareLink } from 'helpers/compare.helper';
 import Link from 'next/link';
 import { _Store } from 'page.config';
 import { Fragment } from 'react';
@@ -368,13 +369,14 @@ const ProductLayout2 = ({
                 />{' '}
                 {
                   <>
-                    {/* {skuList.length && skuList.includes(product.sku) ? (
+                    {skuList.length &&
+                    skuList.includes(product?.sku ? product.sku : '') ? (
                       <Link href={getCompareLink()}>
                         <a>Compare {skuList.length}</a>
                       </Link>
-                    ) : ( */}
-                    <> Add to Compare</>
-                    {/* )}  */}
+                    ) : (
+                      <> Add to Compare</>
+                    )}
                   </>
                 }
               </label>
@@ -470,13 +472,14 @@ const ProductLayout2 = ({
                 />{' '}
                 {
                   <>
-                    {/* {skuList.length && skuList.includes(product.sku) ? (
-                    <Link href={getCompareLink()}>
-                      <a>Compare {skuList.length}</a>
-                    </Link>
-                  ) : ( */}
-                    <>Add to Compare</>
-                    {/* )}  */}
+                    {skuList.length &&
+                    skuList.includes(product?.sku ? product.sku : '') ? (
+                      <Link href={getCompareLink()}>
+                        <a>Compare {skuList.length}</a>
+                      </Link>
+                    ) : (
+                      <>Add to Compare</>
+                    )}
                   </>
                 }
               </label>
@@ -569,13 +572,14 @@ const ProductLayout2 = ({
               />{' '}
               {
                 <>
-                  {/* {skuList.length && skuList.includes(product.sku) ? (
-                  <Link href={getCompareLink()}>
-                    <a>Compare {skuList.length}</a>
-                  </Link>
-                ) : ( */}
-                  <>Add to Compare</>
-                  {/* )}  */}
+                  {skuList.length &&
+                  skuList.includes(product?.sku ? product.sku : '') ? (
+                    <Link href={getCompareLink()}>
+                      <a>Compare {skuList.length}</a>
+                    </Link>
+                  ) : (
+                    <>Add to Compare</>
+                  )}
                 </>
               }
             </label>
@@ -671,13 +675,14 @@ const ProductLayout2 = ({
               />{' '}
               {
                 <>
-                  {/* {skuList.length && skuList.includes(product.sku) ? (
-                  <Link href={getCompareLink()}>
-                    <a>Compare {skuList.length}</a>
-                  </Link>
-                ) : ( */}
-                  <>Add to Compare</>
-                  {/* )}  */}
+                  {skuList.length &&
+                  skuList.includes(product?.sku ? product.sku : '') ? (
+                    <Link href={getCompareLink()}>
+                      <a>Compare {skuList.length}</a>
+                    </Link>
+                  ) : (
+                    <>Add to Compare</>
+                  )}
                 </>
               }
             </label>

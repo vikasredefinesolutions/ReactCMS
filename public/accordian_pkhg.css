@@ -69,3 +69,57 @@
 .featured_items .MuiTabs-indicator {
   color: rgb(0, 58, 112);
 }
+
+/* corporate gear banner css */
+.banner_details {
+  font-family: 'Outfit', sans-serif;
+}
+
+.banner_details h1 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.banner_details h2 {
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.banner_details p {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 1024px) {
+  .banner_details h1 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    letter-spacing: -0.01em;
+  }
+  .banner_details h2 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+}
+
+@media (min-width: 768px) {
+  .banner_details h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  .banner_details h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner_section_col {
+    flex-direction: column;
+  }
+}

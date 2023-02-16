@@ -140,6 +140,7 @@ const SearchBar: React.FC<_props> = ({
                       name='text'
                       min={1}
                       id='txtSearch'
+                      placeholder='Search'
                       //                      onChange={handleChange}
                       className='outline-none border-0 focus:ring-0'
                     />

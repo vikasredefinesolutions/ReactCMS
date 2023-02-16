@@ -5,7 +5,7 @@ import {
   singleColor_addToCart_PayloadGenerator,
 } from '@services/product.service.helper';
 import MsgContainer from 'appComponents/modals/MsgContainer';
-import { setCookie } from 'helpers/common.helper';
+import { extractCookies, setCookie } from 'helpers/common.helper';
 import { highLightError } from 'helpers/global.console';
 import { useActions, useTypedSelector } from 'hooks';
 import React, { useState } from 'react';
@@ -31,6 +31,11 @@ const SOM_ActionsHandler: React.FC<_props> = ({
   const isEmployeeLoggedIn = useTypedSelector(
     (state) => state.employee.loggedIn,
   );
+
+  const tempCustId = extractCookies(
+    __Cookie.tempCustomerId,
+    'browserCookie',
+  ).tempCustomerId;
   const requiredMessage = (
     issue: 'quantity' | 'logo',
     minQty: null | number = 1,
@@ -71,7 +76,12 @@ const SOM_ActionsHandler: React.FC<_props> = ({
 
     const cartPayload = await singleColor_addToCart_PayloadGenerator({
       storeId: storeId!,
-      userId: loggedIN_userId || 0,
+      userId:
+        loggedIN_userId && loggedIN_userId > 0
+          ? loggedIN_userId
+          : tempCustId
+          ? parseInt(tempCustId)
+          : 0,
       isEmployeeLoggedIn,
       cartItems: [
         {

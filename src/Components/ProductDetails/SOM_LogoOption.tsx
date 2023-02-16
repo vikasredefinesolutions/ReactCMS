@@ -3,6 +3,7 @@ import config from 'api.config';
 import { useActions, useTypedSelector } from 'hooks';
 import { IndexLabels } from 'mock/startModal.mock';
 import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
 
 const dummyLogoImage = 'images/logo-to-be-submitted.webp';
 
@@ -14,6 +15,18 @@ interface _props {
   textIndex: number;
   price: 'FREE' | number;
   onRemove: () => void;
+}
+
+interface Option {
+  label: any;
+  // label: string;
+  value: string;
+  image: {
+    url: string;
+    alt: string;
+  };
+  options: readonly string[];
+  // show: boolean;
 }
 
 const SOM_LogoOption: React.FC<_props> = ({
@@ -48,6 +61,29 @@ const SOM_LogoOption: React.FC<_props> = ({
   const availableOptions = useTypedSelector(
     (state) => state.product.som_logos.availableOptions,
   );
+
+  let option: any = availableOptions?.map((item) => {
+    return {
+      image: {
+        url: item.image.url,
+        alt: item.image.alt,
+      },
+      value: item.value,
+      label: (
+        <div className='flex items-center'>
+          <img
+            alt={item.image.alt}
+            src={item.image.url}
+            height='60px'
+            width='60px'
+            className='mr-2'
+          />
+          {item.label}
+        </div>
+      ),
+    };
+  });
+  const options = availableOptions;
 
   const fileReader = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget?.files === null) return;
@@ -241,7 +277,25 @@ const SOM_LogoOption: React.FC<_props> = ({
         <label htmlFor={name} className='block mb-2'>
           Select a location to print your logo :
         </label>
-        <select
+        <Select
+          isDisabled={selectedLocation?.show}
+          value={selectedLocation}
+          onChange={(e: any) => {
+            product_updateLogoDetails({
+              type: 'Location_Update_Pending',
+              pending: IndexLabels[textIndex - 1].label,
+            });
+            setSelectedLocation({
+              label: e.label.props.children[1],
+              value: e.value,
+              show: false,
+              image: availableOptions!.find((opt) => opt.value === e.value)!
+                .image,
+            });
+          }}
+          options={Array.isArray(option) && option.length ? option : []}
+        />
+        {/* <select
           id={name}
           className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2 pr-10'
           name={name}
@@ -273,11 +327,11 @@ const SOM_LogoOption: React.FC<_props> = ({
           {availableOptions?.map((location) => {
             return (
               <option key={location.value} value={location.value}>
-                {location.label}
+                  {location.label}
               </option>
             );
           })}
-        </select>
+        </select> */}
       </div>
       <div className='mb-4 last:mb-0'>
         <label htmlFor='' className='block mb-2'>

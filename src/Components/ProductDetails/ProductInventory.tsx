@@ -63,38 +63,30 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
             <div className=''>Availability</div>
             <div className='w-20'>QTY</div>
           </div>
-          {inventory?.sizes.map((product) => {
+          {inventory?.inventory.map((product) => {
             if (product.colorAttributeOptionId === color.attributeOptionId) {
-              return product.sizeArr.map((size) => (
+              return (
                 <div
-                  key={size}
+                  key={product.name}
                   className='flex flex-wrap items-center justify-between border-b border-b-gray-300 py-2'
                 >
-                  <div className='font-semibold px-2'>{size}</div>
-                  <div className=''>
-                    {inventory.inventory.find(
-                      (int) =>
-                        int.colorAttributeOptionId ===
-                          color.attributeOptionId && int.name === size,
-                    )?.inventory || (
-                      <Fragment key={size}>Out of Stock</Fragment>
-                    )}
-                  </div>
-                  <InventoryInput
-                    size={size}
-                    storeCode={storeCode}
-                    qty={
-                      inventory.inventory.find(
-                        (int) =>
-                          int.colorAttributeOptionId ===
-                            color.attributeOptionId && int.name === size,
-                      )?.inventory || 0
-                    }
-                    price={price?.msrp || 0}
-                    attributeOptionId={color.attributeOptionId}
-                  />
+                  <div className='font-semibold px-2'>{product.name}</div>
+                  <div className='px-2'>{product.inventory}</div>
+                  {product.inventory ? (
+                    <InventoryInput
+                      size={product.name}
+                      storeCode={storeCode}
+                      qty={product.inventory}
+                      price={price?.msrp || 0}
+                      attributeOptionId={product.attributeOptionId}
+                    />
+                  ) : (
+                    <div className=''>
+                      <Fragment key={product.name}>Out of Stock</Fragment>
+                    </div>
+                  )}
                 </div>
-              ));
+              );
             }
 
             return null;
