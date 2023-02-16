@@ -148,11 +148,24 @@ const Layout1 = ({
                         )}
                       </ul>
                     </div>
+                    {}
                     <div className='py-24 border-t border-t-gray-300'>
-                      <p className='text-center'>
-                        You've seen {products.length} Products out of{' '}
-                        {totalCount}
-                      </p>
+                      <div className='text-center'>
+                        <div className=''>
+                          You've seen {products.length} Products out of{' '}
+                          {totalCount}
+                        </div>
+                        <div className='h-1 w-full max-w-[250px] bg-gray-300 mx-auto mt-3 text-left'>
+                          <div
+                            className='h-1 inline-block bg-primary'
+                            style={{
+                              width: `${(products.length * 100) / totalCount}%`,
+                            }}
+                          >
+                            &nbsp;
+                          </div>
+                        </div>
+                      </div>
                       {products.length < totalCount && (
                         <button
                           onClick={loadMore}

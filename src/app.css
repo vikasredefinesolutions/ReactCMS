@@ -53,3 +53,18 @@
   height: auto !important;
   max-height: 4rem !important;
 }
+.\!no-underline {
+  text-decoration-line: none !important;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+.max-w-\[250px\] {
+  max-width: 250px;
+}
+.bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(209, 213, 219, var(--tw-bg-opacity));
+}

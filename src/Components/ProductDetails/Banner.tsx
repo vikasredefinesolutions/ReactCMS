@@ -1,5 +1,7 @@
 import { FetchBannerDetails } from '@services/header.service';
 import { _BannerRes } from '@type/APIs/banner.res';
+import ForgotModal from 'appComponents/modals/ForgotModal';
+import LoginModal from 'appComponents/modals/LoginModal';
 import Image from 'appComponents/reUsable/Image';
 import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
@@ -16,6 +18,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
     (state) => state.store,
   );
   const [banner, setBanner] = useState<_BannerRes[] | null>(null);
+  const [showModal, setShowModal] = useState<string | null>(null);
   useEffect(() => {
     if (storeId && slug) {
       FetchBannerDetails({
@@ -34,65 +37,65 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
     storeLayout === _Store.type15 ||
     storeLayout === _Store.type16
   ) {
-    console.log('description', banner[0].description);
     return (
       <>
-        {/* <AskToLogin /> */}
-        <section className='mainsection section'>
-          <div className='w-full mx-auto'>
-            <div className='relative'>
-              <div className='relative w-full mx-auto px-4 sm:px-6 lg:px-8'>
-                <div className='container mx-auto'>
-                  <div className='flex gap-10 items-center p-6 md:p-16 px-4 md:px-20 bg-gray-100 banner_section_col'>
-                    <div className='w-full lg:w-1/2 flex items-center gap-2 h-full justify-around'>
-                      {banner[0] &&
-                        (banner[0].brandLogo || banner[0].banner) && (
-                          <>
-                            <div className='h-full w-full lg:w-1/2'>
-                              <Image
-                                className='object-cover'
-                                src={banner[0].brandLogo || banner[0].banner}
-                                alt={''}
-                              />
-                            </div>
-                            <div className='px-4 text-5xl leading-none text-gray-900'>
-                              &
-                            </div>
-                          </>
-                        )}
-                      <div className='h-40 w-full lg:w-1/2 bg-white shadow-2xl flex items-center justify-center'>
-                        <div
-                          className='uppercase border-2 border-black inline-block p-2'
-                          role='heading'
-                          aria-level={6}
-                        >
-                          Your Logo
-                        </div>
-                      </div>
-                    </div>
-                    {banner[0].description && (
-                      <div className='w-full lg:w-1/2 text-gray-900'>
-                        {/* <h2 className="text-2xl md:text-3xl lg:text-title font-title mb-1">
-                          {banner.}
-                        </h2>
-                        <div className="text-lg md:text-xl lg:text-small-title font-small-title mb-1">
-                          {banner.subTitle}
-                        </div> */}
-
-                        <div
-                          className='text-default-text font-default-text banner_details'
-                          dangerouslySetInnerHTML={{
-                            __html: banner[0].description,
-                          }}
-                        ></div>
-                      </div>
+        <section className='mainsection container mx-auto'>
+          <div className='bg-green-500 text-gray-900 p-1 text-center'>
+            <a
+              onClick={() => setShowModal('login')}
+              href='javascript:void(0);'
+              className='inline-flex items-center gap-1 tracking-wider text-default-text font-default-text text-color-default-text'
+            >
+              LOGIN OR CREATE AN ACCOUNT TO SEE DISCOUNTED PRICING{' '}
+              <span className='material-icons'>account_circle</span>
+            </a>
+          </div>
+        </section>
+        <section className='mainsection'>
+          <div className='container mx-auto'>
+            <div className='items-center p-4 xl:p-16 xl:px-20 bg-gray-100'>
+              <div className='flex flex-wrap items-center gap-y-10 -mx-5'>
+                <div className='w-full lg:w-1/2 flex gap-2 h-full justify-around px-5'>
+                  <div className='w-5/12'>
+                    {banner[0] && (banner[0].brandLogo || banner[0].banner) ? (
+                      <Image
+                        className='object-cover'
+                        src={banner[0].brandLogo || banner[0].banner}
+                        alt={''}
+                        useNextImage={false}
+                      />
+                    ) : (
+                      <Image
+                        isStatic={true}
+                        src='/images/your-favorite-brands.png'
+                        className='object-cover'
+                        alt='category'
+                        useNextImage={false}
+                      />
                     )}
                   </div>
+                  <div className='w-2/12 text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title text-center flex items-center justify-center'>
+                    &amp;
+                  </div>
+                  <div className='w-5/12 bg-white shadow-2xl flex items-center justify-center'>
+                    <div className='uppercase border-2 border-black inline-block p-2'>
+                      Your Logo
+                    </div>
+                  </div>
+                </div>
+                <div className='w-full lg:w-1/2 text-gray-900 px-5'>
+                  <div
+                    className='text-default-text font-default-text text-color-default-text'
+                    dangerouslySetInnerHTML={{
+                      __html: banner[0].description,
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>
           </div>
         </section>
+
         <section className='mainsection text-center text-sm leading-none'>
           <div className='container mx-auto'>
             <div className='px-2 lg:px-40 py-0 md:py-5 mb-6 text-center bg-secondary'>
@@ -130,6 +133,8 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
         </section>
 
         {/* <Features /> */}
+        {showModal === 'login' && <LoginModal modalHandler={setShowModal} />}
+        {showModal === 'forgot' && <ForgotModal modalHandler={setShowModal} />}
       </>
     );
   }

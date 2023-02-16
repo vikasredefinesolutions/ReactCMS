@@ -70,7 +70,6 @@ const BreadCrumb: React.FC = () => {
     storeLayout === _Store.type15 ||
     storeLayout === _Store.type16
   ) {
-    console.log(product);
     return (
       <div id='' className='px-2 lg:px-0'>
         <div className='container mx-auto'>
@@ -110,9 +109,26 @@ const BreadCrumb: React.FC = () => {
                               ></line>
                             </svg>
                           )}
-                          <span className='ml-1 text-sm md:ml-2 !text-gray-700'>
-                            {item.name}
-                          </span>
+                          {item.name == 'Home' ? (
+                            <>
+                              <span className='material-symbols-outlined ml-1 text-xs  md:ml-2'>
+                                home
+                              </span>
+                              <span className='ml-1 text-sm md:ml-2 !text-gray-700'>
+                                {item.name}
+                              </span>
+                            </>
+                          ) : (
+                            <span
+                              className={`ml-1 text-sm md:ml-2 ${
+                                index === breadCrumbs.length - 1
+                                  ? 'text-anchor'
+                                  : '!text-gray-700'
+                              } `}
+                            >
+                              {item.name}
+                            </span>
+                          )}
                         </div>
                       </a>
                     </Link>

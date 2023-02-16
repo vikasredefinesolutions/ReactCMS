@@ -291,7 +291,6 @@ export const CallAPI = async <T>({
       // @ts-ignore: Unreachable code error
       show: __console[name.service].service[name.api],
     });
-
     return res.data;
   } catch (error) {
     conditionalLogV2({

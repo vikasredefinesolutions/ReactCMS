@@ -54,7 +54,10 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                     className='w-full object-center object-cover'
                   />
                 </div>
-                <div className='' style={{ lineHeight: 1.25 }}>
+                <div
+                  className=''
+                  style={{ lineHeight: 1.25, wordWrap: 'break-word' }}
+                >
                   {product.name}
                 </div>
               </div>

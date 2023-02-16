@@ -102,7 +102,6 @@ const _SignupSchemaWithOrganization = Yup.object().shape({
     teamgender: Yup.string().required(),
     city: Yup.string().required(),
     postalCode: Yup.string().required(),
-    jobPosition: Yup.string().required(),
     organizationEmail: Yup.string()
       .email()
       .required(signupPageMessages.email.required),
@@ -216,6 +215,9 @@ const SignUp: NextPage = () => {
         return (
           <Form>
             <div className='w-full mx-auto max-w-7xl'>
+              <div className='text-base md:text-xl  pb-2 mb-4'>
+                Personal Information
+              </div>
               <div className='flex flex-wrap -mx-3 gap-y-6'>
                 {storeLayout === _Store.type3 && industries !== null && (
                   <>
@@ -233,7 +235,7 @@ const SignUp: NextPage = () => {
                   </>
                 )}
                 <RedefineInput
-                  required={false}
+                  required={true}
                   label={'First Name'}
                   placeHolder={'Enter Your First Name'}
                   name={'firstname'}
@@ -242,7 +244,7 @@ const SignUp: NextPage = () => {
                   onChange={(event) => handleChange(event)}
                 />
                 <RedefineInput
-                  required={false}
+                  required={true}
                   label={'Last Name'}
                   placeHolder={'Enter Your Last Name'}
                   name={'lastName'}
@@ -251,7 +253,7 @@ const SignUp: NextPage = () => {
                   onChange={(event) => handleChange(event)}
                 />
                 <RedefineInput
-                  required={false}
+                  required={true}
                   label={'Company Name'}
                   placeHolder={'Enter Your Company Name'}
                   name={'companyName'}
@@ -260,7 +262,16 @@ const SignUp: NextPage = () => {
                   onChange={(event) => handleChange(event)}
                 />
                 <RedefineInput
-                  required={false}
+                  required={true}
+                  label={'Phone Number'}
+                  placeHolder={'Enter Your Phone Number'}
+                  name={'storeCustomerAddress[0].phone'}
+                  value={values.storeCustomerAddress[0].phone}
+                  type={'text'}
+                  onChange={(event) => handleChange(event)}
+                />
+                <RedefineInput
+                  required={true}
                   label={'Email Address'}
                   placeHolder={'Enter Email Address'}
                   name={'email'}
@@ -270,6 +281,17 @@ const SignUp: NextPage = () => {
                 />
                 <RedefineInput
                   required={false}
+                  label={'Job Title'}
+                  placeHolder={'Enter Your Job Title'}
+                  name={'jobTitle'}
+                  value={values.jobTitle}
+                  type={'text'}
+                  onChange={(event) => {
+                    handleChange(event);
+                  }}
+                />
+                <RedefineInput
+                  required={true}
                   label={'Password'}
                   placeHolder={''}
                   name={'password'}
@@ -278,7 +300,7 @@ const SignUp: NextPage = () => {
                   onChange={(event) => handleChange(event)}
                 />
                 <RedefineInput
-                  required={false}
+                  required={true}
                   label={'Confirm Password'}
                   placeHolder={''}
                   name={'confirmPassword'}
@@ -288,15 +310,6 @@ const SignUp: NextPage = () => {
                 />
 
                 {/* Address */}
-                <RedefineInput
-                  required={false}
-                  label={'Phone Number'}
-                  placeHolder={'Enter Your Phone Number'}
-                  name={'storeCustomerAddress[0].phone'}
-                  value={values.storeCustomerAddress[0].phone}
-                  type={'text'}
-                  onChange={(event) => handleChange(event)}
-                />
 
                 {/* <RedefineInput
                 required={false}
@@ -543,8 +556,8 @@ const SignUp: NextPage = () => {
                             required={true}
                             label={'YOUR POSITION'}
                             placeHolder={'Enter Your Job POSITION'}
-                            name={'organization.jobPosition'}
-                            value={values.organization.jobPosition}
+                            name={'jobTitle'}
+                            value={values.jobTitle}
                             type={'text'}
                             onChange={(event) => {
                               handleChange(event);
@@ -780,8 +793,11 @@ const SignUp: NextPage = () => {
   }
 
   return (
-    <section className='container mx-auto  bg-gray-100 mb-6 '>
-      <div className='gird grid-cols-1 lg:flex lg:items-center gap-6 lg:py-8 lg:px-12 px-4 py-4 lg:my-5'>
+    <section className='container mx-auto  my-6 '>
+      <div className='block mx-auto text-3xl item-centre uppercase mb-7 text-center font-medium '>
+        <h1 className=''>Create New Customer Account</h1>
+      </div>
+      <div className='gird grid-cols-1 lg:flex lg:items-center gap-6 lg:py-8 lg:px-12 px-4 py-4 lg:my-5  bg-gray-100'>
         {CreateMyAccountForm}
       </div>
     </section>

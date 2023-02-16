@@ -17,7 +17,6 @@ const Custom: React.FC<_props> = ({ content, title, url }) => {
   const [focus, setFocus] = useState(false);
   const [showAllItems, setShowAllItems] = useState<boolean>(false);
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
-
   if (
     storeLayout === _Store.type1 ||
     storeLayout === _Store.type15 ||

@@ -147,12 +147,10 @@ const ProductComponent = ({
                     : 'relative mt-1 text-anchor hover:text-anchor-hover text-ellipsis overflow-hidden line-clamp-2'
                 }
               >
-                <Link
-                  key={product.id}
-                  href={`/${product.sename}.html?v=product-detail&altview=1`}
-                  className='relative underline min-h-[48px] '
-                >
-                  {product.name}
+                <Link key={product.id} href={`/${product.sename}.html`}>
+                  <a className='relative underline min-h-[48px]'>
+                    {product.name}
+                  </a>
                 </Link>
               </div>
               <div

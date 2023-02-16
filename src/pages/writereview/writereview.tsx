@@ -18,6 +18,11 @@ const ProductReview: NextPage = () => {
     (state) => state.user.customer?.firstname,
   );
   const productName = useTypedSelector((state) => state.product.product.name);
+  const productNamedeatils = useTypedSelector((state) => state.product.product);
+  const selectedImage = useTypedSelector(
+    (state) => state.product.selected.image,
+  );
+
   const [files, setFilesFn] = useState<Array<{ file: File; preview: string }>>(
     [],
   );
@@ -63,12 +68,15 @@ const ProductReview: NextPage = () => {
         images.push(image);
       }
     }
-    const { data } = await axios.get('https://geolocation-db.com/json/');
+
+    const { data } = await axios.get(
+      `https://ipgeolocation.abstractapi.com/v1/?api_key=${process.env.NEXT_PUBLIC_GEOLOCATIONAPIKEY}`,
+    );
 
     const imagesA = images.map((url) => ({
       id: 0,
       rowVersion: '',
-      location: `${data.city}, ${data.state}, ${data.country_name}, ${data.postal}`,
+      location: `${data.city}, ${data.region}, ${data.country}, ${data.postal_code}`,
       ipAddress: data.IPv4,
       macAddress: '00-00-00-00-00-00',
       reviewId: 0,
@@ -131,13 +139,16 @@ const ProductReview: NextPage = () => {
     }
   };
 
+  // console.log('review data for single page ', productNamedeatils);
+  // console.log('we are getting image ', selectedImage);
+
   return (
-    <section className='container mx-auto my-6'>
-      <div className=''>
+    <section className='container mx-auto my-6 border border-gray-300'>
+      <div className='p-4'>
         <div className='flex flex-wrap -mx-3 gap-y-6'>
           <div className='w-full md:w-4/12 lg:w-4/12 px-3'>
             <div className=''>
-              <img src='images/1040623_25528_STH.jpg' title='' alt='' />
+              <img src={selectedImage.imageUrl} title='' alt='' />
             </div>
           </div>
           <div className='w-full md:w-8/12 lg:w-5/12 px-3'>
@@ -202,7 +213,7 @@ const ProductReview: NextPage = () => {
                   <div className='w-full px-3'>
                     <label
                       htmlFor='First Name'
-                      className='block text-base font-medium text-gray-700'
+                      className='block text-base font-medium text-gray-700 hidden'
                     >
                       Description For your review
                     </label>
@@ -224,7 +235,7 @@ const ProductReview: NextPage = () => {
                   <div className='w-full px-3'>
                     <label
                       htmlFor='First Name'
-                      className='block text-base font-medium text-gray-700'
+                      className='block text-base font-medium text-gray-700 hidden'
                     >
                       Headline For your review
                     </label>
@@ -245,19 +256,34 @@ const ProductReview: NextPage = () => {
                   </div>
                   <div className='w-full px-3'>
                     <label
-                      htmlFor='Address 1'
-                      className='block text-base font-medium text-gray-700'
+                      htmlFor='file_upload'
+                      className='block text-base font-medium text-gray-700 form-input'
                     >
-                      Select files to upload
+                      <span className='block text-base font-medium text-gray-700 mb-2 hidden'>
+                        Select files to upload
+                      </span>
+                      <div className='w-full flex flex-wrap h-full items-center bg-center bg-no-repeat bg-contain border  border-dashed my-3 mx-2'>
+                        <div className='w-full text-center justify-center inset-0'>
+                          <div className='text-sm lg:text-2xl text-gray-400 '>
+                            <p className='pt-10 lg:pt-20'>
+                              <span>Drag and Drop files here</span>
+                            </p>
+                            <p className='pb-10 lg:pb-20'>
+                              <span>(or click to select files)</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </label>
                     <div className='mt-2'>
                       <input
                         type='file'
                         placeholder='Select files to upload'
                         value=''
-                        className='form-input'
+                        className='hidden'
                         multiple
                         onChange={fileChangeHandler}
+                        id='file_upload'
                       />
                     </div>
                     <div className='flex flex-wrap'>

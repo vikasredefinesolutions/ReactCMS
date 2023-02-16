@@ -29,51 +29,53 @@ const Wishlist = () => {
   };
 
   return (
-    <section className="container mx-auto pt-20">
-      <div className="pb-10 text-center">
-        <div className="text-title mb-2">Wishlist</div>
+    <section className='container mx-auto mt-5 mb-5'>
+      <div className='pb-5 text-center'>
+        <div className='text-title mb-2'>Wishlist</div>
       </div>
-      <div className="relative">
-        <ul role="list" className="flex flex-wrap -mx-3 gap-y-6">
+      <div className='relative'>
+        <ul role='list' className='flex flex-wrap -mx-3 gap-y-6'>
           {wishlist.map((list, index) => (
-            <li key={index} className="w-full md:w-1/2 lg:w-1/4 px-3">
-              <div className="group relative border border-gray-300 p-3 text-center">
+            <li key={index} className='w-full md:w-1/2 lg:w-1/4 px-3 mb-2'>
+              <div className='group relative border border-gray-300 p-3 text-center'>
                 <Link
                   key={list.productId}
                   href={`${origin}/${list.seName}.html?v=product-detail&altview=1`}
-                  className="relative underline min-h-[48px]"
+                  className='relative underline min-h-[48px]'
                 >
-                  <div className="w-full cursor-pointer">
-
-                    <Image src={list.colorLogoUrl} className="" alt="wishlist" />
-
+                  <div className='w-full cursor-pointer'>
+                    <Image
+                      src={list.colorLogoUrl}
+                      className=''
+                      alt='wishlist'
+                    />
                   </div>
                 </Link>
-                <div className="mt-4">
-                  <h3 className="">
+                <div className='mt-4'>
+                  <h3 className='h-10'>
                     <Link
                       key={list.productId}
                       href={`${origin}/${list.seName}.html?v=product-detail&altview=1`}
-                      className="relative underline min-h-[48px]"
+                      className='relative underline min-h-[48px]'
                     >
                       {list.productName}
                     </Link>
                   </h3>
-                  <div className="text-default-text mt-2">${list.price}</div>
-                  <div className="flex justify-center items-center gap-2 mt-2">
-                    <div className="">
+                  <div className='text-default-text mt-2'>${list.price}</div>
+                  <div className='flex justify-center items-center gap-2 mt-2'>
+                    <div className='btn btn-secondary !py-1 text-center'>
                       <Link
                         key={list.productId}
                         href={`${origin}/${list.seName}.html?v=product-detail&altview=1`}
-                        className="relative underline min-h-[48px]"
+                        className='relative underline min-h-[48px]'
                       >
                         View
                       </Link>
                     </div>
-                    <div className="">
+                    <div className=''>
                       <button
-                        title="Remove"
-                        className="btn btn-primary !py-1 text-center"
+                        title='Remove'
+                        className='btn btn-primary !py-1 text-center'
                         onClick={() => removeWishlistHandler(list.id)}
                       >
                         Remove

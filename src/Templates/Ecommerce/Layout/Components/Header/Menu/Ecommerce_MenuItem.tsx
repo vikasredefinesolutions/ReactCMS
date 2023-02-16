@@ -2,14 +2,14 @@ import { paths } from '@constants/paths.constant';
 import {
   _t_Brands,
   _t_MenuCategory,
-  _t_MenuTopic,
+  _t_MenuTopic
 } from '@type/APIs/header.res';
+import Link from 'next/link';
 import React from 'react';
 import Brand from './Ecommerce_BrandItem';
 import Category from './Ecommerce_CategoryItem';
 import Custom from './Ecommerce_CustomItem';
 import Topic from './Ecommerce_TopicItem';
-import Link from 'next/link';
 
 // -----------
 interface _props {

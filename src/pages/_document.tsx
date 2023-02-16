@@ -36,7 +36,10 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang='en'>
-        <link rel='shortcut icon' href={config.mediaBaseUrl + faviconURL} />
+        <link
+          rel='shortcut icon'
+          href={`${config.mediaBaseUrl}${faviconURL}`}
+        />
         <Head>
           {storeId == 4 && (
             <link

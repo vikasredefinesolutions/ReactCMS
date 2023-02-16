@@ -1,8 +1,6 @@
 import { useActions, useTypedSelector } from 'hooks';
-import { _Store, __MockMenuItem, __domain } from 'page.config';
+import { _Store, __domain } from 'page.config';
 import React from 'react';
-import DomainDropDown from './DomainDropDown';
-import LayoutDropDown from './LayoutDropDown';
 
 const Ecommerce_NotificationBar: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
@@ -27,30 +25,6 @@ const Ecommerce_NotificationBar: React.FC = () => {
                 Free Logo & Proof on All Orders + Free Shipping on Orders Over
                 $4K
               </span>
-            </div>
-            <div className='flex items-center gap-3'>
-              {employeeDetails.empId ? (
-                <>
-                  <span className='text-center text-capitalize cursor-pointer'>
-                    Employee logged in
-                    <a
-                      className='ml-1'
-                      href='http://localhost:3000'
-                      style={{ color: '#7BC24E' }}
-                      onClick={() => employeeClear()}
-                    >
-                      (LogOut)
-                    </a>
-                  </span>
-                  <span className='p-l-5 p-r-5'>|</span>
-                </>
-              ) : (
-                ''
-              )}
-
-              {/* <!-- <span className="material-icons top-header-phone-icon text-2xl mr-1">phone</span> <span className="">888-293-5648</span> --> */}
-              <LayoutDropDown content={__MockMenuItem.content.layouts} />
-              <DomainDropDown content={__MockMenuItem.content.layouts} />
             </div>
           </div>
         </div>
@@ -118,6 +92,26 @@ const Ecommerce_NotificationBar: React.FC = () => {
                 Free Logo & Proof on All Orders + Free Shipping on Orders Over
                 $4K
               </span>
+            </div>
+            <div className='flex items-center gap-3'>
+              {employeeDetails.empId ? (
+                <>
+                  <span className='text-center text-capitalize cursor-pointer'>
+                    Employee logged in
+                    <a
+                      className='ml-1'
+                      href='http://localhost:3000'
+                      style={{ color: '#7BC24E' }}
+                      onClick={() => employeeClear()}
+                    >
+                      (LogOut)
+                    </a>
+                  </span>
+                  <span className='p-l-5 p-r-5'>|</span>
+                </>
+              ) : (
+                ''
+              )}
             </div>
             <div className='flex items-center'>
               <span className='material-icons top-header-phone-icon text-2xl mr-1'>

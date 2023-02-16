@@ -15,7 +15,7 @@ interface _props {
 
 const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
-  const storeName = useTypedSelector((state) => state.store.storeName);
+  const { storeName } = useTypedSelector((state) => state.store);
 
   if (
     storeLayout === _Store.type1 ||
@@ -29,7 +29,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
           style={{ maxWidth: '240px', width: '100%', position: 'relative' }}
         >
           <Link href={paths.HOME}>
-            <a>
+            <a title={storeName || storeLayout}>
               <Image
                 className='h-16 w-auto brand-logo'
                 src={logo?.desktop}

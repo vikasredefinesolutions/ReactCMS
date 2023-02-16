@@ -32,7 +32,8 @@ export const _Store = {
 
 export const _StoreDomains = {
   // domain1: 'corporategear',
-  domain1: 'cg.headlessmart.com',
+  // domain1: 'cg.headlessmart.com',
+  domain1: 'cg',
   domain2: 'gg.headlessmart.com',
   domain3: 'pkhealth.headlessmart.com',
   domain4: 'di.headlessmart.com',
@@ -68,8 +69,8 @@ export const _StoreDomains = {
 //////////////////////////////////////////////////////////////////////
 
 export const __domain = {
-  devMode: true, // for development features.
-  isSiteLive: false,
+  devMode: false, // for development features.
+  isSiteLive: true,
   localDomain: _StoreDomains.domain1,
   layoutToDisplay: _Store.type1,
 };
@@ -254,7 +255,7 @@ export const __constant = {
   _header: {
     mobileBreakPoint: 1024,
     imagesToShowInBrandDropdown: 5,
-    brandImage: [67, 22, 31, 17], //[198, 11, 187, 27], 
+    brandImage: [67, 22, 31, 17], //[198, 11, 187, 27],
   },
   _productAlike: {
     carouselCounter: 5,

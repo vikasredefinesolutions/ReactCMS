@@ -91,128 +91,141 @@ const Home = (props) => {
 
   return (
     <>
-    {(storeId === 22 && (props.props.slug === '/' || props.props.slug === ''))  ? (<>
-      <DIHomePage></DIHomePage>
-    </>) : ( <>
-      <div className=''>
-        {/* {featuredItems?.products && (
+      {storeId === 22 &&
+      (props.props.slug === '/' || props.props.slug === '') ? (
+        <>
+          <DIHomePage></DIHomePage>
+        </>
+      ) : (
+        <>
+          <div className=''>
+            {/* {featuredItems?.products && (
           <FeaturedItems
             brands={__constant._Home.featuredItems.brands}
             products={featuredItems.products}
           />          
         )}*/}
-        <main>
-          {pageData?.components && pageData?.components.length > 0 ? (
-            pageData.components.map((componentValue, index) => {
-              if (typeof componentValue.selectedVal == 'string') {
-                componentValue.selectedVal = JSON.parse(
-                  componentValue.selectedVal,
-                );
-              }
-              const backgroundDefault = loadBackgroundDefault(componentValue);
+            <main>
+              {pageData?.components && pageData?.components.length > 0 ? (
+                pageData.components.map((componentValue, index) => {
+                  if (typeof componentValue.selectedVal == 'string') {
+                    componentValue.selectedVal = JSON.parse(
+                      componentValue.selectedVal,
+                    );
+                  }
+                  const backgroundDefault =
+                    loadBackgroundDefault(componentValue);
 
-              let additionalclass = '';
-              if (
-                componentValue.selectedVal &&
-                Object.keys(componentValue.selectedVal).includes(
-                  'additionalclass',
-                )
-              ) {
-                additionalclass =
-                  componentValue.selectedVal.additionalclass.value;
-              }
-              return (
-                <div
-                  key={index}
-                  className={`commondiv ${additionalclass} ${
-                    componentValue.visibility == 'off' ? 'hidden' : ''
-                  }`}
-                  style={{ background: backgroundDefault }}
-                  id={`div${componentValue.no}`}
-                  // ref={ref => {
-                  //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
-                  // }}
-                >
-                  {Object.keys(componentValue.selectedVal).includes(
-                    'featuredproducts_section_title',
-                  ) ||
-                  Object.keys(componentValue.selectedVal).includes(
-                    'featuredproducts_product_count',
-                  ) ? (
-                    <>
-                      <FeaturedProducts dataArr={componentValue.selectedVal} />
-                    </>
-                  ) : (
-                    <>
+                  let additionalclass = '';
+                  if (
+                    componentValue.selectedVal &&
+                    Object.keys(componentValue.selectedVal).includes(
+                      'additionalclass',
+                    )
+                  ) {
+                    additionalclass =
+                      componentValue.selectedVal.additionalclass.value;
+                  }
+                  return (
+                    <div
+                      key={index}
+                      className={`commondiv ${additionalclass} ${
+                        componentValue.visibility == 'off' ? 'hidden' : ''
+                      }`}
+                      style={{ background: backgroundDefault }}
+                      id={`div${componentValue.no}`}
+                      // ref={ref => {
+                      //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
+                      // }}
+                    >
                       {Object.keys(componentValue.selectedVal).includes(
-                        'carousel',
+                        'featuredproducts_section_title',
+                      ) ||
+                      Object.keys(componentValue.selectedVal).includes(
+                        'featuredproducts_product_count',
                       ) ? (
                         <>
-                          <ElementCarouselDisplay
-                            bannerArr={
-                              componentValue.selectedVal.carousel.value
-                            }
+                          <FeaturedProducts
+                            dataArr={componentValue.selectedVal}
                           />
                         </>
                       ) : (
                         <>
                           {Object.keys(componentValue.selectedVal).includes(
-                            'FullAccordion',
+                            'carousel',
                           ) ? (
                             <>
-                              <section className='mainsection container mx-auto mt-6 white-all overflow-hidden'>
-                                <ul className='mt-4 w-full'>
-                                  <ElementAccordionDisplay
-                                    acValues={
-                                      componentValue.selectedVal.FullAccordion
-                                        .value
-                                    }
-                                    acClass={
-                                      componentValue.selectedVal
-                                        ?.FullAccordion_accordion_class?.value
-                                    }
-                                    acBgColor={
-                                      componentValue.selectedVal
-                                        ?.FullAccordion_ac_background?.value
-                                    }
-                                  />
-                                </ul>
-                              </section>
+                              <ElementCarouselDisplay
+                                bannerArr={
+                                  componentValue.selectedVal.carousel.value
+                                }
+                              />
                             </>
                           ) : (
                             <>
-                              <div
-                                className='commondiv'
-                                dangerouslySetInnerHTML={{
-                                  __html: componentValue.html,
-                                }}
-                              ></div>
+                              {Object.keys(componentValue.selectedVal).includes(
+                                'FullAccordion',
+                              ) ? (
+                                <>
+                                  <section className='mainsection container mx-auto mt-6 white-all overflow-hidden'>
+                                    {componentValue?.selectedVal?.Title && (
+                                      <div class='text-box-h2 mb-4' id='Title'>
+                                        {componentValue.selectedVal.Title.value}
+                                      </div>
+                                    )}
+                                    <ul className='mt-4 w-full'>
+                                      <ElementAccordionDisplay
+                                        acValues={
+                                          componentValue.selectedVal
+                                            .FullAccordion.value
+                                        }
+                                        acClass={
+                                          componentValue.selectedVal
+                                            ?.FullAccordion_accordion_class
+                                            ?.value
+                                        }
+                                        acBgColor={
+                                          componentValue.selectedVal
+                                            ?.FullAccordion_ac_background?.value
+                                        }
+                                      />
+                                    </ul>
+                                  </section>
+                                </>
+                              ) : (
+                                <>
+                                  <div
+                                    className='commondiv'
+                                    dangerouslySetInnerHTML={{
+                                      __html: componentValue.html,
+                                    }}
+                                  ></div>
+                                </>
+                              )}
                             </>
                           )}
                         </>
                       )}
-                    </>
-                  )}
-                </div>
-              );
+                    </div>
+                  );
 
-              // return <div key={index} className="text-center p-5 border my-2" dangerouslySetInnerHTML={{ __html: comphtml }}></div>
-            })
-          ) : (
-            <>
-              <section className='mainsection taillwind_content_block_22'></section>
-            </>
-          )}
-        </main>
-      </div>
-      <div
-        id='wrapperloading'
-        style={{ position: 'fixed', zIndex: '10000000' }}
-      >
-        <div id='loading'></div>
-      </div>
-      </>
-    )}
+                  // return <div key={index} className="text-center p-5 border my-2" dangerouslySetInnerHTML={{ __html: comphtml }}></div>
+                })
+              ) : (
+                <>
+                  <section className='mainsection taillwind_content_block_22'></section>
+                </>
+              )}
+            </main>
+          </div>
+          <div
+            id='wrapperloading'
+            style={{ position: 'fixed', zIndex: '10000000' }}
+          >
+            <div id='loading'></div>
+          </div>
+        </>
+      )}
     </>
   );
 };

@@ -91,7 +91,7 @@ const WishListIcon: React.FC = () => {
     return (
       <div className='flex'>
         <Link href={paths.WISHLIST}>
-          <a className='text-gray-400 hover:text-gray-500 relative'>
+          <a className='relative  hover:text-primary' title='Wishlist'>
             <span className='sr-only'>Wishlist</span>{' '}
             <svg
               className='w-6 h-6 fill-[#003a70] hover:fill-gray-500'

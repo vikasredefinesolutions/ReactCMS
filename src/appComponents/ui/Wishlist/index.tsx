@@ -30,12 +30,14 @@ const Wishlist = ({
       setShowModal('login');
       return;
     }
-    const { data } = await axios.get('https://geolocation-db.com/json/');
+    const { data } = await axios.get(
+      `https://ipgeolocation.abstractapi.com/v1/?api_key=${process.env.NEXT_PUBLIC_GEOLOCATIONAPIKEY}`,
+    );
     const requestObject = {
       storeproductWishListModel: {
         id: 0,
         rowVersion: '',
-        location: `${data?.city}, ${data?.state}, ${data?.country_name}, ${data?.postal}`,
+        location: `${data?.city}, ${data?.region}, ${data?.country}, ${data?.postal_code}`,
         ipAddress: data.IPv4,
         macAddress: '00-00-00-00-00-00',
         customerId: customerId || 0,

@@ -3,7 +3,7 @@ import { paths } from '@constants/paths.constant';
 import { getPageComponents } from '@services/home.service';
 import {
   FetchFiltersJsonByBrand,
-  FetchFiltersJsonByCategory
+  FetchFiltersJsonByCategory,
 } from '@services/product.service';
 import { getPageType } from '@services/slug.service';
 import { _ProductDetailsProps } from '@type/APIs/productDetail.res';
@@ -17,7 +17,7 @@ import {
   _GetPageType,
   _ProductListProps,
   _SlugServerSideProps,
-  _SlugServerSide_WentWrong
+  _SlugServerSide_WentWrong,
 } from '@type/slug.type';
 import { getProductDetailProps } from 'Controllers/ProductController.async';
 
@@ -25,7 +25,7 @@ import { extractSlugName } from 'helpers/common.helper';
 import {
   conditionalLogV2,
   highLightError,
-  __console
+  __console,
 } from 'helpers/global.console';
 import { GetServerSideProps, GetServerSidePropsResult } from 'next';
 import { _globalStore } from 'store.global';
@@ -102,7 +102,6 @@ export const getServerSideProps: GetServerSideProps = async (
   }
 
   // ---------------------------------------------------------------
-  console.log(store.storeId, slug);
   pageMetaData = await getPageType({
     storeId: store.storeId,
     slug,

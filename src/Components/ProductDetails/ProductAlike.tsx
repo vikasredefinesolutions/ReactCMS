@@ -90,7 +90,7 @@ const ProductAlike: React.FC<_props> = ({
                                   key={product.id}
                                   href={`${encodeURIComponent(
                                     product.seName,
-                                  )}.html?v=product-detail&altview=1`}
+                                  )}.html`}
                                   className='relative underline min-h-[48px]'
                                 >
                                   <div>
@@ -108,7 +108,7 @@ const ProductAlike: React.FC<_props> = ({
                                   key={product.id}
                                   href={`${encodeURIComponent(
                                     product.seName,
-                                  )}.html?v=product-detail&altview=1`}
+                                  )}.html`}
                                   className='relative underline min-h-[48px]'
                                 >
                                   <div
@@ -122,7 +122,7 @@ const ProductAlike: React.FC<_props> = ({
                                       className={`${
                                         storeCode === _Store.type2
                                           ? 'text-secondary text-xl font-bold cursor-pointer hover:text-anchor-hover'
-                                          : 'mt-1 text-anchor underline hover:text-anchor-hover whitespace-normal'
+                                          : 'mt-1 text-anchor underline hover:text-anchor-hover whitespace-normal text-base'
                                       }`}
                                     >
                                       {product.name}

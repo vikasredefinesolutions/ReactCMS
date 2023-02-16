@@ -189,7 +189,6 @@ export const fetchStoreDetails = async (
   };
   try {
     const res = await GetStoreID(domain);
-
     if (res) {
       store.storeId = res.id;
       store.layout = res.code;

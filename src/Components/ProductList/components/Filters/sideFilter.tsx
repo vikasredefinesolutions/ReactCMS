@@ -139,18 +139,33 @@ const SideFilter = ({
                                     className='font-semibold flex items-center text-black !no-underline'
                                     href={`${option.sename}.html`}
                                   >
-                                    <a className='font-semibold flex items-center text-black'>
-                                      <span className='material-icons-outlined'>
-                                        test
-                                        {/* { option.subrow ? expand_more} */}
-                                      </span>
-                                      {option.name}({option.productCount})
-                                    </a>
+                                    <span className='material-icons-outlined'>
+                                      {option.subrows
+                                        ? 'chevron_right'
+                                        : 'expand_more'}
+                                    </span>
+                                    {option.name}({option.productCount})
                                   </Link>
-                                  {/* <ul className="ml-3">
-                                    <li className="py-1"> <a href="javascript:void(0);" className="flex items-center text-black"> <span className="material-icons-outlined"> chevron_right</span> Short Sleeve(240)</a></li>
-                                    <li className="py-1"> <a href="javascript:void(0);" className="flex items-center text-black"> <span className="material-icons-outlined"> chevron_right</span> Long Sleeve(14)</a></li>
-                                  </ul> */}
+                                  {option.subrows && (
+                                    <ul className='ml-3'>
+                                      {option.subrows?.map((subrow) => (
+                                        <li key={subrow.id} className='py-1'>
+                                          {' '}
+                                          <Link
+                                            key={subrow.name}
+                                            href={`${subrow.sename}.html`}
+                                          >
+                                            <span className='material-icons-outlined'>
+                                              {' '}
+                                              chevron_right
+                                            </span>
+                                            {subrow.name} ({subrow.productCount}
+                                            )
+                                          </Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
                                 </li>
                               ) : (
                                 <li className='flex items-center' key={ind}>

@@ -34,9 +34,7 @@ export const getServerSideProps = async (context: any) => {
     req.on('data', (chunk: any) => {
       body += chunk;
     });
-    req.on('end', () => {
-      console.log(body);
-    });
+    req.on('end', () => {});
   }
 
   const res = await PunchoutPostApi(serialized);

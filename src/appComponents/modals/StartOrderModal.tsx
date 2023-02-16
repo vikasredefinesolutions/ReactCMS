@@ -24,7 +24,8 @@ interface _props {
 const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
   const { product, modalHandler, editDetails } = props;
-  const { clearToCheckout, setShowLoader, product_storeData } = useActions();
+  const { clearToCheckout, setShowLoader, product_storeData, setColor } =
+    useActions();
 
   // ----------------------------STATES ---------------------------------------
   const [allColors, showAllColors] = useState<boolean>(false);
@@ -47,6 +48,7 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
       const allColorAttributes = colors?.map(
         (color) => color.attributeOptionId,
       );
+
       FetchInventoryById({
         productId: selectedProduct.productId,
         attributeOptionId: allColorAttributes,
@@ -62,7 +64,31 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
       clearToCheckout();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectedProduct.productId]);
+
+  useEffect(() => {
+    if (editDetails && colors) {
+      const selectedColor = editDetails
+        ? colors.find(
+            (color) => color.name === editDetails?.attributeOptionValue,
+          )
+        : null;
+      if (selectedColor) {
+        setColor(selectedColor);
+      }
+    }
+  }, [editDetails]);
+
+  const getEditDetails = () => {
+    if (editDetails) {
+      return editDetails.shoppingCartItemDetailsViewModels.map((res) => ({
+        qty: res.qty,
+        price: res.price,
+        optionValue: res.attributeOptionValue,
+      }));
+    }
+    return [];
+  };
 
   return (
     <div
@@ -147,7 +173,7 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
                 </div>
 
                 {/* -------------------------------------------INVENTORY TABLE ------------------------------------------ */}
-                <SizePriceQtyTable />
+                <SizePriceQtyTable editDetails={getEditDetails()} />
                 {customizationEnable && <SOM_CustomizeLogoOptions />}
                 <CalculativeFigure />
 

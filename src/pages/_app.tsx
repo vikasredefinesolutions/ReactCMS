@@ -6,20 +6,21 @@ import Spinner from 'appComponents/ui/spinner';
 import Redefine_Screen from 'Templates/Redefine_Screen';
 
 import { Footer } from '@services/footer.service';
+import { TrackFile } from '@services/tracking.service';
 import { _Footer } from '@type/APIs/footer.res';
-import * as _AppController from 'Controllers/_AppController.async';
 import EmployeeController from 'Controllers/EmployeeController';
+import * as _AppController from 'Controllers/_AppController.async';
 import { _TransformedHeaderConfig } from 'definations/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
 import AuthGuard from 'Guard/AuthGuard';
 import {
-  _Logout,
   domainToShow,
   extractCookies,
   nextJsSetCookie,
   setCookie,
+  _Logout,
 } from 'helpers/common.helper';
-import { __console, conditionalLogV2 } from 'helpers/global.console';
+import { conditionalLogV2, __console } from 'helpers/global.console';
 import { useActions } from 'hooks';
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
 import { useRouter } from 'next/router';
@@ -28,8 +29,7 @@ import { useEffect } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
 import { _Expected_AppProps, _MenuItems } from 'show.type';
 import { _globalStore } from 'store.global';
-//import '../../styles/output.css';
-import { TrackFile } from '@services/tracking.service';
+// import '../../styles/output.css';
 
 import '../app.css';
 
@@ -233,7 +233,6 @@ RedefineCustomApp.getInitialProps = async (
         domain,
         pathName,
       );
-
       if (expectedProps.store?.storeId) {
         expectedProps.configs.footer = await Footer({
           storeId: expectedProps.store?.storeId,

@@ -7,11 +7,8 @@ export const updateSetProperties = (element) => {
   let x = document.getElementById('div' + element.no);
   if (element.selectedVal != undefined && element.selectedVal != '') {
     //      let elProperties;
-    console.log(element.selectedVal);
     Object.entries(element.selectedVal).map(([key, value]) => {
-        
-      if(typeof(element.properties) === 'string')
-      {
+      if (typeof element.properties === 'string') {
         element.properties = JSON.parse(element.properties);
       }
 
@@ -270,7 +267,7 @@ export const updateSetProperties = (element) => {
       if (value.type == 'dynamic') {
         if (element.properties[value.type] !== undefined) {
           let functionName = element.properties[value.type].html;
-          
+
           let strHTML = dynamicFunctions[functionName](value.value, element);
           x.querySelectorAll(
             '#' + element.properties[value.type].html,

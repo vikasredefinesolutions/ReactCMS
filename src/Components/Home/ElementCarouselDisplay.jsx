@@ -170,8 +170,8 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                         ) : (
                           <iframe
                             className='p-0 w-full aspect-[7/3]'
-                            src={`https://player.vimeo.com/video/${image.video_url}?autoplay=1&amp;loop=1&amp;background=1&amp;muted=1`}
-                            allow='autoplay; encrypted-media'
+                            src={`https://player.vimeo.com/video/${image.video_url}?autoplay=1&loop=1&background=1&muted=1`}
+                            allow='autoplay'
                             frameBorder='0'
                           ></iframe>
                         )}
@@ -194,11 +194,15 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                           padding: '20px',
                         }}
                       >
-                        <div className=''>{image.headline}</div>
-                        <div className=''>{image.headline1}</div>
+                        <div className='w-full text-2xl md:text-3xl lg:text-title font-title  mb-1 text-white'>
+                          {image.headline}
+                        </div>
+                        <div className='w-full text-xl md:text-2xl  font-sub-title  mb-2 lg:text-sub-title text-white'>
+                          {image.headline1}
+                        </div>
                         {image.button_display == 'Yes' && (
                           <>
-                            <div className='pt-5'>
+                            <div className='pt-5' title={image.button_text}>
                               <a
                                 href={image.button_link}
                                 target={

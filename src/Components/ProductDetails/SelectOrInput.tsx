@@ -88,6 +88,17 @@ const SelectOrInput: React.FC<_props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (qty > 0) {
+      updateQuantities({
+        attributeOptionId: sizeAttributeOptionId,
+        size: size,
+        qty: +qty || 0,
+        price: price.msrp,
+      });
+    }
+  }, [qty]);
+
   // if (qty <= 0) {
   //   return (
   //     <>

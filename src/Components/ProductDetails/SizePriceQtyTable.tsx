@@ -1,9 +1,17 @@
 import Price from 'appComponents/reUsable/Price';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
+import { _Product_SizeQtys } from 'redux/slices/product.slice.types';
 import SelectOrInput from './SelectOrInput';
 
-const SizePriceQtyTable: React.FC = () => {
+type Props = {
+  editDetails: {
+    price: number;
+    qty: number;
+    optionValue: string;
+  }[];
+};
+const SizePriceQtyTable: React.FC<Props> = ({ editDetails }) => {
   const { price, inventory } = useTypedSelector(
     (state) => state.product.product,
   );
@@ -80,11 +88,18 @@ const SizePriceQtyTable: React.FC = () => {
               if (
                 inventory.colorAttributeOptionId === color.attributeOptionId
               ) {
-                const qty = sizeQtys?.find(
+                let qty = sizeQtys?.find(
                   (item) =>
                     item.size === inventory.name &&
                     (item?.color ? item.color === color.name : false),
                 );
+                const qtyObj = editDetails.find(
+                  (option) => option.optionValue === inventory.name,
+                );
+                if (qtyObj) {
+                  qty = { qty: qtyObj.qty } as _Product_SizeQtys;
+                }
+
                 return (
                   <tr className='' key={inventory.name}>
                     <td className='px-2 py-4'>

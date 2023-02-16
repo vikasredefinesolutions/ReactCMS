@@ -13,7 +13,7 @@ export interface _location {
 
 export default async function getLocation() {
   const { data: location } = await axios.get(
-    'https://geolocation-db.com/json/',
+    `https://ipgeolocation.abstractapi.com/v1/?api_key=${process.env.NEXT_PUBLIC_GEOLOCATIONAPIKEY}`,
   );
 
   return location as _location;

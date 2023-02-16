@@ -20,6 +20,7 @@ export interface _Signup_Payload {
   customerType: 'corporate';
   storeId: number;
   isTaxableuser: boolean;
+  jobTitle: string | number;
   storeCustomerAddress: [
     {
       id: number;
@@ -58,7 +59,6 @@ export interface _Signup_Payload {
     teamgender: string | number;
     purchaseTime: string | number;
     organizationEmail: string | number;
-    jobPosition: string | number;
     organizationType: string | number;
     organizationName: string | number;
     primarycolor: string;
@@ -87,6 +87,7 @@ export const signup_payload: _Signup_Payload = {
   customerType: 'corporate',
   storeId: 0,
   isTaxableuser: false,
+  jobTitle: '',
   storeCustomerAddress: [
     {
       id: 0,
@@ -121,7 +122,6 @@ export const signup_payload: _Signup_Payload = {
     minTeamMember: '',
     organizationName: '',
     organizationType: '',
-    jobPosition: '',
     organizationEmail: '',
     purchaseTime: '',
     teamgender: '',

@@ -68,7 +68,6 @@ const ProductListing: NextPage<
 
   if ('brand,category'.includes(pageMetaData?.type)) {
     const listing = page.productListing;
-    console.log('pagetype new val', pageMetaData?.type);
 
     return (
       <>

@@ -109,8 +109,9 @@ const LoginIcon: React.FC = () => {
     return (
       <div className='flex'>
         <button
-          className='text-primary hover:text-gray-500 flex items-center gap-1'
+          className='text-primary flex items-center gap-1'
           onClick={toggleLoginModal}
+          title='Login'
         >
           <span className='hidden lg:inline-block'>login</span>
           <svg

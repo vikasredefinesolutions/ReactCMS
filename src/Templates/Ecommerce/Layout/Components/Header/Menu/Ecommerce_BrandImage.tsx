@@ -23,12 +23,8 @@ const BrandImage: React.FC<_props> = ({ url, src, alt }) => {
       return (
         <div className='flex flex-wrap py-3  w-1/2 relative max-w-[140px]'>
           <div className='w-1/2 lg:w-1/4 text-center'>
-            <Link
-              href={`/${url}`}
-              className='block p-2 bg-secondary m-2'
-              title={alt}
-            >
-              <a>
+            <Link href={`/${url}`} className='block p-2 bg-secondary m-2'>
+              <a title={alt}>
                 <Image className='h-14 w-auto brand-logo' src={src} alt={alt} />
               </a>
             </Link>
@@ -43,9 +39,8 @@ const BrandImage: React.FC<_props> = ({ url, src, alt }) => {
           <Link
             href={`/${url}`}
             className='text-anchor hover:text-anchor-hover'
-            title={alt}
           >
-            <a>
+            <a title={alt}>
               <Image className='h-14 w-auto brand-logo' src={src} alt={alt} />
             </a>
           </Link>

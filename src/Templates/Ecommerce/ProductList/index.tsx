@@ -69,7 +69,6 @@ interface _props {
 const Ecommerce_ProductList = (props: _props) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const { productListing: pageData, slug, seType } = props;
-
   if (pageData === null) {
     return <>No Product Found</>;
   }

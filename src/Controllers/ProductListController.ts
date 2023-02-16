@@ -1,6 +1,7 @@
 import { FilterType, ProductList } from '@type/productList.type';
 import { useEffect, useState } from 'react';
 
+import { perPageCount } from '@constants/product.constant';
 import { AddRemoveToCompare, getSkuList } from 'helpers/compare.helper';
 import { useActions } from 'hooks';
 import { useRouter } from 'next/router';
@@ -17,7 +18,7 @@ const ProductListController = (
   // const location = useLocation();
   const Router = useRouter();
   const [allProduct, setAllProduct] = useState(data.product);
-  const perPageCount = 16;
+
   const [currentCount, setCurrentCount] = useState(perPageCount);
   const [filterOption, setFilterOption] = useState<
     Array<{
@@ -49,7 +50,9 @@ const ProductListController = (
     if (!allProduct) {
       setShowLoader(true);
     } else {
-      setShowLoader(false);
+      setTimeout(() => {
+        setShowLoader(false);
+      }, 2000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProduct]);
@@ -154,10 +157,14 @@ const ProductListController = (
   };
 
   const loadMore = () => {
+    setShowLoader(true);
     const count = currentCount + perPageCount;
     const products = allProduct.slice(currentCount, count);
     setCurrentCount(count);
     setProduct((prev) => [...prev, ...products]);
+    setTimeout(() => {
+      setShowLoader(false);
+    }, 2000);
   };
 
   const clearFilters = () => {
@@ -166,7 +173,8 @@ const ProductListController = (
   };
 
   const sortProductJson = (type: number) => {
-    // setProduct([]);
+    setShowLoader(true);
+
     setCurrentCount(perPageCount);
     let newList = [...allProduct];
     if (type === 1) {
