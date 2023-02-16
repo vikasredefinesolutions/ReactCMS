@@ -254,7 +254,7 @@ export const __constant = {
   _header: {
     mobileBreakPoint: 1024,
     imagesToShowInBrandDropdown: 5,
-    brandImage: [198, 11, 187, 27],
+    brandImage: [67, 22, 31, 17], //[198, 11, 187, 27], 
   },
   _productAlike: {
     carouselCounter: 5,

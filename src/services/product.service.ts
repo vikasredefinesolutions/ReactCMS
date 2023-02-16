@@ -397,7 +397,7 @@ export const FetchAllCategoires = async (): Promise<
   _t_CategoryItem[] | null
 > => {
   const url =
-    'https://redefine-admin-beeta.redefinecommerce.io/Category/list.json';
+    'https://redefine-admin-beta.redefinecommerce.io/Category/list.json';
 
   const payload = {
     args: {
