@@ -73,7 +73,7 @@ const UserManagement = () => {
         firstname: values.firstName,
         lastName: values.lastName,
         email: values.email,
-        customerRoleId: 1,
+        customerRoleId: values.role,
         customerId: customer?.id,
         storeId: store,
         recStatus: 'A',

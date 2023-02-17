@@ -144,6 +144,24 @@ class MyDocument extends Document {
             crossOrigin='anonymous'
             referrerPolicy='no-referrer'
           />
+
+           <link
+            rel='stylesheet'
+            href='https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp'
+          />
+           <link
+            rel='stylesheet'
+            href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,1,-50..200'
+          />
+           <link
+            rel='stylesheet'
+            href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0'
+          />
+           <link
+            rel='stylesheet'
+            href='https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap'
+          />
+
           <script
             type='text/javascript'
             dangerouslySetInnerHTML={{

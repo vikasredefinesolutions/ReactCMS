@@ -28,7 +28,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
         sename: slug,
       }).then((res) => setBanner(res));
     }
-  }, [storeId]);
+  }, [storeId, slug]);
 
   if (banner === null || banner.length < 1) {
     return <></>;
