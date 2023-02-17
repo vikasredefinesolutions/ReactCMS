@@ -101,7 +101,7 @@ const Ecommerce_ProductDetails_View: React.FC<
         customerId: customerId || 0,
         pageName: 'descriptionPage',
         pageUrl: `${pageUrl.slug}`,
-        ipAddress: `${location.IPv4}`,
+        ipAddress: `${location.ip_address}`,
         recStatus: 'A',
       },
     };
@@ -111,7 +111,7 @@ const Ecommerce_ProductDetails_View: React.FC<
       let fetchRecentlyViewedPayload = {
         productId: product.SEO?.productId || 0,
         storeId: 4,
-        ipAddress: `${location.IPv4}`,
+        ipAddress: `${location.ip_address}`,
         customerId: customerId || 0,
         maximumItemsForFetch: 10,
       };

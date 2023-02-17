@@ -106,7 +106,7 @@ const Orders: NextPage = () => {
         <meta name='keywords' content={'All Orders'} />
       </Head>
       <MyAccountTabs />
-      <section className='container mx-auto  bg-gray-100  px-6 py-6 mt-5 mb-5'>
+      <section className='container mx-auto mt-5 mb-5'>
         <div className='mx-auto space-y-10 sm:px-4 lg:px-0 pb-2'>
           {orderDetails?.length === 0 && (
             <div className='text-center mt-20'>

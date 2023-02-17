@@ -235,8 +235,8 @@ const CheckoutController = () => {
           password: passwordDetails?.password!,
           confirmPassword: passwordDetails?.passwordConfirmation!,
           companyName: billingAdress?.companyName!,
-          location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
-          ipAddress: location.IPv4,
+          location: `${location.city}, ${location.region}, ${location.country}, ${location.postal_code}`,
+          ipAddress: location.ip_address,
           storeId: storeId!,
           customerType: 'corporate',
           storeCustomerAddress: [

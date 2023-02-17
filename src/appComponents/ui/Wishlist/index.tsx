@@ -13,14 +13,14 @@ const Wishlist = ({
   price,
   color,
   name,
-  wishlistId = 0,
+  wishlistId,
 }: {
   iswishlist: boolean;
   productId: number;
   price: number;
   color: string;
   name: string;
-  wishlistId?: number;
+  wishlistId: number;
 }) => {
   const [showModal, setShowModal] = useState<null | string>(null);
   const [wishlist, setWishlist] = useState(false);

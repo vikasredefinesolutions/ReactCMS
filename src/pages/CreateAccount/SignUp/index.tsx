@@ -153,8 +153,8 @@ const SignUp: NextPage = () => {
     const payload: _SignUpPayload = {
       storeCustomerModel: {
         ...enteredInputs,
-        location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
-        ipAddress: location.IPv4,
+        location: `${location.city}, ${location.region}, ${location.country}, ${location.postal_code}`,
+        ipAddress: location.ip_address,
         storeId: storeId!,
         customerType: 'corporate',
         storeCustomerAddress: [

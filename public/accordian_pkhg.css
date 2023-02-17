@@ -41,7 +41,10 @@
 #gridview [type='checkbox']:focus {
   --tw-ring-inset: #fff;
 }
-
+.btn-secondary-hover {
+  background-color: #f18a00 !important;
+  color: #000000 !important;
+}
 /* featured_items */
 .featured_items .tab-container {
   min-height: 30px;

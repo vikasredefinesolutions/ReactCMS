@@ -49,9 +49,9 @@ const ManageLogo = () => {
   }, [storeId, customerId, currentPage]);
 
   return (
-    <section className='container mx-auto bg-gray-100 px-6 py-6 mt-5 mb-5'>
+    <section className='container mx-auto mt-5 mb-5'>
       <div className='bg-white mt-4 mb-4'>
-        <div className='overflow-auto max-h-screen border-t border-neutral-200'>
+        <div className='overflow-auto max-h-screen border border-neutral-200'>
           <table className='table-auto w-full text-sm text-[#191919] font-semibold'>
             <thead className='text-sm font-bold uppercase text-[#b3b3b3] border-b border-neutral-200'>
               <tr>

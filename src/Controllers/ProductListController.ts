@@ -17,26 +17,27 @@ const ProductListController = (
   const { setShowLoader } = useActions();
   // const location = useLocation();
   const Router = useRouter();
-  const [allProduct, setAllProduct] = useState(data.product);
+  const [allProduct, setAllProduct] = useState<ProductList | []>([]);
 
-  const [currentCount, setCurrentCount] = useState(perPageCount);
+  const [currentCount, setCurrentCount] = useState(0);
   const [filterOption, setFilterOption] = useState<
     Array<{
       name: string;
       value: string;
     }>
-  >(checkedFilters || null);
-  const [filters, setFilters] = useState<FilterType>(data.filters || null);
+  >([]);
+  const [filters, setFilters] = useState<FilterType>([]);
   const [skuList, setSkuList] = useState<string[]>([]);
-  const getListingWithPagination = (data: ProductList) => {
+  const getListingWithPagination = (
+    data: ProductList,
+    pageCount: number = perPageCount,
+  ) => {
     if (data) {
-      return data.slice(0, perPageCount);
+      return data.slice(0, pageCount);
     }
     return [];
   };
-  const [product, setProduct] = useState<ProductList>(
-    getListingWithPagination(data.product) || null,
-  );
+  const [product, setProduct] = useState<ProductList>([]);
 
   const [showSortMenu, setShowSortMenu] = useState(false);
   const [productView, setProductView] = useState('grid');
@@ -45,6 +46,16 @@ const ProductListController = (
   function removeDuplicates(arr: string[]) {
     return arr.filter((item, index) => arr.indexOf(item) === index);
   }
+
+  useEffect(() => {
+    if (data && data.product) {
+      setAllProduct(data.product);
+      setCurrentCount(perPageCount);
+      setProduct(getListingWithPagination(data.product, perPageCount));
+      setFilters(data.filters);
+      setFilterOption(checkedFilters);
+    }
+  }, [data.product, slug]);
 
   useEffect(() => {
     if (!allProduct) {

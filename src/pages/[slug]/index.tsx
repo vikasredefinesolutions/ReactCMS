@@ -26,7 +26,9 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
   const { updatePageType } = useActions();
   const { page, pageMetaData, _store } = props;
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
+
   useEffect(() => {
+    console.log('alert');
     if (!_.isEmpty(pageMetaData)) {
       updatePageType(pageMetaData);
     }

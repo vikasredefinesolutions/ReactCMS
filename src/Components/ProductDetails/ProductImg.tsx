@@ -1,5 +1,8 @@
 import { FetchTagsName } from '@services/product.service';
+import { getWishlist } from '@services/wishlist.service';
+import { WishlistType } from '@type/wishlist.type';
 import Image from 'appComponents/reUsable/Image';
+import Wishlist from 'appComponents/ui/Wishlist';
 import { _OtherImage } from 'definations/APIs/colors.res';
 import {
   _FetchTagsName,
@@ -26,6 +29,8 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
   const router = useRouter();
   const { setImage } = useActions();
   const [TagsDetails, setTagsDetails] = useState<_FetchTagsName[] | null>();
+  const [wishlistPresent, setWishlistPresent] = useState<boolean>(false);
+  const [wishlistId, setWishlistId] = useState<number>(0);
 
   // STATES ----------------------------------------
   const selectedColor = useTypedSelector(
@@ -34,6 +39,8 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
   const selectedImage = useTypedSelector(
     (state) => state.product.selected.image,
   );
+
+  const customerId = useTypedSelector((state) => state.user.id);
   // const show = useTypedSelector((state) => state.store.display.footer);
 
   // FUNCTIONS  ----------------------------------------
@@ -55,6 +62,19 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
       FetchTagsName(product.id).then((res) => setTagsDetails(res));
     }
   }, [product?.id]);
+
+  useEffect(() => {
+    if (customerId) {
+      getWishlist(customerId).then((res: WishlistType) => {
+        res.map((item) => {
+          if (item.productId === product?.id) {
+            setWishlistPresent(true);
+            setWishlistId(item.id);
+          }
+        });
+      });
+    }
+  }, [customerId]);
 
   // JSX  ----------------------------------------
 
@@ -109,7 +129,20 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
               })}
           </div>
           {(storeCode != _Store.type21 || storeCode != _Store.type8) && (
-            <HeartIcon className='absolute right-2 top-4 w-6 h-6' />
+            <div className='absolute top-5 right-5 text-gray-800 p-1 z-25'>
+              <button className=''>
+                <Wishlist
+                  {...{
+                    productId: product.id,
+                    name: product.name,
+                    color: selectedColor.name,
+                    price: product.salePrice,
+                    wishlistId: wishlistId,
+                  }}
+                  iswishlist={wishlistPresent}
+                />
+              </button>
+            </div>
           )}
         </div>
       </div>

@@ -87,9 +87,9 @@ const AccountSetting = () => {
   };
 
   return (
-    <section className='container mx-auto  bg-gray-100 mb-6 '>
+    <section className='container mx-auto mb-6 '>
       <div className='gird grid-cols-1 lg:flex lg:items-center gap-6 lg:py-8 lg:px-12 px-4 py-4 lg:my-5'>
-        <div className='w-full mx-auto max-w-7xl'>
+        <div className='w-full mx-auto max-w-4xl'>
           <Formik
             initialValues={initialValues}
             enableReinitialize
@@ -99,11 +99,11 @@ const AccountSetting = () => {
             {({ values, handleChange, handleBlur }) => (
               <Form>
                 <div className='mb-6'>
-                  <div className='mt-4'>
-                    <label className='block text-base font-medium text-gray-700'>
-                      Full Name
+                  <div className='mt-4 flex flex-wrap items-center gap-2 max-w-3xl'>
+                    <label className='text-base font-medium text-gray-700 w-full md:w-1/3 md:text-right'>
+                      First Name <span className='text-red-600'>*</span>
                     </label>
-                    <div className='mt-2'>
+                    <div className='grow'>
                       <input
                         type='text'
                         id='Full Name'
@@ -117,11 +117,11 @@ const AccountSetting = () => {
                       />
                     </div>
                   </div>
-                  <div className='mt-4'>
-                    <label className='block text-base font-medium text-gray-700'>
-                      Last Name
+                  <div className='mt-4 flex flex-wrap items-center gap-2 max-w-3xl'>
+                    <label className='text-base font-medium text-gray-700 w-full md:w-1/3 md:text-right'>
+                      Last Name <span className='text-red-600'>*</span>
                     </label>
-                    <div className='mt-2'>
+                    <div className='grow'>
                       <input
                         type='text'
                         id='Last Name'
@@ -135,27 +135,29 @@ const AccountSetting = () => {
                       />
                     </div>
                   </div>
-                  <div className='mt-4'>
-                    <label className='block text-base font-medium text-gray-700'>
-                      Email Address
+                  <hr className='mt-4'></hr>
+                  <div className='mt-4 flex flex-wrap items-center gap-2 max-w-3xl'>
+                    <label className='text-base font-medium text-gray-700 w-full md:w-1/3 md:text-right'>
+                      Email Address <span className='text-red-600'>*</span>
                     </label>
-                    <div className='mt-2'>
+                    <div className='grow'>
                       <input
                         type='email'
                         id='email-address'
                         name='email-address'
                         placeholder='Enter Email Address'
                         value={customer?.email}
-                        className='form-input'
+                        className='form-input bg-slate-400'
                         disabled
                       />
                     </div>
                   </div>
-                  <div className='mt-4'>
-                    <label className='block text-base font-medium text-gray-700'>
-                      Company Name
+                  <hr className='mt-4'></hr>
+                  <div className='mt-4 flex flex-wrap items-center gap-2 max-w-3xl'>
+                    <label className='text-base font-medium text-gray-700 w-full md:w-1/3 md:text-right'>
+                      Company Name <span className='text-red-600'>*</span>
                     </label>
-                    <div className='mt-2'>
+                    <div className='grow'>
                       <input
                         type='text'
                         id='companyu-name'
@@ -170,16 +172,13 @@ const AccountSetting = () => {
                       />
                     </div>
                   </div>
-                  <div className='mt-4 grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-6'>
-                    <div
-                      className={`mt-4 ${
-                        showPasswordUpdate ? 'sm:col-span-5' : 'sm:col-span-6'
-                      }`}
-                    >
-                      <label className='block text-base font-medium text-gray-700'>
-                        Current Password
+                  <hr className='mt-4'></hr>
+                  <div className=''>
+                    <div className='mt-4 flex flex-wrap items-center gap-2 max-w-3xl'>
+                      <label className='block text-base font-medium text-gray-700 w-full md:w-1/3 md:text-right'>
+                        Current Password <span className='text-red-600'>*</span>
                       </label>
-                      <div className='relative mb-2 '>
+                      <div className='relative grow'>
                         <input
                           id='password'
                           className='form-input'
@@ -249,32 +248,38 @@ const AccountSetting = () => {
                       </div>
                     )}
                   </div>
-                  <div className='mt-8'>
-                    {!activeEditBox ? (
-                      <button
-                        type='button'
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setActiveEditBox(true);
-                        }}
-                        className='btn btn-primary'
-                      >
-                        Edit Profile
-                      </button>
-                    ) : (
-                      <>
-                        <button type='submit' className='mr-2 btn btn-primary'>
-                          Save
-                        </button>
+                  <div className='mt-8 flex flex-wrap items-center gap-2 max-w-3xl'>
+                    <div className='w-full md:w-1/3 '></div>
+                    <div className='grow'>
+                      {!activeEditBox ? (
                         <button
                           type='button'
-                          onClick={() => setActiveEditBox(false)}
-                          className='ml-2 btn btn-secondary'
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setActiveEditBox(true);
+                          }}
+                          className='btn btn-primary'
                         >
-                          Cancel
+                          Edit Profile
                         </button>
-                      </>
-                    )}
+                      ) : (
+                        <>
+                          <button
+                            type='submit'
+                            className='mr-2 btn btn-primary'
+                          >
+                            Save
+                          </button>
+                          <button
+                            type='button'
+                            onClick={() => setActiveEditBox(false)}
+                            className='ml-2 btn btn-secondary'
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
               </Form>

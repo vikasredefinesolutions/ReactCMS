@@ -7,7 +7,7 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import { _ProductDiscountTable } from 'definations/APIs/discountTable.res';
 import {
   _ProductInventory,
-  _ProductInventoryTransfomed
+  _ProductInventoryTransfomed,
 } from 'definations/APIs/inventory.res';
 import {
   _FetchProductsRecentlyViewedPayload,
@@ -19,17 +19,17 @@ import {
   _ProductSEO,
   _ProductsRecentlyViewed,
   _ProductsRecentlyViewedPayload,
-  _ProductsRecentlyViewedResponse
+  _ProductsRecentlyViewedResponse,
 } from 'definations/APIs/productDetail.res';
 import {
   _SizeChart,
-  _SizeChartTransformed
+  _SizeChartTransformed,
 } from 'definations/APIs/sizeChart.res';
 import { _Reviews } from 'definations/product.type';
 import {
   BrandFilter,
   CategoryFilter,
-  FilterApiRequest
+  FilterApiRequest,
 } from 'definations/productList.type';
 import { CallAPI } from 'helpers/common.helper';
 import { conditionalLogV2, __console } from 'helpers/global.console';

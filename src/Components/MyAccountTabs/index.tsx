@@ -37,7 +37,7 @@ const MyAccountTabs: React.FC = () => {
                   return (
                     <li
                       key={index}
-                      className={`border-b text-base font-semibold px-3 py-3 ${
+                      className={`border-b border-transparent text-base font-semibold px-3 py-3 ${
                         tab.path === currentPath ? 'border-blue-500' : ''
                       }`}
                     >
@@ -55,7 +55,7 @@ const MyAccountTabs: React.FC = () => {
                 return (
                   <li
                     key={index}
-                    className={`border-b text-base font-semibold px-3 py-3 ${
+                    className={`border-t text-base font-semibold px-3 py-3 ${
                       activeDir ? 'border-blue-500' : ''
                     }`}
                   >

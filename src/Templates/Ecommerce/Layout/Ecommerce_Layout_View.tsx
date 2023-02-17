@@ -1,4 +1,7 @@
 import { _Footer } from '@type/APIs/footer.res';
+import * as _AppController from 'Controllers/_AppController.async';
+import { cLog } from 'helpers/global.console';
+import { useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { _MenuItems } from 'show.type';
@@ -26,16 +29,27 @@ const Ecommerce_Layout: React.FC<_props> = ({
     logoUrl: string;
     menuItems: _MenuItems | null;
   }>({ storeCode: storeCode, logoUrl: logoUrl, menuItems: menuItems });
+  const storeId = useTypedSelector((state) => state.store.id);
 
   const router = useRouter();
 
   useEffect(() => {
+    if (!header.menuItems && storeId) {
+      _AppController.fetchMenuItems(storeId).then((res) => {
+        cLog('mccs', '');
+        setHeader((last) => ({
+          ...last,
+          menuItems: res,
+        }));
+      });
+    }
+
     setHeader((last) => ({
       ...last,
       storeCode: storeCode || last.storeCode,
       logoUrl: logoUrl || last.logoUrl,
     }));
-  }, [storeCode, logoUrl]);
+  }, [storeCode, logoUrl, storeId]);
 
   return (
     <>

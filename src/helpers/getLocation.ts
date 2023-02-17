@@ -2,13 +2,13 @@ import axios from 'axios';
 
 export interface _location {
   country_code: string;
-  country_name: string;
+  country: string;
   city: string;
-  postal: string;
+  postal_code: string;
   latitude: number;
   longitude: number;
-  IPv4: string;
-  state: string;
+  ip_address: string;
+  region: string;
 }
 
 export default async function getLocation() {

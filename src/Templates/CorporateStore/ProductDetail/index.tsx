@@ -380,7 +380,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
         customerId: customerId || 0,
         pageName: 'descriptionPage',
         pageUrl: `${pageUrl.slug}`,
-        ipAddress: `${location.IPv4}`,
+        ipAddress: `${location.ip_address}`,
         recStatus: 'A',
       },
     };
@@ -390,7 +390,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
       let fetchRecentlyViewedPayload = {
         productId: product.SEO?.productId || 0,
         storeId: storeId,
-        ipAddress: `${location.IPv4}`,
+        ipAddress: `${location.ip_address}`,
         customerId: customerId || 0,
         maximumItemsForFetch: 10,
       };

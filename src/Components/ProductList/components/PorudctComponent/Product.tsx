@@ -93,7 +93,7 @@ const ProductComponent = ({
                           ? currentProduct?.colorName
                           : '',
                         price: product.salePrice,
-                        wishlistId: product.wishListId,
+                        wishlistId: product.wishListId ? product.wishListId : 0,
                       }}
                       iswishlist={
                         product && product?.iswishlist

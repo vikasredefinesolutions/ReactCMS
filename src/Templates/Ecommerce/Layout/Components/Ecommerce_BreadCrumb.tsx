@@ -52,11 +52,10 @@ const BreadCrumb: React.FC = () => {
     }
     return [];
   };
-
   useEffect(() => {
     getBreadCrubs().then((breadCrumbs) => setBreadCrumbs(breadCrumbs));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storeId, pageType.type]);
+  }, [storeId, pageType.type, pageType.slug, router.asPath]);
 
   const aspath = router.asPath.split('?')[0];
   const pathRoute = aspath.split('/').filter((v) => v.length > 0);

@@ -19,6 +19,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
   );
   const [banner, setBanner] = useState<_BannerRes[] | null>(null);
   const [showModal, setShowModal] = useState<string | null>(null);
+  const userId = useTypedSelector((state) => state.user.id);
   useEffect(() => {
     if (storeId && slug) {
       FetchBannerDetails({
@@ -39,18 +40,20 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
   ) {
     return (
       <>
-        <section className='mainsection container mx-auto'>
-          <div className='bg-green-500 text-gray-900 p-1 text-center'>
-            <a
-              onClick={() => setShowModal('login')}
-              href='javascript:void(0);'
-              className='inline-flex items-center gap-1 tracking-wider text-default-text font-default-text text-color-default-text'
-            >
-              LOGIN OR CREATE AN ACCOUNT TO SEE DISCOUNTED PRICING{' '}
-              <span className='material-icons'>account_circle</span>
-            </a>
-          </div>
-        </section>
+        {Boolean(userId) && (
+          <section className='mainsection container mx-auto'>
+            <div className='bg-green-500 text-gray-900 p-1 text-center'>
+              <a
+                onClick={() => setShowModal('login')}
+                href='javascript:void(0);'
+                className='inline-flex items-center gap-1 tracking-wider text-default-text font-default-text text-color-default-text'
+              >
+                LOGIN OR CREATE AN ACCOUNT TO SEE DISCOUNTED PRICING{' '}
+                <span className='material-icons'>account_circle</span>
+              </a>
+            </div>
+          </section>
+        )}
         <section className='mainsection'>
           <div className='container mx-auto'>
             <div className='items-center p-4 xl:p-16 xl:px-20 bg-gray-100'>

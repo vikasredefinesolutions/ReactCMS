@@ -24,7 +24,7 @@ const RequestInput: React.FC<_props> = ({
   return (
     <>
       {/* <!-- <label htmlFor={name} className="block text-base font-medium text-gray-700">{placeHolder}<span className="text-red-500">{required ? "*" : ""}</span></label> --> */}
-      <div className="">
+      <div className=''>
         <input
           type={type}
           id={name}
@@ -34,7 +34,7 @@ const RequestInput: React.FC<_props> = ({
           onChange={onChange}
           className={className}
         />
-        <ErrorMessage name={name} />
+        <ErrorMessage name={name} className='text-rose-500' component={'p'} />
       </div>
     </>
   );
