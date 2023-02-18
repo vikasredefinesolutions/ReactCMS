@@ -1,3 +1,4 @@
+import { paths, __SpecialBreadCrumbsPaths } from '@constants/paths.constant';
 import {
   fetchCategoryByCategoryId,
   fetchCategoryByproductId,
@@ -53,7 +54,29 @@ const BreadCrumb: React.FC = () => {
     return [];
   };
   useEffect(() => {
-    getBreadCrubs().then((breadCrumbs) => setBreadCrumbs(breadCrumbs));
+    let callBreadCrumbAPI = true;
+
+    __SpecialBreadCrumbsPaths.forEach((item) => {
+      if (item.path.includes(router.asPath)) {
+        callBreadCrumbAPI = false;
+        if (item.name) {
+          setBreadCrumbs([
+            { name: 'Home', url: paths.HOME },
+            { name: item.name, url: item.directTo || '' },
+          ]);
+          return;
+        } else {
+          setBreadCrumbs([]); // to hide the breadCrumbs
+        }
+      }
+    });
+
+    if (callBreadCrumbAPI) {
+      getBreadCrubs().then((breadCrumbs) => {
+        setBreadCrumbs(breadCrumbs);
+      });
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeId, pageType.type, pageType.slug, router.asPath]);
 

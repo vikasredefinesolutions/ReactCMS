@@ -34,7 +34,7 @@ export const paths = {
   thankYou: {
     notAuthorized: defaultRoute,
   },
-  CART: '/cart.html',
+  CART: '/cart/IndexNew?v=cart',
   cart: {
     keepShopping: defaultRoute,
   },
@@ -45,5 +45,35 @@ export const paths = {
   CUSTOMIZE_LOGO: '/customize',
   PRODUCT_COMPARE: '/Itempage/Productcomapre',
   Contact: '/Contact',
-  ThankYou: '/Thankyou'
+  ThankYou: '/Thankyou',
 };
+
+export const __SpecialBreadCrumbsPaths = [
+  {
+    path: [
+      paths.myAccount.account_settings,
+      paths.myAccount.user_management,
+      paths.myAccount.manage_logo,
+      paths.myAccount.order_details,
+      paths.myAccount.orders,
+      paths.myAccount.address,
+    ],
+    directTo: null,
+    name: 'My Account',
+  },
+  {
+    path: [paths.CART],
+    name: null,
+    directTo: null,
+  },
+  {
+    path: [paths.SIGN_UP],
+    name: 'Create New Customer Account',
+    directTo: null,
+  },
+  {
+    path: [paths.WISHLIST],
+    name: 'Wishlist',
+    directTo: null,
+  },
+];

@@ -1,6 +1,11 @@
 module.exports = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
+  experimental: {
+        images: {
+            layoutRaw: true
+        }
+    },
   images: {
     domains: [
       'redefinecommerce.blob.core.windows.net',

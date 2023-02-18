@@ -65,7 +65,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                       storeCode={storeCode}
                       view={view}
                       itemLabel={item.categoryName}
-                      itemUrl={item.seName}
+                      itemUrl={`${item.seName}.html?v=product-list`}
                       type={'CATEGORY'}
                     />
                   ))}
@@ -123,7 +123,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                             storeCode={storeCode}
                             view={view}
                             itemLabel={item.categoryName}
-                            itemUrl={item.seName}
+                            itemUrl={`${item.seName}.html?v=product-list`}
                             type={'CATEGORY'}
                           />
                         ))}
@@ -179,7 +179,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                           view={view}
                           storeCode={storeCode}
                           itemLabel={item.categoryName}
-                          itemUrl={item.seName}
+                          itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -196,7 +196,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                           storeCode={storeCode}
                           view={view}
                           itemLabel={item.categoryName}
-                          itemUrl={item.seName}
+                          itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -281,7 +281,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                                 view={view}
                                 key={index}
                                 itemLabel={item.categoryName}
-                                itemUrl={item.seName}
+                                itemUrl={`${item.seName}.html?v=product-list`}
                                 type={'CATEGORY'}
                               />
                             ))}
@@ -298,7 +298,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                                 storeCode={storeCode}
                                 view={view}
                                 itemLabel={item.categoryName}
-                                itemUrl={item.seName}
+                                itemUrl={`${item.seName}.html?v=product-list`}
                                 type={'CATEGORY'}
                               />
                             ))}
@@ -382,7 +382,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                           storeCode={storeCode}
                           view={view}
                           itemLabel={item.categoryName}
-                          itemUrl={item.seName}
+                          itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -399,7 +399,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                           storeCode={storeCode}
                           view={view}
                           itemLabel={item.categoryName}
-                          itemUrl={item.seName}
+                          itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -473,7 +473,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                             storeCode={storeCode}
                             view={view}
                             itemLabel={item.categoryName}
-                            itemUrl={item.seName}
+                            itemUrl={`${item.seName}.html?v=product-list`}
                             type={'CATEGORY'}
                           />
                         ))}
@@ -528,7 +528,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                       storeCode={storeCode}
                       view={view}
                       itemLabel={item.categoryName}
-                      itemUrl={item.seName}
+                      itemUrl={`${item.seName}.html?v=product-list`}
                       type={'CATEGORY'}
                     />
                   ))}
@@ -584,7 +584,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                             storeCode={storeCode}
                             view={view}
                             itemLabel={item.categoryName}
-                            itemUrl={item.seName}
+                            itemUrl={`${item.seName}.html?v=product-list`}
                             type={'CATEGORY'}
                           />
                         ))}

@@ -2,7 +2,7 @@ import { paths } from '@constants/paths.constant';
 import {
   _t_Brands,
   _t_MenuCategory,
-  _t_MenuTopic
+  _t_MenuTopic,
 } from '@type/APIs/header.res';
 import Link from 'next/link';
 import React from 'react';
@@ -64,15 +64,18 @@ const MenuItem: React.FC<_props> = ({
     return <Topic title={title} url={_titleURL} />;
   }
 
-  return <Link href={`${url}`} className='flex'>
-          <div className=''>
-            <button type='button'
-              className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover border-transparent text-white hover:text-primary-hover`}
-            >
-              <span className='uppercase text-primary'>{title}</span>
-            </button>
-          </div>
-          </Link>;
+  return (
+    <Link href={`${url}`} className='flex'>
+      <div className=''>
+        <button
+          type='button'
+          className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover border-transparent text-white hover:text-primary-hover`}
+        >
+          <span className='uppercase text-primary'>{title}</span>
+        </button>
+      </div>
+    </Link>
+  );
 };
 
 export default MenuItem;
