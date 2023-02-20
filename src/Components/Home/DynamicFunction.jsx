@@ -182,22 +182,22 @@ export const boximage = (dataArr, selectedObj) => {
 };
 
 export const multipleImages = (dataArr, selectedObj) => {
-    let strHTML = "";
+    let strHTML = '';
   if(dataArr.length > 0)
   {
         let cnt = 1;
       dataArr.forEach(function (item) {
-        let textPos  = "";
-        let fontSize = "";
-        let bgOpacity = "";
-        let bgColor = "";
-        let headLine = "";
-        let clName = "";
+        let textPos  = '';
+        let fontSize = '';
+        let bgOpacity = '';
+        let bgColor = '';
+        let headLine = '';
+        let clName = '';
         let aprData = {};
-        let buttonHTML = "";
+        let buttonHTML = '';
 
 
-        if(item.Button_display != undefined && item.Button_display == "Yes" && item.Button_text !== "" && item.Button_text !== null)
+        if(item.Button_display != undefined && item.Button_display == 'Yes' && item.Button_text !== '' && item.Button_text !== null)
         {
           
             buttonHTML = '<div class="mt-5 mb-5">';
@@ -214,7 +214,7 @@ export const multipleImages = (dataArr, selectedObj) => {
                 if(aprData.text_pos != undefined)
                 {
                     textPos  = aprData.text_pos;
-                    fontSize = aprData?.font_size ?? "";
+                    fontSize = aprData?.font_size ?? '';
                     bgOpacity = aprData.bg_opacity;
                     bgColor = aprData.text_bg_color;
                     
@@ -223,12 +223,12 @@ export const multipleImages = (dataArr, selectedObj) => {
             }
             //fontSize = item.Headline_font_size ?? "";
 
-          if(item.Headline != undefined && item.Headline != "" && item.Headline != null)
+          if(item.Headline != undefined && item.Headline != '' && item.Headline != null)
           {
 
-                if(textPos != "top" && textPos != "bottom" && textPos != "")
+                if(textPos != 'top' && textPos != 'bottom' && textPos != '')
                 {
-                    clName = "flex relative w-full text-white";
+                    clName = 'flex relative w-full text-white';
                     headLine += '<div class="flex items-center absolute '+fontSize+' inset-0 p-1 lg:p-4 text-white justify-center">';
                     headLine += '<div class="" style="background: rgba('+bgColor+','+bgOpacity+'); padding: 20px;">';
                     headLine += '<div class="pb-2 text-center">'+item.Headline+'</div>';
@@ -251,7 +251,7 @@ export const multipleImages = (dataArr, selectedObj) => {
           cnt = cnt + 1;
           strHTML += '<div class="border border-gray-50 px-2 py-2">';
 
-          if(textPos === "top")
+          if(textPos === 'top')
           {
             strHTML += headLine;
           }
@@ -264,19 +264,19 @@ export const multipleImages = (dataArr, selectedObj) => {
             strHTML += '<img class="w-full" src="'+item.Image+'"/>';
             strHTML += '</a>';
             strHTML += '</div>';
-            if(textPos === "center")
+            if(textPos === 'center')
             {
                 strHTML += headLine;
             }
             strHTML += '</div>';
           }
 
-          if(textPos === "bottom")
+          if(textPos === 'bottom')
           {
             strHTML += headLine;
           }
 
-          if(textPos === "top" || textPos === "bottom")
+          if(textPos === 'top' || textPos === 'bottom')
           {
             strHTML += buttonHTML;
           }
