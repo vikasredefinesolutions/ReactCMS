@@ -32,6 +32,7 @@ export interface CustomerAddress {
 export interface UserType {
   name: string;
   storeName: string;
+  gender: string;
   createdByName?: any;
   modifiedByName?: any;
   companyName: string;

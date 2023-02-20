@@ -94,7 +94,7 @@ const Home = (props) => {
       {storeId === 22 &&
       (props.props.slug === '/' || props.props.slug === '') ? (
         <>
-          <DIHomePage></DIHomePage>
+          <DIHomePage storeId={storeId}></DIHomePage>
         </>
       ) : (
         <>

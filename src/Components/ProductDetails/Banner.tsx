@@ -101,7 +101,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
 
         <section className='mainsection text-center text-sm leading-none'>
           <div className='container mx-auto'>
-            <div className='px-2 lg:px-40 py-0 md:py-5 mb-6 text-center bg-secondary'>
+            <div className='px-2 lg:px-40 py-0 md:py-5  text-center bg-secondary'>
               <div className='block md:inline-block px-6 md:border-r border-slate-800 border-b border-b-black md:border-b-0 last:border-b-0 py-2.5 md:py-0'>
                 <div className='w-full md:w-auto flex flex-wrap justify-center items-center'>
                   <span className='material-icons text-4xl'>

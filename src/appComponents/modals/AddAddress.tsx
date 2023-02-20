@@ -24,7 +24,7 @@ const AddAddress = ({
           <div className='relative bg-white rounded-lg shadow max-h-screen overflow-y-auto'>
             <div className='flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600'>
               <h3 className='text-xl font-semibold text-gray-900 dark:text-white'>
-                Add New Address
+                {editData ? 'Edit Address' : 'Add New Address'}
               </h3>
               <button
                 type='button'
@@ -50,7 +50,7 @@ const AddAddress = ({
               {...{
                 submitHandler,
                 closePopupHandler,
-                editData: null,
+                editData: editData ? editData : null,
                 addressType: 'B',
                 hideButtons: true,
                 padding: true,

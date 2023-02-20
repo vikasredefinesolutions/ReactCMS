@@ -38,6 +38,23 @@ export interface _ProductBySku {
   brandID: number;
 }
 
+export interface _LogoLocationDetail {
+  logoLocationDetailId: number;
+  name: string;
+  image: string;
+  threeDImage: string;
+  threeDLogoLocationClass: string;
+  price: number;
+  cost: number;
+  brandGuideLines: boolean;
+}
+
+export interface _LogoLocation {
+  isFirstLogoFree: boolean;
+  productId: number;
+  subRow: _LogoLocationDetail[] | [];
+}
+
 export interface _ProductDetails {
   id: number;
   storeId: number;

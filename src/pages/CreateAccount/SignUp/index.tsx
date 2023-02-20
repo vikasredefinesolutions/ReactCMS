@@ -33,6 +33,7 @@ import * as Yup from 'yup';
 const _SignupSchema = Yup.object().shape({
   firstname: Yup.string().required(signupPageMessages.firstname.required),
   lastName: Yup.string().required(signupPageMessages.lastName.required),
+  gender: Yup.string().required(signupPageMessages.Gender.required),
   companyName: Yup.string().required(signupPageMessages.companyName.required),
   companyId: Yup.string().when('showIndustries', {
     is: true,
@@ -160,7 +161,7 @@ const SignUp: NextPage = () => {
         storeCustomerAddress: [
           {
             ...enteredInputs.storeCustomerAddress[0],
-            addressType: 'b',
+            addressType: 'B',
             CompanyName: enteredInputs.companyName,
             firstname: enteredInputs.firstname,
             lastName: enteredInputs.lastName,
@@ -365,6 +366,18 @@ const SignUp: NextPage = () => {
                   value2={values.storeCustomerAddress[0].state}
                   setFieldValue={setFieldValue}
                   values={values}
+                />
+                <RedefineSelect
+                  label={'Gender'}
+                  placeHolder={'Select Gender'}
+                  name={'gender'}
+                  value={values.gender}
+                  options={Gender}
+                  onChange={(event) => {
+                    setFieldValue('gender', event.target.value);
+                    handleChange(event);
+                  }}
+                  required={true}
                 />
 
                 {storeLayout === _Store.type3 && (

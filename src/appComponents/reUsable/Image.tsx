@@ -35,7 +35,7 @@ const Image: React.FC<_props> = ({
 }) => {
   const imageUrl = generateImageUrl(src, isStatic);
 
- 
+  if (useNextImage) {
     return (
       <div style={{ width: '100%' }} className={className}>
         <NextImage
@@ -46,11 +46,16 @@ const Image: React.FC<_props> = ({
           layout={layout}
           loading={'eager'}
           key={cKey || 0}
-           objectFit="contain"
         />
       </div>
     );
- 
+  }
+
+  return (
+    <div className={className}>
+      <img src={imageUrl as string} alt={alt || ''} />
+    </div>
+  );
 };
 
 export default Image;

@@ -33,7 +33,7 @@ export const _Store = {
 export const _StoreDomains = {
   // domain1: 'corporategear',
   // domain1: 'cg.headlessmart.com',
-  domain1: 'cg.headlessmart.com',
+  domain1: 'cg',
   domain2: 'gg.headlessmart.com',
   domain3: 'pkhealth.headlessmart.com',
   domain4: 'di.headlessmart.com',

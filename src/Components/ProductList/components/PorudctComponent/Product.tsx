@@ -139,13 +139,13 @@ const ProductComponent = ({
                 </a>
               </div> */}
               <div
-                className={
+                className={`${
                   storeLayout === _Store.type27
                     ? 'mt-1 h-10 overflow-hidden text-sm text-anchor tracking-wider hover:text-primary-hover'
                     : storeLayout === _Store.type21
                     ? 'mt-1 text-anchor hover:text-anchor-hover underline'
                     : 'relative mt-1 text-anchor hover:text-anchor-hover text-ellipsis overflow-hidden line-clamp-2'
-                }
+                } text-[13px] tracking-[1.4px]`}
               >
                 <Link key={product.id} href={`/${product.sename}.html`}>
                   <a className='relative underline min-h-[48px]'>

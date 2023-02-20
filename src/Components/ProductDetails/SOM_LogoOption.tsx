@@ -66,24 +66,27 @@ const SOM_LogoOption: React.FC<_props> = ({
     return {
       image: {
         url: item.image.url,
-        alt: item.image.alt,
+        alt: item.image.url,
       },
       value: item.value,
       label: (
         <div className='flex items-center'>
           <img
             alt={item.image.alt}
-            src={item.image.url}
+            src={
+              item.image.url.startsWith('images')
+                ? item.image.url
+                : `${config.mediaBaseUrl}${item.image.url}`
+            }
             height='60px'
             width='60px'
             className='mr-2'
           />
-          {item.label}
+          {item.value}
         </div>
       ),
     };
   });
-  const options = availableOptions;
 
   const fileReader = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget?.files === null) return;

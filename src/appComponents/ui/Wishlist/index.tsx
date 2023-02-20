@@ -38,7 +38,7 @@ const Wishlist = ({
         id: 0,
         rowVersion: '',
         location: `${data?.city}, ${data?.region}, ${data?.country}, ${data?.postal_code}`,
-        ipAddress: data.IPv4,
+        ipAddress: data.ip_address,
         macAddress: '00-00-00-00-00-00',
         customerId: customerId || 0,
         productId: productId,

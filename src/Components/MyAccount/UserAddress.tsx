@@ -75,7 +75,7 @@ const UserAddress = () => {
       },
     };
     if (editData) {
-      await UpdateUserAddress(obj);
+      await UpdateUserAddress(obj).then(() => setEditData(null));
     } else {
       await CreateUserAddress(obj);
     }
@@ -86,7 +86,6 @@ const UserAddress = () => {
   const deleteAddress = async (id: number, rowVersion: string) => {
     const isConfirm = await confirm('Are you sure? You want to delete this.');
     const location = await getLocation();
-
     if (isConfirm) {
       const obj = {
         args: {
@@ -98,7 +97,7 @@ const UserAddress = () => {
           macAddress: '00-00-00-00-00-00',
         },
       };
-      deleteCustomerAddress(obj);
+      await deleteCustomerAddress(obj);
       await getStoreCustomer(customerId || 0);
     }
   };
@@ -191,7 +190,7 @@ const UserAddress = () => {
                           <div className='w-2/5'>Action:</div>
                           <div className='flex flex-wrap gap-x-4'>
                             <EditIcon
-                              className='text-primary'
+                              className='text-primary cursor-pointer'
                               onClick={() => {
                                 setShowAddresss(showTab);
                                 setEditData(address_obj);
@@ -204,7 +203,7 @@ const UserAddress = () => {
                                   address_obj.rowVersion,
                                 )
                               }
-                              className='text-red-500'
+                              className='text-red-500 cursor-pointer'
                             />
                           </div>
                         </div>

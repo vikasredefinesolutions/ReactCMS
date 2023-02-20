@@ -115,27 +115,6 @@ class MyDocument extends Document {
           }
 
           <link
-            rel='stylesheet'
-            type='text/css'
-            href={`https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp`}
-          />
-          <link
-            rel='stylesheet'
-            type='text/css'
-            href={`https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,1,-50..200`}
-          />
-          <link
-            rel='stylesheet'
-            type='text/css'
-            href={`https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0`}
-          />
-          <link
-            rel='stylesheet'
-            type='text/css'
-            href={`https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap`}
-          />
-
-          <link
             href='https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone'
             rel='stylesheet'
           />

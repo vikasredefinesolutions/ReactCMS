@@ -54,7 +54,12 @@ const SubMenuItem: React.FC<_props> = ({
               href={`/${itemUrl}`}
               className='text-anchor hover:text-anchor-hover'
             >
-              <a title={itemLabel}>{itemLabel}</a>
+              <a
+                className='inline-block text-primary hover:text-anchor-hover font-semibold'
+                title={itemLabel}
+              >
+                {itemLabel}
+              </a>
             </Link>
           </li>
         );
@@ -91,7 +96,12 @@ const SubMenuItem: React.FC<_props> = ({
               href={`/${itemUrl}`}
               className='text-anchor hover:text-anchor-hover'
             >
-              <a title={itemLabel}>{itemLabel}</a>
+              <a
+                className='inline-block text-primary hover:text-anchor-hover font-semibold'
+                title={itemLabel}
+              >
+                {itemLabel}
+              </a>
             </Link>
           </li>
         );

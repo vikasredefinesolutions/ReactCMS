@@ -78,6 +78,7 @@ export const checkoutNewAccountPasswordMessages = {
 export const signupPageMessages = {
   firstname: { required: 'Enter your first name.' },
   lastName: { required: 'Enter your last name.' },
+  Gender: { required: 'Select gender' },
   companyName: { required: 'Company name is requried' },
   companyId: { required: 'Select an Industry' },
   email: { required: 'Enter your email.' },

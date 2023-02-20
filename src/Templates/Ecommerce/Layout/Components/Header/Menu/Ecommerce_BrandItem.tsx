@@ -197,8 +197,9 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                   key={brand.id}
                                   itemLabel={brand.brandName}
                                   itemUrl={
-                                    `${brand.brandCollectionUrl}.html` ||
-                                    `${brand.seName}.html?v=product-list`
+                                    brand.brandCollectionUrl
+                                      ? `${brand.brandCollectionUrl}.html`
+                                      : `${brand.seName}.html?v=product-list`
                                   }
                                   type={'BRAND'}
                                 />
@@ -215,8 +216,9 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                   key={brand.id}
                                   itemLabel={brand.brandName}
                                   itemUrl={
-                                    `${brand.brandCollectionUrl}.html` ||
-                                    `${brand.seName}.html?v=product-list`
+                                    brand.brandCollectionUrl
+                                      ? `${brand.brandCollectionUrl}.html`
+                                      : `${brand.seName}.html?v=product-list`
                                   }
                                   type={'BRAND'}
                                 />

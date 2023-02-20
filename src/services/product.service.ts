@@ -12,6 +12,7 @@ import {
 import {
   _FetchProductsRecentlyViewedPayload,
   _FetchTagsName,
+  _LogoLocation,
   _ProductBySku,
   _ProductDetails,
   _ProductDoNotExist,
@@ -46,7 +47,8 @@ export type _ProducDetailAPIs =
   | 'FetchProductById'
   | 'FetchInventoryById'
   | 'FetchBrandProductList'
-  | 'FetchProductsTagsName';
+  | 'FetchProductsTagsName'
+  | 'FetchLogoLocationByProductId';
 
 export type _ProductDetailService = {
   service: 'productDetails';
@@ -71,6 +73,24 @@ export const FetchProductsBySKUs = async (payload: {
     },
   });
 
+  return response;
+};
+
+export const FetchLogoLocationByProductId = async (payload: {
+  productId: number;
+}): Promise<_LogoLocation | null> => {
+  const url = `StoreProduct/getproductlogolocationdetails/${payload.productId}.json`;
+
+  const response = await CallAPI<_LogoLocation>({
+    name: {
+      service: 'productDetails',
+      api: 'FetchLogoLocationByProductId',
+    },
+    request: {
+      url: url,
+      method: 'GET',
+    },
+  });
   return response;
 };
 

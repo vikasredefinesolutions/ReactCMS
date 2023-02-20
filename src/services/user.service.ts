@@ -377,7 +377,9 @@ export const updateUserData = async (payload: {
   customerId: number;
   firstName: string;
   lastName: string;
+  gender: string;
   companyName: string;
+  password: string;
 }): Promise<any | null> => {
   try {
     const url = '/StoreCustomer/updateaccountsettingsinfo.json';

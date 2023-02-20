@@ -42,6 +42,7 @@ const AccountSetting = () => {
           message: 'Password Updated Successfully',
           title: 'Updated',
         });
+        setActiveEditBox(false);
       } else {
         showModal({
           message: 'Password Update Failed, Try Again!',
@@ -73,13 +74,16 @@ const AccountSetting = () => {
     try {
       const res = await updateUserData({
         ...value,
+        password: newPassword,
         customerId: customer?.id || 0,
+        gender: customer?.gender || 'Male',
       });
       if (res) {
         showModal({
-          message: 'Password Updated Successfully',
+          message: 'Updated User Details Successfully',
           title: 'Updated',
         });
+        setActiveEditBox(false);
       }
     } catch (error) {
       showModal({ message: 'Password Update Failed', title: 'Failed' });
@@ -235,18 +239,18 @@ const AccountSetting = () => {
                           </div>
                         </div>
                       </div>
+                      {showPasswordUpdate && (
+                        <div className='m:col-span-1'>
+                          <button
+                            type='button'
+                            onClick={updatePassword}
+                            className='m-r-10 btn btn-primary '
+                          >
+                            Update Password
+                          </button>
+                        </div>
+                      )}
                     </div>
-                    {showPasswordUpdate && (
-                      <div className='mt-4 sm:col-span-1'>
-                        <button
-                          type='button'
-                          onClick={updatePassword}
-                          className='m-r-10 btn btn-primary mt-5'
-                        >
-                          Update Password
-                        </button>
-                      </div>
-                    )}
                   </div>
                   <div className='mt-8 flex flex-wrap items-center gap-2 max-w-3xl'>
                     <div className='w-full md:w-1/3 '></div>
