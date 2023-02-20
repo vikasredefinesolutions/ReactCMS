@@ -46,3 +46,6 @@ export const employeeData = {
 export const showcolors = 4;
 export const listing_max_showcolors = 7;
 export const zeroValue = 0;
+
+export const CustomizeLater =
+  'A Gear Expert will contact you to discuss the customization of this product.';

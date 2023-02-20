@@ -30,7 +30,11 @@ const ManageLogo = () => {
           storeId: storeId,
         };
 
-        const logoList = await getLogoDetailsList(filter);
+        const logoList = await getLogoDetailsList(filter).then((res) => {
+          if (res) {
+            setLogoList(res);
+          }
+        });
       }
     } catch (error) {
       console.log(error);
@@ -160,7 +164,7 @@ const ManageLogo = () => {
                     <td className='px-2 first:pl-5 py-3'>
                       {_.isEmpty(logo.approvedDate) ? (
                         <Link
-                          href={`/ManageLogo/CheckLogoApproved?logoId=${5}`}
+                          href={`/ManageLogo/CheckLogoApproved?logoId=${logo.logoId}`}
                           title=''
                           className='text-indigo-500'
                         >

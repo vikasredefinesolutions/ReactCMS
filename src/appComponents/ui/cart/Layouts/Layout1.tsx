@@ -1,3 +1,4 @@
+import { CustomizeLater } from '@constants/global.constant';
 import { CommanMessage } from '@constants/successErrorMessages.constant';
 import { addToCart } from '@services/cart.service';
 import { _CartItem } from '@type/APIs/cart.res';
@@ -12,6 +13,7 @@ import CartSummary from 'Components/CartSummary/CartSummary';
 import { getAddToCartObject } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
+import { _Store } from 'page.config';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 type _Props = {
@@ -42,7 +44,9 @@ const CartLayout1 = (props: _Props) => {
     currentCartProduct,
   } = props;
   const { fetchCartDetails, setShowLoader, showModal } = useActions();
-  const storeId = useTypedSelector((state) => state.store.id);
+  const { id: storeId, layout: storeLayout } = useTypedSelector(
+    (state) => state.store,
+  );
   const userId = useTypedSelector((state) => state.user.id);
 
   const isEmployeeLoggedIn = useTypedSelector(
@@ -334,7 +338,24 @@ const CartLayout1 = (props: _Props) => {
                               </div>
                               {product.shoppingCartLogoPersonViewModels.map(
                                 (item: any, index: number) => {
-                                  return (
+                                  return item.logoName === 'Customize Later' &&
+                                    storeLayout === _Store.type1 ? (
+                                    <div className='flex justify-start items-center mt-3'>
+                                      <div>
+                                        <span className='material-icons text-[60px] mr-3'>
+                                          support_agent
+                                        </span>
+                                      </div>
+                                      <div>
+                                        <div className='text-lg font-semibold'>
+                                          Customize Later
+                                        </div>
+                                        <div className='text-base'>
+                                          {CustomizeLater}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ) : (
                                     <div
                                       key={`${item}-${index}`}
                                       className='flex justify-between py-3'

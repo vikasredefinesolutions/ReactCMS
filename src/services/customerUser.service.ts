@@ -68,7 +68,7 @@ export const deleteCustomerUserList = async (
     const url = `/StoreCustomerUsers/deletecustomerusersbyid/${customerId}.json`;
     const res = await SendAsyncV2<CustomerUsersObject[]>({
       url: url,
-      method: 'DELETE',
+      method: 'POST',
     });
     conditionalLog({
       data: res.data,

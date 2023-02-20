@@ -64,7 +64,9 @@ const wishListSlice = createSlice({
         };
       },
     ) => {
-      state.brandId = action.payload.brandId;
+      if (action.payload && action.payload.brandId) {
+        state.brandId = action.payload.brandId;
+      }
     },
   },
 });

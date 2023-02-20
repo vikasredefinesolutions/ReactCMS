@@ -32,6 +32,8 @@ import { _globalStore } from 'store.global';
 // import '../../styles/output.css';
 
 import { getWishlist } from '@services/wishlist.service';
+import Metatags from 'appComponents/reUsable/MetaTags';
+import { _ExpectedSlugProps } from 'Components/Slug/getServerSideProps';
 import '../app.css';
 
 type AppOwnProps = {
@@ -41,6 +43,7 @@ type AppOwnProps = {
     header: _TransformedHeaderConfig | null;
     footer: _Footer | null;
   };
+  pageProps: _ExpectedSlugProps | null;
 };
 
 const RedefineCustomApp = ({
@@ -160,20 +163,22 @@ const RedefineCustomApp = ({
   }
 
   return (
-    <>
-      <Spinner>
-        <SuccessErrorModal />
-        <Redefine_Screen
-          logoUrl={store.urls.logo}
-          storeCode={store.code}
-          storeTypeId={store.storeTypeId}
-          configs={configs}
-          menuItems={menuItems}
-        >
-          <Component {...pageProps} />
-        </Redefine_Screen>
-      </Spinner>
-    </>
+    <Spinner>
+      <Metatags
+        storeName={store.storeName}
+        pageMetaData={pageProps?.pageMetaData}
+      />
+      <SuccessErrorModal />
+      <Redefine_Screen
+        logoUrl={store.urls.logo}
+        storeCode={store.code}
+        storeTypeId={store.storeTypeId}
+        configs={configs}
+        menuItems={menuItems}
+      >
+        <Component {...pageProps} />
+      </Redefine_Screen>
+    </Spinner>
   );
 };
 
@@ -318,7 +323,6 @@ RedefineCustomApp.getInitialProps = async (
       value: expectedProps.store.urls.logo,
     });
   }
-
   return {
     ...ctx,
     store: expectedProps.store,
