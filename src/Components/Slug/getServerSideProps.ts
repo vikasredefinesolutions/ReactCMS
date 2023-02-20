@@ -207,7 +207,6 @@ export const getServerSideProps: GetServerSideProps = async (
         filterOptionforfaceteds: filterOptionforfaceteds,
       };
       let ProductFilt: BrandFilter | CategoryFilter;
-
       if (pageMetaData.type === 'brand') {
         ProductFilt = await FetchFiltersJsonByBrand(filter);
       } else {

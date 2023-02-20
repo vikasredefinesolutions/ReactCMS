@@ -46,6 +46,7 @@ const StoreBuilder_ProductDetails_BuyNow: React.FC = () => {
     );
 
     const cartPayload = await singleColor_addToCart_PayloadGenerator({
+      cartItemId: 0,
       storeId: storeId!,
       userId: 0,
       isEmployeeLoggedIn: false,

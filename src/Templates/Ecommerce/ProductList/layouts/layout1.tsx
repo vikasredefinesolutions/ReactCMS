@@ -80,6 +80,7 @@ const Layout1 = ({
   compareCheckBoxHandler,
   storeLayout,
   seType,
+  brandId,
 }: list_FnProps) => {
   // console.log(products);
 
@@ -177,6 +178,7 @@ const Layout1 = ({
                             <Fragment key={index}>
                               {productView === 'grid' ? (
                                 <ProductComponent
+                                  brandId={brandId}
                                   skuList={skuList}
                                   compareCheckBoxHandler={
                                     compareCheckBoxHandler

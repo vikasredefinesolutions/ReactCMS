@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { listing_max_showcolors, zeroValue } from '@constants/global.constant';
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
@@ -5,6 +7,7 @@ import Price from 'appComponents/reUsable/Price';
 import Wishlist from 'appComponents/ui/Wishlist';
 import { GetlAllProductList } from 'definations/productList.type';
 import { getCompareLink } from 'helpers/compare.helper';
+import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store } from 'page.config';
 import { useEffect } from 'react';
@@ -13,12 +16,14 @@ import ProductBoxController from './ProductBox.controller';
 // import Wishlist from '../ui/Wishlist';
 
 const ProductComponent = ({
+  brandId,
   product,
   skuList,
   colorChangeHandler,
   compareCheckBoxHandler,
   storeLayout,
 }: {
+  brandId: number | null;
   product: GetlAllProductList;
   skuList: string[];
   colorChangeHandler: (
@@ -30,6 +35,10 @@ const ProductComponent = ({
   storeLayout: string | null;
 }) => {
   let flag: boolean = false;
+  const [wishListId, setWishListId] = useState<number>(0);
+  const [wishlistPresent, setWishlistPresent] = useState<boolean>(false);
+  const customerId = useTypedSelector((state) => state.user.id);
+  const wishListData = useTypedSelector((state) => state.wishlist.wishListData);
 
   const { currentProduct, origin, setCurrentProduct } = ProductBoxController({
     product,
@@ -42,6 +51,18 @@ const ProductComponent = ({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
+
+  useEffect(() => {
+    if (customerId) {
+      wishListData.map((item) => {
+        if (item.productId === product?.id) {
+          setWishlistPresent(true);
+
+          setWishListId(item.id);
+        }
+      });
+    }
+  }, [customerId, wishListData]);
 
   if (!currentProduct) {
     return <></>;
@@ -93,19 +114,16 @@ const ProductComponent = ({
                           ? currentProduct?.colorName
                           : '',
                         price: product.salePrice,
-                        wishlistId: product.wishListId ? product.wishListId : 0,
+                        wishlistId: wishListId,
                       }}
-                      iswishlist={
-                        product && product?.iswishlist
-                          ? product?.iswishlist
-                          : false
-                      }
+                      iswishlist={wishlistPresent}
+                      brandId={brandId}
                     />
                   </button>
                 </div>
               )}
             </div>
-            <div className='mt-6 relative'>
+            <div className='mt-2 relative'>
               {/* <div className="text-sm absolute -top-4 left-0 right-0">
                 <span className="w-2.5 h-2.5 bg-rose-500 inline-block rounded-full mr-1"></span>
                 Available Ofline

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { addReviewMessages } from 'constants/validationMessages';
 import { Formik } from 'formik';
+import getLocation from 'helpers/getLocation';
 import { useActions, useTypedSelector } from 'hooks';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -69,10 +69,7 @@ const ProductReview: NextPage = () => {
       }
     }
 
-    const { data } = await axios.get(
-      `https://ipgeolocation.abstractapi.com/v1/?api_key=${process.env.NEXT_PUBLIC_GEOLOCATIONAPIKEY}`,
-    );
-
+    const data = await getLocation();
     const imagesA = images.map((url) => ({
       id: 0,
       rowVersion: '',
@@ -89,8 +86,8 @@ const ProductReview: NextPage = () => {
       reviewModel: {
         id: 0,
         rowVersion: '',
-        location: `${data.city}, ${data.state}, ${data.country_name}, ${data.postal}`,
-        ipAddress: data.IPv4,
+        location: `${data.city}, ${data.country}, ${data.postal_code}`,
+        ipAddress: data.ip_address,
         macAddress: '00-00-00-00-00-00',
         productId: (productId && +productId) || 0,
         customerId: customerId || 0,

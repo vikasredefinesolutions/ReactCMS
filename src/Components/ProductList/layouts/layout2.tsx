@@ -32,6 +32,7 @@ const Layout2 = ({
   slug,
   storeLayout,
   seType,
+  brandId,
 }: list_FnProps) => {
   return (
     <section id=''>
@@ -98,6 +99,7 @@ const Layout2 = ({
                         <Fragment key={index}>
                           {productView === 'grid' ? (
                             <ProductLayout2
+                              brandId={brandId}
                               skuList={skuList}
                               compareCheckBoxHandler={compareCheckBoxHandler}
                               product={product}

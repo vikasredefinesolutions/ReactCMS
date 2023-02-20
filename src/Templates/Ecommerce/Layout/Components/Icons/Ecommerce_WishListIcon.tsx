@@ -1,5 +1,4 @@
 import { __Cookie } from '@constants/global.constant';
-import { getWishlist } from '@services/wishlist.service';
 import { WishlistType } from '@type/wishlist.type';
 import { paths } from 'constants/paths.constant';
 import { extractCookies } from 'helpers/common.helper';
@@ -14,6 +13,7 @@ const WishListIcon: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const [wishlist, setWishlist] = useState<WishlistType>([]);
   const customerId = useTypedSelector((state) => state.user.id);
+  const wishListData = useTypedSelector((state) => state.wishlist.wishListData);
   useEffect(() => {
     const tempCustomerId = extractCookies(
       __Cookie.tempCustomerId,
@@ -21,11 +21,10 @@ const WishListIcon: React.FC = () => {
     ).tempCustomerId;
 
     if (customerId || tempCustomerId) {
-      getWishlist(customerId || ~~(tempCustomerId || 0)).then((res) =>
-        setWishlist(res),
-      );
+      setWishlist(wishListData);
     }
-  }, [customerId]);
+  }, [customerId, wishListData]);
+
   if (storeLayout === _Store.type3) {
     return (
       <div className='flow-root'>

@@ -28,6 +28,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
 }) => {
   const router = useRouter();
   const { setImage } = useActions();
+  const brandId = useTypedSelector((state) => state.wishlist.brandId);
   const [TagsDetails, setTagsDetails] = useState<_FetchTagsName[] | null>();
   const [wishlistPresent, setWishlistPresent] = useState<boolean>(false);
   const [wishlistId, setWishlistId] = useState<number>(0);
@@ -140,6 +141,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                     wishlistId: wishlistId,
                   }}
                   iswishlist={wishlistPresent}
+                  brandId={brandId}
                 />
               </button>
             </div>

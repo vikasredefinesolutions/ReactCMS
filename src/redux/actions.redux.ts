@@ -9,6 +9,7 @@ import { productActions } from './slices/product.slice';
 import { redefineStoreActions } from './slices/redefineStore.slice';
 import { successActions } from './slices/success.slice';
 import { userActions } from './slices/user.slice';
+import { wishlistActions } from './slices/wishlist.slice';
 
 const actions = {
   ...redefineStoreActions,
@@ -22,6 +23,7 @@ const actions = {
   ...successActions,
   ...homeActions,
   ...employeeActions,
+  ...wishlistActions,
 };
 
 export default actions;

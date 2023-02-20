@@ -160,6 +160,7 @@ export const singleColor_addToCart_PayloadGenerator = async (
       isempLogin: cart.isEmployeeLoggedIn,
       shoppingCartItemModel: {
         ..._default_shoppingCartItemModel,
+        id: cart.cartItemId,
         price: cart.product.price,
         quantity: cart.product.total.qty,
         logoTitle: cart.product.color.altTag,

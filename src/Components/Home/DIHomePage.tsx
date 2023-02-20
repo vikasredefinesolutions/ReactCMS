@@ -1,4 +1,5 @@
 import ImageComponent from 'appComponents/reUsable/Image';
+import { capitalizeFirstLetter } from 'helpers/common.helper';
 import Link from 'next/link';
 import React, { Fragment, useEffect, useState } from 'react';
 import { FetchBrands } from 'services/brand.service';
@@ -25,8 +26,6 @@ const DIHomePage: React.FC<_props> = ({ storeId }) => {
     setBrandImages(brands.data);
   };
 
-  console.log(brandImages, '<---------brandImages');
-
   return (
     <section className='container mx-auto pt-20 brand-logo-list white-title'>
       <div>
@@ -41,11 +40,11 @@ const DIHomePage: React.FC<_props> = ({ storeId }) => {
               return (
                 <Fragment key={brandImage.id}>
                   <li className='w-1/2 md:w-1/3 lg:w-1/5'>
-                    <Link href={`/${brandImage.brandName}`}>
+                    <Link href={`/${brandImage.seName}`}>
                       <ImageComponent
                         src={brandImage.brandColorImageUrl}
                         className=''
-                        alt={brandImage.brandName}
+                        alt={capitalizeFirstLetter(brandImage.brandName)}
                         height={200}
                         width={200}
                         useNextImage={false}

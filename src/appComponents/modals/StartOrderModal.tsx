@@ -193,6 +193,8 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
               <SOM_ActionsHandler
                 closeStartOrderModal={() => modalHandler(null)}
                 note={textRef.current?.value || ''}
+                cartItemId={editDetails?.shoppingCartItemsId || 0}
+                isUpdate={Boolean(editDetails?.shoppingCartItemsId)}
               />
             </div>
           )}

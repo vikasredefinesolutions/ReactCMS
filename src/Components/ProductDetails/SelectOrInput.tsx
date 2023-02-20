@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik';
+import { ErrorMessage, Form, Formik } from 'formik';
 import { useActions } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
@@ -8,6 +8,7 @@ interface _props {
   qty: number;
   size: string;
   price: { msrp: number; ourCost: number; salePrice: number };
+  defaultQty: number;
 }
 
 const validationSchema = Yup.object().shape({
@@ -19,6 +20,7 @@ const SelectOrInput: React.FC<_props> = ({
   qty,
   size,
   price,
+  defaultQty,
 }) => {
   const { updateQuantities, updatePrice } = useActions();
   const [email, setEmail] = useState<null | 'SENT'>(null);
@@ -26,7 +28,11 @@ const SelectOrInput: React.FC<_props> = ({
     type: 'input' | 'select' | 'saved';
     choosedValue: number;
     focus: boolean;
-  }>({ type: qty > 10 ? 'input' : 'select', choosedValue: qty, focus: false });
+  }>({
+    type: defaultQty > 10 ? 'input' : 'select',
+    choosedValue: defaultQty,
+    focus: false,
+  });
 
   const selectQtyHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (event.target.value === '10+') {
@@ -89,60 +95,60 @@ const SelectOrInput: React.FC<_props> = ({
   }, []);
 
   useEffect(() => {
-    if (qty > 0) {
+    if (defaultQty > 0) {
       updateQuantities({
         attributeOptionId: sizeAttributeOptionId,
         size: size,
-        qty: +qty || 0,
+        qty: +defaultQty || 0,
         price: price.msrp,
       });
     }
-  }, [qty]);
+  }, [defaultQty]);
 
-  // if (qty <= 0) {
-  //   return (
-  //     <>
-  //       {email === 'SENT' ? (
-  //         <div>Thanks for signing up!</div>
-  //       ) : (
-  //         <div>
-  //           Out of Stock. Get Inventory Alert.email{' '}
-  //           <Formik
-  //             initialValues={{ email: '' }}
-  //             onSubmit={sendEmailHandler}
-  //             validationSchema={validationSchema}
-  //           >
-  //             {({ values, handleChange }) => {
-  //               return (
-  //                 <Form>
-  //                   <input
-  //                     type="text"
-  //                     name="email"
-  //                     autoComplete="off"
-  //                     value={values.email}
-  //                     onChange={handleChange}
-  //                     className="block w-full border border-gray-600 shadow-sm text-sm py-1 px-2"
-  //                   />
-  //                   <button
-  //                     type="submit"
-  //                     className="bg-indigo-600 border-0 py-1 px-2 text-white"
-  //                   >
-  //                     Send
-  //                   </button>
-  //                   <ErrorMessage
-  //                     name={'email'}
-  //                     className="text-rose-500"
-  //                     component={'p'}
-  //                   />
-  //                 </Form>
-  //               );
-  //             }}
-  //           </Formik>
-  //         </div>
-  //       )}
-  //     </>
-  //   );
-  // }
+  if (qty <= 0) {
+    return (
+      <>
+        {email === 'SENT' ? (
+          <div>Thanks for signing up!</div>
+        ) : (
+          <div>
+            Out of Stock. Get Inventory Alert.email{' '}
+            <Formik
+              initialValues={{ email: '' }}
+              onSubmit={sendEmailHandler}
+              validationSchema={validationSchema}
+            >
+              {({ values, handleChange }) => {
+                return (
+                  <Form>
+                    <input
+                      type='text'
+                      name='email'
+                      autoComplete='off'
+                      value={values.email}
+                      onChange={handleChange}
+                      className='block w-full border border-gray-600 shadow-sm text-sm py-1 px-2'
+                    />
+                    <button
+                      type='submit'
+                      className='bg-indigo-600 border-0 py-1 px-2 text-white'
+                    >
+                      Send
+                    </button>
+                    <ErrorMessage
+                      name={'email'}
+                      className='text-rose-500'
+                      component={'p'}
+                    />
+                  </Form>
+                );
+              }}
+            </Formik>
+          </div>
+        )}
+      </>
+    );
+  }
 
   return (
     <td className='px-2 py-4'>

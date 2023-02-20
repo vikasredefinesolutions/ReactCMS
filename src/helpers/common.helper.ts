@@ -607,3 +607,7 @@ export const generateImageUrl = (
 
   return __StaticImg.noImageFound;
 };
+
+export const capitalizeFirstLetter = (text: string) => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};

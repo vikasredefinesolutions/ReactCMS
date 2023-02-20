@@ -31,6 +31,7 @@ import { _Expected_AppProps, _MenuItems } from 'show.type';
 import { _globalStore } from 'store.global';
 // import '../../styles/output.css';
 
+import { getWishlist } from '@services/wishlist.service';
 import '../app.css';
 
 type AppOwnProps = {
@@ -51,8 +52,13 @@ const RedefineCustomApp = ({
 }: AppProps & AppOwnProps) => {
   EmployeeController();
   const router = useRouter();
-  const { store_storeDetails, updateCustomerV2, setShowLoader, logInUser } =
-    useActions();
+  const {
+    store_storeDetails,
+    updateCustomerV2,
+    setShowLoader,
+    logInUser,
+    updateWishListData,
+  } = useActions();
 
   const refreshHandler = () => {
     return setCookie(__Cookie.storeInfo, '', 'EPOCH');
@@ -114,6 +120,11 @@ const RedefineCustomApp = ({
       });
     }
 
+    const tempCustomerId = extractCookies(
+      __Cookie.tempCustomerId,
+      'browserCookie',
+    ).tempCustomerId;
+
     if (cookies && cookies.userId) {
       setShowLoader(true);
       GetStoreCustomer(cookies.userId)
@@ -125,6 +136,9 @@ const RedefineCustomApp = ({
           updateCustomerV2({
             customer: res,
             id: res.id,
+          });
+          getWishlist(res.id || ~~(tempCustomerId || 0)).then((data) => {
+            updateWishListData(data);
           });
         })
         .finally(() => {
@@ -146,18 +160,20 @@ const RedefineCustomApp = ({
   }
 
   return (
-    <Spinner>
-      <SuccessErrorModal />
-      <Redefine_Screen
-        logoUrl={store.urls.logo}
-        storeCode={store.code}
-        storeTypeId={store.storeTypeId}
-        configs={configs}
-        menuItems={menuItems}
-      >
-        <Component {...pageProps} />
-      </Redefine_Screen>
-    </Spinner>
+    <>
+      <Spinner>
+        <SuccessErrorModal />
+        <Redefine_Screen
+          logoUrl={store.urls.logo}
+          storeCode={store.code}
+          storeTypeId={store.storeTypeId}
+          configs={configs}
+          menuItems={menuItems}
+        >
+          <Component {...pageProps} />
+        </Redefine_Screen>
+      </Spinner>
+    </>
   );
 };
 

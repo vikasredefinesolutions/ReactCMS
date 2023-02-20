@@ -60,6 +60,7 @@ export type list_FnProps = {
   slug?: string;
   storeLayout: string | null;
   seType: string;
+  brandId: number | null;
 };
 interface _props {
   productListing: _ProductListProps | null;
@@ -148,6 +149,7 @@ const Ecommerce_ProductList = (props: _props) => {
         slug={slug}
         storeLayout={storeLayout}
         seType={seType}
+        brandId={pageData?.brandId}
       />
     );
   } else {

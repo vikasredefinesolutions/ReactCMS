@@ -14,11 +14,13 @@ import ProductBoxController from './ProductBox.controller';
 // import Wishlist from '../ui/Wishlist';
 
 const ProductLayout2 = ({
+  brandId,
   product,
   skuList,
   colorChangeHandler,
   compareCheckBoxHandler,
 }: {
+  brandId: number | null;
   product: GetlAllProductList;
   skuList: string[];
   colorChangeHandler: (
@@ -28,6 +30,11 @@ const ProductLayout2 = ({
   ) => void;
   compareCheckBoxHandler: (sku: string) => void;
 }) => {
+  const [wishListId, setWishListId] = useState<number>(0);
+  const [wishlistPresent, setWishlistPresent] = useState<boolean>(false);
+  const customerId = useTypedSelector((state) => state.user.id);
+  const wishListData = useTypedSelector((state) => state.wishlist.wishListData);
+
   const { currentProduct, origin, setCurrentProduct } = ProductBoxController({
     product,
     colorChangeHandler,
@@ -41,6 +48,18 @@ const ProductLayout2 = ({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
+
+  useEffect(() => {
+    if (customerId) {
+      wishListData.map((item) => {
+        if (item.productId === product?.id) {
+          setWishlistPresent(true);
+
+          setWishListId(item.id);
+        }
+      });
+    }
+  }, [customerId, wishListData]);
 
   if (!currentProduct) {
     return <></>;
@@ -83,13 +102,10 @@ const ProductLayout2 = ({
                           ? currentProduct?.colorName
                           : '',
                         price: product.salePrice,
-                        wishlistId: product.wishListId ? product.wishListId : 0,
+                        wishlistId: wishListId,
                       }}
-                      iswishlist={
-                        product && product?.iswishlist
-                          ? product?.iswishlist
-                          : false
-                      }
+                      iswishlist={wishlistPresent}
+                      brandId={brandId}
                     />
                   </button>
                 </div>

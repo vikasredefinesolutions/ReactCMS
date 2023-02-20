@@ -1,7 +1,6 @@
 import Price from 'appComponents/reUsable/Price';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
-import { _Product_SizeQtys } from 'redux/slices/product.slice.types';
 import SelectOrInput from './SelectOrInput';
 
 type Props = {
@@ -84,20 +83,17 @@ const SizePriceQtyTable: React.FC<Props> = ({ editDetails }) => {
                 );
               });
             })} */}
-            {inventory?.inventory.map((inventory, index) => {
-              if (
-                inventory.colorAttributeOptionId === color.attributeOptionId
-              ) {
-                let qty = sizeQtys?.find(
-                  (item) =>
-                    item.size === inventory.name &&
-                    (item?.color ? item.color === color.name : false),
-                );
+            {inventory?.inventory
+              .filter(
+                (res) => res.colorAttributeOptionId === color.attributeOptionId,
+              )
+              .map((inventory) => {
+                let defaultQty = 0;
                 const qtyObj = editDetails.find(
                   (option) => option.optionValue === inventory.name,
                 );
                 if (qtyObj) {
-                  qty = { qty: qtyObj.qty } as _Product_SizeQtys;
+                  defaultQty = qtyObj.qty;
                 }
 
                 return (
@@ -112,14 +108,14 @@ const SizePriceQtyTable: React.FC<Props> = ({ editDetails }) => {
                     </td>
                     <SelectOrInput
                       sizeAttributeOptionId={inventory.attributeOptionId}
-                      qty={qty?.qty || 0}
+                      qty={inventory?.inventory || 0}
                       size={inventory.name}
                       price={price!}
+                      defaultQty={defaultQty}
                     />
                   </tr>
                 );
-              }
-            })}
+              })}
           </tbody>
         </table>
       </div>

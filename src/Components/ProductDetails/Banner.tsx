@@ -40,7 +40,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
   ) {
     return (
       <>
-        {Boolean(userId) && (
+        {!userId && (
           <section className='mainsection container mx-auto'>
             <div className='bg-green-500 text-gray-900 p-1 text-center'>
               <a

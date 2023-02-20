@@ -1,15 +1,18 @@
 import { __Cookie } from '@constants/global.constant';
+import config from 'api.config';
 import Image from 'appComponents/reUsable/Image';
 import { WishlistType } from 'definations/wishlist.type';
 import { extractCookies } from 'helpers/common.helper';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { getWishlist, removeWishlist } from 'services/wishlist.service';
+import { removeWishlist } from 'services/wishlist.service';
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState<WishlistType>([]);
+  const { removeWishListById } = useActions();
   const customerId = useTypedSelector((state) => state.user.id);
+  const wishListData = useTypedSelector((state) => state.wishlist.wishListData);
   useEffect(() => {
     const tempCustomerId = extractCookies(
       __Cookie.tempCustomerId,
@@ -17,15 +20,14 @@ const Wishlist = () => {
     ).tempCustomerId;
 
     if (customerId || tempCustomerId) {
-      getWishlist(customerId || ~~(tempCustomerId || 0)).then((res) => setWishlist(res));
+      setWishlist(wishListData);
     }
-    // setWishlist(wishlist);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customerId, wishlist]);
+  }, [customerId, wishListData]);
 
-  const removeWishlistHandler = (id: number) => {
-    removeWishlist(id).then(() => getWishlist(customerId || 0).then((res) => setWishlist(res)));
-
+  const removeWishlistHandler = async (id: number) => {
+    await removeWishlist(id);
+    removeWishListById({ id: id });
   };
 
   return (
@@ -43,22 +45,26 @@ const Wishlist = () => {
                   href={`${origin}/${list.seName}.html?v=product-detail&altview=1`}
                   className='relative underline min-h-[48px]'
                 >
-                  <div className='w-full cursor-pointer'>
+                  <a className='w-full cursor-pointer'>
                     <Image
-                      src={list.colorLogoUrl}
+                      src={
+                        config.mediaBaseUrl + list && list?.colorLogoUrl
+                          ? list.colorLogoUrl
+                          : ''
+                      }
                       className=''
                       alt='wishlist'
                     />
-                  </div>
+                  </a>
                 </Link>
                 <div className='mt-4'>
-                  <h3 className='h-10'>
+                  <h3 className=''>
                     <Link
                       key={list.productId}
                       href={`${origin}/${list.seName}.html?v=product-detail&altview=1`}
                       className='relative underline min-h-[48px]'
                     >
-                      {list.productName}
+                      <a>{list.productName}</a>
                     </Link>
                   </h3>
                   <div className='text-default-text mt-2'>${list.price}</div>
@@ -69,7 +75,7 @@ const Wishlist = () => {
                         href={`${origin}/${list.seName}.html?v=product-detail&altview=1`}
                         className='relative underline min-h-[48px]'
                       >
-                        View
+                        <a>View</a>
                       </Link>
                     </div>
                     <div className=''>

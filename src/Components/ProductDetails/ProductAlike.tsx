@@ -85,7 +85,7 @@ const ProductAlike: React.FC<_props> = ({
                         <div className='px-2'>
                           <div className='flex text-center lg:w-auto mb-6'>
                             <div className='relative pb-4 w-full'>
-                              <div className='w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1 cursor-pointer'>
+                              <div className='w-full rounded-md overflow-hidden aspect-w-1 aspect-h-1 cursor-pointer'>
                                 <Link
                                   key={product.id}
                                   href={`${encodeURIComponent(
@@ -216,7 +216,7 @@ const ProductAlike: React.FC<_props> = ({
                           <div className='px-2'>
                             <div className='flex text-center lg:w-auto mb-6'>
                               <div className='relative pb-4 w-full'>
-                                <div className='w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1 cursor-pointer'>
+                                <div className='w-full  rounded-md overflow-hidden aspect-w-1 aspect-h-1 cursor-pointer'>
                                   <Link
                                     key={product.id}
                                     href={`${encodeURIComponent(
@@ -488,7 +488,7 @@ const ProductAlike: React.FC<_props> = ({
                                     )}.html?v=product-detail&altview=1`}
                                   >
                                     <div className='mt-1 text-anchor hover:text-anchor-hover'>
-                                      <div className='relative'>
+                                      <div className='relative text-[13px] tracking-[1.4px]'>
                                         <span className='absolute inset-0'></span>
                                         {product.name}
                                       </div>

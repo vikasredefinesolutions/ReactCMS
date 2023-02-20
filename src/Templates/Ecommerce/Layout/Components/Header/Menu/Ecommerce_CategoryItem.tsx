@@ -1,4 +1,5 @@
 import { _MenuCategory } from '@type/APIs/header.res';
+import { capitalizeFirstLetter } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store } from 'page.config';
@@ -64,7 +65,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                       key={index}
                       storeCode={storeCode}
                       view={view}
-                      itemLabel={item.categoryName}
+                      itemLabel={capitalizeFirstLetter(item.categoryName)}
                       itemUrl={`${item.seName}.html?v=product-list`}
                       type={'CATEGORY'}
                     />
@@ -122,7 +123,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                             key={index}
                             storeCode={storeCode}
                             view={view}
-                            itemLabel={item.categoryName}
+                            itemLabel={capitalizeFirstLetter(item.categoryName)}
                             itemUrl={`${item.seName}.html?v=product-list`}
                             type={'CATEGORY'}
                           />
@@ -178,7 +179,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                           key={index}
                           view={view}
                           storeCode={storeCode}
-                          itemLabel={item.categoryName}
+                          itemLabel={capitalizeFirstLetter(item.categoryName)}
                           itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
@@ -195,7 +196,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                           key={index}
                           storeCode={storeCode}
                           view={view}
-                          itemLabel={item.categoryName}
+                          itemLabel={capitalizeFirstLetter(item.categoryName)}
                           itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
@@ -280,7 +281,9 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                                 storeCode={storeCode}
                                 view={view}
                                 key={index}
-                                itemLabel={item.categoryName}
+                                itemLabel={capitalizeFirstLetter(
+                                  item.categoryName,
+                                )}
                                 itemUrl={`${item.seName}.html?v=product-list`}
                                 type={'CATEGORY'}
                               />
@@ -297,7 +300,9 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                                 key={index}
                                 storeCode={storeCode}
                                 view={view}
-                                itemLabel={item.categoryName}
+                                itemLabel={capitalizeFirstLetter(
+                                  item.categoryName,
+                                )}
                                 itemUrl={`${item.seName}.html?v=product-list`}
                                 type={'CATEGORY'}
                               />
@@ -381,7 +386,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                           key={index}
                           storeCode={storeCode}
                           view={view}
-                          itemLabel={item.categoryName}
+                          itemLabel={capitalizeFirstLetter(item.categoryName)}
                           itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
@@ -398,7 +403,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                           key={index}
                           storeCode={storeCode}
                           view={view}
-                          itemLabel={item.categoryName}
+                          itemLabel={capitalizeFirstLetter(item.categoryName)}
                           itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
@@ -472,7 +477,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                             key={index}
                             storeCode={storeCode}
                             view={view}
-                            itemLabel={item.categoryName}
+                            itemLabel={capitalizeFirstLetter(item.categoryName)}
                             itemUrl={`${item.seName}.html?v=product-list`}
                             type={'CATEGORY'}
                           />
@@ -527,7 +532,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                       key={index}
                       storeCode={storeCode}
                       view={view}
-                      itemLabel={item.categoryName}
+                      itemLabel={capitalizeFirstLetter(item.categoryName)}
                       itemUrl={`${item.seName}.html?v=product-list`}
                       type={'CATEGORY'}
                     />
@@ -583,7 +588,7 @@ const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
                             key={index}
                             storeCode={storeCode}
                             view={view}
-                            itemLabel={item.categoryName}
+                            itemLabel={capitalizeFirstLetter(item.categoryName)}
                             itemUrl={`${item.seName}.html?v=product-list`}
                             type={'CATEGORY'}
                           />

@@ -5,6 +5,7 @@ import {
   Link,
 } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
+import { capitalizeFirstLetter } from 'helpers/common.helper';
 import { _Store } from 'page.config';
 import { Fragment } from 'react';
 
@@ -144,7 +145,8 @@ const SideFilter = ({
                                         ? 'chevron_right'
                                         : 'expand_more'}
                                     </span>
-                                    {option.name}({option.productCount})
+                                    {capitalizeFirstLetter(option.name)}(
+                                    {option.productCount})
                                   </Link>
                                   {option.subrows && (
                                     <ul className='ml-3'>
@@ -159,8 +161,10 @@ const SideFilter = ({
                                               {' '}
                                               chevron_right
                                             </span>
-                                            {subrow.name} ({subrow.productCount}
-                                            )
+                                            {capitalizeFirstLetter(
+                                              subrow.name,
+                                            )}{' '}
+                                            ({subrow.productCount})
                                           </Link>
                                         </li>
                                       ))}
@@ -185,7 +189,8 @@ const SideFilter = ({
                                     htmlFor={`${option.name}-${ind}`}
                                     className='ml-3 text-sm text-gray-600'
                                   >
-                                    {option.name} ({option?.productCount})
+                                    {capitalizeFirstLetter(option.name)} (
+                                    {option?.productCount})
                                   </label>
                                 </li>
                               )

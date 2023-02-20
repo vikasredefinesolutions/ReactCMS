@@ -76,6 +76,7 @@ const StoreBuilder_ProductList: React.FC<_props> = (props) => {
       slug={slug}
       storeLayout={_Store.type1}
       seType={seType}
+      brandId={pageData.brandId}
     />
   );
 };

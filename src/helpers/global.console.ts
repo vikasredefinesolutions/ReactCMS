@@ -53,7 +53,7 @@ export const __console: __Console = {
   header: {
     service: {
       FetchBrands: false,
-      FetchStoreMenu: true,
+      FetchStoreMenu: false,
       FetchMenuTopics: false,
       FetchBannerDetails: false,
       FetchMenuCategories: false,
@@ -79,6 +79,7 @@ export const __console: __Console = {
   },
   productDetails: {
     service: {
+      FetchLogoLocationByProductId: false,
       FetchInventoryById: false,
       FetchProductsBySKUs: false,
       FetchSizeChartById: false,
@@ -89,7 +90,6 @@ export const __console: __Console = {
       FetchProductById: false,
       FetchBrandProductList: false,
       FetchProductsTagsName: false,
-      FetchLogoLocationByProductId: false
     },
     controller: false,
     components: {

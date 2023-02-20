@@ -251,7 +251,11 @@ const CartLayout1 = (props: _Props) => {
                                 (item: any, cartItemDetialsIndex: number) => {
                                   let qty = 0,
                                     price = 0;
-                                  if (cartQtyAmtAr.length > 0) {
+                                  if (
+                                    cartQtyAmtAr &&
+                                    cartQtyAmtAr[index] &&
+                                    cartQtyAmtAr[index][cartItemDetialsIndex]
+                                  ) {
                                     qty =
                                       cartQtyAmtAr[index][cartItemDetialsIndex]
                                         ?.qty || 0;

@@ -9,6 +9,7 @@ import productReducer from './slices/product.slice';
 import redefineStoreReducer from './slices/redefineStore.slice';
 import successReducer from './slices/success.slice';
 import userReducer from './slices/user.slice';
+import wishlistReducer from './slices/wishlist.slice';
 
 const rootReducer = combineReducers({
   store: redefineStoreReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   success: successReducer,
   home: homeReducer,
   employee: employeeReducer,
+  wishlist: wishlistReducer,
 });
 
 export default rootReducer;

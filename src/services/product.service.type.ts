@@ -139,6 +139,7 @@ export interface _AddToCart_CartItems {
 }
 
 export interface _AddToCart_PayloadGenerator_Attributes {
+  cartItemId: number;
   storeId: number;
   userId: number;
   isEmployeeLoggedIn: boolean;

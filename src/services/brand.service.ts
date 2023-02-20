@@ -9,7 +9,7 @@ interface brandType {
   tagName: string;
 }
 
-export const FetchBrands = async (storeId: string) => {
+export const FetchBrands = async (storeId: string | number) => {
   const url = `/Brand/getbrandbystoreid/${storeId}.json`;
   const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
     url: url,

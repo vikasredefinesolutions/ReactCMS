@@ -5,18 +5,21 @@ import Price from 'appComponents/reUsable/Price';
 import Wishlist from 'appComponents/ui/Wishlist';
 import { GetlAllProductList } from 'definations/productList.type';
 import { getCompareLink } from 'helpers/compare.helper';
+import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ProductBoxController from './ProductBox.controller';
 // import Price from 'appComponents/reUsable/Price';
 // import Wishlist from '../ui/Wishlist';
 
 const ProductComponent = ({
+  brandId,
   product,
   skuList,
   colorChangeHandler,
   compareCheckBoxHandler,
 }: {
+  brandId: number | null;
   product: GetlAllProductList;
   skuList: string[];
   colorChangeHandler: (
@@ -26,6 +29,11 @@ const ProductComponent = ({
   ) => void;
   compareCheckBoxHandler: (sku: string) => void;
 }) => {
+  const [wishListId, setWishListId] = useState<number>(0);
+  const [wishlistPresent, setWishlistPresent] = useState<boolean>(false);
+  const customerId = useTypedSelector((state) => state.user.id);
+  const wishListData = useTypedSelector((state) => state.wishlist.wishListData);
+
   const { currentProduct, origin, setCurrentProduct } = ProductBoxController({
     product,
     colorChangeHandler,
@@ -37,6 +45,18 @@ const ProductComponent = ({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
+
+  useEffect(() => {
+    if (customerId) {
+      wishListData.map((item) => {
+        if (item.productId === product?.id) {
+          setWishlistPresent(true);
+
+          setWishListId(item.id);
+        }
+      });
+    }
+  }, [customerId, wishListData]);
 
   if (!currentProduct) {
     return <></>;
@@ -68,13 +88,10 @@ const ProductComponent = ({
                         ? currentProduct?.colorName
                         : '',
                       price: product.salePrice,
-                      wishlistId: product.wishListId ? product.wishListId : 0,
+                      wishlistId: wishListId,
                     }}
-                    iswishlist={
-                      product && product?.iswishlist
-                        ? product?.iswishlist
-                        : false
-                    }
+                    iswishlist={wishlistPresent}
+                    brandId={brandId}
                   />
                 </button>
               </div>

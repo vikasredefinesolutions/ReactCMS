@@ -4,9 +4,9 @@ import {
   FilterType,
   ProductList as ProductListType,
 } from '@type/productList.type';
-import { useTypedSelector } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProductListController from '../../Controllers/ProductListController';
 import Layout1 from './layouts/layout1';
 import Layout2 from './layouts/layout2';
@@ -35,6 +35,7 @@ export type list_FnProps = {
   slug?: string;
   storeLayout: string | null;
   seType: string;
+  brandId: number | null;
 };
 const ProductList = ({
   pageData,
@@ -46,6 +47,11 @@ const ProductList = ({
   seType: string;
 }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const { updateBrandId } = useActions();
+
+  useEffect(() => {
+    updateBrandId(pageData?.brandID);
+  }, [pageData]);
 
   if (pageData === null) {
     return <>No Product Found</>;
@@ -75,6 +81,7 @@ const ProductList = ({
     checkedFilters || [],
     pageData.brandId,
   );
+
   let Layout: React.FC<list_FnProps> | null = null;
   if (
     storeLayout === _Store.type1 ||
@@ -125,6 +132,7 @@ const ProductList = ({
         slug={slug}
         storeLayout={storeLayout}
         seType={seType}
+        brandId={pageData?.brandId}
       />
     );
   } else {

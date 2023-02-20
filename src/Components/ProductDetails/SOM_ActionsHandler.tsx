@@ -13,11 +13,15 @@ import React, { useState } from 'react';
 interface _props {
   closeStartOrderModal: () => void;
   note: string;
+  cartItemId: number;
+  isUpdate: boolean;
 }
 
 const SOM_ActionsHandler: React.FC<_props> = ({
   closeStartOrderModal,
   note,
+  cartItemId,
+  isUpdate,
 }) => {
   const { showModal, fetchCartDetails } = useActions();
   const [showRequiredModal, setShowRequiredModal] = useState<
@@ -75,6 +79,7 @@ const SOM_ActionsHandler: React.FC<_props> = ({
     );
 
     const cartPayload = await singleColor_addToCart_PayloadGenerator({
+      cartItemId,
       storeId: storeId!,
       userId:
         loggedIN_userId && loggedIN_userId > 0
@@ -127,7 +132,7 @@ const SOM_ActionsHandler: React.FC<_props> = ({
         isEmployeeLoggedIn,
       });
       showModal({
-        message: 'Added to cart Successfully',
+        message: `${isUpdate ? 'Update' : 'Add to'} cart Successfully`,
         title: 'Success',
       });
     } catch (error) {
@@ -147,7 +152,7 @@ const SOM_ActionsHandler: React.FC<_props> = ({
         type='button'
         className='btn btn-lg btn-secondary !flex items-center justify-center w-full uppercase mb-2'
       >
-        Add to Cart
+        {isUpdate ? 'Update' : 'Add to'} Cart
       </button>
       <button
         onClick={() => closeStartOrderModal()}

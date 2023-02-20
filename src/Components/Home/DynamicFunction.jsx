@@ -79,14 +79,7 @@ export const boximage = (dataArr, selectedObj) => {
         item.Button_text != null
       ) {
         buttonHTML += '<div className="mt-5 mb-5">';
-        buttonHTML +=
-          '<a target="" href="' +
-          item.Button_link +
-          '" className="' +
-          item.Button_size +
-          ' ' +
-          item.Button_style +
-          '">';
+        buttonHTML += '<a target="" href="' + item.Button_link + '" className="' + item.Button_size + ' ' + item.Button_style + '">';
         buttonHTML += item.Button_text;
         buttonHTML += '</a>';
         buttonHTML += '</div>';
@@ -116,12 +109,7 @@ export const boximage = (dataArr, selectedObj) => {
             '<div className="flex items-center absolute ' +
             fontSize +
             ' inset-0 p-1 lg:p-4 text-white justify-center">';
-          headLine +=
-            '<div className="" style="background: rgba(' +
-            bgColor +
-            ',' +
-            bgOpacity +
-            '); padding: 20px;">';
+          headLine += '<div className="" style="background: rgba(' + bgColor + ',' + bgOpacity + '); padding: 20px;">';
           headLine += '<div className="pb-2">' + item.Headline + '</div>';
           headLine += '<div>';
           headLine += buttonHTML;
@@ -200,7 +188,7 @@ export const multipleImages = (dataArr, selectedObj) => {
         if(item.Button_display != undefined && item.Button_display == 'Yes' && item.Button_text !== '' && item.Button_text !== null)
         {
           
-            buttonHTML = '<div class="mt-5 mb-5">';
+            buttonHTML = '<div class="mt-5 mb-5 text-center">';
             buttonHTML += '<a target="" href="'+item.Button_link+'" class="'+item.Button_size+' '+item.Button_style+'">';
             buttonHTML += item.Button_text;
             buttonHTML += '</a>'
@@ -214,14 +202,14 @@ export const multipleImages = (dataArr, selectedObj) => {
                 if(aprData.text_pos != undefined)
                 {
                     textPos  = aprData.text_pos;
-                    fontSize = aprData?.font_size ?? '';
+                    fontSize = aprData?.font_size ?? 'text-base';
                     bgOpacity = aprData.bg_opacity;
                     bgColor = aprData.text_bg_color;
                     
                 }
 
             }
-            //fontSize = item.Headline_font_size ?? "";
+            //fontSize = item.Headline_font_size ?? '';
 
           if(item.Headline != undefined && item.Headline != '' && item.Headline != null)
           {
@@ -241,7 +229,7 @@ export const multipleImages = (dataArr, selectedObj) => {
                 else
                 {
                     headLine += '<div class="text-center bg-white w-full">';
-                    headLine += '<div class="text-base p-4">'+item.Headline+'</div>';
+                    headLine += '<div class="p-4 '+fontSize+'">'+item.Headline+'</div>';
                     headLine += '</div>';
                 }
         }

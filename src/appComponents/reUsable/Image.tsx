@@ -45,6 +45,7 @@ const Image: React.FC<_props> = ({
           height={height || 1}
           layout={layout}
           loading={'eager'}
+          objectFit={'contain'}
           key={cKey || 0}
         />
       </div>

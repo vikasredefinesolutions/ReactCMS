@@ -96,7 +96,7 @@ const ProductRecentlyViewed: React.FC<_props> = ({
                         >
                           <div className='flex text-center lg:w-auto mb-6'>
                             <div className='relative pb-4 w-full'>
-                              <div className='w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1 cursor-pointer '>
+                              <div className='w-full  rounded-md overflow-hidden aspect-w-1 aspect-h-1 cursor-pointer '>
                                 <Link
                                   key={product.id}
                                   href={`${encodeURIComponent(

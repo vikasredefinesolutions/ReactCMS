@@ -1,4 +1,5 @@
 import { _Brands } from '@type/APIs/header.res';
+import { capitalizeFirstLetter } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store, __constant } from 'page.config';
@@ -72,7 +73,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                               ? `${brand.brandCollectionUrl}.html`
                               : `${brand.seName}.html?v=product-list`
                           }
-                          alt={brand.brandName}
+                          alt={capitalizeFirstLetter(brand.brandName)}
                           src={brand.brandColorImageUrl}
                         />
                       );
@@ -86,7 +87,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                         storeCode={storeCode}
                         view={view}
                         key={brand.id}
-                        itemLabel={brand.brandName}
+                        itemLabel={capitalizeFirstLetter(brand.brandName)}
                         itemUrl={
                           brand.brandCollectionUrl
                             ? `${brand.brandCollectionUrl}.html`
@@ -154,7 +155,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                   `${brand.brandCollectionUrl}.html` ||
                                   `${brand.seName}.html?v=product-list`
                                 }
-                                alt={brand.brandName}
+                                alt={capitalizeFirstLetter(brand.brandName)}
                                 src={brand.brandColorImageUrl}
                               />
                             );
@@ -173,7 +174,9 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                 storeCode={storeCode}
                                 view={view}
                                 key={brand.id}
-                                itemLabel={brand.brandName}
+                                itemLabel={capitalizeFirstLetter(
+                                  brand.brandName,
+                                )}
                                 itemUrl={
                                   brand.brandCollectionUrl
                                     ? `${brand.brandCollectionUrl}.html`
@@ -195,7 +198,9 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                   storeCode={storeCode}
                                   view={view}
                                   key={brand.id}
-                                  itemLabel={brand.brandName}
+                                  itemLabel={capitalizeFirstLetter(
+                                    brand.brandName,
+                                  )}
                                   itemUrl={
                                     brand.brandCollectionUrl
                                       ? `${brand.brandCollectionUrl}.html`
@@ -214,7 +219,9 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                   storeCode={storeCode}
                                   view={view}
                                   key={brand.id}
-                                  itemLabel={brand.brandName}
+                                  itemLabel={capitalizeFirstLetter(
+                                    brand.brandName,
+                                  )}
                                   itemUrl={
                                     brand.brandCollectionUrl
                                       ? `${brand.brandCollectionUrl}.html`
@@ -278,7 +285,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                             ? `${brand.brandCollectionUrl}.html`
                             : `${brand.seName}.html?v=product-list`
                         }
-                        alt={brand.brandName}
+                        alt={capitalizeFirstLetter(brand.brandName)}
                         src={brand.brandColorImageUrl}
                       />
                     );
@@ -294,7 +301,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                             key={brand.id}
                             storeCode={storeCode}
                             view={view}
-                            itemLabel={brand.brandName}
+                            itemLabel={capitalizeFirstLetter(brand.brandName)}
                             itemUrl={
                               `${brand.brandCollectionUrl}.html` ||
                               `${brand.seName}.html?v=product-list`
@@ -357,7 +364,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                   ? `${brand.brandCollectionUrl}.html`
                                   : `${brand.seName}.html?v=product-list`
                               }
-                              alt={brand.brandName}
+                              alt={capitalizeFirstLetter(brand.brandName)}
                               src={brand.brandColorImageUrl}
                             />
                           );
@@ -374,7 +381,9 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                 key={index}
                                 storeCode={storeCode}
                                 view={view}
-                                itemLabel={brand.brandName}
+                                itemLabel={capitalizeFirstLetter(
+                                  brand.brandName,
+                                )}
                                 itemUrl={
                                   brand.brandCollectionUrl
                                     ? `${brand.brandCollectionUrl}.html`
@@ -439,7 +448,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                               ? `${brand.brandCollectionUrl}.html`
                               : `${brand.seName}.html?v=product-list`
                           }
-                          alt={brand.brandName}
+                          alt={capitalizeFirstLetter(brand.brandName)}
                           src={brand.brandColorImageUrl}
                         />
                       );
@@ -456,7 +465,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                             key={brand.id}
                             storeCode={storeCode}
                             view={view}
-                            itemLabel={brand.brandName}
+                            itemLabel={capitalizeFirstLetter(brand.brandName)}
                             itemUrl={
                               `${brand.brandCollectionUrl}.html` ||
                               `${brand.seName}.html?v=product-list`
@@ -517,7 +526,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                   ? `${brand.brandCollectionUrl}.html`
                                   : `${brand.seName}.html?v=product-list`
                               }
-                              alt={brand.brandName}
+                              alt={capitalizeFirstLetter(brand.brandName)}
                               src={brand.brandColorImageUrl}
                             />
                           );
@@ -578,7 +587,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                               ? `${brand.brandCollectionUrl}.html`
                               : `${brand.seName}.html?v=product-list`
                           }
-                          alt={brand.brandName}
+                          alt={capitalizeFirstLetter(brand.brandName)}
                           src={brand.brandColorImageUrl}
                         />
                       );
@@ -591,7 +600,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                         key={brand.id}
                         storeCode={storeCode}
                         view={view}
-                        itemLabel={brand.brandName}
+                        itemLabel={capitalizeFirstLetter(brand.brandName)}
                         itemUrl={
                           `${brand.brandCollectionUrl}.html` ||
                           `${brand.seName}.html?v=product-list`
@@ -654,7 +663,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                   ? `${brand.brandCollectionUrl}.html`
                                   : `${brand.seName}.html?v=product-list`
                               }
-                              alt={brand.brandName}
+                              alt={capitalizeFirstLetter(brand.brandName)}
                               src={brand.brandColorImageUrl}
                             />
                           );
@@ -671,7 +680,9 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                                 storeCode={storeCode}
                                 view={view}
                                 key={brand.id}
-                                itemLabel={brand.brandName}
+                                itemLabel={capitalizeFirstLetter(
+                                  brand.brandName,
+                                )}
                                 itemUrl={
                                   brand.brandCollectionUrl
                                     ? `${brand.brandCollectionUrl}.html`
