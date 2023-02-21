@@ -1,5 +1,6 @@
 import { _GetPageType } from '@type/slug.type';
 import { TwitterTagsData } from 'mock/metatags.mock';
+import Head from 'next/head';
 import { __domain } from 'page.config';
 import React from 'react';
 
@@ -11,7 +12,7 @@ const TwitterTags: React.FC<_Props> = (props) => {
   const { pageMetaData, routepath } = props;
 
   return (
-    <>
+    <Head>
       <meta name={`${TwitterTagsData?.tagName}:card`} content='Summary' />
       <meta
         name={`${TwitterTagsData?.tagName}:site`}
@@ -31,9 +32,9 @@ const TwitterTags: React.FC<_Props> = (props) => {
       />
       <meta
         name={`${TwitterTagsData?.tagName}:url`}
-        content={`${__domain.localDomain}${routepath}`}
+        content={`https://www.${__domain.localDomain}${routepath}`}
       />
-    </>
+    </Head>
     //    {metatagsdata.map((tags, index) => {
     //     return (
     //       <React.Fragment key={`${tags}-${{ index }}`}>

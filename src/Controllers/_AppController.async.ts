@@ -1,7 +1,7 @@
 import { GetStoreID } from '@services/app.service';
 import { _StoreMenu } from '@type/APIs/header.res';
 import { _StoreReturnType } from 'definations/store.type';
-import { conditionalLogV2, __console } from 'helpers/global.console';
+import { __console, conditionalLogV2 } from 'helpers/global.console';
 import * as HeaderService from 'services/header.service';
 import {
   _CustomContent,

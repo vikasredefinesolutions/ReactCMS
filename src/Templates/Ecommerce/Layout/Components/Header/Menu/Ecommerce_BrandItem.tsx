@@ -145,6 +145,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                             brand.brandColorImageUrl &&
                             __constant._header.brandImage.includes(brand.id)
                           ) {
+                            // console.log('headerbrand image ', brand);
                             return (
                               <BrandImage
                                 key={brand.id}

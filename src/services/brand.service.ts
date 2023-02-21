@@ -27,3 +27,13 @@ export const FetchDataByBrand = async (body: brandType) => {
   });
   return res;
 };
+
+// for sitemap categories
+export const FetchSiteMapCategories = async (id: number) => {
+  const url = `/Category/getcategorytreeviewlist/${id}.json`;
+  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+    url: url,
+    method: 'GET',
+  });
+  return res;
+};

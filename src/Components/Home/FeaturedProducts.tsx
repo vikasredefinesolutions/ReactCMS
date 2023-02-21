@@ -24,7 +24,8 @@ const FeaturedProducts: React.FC<_props> = ({ dataArr, storeId }) => {
           : ''}
       </div>
       <div>
-        {dataArr.featuredproducts_brandwise_display.value === 'Yes' ? (
+        {dataArr.featuredproducts_brandwise_display.value === 'Yes' &&
+        dataArr.featuredproducts_selected_brands.value.length > 1 ? (
           <ProductsInfoTabs dataArr={dataArr} />
         ) : (
           <ProductsInfo dataArr={dataArr} />

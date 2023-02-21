@@ -43,12 +43,13 @@ const ProductsInfo: React.FC<_props> = ({ dataArr }) => {
 
   const [brandsData, setBrandsData] =
     useState<GetlAllProductList[]>(initialData);
-    const storeId = useTypedSelector((state) => state.store.id);
+  const storeId = useTypedSelector((state) => state.store.id);
 
   const fetchBrandData = async () => {
     let body = {
+      brandId: +dataArr?.featuredproducts_selected_brands?.value[0]?.value,
       storeId: storeId ?? 4,
-      maximumItemsForFetch: dataArr.featuredproducts_product_count.value,
+      maximumItemsForFetch: +dataArr.featuredproducts_product_count.value,
       tagName: 'featured',
     };
     const data = await FetchDataByBrand(body);

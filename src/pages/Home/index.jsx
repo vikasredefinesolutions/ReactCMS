@@ -141,12 +141,9 @@ const Home = (props) => {
                       {Object.keys(componentValue.selectedVal).includes(
                         'featuredproducts_section_title',
                       ) ||
-                      (Object.keys(componentValue.selectedVal).includes(
+                      Object.keys(componentValue.selectedVal).includes(
                         'featuredproducts_product_count',
-                      ) &&
-                        componentValue.selectedVal
-                          .featuredproducts_selected_brands.value.length >
-                          1) ? (
+                      ) ? (
                         <>
                           <FeaturedProducts
                             dataArr={componentValue.selectedVal}
@@ -170,7 +167,7 @@ const Home = (props) => {
                                 'FullAccordion',
                               ) ? (
                                 <>
-                                  <section className='mainsection container mx-auto mt-6 white-all overflow-hidden'>
+                                  <section className='mainsection container mx-auto mt-6  overflow-hidden'>
                                     {componentValue?.selectedVal?.Title && (
                                       <div class='text-box-h2 mb-4' id='Title'>
                                         {componentValue.selectedVal.Title.value}

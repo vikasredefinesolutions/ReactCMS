@@ -106,6 +106,7 @@ const Layout1FilterBar: React.FC<props> = ({
                     className={`flex items-center ${
                       storeLayout === _Store.type1 ? '' : 'gap-3'
                     }`}
+                    onClick={() => sortOpenHandler(true)}
                   >
                     <span>
                       Sort {storeLayout === _Store.type1 ? ' ' : ':'}{' '}
@@ -118,7 +119,6 @@ const Layout1FilterBar: React.FC<props> = ({
                           : 'bg-gray-100 px-2'
                       }  py-2`}
                       id='menu-button'
-                      onClick={() => sortOpenHandler(true)}
                     >
                       <span
                         className={

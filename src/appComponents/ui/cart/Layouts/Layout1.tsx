@@ -364,14 +364,14 @@ const CartLayout1 = (props: _Props) => {
                                         <div className='mb-3 flex'>
                                           {item.logoImagePath === '' ? (
                                             <img
-                                              className='w-14 h-14'
-                                              src='images/logo-to-be-submitted.webp'
+                                              className='w-14 h-12'
+                                              src='/images/logo-to-be-submitted.webp'
                                               title=''
                                               alt={item.logoImagePath}
                                             />
                                           ) : (
                                             <img
-                                              className='w-14 h-14'
+                                              className='w-14 h-12'
                                               src={`${config.mediaBaseUrl}${item.logoImagePath}`}
                                               title=''
                                               alt={item.logoImagePath}
@@ -405,7 +405,7 @@ const CartLayout1 = (props: _Props) => {
                                           Logo Price
                                         </div>
                                         <div>
-                                          {index === 0
+                                          {index === 0 && item.logoPrice === 0
                                             ? 'First Logo Free'
                                             : `$${item.logoPrice}`}
                                         </div>

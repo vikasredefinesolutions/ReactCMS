@@ -173,14 +173,14 @@ const CartLayout2 = ({
                                         <div className='mb-3 flex'>
                                           {item.logoImagePath === '' ? (
                                             <img
-                                              className='w-14 h-14'
-                                              src='images/logo-to-be-submitted.webp'
+                                              className='w-14 h-12'
+                                              src='/images/logo-to-be-submitted.webp'
                                               title=''
                                               alt={item.logoImagePath}
                                             />
                                           ) : (
                                             <img
-                                              className='w-14 h-14'
+                                              className='w-14 h-12'
                                               src={`${config.mediaBaseUrl}${item.logoImagePath}`}
                                               title=''
                                               alt={item.logoImagePath}

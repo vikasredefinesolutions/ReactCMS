@@ -28,7 +28,7 @@ const BrandProduct: React.FC<_props> = (props) => {
   let flag: boolean = false;
   return (
     <>
-      <li className='text-center relative border border-gray-200 border-solid'>
+      <li className='text-center relative border border-gray-200 bg-white border-solid'>
         <Link
           href={`${origin}/${product.productSEName}.html?v=product-detail&altview=1`}
           className='relative'

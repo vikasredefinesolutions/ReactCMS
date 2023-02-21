@@ -167,6 +167,7 @@ const RedefineCustomApp = ({
       <Metatags
         storeName={store.storeName}
         pageMetaData={pageProps?.pageMetaData}
+        routepath={router.asPath}
       />
       <SuccessErrorModal />
       <Redefine_Screen

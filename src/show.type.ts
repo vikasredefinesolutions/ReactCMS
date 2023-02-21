@@ -41,6 +41,22 @@ export type _MenuItems = {
     | null;
 };
 
+export type _BrandsSiteMap = {
+  items: { dataType: string; brands: [] };
+  seName: string;
+  brandName: string;
+  type: string;
+};
+
+export type _CategorySiteMap = {
+  id: number;
+  name: string;
+  parentCategoryId: number;
+  sename: string;
+  storeId: number;
+  subRows: [];
+};
+
 export type _productController = {
   details: null | _ProductDetails;
   colors: null | _ProductColor[];
