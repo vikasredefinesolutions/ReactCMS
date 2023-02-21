@@ -54,7 +54,7 @@ const Ecommerce_Header: React.FC<_props> = ({
     storeCode === _Store.type16
   ) {
     return (
-      <div className='bg-white sticky top-0 z-40'>
+      <div className='bg-white sticky top-0 z-40 shadow-[0_0px_5px_rgba(0,0,0,0.12)]'>
         <div className='bg-white'>
           {isMobileView && (
             <MenuItems
@@ -64,18 +64,18 @@ const Ecommerce_Header: React.FC<_props> = ({
               menuItems={menuItems}
             />
           )}
-          <header className='relative'>
+          <header className='relative trancking-[1px]'>
             <nav aria-label='Top'>
-              <div className='bg-white shadow-md'>
+              <div className='bg-white '>
                 <div className='container mx-auto'>
-                  <div className=''>
-                    <div className='py-3 lg:py-4 flex items-center justify-between'>
+                  <div className='py-[10px]'>
+                    <div className='flex items-center justify-between'>
                       {isMobileView ? null : (
                         <Logo
                           screen='DESKTOP'
                           logo={{
                             desktop: logoUrl.desktop,
-                            mobile: '',
+                            mobile: logoUrl.desktop,
                           }}
                         />
                       )}
@@ -89,17 +89,12 @@ const Ecommerce_Header: React.FC<_props> = ({
                         />
                       )}
 
-                      <div className='flex items-center lg:hidden space-x-4 pr-4'>
-                        <MenuIcon />
-                        {isMobileView ? <SearchBar screen='MOBILE' /> : null}
-                      </div>
-
                       {isMobileView ? (
                         <Logo
                           screen='MOBILE'
                           logo={{
                             desktop: logoUrl.desktop,
-                            mobile: '',
+                            mobile: logoUrl.desktop,
                           }}
                         />
                       ) : null}
@@ -115,10 +110,14 @@ const Ecommerce_Header: React.FC<_props> = ({
                             {storeCode !== _Store.type1 && <CompareIcon />}
                             {/* <!-- <span className="mx-4 h-6 w-px bg-gray-200 lg:mx-6" aria-hidden="true"></span> --> */}
                             <MyCartIcon />
+                            <div className='lg:hidden'>
+                              <MenuIcon />
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    {isMobileView ? <SearchBar screen='MOBILE' /> : null}
                   </div>
                 </div>
               </div>

@@ -81,11 +81,11 @@ const Ecommerce_NotificationBar: React.FC = () => {
     storeLayout === _Store.type16
   ) {
     return (
-      <div className='bg-primary text-white px-2 sm:px-0 hidden md:block'>
+      <div className='bg-primary text-white px-2 sm:px-0 hidden md:block py-[3px] tracking-[1.4px]'>
         <div className='container mx-auto'>
-          <div className='flex flex-wrap justify-between items-center text-sm tracking-wider'>
+          <div className='flex flex-wrap justify-between items-center text-sm'>
             <div className='flex items-center'>
-              <span className='material-icons top-header-icon text-[#00b2e3] text-2xl mr-1'>
+              <span className='material-icons top-header-icon text-[#00b2e3] mr-1'>
                 verified
               </span>
               <span>
@@ -113,8 +113,8 @@ const Ecommerce_NotificationBar: React.FC = () => {
                 ''
               )}
             </div>
-            <div className='flex items-center'>
-              <span className='material-icons top-header-phone-icon text-2xl mr-1'>
+            <div className='flex items-center gap-3'>
+              <span className='material-icons top-header-phone-icon mr-1 bg-[#00ce7c] rounded-full !text-[16px] !w-[22px] !h-[22px] !text-black !flex items-center justify-center'>
                 phone
               </span>
               <span className=''>888-293-5648</span>

@@ -84,7 +84,7 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
               <button onClick={() => router.back()}>{details.name}</button>
             </div>
           </div>
-          <RequestConsultationForm />
+          <RequestConsultationForm productId={details.id} />
           <RequestFeatures />
         </div>
         <ProductAlike

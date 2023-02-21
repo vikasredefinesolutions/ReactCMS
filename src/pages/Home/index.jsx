@@ -141,9 +141,12 @@ const Home = (props) => {
                       {Object.keys(componentValue.selectedVal).includes(
                         'featuredproducts_section_title',
                       ) ||
-                      Object.keys(componentValue.selectedVal).includes(
+                      (Object.keys(componentValue.selectedVal).includes(
                         'featuredproducts_product_count',
-                      ) ? (
+                      ) &&
+                        componentValue.selectedVal
+                          .featuredproducts_selected_brands.value.length >
+                          1) ? (
                         <>
                           <FeaturedProducts
                             dataArr={componentValue.selectedVal}
@@ -195,7 +198,6 @@ const Home = (props) => {
                               ) : (
                                 <>
                                   <div
-                                    className='commondiv'
                                     dangerouslySetInnerHTML={{
                                       __html: componentValue.html,
                                     }}

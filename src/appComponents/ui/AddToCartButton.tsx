@@ -96,7 +96,7 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
           try {
             const res = await addToCart(cartObject);
             if (!customerId) {
-              setCookie(__Cookie.tempCustomerId, res, 7);
+              setCookie(__Cookie.tempCustomerId, res, 'Session');
             }
             showModal({
               message: 'Added to cart Successfully',
@@ -125,7 +125,7 @@ export const AddToCart: React.FC<Props> = ({ title, className }) => {
           try {
             const res = await addToCart(cartObject);
             if (!customerId) {
-              setCookie(__Cookie.tempCustomerId, res, 7);
+              setCookie(__Cookie.tempCustomerId, res, 'Session');
             }
             showModal({
               message: 'Added to cart Successfully',

@@ -131,9 +131,9 @@ const ProductComponent = ({
               {storeLayout === _Store.type27 ? (
                 <></>
               ) : (
-                <div className='mt-1'>
+                <div className='mt-1 text-center h-12'>
                   <img
-                    className='inline-block max-h-12'
+                    className='inline-block max-h-full'
                     src={`${config.mediaBaseUrl}/rdc${
                       product?.brandlogo &&
                       product?.brandlogo.replace('/rdc', '')
@@ -225,48 +225,52 @@ const ProductComponent = ({
               )}
               {product.getProductImageOptionList &&
                 product.getProductImageOptionList.length && (
-                  <ul
-                    role='list'
-                    className='flex items-center mt-2 justify-center space-x-1 testlayoutclass'
-                  >
-                    {product.getProductImageOptionList.map((subRow, index) =>
-                      index < listing_max_showcolors ? (
-                        <li
-                          className={`w-7 h-7 border-2 overflow-hidden hover:border-secondary ${
-                            subRow.id === currentProduct.id
-                              ? ' border-secondary'
-                              : ''
-                          }`}
-                          onClick={() => {
-                            colorChangeHandler(
-                              product.id,
-                              product.sename || '',
-                              subRow.colorName,
-                            );
-                            setCurrentProduct(subRow);
-                          }}
-                          key={subRow.id}
-                        >
-                          <img
-                            src={`${config.mediaBaseUrl}${subRow.imageName}`}
-                            alt=''
-                            title=''
-                            className='max-h-full m-auto w-full'
-                          />
+                  <div className='w-full h-12'>
+                    <ul
+                      role='list'
+                      className='flex items-center mt-2 justify-center space-x-1 testlayoutclass w-full'
+                    >
+                      {product.getProductImageOptionList.map((subRow, index) =>
+                        index < listing_max_showcolors ? (
+                          <li
+                            className={`border-2 overflow-hidden hover:border-secondary ml-2 ${
+                              subRow.id === currentProduct.id
+                                ? ' border-secondary'
+                                : ''
+                            }`}
+                            onClick={() => {
+                              colorChangeHandler(
+                                product.id,
+                                product.sename || '',
+                                subRow.colorName,
+                              );
+                              setCurrentProduct(subRow);
+                            }}
+                            key={subRow.id}
+                          >
+                            <div className='w-7 h-7'>
+                              <img
+                                src={`${config.mediaBaseUrl}${subRow.imageName}`}
+                                alt=''
+                                title=''
+                                className='max-w-full max-h-full'
+                              />
+                            </div>
+                          </li>
+                        ) : (
+                          <>{(flag = true)}</>
+                        ),
+                      )}
+                      {flag ? (
+                        <li className='extra w-7 h-7 text-center border-2 hover:border-secondary inset-0 bg-primary text-xs font-semibold flex items-center justify-center text-white'>
+                          <span> +</span>
+                          {product.getProductImageOptionList &&
+                            product.getProductImageOptionList.length -
+                              listing_max_showcolors}
                         </li>
-                      ) : (
-                        <>{(flag = true)}</>
-                      ),
-                    )}
-                    {flag ? (
-                      <li className='extra w-7 h-7 text-center border-2 hover:border-secondary inset-0 bg-primary text-xs font-semibold flex items-center justify-center text-white'>
-                        <span> +</span>
-                        {product.getProductImageOptionList &&
-                          product.getProductImageOptionList.length -
-                            listing_max_showcolors}
-                      </li>
-                    ) : null}
-                  </ul>
+                      ) : null}
+                    </ul>
+                  </div>
                 )}
               {/* <div className="mt-3">
                 <a  className="btn btn-primary">

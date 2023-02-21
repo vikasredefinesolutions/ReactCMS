@@ -115,16 +115,13 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                 type='button'
                 onMouseOver={() => setFocus(true)}
                 onMouseLeave={() => setFocus(false)}
-                className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
+                className={`relative tracking-[1px] z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
                   focus
                     ? `border-b-primary text-primary-hover`
                     : `border-transparent text-white hover:text-primary-hover`
                 }`}
               >
                 <span className='uppercase text-primary'>{title}</span>
-                {/* <!-- <svg className="w-8 h-8 shrink-0 fill-current text-anchor-hover group-hover:text-gray-500 ml-3" :className="{ 'text-anchor-hover rotate-180': open }" viewBox="0 0 32 32">
-                                    <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z"></path>
-                                </svg> -->  */}
               </button>
             </div>
             {focus && (

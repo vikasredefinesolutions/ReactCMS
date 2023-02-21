@@ -10,6 +10,7 @@ import SOM_LogoOption from './SOM_LogoOption';
 const SOM_CustomizeLogoOptions: React.FC = () => {
   const { product_updateLogoDetails } = useActions();
   const [nowOrLater, setNowOrLater] = useState<'later' | 'now'>('later');
+  const [firstLogoFree, setFirstLogoFree] = useState<Boolean>(true);
   const { currency } = useTypedSelector((state) => state.store);
   const [logoLocation, setLogoLocation] = useState<_LogoLocationDetail[] | []>(
     [],
@@ -18,11 +19,14 @@ const SOM_CustomizeLogoOptions: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      FetchLogoLocationByProductId({ productId: id }).then((res) =>
-        res?.subRow && res?.subRow?.length > 0
-          ? setLogoLocation(res?.subRow)
-          : setLogoLocation(logoPositions),
-      );
+      FetchLogoLocationByProductId({ productId: id }).then((res) => {
+        if (res) {
+          setFirstLogoFree(res?.isFirstLogoFree);
+          res?.subRow && res?.subRow?.length > 0
+            ? setLogoLocation(res?.subRow)
+            : setLogoLocation(logoPositions);
+        }
+      });
     }
   }, []);
 
@@ -53,6 +57,8 @@ const SOM_CustomizeLogoOptions: React.FC = () => {
           },
           label: logo.name,
           value: logo.name,
+          price: logo.price,
+          cost: logo.cost,
         })),
       });
 
@@ -116,7 +122,13 @@ const SOM_CustomizeLogoOptions: React.FC = () => {
                                 key={index}
                                 index={index}
                                 textIndex={values.logos.length}
-                                price={IndexLabels[index].price}
+                                price={
+                                  firstLogoFree
+                                    ? IndexLabels[index].price
+                                    : index === 0
+                                    ? IndexLabels[index + 1].price
+                                    : IndexLabels[index].price
+                                }
                                 onRemove={() => {
                                   arrayHelpers.remove(index);
                                   product_updateLogoDetails({
@@ -124,11 +136,13 @@ const SOM_CustomizeLogoOptions: React.FC = () => {
                                     allow: true,
                                   });
                                 }}
-                                title={`${
-                                  IndexLabels[index].label
-                                } Logo (${showPrice(
-                                  IndexLabels[index].price,
-                                )})`}
+                                title={`${IndexLabels[index].label} Logo (${
+                                  firstLogoFree
+                                    ? showPrice(IndexLabels[index].price)
+                                    : index === 0
+                                    ? showPrice(IndexLabels[index + 1].price)
+                                    : showPrice(IndexLabels[index].price)
+                                })`}
                                 id={`${index}-id`}
                                 name={`${index}-name`}
                               />

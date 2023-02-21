@@ -104,27 +104,22 @@ const SearchBar: React.FC<_props> = ({
   ) {
     if (screen === 'MOBILE') {
       return (
-        <Link href='#' className='py-2 text-primary hover:text-gray-500'>
-          <a>
-            <span className='sr-only'>Search</span>
-            <svg
-              className='w-6 h-6'
-              x-description='Heroicon name: outline/search'
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth='2'
-              stroke='currentColor'
-              aria-hidden='true'
+        <div className='lg:hidden w-full'>
+          <div className='border border-primary pt-[5px] pb-[4px] pl-[5px] pr-[24px] text-gray-400 hover:text-gray-500 relative'>
+            <input
+              type='text'
+              className='outline-none w-full border-0 focus:ring-0 text-[14px] tracking-[1px] text-primary h-[26px]'
+              placeholder='Search'
+              id='txtSearch'
+            />
+            <button
+              type='button'
+              className='w-6 h-6 absolute right-1.5 top-1.5'
             >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-              ></path>
-            </svg>
-          </a>
-        </Link>
+              <span className='material-icons text-primary'>search</span>
+            </button>
+          </div>
+        </div>
       );
     }
     if (screen === 'DESKTOP') {
@@ -133,8 +128,8 @@ const SearchBar: React.FC<_props> = ({
           {({ values, handleSubmit, handleChange, handleReset }) => {
             return (
               <Form>
-                <div className='hidden lg:flex'>
-                  <div className='border border-gray-400 p-2 pr-10 text-gray-400 hover:text-gray-500 relative'>
+                <div className='hidden lg:flex max-w-[190px]'>
+                  <div className='border border-primary pt-[5px] pb-[4px] pl-[5px] pr-[24px] text-gray-400 hover:text-gray-500 relative'>
                     <input
                       type='text'
                       name='text'
@@ -142,32 +137,19 @@ const SearchBar: React.FC<_props> = ({
                       id='txtSearch'
                       placeholder='Search'
                       //                      onChange={handleChange}
-                      className='outline-none border-0 focus:ring-0'
+                      className='outline-none w-full border-0 focus:ring-0 text-[14px] tracking-[1px] text-primary h-[26px]'
                     />
-                    <div
-                      className='w-6 h-6 absolute right-2 top-2 '
+                    <button
+                      className='w-6 h-6 absolute right-1.5 top-1.5'
                       onClick={() => {
                         handleSubmit();
                         handleReset();
                       }}
                     >
-                      <svg
-                        className='w-6 h-6'
-                        x-description='Heroicon name: outline/search'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        strokeWidth='2'
-                        stroke='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-                        ></path>
-                      </svg>
-                    </div>
+                      <span className='material-icons text-primary'>
+                        search
+                      </span>
+                    </button>
                   </div>
                 </div>
               </Form>

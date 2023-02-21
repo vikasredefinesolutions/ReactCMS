@@ -24,14 +24,11 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   ) {
     if (screen === 'DESKTOP') {
       return (
-        <div
-          className='lg:flex lg:items-center'
-          style={{ maxWidth: '240px', width: '100%', position: 'relative' }}
-        >
+        <div className='lg:flex lg:items-center max-w-[350px] w-full relative'>
           <Link href={paths.HOME}>
-            <a title={storeName || storeLayout}>
+            <a title={storeName || storeLayout} className='w-full'>
               <Image
-                className='h-16 w-auto brand-logo'
+                className='brand-logo w-full'
                 src={logo?.desktop}
                 alt={storeName ? storeName : ''}
               />
@@ -42,9 +39,17 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
     }
     if (screen === 'MOBILE') {
       return (
-        <Link href={paths.HOME} className='xl:hidden'>
-          <Image src={logo?.mobile} alt={storeLayout} className='h-14 w-auto' />
-        </Link>
+        <div className='lg:flex lg:items-center max-w-[350px] w-full relative mr-5'>
+          <Link href={paths.HOME} className='xl:hidden'>
+            <a title={storeName || storeLayout} className='w-full '>
+              <Image
+                src={logo?.mobile}
+                alt={storeLayout}
+                className='brand-logo w-full'
+              />
+            </a>
+          </Link>
+        </div>
       );
     }
   }

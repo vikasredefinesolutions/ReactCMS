@@ -215,6 +215,8 @@ export const productSlice = createSlice({
 
         if (addOrRemove === 'ADD') {
           state.som_logos.availableOptions?.push({
+            price: payload.location.price,
+            cost: payload.location.cost,
             label: payload.location.label,
             value: payload.location.value,
             image: payload.location.image,

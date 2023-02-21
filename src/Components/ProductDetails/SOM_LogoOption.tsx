@@ -17,18 +17,6 @@ interface _props {
   onRemove: () => void;
 }
 
-interface Option {
-  label: any;
-  // label: string;
-  value: string;
-  image: {
-    url: string;
-    alt: string;
-  };
-  options: readonly string[];
-  // show: boolean;
-}
-
 const SOM_LogoOption: React.FC<_props> = ({
   title,
   id,
@@ -50,6 +38,8 @@ const SOM_LogoOption: React.FC<_props> = ({
       alt: string;
     };
     show: boolean;
+    price: number;
+    cost: number;
   }>(null);
 
   const [fileToUpload, setFileToUpload] = useState<{
@@ -69,8 +59,10 @@ const SOM_LogoOption: React.FC<_props> = ({
         alt: item.image.url,
       },
       value: item.value,
+      price: item.price,
+      cost: item.cost,
       label: (
-        <div className='flex items-center'>
+        <div className='flex items-center '>
           <img
             alt={item.image.alt}
             src={
@@ -80,7 +72,7 @@ const SOM_LogoOption: React.FC<_props> = ({
             }
             height='60px'
             width='60px'
-            className='mr-2'
+            className='mr-2 border border-gray-200'
           />
           {item.value}
         </div>
@@ -205,6 +197,8 @@ const SOM_LogoOption: React.FC<_props> = ({
         type: 'Update_Location_Options',
         location: {
           addOrRemove: 'REMOVE',
+          price: selectedLocation!.price,
+          cost: selectedLocation!.cost,
           value: selectedLocation!.value,
           label: selectedLocation!.label,
           image: selectedLocation!.image,
@@ -227,6 +221,8 @@ const SOM_LogoOption: React.FC<_props> = ({
           type: 'Update_Location_Options',
           location: {
             addOrRemove: 'ADD',
+            price: selectedLocation!.price,
+            cost: selectedLocation!.cost,
             value: selectedLocation!.value,
             label: selectedLocation!.label,
             image: selectedLocation!.image,
@@ -289,6 +285,8 @@ const SOM_LogoOption: React.FC<_props> = ({
               pending: IndexLabels[textIndex - 1].label,
             });
             setSelectedLocation({
+              price: e.price,
+              cost: e.cost,
               label: e.label.props.children[1],
               value: e.value,
               show: false,

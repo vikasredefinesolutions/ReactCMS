@@ -36,6 +36,8 @@ export interface _AvailableLocationDetails {
     url: string;
     alt: string;
   };
+  price: number;
+  cost: number;
 }
 
 export interface _Product_UpdateLogoDetails_Actions {
@@ -69,6 +71,8 @@ export interface _Product_UpdateLogoDetails_Actions {
             url: string;
             alt: string;
           };
+          price: number;
+          cost: number;
         };
       }
     | {

@@ -114,6 +114,9 @@ export const __console: __Console = {
     controller: false,
     serverMethod: false,
     page: true,
+    service: {
+      SumbitRequestConsultationDetails: true,
+    },
   },
   compare: {
     controller: false,

@@ -331,7 +331,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
         try {
           const res = await addToCart(cartObject);
           if (!customerId) {
-            setCookie(__Cookie.tempCustomerId, res, 7);
+            setCookie(__Cookie.tempCustomerId, res, 'Session');
           }
           showModal({
             message: 'Added to cart Successfully',

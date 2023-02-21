@@ -57,7 +57,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
 
   return (
     <>
-      <section className='mainsection container mx-auto mt-20'>
+      <section className='mainsection container mx-auto'>
         {Object.keys(bannerArr).length > 0 && bannerArr.images != null && (
           <Carousel
             renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
@@ -194,11 +194,13 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                           padding: '20px',
                         }}
                       >
-                        <div className='w-full text-2xl md:text-3xl lg:text-title font-title  mb-1 text-white'>
+                        <div className={`w-full ${image.headline_font_size} lg:text-title font-title  mb-1 text-white`}>
                           {image.headline}
                         </div>
-                        <div className='w-full text-xl md:text-2xl  font-sub-title  mb-2 lg:text-sub-title text-white'>
-                          {image.headline1}
+                        <div className={`w-full ${image.headline1_font_size} font-title  mb-1 text-white`} dangerouslySetInnerHTML={{
+                                      __html: image.headline1,
+                                    }}>
+                          
                         </div>
                         {image.button_display == 'Yes' && (
                           <>

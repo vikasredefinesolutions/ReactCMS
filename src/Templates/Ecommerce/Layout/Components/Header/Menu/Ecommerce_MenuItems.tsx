@@ -35,7 +35,6 @@ const MenuItems: React.FC<_props> = ({
     storeCode === _Store.type15 ||
     storeCode === _Store.type16
   ) {
-
     if (screen === 'MOBILE') {
       return (
         <div className='relative z-40 lg:hidden'>
@@ -77,7 +76,6 @@ const MenuItems: React.FC<_props> = ({
           <div className='ml-5'>
             <div className='h-full flex justify-center space-x-5 relative text-sm'>
               {menuItems.items_content?.map((menu, index) => {
-
                 if (menu === null) {
                   return <></>;
                 }
@@ -274,9 +272,9 @@ const MenuItems: React.FC<_props> = ({
     }
     if (screen === 'DESKTOP') {
       return (
-        <div className='hidden h-full lg:flex items-center justify-center flex-1'>
-          <div className='ml-6'>
-            <div className='h-full flex justify-center space-x-6 relative'>
+        <div className='hidden h-full lg:flex items-center flex-1 tracking-[1px]'>
+          <div className='ml-[10px]'>
+            <div className='h-full flex justify-center space-x-3 xl:space-x-5 relative text-sm'>
               {menuItems.items_content?.map((menu, index) => {
                 if (menu === null) {
                   return <></>;

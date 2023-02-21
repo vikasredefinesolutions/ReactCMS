@@ -59,7 +59,7 @@ const LogosToPrint: React.FC<_props> = ({ setShowOrSelect }) => {
 
         if (!customerId) {
           c_id = res;
-          setCookie(__Cookie.tempCustomerId, res, 7);
+          setCookie(__Cookie.tempCustomerId, res, 'Session');
         }
         if (c_id)
           fetchCartDetails({

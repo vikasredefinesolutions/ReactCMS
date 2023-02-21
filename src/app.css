@@ -71,3 +71,17 @@
 .text-\[60px\] {
   font-size: 60px;
 }
+
+.brand-logo {
+  width: 100%;
+}
+.brand-logo span span {
+  display: none !important;
+}
+.brand-logo span span + img {
+  width: 100% !important;
+  height: auto !important;
+  position: relative !important;
+  min-width: auto !important;
+  min-height: auto !important;
+}

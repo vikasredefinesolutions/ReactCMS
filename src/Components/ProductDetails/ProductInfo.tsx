@@ -137,7 +137,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         <div className='m-3'>
           <button
             type='button'
-            className='text-indigo-500 text-sm font-semibold underline'
+            className='text-anchor hover:text-anchor-hover text-sm font-semibold underline'
             onClick={() => modalHandler('availableInventory')}
           >
             Check Available Inventory
@@ -150,7 +150,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           <div>
             <button
               type='button'
-              className='text-indigo-500 text-sm font-semibold underline'
+              className='text-anchor hover:text-anchor-hover text-sm font-semibold underline'
               onClick={() => modalHandler('sizeChart')}
             >
               Size Chart

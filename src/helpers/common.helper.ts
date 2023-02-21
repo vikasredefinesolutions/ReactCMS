@@ -9,6 +9,7 @@ import { _HeaderServices } from '@services/header.service';
 import { _HomeServices } from '@services/home.service';
 import { _LogoApiService } from '@services/logo.service';
 import { _ProductDetailService } from '@services/product.service';
+import { _RequestConsultationService } from '@services/requestConsultation.service';
 import { _SlugServices } from '@services/slug.service';
 import { _UserServices } from '@services/user.service';
 import {
@@ -159,7 +160,7 @@ export const extractCookies = (
 export function setCookie(
   cName: string,
   cValue: string,
-  expDays: number | 'EPOCH',
+  expDays: number | 'EPOCH' | 'Session',
 ) {
   let date = new Date();
   if (expDays === 'EPOCH') {
@@ -168,7 +169,10 @@ export function setCookie(
   if (typeof expDays === 'number') {
     date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000);
   }
-  const expires = 'expires=' + date.toUTCString();
+  let expires = 'expires=' + date.toUTCString();
+  if (expDays === 'Session') {
+    expires = expDays;
+  }
   document.cookie = cName + '=' + cValue + '; ' + expires;
 }
 
@@ -271,6 +275,7 @@ export const CallAPI = async <T>({
     | _ShoppingCartService
     | _CacheApiServices
     | _FooterServices
+    | _RequestConsultationService
     | _LogoApiService;
   request: _GET | _POST;
 }) => {

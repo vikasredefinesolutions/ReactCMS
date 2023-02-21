@@ -122,7 +122,7 @@ const SOM_ActionsHandler: React.FC<_props> = ({
 
       if (!loggedIN_userId) {
         guest_OR_loggedIN_userID = guestId;
-        setCookie(__Cookie.tempCustomerId, guestId, 7);
+        setCookie(__Cookie.tempCustomerId, guestId, 'Session');
       }
 
       if (!guest_OR_loggedIN_userID) return;

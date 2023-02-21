@@ -21,21 +21,21 @@ const RequestSelect: React.FC<_props> = ({
   value,
 }) => {
   return (
-    <div className="">
+    <div className=''>
       <select
-        className="form-input"
+        className='form-input'
         id={name}
         onChange={onChange}
         value={value}
       >
-        <option value="">{`${placeHolder} ${required ? '*' : ''}`}</option>
+        <option value=''>{`${placeHolder} ${required ? '*' : ''}`}</option>
         {options.map((option) => (
           <option key={option.id} value={option.id}>
             {option.name}
           </option>
         ))}
       </select>
-      <ErrorMessage name={name} />
+      <ErrorMessage name={name} className='text-rose-500' component={'p'} />
     </div>
   );
 };

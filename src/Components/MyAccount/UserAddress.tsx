@@ -126,8 +126,11 @@ const UserAddress = () => {
                 <button
                   onClick={() => setShowTab('S')}
                   className={`tab py-2 px-2 block btn  ${
-                    showTab === 'B' ? 'btn-secondary' : 'btn-secondary-hover '
+                    showTab === 'B'
+                      ? 'btn-secondary border-spacing-0'
+                      : 'btn-secondary-hover '
                   } border-0`}
+                  style={{ borderWidth: '0px' }}
                 >
                   Shipping Address
                 </button>
@@ -136,8 +139,11 @@ const UserAddress = () => {
                 <button
                   onClick={() => setShowTab('B')}
                   className={`tab py-2 px-2 block btn ${
-                    showTab === 'S' ? 'btn-secondary' : 'btn-secondary-hover'
+                    showTab === 'S'
+                      ? 'btn-secondary border-spacing-0'
+                      : 'btn-secondary-hover'
                   }`}
+                  style={{ borderWidth: '0px' }}
                 >
                   Billing Address
                 </button>

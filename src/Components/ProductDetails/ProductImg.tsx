@@ -1,6 +1,4 @@
 import { FetchTagsName } from '@services/product.service';
-import { getWishlist } from '@services/wishlist.service';
-import { WishlistType } from '@type/wishlist.type';
 import Image from 'appComponents/reUsable/Image';
 import Wishlist from 'appComponents/ui/Wishlist';
 import { _OtherImage } from 'definations/APIs/colors.res';
@@ -41,6 +39,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
     (state) => state.product.selected.image,
   );
 
+  const wishlist = useTypedSelector((state) => state.wishlist.wishListData);
   const customerId = useTypedSelector((state) => state.user.id);
   // const show = useTypedSelector((state) => state.store.display.footer);
 
@@ -65,17 +64,13 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
   }, [product?.id]);
 
   useEffect(() => {
-    if (customerId) {
-      getWishlist(customerId).then((res: WishlistType) => {
-        res.map((item) => {
-          if (item.productId === product?.id) {
-            setWishlistPresent(true);
-            setWishlistId(item.id);
-          }
-        });
-      });
-    }
-  }, [customerId]);
+    wishlist.forEach((item) => {
+      if (item.productId === product?.id) {
+        setWishlistPresent(true);
+        setWishlistId(item.id);
+      }
+    });
+  }, [customerId, wishlist]);
 
   // JSX  ----------------------------------------
 

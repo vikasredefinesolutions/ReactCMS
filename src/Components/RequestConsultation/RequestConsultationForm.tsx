@@ -1,7 +1,19 @@
+import { TextField } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { UploadImage } from '@services/file.service';
+import { SumbitRequestConsultationDetails } from '@services/requestConsultation.service';
+import { _SubmitConsultationPayload } from '@type/requestConsultation.type';
+import config from 'api.config';
 import { Form, Formik } from 'formik';
+import getLocation from 'helpers/getLocation';
+import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import * as Yup from 'yup';
+
 import Ecommerce_RequestSubmitted from './Ecommerce_RequestSubmitted';
 import RequestInput from './RequestInput';
 import RequestSelect from './RequestSelect';
@@ -12,8 +24,8 @@ type _RequestConsultation = {
   companyName: string;
   email: string;
   phone: string;
-  preferedContactMethod: string;
-  desiredQty: string;
+  preferedContactMethod: '' | 'MOBILE' | 'EMAIL';
+  desiredQty: number;
   inHandDate: string;
   message: string;
 };
@@ -25,7 +37,9 @@ const _RequestConsulationSchema = Yup.object().shape({
   email: Yup.string().required('Enter your email.'),
   phone: Yup.string().required('Enter your Phone.'),
   preferedContactMethod: Yup.string().required('Please Select Contact Method.'),
-  desiredQty: Yup.string().required('Enter desired quantity.'),
+  desiredQty: Yup.number()
+    .min(1, 'Enter desired quantity.')
+    .required('Enter desired quantity.'),
   inHandDate: Yup.string(),
   message: Yup.string(),
 });
@@ -37,36 +51,95 @@ const _RequestConsultationInitials: _RequestConsultation = {
   email: '',
   phone: '',
   preferedContactMethod: '',
-  desiredQty: '',
+  desiredQty: 0,
   inHandDate: '',
   message: '',
 };
 
-const RequestConsultationForm: React.FC = () => {
+const RequestConsultationForm: React.FC<{ productId: number }> = ({
+  productId,
+}) => {
   const router = useRouter();
+  const [captchaVerified, setverifiedRecaptch] = useState<
+    'NOT_VALID' | null | 'VALID'
+  >(null);
+
   const [showLogo, setShowLogo] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const storeId = useTypedSelector((state) => state.store.id);
+  const { setShowLoader } = useActions();
 
-  const [, setFileToUpload] = useState<{
+  const [fileToUpload, setFileToUpload] = useState<{
+    logoPathURL: string;
     name: string;
     type: string;
     previewURL: string;
   } | null>(null);
 
-  const submitHandler = () => {
+  const captchaHandler = (value: any) => {
+    setverifiedRecaptch('VALID');
+  };
+
+  const submitHandler = async (value: _RequestConsultation) => {
+    if (!captchaVerified || captchaVerified === 'NOT_VALID') {
+      setverifiedRecaptch('NOT_VALID');
+      return;
+    }
+    setShowLoader(true);
+
+    const location = await getLocation();
+
+    const payload: _SubmitConsultationPayload = {
+      consultationModel: {
+        id: 0,
+        rowVersion: '',
+        location: `${location.city}, ${location.region}, ${location.country}, ${location.postal_code}`,
+        ipAddress: location.ip_address,
+        macAddress: '00-00-00-00-00-00',
+        storeId: storeId!,
+        productId: productId,
+        firstname: value.firstName,
+        lastname: value.lastName,
+        company: value.companyName,
+        email: value.email,
+        phone: value.phone,
+        contactMethod: value.preferedContactMethod === 'EMAIL' ? 0 : 1,
+        desiredQuantity: value.desiredQty,
+        inHandsDate: value.inHandDate,
+        logoUrl: fileToUpload ? fileToUpload.logoPathURL : '',
+        message: value.message,
+        recStatus: 'A',
+      },
+    };
+
+    SumbitRequestConsultationDetails(payload)
+      .then((res) => {
+        console.log('ressssss', res);
+        setFormSubmitted(true);
+      })
+      .finally(() => setShowLoader(false));
     setFormSubmitted(true);
   };
 
-  const fileReader = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget?.files === null) return;
+  const fileReader = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.currentTarget === null || event.currentTarget.files === null)
+      return;
+    setShowLoader(true);
+
+    const logoFileURL = await UploadImage({
+      folderPath: config.imageFolderPath,
+      files: event.currentTarget.files[0],
+    });
 
     const file = {
+      logoPathURL: logoFileURL,
       name: event.currentTarget.files[0].name,
       type: event.currentTarget.files[0].type,
       previewURL: URL.createObjectURL(event.currentTarget.files[0]),
     };
 
     setFileToUpload(file);
+    setShowLoader(false);
   };
 
   return (
@@ -151,8 +224,8 @@ const RequestConsultationForm: React.FC = () => {
                       name={'preferedContactMethod'}
                       value={values.preferedContactMethod}
                       options={[
-                        { id: 'phone', name: 'Phone' },
-                        { id: 'email', name: 'Email' },
+                        { id: 'PHONE', name: 'Phone' },
+                        { id: 'EMAIL', name: 'Email' },
                       ]}
                       onChange={(event) =>
                         setFieldValue(
@@ -169,7 +242,7 @@ const RequestConsultationForm: React.FC = () => {
                       name={'desiredQty'}
                       value={values.desiredQty}
                       onChange={handleChange}
-                      type={'text'}
+                      type={'number'}
                       required={true}
                       className={'form-input'}
                     />
@@ -183,15 +256,27 @@ const RequestConsultationForm: React.FC = () => {
                     <div className='flex flex-wrap items-center justify-between'>
                       <div className=''>In Hand Date</div>
                       <div className=''>
-                        <RequestInput
-                          placeHolder={'MM/DD/YYYY'}
-                          name={'inHandDate'}
-                          value={values.inHandDate}
-                          onChange={handleChange}
-                          type={'text'}
-                          required={false}
-                          className={'form-input'}
-                        />
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DesktopDatePicker
+                            inputFormat='MM/DD/YYYY'
+                            value={values.inHandDate}
+                            onChange={(event: any) => {
+                              setFieldValue('inHandDate', event['$d']);
+                            }}
+                            disableHighlightToday={true}
+                            disablePast={true}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                          {/* <MobileDatePicker
+                            label='Date mobile'
+                            inputFormat='MM/DD/YYYY'
+                            value={values.inHandDate}
+                            onChange={(event) => {
+                              console.log('event', event);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                          /> */}
+                        </LocalizationProvider>
                       </div>
                     </div>
                   </div>
@@ -251,6 +336,16 @@ const RequestConsultationForm: React.FC = () => {
                         onChange={handleChange}
                       ></textarea>
                     </div>
+                  </div>
+                  <div className='w-full px-3'>
+                    <ReCAPTCHA
+                      className='pt-4 first:pt-0'
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHASITEKEY || ''}
+                      onChange={captchaHandler}
+                    />
+                    {captchaVerified === 'NOT_VALID' && (
+                      <p className='text-rose-500'>Captcha is not valid !</p>
+                    )}
                   </div>
                   <div className='w-full px-3 text-center'>
                     <button
