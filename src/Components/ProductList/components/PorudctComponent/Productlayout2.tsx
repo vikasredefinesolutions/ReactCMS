@@ -1,6 +1,9 @@
 import { zeroValue } from '@constants/global.constant';
 import config from 'api.config';
-import ImageComponent from 'appComponents/reUsable/Image';
+import {
+  default as Image,
+  default as ImageComponent,
+} from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import Wishlist from 'appComponents/ui/Wishlist';
 import ProductQuoteRequest from 'Components/ProductDetails/ProductQuoteRequest';
@@ -216,10 +219,9 @@ const ProductLayout2 = ({
                           }}
                           key={subRow.id}
                         >
-                          <img
+                          <Image
                             src={`${config.mediaBaseUrl}${subRow.imageName}`}
                             alt=''
-                            title=''
                             className='max-h-full m-auto'
                           />
                         </li>

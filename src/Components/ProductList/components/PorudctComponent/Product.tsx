@@ -1,8 +1,6 @@
-import { useState } from 'react';
-
 import { listing_max_showcolors, zeroValue } from '@constants/global.constant';
 import config from 'api.config';
-import ImageComponent from 'appComponents/reUsable/Image';
+import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import Wishlist from 'appComponents/ui/Wishlist';
 import { GetlAllProductList } from 'definations/productList.type';
@@ -10,10 +8,11 @@ import { getCompareLink } from 'helpers/compare.helper';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store } from 'page.config';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ProductBoxController from './ProductBox.controller';
 // import Price from 'appComponents/reUsable/Price';
 // import Wishlist from '../ui/Wishlist';
+import ImageComponent from 'appComponents/reUsable/Image';
 
 const ProductComponent = ({
   brandId,
@@ -249,10 +248,9 @@ const ProductComponent = ({
                             key={subRow.id}
                           >
                             <div className='w-7 h-7'>
-                              <img
+                              <Image
                                 src={`${config.mediaBaseUrl}${subRow.imageName}`}
                                 alt=''
-                                title=''
                                 className='max-w-full max-h-full'
                               />
                             </div>

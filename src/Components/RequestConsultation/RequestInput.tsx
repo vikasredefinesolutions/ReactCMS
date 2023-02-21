@@ -7,9 +7,10 @@ interface _props {
   value: string | number;
   // eslint-disable-next-line no-unused-vars
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  type: 'text' | 'number' | 'password';
+  type: 'text' | 'number' | 'password' | 'date';
   required: boolean;
   className: string;
+  dateCondition?: string;
 }
 
 const RequestInput: React.FC<_props> = ({
@@ -20,6 +21,7 @@ const RequestInput: React.FC<_props> = ({
   type,
   required,
   className,
+  dateCondition,
 }) => {
   return (
     <>
@@ -33,6 +35,7 @@ const RequestInput: React.FC<_props> = ({
           value={value}
           onChange={onChange}
           className={className}
+          min={dateCondition}
         />
         <ErrorMessage name={name} className='text-rose-500' component={'p'} />
       </div>

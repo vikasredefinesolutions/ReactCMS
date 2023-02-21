@@ -1,5 +1,8 @@
 import config from 'api.config';
-import ImageComponent from 'appComponents/reUsable/Image';
+import {
+  default as Image,
+  default as ImageComponent,
+} from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import { _modals } from 'definations/product.type';
 import { GetlAllProductList } from 'definations/productList.type';
@@ -173,10 +176,9 @@ const Productlayout4 = ({
                             setCurrentProduct(subRow);
                           }}
                         >
-                          <img
+                          <Image
                             src={`${config.mediaBaseUrl}${subRow.imageName}`}
                             alt=''
-                            title=''
                             className='max-h-full m-auto'
                           />
                         </li>

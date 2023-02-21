@@ -1,7 +1,10 @@
 import { showcolors } from '@constants/global.constant';
 import { GetlAllProductList } from '@type/productList.type';
 import config from 'api.config';
-import ImageComponent from 'appComponents/reUsable/Image';
+import {
+  default as Image,
+  default as ImageComponent,
+} from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import { getCompareLink } from 'helpers/compare.helper';
 import Link from 'next/link';
@@ -153,10 +156,9 @@ const ProductLayout2 = ({
                       setCurrentProduct(option);
                     }}
                   >
-                    <img
+                    <Image
                       src={`${config.mediaBaseUrl}${option.imageName}`}
                       alt=''
-                      title=''
                       className='max-h-full m-auto'
                     />
                   </li>
@@ -279,10 +281,9 @@ const ProductLayout2 = ({
                       setCurrentProduct(option);
                     }}
                   >
-                    <img
+                    <Image
                       src={`${config.mediaBaseUrl}${option.imageName}`}
                       alt=''
-                      title=''
                       className='max-h-full m-auto'
                     />
                   </li>
@@ -400,10 +401,9 @@ const ProductLayout2 = ({
                       setCurrentProduct(option);
                     }}
                   >
-                    <img
+                    <Image
                       src={`${config.mediaBaseUrl}${option.imageName}`}
                       alt=''
-                      title=''
                       className='max-h-full m-auto'
                     />
                   </li>
@@ -501,10 +501,9 @@ const ProductLayout2 = ({
                       setCurrentProduct(option);
                     }}
                   >
-                    <img
+                    <Image
                       src={`${config.mediaBaseUrl}${option.imageName}`}
                       alt=''
-                      title=''
                       className='max-h-full m-auto'
                     />
                   </li>
@@ -603,10 +602,9 @@ const ProductLayout2 = ({
                     setCurrentProduct(option);
                   }}
                 >
-                  <img
+                  <Image
                     src={`${config.mediaBaseUrl}${option.imageName}`}
                     alt=''
-                    title=''
                     className='max-h-full m-auto'
                   />
                 </li>
@@ -704,10 +702,9 @@ const ProductLayout2 = ({
                     setCurrentProduct(option);
                   }}
                 >
-                  <img
+                  <Image
                     src={`${config.mediaBaseUrl}${option.imageName}`}
                     alt=''
-                    title=''
                     className='max-h-full m-auto'
                   />
                 </li>

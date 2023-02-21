@@ -10,6 +10,7 @@ import { Form, Formik } from 'formik';
 import getLocation from 'helpers/getLocation';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
+import { _Store } from 'page.config';
 import React, { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import * as Yup from 'yup';
@@ -63,7 +64,7 @@ const RequestConsultationForm: React.FC<{ productId: number }> = ({
   const [captchaVerified, setverifiedRecaptch] = useState<
     'NOT_VALID' | null | 'VALID'
   >(null);
-
+  const storeLayout = useTypedSelector((state) => state.store.layout);
   const [showLogo, setShowLogo] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const storeId = useTypedSelector((state) => state.store.id);
@@ -114,7 +115,6 @@ const RequestConsultationForm: React.FC<{ productId: number }> = ({
 
     SumbitRequestConsultationDetails(payload)
       .then((res) => {
-        console.log('ressssss', res);
         setFormSubmitted(true);
       })
       .finally(() => setShowLoader(false));
@@ -143,7 +143,13 @@ const RequestConsultationForm: React.FC<{ productId: number }> = ({
   };
 
   return (
-    <div className='w-full lg:w-4/12 px-3'>
+    <div
+      className={
+        storeLayout === _Store.type1
+          ? 'w-full bg-white p-3'
+          : 'w-full lg:w-4/12 px-3'
+      }
+    >
       {formSubmitted && <Ecommerce_RequestSubmitted />}
       {!formSubmitted && (
         <Formik
@@ -154,10 +160,35 @@ const RequestConsultationForm: React.FC<{ productId: number }> = ({
           {({ values, handleChange, setFieldValue }) => {
             return (
               <Form>
-                <div className='flex flex-wrap -mx-3 gap-y-4'>
-                  <div className='w-full px-3'>
-                    <div className='bg-gray-100 flex flex-wrap items-center justify-between p-2'>
-                      <div className=''>Contact Information</div>
+                {storeLayout === _Store.type1 ? (
+                  <h1 className='text-center page-title1 m-b-20 text-3xl font-bold mb-3'>
+                    Request Consultation & Proof
+                  </h1>
+                ) : (
+                  <></>
+                )}
+                <div
+                  className={
+                    storeLayout === _Store.type1
+                      ? 'flex flex-wrap  gap-y-4 border'
+                      : 'flex flex-wrap -mx-3 gap-y-4'
+                  }
+                >
+                  <div
+                    className={
+                      storeLayout === _Store.type1
+                        ? 'w-full p-3 pb-0'
+                        : 'w-full px-3'
+                    }
+                  >
+                    <div className='bg-gray-100 flex flex-wrap items-center justify-between p-1'>
+                      <div
+                        className={
+                          storeLayout === _Store.type1 ? 'font-bold' : ''
+                        }
+                      >
+                        Contact Information
+                      </div>
                       <div className='text-red-500 text-xs'>
                         All fields marked * are required.
                       </div>
@@ -254,7 +285,7 @@ const RequestConsultationForm: React.FC<{ productId: number }> = ({
                   </div>
                   <div className='w-full px-3'>
                     <div className='flex flex-wrap items-center justify-between'>
-                      <div className=''>In Hand Date</div>
+                      <div className=''>In Hand Date </div>
                       <div className=''>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DesktopDatePicker
@@ -350,7 +381,11 @@ const RequestConsultationForm: React.FC<{ productId: number }> = ({
                   <div className='w-full px-3 text-center'>
                     <button
                       type='submit'
-                      className='btn btn-xl w-full btn-secondary !block text-center mb-4'
+                      className={
+                        storeLayout === _Store.type1
+                          ? ' w-full btn-secondary !block text-center mb-2 font-bold py-1'
+                          : 'btn btn-xl w-full btn-secondary !block text-center mb-4'
+                      }
                     >
                       SUBMIT
                     </button>

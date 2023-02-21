@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { _BrandsSiteMap, _CategorySiteMap } from 'show.type';
 import { _globalStore } from 'store.global';
-import { MenuItemsSiteMap, MenuItemsSiteMap_Brands } from './MenuItemsSiteMap';
+import MenuItemsSiteMap, { MenuItemsSiteMap_Brands } from './MenuItemsSiteMap';
 
 interface _Sitemap_ExpectedProps {
   brandItems: _BrandsSiteMap[] | null;

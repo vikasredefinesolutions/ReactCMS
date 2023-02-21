@@ -14,7 +14,7 @@ interface _props_brands {
   }[];
 }
 
-export const MenuItemsSiteMap: React.FC<_props> = ({ subRow }) => {
+const MenuItemsSiteMap: React.FC<_props> = ({ subRow }) => {
   return (
     <ul className='pl-[1px] relative before:bg-[#dfdfdf] before:w-px before:absolute before:-left-5 before:top-2.5 before:bottom-2.5 px-3'>
       {subRow.map((el, index) => {
@@ -64,3 +64,5 @@ export const MenuItemsSiteMap_Brands: React.FC<_props_brands> = ({
     </ul>
   );
 };
+
+export default MenuItemsSiteMap;
