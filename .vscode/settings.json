@@ -8,5 +8,9 @@
   "editor.autoClosingDelete": "always",
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
+  },
+  "todo-tree.tree.scanMode": "workspace only",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
