@@ -56,11 +56,7 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                 </div>
                 <div
                   className=''
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
+                  style={{ lineHeight: 1.25, wordWrap: 'break-word' }}
                 >
                   {product.name}
                 </div>
@@ -69,10 +65,10 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
           })}
         </div>
         {showAllColorsButton && (
-          <div className='text-right'>
+          <div className='text-right text-anchor hover:text-anchor-hover'>
             <button
               onClick={() => setShowAllColors((showAll) => !showAll)}
-              className=''
+              className=' underline'
             >
               {showAllColors ? (
                 <span className='span1'>Show Less</span>

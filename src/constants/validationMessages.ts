@@ -78,6 +78,7 @@ export const checkoutNewAccountPasswordMessages = {
 export const signupPageMessages = {
   firstname: { required: 'Enter your first name.' },
   lastName: { required: 'Enter your last name.' },
+  Gender: { required: 'Select gender' },
   companyName: { required: 'Company name is requried' },
   companyId: { required: 'Select an Industry' },
   email: { required: 'Enter your email.' },
@@ -101,9 +102,36 @@ export const __QuoteRequestMessages = {
   sport: { required: 'Please enter Sport.' },
 };
 
-export const contactPageMessage ={
-  name:  { required: 'Enter your name.' },
+export const OTFItemValidation = {
+  otfItemNo: {
+    required: 'Please enter OTF Item No.',
+  },
+  otfItemVariant: {
+    required: 'Please enter OTF Item Variant.',
+  },
+  ourSKU: {
+    required: 'Please enter SKU.',
+  },
+  name: {
+    required: 'Please enter Name.',
+  },
+  color: {
+    required: 'Please enter Color.',
+  },
+  size: {
+    required: 'Please enter Size.',
+  },
+  price: {
+    required: 'Please enter Price.',
+  },
+  qty: {
+    required: 'Please enter Quantity.',
+  },
+};
+
+export const contactPageMessage = {
+  name: { required: 'Enter your name.' },
   email: { required: 'Enter your Email.' },
-  companyName:  { required: 'Enter your Company name / ASI# or PPAI# .' },
+  companyName: { required: 'Enter your Company name / ASI# or PPAI# .' },
   message: { required: 'Enter your name.' },
-}
+};

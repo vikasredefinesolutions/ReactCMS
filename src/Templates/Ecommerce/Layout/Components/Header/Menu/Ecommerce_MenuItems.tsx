@@ -1,32 +1,39 @@
-import { useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { _MenuItems } from 'show.type';
 import Backdrop from '../../Backdrop';
 import { CloseIcon } from '../../Icons';
-import MenuItem from './MenuItem';
+import MenuItem from './Ecommerce_MenuItem';
 
 interface _props {
   screen: 'DESKTOP' | 'MOBILE';
+  menuItems: _MenuItems | null;
+  storeCode: string;
+  showSideMenu: 'OPEN' | 'CLOSE';
 }
 
-const MenuItems: React.FC<_props> = ({ screen }) => {
-  const { layout: storeLayout, menuItems } = useTypedSelector(
-    (state) => state.store,
-  );
-  const showSideMenu = useTypedSelector((state) => state.modals.sideMenu);
+const MenuItems: React.FC<_props> = ({
+  screen,
+  menuItems: menuItemsFromRoot,
+  storeCode,
+  showSideMenu,
+}) => {
+  const [menuItems, setMenuItems] = useState<null | _MenuItems>(null);
 
-  if (menuItems === null) {
-    return <></>;
-  }
+  useEffect(() => {
+    if (menuItemsFromRoot) {
+      setMenuItems(menuItemsFromRoot);
+    }
+  }, [menuItemsFromRoot]);
 
-  if (screen === 'MOBILE' && showSideMenu === 'CLOSE') {
-    return <></>;
-  }
+  if (!menuItems) return <></>;
+
+  if (screen === 'MOBILE' && showSideMenu === 'CLOSE') return <></>;
 
   if (
-    storeLayout === _Store.type1 ||
-    storeLayout === _Store.type15 ||
-    storeLayout === _Store.type16
+    storeCode === _Store.type1 ||
+    storeCode === _Store.type15 ||
+    storeCode === _Store.type16
   ) {
     if (screen === 'MOBILE') {
       return (
@@ -50,6 +57,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
                 return (
                   <MenuItem
                     key={index}
+                    storeCode={storeCode}
                     title={menu.title}
                     type={menu.type}
                     content={menu.items}
@@ -64,15 +72,16 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
     }
     if (screen === 'DESKTOP') {
       return (
-        <div className='hidden h-full xl:flex items-center justify-center flex-1'>
+        <div className='h-full xl:flex items-center justify-center flex-1'>
           <div className='ml-5'>
-            <div className='h-full flex justify-center space-x-5 relative text-sm'>
+            <div className='h-full flex  space-x-5 relative text-sm'>
               {menuItems.items_content?.map((menu, index) => {
                 if (menu === null) {
                   return <></>;
                 }
                 return (
                   <MenuItem
+                    storeCode={storeCode}
                     key={index}
                     title={menu.title}
                     type={menu.type}
@@ -88,7 +97,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
     }
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     if (screen === 'MOBILE') {
       return (
         <div className='relative z-40 lg:hidden'>
@@ -112,6 +121,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
                   return (
                     <MenuItem
                       key={index}
+                      storeCode={storeCode}
                       title={menu.title}
                       type={menu.type}
                       content={menu.items}
@@ -139,6 +149,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
                   return (
                     <MenuItem
                       key={index}
+                      storeCode={storeCode}
                       title={menu.title}
                       type={menu.type}
                       content={menu.items}
@@ -154,7 +165,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
     }
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     if (screen === 'MOBILE') {
       return (
         <div className='relative z-40 lg:hidden'>
@@ -178,6 +189,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
                   return (
                     <MenuItem
                       key={index}
+                      storeCode={storeCode}
                       title={menu.title}
                       type={menu.type}
                       content={menu.items}
@@ -205,6 +217,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
                     <MenuItem
                       key={index}
                       title={menu.title}
+                      storeCode={storeCode}
                       url={menu.seName}
                       type={menu.type}
                       content={menu.items}
@@ -219,7 +232,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
     }
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     if (screen === 'MOBILE') {
       return (
         <div className='relative z-40 lg:hidden'>
@@ -244,6 +257,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
                     <MenuItem
                       key={index}
                       title={menu.title}
+                      storeCode={storeCode}
                       type={menu.type}
                       content={menu.items}
                       url={menu.seName}
@@ -258,9 +272,9 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
     }
     if (screen === 'DESKTOP') {
       return (
-        <div className='hidden h-full lg:flex items-center justify-center flex-1'>
-          <div className='ml-6'>
-            <div className='h-full flex justify-center space-x-6 relative'>
+        <div className='hidden h-full lg:flex items-center flex-1 tracking-[1px]'>
+          <div className='ml-[10px]'>
+            <div className='h-full flex justify-center space-x-3 xl:space-x-5 relative text-sm'>
               {menuItems.items_content?.map((menu, index) => {
                 if (menu === null) {
                   return <></>;
@@ -271,6 +285,7 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
                     title={menu.title}
                     type={menu.type}
                     content={menu.items}
+                    storeCode={storeCode}
                     url={menu.seName}
                   />
                 );
@@ -285,4 +300,4 @@ const MenuItems: React.FC<_props> = ({ screen }) => {
   return <></>;
 };
 
-export default MenuItems;
+export default React.memo(MenuItems);

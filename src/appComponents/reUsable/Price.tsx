@@ -17,11 +17,10 @@ const Price: React.FC<_props> = ({ value, prices, addColon = false }) => {
     priceToDisplay = +value;
   }
 
-  if (prices && loggedIn) {
-    if (prices?.salePrice < prices?.msrp) {
-      priceToDisplay = +(prices.salePrice);
-    } else {
-      priceToDisplay = +(prices.msrp);
+  if (prices) {
+    priceToDisplay = +prices.msrp;
+    if (loggedIn && prices?.salePrice < prices?.msrp) {
+      priceToDisplay = +prices.salePrice;
     }
   }
 
@@ -32,18 +31,10 @@ const Price: React.FC<_props> = ({ value, prices, addColon = false }) => {
   const toShow = priceToDisplay.toFixed(2);
 
   if (addColon) {
-    return (
-      <>
-        {`: ${currency}${toShow}`}
-      </>
-    );
+    return <>{`: ${currency}${toShow}`}</>;
   }
 
-  return (
-    <>
-      {`${currency}${toShow}`}
-    </>
-  );
+  return <>{`${currency}${toShow}`}</>;
 };
 
 export default Price;

@@ -63,7 +63,7 @@ const ProductFeatures: React.FC<
     }
     return (
       <div className='py-4 mb-5 text-center bg-[#061b2c] text-white uppercase'>
-        <div className='inline-block py-2 md:py-0 px-8 border-b md:border-b-0 md:border-r border-white'>
+        <div className='inline-block py-2 md:py-0 px-8 md:border-b-0 md:border-r border-white'>
           <div className='w-full md:w-auto flex flex-wrap justify-center items-center'>
             <img src='images/free-shipping-new.png' alt='' />
             <span className='leading-5 ml-4 inline-block text-left'>
@@ -81,7 +81,7 @@ const ProductFeatures: React.FC<
             </span>
           </div>
         </div>
-        <div className='inline-block py-2 md:py-0 px-8 border-t md:border-t-0 md:border-l border-white'>
+        <div className='inline-block py-2 md:py-0 px-8 md:border-t-0 md:border-l border-white'>
           <div className='w-full md:w-auto flex flex-wrap justify-center items-center'>
             <img src='images/guarantee.png' alt='' />
             <span className='leading-5 ml-4 inline-block text-left'>

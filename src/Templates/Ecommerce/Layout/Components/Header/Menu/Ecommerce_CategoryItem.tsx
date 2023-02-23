@@ -1,19 +1,18 @@
 import { _MenuCategory } from '@type/APIs/header.res';
+import { capitalizeFirstLetter } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { _Store } from 'page.config';
 import React, { useState } from 'react';
-import SubMenuItem from './SubMenuItem';
+import SubMenuItem from './Ecommerce_SubMenuItem';
 interface _props {
   title: string;
   url: string;
   content: _MenuCategory[] | null;
 }
 
-const Category: React.FC<_props> = ({ content, title, url }) => {
-  const { layout: storeLayout, view } = useTypedSelector(
-    (state) => state.store,
-  );
+const Ecommerce_Category: React.FC<_props> = ({ content, title, url }) => {
+  const { layout: storeCode, view } = useTypedSelector((state) => state.store);
   const { toggleSideMenu } = useActions();
   const sideMenu = useTypedSelector((state) => state.modals.sideMenu);
   const [focus, setFocus] = useState(false);
@@ -24,15 +23,16 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
   }
 
   if (
-    storeLayout === _Store.type1 ||
-    storeLayout === _Store.type15 ||
-    storeLayout === _Store.type16
+    storeCode === _Store.type1 ||
+    storeCode === _Store.type15 ||
+    storeCode === _Store.type16
   ) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
           <div className='flex items-center justify-between py-2 pr-2'>
             <button
+              title={title}
               className='flex items-center grow group'
               onClick={() => setShowAllItems((show) => !show)}
             >
@@ -63,8 +63,10 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                   {content?.map((item, index) => (
                     <SubMenuItem
                       key={index}
-                      itemLabel={item.categoryName}
-                      itemUrl={item.seName}
+                      storeCode={storeCode}
+                      view={view}
+                      itemLabel={capitalizeFirstLetter(item.categoryName)}
+                      itemUrl={`${item.seName}.html?v=product-list`}
                       type={'CATEGORY'}
                     />
                   ))}
@@ -82,10 +84,11 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
           <>
             <div className='relative flex'>
               <button
+                title={title}
                 type='button'
                 onMouseOver={() => setFocus(true)}
                 onMouseLeave={() => setFocus(false)}
-                className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
+                className={`relative tracking-[1px] z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
                   focus
                     ? `border-b-primary text-primary-hover`
                     : `border-transparent text-white hover:text-primary-hover`
@@ -118,8 +121,10 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                         {content.map((item, index) => (
                           <SubMenuItem
                             key={index}
-                            itemLabel={item.categoryName}
-                            itemUrl={item.seName}
+                            storeCode={storeCode}
+                            view={view}
+                            itemLabel={capitalizeFirstLetter(item.categoryName)}
+                            itemUrl={`${item.seName}.html?v=product-list`}
                             type={'CATEGORY'}
                           />
                         ))}
@@ -135,7 +140,7 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
     }
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
@@ -172,8 +177,10 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                       {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
-                          itemLabel={item.categoryName}
-                          itemUrl={item.seName}
+                          view={view}
+                          storeCode={storeCode}
+                          itemLabel={capitalizeFirstLetter(item.categoryName)}
+                          itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -187,8 +194,10 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                       {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
-                          itemLabel={item.categoryName}
-                          itemUrl={item.seName}
+                          storeCode={storeCode}
+                          view={view}
+                          itemLabel={capitalizeFirstLetter(item.categoryName)}
+                          itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -236,7 +245,7 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                 type='button'
                 onMouseOver={() => setFocus(true)}
                 onMouseLeave={() => setFocus(false)}
-                className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold  xl:tracking-widest ${
+                className={`relative tracking-[1px] z-10 flex items-center transition-colors ease-out duration-200 font-semibold  xl:tracking-widest ${
                   focus
                     ? `text-primary-hover`
                     : 'text-white hover:text-primary-hover'
@@ -269,9 +278,13 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                           <ul>
                             {content.map((item, index) => (
                               <SubMenuItem
+                                storeCode={storeCode}
+                                view={view}
                                 key={index}
-                                itemLabel={item.categoryName}
-                                itemUrl={item.seName}
+                                itemLabel={capitalizeFirstLetter(
+                                  item.categoryName,
+                                )}
+                                itemUrl={`${item.seName}.html?v=product-list`}
                                 type={'CATEGORY'}
                               />
                             ))}
@@ -285,8 +298,12 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                             {content.map((item, index) => (
                               <SubMenuItem
                                 key={index}
-                                itemLabel={item.categoryName}
-                                itemUrl={item.seName}
+                                storeCode={storeCode}
+                                view={view}
+                                itemLabel={capitalizeFirstLetter(
+                                  item.categoryName,
+                                )}
+                                itemUrl={`${item.seName}.html?v=product-list`}
                                 type={'CATEGORY'}
                               />
                             ))}
@@ -330,7 +347,7 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
     }
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
@@ -367,8 +384,10 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                       {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
-                          itemLabel={item.categoryName}
-                          itemUrl={item.seName}
+                          storeCode={storeCode}
+                          view={view}
+                          itemLabel={capitalizeFirstLetter(item.categoryName)}
+                          itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -382,8 +401,10 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                       {content.map((item, index) => (
                         <SubMenuItem
                           key={index}
-                          itemLabel={item.categoryName}
-                          itemUrl={item.seName}
+                          storeCode={storeCode}
+                          view={view}
+                          itemLabel={capitalizeFirstLetter(item.categoryName)}
+                          itemUrl={`${item.seName}.html?v=product-list`}
                           type={'CATEGORY'}
                         />
                       ))}
@@ -394,6 +415,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                   <div className='w-full lg:w-1/3'>
                     <ul>
                       <SubMenuItem
+                        storeCode={storeCode}
+                        view={view}
                         itemLabel={`All ${title}`}
                         itemUrl={url}
                         type={'CATEGORY'}
@@ -403,6 +426,8 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                   <div className='w-full lg:w-1/3'>
                     <ul>
                       <SubMenuItem
+                        storeCode={storeCode}
+                        view={view}
                         itemLabel={`All ${title}`}
                         itemUrl={url}
                         type={'CATEGORY'}
@@ -425,7 +450,7 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                 type='button'
                 onMouseOver={() => setFocus(true)}
                 onMouseLeave={() => setFocus(false)}
-                className='relative z-10 flex items-center transition-colors ease-out text-base xl:tracking-widest text-anchor py-2.5'
+                className='relative tracking-[1px] z-10 flex items-center transition-colors ease-out text-base xl:tracking-widest text-anchor py-2.5'
               >
                 <span className=''>{title}</span>
               </button>
@@ -450,8 +475,10 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                         {content.map((item, index) => (
                           <SubMenuItem
                             key={index}
-                            itemLabel={item.categoryName}
-                            itemUrl={item.seName}
+                            storeCode={storeCode}
+                            view={view}
+                            itemLabel={capitalizeFirstLetter(item.categoryName)}
+                            itemUrl={`${item.seName}.html?v=product-list`}
                             type={'CATEGORY'}
                           />
                         ))}
@@ -467,7 +494,7 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
     }
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     if (view === 'MOBILE') {
       return (
         <div className='text-sm border-b border-gray-300'>
@@ -503,8 +530,10 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                   {content.map((item, index) => (
                     <SubMenuItem
                       key={index}
-                      itemLabel={item.categoryName}
-                      itemUrl={item.seName}
+                      storeCode={storeCode}
+                      view={view}
+                      itemLabel={capitalizeFirstLetter(item.categoryName)}
+                      itemUrl={`${item.seName}.html?v=product-list`}
                       type={'CATEGORY'}
                     />
                   ))}
@@ -524,7 +553,7 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                 type='button'
                 onMouseOver={() => setFocus(true)}
                 onMouseLeave={() => setFocus(false)}
-                className={`relative z-10 flex items-center transition-colors ease-out duration-200 text-md font-medium border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
+                className={`relative tracking-[1px] z-10 flex items-center transition-colors ease-out duration-200 text-md font-medium border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
                   focus
                     ? 'border-b-primary text-primary-hover'
                     : 'border-transparent text-white hover:text-primary-hover'
@@ -557,8 +586,10 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
                         {content.map((item, index) => (
                           <SubMenuItem
                             key={index}
-                            itemLabel={item.categoryName}
-                            itemUrl={item.seName}
+                            storeCode={storeCode}
+                            view={view}
+                            itemLabel={capitalizeFirstLetter(item.categoryName)}
+                            itemUrl={`${item.seName}.html?v=product-list`}
                             type={'CATEGORY'}
                           />
                         ))}
@@ -577,4 +608,4 @@ const Category: React.FC<_props> = ({ content, title, url }) => {
   return <></>;
 };
 
-export default Category;
+export default Ecommerce_Category;

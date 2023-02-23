@@ -28,7 +28,7 @@ export const __console: __Console = {
   allCatch: true,
   Logo: {
     service: {
-      UploadLogoWithDetails: true,
+      UploadLogoWithDetails: false,
     },
   },
   app: {
@@ -37,7 +37,7 @@ export const __console: __Console = {
     page: true,
     service: {
       FetchThemeConfigs: false,
-      GetStoreID: true,
+      GetStoreID: false,
     },
   },
   files: {
@@ -79,6 +79,7 @@ export const __console: __Console = {
   },
   productDetails: {
     service: {
+      FetchLogoLocationByProductId: false,
       FetchInventoryById: false,
       FetchProductsBySKUs: false,
       FetchSizeChartById: false,
@@ -88,6 +89,7 @@ export const __console: __Console = {
       FetchColors: false,
       FetchProductById: false,
       FetchBrandProductList: false,
+      FetchProductsTagsName: false,
     },
     controller: false,
     components: {
@@ -98,6 +100,7 @@ export const __console: __Console = {
   },
   user: {
     service: {
+      ResetPassword: true,
       signInUser: false,
       CreateNewAccount: false,
       OrderedBillingDetails: false,
@@ -112,6 +115,9 @@ export const __console: __Console = {
     controller: false,
     serverMethod: false,
     page: true,
+    service: {
+      SumbitRequestConsultationDetails: true,
+    },
   },
   compare: {
     controller: false,
@@ -138,7 +144,7 @@ export const __console: __Console = {
   },
   ShoppingCart: {
     service: {
-      FetchCartDetails: true,
+      FetchCartDetails: false,
     },
   },
 };

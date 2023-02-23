@@ -10,16 +10,15 @@ interface _props {
 }
 
 const Topic: React.FC<_props> = ({ title, url }) => {
-  const { toggleSideMenu } = useActions();
   const router = useRouter();
+  const { toggleSideMenu } = useActions();
+
+  // --------------------------------------------------------------
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const view = useTypedSelector((state) => state.store.view);
 
+  // --------------------------------------------------------------
   const [focus, setFocus] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   FetchHeaderTopics({ topicId: id }).then((res) => setTopicMenu(res));
-  // }, []);
 
   if (
     storeLayout === _Store.type1 ||
@@ -32,6 +31,7 @@ const Topic: React.FC<_props> = ({ title, url }) => {
           <div className='flex items-center justify-between py-3 px-2 pl-8'>
             <div className=''>
               <button
+                title={title}
                 onClick={() => {
                   toggleSideMenu('CLOSE');
                   router.push(`/${url}`);
@@ -51,10 +51,11 @@ const Topic: React.FC<_props> = ({ title, url }) => {
         <Link href={`${url}`} className='flex'>
           <div className=''>
             <button
+              title={title}
               onMouseOver={() => setFocus(true)}
               onMouseOut={() => setFocus(false)}
               type='button'
-              className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
+              className={`relative z-10 tracking-[1px] flex items-center transition-colors ease-out duration-200 font-semibold border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover ${
                 focus
                   ? `border-b-primary text-primary-hover`
                   : `border-transparent text-white hover:text-primary-hover`
@@ -99,7 +100,7 @@ const Topic: React.FC<_props> = ({ title, url }) => {
             <Link
               href={`${url}`}
               type={'button'}
-              className={`relative z-10 flex items-center transition-colors ease-out duration-200 font-semibold ${
+              className={`relative z-10 tracking-[1px] flex items-center transition-colors ease-out duration-200 font-semibold ${
                 focus
                   ? `text-anchor-hover`
                   : `text-gray-700 hover:text-gray-800`
@@ -180,7 +181,7 @@ const Topic: React.FC<_props> = ({ title, url }) => {
           <div className=''>
             <Link
               href={`${url}`}
-              className={`relative z-10 flex items-center transition-colors ease-out duration-200 text-md font-medium border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary ${
+              className={`relative z-10 tracking-[1px] flex items-center transition-colors ease-out duration-200 text-md font-medium border-0 border-b-2 py-2 border-transparent text-white hover:text-primary-hover hover:border-b-primary ${
                 focus
                   ? 'border-blue-500 text-anchor-hover'
                   : 'border-transparent text-gray-700 hover:text-gray-800'

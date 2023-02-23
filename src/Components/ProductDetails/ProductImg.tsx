@@ -1,10 +1,15 @@
+import { FetchTagsName } from '@services/product.service';
 import Image from 'appComponents/reUsable/Image';
+import Wishlist from 'appComponents/ui/Wishlist';
 import { _OtherImage } from 'definations/APIs/colors.res';
-import { _ProductDetails } from 'definations/APIs/productDetail.res';
+import {
+  _FetchTagsName,
+  _ProductDetails,
+} from 'definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import InnerImageZoom from 'react-inner-image-zoom';
 import AvailableColors from './AvailableColors';
 import HeartIcon from './HeartIcon';
@@ -21,6 +26,10 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
 }) => {
   const router = useRouter();
   const { setImage } = useActions();
+  const brandId = useTypedSelector((state) => state.wishlist.brandId);
+  const [TagsDetails, setTagsDetails] = useState<_FetchTagsName[] | null>();
+  const [wishlistPresent, setWishlistPresent] = useState<boolean>(false);
+  const [wishlistId, setWishlistId] = useState<number>(0);
 
   // STATES ----------------------------------------
   const selectedColor = useTypedSelector(
@@ -29,6 +38,9 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
   const selectedImage = useTypedSelector(
     (state) => state.product.selected.image,
   );
+
+  const wishlist = useTypedSelector((state) => state.wishlist.wishListData);
+  const customerId = useTypedSelector((state) => state.user.id);
   // const show = useTypedSelector((state) => state.store.display.footer);
 
   // FUNCTIONS  ----------------------------------------
@@ -39,12 +51,26 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
 
   useEffect(() => {
     setImage({
-      id: 0,
-      imageUrl: selectedColor.imageUrl,
-      altTag: selectedColor.altTag,
+      id: 1,
+      imageUrl: selectedColor.moreImages[0].imageUrl,
+      altTag: selectedColor.moreImages[0].altTag,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedColor.attributeOptionId]);
+  }, [selectedColor.attributeOptionId, product?.id]);
+  useEffect(() => {
+    if (product) {
+      FetchTagsName(product.id).then((res) => setTagsDetails(res));
+    }
+  }, [product?.id]);
+
+  useEffect(() => {
+    wishlist.forEach((item) => {
+      if (item.productId === product?.id) {
+        setWishlistPresent(true);
+        setWishlistId(item.id);
+      }
+    });
+  }, [customerId, wishlist]);
 
   // JSX  ----------------------------------------
 
@@ -53,10 +79,16 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
   if (
     storeCode === _Store.type1 ||
     storeCode === _Store.type15 ||
-    storeCode === _Store.type16
+    storeCode === _Store.type16 ||
+    storeCode === _Store.type8 ||
+    storeCode === _Store.type21
   ) {
     return (
-      <div className='col-span-1 grid grid-cols-12 gap-6'>
+      <div
+        className={`${
+          storeCode === _Store.type21 ? 'lg:col-span-7' : 'col-span-1'
+        } grid grid-cols-12 gap-6`}
+      >
         <div className='col-span-12 border border-slate-200 relative'>
           {/* Display Image */}
           <div className='main-image max-w-lg mx-auto'>
@@ -92,7 +124,23 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                 );
               })}
           </div>
-          <HeartIcon className='absolute right-2 top-4 w-6 h-6' />
+          {(storeCode != _Store.type21 || storeCode != _Store.type8) && (
+            <div className='absolute top-5 right-5 text-gray-800 p-1 z-25'>
+              <button className=''>
+                <Wishlist
+                  {...{
+                    productId: product.id,
+                    name: product.name,
+                    color: selectedColor.name,
+                    price: product.salePrice,
+                    wishlistId: wishlistId,
+                  }}
+                  iswishlist={wishlistPresent}
+                  brandId={brandId}
+                />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -101,10 +149,10 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
   if (storeCode === _Store.type2) {
     return (
       <div className='w-full lg:w-6/12 px-3'>
+        <div className='' onClick={() => router.back()}>
+          &lt;&lt; Back
+        </div>
         <div className='relative'>
-          <div className='' onClick={() => router.back()}>
-            &lt;&lt; Back
-          </div>
           {/* Display Image */}
           <div className='main-image border border-[#f0f0f0] mb-3'>
             <InnerImageZoom
@@ -243,15 +291,38 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                   );
                 })}
             </div>
+            {TagsDetails?.map((tags, index) => {
+              return (
+                <div className={tags.tagPosition} key={index}>
+                  <Image
+                    src={tags.imagename}
+                    alt={tags.productTagName}
+                    className='w-full object-center object-cover'
+                  />
+                </div>
+              );
+            })}
+
             {/* <HeartIcon className="absolute right-2 top-4 w-6 h-6" /> */}
           </div>
-          <AvailableColors storeCode={storeCode} />
         </div>
+        <AvailableColors storeCode={storeCode} />
       </div>
     );
   }
 
-  if (storeCode === _Store.type22 || storeCode === _Store.type5 || storeCode === _Store.type10 ) {
+  if (
+    storeCode === _Store.type22 ||
+    storeCode === _Store.type5 ||
+    storeCode === _Store.type10 ||
+    storeCode === _Store.type13 ||
+    storeCode === _Store.type6 ||
+    storeCode === _Store.type24 ||
+    storeCode === _Store.type12 ||
+    storeCode === _Store.type26 ||
+    storeCode === _Store.type27 ||
+    storeCode === _Store.type23
+  ) {
     return (
       <div className='lg:col-start-2 lg:col-end-7 grid grid-cols-12 gap-6'>
         <div className='col-span-12 relative'>
@@ -287,7 +358,9 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
                   );
                 })}
             </div>
-            {/* <HeartIcon className="absolute right-2 top-5 w-6 h-6 cursor-pointer" /> */}
+            {storeCode === _Store.type5 && (
+              <HeartIcon className='absolute right-2 top-5 w-6 h-6 cursor-pointer' />
+            )}
           </div>
         </div>
       </div>

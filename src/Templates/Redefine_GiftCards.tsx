@@ -1,3 +1,4 @@
+import { StoreLayout } from '@constants/enum';
 import { _GiftCard } from '@services/gift.service.type';
 import { _StoreCache } from '@type/slug.type';
 import React from 'react';
@@ -8,7 +9,7 @@ interface _props {
 }
 
 const Redefine_GiftCards: React.FC<_props & _StoreCache> = (props) => {
-  if (props.storeTypeId === 1) {
+  if (props.storeTypeId === StoreLayout.CorporateStore) {
     return (
       <Corporate_GiftCardsList
         giftCards={props.giftCards}
@@ -16,10 +17,10 @@ const Redefine_GiftCards: React.FC<_props & _StoreCache> = (props) => {
       />
     );
   }
-  if (props.storeTypeId === 2) {
+  if (props.storeTypeId === StoreLayout.EcommerceStore) {
     return <>No Page for {props.storeTypeId}</>;
   }
-  if (props.storeTypeId === 3) {
+  if (props.storeTypeId === StoreLayout.StoreBuilderStore) {
     return <>No Page for {props.storeTypeId}</>;
   }
   return <></>;

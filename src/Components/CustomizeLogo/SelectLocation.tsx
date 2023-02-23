@@ -22,12 +22,10 @@ const SelectLocation: React.FC<_props> = ({ setNextStep }) => {
   );
 
   const actionHandler = (action: 'now' | 'later') => {
-    if (selectedLocation === null) {
+    if (selectedLocation === null && action !== 'later') {
       setShowError(true);
       return;
     }
-
-    updateLogoDetails({ location: selectedLocation });
 
     if (action === 'later') {
       setNextStep(['SELECT_LOCATION', 'SHARE_LATER']);
@@ -35,6 +33,7 @@ const SelectLocation: React.FC<_props> = ({ setNextStep }) => {
     }
 
     if (action === 'now') {
+      updateLogoDetails({ location: selectedLocation });
       setNextStep(['SELECT_LOCATION', 'SELECT_NOW']);
       return;
     }
@@ -67,10 +66,11 @@ const SelectLocation: React.FC<_props> = ({ setNextStep }) => {
                 }}
               >
                 <div
-                  className={`border-2 ${selectedLocation?.value === pos.value
-                    ? 'border-primary'
-                    : 'border-gray-200'
-                    } hover:border-primary p-3 w-full text-ceter`}
+                  className={`border-2 ${
+                    selectedLocation?.value === pos.value
+                      ? 'border-primary'
+                      : 'border-gray-200'
+                  } hover:border-primary p-3 w-full text-ceter`}
                 >
                   <div className=''>
                     <img

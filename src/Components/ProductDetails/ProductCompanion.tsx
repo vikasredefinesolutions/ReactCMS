@@ -23,18 +23,18 @@ const ProductCompanion: React.FC<_props & { storeCode: string }> = ({
 
   if (storeCode === _Store.type3) {
     return (
-      <div className="pt-10 mx-auto max-w-xs text-center">
-        <div className="mb-2 text-2xl">COMPANION</div>
+      <div className='pt-10 mx-auto max-w-xs text-center'>
+        <div className='mb-2 text-2xl'>COMPANION</div>
 
-        <div className="" key={name}>
-          <div className="" onClick={() => goToProduct(seName)}>
+        <div className='' key={name}>
+          <div className='' onClick={() => goToProduct(seName)}>
             <img
               src={imageUrl || '/dummyShirtImage.jpg'}
               alt={name}
-              className="max-h-full mx-auto "
+              className='max-h-full mx-auto '
             />
           </div>
-          <div className="mt-2">{name}</div>
+          <div className='mt-2'>{name}</div>
         </div>
       </div>
     );
@@ -42,10 +42,10 @@ const ProductCompanion: React.FC<_props & { storeCode: string }> = ({
 
   if (storeCode === _Store.type4) {
     return (
-      <div className="text-black mb-5 text-sm">
-        <span className="font-bold mr-1">Companion Product</span> :
-        <div className="" key={name} onClick={() => goToProduct(seName)}>
-          <button className="text-anchor hover:text-anchor-hover">
+      <div className='text-black mb-5 text-sm'>
+        <span className='font-bold mr-1'>Companion Product</span> :
+        <div className='' key={name} onClick={() => goToProduct(seName)}>
+          <button className='text-anchor hover:text-anchor-hover'>
             {name}
           </button>
         </div>
@@ -54,12 +54,12 @@ const ProductCompanion: React.FC<_props & { storeCode: string }> = ({
   }
 
   return (
-    <div className="text-lg m-3">
-      <div className="font-semibold">Companion Product:</div>
+    <div className='text-lg m-3'>
+      <div className='font-semibold'>Companion Product:</div>
       <div key={name}>
         <button
           onClick={() => goToProduct(seName)}
-          className="text-indigo-500 text-sm font-semibold underline"
+          className='text-anchor hover:text-anchor-hover text-sm font-semibold underline'
         >
           {name}
         </button>

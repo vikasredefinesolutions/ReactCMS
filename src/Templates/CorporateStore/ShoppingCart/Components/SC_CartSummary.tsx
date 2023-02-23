@@ -1,6 +1,7 @@
 import { paths } from '@constants/paths.constant';
 import Price from 'appComponents/reUsable/Price';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -173,13 +174,15 @@ export const SC_CartSummary_withoutPersonalization: React.FC = () => {
         </div>
       </div>
       <div className="mt-4 ">
-        <button
-          onClick={checkoutHandler}
-          className="btn btn-lg btn-secondary !flex items-center justify-center w-full"
-        >
-          <i className="fa fa-shopping-cart mr-2"></i>
-          CHECKOUT NOW
-        </button>
+      <Link href={'/checkout.html'}>
+                  <a className="btn btn-lg btn-primary !flex items-center justify-center w-full">
+                    <i
+                      className="fa fa-shopping-cart mr-2"
+                      aria-hidden="true"
+                    ></i>
+                    CHECKOUT NOW
+                  </a>
+                </Link>
       </div>
 
       <div className="mt-4 bg-gray-200 px-4 py-4">

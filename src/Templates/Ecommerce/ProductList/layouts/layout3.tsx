@@ -1,5 +1,7 @@
 import { SpinnerComponent } from 'appComponents/ui/spinner';
 import dynamic from 'next/dynamic';
+import { _Store } from 'page.config';
+import { Fragment } from 'react';
 import { list_FnProps } from '..';
 
 const CateBand = dynamic(() => import('appComponents/reUsable/CateBand'), {
@@ -18,7 +20,10 @@ const FilterLayout3 = dynamic(() => import('../Components/Filters/Layout3'), {
   loading: () => <SpinnerComponent />,
 });
 const ProductLayout2 = dynamic(
-  () => import('../Components/PorudctComponent/Product.layout2'),
+  () =>
+    import(
+      '../../../../Components/ProductList/components/PorudctComponent/Product.layout2'
+    ),
   {
     loading: () => <SpinnerComponent />,
   },
@@ -42,10 +47,15 @@ const Layout3 = ({
   sortProductJson,
   clearFilters,
   compareCheckBoxHandler,
+  storeLayout,
 }: list_FnProps) => {
   return (
     <>
-      <CateBand />
+      {storeLayout !== _Store.type10 &&
+        storeLayout !== _Store.type5 &&
+        storeLayout !== _Store.type8 &&
+        storeLayout !== _Store.type23 &&
+        storeLayout !== _Store.type24 && <CateBand />}
 
       <section id='layout3' className=''>
         <div className='container mx-auto'>
@@ -96,14 +106,16 @@ const Layout3 = ({
                         }
                       >
                         {products.map((product, index) => (
-                          <ProductLayout2
-                            key={index}
-                            productView={productView}
-                            skuList={skuList}
-                            compareCheckBoxHandler={compareCheckBoxHandler}
-                            product={product}
-                            colorChangeHandler={colorChangeHandler}
-                          />
+                          <Fragment key={index}>
+                            <ProductLayout2
+                              productView={productView}
+                              skuList={skuList}
+                              compareCheckBoxHandler={compareCheckBoxHandler}
+                              product={product}
+                              colorChangeHandler={colorChangeHandler}
+                              storeLayout={storeLayout}
+                            />
+                          </Fragment>
                         ))}
                       </ul>
                     </div>

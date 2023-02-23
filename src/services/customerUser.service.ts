@@ -68,7 +68,7 @@ export const deleteCustomerUserList = async (
     const url = `/StoreCustomerUsers/deletecustomerusersbyid/${customerId}.json`;
     const res = await SendAsyncV2<CustomerUsersObject[]>({
       url: url,
-      method: 'DELETE',
+      method: 'POST',
     });
     conditionalLog({
       data: res.data,
@@ -141,6 +141,35 @@ export const ForgetCustomerPassword = async (
     conditionalLog({
       data: error,
       name: 'ForgetCustomerPassword',
+      type: 'API',
+      show: _showConsoles.services.user,
+      error: true,
+    });
+    return null;
+  }
+};
+
+export const CustomerRoles = async (
+  payload: any,
+): Promise<AxiosResponse | null> => {
+  try {
+    const url = `/storecustomerroles/getcustomerroles/${payload}.json`;
+    const res: AxiosResponse = await SendAsyncV2({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
+    conditionalLog({
+      data: res.data,
+      name: 'CustomerRoles',
+      type: 'API',
+      show: true,
+    });
+    return res;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'CustomerRoles',
       type: 'API',
       show: _showConsoles.services.user,
       error: true,

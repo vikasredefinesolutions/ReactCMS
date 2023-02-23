@@ -1,3 +1,4 @@
+import config from 'api.config';
 import Document, {
   DocumentContext,
   DocumentInitialProps,
@@ -35,68 +36,101 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang='en'>
-        <link rel='shortcut icon' href={faviconURL} />
+        <link
+          rel='shortcut icon'
+          href={`${config.mediaBaseUrl}${faviconURL}`}
+        />
         <Head>
-           {/*<link
-            rel="stylesheet"
-            type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
-          />*/}
-        {storeId == 4 && 
-               <link
-                  rel="stylesheet"
-                  type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css`}
-                />
-           }
-           {storeId == 5 && 
-               <link
-                  rel="stylesheet"
-                  type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css`}
-                />
-           }
-           {storeId == 23 && 
-               <link
-                  rel="stylesheet"
-                  type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`}
-                />
-           }
+          {storeId == 4 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css`}
+            />
+          )}
+          {storeId == 5 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css`}
+            />
+          )}
+          {storeId == 23 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`}
+            />
+          )}
 
-           {storeId == 108 && 
-               <link
-                  rel="stylesheet"
-                  type="text/css"
-                  href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css`}
-                />
-           }
+          {storeId == 108 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css`}
+            />
+          )}
+          {storeId == 134 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bacarditogo/main.css`}
+            />
+          )}
+          {storeId == 135 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bbcprod/main.css`}
+            />
+          )}
+          {storeId == 139 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css`}
+            />
+          )}
+          {storeId == 27 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`http://ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css`}
+            />
+          )}
+          {storeId == 22 && (
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`http://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`}
+            />
+          )}
 
-           {/*<link
-            rel="stylesheet"
-            type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
+          {
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
+            />
+          }
+
+          <link
+            href='https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone'
+            rel='stylesheet'
           />
-          */}
+
+          {
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
+            />
+          }
           <link
             rel='stylesheet'
             type='text/css'
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
-          />
-           <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone" rel="stylesheet" />
-          
-           
-           
-          {/*<link
-            rel="stylesheet"
-            type="text/css"
-            href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
-          />
-          */}<link
-            rel="stylesheet"
-            type="text/css"
-            charSet="UTF-8"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+            charSet='UTF-8'
+            href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css'
           />
           {/* <link
             rel='stylesheet'
@@ -110,6 +144,24 @@ class MyDocument extends Document {
             crossOrigin='anonymous'
             referrerPolicy='no-referrer'
           />
+
+          <link
+              rel='stylesheet'
+              href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback'
+          />
+          <link
+              rel='stylesheet'
+              href='https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp'
+          />
+          <link
+              rel='stylesheet'
+              href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,1,-50..200'
+          />
+          <link
+              rel='stylesheet'
+              href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0'
+          />
+
           <script
             type='text/javascript'
             dangerouslySetInnerHTML={{

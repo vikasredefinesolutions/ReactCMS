@@ -106,7 +106,7 @@ const Orders: NextPage = () => {
         <meta name='keywords' content={'All Orders'} />
       </Head>
       <MyAccountTabs />
-      <section className='container mx-auto  bg-gray-100  px-6 py-6 mt-5 mb-5'>
+      <section className='container mx-auto mt-5 mb-5'>
         <div className='mx-auto space-y-10 sm:px-4 lg:px-0 pb-2'>
           {orderDetails?.length === 0 && (
             <div className='text-center mt-20'>
@@ -146,10 +146,7 @@ const Orders: NextPage = () => {
                         TOTAL PRICE
                       </dt>
                       <dd className='mt-1 font-semibold text-gray-900'>
-                        <Price
-                          value={order?.billing?.orderTotal}
-                          addColon={false}
-                        />
+                        <Price value={order?.billing?.orderTotal} />
                       </dd>
                     </div>
                     <div>
@@ -241,7 +238,7 @@ const Orders: NextPage = () => {
                         </div>
                         <div className='px-3'>
                           <Link
-                            href={`${paths.WRITE_A_REVIEW}?ProductId=${prod.productName}`}
+                            href={`${paths.WRITE_A_REVIEW}?ProductId=${prod.productId}&attributeId=${prod.attributeOptionId}`}
                             className='btn btn-primary !w-48 text-center'
                           >
                             Write A Review

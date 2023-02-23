@@ -2,7 +2,7 @@
 import {
   _SlugServerSideProps,
   _SlugServerSide_WentWrong,
-  _TopicHomeProps
+  _TopicHomeProps,
 } from '@type/slug.type';
 import PageNotFound from 'appComponents/reUsable/404';
 import SeoHead from 'appComponents/reUsable/SeoHead';
@@ -23,15 +23,15 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
     const { error } = props;
     return <>{error}</>;
   }
-  const { updatePageType } = useActions()
+  const { updatePageType } = useActions();
   const { page, pageMetaData, _store } = props;
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
+
   useEffect(() => {
     if (!_.isEmpty(pageMetaData)) {
       updatePageType(pageMetaData);
     }
-  }, [pageMetaData])
-
+  }, [pageMetaData]);
 
   if (!_store || !pageMetaData || !page) {
     cLog('No page data found', '404');
@@ -49,8 +49,6 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
       </>
     );
   }
-
-
 
   if (pageMetaData?.type === 'collection') {
     return (
@@ -126,6 +124,7 @@ const SlugSearch: NextPage<_SlugServerSideProps | _SlugServerSide_WentWrong> = (
           {...{
             productListing: listing,
             slug: pageMetaData.slug,
+            seType: pageMetaData?.type,
           }}
         />
       </>

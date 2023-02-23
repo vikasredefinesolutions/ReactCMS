@@ -1,6 +1,11 @@
-import { FilterType, ProductList } from '@type/productList.type';
+import {
+  FilterType,
+  GetlAllProductList,
+  ProductList,
+} from '@type/productList.type';
 import { useEffect, useState } from 'react';
 
+import { perPageCount } from '@constants/product.constant';
 import { AddRemoveToCompare, getSkuList } from 'helpers/compare.helper';
 import { useActions } from 'hooks';
 import { useRouter } from 'next/router';
@@ -16,26 +21,31 @@ const ProductListController = (
   const { setShowLoader } = useActions();
   // const location = useLocation();
   const Router = useRouter();
-  const [allProduct, setAllProduct] = useState(data.product);
-  const perPageCount = 16;
-  const [currentCount, setCurrentCount] = useState(perPageCount);
+  const sort: number =
+    (Router.query.sort as unknown as number) ||
+    (Router.query.Sort as unknown as number) ||
+    1;
+  const [allProduct, setAllProduct] = useState<ProductList | []>([]);
+  const [currentCount, setCurrentCount] = useState(0);
   const [filterOption, setFilterOption] = useState<
     Array<{
       name: string;
       value: string;
     }>
-  >(checkedFilters || null);
-  const [filters, setFilters] = useState<FilterType>(data.filters || null);
+  >([]);
+  const [filters, setFilters] = useState<FilterType>([]);
   const [skuList, setSkuList] = useState<string[]>([]);
-  const getListingWithPagination = (data: ProductList) => {
+  const [sorting, setSorting] = useState<number>(+sort || 1);
+  const getListingWithPagination = (
+    data: ProductList,
+    pageCount: number = perPageCount,
+  ) => {
     if (data) {
-      return data.slice(0, perPageCount);
+      return data.slice(0, pageCount);
     }
     return [];
   };
-  const [product, setProduct] = useState<ProductList>(
-    getListingWithPagination(data.product) || null,
-  );
+  const [product, setProduct] = useState<ProductList>([]);
 
   const [showSortMenu, setShowSortMenu] = useState(false);
   const [productView, setProductView] = useState('grid');
@@ -46,10 +56,20 @@ const ProductListController = (
   }
 
   useEffect(() => {
+    if (data && data.product) {
+      productSorter_Fn(sorting, data.product);
+      setFilters(data.filters);
+      setFilterOption(checkedFilters);
+    }
+  }, [slug, sorting]);
+
+  useEffect(() => {
     if (!allProduct) {
       setShowLoader(true);
     } else {
-      setShowLoader(false);
+      setTimeout(() => {
+        setShowLoader(false);
+      }, 2000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProduct]);
@@ -90,16 +110,18 @@ const ProductListController = (
       valueArray.push(filter);
     });
 
+    const sort = Router.query['sort'];
+
     if (nameArray.length > 0 && valueArray.length > 0) {
       const url = `/${nameArray.join(',')}/${valueArray.join(
         ',',
-      )}/${brandId}/${slug}.html`;
+      )}/${brandId}/${slug}.html${sort ? '?sort=' + sort : ''}`;
       Router.replace(url);
 
       // Router.repla(url);
       setShowLoader(true);
     } else {
-      Router.replace(`/${slug}.html`);
+      Router.replace(`/${slug}.html${sort ? '?sort=' + sort : ''}`);
     }
   };
 
@@ -125,15 +147,15 @@ const ProductListController = (
   };
 
   const colorChangeHandler = (
-    productId: number,
-    seName: string,
-    color: string,
+    productId: number | undefined,
+    seName: string | undefined,
+    color: string | undefined | null,
   ) => {
     const storageString = localStorage.getItem('selectedProducts');
     const selectedProducts: Array<{
-      productId: number;
-      seName: string;
-      color: string;
+      productId: number | undefined;
+      seName: string | undefined;
+      color: string | undefined | null;
     }> = storageString ? JSON.parse(storageString) : [];
     const index = selectedProducts.findIndex(
       (product) => product.productId === productId,
@@ -154,10 +176,14 @@ const ProductListController = (
   };
 
   const loadMore = () => {
+    setShowLoader(true);
     const count = currentCount + perPageCount;
     const products = allProduct.slice(currentCount, count);
     setCurrentCount(count);
     setProduct((prev) => [...prev, ...products]);
+    setTimeout(() => {
+      setShowLoader(false);
+    }, 2000);
   };
 
   const clearFilters = () => {
@@ -165,24 +191,37 @@ const ProductListController = (
     updateFilter([]);
   };
 
-  const sortProductJson = (type: number) => {
-    // setProduct([]);
-    setCurrentCount(perPageCount);
-    let newList = [...allProduct];
-    if (type === 1) {
-      newList = newList.sort((pro1, pro2) => (pro1.id > pro2.id ? 1 : -1));
-    } else if (type === 2) {
-      newList = newList.sort((pro1, pro2) =>
-        pro1.salePrice > pro2.salePrice ? 1 : -1,
-      );
-    } else if (type === 3) {
-      newList = newList.sort((pro1, pro2) =>
-        pro1.salePrice < pro2.salePrice ? 1 : -1,
-      );
+  const productSorter_Fn = (type: number, products?: GetlAllProductList[]) => {
+    let newList = [];
+
+    if (products) {
+      newList = products;
+    } else {
+      newList = [...allProduct];
     }
-    setShowSortMenu(false);
+    setCurrentCount(perPageCount);
+    newList = newList.sort((pro1, pro2) => {
+      if (type === 1) {
+        return pro1?.id && pro2?.id && pro1?.id > pro2?.id ? 1 : -1;
+      } else if (type === 2) {
+        return pro1.msrp > pro2.msrp ? 1 : -1;
+      } else if (type === 3) {
+        return pro1.msrp < pro2.msrp ? 1 : -1;
+      }
+      return 1;
+    });
     setAllProduct(newList);
     setProduct(getListingWithPagination(newList));
+  };
+
+  const sortProductJson = (type: number) => {
+    setShowLoader(true);
+    setSorting(type);
+
+    Router.replace({
+      query: { ...Router.query, ['sort']: type },
+    });
+    setShowSortMenu(false);
   };
 
   return {
@@ -204,6 +243,7 @@ const ProductListController = (
     setProductView,
     setShowFilter,
     clearFilters,
+    sorting,
   };
 };
 

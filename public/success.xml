@@ -1,0 +1,11 @@
+﻿<!DOCTYPE cXML SYSTEM "http://xml.cxml.org/schemas/cXML/1.1.009/cXML.dtd">
+<cXML payloadID="958074700772@www.xyz3Demo.com" timestamp="2000-06-14T12:59:09-07:00">
+  <Response>
+    <Status code="200" text="success"/>
+    <PunchOutSetupResponse>
+      <StartPage>
+        <URL>https://usaa.parsonskellogg.com/home/index?sessionid=###sessionid###</URL>
+      </StartPage>
+    </PunchOutSetupResponse>
+  </Response>
+</cXML>

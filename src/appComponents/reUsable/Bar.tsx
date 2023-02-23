@@ -14,7 +14,7 @@ return(
                 <span className="block font-extrabold">
                   Free Shipping
                 </span>
-                <span>ORDERS OVER $4K</span>
+                <span>ORDERS OVER $4K---</span>
               </span>
             </div>
           </div>

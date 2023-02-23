@@ -9,6 +9,7 @@ interface _props {
   price: number;
   isDisabled?: boolean;
   color?: string;
+  attributeOptionId: number;
 }
 
 const InventoryInput: React.FC<_props & { storeCode: string }> = ({
@@ -18,6 +19,7 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
   isDisabled = false,
   storeCode,
   color,
+  attributeOptionId,
 }) => {
   const { updateQuantities, updateQuantities2 } = useActions();
   const [value, setValue] = useState<number | string>(0);
@@ -33,25 +35,26 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(+event.target.value);
     if (qty < +event.target.value) {
-      setOpenModal('InventoryLimit')
-      setValue(qty)
+      setOpenModal('InventoryLimit');
+      setValue(qty);
     }
     if (
       storeCode === _Store.type1 ||
       storeCode === _Store.type15 ||
       storeCode === _Store.type16
     ) {
-
       updateQuantities({
         size: size,
-        qty: +event.target.value,
+        qty: qty > +event.target.value ? +event.target.value : qty,
         price: price,
+        attributeOptionId: attributeOptionId,
       });
     } else {
       updateQuantities2({
         size: size,
-        qty: +event.target.value,
+        qty: qty > +event.target.value ? +event.target.value : qty,
         price: price,
+        attributeOptionId: attributeOptionId,
         color: color || '',
       });
     }
@@ -59,27 +62,27 @@ const InventoryInput: React.FC<_props & { storeCode: string }> = ({
 
   if (storeCode === _Store.type4) {
     return (
-    <>
-      <div className=''>
-        <input
-          type='number'
-          name='qty'
-          value={value}
-          onChange={handleChange}
-          min={0}
-          max={qty}
-          className=' w-full'
-          disabled={isDisabled}
-        />
-      </div>
-      {openModal === 'InventoryLimit' && (
-        <MsgContainer
-          title="Inventory Exceed"
-          message="please Enter Less Quantity than Inventory size "
-          modalHandler={modalHandler}
-        />
-      )}
-    </>
+      <>
+        <div className=''>
+          <input
+            type='number'
+            name='qty'
+            value={value}
+            onChange={handleChange}
+            min={0}
+            max={qty}
+            className=' w-full'
+            disabled={isDisabled}
+          />
+        </div>
+        {openModal === 'InventoryLimit' && (
+          <MsgContainer
+            title='Inventory Exceed'
+            message='please Enter Less Quantity than Inventory size '
+            modalHandler={modalHandler}
+          />
+        )}
+      </>
     );
   }
 

@@ -12,6 +12,9 @@ export enum __Cookie {
 // cookie_expiry in days
 export const __Cookie_Expiry = {
   userId: 2,
+  storeBuilder: {
+    tempCustomerId: 7,
+  },
 };
 
 export enum __Error {
@@ -39,3 +42,10 @@ export const __UserMessages = {
 export const employeeData = {
   secretPass: 'XkhZG4fW2t2W',
 };
+
+export const showcolors = 4;
+export const listing_max_showcolors = 7;
+export const zeroValue = 0;
+
+export const CustomizeLater =
+  'A Gear Expert will contact you to discuss the customization of this product.';

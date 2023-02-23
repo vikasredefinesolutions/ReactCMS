@@ -33,7 +33,7 @@ const EmployeeController = () => {
   }, [empData]);
 
   useEffect(() => {
-    const savedEmpData = localStorage.getItem('empData');
+    const savedEmpData = localStorage.getItem('emp_data');
 
     if (savedEmpData) {
       const newsavedEmpData = JSON.parse(savedEmpData);

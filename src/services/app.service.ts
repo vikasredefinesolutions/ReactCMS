@@ -3,6 +3,7 @@ import {
   _ThemeConfigsAvailable,
   _TransformedHeaderConfig,
 } from '@type/APIs/header.res';
+import { SendAsyncV2 } from '@utils/axios.util';
 import { _StoreDetails } from 'definations/APIs/storeDetails.res';
 import { CallAPI } from 'helpers/common.helper';
 
@@ -18,19 +19,16 @@ export const GetStoreID = async (
 ): Promise<_StoreDetails | null> => {
   const url = `Store/getstorebydomain.json`;
 
-  const response = await CallAPI<_StoreDetails>({
-    name: {
-      api: 'GetStoreID',
-      service: 'app',
-    },
-    request: {
+  try {
+    const response = await SendAsyncV2<_StoreDetails>({
       url: url,
       method: 'POST',
       data: { url: domain },
-    },
-  });
-
-  return response;
+    });
+    return response.data;
+  } catch (error) {
+    return null;
+  }
 };
 
 export const FetchThemeConfigs = async (payload: {

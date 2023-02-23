@@ -81,7 +81,7 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
                 <span className='text-lg font-semibold mr-1'>
                   Price:{' '}
                   <Price
-                    value={0}
+                    value={undefined}
                     prices={{
                       msrp: price.msrp,
                       salePrice: price.salePrice,
@@ -91,13 +91,15 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
                 per itemssss
               </p>
               {showMinQuantity ? (
-                <button
-                  onClick={() => setShowMsg((show) => !show)}
-                  className='uppercase items-center'
-                  id='aMinOrder'
-                >
-                  <strong>DISCOUNT PRICING AVAILABLE!</strong>
-                </button>
+                <a>
+                  <button
+                    onClick={() => setShowMsg((show) => !show)}
+                    className='uppercase items-center'
+                    id='aMinOrder'
+                  >
+                    <strong>DISCOUNT PRICING AVAILABLE!</strong>
+                  </button>
+                </a>
               ) : null}
             </div>
           )}
@@ -132,7 +134,7 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
             {showMinQuantity ? (
               <button
                 onClick={() => setShowMsg((show) => !show)}
-                className='text-white py-1 md:px-2 flex flex-wrap text-sm font-semibold uppercase items-center'
+                className='text-white py-1 md:px-2 flex flex-wrap text-sm font-semibold uppercase items-center hover:text-gray-900'
                 id='aMinOrder'
               >
                 <span>MINIMUM ORDER :</span>
@@ -146,7 +148,7 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
                 <span className='text-lg font-semibold mr-1'>
                   Price:{' '}
                   <Price
-                    value={0}
+                    value={undefined}
                     prices={{
                       salePrice: price.salePrice,
                       msrp: price.msrp,
@@ -161,7 +163,9 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
                   className='uppercase items-center'
                   id='aMinOrder'
                 >
-                  <strong>DISCOUNT PRICING AVAILABLE!</strong>
+                  <strong className='text-anchor hover:text-anchor-hover hover:text-gray-700'>
+                    DISCOUNT PRICING AVAILABLE!
+                  </strong>
                 </button>
               ) : null}
             </div>

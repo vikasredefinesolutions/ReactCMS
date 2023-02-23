@@ -10,32 +10,32 @@ export interface _Config {
 
 const dev = {
   api: {
-    URL: 'https://redefine-front-dev.redefinecommerce.io/',
+    URL: 'https://redefine-front-beta.redefinecommerce.io/',
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
   imageFolderPath: '/rdc/1/store/4/images/',
-  CMS: 'https://redefine-front-dev.redefinecommerce.io/',
+  CMS: 'https://redefine-front-beta.redefinecommerce.io/',
 };
 
 const stage = {
   api: {
-    URL: 'https://redefine-front-dev.redefinecommerce.io/',
+    URL: 'https://redefine-front-beta.redefinecommerce.io/',
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
   imageFolderPath: '/rdc/1/store/4/images/',
-  CMS: 'https://redefine-front-dev.redefinecommerce.io/',
+  CMS: 'https://redefine-front-beta.redefinecommerce.io/',
 };
 
 const prod = {
   api: {
-    URL: 'https://redefine-front-dev.redefinecommerce.io/',
+    URL: 'https://redefine-front-beta.redefinecommerce.io/',
   },
   CLIENT_ID: '',
   mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
   imageFolderPath: '/rdc/1/store/4/images/',
-  CMS: 'https://redefine-front-dev.redefinecommerce.io/',
+  CMS: 'https://redefine-front-beta.redefinecommerce.io/',
 };
 
 let config: _Config;

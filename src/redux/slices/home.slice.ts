@@ -7,6 +7,7 @@ export interface _HomeState {
     image: _FeaturedMoreImages[] | null;
     uImgIndex: string[];
   };
+  isCMS_page: boolean;
 }
 
 // Define the initial state using that type
@@ -15,6 +16,7 @@ const initialState: _HomeState = {
     image: null,
     uImgIndex: ['0-0-0'],
   },
+  isCMS_page: false,
 };
 
 export const homeSlice = createSlice({
@@ -39,6 +41,10 @@ export const homeSlice = createSlice({
       }
       state.selected.image[productIndex] = action.payload.imageDetails;
       state.selected.uImgIndex[productIndex] = action.payload.uImgIndex;
+    },
+
+    topic_set_isCMS: (state, action: { payload: boolean }) => {
+      state.isCMS_page = action.payload;
     },
   },
 });

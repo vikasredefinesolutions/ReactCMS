@@ -113,8 +113,8 @@ export const UploadLogoWithDetails = async (payload: {
   const data: _UploadLogoWithDetails_Payload = {
     customerlogorequestmodel: {
       rowVersion: '',
-      location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
-      ipAddress: location.IPv4,
+      location: `${location.city}, ${location.region}, ${location.country}, ${location.postal_code}`,
+      ipAddress: location.ip_address,
       macAddress: '00-00-00-00-00-00',
       ...payload,
     },

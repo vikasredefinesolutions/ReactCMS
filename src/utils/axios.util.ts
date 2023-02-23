@@ -22,6 +22,7 @@ axiosInstance.interceptors.request.use(async (request) => {
   //   'Content-Type': 'application/json',
   //   'Access-Control-Allow-Origin': '*',
   // };
+
   request.headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
@@ -43,6 +44,6 @@ axiosInstance.interceptors.response.use(
       localStorage.clear();
       window.location.href = '/';
     }
-    return Promise.reject(error.response.data);
+    return Promise.reject(error?.response?.data);
   },
 );

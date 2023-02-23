@@ -25,12 +25,14 @@ export interface CustomerAddress {
   location?: any;
   ipAddress?: any;
   macAddress?: any;
-  companyName: string;
+  companyName?: string;
+  CompanyName: string;
 }
 
 export interface UserType {
   name: string;
   storeName: string;
+  gender: string;
   createdByName?: any;
   modifiedByName?: any;
   companyName: string;
@@ -243,6 +245,7 @@ export interface _MyAcc_OrderBillingDetails {
 export interface _MyAcc_OrderProductDetails {
   colorImage: string;
   productName: string;
+  productId: number;
   sku: string;
   attributeOptionId: string;
   attributeOptionValue: string;
@@ -261,6 +264,7 @@ export interface ShoppingCartItemDetailsViewModel {
   attributeOptionValue: string;
   qty: number;
   price: number;
+  id: number;
 }
 
 export interface ShoppingCartLogoPersonViewModel {

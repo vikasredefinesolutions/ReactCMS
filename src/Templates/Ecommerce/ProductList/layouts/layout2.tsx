@@ -64,10 +64,12 @@ const Layout2 = ({
   clearFilters,
   compareCheckBoxHandler,
   slug,
+  seType,
+  brandId,
 }: list_FnProps) => {
   return (
     <section id=''>
-      <ProductDetailsPageBanner slug={slug} />
+      <ProductDetailsPageBanner slug={slug} seType={seType} />
       <BarComponent />
       <div className='container mx-auto bg-white overflow-hidden'>
         <div className='  flex flex-wrap gap-y-6 -mx-4'>
@@ -130,6 +132,7 @@ const Layout2 = ({
                         <Fragment key={index}>
                           {productView === 'grid' ? (
                             <ProductLayout2
+                              brandId={brandId}
                               skuList={skuList}
                               compareCheckBoxHandler={compareCheckBoxHandler}
                               product={product}

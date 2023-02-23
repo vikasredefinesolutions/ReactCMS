@@ -1,3 +1,4 @@
+import { StoreLayout } from '@constants/enum';
 import { _CompareProducts } from '@type/compare';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
@@ -12,15 +13,15 @@ interface _props {
 const Redefine_CompareProducts: React.FC<_props> = (props) => {
   const storeTypeId = useTypedSelector((state) => state.store.storeTypeId);
 
-  if (storeTypeId === 1) {
+  if (storeTypeId === StoreLayout.CorporateStore) {
     return <Corporate_CompareProduct {...props} />;
   }
 
-  if (storeTypeId === 2) {
+  if (storeTypeId === StoreLayout.EcommerceStore) {
     return <Ecommerce_CompareProduct {...props} />;
   }
 
-  if (storeTypeId === 3) {
+  if (storeTypeId === StoreLayout.StoreBuilderStore) {
     return <StoreBuilder_CompareProduct {...props} />;
   }
 

@@ -44,14 +44,14 @@ const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
   }, [brandIndex]);
 
   return (
-    <section className="mainsection container mx-auto mt-20">
-      <div className="w-full text-2xl md:text-3xl lg:text-title font-title text-color-title text-center mb-4">
+    <section className='mainsection container mx-auto mt-20'>
+      <div className='w-full text-2xl md:text-3xl lg:text-title font-title text-color-title text-center mb-4'>
         FEATURED ITEMS
       </div>
-      <div className="flex flex-col md:flex-row md:-mr-px text-sm">
-        <div className="w-full">
+      <div className='flex flex-col md:flex-row md:-mr-px text-sm'>
+        <div className='w-full'>
           {brands && (
-            <ul className="w-full flex justify-center max-w-4xl mx-auto flex-wrap">
+            <ul className='w-full flex justify-center max-w-4xl mx-auto flex-wrap'>
               {brands?.map((brand, index) => (
                 <li
                   key={index}
@@ -67,9 +67,9 @@ const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
               ))}
             </ul>
           )}
-          <div className="text-center mx-auto pt-10">
-            <div className="panel-01 tab-content overflow-hidden">
-              <div className="flex flex-wrap sm:-mx-3 gap-y-6">
+          <div className='text-center mx-auto pt-10'>
+            <div className='panel-01 tab-content overflow-hidden'>
+              <div className='flex flex-wrap sm:-mx-3 gap-y-6'>
                 {productsArr?.map((products, brandIdx) => {
                   if (brandIdx === brandIndex) {
                     return (
@@ -78,28 +78,35 @@ const FeaturedItems: React.FC<_props> = ({ brands, products: productsArr }) => {
                           return (
                             <div
                               key={`${productIndex}-${brandIndex}`}
-                              className="w-full lg:w-1/4 sm:w-1/2 sm:px-3"
+                              className='w-full lg:w-1/4 sm:w-1/2 sm:px-3'
                             >
-                              <div className="">
-                                <div className="flex text-center lg:w-auto">
-                                  <div className="relative border w-full border-gray-200 pb-4">
-                                    <div className="mt-6 ">
+                              <div className=''>
+                                <div className='flex text-center lg:w-auto'>
+                                  <div className='relative border w-full border-gray-200 pb-4'>
+                                    <div className='mt-6 '>
                                       <FeatureDisplayImage
                                         productIndex={productIndex}
                                         seName={product.productSEName}
                                       />
                                       <Link
                                         href={product.productSEName}
-                                        className="mt-1 text-anchor hover:text-anchor-hover"
+                                        className='mt-1 text-anchor hover:text-anchor-hover'
                                       >
-                                        <a className="relative">
-                                          <span className="absolute inset-0"></span>
+                                        <a className='relative'>
+                                          <span className='absolute inset-0'></span>
                                           {product.productName}
                                         </a>
                                       </Link>
-                                      <div className="mt-3 text-black text-base tracking-wider">
-                                        <span className="font-semibold">
-                                          MSRP <Price value={product.msrp} />
+                                      <div className='mt-3 text-black text-base tracking-wider'>
+                                        <span className='font-semibold'>
+                                          MSRP{' '}
+                                          <Price
+                                            value={undefined}
+                                            prices={{
+                                              msrp: +product.msrp,
+                                              salePrice: +product.salePrice,
+                                            }}
+                                          />
                                         </span>
                                       </div>
                                       <FeaturedImageOptions

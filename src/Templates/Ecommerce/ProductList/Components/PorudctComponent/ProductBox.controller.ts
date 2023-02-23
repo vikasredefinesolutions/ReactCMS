@@ -7,20 +7,21 @@ const ProductBoxController = ({
 }: {
   product: GetlAllProductList;
   colorChangeHandler: (
-    productid: number,
-    seName: string,
-    color: string,
+    productid: number | undefined,
+    seName: string | undefined,
+    color: string | undefined | null,
   ) => void;
 }) => {
   const [origin, setOrigin] = useState('');
   const [currentProduct, setCurrentProduct] = useState(
-    product.getProductImageOptionList[0],
+    product.getProductImageOptionList && product.getProductImageOptionList[0],
   );
   useEffect(() => {
     colorChangeHandler(
       product.id,
       product.sename || '',
-      product.getProductImageOptionList[0].colorName,
+      product.getProductImageOptionList &&
+        product.getProductImageOptionList[0].colorName,
     );
     if (window !== undefined) {
       setOrigin(window.location.origin);
@@ -29,7 +30,9 @@ const ProductBoxController = ({
   }, []);
 
   useEffect(() => {
-    setCurrentProduct(product.getProductImageOptionList[0]);
+    setCurrentProduct(
+      product.getProductImageOptionList && product.getProductImageOptionList[0],
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 

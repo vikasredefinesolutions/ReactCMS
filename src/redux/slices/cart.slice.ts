@@ -44,26 +44,36 @@ export interface _Cart_Initials {
     amount: null | number;
     percentage: null | number;
   } | null;
+  userCreditBalance: {
+    useBalance: boolean;
+    allowedBalance: number;
+  };
 }
+
+const corporateStoreCartInitial = {
+  items: [],
+  order: {
+    qty: 0,
+    tax: 0,
+    subTotal: 0,
+    shipping: 0,
+    total: 0,
+  },
+};
 
 const initialState: _Cart_Initials = {
   cart: [],
-  corporateStoreCart: {
-    items: [],
-    order: {
-      qty: 0,
-      tax: 0,
-      subTotal: 0,
-      shipping: 0,
-      total: 0,
-    },
-  },
+  corporateStoreCart: corporateStoreCartInitial,
   guestId: 0,
   email: '',
   isCustomerExist: false,
   showThankYou: false,
   isGuestCustomer: false,
   discount: null,
+  userCreditBalance: {
+    useBalance: false,
+    allowedBalance: 0,
+  },
 };
 
 export const cartSlice = createSlice({
@@ -185,6 +195,22 @@ export const cartSlice = createSlice({
     },
     applyCoupon: (state, { payload }) => {
       state.discount = payload;
+    },
+    employeePriceQtyUpdate: (state, { payload }) => {
+      state.cart = payload;
+    },
+    logoutClearCart: (state) => {
+      state.cart = null;
+      state.corporateStoreCart = corporateStoreCartInitial;
+      state.guestId = 0;
+      state.email = '';
+      state.isCustomerExist = false;
+      state.showThankYou = false;
+      state.isGuestCustomer = false;
+      state.discount = null;
+    },
+    customerCreditBalanceUpdate: (state, { payload }) => {
+      state.userCreditBalance = payload;
     },
   },
   extraReducers: (builder) => {

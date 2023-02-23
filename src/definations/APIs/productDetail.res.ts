@@ -1,4 +1,4 @@
-import { _ProductColor } from './colors.res';
+import { _ProductColor, _ProductImageOption } from './colors.res';
 import { _SizeChartTransformed } from './sizeChart.res';
 
 export interface _ProductDetailsProps {
@@ -38,6 +38,23 @@ export interface _ProductBySku {
   brandID: number;
 }
 
+export interface _LogoLocationDetail {
+  logoLocationDetailId: number;
+  name: string;
+  image: string;
+  threeDImage: string;
+  threeDLogoLocationClass: string;
+  price: number;
+  cost: number;
+  brandGuideLines: boolean;
+}
+
+export interface _LogoLocation {
+  isFirstLogoFree: boolean;
+  productId: number;
+  subRow: _LogoLocationDetail[] | [];
+}
+
 export interface _ProductDetails {
   id: number;
   storeId: number;
@@ -66,18 +83,18 @@ export interface _ProductDetails {
   discontinueEndDate: string;
   suggestedProducts: _SuggestedProduct[];
   isBrandOnline: boolean;
-  isPolicywithcheckbox: boolean,
-  policyMessage: string,
-  isEnduserDisplay: boolean
+  isPolicywithcheckbox: boolean;
+  policyMessage: string;
+  isEnduserDisplay: boolean;
 }
 export interface _ProductPolicy {
   storeId: number;
   brandID: number | null;
   brandName: string | null;
   isBrandOnline: boolean;
-  isPolicywithcheckbox: boolean,
-  policyMessage: string,
-  isEnduserDisplay: boolean
+  isPolicywithcheckbox: boolean;
+  policyMessage: string;
+  isEnduserDisplay: boolean;
 }
 
 export interface _SuggestedProduct {
@@ -130,4 +147,48 @@ export interface _ProductsAlike {
   seName: string;
   image: null | string;
   categoryId: number;
+  getProductImageOptionList: _ProductImageOption[];
+}
+
+export interface _ProductsRecentlyViewed {
+  id: number;
+  customerId: number;
+  productId: number;
+  pageName: string;
+  pageUrl: string;
+  recStatus: string;
+  ipAddress: string;
+}
+export interface _ProductsRecentlyViewedPayload {
+  recentViewModel: {
+    customerId: number;
+    productId: number;
+    pageName: string;
+    pageUrl: string;
+    recStatus: string;
+    ipAddress: string;
+  };
+}
+export interface _ProductsRecentlyViewedResponse {
+  id: number;
+  name: string;
+  msrp: number;
+  seName: string;
+  image: string;
+  categoryId: number;
+  getProductImageOptionList: _ProductImageOption[];
+}
+
+export interface _FetchProductsRecentlyViewedPayload {
+  productId: number;
+  storeId: number;
+  ipAddress: string;
+  customerId: number;
+  maximumItemsForFetch: number;
+}
+export interface _FetchTagsName {
+  productId: number;
+  imagename: string;
+  productTagName: string;
+  tagPosition: string;
 }

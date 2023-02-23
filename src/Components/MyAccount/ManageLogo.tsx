@@ -30,7 +30,11 @@ const ManageLogo = () => {
           storeId: storeId,
         };
 
-        const logoList = await getLogoDetailsList(filter);
+        const logoList = await getLogoDetailsList(filter).then((res) => {
+          if (res) {
+            setLogoList(res);
+          }
+        });
       }
     } catch (error) {
       console.log(error);
@@ -49,9 +53,9 @@ const ManageLogo = () => {
   }, [storeId, customerId, currentPage]);
 
   return (
-    <section className='container mx-auto bg-gray-100 px-6 py-6 mt-5 mb-5'>
+    <section className='container mx-auto mt-5 mb-5'>
       <div className='bg-white mt-4 mb-4'>
-        <div className='overflow-auto max-h-screen border-t border-neutral-200'>
+        <div className='overflow-auto max-h-screen border border-neutral-200'>
           <table className='table-auto w-full text-sm text-[#191919] font-semibold'>
             <thead className='text-sm font-bold uppercase text-[#b3b3b3] border-b border-neutral-200'>
               <tr>
@@ -160,7 +164,7 @@ const ManageLogo = () => {
                     <td className='px-2 first:pl-5 py-3'>
                       {_.isEmpty(logo.approvedDate) ? (
                         <Link
-                          href={`/ManageLogo/CheckLogoApproved?logoId=${5}`}
+                          href={`/ManageLogo/CheckLogoApproved?logoId=${logo.logoId}`}
                           title=''
                           className='text-indigo-500'
                         >
@@ -176,7 +180,11 @@ const ManageLogo = () => {
                 ))}
             </tbody>
           </table>
-          <button></button>
+          {!logoList?.items.length ? (
+            <div className='text-center col-span-8 p-2'>No record found.</div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </section>

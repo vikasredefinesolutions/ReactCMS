@@ -87,6 +87,7 @@ const Redefine_OrderDetails: NextPage = () => {
         setOrderDetails(details),
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId]);
 
   return (
@@ -273,7 +274,7 @@ const Redefine_OrderDetails: NextPage = () => {
                           </div>
                           <div className='px-3'>
                             <Link
-                              href={`${paths.WRITE_A_REVIEW}?ProductId=${prod.productName}`}
+                              href={`${paths.WRITE_A_REVIEW}?ProductId=${prod.productName}&attributeId=${prod.attributeOptionId}`}
                               className='btn btn-sm btn-primary !w-32 text-center'
                             >
                               Write A Review

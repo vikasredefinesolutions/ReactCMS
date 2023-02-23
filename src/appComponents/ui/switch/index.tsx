@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { FormControlLabel, Switch } from '@mui/material';
+import { Switch } from '@mui/material';
 
 const IOSSwitch = styled((props: any) => (
-  <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+  <Switch focusVisibleClassName='.Mui-focusVisible' disableRipple {...props} />
 ))(() => ({
   width: '4rem',
   height: 28,
@@ -57,22 +57,4 @@ const IOSSwitch = styled((props: any) => (
   },
 }));
 
-const SwitchBox = ({
-  checked,
-  onchange,
-}: {
-  checked: boolean;
-  // eslint-disable-next-line no-unused-vars
-  onchange?: (e: any) => void;
-}) => {
-  return (
-    <FormControlLabel
-      control={
-        <IOSSwitch onChange={onchange} sx={{ m: 1 }} defaultChecked={checked} />
-      }
-      label=""
-    />
-  );
-};
-
-export default SwitchBox;
+export default IOSSwitch;

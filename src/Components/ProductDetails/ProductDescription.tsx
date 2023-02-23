@@ -25,8 +25,8 @@ const ProductDescription: React.FC<_props & { storeCode: string }> = ({
       <div className='m-3'>
         <h3 className='font-semibold text-2xl mb-2'>{heading}</h3>
         <div
-          className={`relative text-sm text-gray-700 tracking-widest div_description transition-all pb-8 ${
-            !showExtra && 'h-40 overflow-hidden'
+          className={`relative text-sm text-gray-700 tracking-widest div_description transition-all pb-4 ${
+            !showExtra && 'max-h-40 h-20 overflow-hidden'
           }`}
         >
           <div

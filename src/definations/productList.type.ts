@@ -147,24 +147,44 @@ export interface StoreBrandProductPriceRangeViewModel {
 
 export interface GetProductImageOptionList {
   id: number;
-  imageName: string;
-  colorName: string;
-  displayorder: number;
-  alttag: string;
+  imageName?: string;
+  colorName?: string;
+  displayorder?: number;
+  alttag?: string;
+  attributeOptionID?: number;
+  imageUrl?: string;
+  attributeOptionName?: string;
+  displayOrder?: number;
+  altTag?: string;
 }
 
 export interface GetlAllProductList {
-  getProductImageOptionList: GetProductImageOptionList[];
-  id: number;
-  name: string;
-  sename: string;
+  getProductImageOptionList?: GetProductImageOptionList[];
+  id?: number;
+  name?: string;
+  productTagViewModel?: Array<{
+    productId: number;
+    imagename: string;
+    productTagName: string;
+    tagPosition: string;
+  }>;
+  sename?: string;
   msrp: number;
   salePrice: number;
-  brandlogo: string;
-  iswishlist: boolean;
+  brandlogo?: string;
+  iswishlist?: boolean;
   label?: string;
-  wishListId: number;
-  sku: string;
+  wishListId?: number;
+  sku?: string;
+  imageUrl?: string;
+  imap?: string;
+  moreImages?: GetProductImageOptionList[];
+  productId?: number;
+  productName?: string;
+  productSEName?: string;
+  productDisplayOrder?: number;
+  attributeOptionName?: string;
+  ourCost?: number;
 }
 
 export interface BrandFilter {
@@ -218,9 +238,9 @@ export type FilterApiRequest = {
 export type ProductList = Array<GetlAllProductList>;
 
 export type ColorChangeHandler = (
-  productId: number,
-  seName: string,
-  color: string,
+  productId: number | undefined,
+  seName: string | undefined,
+  color: string | undefined | null,
 ) => void;
 
 export type FilterChangeHandler = (

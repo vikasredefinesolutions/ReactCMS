@@ -1,4 +1,14 @@
-export type ShoppingCartItemModel = {
+export type CouponReq = {
+  promotionsModel: {
+    customerId: number;
+    couponCode: string;
+    storeId: number;
+    taxCost: number;
+    shippingCost: number;
+  };
+};
+
+export interface ShoppingCartItemModel {
   id: number;
   price: number;
   quantity: number;
@@ -14,16 +24,30 @@ export type ShoppingCartItemModel = {
   productCustomizationId: number;
   itemNotes: string;
   isEmployeeLoginPrice: number;
-};
+}
 
-export type ShoppingCartItemsDetailModel = {
+export interface ShoppingCartItemsDetailModel {
   attributeOptionName: string;
   attributeOptionValue: string;
-  attributeOptionId: number;
-};
+  attributeOptionId: string | number;
+}
 
-export type CartLogoPersonDetailModel = {
-  location: string;
+export interface CartLogoPersonModel {
+  id?: number;
+  attributeOptionId: number | string;
+  attributeOptionValue: string;
+  code: string;
+  price: number;
+  quantity: number;
+  estimateDate: Date;
+  isEmployeeLoginPrice: number;
+}
+
+export interface CartLogoPersonDetailModel {
+  logoPrice: number;
+  logoQty: number;
+  logoFile: string;
+  logoLocation: string;
   logoTotal: number;
   colorImagePath: string;
   logoUniqueId: string;
@@ -33,48 +57,53 @@ export type CartLogoPersonDetailModel = {
   logoDate: Date;
   logoNames: string;
   digitalPrice: number;
-  logoPositionImagePath: string;
+  logoPositionImage: string;
   oldFilePath: string;
   originalLogoFilePath: string;
-  logoFile: string;
-  LogoLocation: string;
-  LogoPositionImage: string;
-};
+}
 
-export type CartLogoPersonModel = {
-  attributeOptionId: number;
+export interface CartLinePersonDetailModel {
+  linePrice: number;
+  lineQty: number;
+  lineAboveLogo: number;
+  lineIndividually: number;
+  lineNumber: number;
+  lineText: string;
+  lineTotal: number;
+  lineFont: string;
+  lineColor: string;
+  linePriceDouble: number;
+  logoCartId: number;
+  personalizeLocation: string;
+}
+
+export interface CartLinePersonModel {
+  attributeOptionId: number | string;
   attributeOptionValue: string;
   code: string;
-  price: number;
-  quantity: number;
-  logoPrice: number;
-  logoQty: number;
-  logoFile: string;
-  estimateDate: Date;
-  isEmployeeLoginPrice: number;
-  cartLogoPersonDetailModels: CartLogoPersonDetailModel[];
-};
+  cartLinePersonDetailModel: CartLinePersonDetailModel[];
+}
 
-export type AddToCartModel = {
+export interface AddToCartModel {
   customerId: number;
   productId: number;
   storeId: number;
+  isempLogin: boolean;
   shoppingCartItemModel: ShoppingCartItemModel;
   shoppingCartItemsDetailModels: ShoppingCartItemsDetailModel[];
   cartLogoPersonModel: CartLogoPersonModel[];
-  cartLinePersonModels: any[];
-};
+  cartLogoPersonDetailModels: CartLogoPersonDetailModel[];
+  cartLinePersonModels: CartLinePersonModel[];
+}
 
-export type CartReq = {
+export interface CartReq {
   addToCartModel: AddToCartModel;
-};
+}
 
-export type CouponReq = {
-  promotionsModel: {
-    customerId: number;
-    couponCode: string;
-    storeId: number;
-    taxCost: 0;
-    shippingCost: 0;
-  };
-};
+export interface PaymentOption {
+  storeId: number;
+  paymentOptionId: number;
+  paymentOptionName: string;
+}
+
+export type PaymentOptions = PaymentOption[];

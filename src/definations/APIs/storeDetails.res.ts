@@ -75,6 +75,22 @@ export interface StoreType {
   macAddress: string;
 }
 
+export interface _SelectedBrands {
+  bg: _Value;
+  featuredproducts_brandwise_display: _Value;
+  featuredproducts_product_count: _Value;
+  featuredproducts_section_title: _Value;
+  featuredproducts_selected_brands: {
+    type: string;
+    value: { value: string; label: string }[];
+  };
+}
+
+export interface _Value {
+  type: string;
+  value: string;
+}
+
 export interface _FeaturedProduct {
   productId: number;
   productName: string;

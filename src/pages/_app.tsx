@@ -5,8 +5,8 @@ import SuccessErrorModal from 'appComponents/modals/successErrorModal';
 import Spinner from 'appComponents/ui/spinner';
 import Redefine_Screen from 'Templates/Redefine_Screen';
 
-import { FetchThemeConfigs } from '@services/app.service';
 import { Footer } from '@services/footer.service';
+import { TrackFile } from '@services/tracking.service';
 import { _Footer } from '@type/APIs/footer.res';
 import EmployeeController from 'Controllers/EmployeeController';
 import * as _AppController from 'Controllers/_AppController.async';
@@ -29,7 +29,11 @@ import { useEffect } from 'react';
 import { reduxWrapper } from 'redux/store.redux';
 import { _Expected_AppProps, _MenuItems } from 'show.type';
 import { _globalStore } from 'store.global';
-//import '../../styles/output.css';
+// import '../../styles/output.css';
+
+import { getWishlist } from '@services/wishlist.service';
+import Metatags from 'appComponents/reUsable/MetaTags';
+import { _ExpectedSlugProps } from 'Components/Slug/getServerSideProps';
 import '../app.css';
 
 type AppOwnProps = {
@@ -39,6 +43,7 @@ type AppOwnProps = {
     header: _TransformedHeaderConfig | null;
     footer: _Footer | null;
   };
+  pageProps: _ExpectedSlugProps | null;
 };
 
 const RedefineCustomApp = ({
@@ -50,8 +55,13 @@ const RedefineCustomApp = ({
 }: AppProps & AppOwnProps) => {
   EmployeeController();
   const router = useRouter();
-  const { store_storeDetails, updateCustomerV2, setShowLoader, logInUser } =
-    useActions();
+  const {
+    store_storeDetails,
+    updateCustomerV2,
+    setShowLoader,
+    logInUser,
+    updateWishListData,
+  } = useActions();
 
   const refreshHandler = () => {
     return setCookie(__Cookie.storeInfo, '', 'EPOCH');
@@ -68,17 +78,55 @@ const RedefineCustomApp = ({
     router.events.on('routeChangeStart', handleStart);
     router.events.on('routeChangeComplete', handleComplete);
     router.events.on('routeChangeError', handleComplete);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
+
+  const trackingFile = async () => {
+    let data = {
+      trackingModel: {
+        id: 0,
+        storeId: extractCookies(__Cookie.storeInfo, 'browserCookie').storeInfo
+          ?.storeId,
+        sessionID: 'string',
+        visitorId: '',
+        gclId: router?.query?.gclid ?? '',
+        msclkId: router?.query?.msclkId ?? '',
+        initialReferrer: '',
+        initialLandingPage: '',
+        marketingTimeStamp: '',
+        marketingLandingPage: '',
+        marketingInitialReferrer: '',
+        utmSource: router?.query?.utmSource ?? '',
+        utmMedium: router?.query?.utmMedium ?? '',
+        utmTerm: router?.query?.utmTerm ?? '',
+        utmContent: router?.query?.utmContent ?? '',
+        utmCampaign: router?.query?.utm_campaign ?? '',
+        utmExpid: router?.query?.utm_expid ?? '',
+        utmReferrer: router?.query?.utm_referrer ?? '',
+        isNewVisitor: true,
+        ipAddress: '192.168.1.1',
+      },
+    };
+    await TrackFile(data);
+  };
+
+  useEffect(() => {
+    trackingFile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const cookies = extractCookies('', 'browserCookie');
     if (store) {
       store_storeDetails({
         store: store,
-        menuItems: menuItems,
-        configs: configs,
       });
     }
+
+    const tempCustomerId = extractCookies(
+      __Cookie.tempCustomerId,
+      'browserCookie',
+    ).tempCustomerId;
 
     if (cookies && cookies.userId) {
       setShowLoader(true);
@@ -92,17 +140,22 @@ const RedefineCustomApp = ({
             customer: res,
             id: res.id,
           });
+          getWishlist(res.id || ~~(tempCustomerId || 0)).then((data) => {
+            updateWishListData(data);
+          });
         })
         .finally(() => {
           setShowLoader(false);
         });
     }
     setShowLoader(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     window.addEventListener('beforeunload', refreshHandler);
     return () => window.removeEventListener('beforeunload', refreshHandler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!store || !store.storeTypeId) {
@@ -111,12 +164,18 @@ const RedefineCustomApp = ({
 
   return (
     <Spinner>
+      <Metatags
+        storeName={store.storeName}
+        pageMetaData={pageProps?.pageMetaData}
+        routepath={router.asPath}
+      />
       <SuccessErrorModal />
       <Redefine_Screen
         logoUrl={store.urls.logo}
         storeCode={store.code}
         storeTypeId={store.storeTypeId}
         configs={configs}
+        menuItems={menuItems}
       >
         <Component {...pageProps} />
       </Redefine_Screen>
@@ -138,6 +197,7 @@ RedefineCustomApp.getInitialProps = async (
       pageType: '',
       pathName: '',
       code: '',
+      storeName: '',
       storeTypeId: null,
       isAttributeSaparateProduct: false,
       cartCharges: null,
@@ -157,7 +217,12 @@ RedefineCustomApp.getInitialProps = async (
   const ctx = await App.getInitialProps(context);
   const cookies = extractCookies(context.ctx.req?.headers.cookie);
 
-  if (cookies.storeInfo?.storeId) {
+  const domain = domainToShow({
+    domain: context.ctx.req?.rawHeaders[1],
+    showProd: __domain.isSiteLive,
+  });
+
+  if (cookies.storeInfo?.storeId && cookies.storeInfo?.domain === domain) {
     APIsCalledOnce = true;
     expectedProps.store.storeId = cookies.storeInfo.storeId;
     expectedProps.store.isAttributeSaparateProduct =
@@ -184,32 +249,21 @@ RedefineCustomApp.getInitialProps = async (
     }
   }
 
-  const domain = domainToShow({
-    domain: context.ctx.req?.rawHeaders[1],
-    showProd: __domain.isSiteLive,
-  });
-
   try {
     if (APIsCalledOnce === false) {
       expectedProps.store = await _AppController.fetchStoreDetails(
         domain,
         pathName,
       );
-
       if (expectedProps.store?.storeId) {
         expectedProps.configs.footer = await Footer({
           storeId: expectedProps.store?.storeId,
           configname: 'footer',
         });
 
-        expectedProps.configs.header = await FetchThemeConfigs({
-          storeid: expectedProps.store?.storeId,
-          configname: 'header_config',
-        });
-
-        // expectedProps.menuItems = await _AppController.fetchMenuItems(
-        //   expectedProps.store.storeId,
-        // );
+        expectedProps.menuItems = await _AppController.fetchMenuItems(
+          expectedProps.store.storeId,
+        );
 
         if (res && cookies.storeInfo === null) {
           nextJsSetCookie({
@@ -270,7 +324,6 @@ RedefineCustomApp.getInitialProps = async (
       value: expectedProps.store.urls.logo,
     });
   }
-
   return {
     ...ctx,
     store: expectedProps.store,

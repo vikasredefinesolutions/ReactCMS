@@ -25,25 +25,10 @@ const LoginIcon: React.FC = () => {
       <div className='flex relative'>
         <button
           onClick={toggleLoginModal}
-          className='text-gray-600 hover:text-primary flex items-center gap-1'
+          className='text-primary hover:text-anchor-hover flex items-center gap-1.5'
         >
           <span className='hidden'>John</span>
-          <svg
-            className='w-6 h-6'
-            x-description='Heroicon name: outline/user'
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth='2'
-            stroke='currentColor'
-            aria-hidden='true'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
-            ></path>
-          </svg>
+          <span className='material-icons'>account_circle</span>
         </button>
 
         {showModal === 'login' && <LoginModal modalHandler={setShowModal} />}
@@ -93,7 +78,6 @@ const LoginIcon: React.FC = () => {
           className='lg:mx-2 py-2 text-white hover:text-white flex items-center gap-1'
           data-modal-toggle='LoginModal'
         >
-          <span className='lg:hidden material-icons-outlined'>person</span>
           <span className='hidden lg:inline-block'>Login</span>
         </button>
         {showModal === 'login' && <LoginModal modalHandler={setShowModal} />}
@@ -108,28 +92,16 @@ const LoginIcon: React.FC = () => {
     storeLayout === _Store.type16
   ) {
     return (
-      <div className='flex'>
+      <div className='flex relative'>
         <button
-          className='text-primary hover:text-gray-500 flex items-center gap-1'
+          className='text-primary hover:text-anchor-hover flex items-center gap-1.5'
           onClick={toggleLoginModal}
+          title='Login'
         >
-          <span className='hidden lg:inline-block'>login</span>
-          <svg
-            className='w-6 h-6'
-            x-description='Heroicon name: outline/user'
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth='2'
-            stroke='currentColor'
-            aria-hidden='true'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
-            ></path>
-          </svg>
+          <span className='text-sm hidden xl:inline-block tracking-[1.4px]'>
+            login
+          </span>
+          <span className='material-icons'>account_circle</span>
         </button>
         {showModal === 'login' && <LoginModal modalHandler={setShowModal} />}
         {showModal === 'forgot' && <ForgotModal modalHandler={setShowModal} />}

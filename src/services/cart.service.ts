@@ -14,10 +14,14 @@ export type _ShoppingCartService = {
   api: _ShoppingCartAPIs;
 };
 
-export const FetchCartDetails = async (
-  customerId: number,
-): Promise<CartProducts | null> => {
-  const url = `/Store/GetShoppingCartItemsDetail/${customerId}.json`;
+export const FetchCartDetails = async ({
+  customerId,
+  isEmployeeLoggedIn,
+}: {
+  customerId: number | string;
+  isEmployeeLoggedIn: boolean;
+}): Promise<CartProducts | null> => {
+  const url = `/Store/GetShoppingCartItemsDetail/${customerId}/${isEmployeeLoggedIn}.json`;
 
   const response = await CallAPI<CartProducts>({
     name: {

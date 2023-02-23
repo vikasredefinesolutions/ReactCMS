@@ -3,7 +3,7 @@ import { CallAPI } from 'helpers/common.helper';
 export type _CacheAPIs = 'ClearCategoryCache' | 'ClearBrandCache';
 
 export interface _CacheApiServices {
-  service: 'cache';
+  service: 'cacheAPIs';
   api: _CacheAPIs;
 }
 
@@ -16,7 +16,7 @@ export const ClearBrandCache = async (params: {
   const response = await CallAPI<boolean>({
     name: {
       api: 'ClearBrandCache',
-      service: 'cache',
+      service: 'cacheAPIs',
     },
     request: {
       url: url,
@@ -36,7 +36,7 @@ export const ClearCategoryCache = async (params: {
   const response = await CallAPI<boolean>({
     name: {
       api: 'ClearCategoryCache',
-      service: 'cache',
+      service: 'cacheAPIs',
     },
     request: {
       url: url,

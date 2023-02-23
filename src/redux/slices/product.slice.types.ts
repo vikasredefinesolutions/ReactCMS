@@ -10,7 +10,7 @@ export interface _LogoDetails_IfSubmitted {
     name: string;
     value: string;
   };
-  date: Date;
+  date: string | Date;
   price: number;
   quantity: 1;
   title: string | null;
@@ -24,7 +24,7 @@ export interface _LogoDetails_WillSubmitLater {
     name: string;
     value: string;
   };
-  date: Date;
+  date: string;
   price: number;
   quantity: 1;
 }
@@ -36,6 +36,8 @@ export interface _AvailableLocationDetails {
     url: string;
     alt: string;
   };
+  price: number;
+  cost: number;
 }
 
 export interface _Product_UpdateLogoDetails_Actions {
@@ -69,6 +71,8 @@ export interface _Product_UpdateLogoDetails_Actions {
             url: string;
             alt: string;
           };
+          price: number;
+          cost: number;
         };
       }
     | {
@@ -103,6 +107,8 @@ export interface _LogoDetail {
 }
 
 export interface _Product_SizeQtys {
+  attributeOptionId: number;
+  id?: number;
   size: string;
   qty: number;
   price: number;
@@ -179,7 +185,7 @@ export interface _ProductStore {
   };
   toCheckout: _state_productToCheckout;
   som_logos: _state_SOM_Logos_Container;
-  offlineProductSelected:string;
+  offlineProductSelected: string;
 }
 
 export interface _updateDiscountTablePrices {
@@ -201,6 +207,19 @@ export interface _SetValue_MinQty {
   data: {
     qty: number;
   };
+}
+
+export interface _UpdateSelectedValue_Color {
+  type: 'COLOR';
+  data: _ProductColor;
+}
+
+export interface _UpdateSelectedValue_Reset_All {
+  type: 'RESET_ALL';
+}
+
+export interface _Product_UpdateSelectedValeus_Action {
+  payload: _UpdateSelectedValue_Color | _UpdateSelectedValue_Reset_All;
 }
 
 export interface _Product_SetValues_Action {

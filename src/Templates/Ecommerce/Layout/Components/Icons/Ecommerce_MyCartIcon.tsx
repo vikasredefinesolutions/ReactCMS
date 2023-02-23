@@ -5,6 +5,7 @@ import { paths } from 'constants/paths.constant';
 import CartSummaryController from 'Controllers/cartSummarryController';
 import { extractCookies } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
+import _ from 'lodash';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
@@ -17,6 +18,9 @@ const MyCartIcon: React.FC = () => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
   const cart = useTypedSelector((state) => state.cart);
   const customerId = useTypedSelector((state) => state.user.id);
+  const isEmployeeLoggedIn = useTypedSelector(
+    (state) => state.employee.loggedIn,
+  );
   const { getTotalProduct, getTotalPrice } = CartSummaryController();
   const { totalPrice } = getTotalPrice();
   const [Focus, setFocus] = useState(false);
@@ -26,9 +30,13 @@ const MyCartIcon: React.FC = () => {
       __Cookie.tempCustomerId,
       'browserCookie',
     ).tempCustomerId;
+    const C_id = _.isEmpty(customerId) ? tempCustomerId : customerId;
 
-    if (customerId || tempCustomerId) {
-      fetchCartDetails(customerId || ~~(tempCustomerId || 0));
+    if (C_id) {
+      fetchCartDetails({
+        customerId: C_id,
+        isEmployeeLoggedIn,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId]);
@@ -36,6 +44,7 @@ const MyCartIcon: React.FC = () => {
   useEffect(() => {
     const totalQty = getTotalProduct();
     setTotalCartQty(totalQty);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   if (storeLayout === _Store.type2) {
@@ -47,25 +56,10 @@ const MyCartIcon: React.FC = () => {
         x-data='{ open: false }'
       >
         <Link href={paths.CART}>
-          <a className='text-primary hover:text-anchor-hover group flex items-center gap-1 relative py-2 pr-2'>
-            {/* <span className="text-sm hidden xl:inline-block">my cart</span>{' '} */}
-            <svg
-              className='flex-shrink-0 h-6 w-6 text-primary group-hover:text-anchor-hover'
-              x-description='Heroicon name: outline/shopping-cart'
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth='2'
-              stroke='currentColor'
-              aria-hidden='true'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z'
-              ></path>
-            </svg>{' '}
-            <span className='absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-gray-200 text-[10px] font-medium text-gray-500'>
+          <a className='text-primary hover:text-anchor-hover group flex items-center gap-1.5 relative py-2'>
+            <span className='text-sm hidden xl:inline-block'>my cart</span>{' '}
+            <span className='material-icons'>shopping_cart</span>
+            <span className='absolute -right-2.5 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-gray-200 text-[10px] font-medium text-gray-500'>
               {totalCartQty}
             </span>
           </a>
@@ -108,11 +102,7 @@ const MyCartIcon: React.FC = () => {
                             <div className='px-1'>
                               Subtotal :{' '}
                               <span>
-                                <Price
-                                  value={
-                                    cartItem.totalPrice * cartItem.totalQty
-                                  }
-                                />
+                                <Price value={cartItem.totalPrice} />
                               </span>
                             </div>
                           </div>
@@ -157,24 +147,11 @@ const MyCartIcon: React.FC = () => {
         x-data='{ open: false }'
       >
         <Link href={paths.CART}>
-          <a className='text-primary hover:text-anchor-hover group flex items-center gap-1 relative py-2 pr-2'>
-            {/* <span className="text-sm hidden xl:inline-block">my cart</span>{' '} */}
-            <svg
-              className='flex-shrink-0 h-6 w-6 text-primary group-hover:text-anchor-hover'
-              x-description='Heroicon name: outline/shopping-cart'
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth='2'
-              stroke='currentColor'
-              aria-hidden='true'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z'
-              ></path>
-            </svg>{' '}
+          <a className='text-primary hover:text-anchor-hover group flex items-center gap-1.5 relative py-2 pr-2'>
+            <span className='text-sm hidden xl:inline-block whitespace-nowrap'>
+              my cart
+            </span>{' '}
+            <span className='material-icons'>shopping_cart</span>
             <span className='absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-gray-200 text-[10px] font-medium text-gray-500'>
               {totalCartQty}
             </span>
@@ -206,7 +183,7 @@ const MyCartIcon: React.FC = () => {
                           <div className=''>
                             <Link
                               className='inline-block'
-                              href='product-page.html'
+                              href={`/${cartItem.seName}`}
                             >
                               {cartItem.productName}
                             </Link>
@@ -218,11 +195,7 @@ const MyCartIcon: React.FC = () => {
                             <div className='px-1'>
                               Subtotal :{' '}
                               <span>
-                                <Price
-                                  value={
-                                    cartItem.totalPrice * cartItem.totalQty
-                                  }
-                                />
+                                <Price value={cartItem.totalPrice} />
                               </span>
                             </div>
                           </div>
@@ -264,10 +237,10 @@ const MyCartIcon: React.FC = () => {
         x-data='{ open: false }'
       >
         <Link href={paths.CART}>
-          <a className='text-primary hover:text-anchor-hover group flex items-center gap-1 relative py-2 pr-2'>
+          <a className='text-gray-600 hover:text-primary group flex items-center  relative pr-2'>
             {/* <span className="text-sm hidden xl:inline-block">my cart</span>{' '} */}
             <svg
-              className='flex-shrink-0 h-6 w-6 text-primary group-hover:text-anchor-hover'
+              className='flex-shrink-0 h-6 w-6'
               x-description='Heroicon name: outline/shopping-cart'
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -282,7 +255,7 @@ const MyCartIcon: React.FC = () => {
                 d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z'
               ></path>
             </svg>{' '}
-            <span className='absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-gray-200 text-[10px] font-medium text-gray-500'>
+            <span className='absolute right-0 -top-2 w-4 h-4 rounded-full flex items-center justify-center bg-gray-200 text-[9px] font-medium text-gray-500'>
               {totalCartQty}
             </span>
           </a>
@@ -325,11 +298,7 @@ const MyCartIcon: React.FC = () => {
                             <div className='px-1'>
                               Subtotal :{' '}
                               <span>
-                                <Price
-                                  value={
-                                    cartItem.totalPrice * cartItem.totalQty
-                                  }
-                                />
+                                <Price value={cartItem.totalPrice} />
                               </span>
                             </div>
                           </div>
@@ -364,15 +333,9 @@ const MyCartIcon: React.FC = () => {
 
   if (storeLayout === _Store.type4) {
     return (
-      <div className='flow-root'>
-        <Link
-          href={paths.CART}
-          className='lg:mx-2 py-2 text-white hover:text-white flex items-center gap-1'
-        >
+      <div className='lg:mx-2 py-2 text-white hover:text-white flex items-center gap-1 cursor-pointer'>
+        <Link href={paths.CART} className=''>
           <>
-            <span className='lg:hidden material-icons-outlined'>
-              shopping_cart
-            </span>
             <span className='hidden lg:inline-block'>My Cart</span>
           </>
         </Link>

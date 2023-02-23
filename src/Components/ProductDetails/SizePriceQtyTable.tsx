@@ -2,7 +2,15 @@ import Price from 'appComponents/reUsable/Price';
 import { useTypedSelector } from 'hooks';
 import React from 'react';
 import SelectOrInput from './SelectOrInput';
-const SizePriceQtyTable: React.FC = () => {
+
+type Props = {
+  editDetails: {
+    price: number;
+    qty: number;
+    optionValue: string;
+  }[];
+};
+const SizePriceQtyTable: React.FC<Props> = ({ editDetails }) => {
   const { price, inventory } = useTypedSelector(
     (state) => state.product.product,
   );
@@ -32,12 +40,12 @@ const SizePriceQtyTable: React.FC = () => {
             </tr>
           </thead>
           <tbody className='divide-y divide-slate-200'>
-            {inventory?.sizes.map((colorWithAllSizes) => {
+            {/* {inventory?.sizes.map((colorWithAllSizes, index) => {
               const showOrNot =
                 colorWithAllSizes.colorAttributeOptionId ===
                 color.attributeOptionId;
 
-              if (!showOrNot) return <></>;
+              if (!showOrNot) return <Fragment key={index}></Fragment>;
 
               return colorWithAllSizes.sizeArr.map((size) => {
                 const foundWithSameSizeAndColor = inventory.inventory?.find(
@@ -69,11 +77,45 @@ const SizePriceQtyTable: React.FC = () => {
                       qty={qty?.qty || 0}
                       size={size}
                       price={price!}
+                      attributeOptionId={color.attributeOptionId}
                     />
                   </tr>
                 );
               });
-            })}
+            })} */}
+            {inventory?.inventory
+              .filter(
+                (res) => res.colorAttributeOptionId === color.attributeOptionId,
+              )
+              .map((inventory) => {
+                let defaultQty = 0;
+                const qtyObj = editDetails.find(
+                  (option) => option.optionValue === inventory.name,
+                );
+                if (qtyObj) {
+                  defaultQty = qtyObj.qty;
+                }
+
+                return (
+                  <tr className='' key={inventory.name}>
+                    <td className='px-2 py-4'>
+                      <div className=''>{inventory.name}</div>
+                    </td>
+                    <td className='px-2 py-4'>
+                      <div className=''>
+                        <Price value={discountedPrice} />
+                      </div>
+                    </td>
+                    <SelectOrInput
+                      sizeAttributeOptionId={inventory.attributeOptionId}
+                      qty={inventory?.inventory || 0}
+                      size={inventory.name}
+                      price={price!}
+                      defaultQty={defaultQty}
+                    />
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

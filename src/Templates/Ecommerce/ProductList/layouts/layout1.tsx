@@ -2,7 +2,9 @@ import { GetlAllProductList } from '@type/productList.type';
 import { SpinnerComponent } from 'appComponents/ui/spinner';
 import { properties } from 'mock/properties.mock';
 import dynamic from 'next/dynamic';
+import { _Store } from 'page.config';
 import { Fragment } from 'react';
+import { ContactUs } from 'Templates/Ecommerce/Layout/Components';
 import { list_FnProps } from '..';
 
 const ProductComponent = dynamic(
@@ -32,11 +34,26 @@ const FlyOutFilter = dynamic(
     loading: () => <SpinnerComponent />,
   },
 );
-const SideFilter = dynamic(() => import('../Components/Filters/sideFilter'), {
-  loading: () => <SpinnerComponent />,
-});
+const SideFilter = dynamic(
+  () =>
+    import('../../../../Components/ProductList/components/Filters/sideFilter'),
+  {
+    loading: () => <SpinnerComponent />,
+  },
+);
 const ListView = dynamic(
-  () => import('../Components/PorudctComponent/ListView'),
+  () =>
+    import(
+      '../../../../Components/ProductList/components/PorudctComponent/ListView'
+    ),
+  {
+    loading: () => <SpinnerComponent />,
+  },
+);
+
+const FilterBarLayout3 = dynamic(
+  () =>
+    import('../../../../Components/ProductList/components/FilterBar/layout3'),
   {
     loading: () => <SpinnerComponent />,
   },
@@ -61,11 +78,16 @@ const Layout1 = ({
   sortProductJson,
   clearFilters,
   compareCheckBoxHandler,
+  storeLayout,
+  seType,
+  brandId,
+  sortingType,
 }: list_FnProps) => {
   // console.log(products);
+
   return (
     <>
-      <ProductDetailsPageBanner slug={slug} />
+      <ProductDetailsPageBanner slug={slug} seType={seType} />
       <section id=''>
         <div className='bg-white'>
           <div className='container mx-auto px-2 lg:px-0'>
@@ -76,6 +98,7 @@ const Layout1 = ({
               <h2 id='products-heading' className='sr-only'>
                 Products
               </h2>
+
               <div className='flex flex-wrap -mx-4'>
                 <div
                   className={
@@ -99,6 +122,7 @@ const Layout1 = ({
                         filters={filters}
                         handleChange={handleChange}
                         checkedFilters={checkedFilters}
+                        storeLayout={storeLayout}
                       />
                     ))}
                 </div>
@@ -109,17 +133,34 @@ const Layout1 = ({
                       : ' lg:w-9/12'
                   } px-4`}
                 >
-                  <Layout1FilterBar
-                    {...{
-                      totalCount,
-                      showSortMenu,
-                      sortProductJson,
-                      sortOpenHandler: setShowSortMenu,
-                      setProductView,
-                      productView,
-                      setShowFilter,
-                    }}
-                  />
+                  {storeLayout === _Store.type21 ||
+                  storeLayout === _Store.type27 ? (
+                    <FilterBarLayout3
+                      {...{
+                        totalCount,
+                        showSortMenu,
+                        sortProductJson,
+                        sortOpenHandler: setShowSortMenu,
+                        setProductView,
+                        productView,
+                        setShowFilter,
+                      }}
+                    />
+                  ) : (
+                    <Layout1FilterBar
+                      {...{
+                        totalCount,
+                        showSortMenu,
+                        sortProductJson,
+                        sortOpenHandler: setShowSortMenu,
+                        setProductView,
+                        productView,
+                        setShowFilter,
+                        sortingType: sortingType || 0,
+                      }}
+                    />
+                  )}
+
                   <FilterChips
                     {...{ clearFilters, checkedFilters, handleChange }}
                   />
@@ -139,17 +180,20 @@ const Layout1 = ({
                             <Fragment key={index}>
                               {productView === 'grid' ? (
                                 <ProductComponent
+                                  brandId={brandId}
                                   skuList={skuList}
                                   compareCheckBoxHandler={
                                     compareCheckBoxHandler
                                   }
                                   product={product}
                                   colorChangeHandler={colorChangeHandler}
+                                  storeLayout={storeLayout}
                                 />
                               ) : (
                                 <ListView
                                   product={product}
                                   colorChangeHandler={colorChangeHandler}
+                                  storeLayout={storeLayout}
                                 />
                               )}
                             </Fragment>
@@ -158,17 +202,29 @@ const Layout1 = ({
                       </ul>
                     </div>
                     <div className='py-24 border-t border-t-gray-300'>
-                      <p className='text-center'>
-                        You've seen {products.length} Products out of{' '}
-                        {totalCount}
-                      </p>
+                      <div className='text-center'>
+                        <div>
+                          You've seen {products.length} Products out of{' '}
+                          {totalCount}
+                        </div>
+                        <div className='h-1 w-full max-w-[250px] bg-gray-300 mx-auto mt-3 text-left'>
+                          <div
+                            className='h-1 inline-block bg-secondary'
+                            style={{
+                              width: `${(products.length * 100) / totalCount}%`,
+                            }}
+                          >
+                            &nbsp;
+                          </div>
+                        </div>
+                      </div>
                       {products.length < totalCount && (
                         <button
                           onClick={loadMore}
                           type='submit'
-                          className='mt-8 w-auto mx-auto bg-white border border-gray-800 py-3 px-24 flex items-center text-center justify-center text-base font-medium text-gray-800 hover:bg-blue-500 hover:border-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
+                          className='uppercase text-3xl btn-secondary mt-8 w-auto mx-auto bg-white border border-gray-800 py-3 px-24 flex items-center text-center justify-center text-base font-medium text-gray-800 hover:bg-blue-500 hover:border-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
                         >
-                          View More
+                          Load More
                         </button>
                       )}
                     </div>
@@ -179,6 +235,7 @@ const Layout1 = ({
           </div>
         </div>
       </section>
+      <ContactUs />
     </>
   );
 };

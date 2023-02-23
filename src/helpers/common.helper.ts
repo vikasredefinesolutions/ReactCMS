@@ -9,9 +9,13 @@ import { _HeaderServices } from '@services/header.service';
 import { _HomeServices } from '@services/home.service';
 import { _LogoApiService } from '@services/logo.service';
 import { _ProductDetailService } from '@services/product.service';
+import { _RequestConsultationService } from '@services/requestConsultation.service';
 import { _SlugServices } from '@services/slug.service';
 import { _UserServices } from '@services/user.service';
-import { CartLogoPersonModel, CartReq } from '@type/APIs/cart.req';
+import {
+  CartLogoPersonDetailModel,
+  CartLogoPersonModel,
+} from '@type/APIs/cart.req';
 import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
 import { SendAsyncV2 } from '@utils/axios.util';
@@ -156,7 +160,7 @@ export const extractCookies = (
 export function setCookie(
   cName: string,
   cValue: string,
-  expDays: number | 'EPOCH',
+  expDays: number | 'EPOCH' | 'Session',
 ) {
   let date = new Date();
   if (expDays === 'EPOCH') {
@@ -165,13 +169,16 @@ export function setCookie(
   if (typeof expDays === 'number') {
     date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000);
   }
-  const expires = 'expires=' + date.toUTCString();
+  let expires = 'expires=' + date.toUTCString();
+  if (expDays === 'Session') {
+    expires = expDays;
+  }
   document.cookie = cName + '=' + cValue + '; ' + expires;
 }
 
 export function deleteCookie(cookieName: string) {
-  document.cookie =
-    cookieName + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  return (document.cookie =
+    cookieName + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;');
 }
 
 export function nextJsSetCookie({ res, cookie }: _NextJsSetCookie) {
@@ -208,7 +215,6 @@ export const CallCmsAPI = async <T>({
   });
 
   const url = `${config.CMS}${request.url}`;
-  console.log(url);
 
   try {
     if (request.method === 'POST') {
@@ -269,6 +275,7 @@ export const CallAPI = async <T>({
     | _ShoppingCartService
     | _CacheApiServices
     | _FooterServices
+    | _RequestConsultationService
     | _LogoApiService;
   request: _GET | _POST;
 }) => {
@@ -289,7 +296,6 @@ export const CallAPI = async <T>({
       // @ts-ignore: Unreachable code error
       show: __console[name.service].service[name.api],
     });
-
     return res.data;
   } catch (error) {
     conditionalLogV2({
@@ -448,7 +454,11 @@ export const extractIdFromPathName = (
 type _Props = {
   userId: number;
   note: string;
+  storeId: number;
+  isEmployeeLoggedIn: boolean;
   sizeQtys: Array<{
+    id?: number;
+    attributeOptionId: number;
     price: number;
     qty: number;
     size: string;
@@ -478,52 +488,78 @@ export const getAddToCartObject = async (product: _Props) => {
     'browserCookie',
   ).tempCustomerId;
 
-  const { userId, note, sizeQtys, productDetails, total, shoppingCartItemId } =
-    product;
+  const {
+    userId,
+    note,
+    sizeQtys,
+    productDetails,
+    total,
+    shoppingCartItemId,
+    storeId,
+    isEmployeeLoggedIn,
+  } = product;
   const { totalPrice, totalQty } = total;
 
   const cartLogoPersonModel: CartLogoPersonModel[] = [];
+  const cartLogoPersonDetailModels: CartLogoPersonDetailModel[] = [];
 
   sizeQtys?.map((res) => {
     cartLogoPersonModel.push({
-      attributeOptionId: productDetails.color.attributeOptionId,
+      id: res.id || 0,
+      attributeOptionId: res.attributeOptionId,
       attributeOptionValue: res.size,
       code: '',
-      price: totalPrice / totalQty,
+      price: res.price / res.qty,
       quantity: res.qty,
-      logoPrice: 0,
-      logoQty: 0,
-      logoFile: 'string',
       estimateDate: new Date(),
       isEmployeeLoginPrice: 0,
-      cartLogoPersonDetailModels: [
-        {
-          location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
-          logoTotal: 0,
-          colorImagePath: 'string',
-          logoUniqueId: 'string',
-          price: 0,
-          logoFile: 'string',
-          LogoLocation: 'string',
-          LogoPositionImage: 'string',
-          logoColors: 'string',
-          logoNotes: 'string',
-          logoDate: new Date(),
-          logoNames: 'string',
-          digitalPrice: 0,
-          logoPositionImagePath: 'string',
-          oldFilePath: 'string',
-          originalLogoFilePath: 'string',
-        },
-      ],
+    });
+
+    // location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
+    //       logoTotal: 0,
+    //       colorImagePath: 'string',
+    //       logoUniqueId: 'string',
+    //       price: 0,
+    //       logoFile: 'string',
+    //       LogoLocation: 'string',
+    //       LogoPositionImage: 'string',
+    //       logoColors: 'string',
+    //       logoNotes: 'string',
+    //       logoDate: new Date(),
+    //       logoNames: 'string',
+    //       digitalPrice: 0,
+    //       logoPositionImagePath: 'string',
+    //       oldFilePath: 'string',
+    //       originalLogoFilePath: 'string',
+
+    cartLogoPersonDetailModels.push({
+      logoPrice: 0,
+      logoQty: 0,
+      logoFile: '',
+      logoLocation: '',
+      logoTotal: 0,
+      colorImagePath: '',
+      logoUniqueId: '',
+      price: 0,
+      logoColors: '',
+      logoNotes: '',
+      logoDate: new Date(),
+      logoNames: '',
+      digitalPrice: 0,
+      logoPositionImage: '',
+      oldFilePath: '',
+      originalLogoFilePath: '',
     });
   });
 
-  const cartObject: CartReq = {
+  const cartObject = {
     addToCartModel: {
-      customerId: userId ? userId : tempCustId ? parseInt(tempCustId) : 0,
+      customerId:
+        userId && userId > 0 ? userId : tempCustId ? parseInt(tempCustId) : 0,
       productId: productDetails.productId,
-      storeId: 4,
+      storeId: storeId,
+      isempLogin: isEmployeeLoggedIn,
+
       shoppingCartItemModel: {
         id: shoppingCartItemId ? shoppingCartItemId : 0,
         price: totalPrice / totalQty,
@@ -548,7 +584,9 @@ export const getAddToCartObject = async (product: _Props) => {
           attributeOptionId: productDetails.color.attributeOptionId,
         },
       ],
+      cartLogoPersonDetailModel: [],
       cartLogoPersonModel: cartLogoPersonModel,
+      cartLogoPersonDetailModels: cartLogoPersonDetailModels, // for corporate it will be []
       cartLinePersonModels: [],
     },
   };
@@ -573,4 +611,50 @@ export const generateImageUrl = (
   }
 
   return __StaticImg.noImageFound;
+};
+
+export const capitalizeFirstLetter = (text: string) => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
+var special = [
+  'zeroth',
+  'first',
+  'second',
+  'third',
+  'fourth',
+  'fifth',
+  'sixth',
+  'seventh',
+  'eighth',
+  'ninth',
+  'tenth',
+  'eleventh',
+  'twelvth',
+  'thirteenth',
+  'fourteenth',
+  'fifteenth',
+  'sixteenth',
+  'seventeenth',
+  'eighteenth',
+  'nineteenth',
+];
+var deca = [
+  'twent',
+  'thirt',
+  'fourt',
+  'fift',
+  'sixt',
+  'sevent',
+  'eight',
+  'ninet',
+];
+
+export const numberToOrdinalString = (n: number) => {
+  if (n < 20) return capitalizeFirstLetter(special[n]);
+  if (n % 10 === 0)
+    return capitalizeFirstLetter(deca[Math.floor(n / 10) - 2] + 'ieth');
+  return capitalizeFirstLetter(
+    deca[Math.floor(n / 10) - 2] + 'y-' + special[n % 10],
+  );
 };

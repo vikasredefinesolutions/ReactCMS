@@ -1,8 +1,11 @@
 import { FetchBrands } from '@services/brand.service';
 import { removeDuplicates } from 'helpers/common.helper';
+import { _globalStore } from 'store.global';
 
 export default async function getServerSideProps() {
-  const brands = await FetchBrands('4');
+  const { storeId } = _globalStore;
+
+  const brands = await FetchBrands(storeId!);
   const alphabets: string[] = [];
   const sorted = brands.data.sort(
     (a: { brandName: string }, b: { brandName: string }) => {

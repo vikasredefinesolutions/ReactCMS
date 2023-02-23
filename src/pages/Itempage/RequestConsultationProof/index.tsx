@@ -65,29 +65,34 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
   );
 
   return (
-    <section className='container mx-auto border border-gray-300 p-3'>
-      <>{HeadTag}</>
-      <div className='flex flex-wrap items-center -mx-3'>
-        <div className='w-full lg:w-4/12 px-3 text-center'>
-          <div className=''>
-            <Image
-              src={color?.imageUrl || null}
-              alt={details.name}
-              className={''}
-            />
-          </div>
-          <div className='text-lg md:text-xl lg:text-small-title font-small-title'>
-            <button onClick={() => router.back()}>{details.name}</button>
-          </div>
-        </div>
-        <RequestConsultationForm />
-        <RequestFeatures />
+    <section>
+      <div className='text-center font-black text-5xl py-5'>
+        Request Consultation & Proof
       </div>
-      <ProductAlike
-        title={'YOU MAY ALSO LIKE'}
-        products={alike}
-        storeCode={''}
-      />
+      <div className='container mx-auto border border-gray-300 p-3'>
+        <>{HeadTag}</>
+        <div className='flex flex-wrap items-center -mx-3'>
+          <div className='w-full lg:w-4/12 px-3 text-center'>
+            <div className=''>
+              <Image
+                src={color?.imageUrl || null}
+                alt={details.name}
+                className={''}
+              />
+            </div>
+            <div className='text-lg md:text-xl lg:text-small-title font-small-title'>
+              <button onClick={() => router.back()}>{details.name}</button>
+            </div>
+          </div>
+          <RequestConsultationForm productId={details.id} />
+          <RequestFeatures />
+        </div>
+        <ProductAlike
+          title={'YOU MAY ALSO LIKE'}
+          products={alike}
+          storeCode={''}
+        />
+      </div>
     </section>
   );
 };
@@ -127,7 +132,6 @@ interface _RequestConsultationProps {
 export const getServerSideProps: GetServerSideProps = async (
   context,
 ): Promise<GetServerSidePropsResult<_RequestConsultationProps>> => {
-  const responseBody = context.res;
   let expectedProps: _ExpectedRequestConsultationProps = {
     store: {
       storeId: null,
@@ -136,9 +140,10 @@ export const getServerSideProps: GetServerSideProps = async (
       pageType: '',
       pathName: '',
       code: '',
+      storeName: '',
       isAttributeSaparateProduct: false,
       cartCharges: null,
-       urls: {
+      urls: {
         favicon: '',
         logo: '',
       },

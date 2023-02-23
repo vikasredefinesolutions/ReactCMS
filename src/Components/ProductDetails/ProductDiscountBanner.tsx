@@ -49,7 +49,7 @@ const ProductDiscountBanner: React.FC<_Props> = ({ storeCode }) => {
     return (
       <>
         {id && (
-          <div className="mb-3 font-bold bg-[#051C2C] px-4 py-2.5 text-white tracking-widest text-center">
+          <div className='mb-3 font-bold bg-[#051C2C] px-4 py-2.5 text-white tracking-widest text-center'>
             Add{' '}
             {displayQuantity
               ? displayQuantity
@@ -66,10 +66,16 @@ const ProductDiscountBanner: React.FC<_Props> = ({ storeCode }) => {
           </div>
         )}
 
-        <div className="bg-[#d8dfe1] text-sm text-gray-900 flex flex-wrap p-5 items-center gap-2 tracking-wider mb-3">
-          <span className="">Price Per Item</span>
-          <span className="text-4xl font-bold">
-            <Price value={id ? price?.salePrice : price?.msrp} />
+        <div className='bg-[#d8dfe1] text-sm text-gray-900 flex flex-wrap p-5 items-center gap-2 tracking-wider mb-3'>
+          <span className=''>Price Per Item</span>
+          <span className='text-4xl font-bold'>
+            <Price
+              value={undefined}
+              prices={{
+                msrp: price?.msrp || 0,
+                salePrice: price?.salePrice || 0,
+              }}
+            />
           </span>
         </div>
       </>

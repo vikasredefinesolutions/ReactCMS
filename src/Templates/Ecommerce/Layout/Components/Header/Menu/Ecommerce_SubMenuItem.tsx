@@ -1,4 +1,4 @@
-import { useActions, useTypedSelector } from 'hooks';
+import { useActions } from 'hooks';
 import Link from 'next/link';
 import { _Store } from 'page.config';
 import React from 'react';
@@ -7,18 +7,23 @@ interface _props {
   itemLabel: string;
   itemUrl: string;
   type: 'BRAND' | 'CATEGORY';
+  storeCode: string;
+  view: 'DESKTOP' | 'MOBILE';
 }
 
-const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
-  const { layout: storeLayout, view } = useTypedSelector(
-    (state) => state.store,
-  );
+const SubMenuItem: React.FC<_props> = ({
+  type,
+  itemLabel,
+  itemUrl,
+  storeCode,
+  view,
+}) => {
   const { toggleSideMenu } = useActions();
 
   if (
-    storeLayout === _Store.type1 ||
-    storeLayout === _Store.type15 ||
-    storeLayout === _Store.type16
+    storeCode === _Store.type1 ||
+    storeCode === _Store.type15 ||
+    storeCode === _Store.type16
   ) {
     if (type === 'BRAND') {
       if (view === 'MOBILE') {
@@ -32,9 +37,9 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
             </span>
             <Link
               href={`/${itemUrl}`}
-              className='text-anchor hover:text-anchor-hover'
+              className='text-anchor hover:text-anchor-hover '
             >
-              {itemLabel}
+              <a title={itemLabel}>{itemLabel}</a>
             </Link>
           </li>
         );
@@ -49,7 +54,12 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               href={`/${itemUrl}`}
               className='text-anchor hover:text-anchor-hover'
             >
-              {itemLabel}
+              <a
+                className='inline-block text-primary hover:text-anchor-hover font-semibold'
+                title={itemLabel}
+              >
+                {itemLabel}
+              </a>
             </Link>
           </li>
         );
@@ -70,7 +80,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               href={`/${itemUrl}`}
               className='text-anchor hover:text-anchor-hover'
             >
-              {itemLabel}
+              <a title={itemLabel}>{itemLabel}</a>
             </Link>
           </li>
         );
@@ -86,7 +96,12 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
               href={`/${itemUrl}`}
               className='text-anchor hover:text-anchor-hover'
             >
-              {itemLabel}
+              <a
+                className='inline-block text-primary hover:text-anchor-hover font-semibold'
+                title={itemLabel}
+              >
+                {itemLabel}
+              </a>
             </Link>
           </li>
         );
@@ -94,7 +109,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
     }
   }
 
-  if (storeLayout === _Store.type2) {
+  if (storeCode === _Store.type2) {
     if (type === 'CATEGORY' || type === 'BRAND') {
       if (view === 'MOBILE' || view === 'DESKTOP') {
         return (
@@ -114,7 +129,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
     }
   }
 
-  if (storeLayout === _Store.type3) {
+  if (storeCode === _Store.type3) {
     if (type === 'CATEGORY') {
       if (view === 'MOBILE') {
         return (
@@ -181,7 +196,7 @@ const SubMenuItem: React.FC<_props> = ({ type, itemLabel, itemUrl }) => {
     }
   }
 
-  if (storeLayout === _Store.type4) {
+  if (storeCode === _Store.type4) {
     if (type === 'BRAND') {
       if (view === 'MOBILE') {
         return (

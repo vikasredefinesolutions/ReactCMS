@@ -1,18 +1,18 @@
 export interface _StoreMenu {
   id: number;
-  topicid: number;
   type: 'custom' | 'dynamic' | 'none';
-  openinnewtab: null;
-  menuinfo: null | string;
-  storeid: number;
-  createdby: null;
-  createddate: null;
-  modifiedby: null;
-  modifieddate: null;
   category: 'topic' | 'category';
-  sename: null | string;
   title?: string;
-  menu_type: 'Brands';
+  topic_Id: number;
+  open_In_New_Tab: string;
+  menu_Info: string;
+  store_Id: number;
+  created_By: string;
+  created_Date: null;
+  modified_By: string;
+  modified_Date: null;
+  se_Name: string;
+  menu_Type: 'brand';
 }
 
 export interface _Brands {
@@ -20,6 +20,7 @@ export interface _Brands {
   brandName: string;
   seName: string;
   brandColorImageUrl: string;
+  brandCollectionUrl: string;
 }
 
 export interface _t_Brands {

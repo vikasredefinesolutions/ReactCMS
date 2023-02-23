@@ -1,14 +1,18 @@
 import { _Footer } from '@type/APIs/footer.res';
-import { _TransformedHeaderConfig } from '@type/APIs/header.res';
-import React from 'react';
-import { BreadCrumb, Footer, Header, NotificationBar } from './Components';
+import * as _AppController from 'Controllers/_AppController.async';
+import { cLog } from 'helpers/global.console';
+import { useTypedSelector } from 'hooks';
+import { useRouter } from 'next/router';
+import React, { useEffect, useMemo, useState } from 'react';
+import { _MenuItems } from 'show.type';
+import { BreadCrumb, Footer, Header } from './Components';
 
 interface _props {
   children: React.ReactNode;
   storeCode: string;
   logoUrl: string;
+  menuItems: _MenuItems | null;
   configs: {
-    header: _TransformedHeaderConfig | null;
     footer: _Footer | null;
   };
 }
@@ -16,22 +20,52 @@ interface _props {
 const Ecommerce_Layout: React.FC<_props> = ({
   children,
   storeCode,
+  menuItems,
   logoUrl,
+  configs,
 }) => {
+  const [header, setHeader] = useState<{
+    storeCode: string;
+    logoUrl: string;
+    menuItems: _MenuItems | null;
+  }>({ storeCode: storeCode, logoUrl: logoUrl, menuItems: menuItems });
+  const storeId = useTypedSelector((state) => state.store.id);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!header.menuItems && storeId) {
+      _AppController.fetchMenuItems(storeId).then((res) => {
+        cLog('mccs', '');
+        setHeader((last) => ({
+          ...last,
+          menuItems: res,
+        }));
+      });
+    }
+
+    setHeader((last) => ({
+      ...last,
+      storeCode: storeCode || last.storeCode,
+      logoUrl: logoUrl || last.logoUrl,
+    }));
+  }, [storeCode, logoUrl, storeId]);
+
   return (
     <>
-      <NotificationBar />
       <Header
-        storeCode={storeCode}
+        storeCode={header.storeCode}
         logoUrl={{
-          desktop: logoUrl,
+          desktop: header.logoUrl,
         }}
+        menuItems={useMemo(() => header.menuItems, [header.menuItems])}
       />
-      <BreadCrumb />
+
+      {router.pathname !== '/cart.html' && <BreadCrumb />}
       <div style={{ flexGrow: 1 }}>{children}</div>
-      <Footer />
+      <Footer data={configs.footer} />
     </>
   );
 };
 
-export default Ecommerce_Layout;
+export default React.memo(Ecommerce_Layout);

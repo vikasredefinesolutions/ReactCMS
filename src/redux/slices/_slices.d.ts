@@ -1,10 +1,11 @@
 // -------------- Cart Initials ----------------------
 
 export interface _InCart_productAttributes_model {
+  id: number;
   size: string;
   qty: number;
   priceOfqty: number;
-  price:number;
+  price: number;
   minQtyRequired: number;
   attributeOptionId: number;
 }

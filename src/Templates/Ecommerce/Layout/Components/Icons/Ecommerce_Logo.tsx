@@ -15,6 +15,7 @@ interface _props {
 
 const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const { storeName } = useTypedSelector((state) => state.store);
 
   if (
     storeLayout === _Store.type1 ||
@@ -23,16 +24,13 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   ) {
     if (screen === 'DESKTOP') {
       return (
-        <div
-          className='lg:flex lg:items-center'
-          style={{ maxWidth: '240px', width: '100%', position: 'relative' }}
-        >
+        <div className='lg:flex lg:items-center max-w-[350px] w-full relative'>
           <Link href={paths.HOME}>
-            <a>
+            <a title={storeName || storeLayout} className='w-full'>
               <Image
-                className='h-16 w-auto brand-logo'
+                className='brand-logo w-full'
                 src={logo?.desktop}
-                alt='Corporate Gear'
+                alt={storeName ? storeName : ''}
               />
             </a>
           </Link>
@@ -41,9 +39,17 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
     }
     if (screen === 'MOBILE') {
       return (
-        <Link href={paths.HOME} className='xl:hidden'>
-          <Image src={logo?.mobile} alt='' className='h-14 w-auto' />
-        </Link>
+        <div className='lg:flex lg:items-center max-w-[350px] w-full relative mr-5'>
+          <Link href={paths.HOME} className='xl:hidden'>
+            <a title={storeName || storeLayout} className='w-full '>
+              <Image
+                src={logo?.mobile}
+                alt={storeLayout}
+                className='brand-logo w-full'
+              />
+            </a>
+          </Link>
+        </div>
       );
     }
   }
@@ -51,12 +57,15 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   if (storeLayout === _Store.type2) {
     if (screen === 'DESKTOP') {
       return (
-        <div className='lg:flex lg:items-center'>
+        <div
+          className='lg:flex lg:items-center'
+          style={{ maxWidth: '240px', width: '100%', position: 'relative' }}
+        >
           <Link href={paths.HOME}>
             <Image
-              className='max-h-14 w-auto'
+              className='max-h-14 w-auto brand-logo'
               src={logo?.desktop}
-              alt='Corporate Gear'
+              alt={storeName ? storeName : ''}
             />
           </Link>
         </div>
@@ -65,7 +74,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME}>
-          <Image src={logo?.mobile} alt='' className='h-6 w-auto' />
+          <Image src={logo?.mobile} alt={storeLayout} className='h-6 w-auto' />
         </Link>
       );
     }
@@ -74,12 +83,15 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   if (storeLayout === _Store.type3) {
     if (screen === 'DESKTOP') {
       return (
-        <div className='lg:flex lg:items-center'>
+        <div
+          className='lg:flex lg:items-center'
+          style={{ maxWidth: '240px', width: '100%', position: 'relative' }}
+        >
           <Link href={paths.HOME}>
             <Image
-              className='max-h-20 w-auto'
+              className='max-h-20 w-auto brand-logo'
               src={logo?.desktop}
-              alt='Corporate Gear'
+              alt={storeName ? storeName : ''}
             />
           </Link>
         </div>
@@ -89,7 +101,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME}>
-          <Image src={logo?.mobile} alt='' className='h-6 w-auto' />
+          <Image src={logo?.mobile} alt={storeLayout} className='h-6 w-auto' />
         </Link>
       );
     }
@@ -98,14 +110,17 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   if (storeLayout === _Store.type4) {
     if (screen === 'DESKTOP') {
       return (
-        <div className='lg:flex lg:items-center'>
+        <div
+          className='lg:flex lg:items-center'
+          style={{ maxWidth: '240px', width: '100%', position: 'relative' }}
+        >
           <Link href={paths.HOME}>
             <>
               <span className='sr-only'>Workflow</span>
               <Image
-                className='h-16 w-auto'
+                className='h-16 w-auto brand-logo'
                 src={logo?.desktop}
-                alt='Corporate Gear'
+                alt={storeName ? storeName : ''}
               />
             </>
           </Link>
@@ -115,7 +130,7 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
     if (screen === 'MOBILE') {
       return (
         <Link href={paths.HOME}>
-          <Image src={logo?.mobile} alt='' className='h-8 w-auto' />
+          <Image src={logo?.mobile} alt={storeLayout} className='h-8 w-auto' />
         </Link>
       );
     }

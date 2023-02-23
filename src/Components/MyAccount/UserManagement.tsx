@@ -67,13 +67,13 @@ const UserManagement = () => {
       storeCustomerUsersModel: {
         id: isUpdating ? editData?.id : 0,
         rowVersion: '',
-        location: location.country_name,
-        ipAddress: location.IPv4,
+        location: location.country,
+        ipAddress: location.ip_address,
         macAddress: '00-00-00-00-00-00',
         firstname: values.firstName,
         lastName: values.lastName,
         email: values.email,
-        customerRoleId: 1,
+        customerRoleId: values.role,
         customerId: customer?.id,
         storeId: store,
         recStatus: 'A',
@@ -130,7 +130,7 @@ const UserManagement = () => {
 
   return (
     <>
-      <section className='container mx-auto bg-gray-100 px-6 py-6 mt-5 mb-5'>
+      <section className='container mx-auto mt-5 mb-5'>
         <div className='mx-auto space-y-10 sm:px-4 lg:px-0 pb-2'>
           <div className='bg-white border-t border-b border-gray-200 sm:border'>
             <div className='flex items-center p-4 border-b border-gray-200 sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6 bg-gray-50'>
@@ -138,15 +138,15 @@ const UserManagement = () => {
               <div className='hidden lg:col-span-2 lg:flex lg:items-center lg:justify-end lg:space-x-4'>
                 <button
                   data-modal-toggle='adduserModal'
-                  className='btn btn-primary'
+                  className='btn btn-secondary'
                   onClick={() => setShowAddUserModal(true)}
                 >
                   <span>Add User</span>
                 </button>
               </div>
             </div>
-            <ul role='list' className='divide-y divide-gray-200 '>
-              <li className='p-4 sm:p-6'>
+            <ul role='list' className='divide-y divide-gray-200 mx-2 md:mx-4'>
+              <li className='p-2 sm:p-4'>
                 <div className='flex flex-wrap'>
                   <div className='w-full lg:w-1/3'>
                     {customer?.firstname} {customer?.lastName}
@@ -164,7 +164,7 @@ const UserManagement = () => {
                   </div>
                 </div>
               </li>
-              <li className='p-4 sm:p-6'>
+              <li className='p-2 sm:p-4'>
                 <div className='flex flex-wrap'>
                   <div className='w-full lg:w-1/3'>{customer?.email}</div>
                   <div className='w-full lg:w-1/3'>
@@ -220,11 +220,17 @@ const UserManagement = () => {
                   ))}
               </tbody>
             </table>
+            {!userList?.length ? (
+              <div className='text-center col-span-8 p-2'>No record found.</div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </section>
       {showAddUserModal && (
         <AddUserModal
+          store={store}
           submitHandler={submitHandler}
           closeModal={closeModal}
           editData={editData}

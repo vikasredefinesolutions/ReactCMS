@@ -1,20 +1,34 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 export interface _location {
   country_code: string;
-  country_name: string;
+  country: string;
   city: string;
-  postal: string;
+  postal_code: string;
   latitude: number;
   longitude: number;
-  IPv4: string;
-  state: string;
+  ip_address: string;
+  region: string;
 }
 
 export default async function getLocation() {
-  const { data: location } = await axios.get(
-    'https://geolocation-db.com/json/',
-  );
+  // const { data: location } = await axios.get(
+  //   `https://ipgeolocation.abstractapi.com/v1/?api_key=${process.env.NEXT_PUBLIC_GEOLOCATIONAPIKEY}`,
+  // );
+  // return location as _location;
 
-  return location as _location;
+  // ====================================================================================
+  // Hardcoded for now, if found some solution for location API we will change this...
+  // ====================================================================================
+
+  return {
+    country_code: '',
+    country: '',
+    city: '',
+    postal_code: '',
+    latitude: 0,
+    longitude: 0,
+    ip_address: '192.168.1.1',
+    region: '',
+  };
 }

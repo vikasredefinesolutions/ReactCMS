@@ -23,7 +23,7 @@ export const CustomizationPrice = (
         <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
           <dt className=''>Logo</dt>
           <dd className='font-medium text-gray-900'>
-            <Price addColon={false} value={logoTotal} />
+            <Price value={logoTotal} />
           </dd>
         </div>
       )}
@@ -31,14 +31,14 @@ export const CustomizationPrice = (
         <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
           <dt className=''>Line</dt>
           <dd className='font-medium text-gray-900'>
-            <Price addColon={false} value={lineTotal} />
+            <Price value={lineTotal} />
           </dd>
         </div>
       )}
       <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
         <dt className=''>Subtotal</dt>
         <dd className='font-medium text-gray-900'>
-          <Price addColon={false} value={customizationTotal} />
+          <Price value={customizationTotal} />
         </dd>
       </div>
     </>
@@ -148,7 +148,7 @@ export const ShippingEstimationPrice = (
             <span>Shipping</span>
           </dt>
           <dd className='font-medium text-gray-900'>
-            <Price addColon={false} value={orderShippingCosts} />
+            <Price value={orderShippingCosts} />
           </dd>
         </div>
       )}
@@ -158,7 +158,7 @@ export const ShippingEstimationPrice = (
             <span>Shipping Label</span>
           </dt>
           <dd className='font-medium text-gray-900'>
-            <Price addColon={false} value={shippingLabelCost} />
+            <Price value={shippingLabelCost} />
           </dd>
         </div>
       )}
@@ -168,7 +168,7 @@ export const ShippingEstimationPrice = (
             <span>Shipping Promotion Discount</span>
           </dt>
           <dd className='font-medium text-gray-900'>
-            -<Price addColon={false} value={shippingPromotionDiscount} />
+            -<Price value={shippingPromotionDiscount} />
           </dd>
         </div>
       )}
@@ -176,7 +176,7 @@ export const ShippingEstimationPrice = (
         <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
           <dt className=''>Subtotal</dt>
           <dd className='font-medium text-gray-900'>
-            <Price addColon={false} value={shippingEstimationTotal} />
+            <Price value={shippingEstimationTotal} />
           </dd>
         </div>
       )}
@@ -210,7 +210,7 @@ export const AdditionalCosts = (
             <span>Sew-Out</span>
           </dt>
           <dd className='font-medium text-gray-900'>
-            <Price addColon={false} value={sewOutTotal} />
+            <Price value={sewOutTotal} />
           </dd>
         </div>
       )}
@@ -221,7 +221,7 @@ export const AdditionalCosts = (
             <span>Order Tax</span>
           </dt>
           <dd className='font-medium text-gray-900'>
-            <Price addColon={false} value={orderTaxTotal} />
+            <Price value={orderTaxTotal} />
           </dd>
         </div>
       )}
@@ -232,7 +232,7 @@ export const AdditionalCosts = (
             <span>Order Tax</span>
           </dt>
           <dd className='font-medium text-gray-900'>
-            <Price addColon={false} value={giftWrapAmt} />
+            <Price value={giftWrapAmt} />
           </dd>
         </div>
       )}
@@ -243,7 +243,7 @@ export const AdditionalCosts = (
             <span>Order Tax</span>
           </dt>
           <dd className='font-medium text-gray-900'>
-            <Price addColon={false} value={giftWrapPrice} />
+            <Price value={giftWrapPrice} />
           </dd>
         </div>
       )}
@@ -253,7 +253,7 @@ export const AdditionalCosts = (
           <span>Subtotal</span>
         </dt>
         <dd className='font-medium text-gray-900'>
-          <Price addColon={false} value={additionalCostsTotal} />
+          <Price value={additionalCostsTotal} />
         </dd>
       </div>
     </>
@@ -271,7 +271,7 @@ export const ProductsPrice = (
       <div className='flex items-center justify-between border-t border-gray-200 pt-2'>
         <dt className=''>Subtotal</dt>
         <dd className='font-medium text-gray-900'>
-          <Price addColon={false} value={productsTotal} />
+          <Price value={productsTotal} />
         </dd>
       </div>
     </>

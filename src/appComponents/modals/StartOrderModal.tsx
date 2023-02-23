@@ -3,7 +3,6 @@ import Price from 'appComponents/reUsable/Price';
 import AskToLogin from 'Components/ProductDetails/AskToLogin';
 import CalculativeFigure from 'Components/ProductDetails/CalculativeFigure';
 import DiscountPricing from 'Components/ProductDetails/DiscountPricing';
-import ProductSKU from 'Components/ProductDetails/ProductSKU';
 import SizePriceQtyTable from 'Components/ProductDetails/SizePriceQtyTable';
 import SOM_ActionsHandler from 'Components/ProductDetails/SOM_ActionsHandler';
 import SOM_CustomizeLogoOptions from 'Components/ProductDetails/SOM_CustomizeLogoOptions';
@@ -23,12 +22,9 @@ interface _props {
 
 const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
   const textRef = useRef<HTMLTextAreaElement | null>(null);
-  const { product, modalHandler } = props;
-  const {
-    clearToCheckout,
-    setShowLoader,
-    product_storeData,
-  } = useActions();
+  const { product, modalHandler, editDetails } = props;
+  const { clearToCheckout, setShowLoader, product_storeData, setColor } =
+    useActions();
 
   // ----------------------------STATES ---------------------------------------
   const [allColors, showAllColors] = useState<boolean>(false);
@@ -42,10 +38,9 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
     (state) => state.product.product,
   );
   const selectedProduct = useTypedSelector((state) => state.product.selected);
-  const customizationEnable = useTypedSelector((state) => state.product.product.customization)
-
-
-
+  const customizationEnable = useTypedSelector(
+    (state) => state.product.product.customization,
+  );
   useEffect(() => {
     setShowLoader(false);
     if (!allColorsInventory && colors) {
@@ -56,19 +51,43 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
       FetchInventoryById({
         productId: selectedProduct.productId,
         attributeOptionId: allColorAttributes,
-      }).then((res) =>
+      }).then((res) => {
         product_storeData({
           type: 'INVENTORY_LIST',
           data: res,
-        }),
-      );
+        });
+      });
     }
 
     return () => {
       clearToCheckout();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectedProduct.productId]);
+
+  useEffect(() => {
+    if (editDetails && colors) {
+      const selectedColor = editDetails
+        ? colors.find(
+            (color) => color.name === editDetails?.attributeOptionValue,
+          )
+        : null;
+      if (selectedColor) {
+        setColor(selectedColor);
+      }
+    }
+  }, [editDetails]);
+
+  const getEditDetails = () => {
+    if (editDetails) {
+      return editDetails.shoppingCartItemDetailsViewModels.map((res) => ({
+        qty: res.qty,
+        price: res.price,
+        optionValue: res.attributeOptionValue,
+      }));
+    }
+    return [];
+  };
 
   return (
     <div
@@ -79,7 +98,7 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
         <div className='relative px-4 w-full max-w-3xl h-full md:h-auto'>
           {allColorsInventory && (
             <div className='relative bg-white shadow max-h-screen overflow-y-auto'>
-              <div className='flex justify-between items-start p-5 rounded-t border-b sticky top-0 left-0 bg-white'>
+              <div className='flex justify-between items-start p-5 rounded-t border-b sticky top-0 left-0 bg-white z-50'>
                 <h3 className='text-xl font-semibold text-gray-900 lg:text-2xl'>
                   {product.name}
                 </h3>
@@ -104,7 +123,10 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
               <div className='p-6'>
                 <div className='flex flex-wrap mb-6'>
                   <div className='w-full lg:w-1/2'>
-                    <ProductSKU skuID={product.sku} storeCode={storeLayout!} />
+                    <div className=''>
+                      <span className='font-semibold inline-block '>SKU :</span>
+                      <span> {product?.sku}</span>
+                    </div>
                     <div className=''>
                       <span className='font-semibold'>Color : </span>
                       <span>{colorName}</span>
@@ -140,15 +162,22 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
                     <DiscountPricing
                       storeCode={storeLayout!}
                       showMsrpLine={false}
-                      price={{ msrp: product.msrp, salePrice: product.salePrice }}
+                      price={{
+                        msrp: product.msrp,
+                        salePrice: product.salePrice,
+                      }}
                     />
                     <AskToLogin modalHandler={modalHandler} />
                   </div>
                 </div>
 
                 {/* -------------------------------------------INVENTORY TABLE ------------------------------------------ */}
-                <SizePriceQtyTable />
-                {customizationEnable && <SOM_CustomizeLogoOptions />}
+                <SizePriceQtyTable editDetails={getEditDetails()} />
+                {/* {customizationEnable && ( */}
+                <SOM_CustomizeLogoOptions
+                  editDetails={editDetails?.shoppingCartLogoPersonViewModels}
+                />
+                {/* )} */}
                 <CalculativeFigure />
 
                 <div className=''>
@@ -164,7 +193,12 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
                   ></textarea>
                 </div>
               </div>
-              <SOM_ActionsHandler closeStartOrderModal={() => modalHandler(null)} note={textRef.current?.value || ''} />
+              <SOM_ActionsHandler
+                closeStartOrderModal={() => modalHandler(null)}
+                note={textRef.current?.value || ''}
+                cartItemId={editDetails?.shoppingCartItemsId || 0}
+                isUpdate={Boolean(editDetails?.shoppingCartItemsId)}
+              />
             </div>
           )}
         </div>

@@ -20,9 +20,16 @@ const CartController = () => {
   const storeId = useTypedSelector((state) => state.store.id);
   const store = useTypedSelector((state) => state.store);
   const userId = useTypedSelector((state) => state.user.id);
+  const isEmployeeLoggedIn = useTypedSelector(
+    (state) => state.employee.loggedIn,
+  );
+
   useEffect(() => {
     if (customerId) {
-      fetchCartDetails(customerId);
+      fetchCartDetails({
+        customerId,
+        isEmployeeLoggedIn,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId]);
@@ -138,7 +145,7 @@ const CartController = () => {
 
   const deleteCartItem = async (id: number) => {
     await deleteItemCart(id);
-    fetchCartDetails(customerId);
+    fetchCartDetails({ customerId, isEmployeeLoggedIn });
   };
 
   const getTotalPrice = () => {

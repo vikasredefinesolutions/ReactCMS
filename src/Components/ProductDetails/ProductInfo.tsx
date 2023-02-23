@@ -40,13 +40,14 @@ interface _Props {
 }
 
 const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
-  const { setShowLoader, setOfflineProductSelected } = useActions();
+  const { showModal, setShowLoader, setOfflineProductSelected } = useActions();
   const [openModal, setOpenModal] = useState<null | _modals>(null);
   const { id: userId } = useTypedSelector((state) => state.user);
   const {
     price: pricePerItem,
     totalPrice,
     totalQty,
+    minQty,
     sizeQtys,
   } = useTypedSelector((state) => state.product.toCheckout);
   const color = useTypedSelector((state) => state.product.selected.color);
@@ -72,6 +73,14 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         modalHandler('requiredQty');
         return;
       }
+      if (totalQty < minQty) {
+        showModal({
+          message: `Please enter quantity greater than or equal to ${minQty}.`,
+          title: 'Required Quantity',
+        });
+
+        return;
+      }
 
       router.push(`${paths.CUSTOMIZE_LOGO}/${product.id}`);
       return;
@@ -94,9 +103,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
             </h1>
             <ProductSKU skuID={product.sku} storeCode={storeCode} />
             <ProductPrice
-              ourCost={product.ourCost}
               msrp={product.msrp}
-              imap={product.imap}
               storeCode={storeCode}
               salePrice={product.salePrice}
             />
@@ -130,7 +137,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         <div className='m-3'>
           <button
             type='button'
-            className='text-indigo-500 text-sm font-semibold underline'
+            className='text-anchor hover:text-anchor-hover text-sm font-semibold underline'
             onClick={() => modalHandler('availableInventory')}
           >
             Check Available Inventory
@@ -143,7 +150,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           <div>
             <button
               type='button'
-              className='text-indigo-500 text-sm font-semibold underline'
+              className='text-anchor hover:text-anchor-hover text-sm font-semibold underline'
               onClick={() => modalHandler('sizeChart')}
             >
               Size Chart
@@ -166,8 +173,8 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           heading={'Description'}
         />
 
-        <form className='mt-6'>
-          <div className='mt-10 bg-gray-700'>
+        <form className='m-3'>
+          <div className='bg-gray-700'>
             <button
               type='button'
               disabled={product.isDiscontinue}
@@ -186,15 +193,15 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
               suggestedProducts={product.suggestedProducts}
             />
           )}
-          <div className='mt-5 text-center'>
-            <button
-              onClick={() => router.push(consultationURL)}
-              className='text-indigo-500 text-lg font-semibold underline'
-            >
-              Or request a free consultation with one of our experts
-            </button>
-          </div>
         </form>
+        <div className='mt-5 text-center'>
+          <button
+            onClick={() => router.push(consultationURL)}
+            className='text-indigo-500 text-lg font-semibold underline'
+          >
+            Or request a free consultation with one of our experts
+          </button>
+        </div>
         <ProductFeatures storeCode={storeCode} />
         <section aria-labelledby='details-heading' className='mt-12'>
           <h2 id='details-heading' className='sr-only'>
@@ -225,9 +232,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           <ProductSKU storeCode={storeCode} skuID={product.sku} />
           <ProductPrice
             storeCode={storeCode}
-            ourCost={product.ourCost}
             msrp={product.msrp}
-            imap={product.imap}
             salePrice={product.salePrice}
           />
         </div>
@@ -341,9 +346,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         </div>
         <ProductPrice
           storeCode={storeCode}
-          ourCost={product.ourCost}
           msrp={product.msrp}
-          imap={product.imap}
           salePrice={product.salePrice}
         />
         <MinimumQuantity storeCode={storeCode} pricingLabel={''} />
@@ -393,6 +396,8 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         {openModal === 'startOrder' && (
           <StartOrderModal modalHandler={modalHandler} product={product} />
         )}
+        {openModal === 'login' && <LoginModal modalHandler={modalHandler} />}
+        {openModal === 'forgot' && <ForgotModal modalHandler={modalHandler} />}
       </div>
     );
   }
@@ -407,9 +412,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         <ProductSKU storeCode={storeCode} skuID={product.sku} />
         <ProductPrice
           storeCode={storeCode}
-          ourCost={product.ourCost}
           msrp={product.msrp}
-          imap={product.imap}
           salePrice={product.salePrice}
         />
         <MinimumQuantity storeCode={storeCode} pricingLabel={''} />
@@ -418,12 +421,12 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           showMsrpLine={true}
           price={{
             msrp: product.msrp,
-            salePrice: product.salePrice
+            salePrice: product.salePrice,
           }}
-           />
-        { 
-          product.isBrandOnline &&  <Inventory storeCode={storeCode} productId={product.id} />
-        }
+        />
+        {product.isBrandOnline && (
+          <Inventory storeCode={storeCode} productId={product.id} />
+        )}
         <ProductCompanion
           storeCode={storeCode}
           name={product.companionProductName}
@@ -452,15 +455,22 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         </div>
         <div className=''>
           {userId ? (
-            product.isBrandOnline ?
+            product.isBrandOnline ? (
               <AddToCart
-                title="ADD TO CART"
-                className="btn btn-lg btn-secondary w-full text-center !font-normal"
-              /> : <button className='btn btn-lg btn-secondary w-full'
+                title='ADD TO CART'
+                className='btn btn-lg btn-secondary w-full text-center !font-normal'
+              />
+            ) : (
+              <button
+                className='btn btn-lg btn-secondary w-full'
                 onClick={() => {
-                  setOfflineProductSelected(product.name)
-                  router.push(paths.Contact)
-                }} >CONTACT US FOR AVAILABLE INVENTORY</button>
+                  setOfflineProductSelected(product.name);
+                  router.push(paths.Contact);
+                }}
+              >
+                CONTACT US FOR AVAILABLE INVENTORY
+              </button>
+            )
           ) : (
             <button
               type='button'

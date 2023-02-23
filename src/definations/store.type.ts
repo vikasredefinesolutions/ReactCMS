@@ -13,6 +13,7 @@ export interface _StoreReturnType {
   storeTypeId: null | number;
   pathName: string;
   code: string;
+  storeName: string | null;
   isAttributeSaparateProduct: boolean;
   cartCharges: null | CartCharges;
   urls: {

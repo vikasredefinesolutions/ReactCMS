@@ -19,6 +19,14 @@ export interface _ProductColor {
   multipleQuantity: number;
 }
 
+export interface _ProductImageOption {
+  id: number;
+  productId: number;
+  imageName: string;
+  colorName: string;
+  displayorder: number;
+  alttag: string;
+}
 export interface _OtherImage {
   imageUrl: string;
   displayOrder: number;

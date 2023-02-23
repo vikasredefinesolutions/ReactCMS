@@ -45,10 +45,14 @@ const ElementAccordionDisplay = ({ acValues, acClass, acBgColor }) => {
                 className={`mb-4 last:mb-0 hasarr clonnable border-b border-black ${acClass}`}
                 onClick={showHideAccordion}
               >
-                <button className="w-full flex justify-between items-center text-left font-bold font-heading px-2 py-4 border-0 hover:border-0" style={{
-        backgroundColor: acBgColor }}>
-                  <div className="text-defaule-text">{acValue.title}</div>
-                  <span className="material-icons-outlined ml-3 pointer-class">
+                <button
+                  className='w-full flex justify-between items-center text-left font-bold font-heading px-2 py-4 border-0 hover:border-0'
+                  style={{
+                    backgroundColor: acBgColor,
+                  }}
+                >
+                  <div className='text-defaule-text'>{acValue.title}</div>
+                  <span className='material-icons-outlined ml-3 pointer-class'>
                     {acValue.openstatus == 'Yes' ? (
                       <>
                         {acValue.icon == 'caret'
@@ -70,7 +74,7 @@ const ElementAccordionDisplay = ({ acValues, acClass, acBgColor }) => {
                   }`}
                 >
                   <div
-                    className="text-defaule-text mt-2"
+                    className='text-defaule-text mt-2'
                     dangerouslySetInnerHTML={{ __html: acValue.desc }}
                   ></div>
                 </div>

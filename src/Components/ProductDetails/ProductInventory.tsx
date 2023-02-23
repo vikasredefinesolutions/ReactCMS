@@ -4,7 +4,7 @@ import Image from 'appComponents/reUsable/Image';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import InventoryInput from './InventoryInput';
 
 interface _props {
@@ -63,38 +63,33 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
             <div className=''>Availability</div>
             <div className='w-20'>QTY</div>
           </div>
-          {inventory?.sizes.map((product) => {
+          {inventory?.inventory.map((product) => {
             if (product.colorAttributeOptionId === color.attributeOptionId) {
-              return product.sizeArr.map((size) => (
+              return (
                 <div
-                  key={size}
+                  key={product.name}
                   className='flex flex-wrap items-center justify-between border-b border-b-gray-300 py-2'
                 >
-                  <div className='font-semibold px-2'>{size}</div>
-                  <div className=''>
-                    {inventory.inventory.find(
-                      (int) =>
-                        int.colorAttributeOptionId ===
-                        color.attributeOptionId && int.name === size,
-                    )?.inventory || 'Out of Stock'}
-                  </div>
-                  <InventoryInput
-                    size={size}
-                    storeCode={storeCode}
-                    qty={
-                      inventory.inventory.find(
-                        (int) =>
-                          int.colorAttributeOptionId ===
-                          color.attributeOptionId && int.name === size,
-                      )?.inventory || 0
-                    }
-                    price={price?.msrp || 0}
-                  />
+                  <div className='font-semibold px-2'>{product.name}</div>
+                  <div className='px-2'>{product.inventory}</div>
+                  {product.inventory ? (
+                    <InventoryInput
+                      size={product.name}
+                      storeCode={storeCode}
+                      qty={product.inventory}
+                      price={price?.msrp || 0}
+                      attributeOptionId={product.attributeOptionId}
+                    />
+                  ) : (
+                    <div className=''>
+                      <Fragment key={product.name}>Out of Stock</Fragment>
+                    </div>
+                  )}
                 </div>
-              ));
+              );
             }
 
-            return <></>;
+            return null;
           })}
         </div>
       </div>
@@ -154,27 +149,26 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                         inventory.inventory.find(
                           (int) =>
                             int.colorAttributeOptionId ===
-                            color.attributeOptionId && int.name === size,
+                              color.attributeOptionId && int.name === size,
                         )?.inventory || 0;
                       const inventry = inventory.inventory.find(
                         (int) =>
                           int.colorAttributeOptionId ===
-                          color.attributeOptionId && int.name === size,
+                            color.attributeOptionId && int.name === size,
                       );
                       return inv > 0 ? (
-                        <>
-                          <div key={index} className='p-2 w-1/2 md:w-1/6'>
-                            <div className='mb-1'>{inv > 250 ? '250+' : inv}</div>
-                            <InventoryInput
-                              size={size}
-                              storeCode={storeCode}
-                              qty={inv}
-                              price={price?.msrp || 0}
-                              color={color.name}
-                              isDisabled={inv < 1}
-                            />
-                          </div>
-                        </>
+                        <div key={index} className='p-2 w-1/2 md:w-1/6'>
+                          <div className='mb-1'>{inv > 250 ? '250+' : inv}</div>
+                          <InventoryInput
+                            size={size}
+                            storeCode={storeCode}
+                            qty={inv}
+                            price={price?.msrp || 0}
+                            color={color.name}
+                            isDisabled={inv < 1}
+                            attributeOptionId={color.attributeOptionId}
+                          />
+                        </div>
                       ) : (
                         <div className='p-2 w-1/2 md:w-1/6'>
                           <div className='border-bottom p-b-10'>
@@ -218,10 +212,11 @@ const Inventory: React.FC<_props & { storeCode: string }> = ({ storeCode }) => {
                         inventory.inventory.find(
                           (int) =>
                             int.colorAttributeOptionId ===
-                            color.attributeOptionId && int.name === size,
+                              color.attributeOptionId && int.name === size,
                         )?.inventory || 0
                       }
                       price={price?.msrp || 0}
+                      attributeOptionId={color.attributeOptionId}
                     />
                   </div>
                 ));

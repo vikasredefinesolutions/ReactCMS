@@ -1,4 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
+import cacheSlice from './slices/cache.slice';
 import cartReducer from './slices/cart.slice';
 import compareReducer from './slices/compare.slice';
 import employeeReducer from './slices/employee.slice';
@@ -9,6 +10,7 @@ import productReducer from './slices/product.slice';
 import redefineStoreReducer from './slices/redefineStore.slice';
 import successReducer from './slices/success.slice';
 import userReducer from './slices/user.slice';
+import wishlistReducer from './slices/wishlist.slice';
 
 const rootReducer = combineReducers({
   store: redefineStoreReducer,
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
   success: successReducer,
   home: homeReducer,
   employee: employeeReducer,
+  wishlist: wishlistReducer,
+  cache: cacheSlice,
 });
 
 export default rootReducer;

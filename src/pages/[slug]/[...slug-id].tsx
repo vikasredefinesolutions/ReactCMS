@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import {
   _SlugServerSideProps,
-  _SlugServerSide_WentWrong
+  _SlugServerSide_WentWrong,
 } from '@type/slug.type';
 import PageNotFound from 'appComponents/reUsable/404';
 import SeoHead from 'appComponents/reUsable/SeoHead';
@@ -28,7 +28,7 @@ const ProductListing: NextPage<
     if (!_.isEmpty(pageMetaData)) {
       updatePageType(pageMetaData);
     }
-  }, [pageMetaData])
+  }, [pageMetaData]);
 
   if (!_store || !pageMetaData || !page) {
     cLog('No page data found', '404');
@@ -68,6 +68,7 @@ const ProductListing: NextPage<
 
   if ('brand,category'.includes(pageMetaData?.type)) {
     const listing = page.productListing;
+
     return (
       <>
         {listing?.brandSEO && (
@@ -77,7 +78,11 @@ const ProductListing: NextPage<
             keywords={listing.brandSEO.seKeyWords}
           />
         )}
-        <ProductList pageData={page.productListing} slug={pageMetaData?.slug} />
+        <ProductList
+          pageData={page.productListing}
+          slug={pageMetaData?.slug}
+          seType={pageMetaData?.type}
+        />
       </>
     );
   }

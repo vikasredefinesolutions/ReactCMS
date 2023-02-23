@@ -12,3 +12,21 @@ export const AddProductReview = async (payload: ProductReviewType) => {
 
   return res.data;
 };
+export const FetchProductReview = async (payload: number) => {
+  const url = `/StoreProduct/getproductreviews/${payload}.json`;
+  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+    url: url,
+    method: 'GET',
+  });
+  return res.data;
+};
+
+export const FetchProductReviewDetails = async (payload: number) => {
+  const url = `/StoreProduct/getproductreviewsdetail/${payload}.json`;
+  const res: AxiosResponse = await SendAsyncV2<AxiosRequestConfig>({
+    url: url,
+    method: 'GET',
+  });
+  return res.data;
+};
+

@@ -13,10 +13,13 @@ const LogosToPrint: React.FC<_props> = ({ setShowOrSelect }) => {
   const selectedLogos = useTypedSelector(
     (state) => state.product.toCheckout.logos,
   );
-  const { toCheckout } = useTypedSelector((state) => state.product)
-  const selectedProduct = useTypedSelector((state) => state.product.selected)
-  const customerId = useTypedSelector((state) => state.user.id)
-
+  const { toCheckout } = useTypedSelector((state) => state.product);
+  const selectedProduct = useTypedSelector((state) => state.product.selected);
+  const storeId = useTypedSelector((state) => state.store.id);
+  const customerId = useTypedSelector((state) => state.user.id);
+  const isEmployeeLoggedIn = useTypedSelector(
+    (state) => state.employee.loggedIn,
+  );
 
   const {
     clearToCheckout,
@@ -27,10 +30,11 @@ const LogosToPrint: React.FC<_props> = ({ setShowOrSelect }) => {
   } = useActions();
 
   const addToCartHandler = async () => {
-
     const { sizeQtys, totalPrice, totalQty } = toCheckout;
     const cartObject = await getAddToCartObject({
       userId: customerId || 0,
+      storeId: storeId || 0,
+      isEmployeeLoggedIn,
       note: '',
       sizeQtys: sizeQtys,
       productDetails: selectedProduct,
@@ -55,9 +59,13 @@ const LogosToPrint: React.FC<_props> = ({ setShowOrSelect }) => {
 
         if (!customerId) {
           c_id = res;
-          setCookie(__Cookie.tempCustomerId, res, 7);
+          setCookie(__Cookie.tempCustomerId, res, 'Session');
         }
-        fetchCartDetails(c_id || 0);
+        if (c_id)
+          fetchCartDetails({
+            customerId: c_id,
+            isEmployeeLoggedIn,
+          });
         // showModal({
         //   message: 'Added to cart Successfully',
         //   title: 'Success',
@@ -71,36 +79,42 @@ const LogosToPrint: React.FC<_props> = ({ setShowOrSelect }) => {
     router.push('/cart.html');
   };
 
-
   const actionHandler = (action: 'CONTINUE' | 'CANCEL') => {
     if (action === 'CANCEL') {
       router.back();
       return;
     }
-
   };
 
   return (
-    <div className="step-2">
+    <div className='step-2'>
       {selectedLogos?.map((logo, index) => {
         return (
-          <div key={logo.no} className="border border-gray-200 p-4 mt-4">
-            <div className="">Location: {logo.location.label}</div>
-            <div className="mt-2 w-32">
+          <div key={logo.no} className='border border-gray-200 p-4 mt-4'>
+            <div className=''>Location: {logo.location.label}</div>
+            <div className='mt-2 w-32'>
               <img
-                className="inline-block"
+                className='inline-block'
                 src={`${logo.location.imageUrl}`}
-                alt="No Image"
+                alt='No Image'
               />
             </div>
-            <div className="mt-2">Logo {logo.logo.name}</div>
-            <div className="mt-2 flex gap-2 items-center">
-              <div className="font-semibold">Logo {index + 1}:</div>
-              <div className="w-20 h-20 p-1 inline-flex items-center justify-center border border-gray-200">
-                <img className="inline-block" src={`${logo?.logo?.url ? logo.logo.url : 'https://betasphg.parsonskellogg.com/Resources/patagonia/ApplicationFormLogo/logolater.png'}`} alt="No Image" />
+            <div className='mt-2'>Logo {logo.logo.name}</div>
+            <div className='mt-2 flex gap-2 items-center'>
+              <div className='font-semibold'>Logo {index + 1}:</div>
+              <div className='w-20 h-20 p-1 inline-flex items-center justify-center border border-gray-200'>
+                <img
+                  className='inline-block'
+                  src={`${
+                    logo?.logo?.url
+                      ? logo.logo.url
+                      : 'https://betasphg.parsonskellogg.com/Resources/patagonia/ApplicationFormLogo/logolater.png'
+                  }`}
+                  alt='No Image'
+                />
               </div>
             </div>
-            <div className="mt-2">
+            <div className='mt-2'>
               *Please Note: The above logo may not reflect the actual selected
               colors.
             </div>
@@ -108,10 +122,10 @@ const LogosToPrint: React.FC<_props> = ({ setShowOrSelect }) => {
         );
       })}
 
-      <div className="mt-4">
+      <div className='mt-4'>
         <button
           onClick={() => setShowOrSelect('SELECT')}
-          className="btn btn-primary w-full text-center "
+          className='btn btn-primary w-full text-center '
         >
           ADD ANOTHER LOGO
         </button>

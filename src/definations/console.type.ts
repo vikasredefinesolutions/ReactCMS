@@ -17,6 +17,9 @@ export interface __Console {
     controller: boolean;
     page: boolean;
     serverMethod: boolean;
+    service: {
+      SumbitRequestConsultationDetails: boolean;
+    };
   };
   slug: {
     serverMethod: boolean;

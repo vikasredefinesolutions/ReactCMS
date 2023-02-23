@@ -23,8 +23,7 @@ const HeartIcon: React.FC<_props> = ({ className }) => {
       className={className}
       onClick={() => addToWishList(selectedColor?.productId || null)}
     >
-      <span className="material-icons-outlined"> favorite_border </span>
-      {/* <span className="material-icons-outlined"> favorite </span> */}
+      <span className='material-icons-outlined'> favorite_border </span>
     </div>
   );
 };

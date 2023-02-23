@@ -7,7 +7,11 @@ export const updateSetProperties = (element) => {
   let x = document.getElementById('div' + element.no);
   if (element.selectedVal != undefined && element.selectedVal != '') {
     //      let elProperties;
-    Object.entries(JSON.parse(element.selectedVal)).map(([key, value]) => {
+    Object.entries(element.selectedVal).map(([key, value]) => {
+      if (typeof element.properties === 'string') {
+        element.properties = JSON.parse(element.properties);
+      }
+
       if (value.type == 'text') {
         if (x.querySelectorAll('#' + key).length > 0) {
           x.querySelectorAll('#' + key)[0].innerHTML = value.value;
@@ -60,53 +64,64 @@ export const updateSetProperties = (element) => {
       }
 
       if (value.type == 'fontsize') {
-            let propname = key.replace('_font_size', '');
-            x.querySelectorAll('#'+propname)[0].classList.add(value.value);
-            
-            if(element.properties.TextAppearance != null)
-            {
-                if(element.properties.TextAppearance.fields != undefined)
-                {
-                  let fields = element.properties.TextAppearance.fields.split(',');
-                  let textBgColor = propname.text_bg_color ?? '';
-                  let bgOpacity = propname.bg_opacity ?? '1';
-                  let fontSize = propname.font_size ?? '';
-                  let textPos = propname.text_pos ?? 'center';
-      
-      
-                  fields.forEach(el => {
-                    if(x.querySelectorAll('#'+el+'_pos').length > 0) {
-                      x.querySelectorAll('#'+el+'_pos')[0].className = 'flex items-center absolute '+fontSize+' inset-0 p-1 lg:p-4 text-white justify-'+textPos;
-                      x.querySelectorAll('#'+el+'_bg')[0].style = 'background: rgb('+textBgColor+', '+bgOpacity+'); padding: 20px';
-                      //x.querySelectorAll('#'+el)[0].className = "pb-2";
-                    }
-                  });   
-                }
-            }
+        let propname = key.replace('_font_size', '');
+        x.querySelectorAll('#' + propname)[0].classList.add(value.value);
 
- 
+        if (element.properties.TextAppearance != null) {
+          if (element.properties.TextAppearance.fields != undefined) {
+            let fields = element.properties.TextAppearance.fields.split(',');
+            let textBgColor = propname.text_bg_color ?? '';
+            let bgOpacity = propname.bg_opacity ?? '1';
+            let fontSize = propname.font_size ?? '';
+            let textPos = propname.text_pos ?? 'center';
+
+            fields.forEach((el) => {
+              if (x.querySelectorAll('#' + el + '_pos').length > 0) {
+                x.querySelectorAll('#' + el + '_pos')[0].className =
+                  'flex items-center absolute ' +
+                  fontSize +
+                  ' inset-0 p-1 lg:p-4 text-white justify-' +
+                  textPos;
+                x.querySelectorAll('#' + el + '_bg')[0].style =
+                  'background: rgb(' +
+                  textBgColor +
+                  ', ' +
+                  bgOpacity +
+                  '); padding: 20px';
+                //x.querySelectorAll('#'+el)[0].className = "pb-2";
+              }
+            });
           }
+        }
+      }
 
       if (value.type == 'appearance') {
-              let propname = value.value;
-            if(element.properties.TextAppearance?.fields != undefined)
-            {
-              let fields = element.properties.TextAppearance.fields.split(',');
-              let textBgColor = propname.text_bg_color ?? '';
-              let bgOpacity = propname.bg_opacity ?? '1';
-              let fontSize = propname.font_size ?? '';
-              let textPos = propname.text_pos ?? 'center';
-  
-  
-              fields.forEach(el => {
-                if(x.querySelectorAll('#'+el+'_pos').length > 0) {
-                  x.querySelectorAll('#'+el+'_pos')[0].className = 'flex items-center absolute '+fontSize+' inset-0 p-1 lg:p-4 text-white justify-'+textPos;
-                  x.querySelectorAll('#'+el+'_bg')[0].style = 'background: rgb('+textBgColor+', '+bgOpacity+'); padding: 20px';
-                  x.querySelectorAll('#'+el)[0].className = 'pb-2';
-                }
-              });   
-            }  
-          }
+        let propname = value.value;
+        if (element.properties.TextAppearance?.fields != undefined) {
+          let fields = element.properties.TextAppearance.fields.split(',');
+          let textBgColor = propname.text_bg_color ?? '';
+          let bgOpacity = propname.bg_opacity ?? '1';
+          let fontSize = propname.font_size ?? '';
+          let textPos = propname.text_pos ?? 'center';
+
+          fields.forEach((el) => {
+            if (x.querySelectorAll('#' + el + '_pos').length > 0) {
+              x.querySelectorAll('#' + el + '_pos')[0].className =
+                'flex items-center absolute ' +
+                fontSize +
+                ' inset-0 p-1 lg:p-4 text-white justify-' +
+                textPos;
+              x.querySelectorAll('#' + el + '_bg')[0].style =
+                'background: rgb(' +
+                textBgColor +
+                ', ' +
+                bgOpacity +
+                '); padding: 20px';
+              x.querySelectorAll('#' + el)[0].className = 'pb-2';
+            }
+          });
+        }
+      }
 
       if (value.type == 'link') {
         if (x.querySelectorAll('#' + key).length > 0) {
@@ -225,7 +240,7 @@ export const updateSetProperties = (element) => {
           value.value.right ?? 'lg:order-2',
         );
 
-                    //console.log(key, value);
+        //console.log(key, value);
       }
 
       if (value.type == 'carousel') {
@@ -249,10 +264,10 @@ export const updateSetProperties = (element) => {
           x.querySelectorAll('#banner_display')[0].innerHTML = strHTML;
         }
       }
-
       if (value.type == 'dynamic') {
         if (element.properties[value.type] !== undefined) {
           let functionName = element.properties[value.type].html;
+
           let strHTML = dynamicFunctions[functionName](value.value, element);
           x.querySelectorAll(
             '#' + element.properties[value.type].html,
@@ -277,19 +292,19 @@ export const updateSetProperties = (element) => {
           let classArr = [];
           let column = 0;
           if (!Object.keys(finalArr).includes('Right')) {
-            column = column + 1;
+            //column = column + 1;
           } else if (finalArr.Right.display == 'Yes') {
             column = column + 1;
           }
 
           if (!Object.keys(finalArr).includes('Center')) {
-            column = column + 1;
+            //column = column + 1;
           } else if (finalArr.Center.display == 'Yes') {
             column = column + 1;
           }
 
           if (!Object.keys(finalArr).includes('Left')) {
-            column = column + 1;
+            //column = column + 1;
           } else if (finalArr.Left.display == 'Yes') {
             column = column + 1;
           }
@@ -311,6 +326,7 @@ export const updateSetProperties = (element) => {
               x.querySelectorAll('#sectionLeft')[0].classList.add('hidden');
             }
           } else {
+            x.querySelectorAll('#sectionLeft')[0].classList.add('hidden');
             x.querySelectorAll('#sectionLeft')[0].innerHTML =
               '<div className="p-4 lg:p-8 flex w-full items-center"></div>';
           }
@@ -326,6 +342,7 @@ export const updateSetProperties = (element) => {
               x.querySelectorAll('#sectionCenter')[0].classList.add('hidden');
             }
           } else {
+            x.querySelectorAll('#sectionCenter')[0].classList.add('hidden');
             x.querySelectorAll('#sectionCenter')[0].innerHTML =
               '<div className="p-4 lg:p-8 flex w-full items-center"></div>';
           }
@@ -338,6 +355,7 @@ export const updateSetProperties = (element) => {
               x.querySelectorAll('#sectionRight')[0].classList.add('hidden');
             }
           } else {
+            x.querySelectorAll('#sectionRight')[0].classList.add('hidden');
             x.querySelectorAll('#sectionRight')[0].innerHTML =
               '<div className="p-4 lg:p-8 flex w-full items-center"></div>';
           }
