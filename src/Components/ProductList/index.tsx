@@ -2,7 +2,7 @@ import {
   ColorChangeHandler,
   FilterChangeHandler,
   FilterType,
-  ProductList as ProductListType,
+  ProductList as ProductListType
 } from '@type/productList.type';
 import { useActions, useTypedSelector } from 'hooks';
 import { _Store } from 'page.config';
@@ -36,6 +36,7 @@ export type list_FnProps = {
   storeLayout: string | null;
   seType: string;
   brandId: number | null;
+  sortingType?: number;
 };
 const ProductList = ({
   pageData,

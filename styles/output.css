@@ -880,6 +880,9 @@ select{
 .col-span-2{
   grid-column: span 2 / span 2;
 }
+.col-span-8{
+  grid-column: span 8 / span 8;
+}
 .col-start-1{
   grid-column-start: 1;
 }
@@ -1279,6 +1282,9 @@ select{
 }
 .\!w-48{
   width: 12rem !important;
+}
+.w-3\/4{
+  width: 75%;
 }
 .w-9{
   width: 2.25rem;
@@ -2175,6 +2181,10 @@ select{
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
+.px-6{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -2182,10 +2192,6 @@ select{
 .py-5{
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
-}
-.px-6{
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
 }
 .px-2\.5{
   padding-left: 0.625rem;
@@ -2288,6 +2294,9 @@ select{
 .pl-\[1px\]{
   padding-left: 1px;
 }
+.pt-4{
+  padding-top: 1rem;
+}
 .pt-10{
   padding-top: 2.5rem;
 }
@@ -2308,9 +2317,6 @@ select{
 }
 .pt-0{
   padding-top: 0px;
-}
-.pt-4{
-  padding-top: 1rem;
 }
 .\!pr-3{
   padding-right: 0.75rem !important;
@@ -3006,6 +3012,9 @@ select{
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
+.hover\:bg-secondary-hover:hover{
+  background-color: var(--tw-theme-btn-secondary-hover-color);
+}
 .hover\:bg-gray-200:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -3045,9 +3054,6 @@ select{
 .hover\:bg-\[\#cdde00\]:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(205 222 0 / var(--tw-bg-opacity));
-}
-.hover\:bg-secondary-hover:hover{
-  background-color: var(--tw-theme-btn-secondary-hover-color);
 }
 .hover\:text-gray-500:hover{
   --tw-text-opacity: 1;

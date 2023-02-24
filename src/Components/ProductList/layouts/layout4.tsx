@@ -26,8 +26,6 @@ const Layout4 = ({
   sortProductJson,
   clearFilters,
   compareCheckBoxHandler,
-  slug,
-  seType,
 }: list_FnProps) => {
   return (
     <section id=''>
