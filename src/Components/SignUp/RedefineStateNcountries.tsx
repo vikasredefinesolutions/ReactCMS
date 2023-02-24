@@ -38,6 +38,10 @@ const RedefineStateNcountries: React.FC<_props> = ({
         ...country,
         state: state,
       }));
+      setFieldValue(
+        'storeCustomerAddress[0].state',
+        state.length ? state[0]?.id : '',
+      );
     });
   };
 
@@ -45,6 +49,7 @@ const RedefineStateNcountries: React.FC<_props> = ({
     GetCountriesList()
       .then((countries) => {
         setStateContries({ state: null, country: countries });
+        setFieldValue('storeCustomerAddress[0].countryName', countries[0].id);
         return countries[0].id;
       })
       .then(getStatesList);

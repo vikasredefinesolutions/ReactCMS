@@ -1,7 +1,7 @@
 import { showcolors } from '@constants/global.constant';
 import {
   GetlAllProductList,
-  GetProductImageOptionList,
+  GetProductImageOptionList
 } from '@type/productList.type';
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
@@ -30,7 +30,7 @@ const BrandProduct: React.FC<_props> = (props) => {
   return (
     <>
       <li
-        className={`w-full p-3 ${
+        className={`w-full ${
           style === 'Flex' ? '' : 'lg:w-3/12'
         } relative  text-center`}
         data-id={product.id}

@@ -115,7 +115,7 @@ const ProductAlike: React.FC<_props> = ({
                                     className={`${
                                       storeCode === _Store.type2
                                         ? 'w-full text-xl mb-3 h-14'
-                                        : ' h-14 '
+                                        : ' text-anchor hover:text-anchor-hover underline h-11 text-ellipsis overflow-hidden line-clamp-2 text-[13px] tracking-[1.4px] '
                                     }`}
                                   >
                                     <span

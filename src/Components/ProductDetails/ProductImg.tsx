@@ -4,7 +4,7 @@ import Wishlist from 'appComponents/ui/Wishlist';
 import { _OtherImage } from 'definations/APIs/colors.res';
 import {
   _FetchTagsName,
-  _ProductDetails,
+  _ProductDetails
 } from 'definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
@@ -125,7 +125,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
               })}
           </div>
           {(storeCode != _Store.type21 || storeCode != _Store.type8) && (
-            <div className='absolute top-5 right-5 text-gray-800 p-1 z-25'>
+            <div className='absolute top-1 right-1 text-gray-800 p-1 z-5'>
               <button className=''>
                 <Wishlist
                   {...{

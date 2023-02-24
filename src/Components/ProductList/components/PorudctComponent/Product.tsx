@@ -130,7 +130,7 @@ const ProductComponent = ({
               {storeLayout === _Store.type27 ? (
                 <></>
               ) : (
-                <div className='mt-1 text-center h-12'>
+                <div className='mt-1 text-center h-12 h-[35px]'>
                   <img
                     className='inline-block max-h-full'
                     src={`${config.mediaBaseUrl}/rdc${
@@ -155,7 +155,14 @@ const ProductComponent = ({
                   <span>Personalize</span>
                 </a>
               </div> */}
-              <div
+
+              {storeLayout === _Store.type1 ? <div>
+                <Link key={product.id} href={`/${product.sename}.html`}>
+                  <a className='text-anchor px-3 hover:text-anchor-hover underline h-11 text-ellipsis overflow-hidden line-clamp-2 text-[13px] tracking-[1.4px]'>
+                    {product.name}
+                  </a>
+                </Link>
+              </div> : <div
                 className={`${
                   storeLayout === _Store.type27
                     ? 'mt-1 h-10 overflow-hidden text-sm text-anchor tracking-wider hover:text-primary-hover'
@@ -169,7 +176,22 @@ const ProductComponent = ({
                     {product.name}
                   </a>
                 </Link>
-              </div>
+              </div>}
+              {/* <div
+                className={`${
+                  storeLayout === _Store.type27
+                    ? 'mt-1 h-10 overflow-hidden text-sm text-anchor tracking-wider hover:text-primary-hover'
+                    : storeLayout === _Store.type21
+                    ? 'mt-1 text-anchor hover:text-anchor-hover underline'
+                    : 'relative mt-1 text-anchor hover:text-anchor-hover text-ellipsis overflow-hidden line-clamp-2'
+                } text-[13px] tracking-[1.4px]`}
+              >
+                <Link key={product.id} href={`/${product.sename}.html`}>
+                  <a className='relative underline min-h-[48px]'>
+                    {product.name}
+                  </a>
+                </Link>
+              </div> */}
               <div
                 className={
                   storeLayout === _Store.type27

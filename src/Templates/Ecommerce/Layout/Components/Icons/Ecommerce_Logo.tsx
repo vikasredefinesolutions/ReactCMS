@@ -24,9 +24,9 @@ const CompanyLogo: React.FC<_props> = ({ screen, logo }) => {
   ) {
     if (screen === 'DESKTOP') {
       return (
-        <div className='lg:flex lg:items-center max-w-[350px] w-full relative'>
+        <div className='lg:flex lg:items-center w-1/4 relative'>
           <Link href={paths.HOME}>
-            <a title={storeName || storeLayout} className='w-full'>
+            <a title={storeName || storeLayout} className='max-w-[350px] w-full'>
               <Image
                 className='brand-logo w-full'
                 src={logo?.desktop}

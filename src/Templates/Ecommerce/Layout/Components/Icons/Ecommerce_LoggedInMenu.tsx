@@ -8,7 +8,7 @@ import { _Store } from 'page.config';
 import React, { useState } from 'react';
 
 const LoggedInMenu: React.FC = () => {
-  const { logInUser, logoutClearCart } = useActions();
+  const { logInUser, logoutClearCart, setWishListEmpty } = useActions();
   const { id: loggedIn, customer } = useTypedSelector((state) => state.user);
   const { layout: storeLayout } = useTypedSelector((state) => state.store);
   const [focus, setFocus] = useState(false);
@@ -16,6 +16,7 @@ const LoggedInMenu: React.FC = () => {
   const logoutHandler = () => {
     setFocus(false);
     logoutClearCart();
+    setWishListEmpty([]);
     _Logout(logInUser);
   };
 

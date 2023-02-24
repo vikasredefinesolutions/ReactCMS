@@ -7,12 +7,10 @@ import { extractCookies } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import _ from 'lodash';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
 import React, { useEffect, useState } from 'react';
 
 const MyCartIcon: React.FC = () => {
-  const router = useRouter();
   const { fetchCartDetails } = useActions();
   const [totalCartQty, setTotalCartQty] = useState(0);
   const storeLayout = useTypedSelector((state) => state.store.layout);
@@ -56,8 +54,8 @@ const MyCartIcon: React.FC = () => {
         x-data='{ open: false }'
       >
         <Link href={paths.CART}>
-          <a className='text-primary hover:text-anchor-hover group flex items-center gap-1.5 relative py-2'>
-            <span className='text-sm hidden xl:inline-block'>my cart</span>{' '}
+          <a className='text-primary hover:text-anchor-hover group flex items-center gap-1.5 relative py-2 '>
+            <span className='text-sm hidden xl:inline-block whitespace-nowrap tracking-[1.4px]'>my cart</span>{' '}
             <span className='material-icons'>shopping_cart</span>
             <span className='absolute -right-2.5 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-gray-200 text-[10px] font-medium text-gray-500'>
               {totalCartQty}

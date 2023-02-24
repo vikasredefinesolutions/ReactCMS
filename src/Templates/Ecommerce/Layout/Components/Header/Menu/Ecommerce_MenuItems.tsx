@@ -73,7 +73,7 @@ const MenuItems: React.FC<_props> = ({
     if (screen === 'DESKTOP') {
       return (
         <div className='h-full xl:flex items-center justify-center flex-1'>
-          <div className='ml-5'>
+          <div className='ml-[10px]'>
             <div className='h-full flex  space-x-5 relative text-sm'>
               {menuItems.items_content?.map((menu, index) => {
                 if (menu === null) {

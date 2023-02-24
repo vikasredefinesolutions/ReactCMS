@@ -68,6 +68,14 @@ const wishListSlice = createSlice({
         state.brandId = action.payload.brandId;
       }
     },
+    setWishListEmpty: (
+      state,
+      action: {
+        payload: [];
+      },
+    ) => {
+      state.wishListData = action.payload;
+    },
   },
 });
 

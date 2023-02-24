@@ -22,6 +22,8 @@ const WishListIcon: React.FC = () => {
 
     if (customerId || tempCustomerId) {
       setWishlist(wishListData);
+    } else {
+      setWishlist([]);
     }
   }, [customerId, wishListData]);
 

@@ -31,12 +31,13 @@ const Tab = styled(MuiTab)(({ theme }) => ({
 
 const ProductsInfoTabs: React.FC<_props> = ({ dataArr }) => {
   // ** State
+  const [loading, setLoading] = useState<boolean>(false);
   const [value, setValue] = useState(
     dataArr?.featuredproducts_selected_brands?.value[0]?.value,
   );
-
   const [brandsData, setBrandsData] = useState<GetlAllProductList[] | []>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+
+  // ** redux
   const { storeData } = useActions();
   const storeId = useTypedSelector((state) => state.store.id);
   const cacheData = useTypedSelector((state) => state.cache.cacheData);

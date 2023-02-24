@@ -59,7 +59,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
             <div className='items-center p-4 xl:p-16 xl:px-20 bg-gray-100'>
               <div className='flex flex-wrap items-center gap-y-10 -mx-5'>
                 <div className='w-full lg:w-1/2 flex gap-2 h-full justify-around px-5'>
-                  <div className='w-5/12'>
+                  <div className='w-5/12 bg-white shadow flex items-center justify-center'>
                     {banner[0] && (banner[0].brandLogo || banner[0].banner) ? (
                       <Image
                         className='object-cover'
@@ -77,10 +77,10 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
                       />
                     )}
                   </div>
-                  <div className='w-2/12 text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title text-center flex items-center justify-center'>
+                  <div className='w-1/12 text-xl md:text-2xl lg:text-[45px] font-bold flex items-center justify-center'>
                     &amp;
                   </div>
-                  <div className='w-5/12 bg-white shadow-2xl flex items-center justify-center'>
+                  <div className='w-5/12 bg-white shadow flex items-center justify-center'>
                     <div className='uppercase border-2 border-black inline-block p-2'>
                       Your Logo
                     </div>
@@ -100,39 +100,35 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
         </section>
 
         <section className='mainsection text-center text-sm leading-none'>
-          <div className='container mx-auto'>
-            <div className='px-2 lg:px-40 py-0 md:py-5  text-center bg-secondary'>
-              <div className='block md:inline-block px-6 md:border-r border-slate-800 border-b border-b-black md:border-b-0 last:border-b-0 py-2.5 md:py-0'>
-                <div className='w-full md:w-auto flex flex-wrap justify-center items-center'>
-                  <span className='material-icons text-4xl'>
-                    local_shipping
-                  </span>
-                  <div className='ml-2 text-left'>
-                    <div className=''>FREE SHIPPING ON</div>
-                    <div className=''>ORDERS OVER $4K</div>
-                  </div>
+        <div className="px-2 lg:px-40 py-0 md:py-5 text-center bg-secondary">
+    <div className="flex flex-wrap justify-center">
+        <div className="w-full md:w-auto inline-block px-8 py-5 md:py-0 border-b md:border-b-0 md:border-r last:border-r-0 last:border-b-0 border-slate-800">
+            <div className="w-full md:w-auto flex flex-wrap justify-center items-center"><span aria-level="3" className="material-icons !text-4xl !leading-[15px]" role="heading">local_shipping</span>
+                <div className="leading-5 ml-2 text-left text-default-text font-default-text text-color-default-text text-[13px] leading-[15px] tracking-[1px]">
+                    <div>FREE SHIPPING ON</div>
+                    <div>ORDERS OVER $4K</div>
                 </div>
-              </div>
-              <div className='block md:inline-block px-6 border-b border-b-black md:border-b-0 last:border-b-0 py-2.5 md:py-0'>
-                <div className='w-full md:w-auto flex flex-wrap justify-center items-center'>
-                  <span className='material-icons text-4xl'>style</span>
-                  <div className='ml-2 text-left'>
-                    <div className=''>1ST LOGO FREE</div>
-                    <div className=''>UP TO 10,000 STITCHES</div>
-                  </div>
-                </div>
-              </div>
-              <div className='block md:inline-block px-6 md:border-l border-slate-800 border-b border-b-black md:border-b-0 last:border-b-0 py-2.5 md:py-0'>
-                <div className='w-full md:w-auto flex flex-wrap justify-center items-center'>
-                  <span className='material-icons text-4xl'>verified</span>
-                  <div className='ml-2 text-left'>
-                    <div className=''>FREE PROOF</div>
-                    <div className=''>ON ALL ORDERS</div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
+        <div className="w-full md:w-auto inline-block px-8 py-5 md:py-0 border-b md:border-b-0 md:border-r last:border-r-0 last:border-b-0 border-slate-800">
+            <div className="w-full md:w-auto flex flex-wrap justify-center items-center"><span aria-level="3" className="material-icons !text-4xl !leading-[15px]" role="heading">style</span>
+                <div className="leading-5 ml-2 text-left text-default-text font-default-text text-color-default-text text-[13px] leading-[15px] tracking-[1px]">
+                    <div>1ST LOGO FREE</div>
+                    <div>UP TO 10,000 STITCHES</div>
+                </div>
+            </div>
+        </div>
+        <div className="w-full md:w-auto inline-block px-8 py-5 md:py-0 border-b md:border-b-0 md:border-r last:border-r-0 last:border-b-0 border-slate-800">
+            <div className="w-full md:w-auto flex flex-wrap justify-center items-center"><span aria-level="3" className="material-icons !text-4xl !leading-[15px]" role="heading">verified</span>
+                <div className="leading-5 ml-2 text-left text-default-text font-default-text text-color-default-text text-[13px] leading-[15px] tracking-[1px]">
+                    <div>FREE PROOF</div>
+                    <div>ON ALL ORDERS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
         </section>
 
         {/* <Features /> */}
