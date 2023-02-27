@@ -11,8 +11,8 @@ interface _props {
     msrp: number;
     salePrice: number;
   };
-  modalHandler: (param: null | _modals) => void;
-  showLogin: boolean;
+  modalHandler?: (param: null | _modals) => void;
+  showLogin?: boolean;
 }
 
 const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
@@ -177,7 +177,9 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
             </div>
           )}
           <QtyPriceTable storeCode={storeCode} />
-          {showLogin && <AskToLogin modalHandler={modalHandler} />}
+          {showLogin && modalHandler && (
+            <AskToLogin modalHandler={modalHandler} />
+          )}
         </div>
         {showMsg && (
           <div className='text-xs p-3 pb-0' id='divMinorder'>

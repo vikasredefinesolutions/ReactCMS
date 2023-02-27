@@ -1,4 +1,7 @@
-import { FetchLogoPayload } from '@type/APIs/logo.req';
+import {
+  FetchLogoPayload,
+  SubmitFeedbackPayloadType,
+} from '@type/APIs/logo.req';
 import { LogoDetails, LogoList } from '@type/APIs/logo.res';
 import { SendAsyncV2 } from '@utils/axios.util';
 import { CallAPI } from 'helpers/common.helper';
@@ -133,4 +136,33 @@ export const UploadLogoWithDetails = async (payload: {
   });
 
   return response;
+};
+
+export const submitLogoFeedback = async (
+  payload: SubmitFeedbackPayloadType,
+) => {
+  try {
+    const url = `/StoreCustomerLogo/submitfeedback.json`;
+    const res = await SendAsyncV2({
+      url: url,
+      method: 'POST',
+      data: payload,
+    });
+    conditionalLog({
+      data: res.data,
+      name: 'submitLogoFeedback',
+      type: 'API',
+      show: _showConsoles.services.logo,
+    });
+    return res.data;
+  } catch (error) {
+    conditionalLog({
+      data: error,
+      name: 'submitLogoFeedback',
+      type: 'API',
+      show: _showConsoles.services.logo,
+      error: true,
+    });
+    return null;
+  }
 };

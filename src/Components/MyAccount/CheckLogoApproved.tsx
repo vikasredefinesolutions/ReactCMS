@@ -1,8 +1,10 @@
-import { getLogoDetailsById } from '@services/logo.service';
+import { logoFeedbackConst } from '@constants/logo.constant';
+import { getLogoDetailsById, submitLogoFeedback } from '@services/logo.service';
 import { LogoDetails } from '@type/APIs/logo.res';
 import Image from 'appComponents/reUsable/Image';
 import { Form, Formik } from 'formik';
-import { useActions } from 'hooks';
+import getLocation from 'helpers/getLocation';
+import { useActions, useTypedSelector } from 'hooks';
 import _ from 'lodash';
 import moment from 'moment';
 import { useRouter } from 'next/router';
@@ -13,39 +15,89 @@ const CheckLogoApproved = () => {
   const { showModal } = useActions();
   const router = useRouter();
   const { logoId } = router.query;
-  const [logoDetails, setLogoDetails] = useState<null | LogoDetails>(null)
+  const [logoDetails, setLogoDetails] = useState<null | LogoDetails>(null);
+  const userId = useTypedSelector((state) => state.user.id);
 
+  const loadLogoList = () => {
+    getLogoDetailsById(+logoId!)
+      .then((logoDetails) => {
+        setLogoDetails(logoDetails);
+      })
+      .catch((error) => {
+        showModal({
+          message: 'Something went Wrong. Please try again!',
+          title: 'Try Again',
+        });
+        router.push('/ManageLogo/ManageLogo');
+      });
+  };
   useEffect(() => {
     if (logoId && !_.isEmpty(logoId)) {
-      getLogoDetailsById(~~logoId)
-        .then((logoDetails) => { setLogoDetails(logoDetails); })
-        .catch((error) => {
-          showModal({
-            message: 'Something went Wrong. Please try again!',
-            title: 'Try Again',
-          });
-          router.push('/ManageLogo/ManageLogo');
-        });
+      loadLogoList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logoId]);
 
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required('')
+    comment: Yup.string().required(''),
   });
+
+  const submitFeedback_Fn = async (
+    values: {
+      comment: string;
+      logoImageName: string;
+      logoType: string;
+      logoSize: string;
+      embroideryColor: string;
+    },
+    {
+      resetForm,
+    }: {
+      resetForm: () => void;
+    },
+  ) => {
+    const locationDetail = await getLocation();
+    const submitFeedback = {
+      ...logoFeedbackConst,
+      location: locationDetail.city,
+      ipAddress: locationDetail.ip_address,
+      customerId: +userId!,
+      customerLogoId: +logoId!,
+      longDescription: values.comment,
+      logoImageName: values.logoImageName || '',
+      isApproved: false,
+      logoSize: values.logoSize || '',
+      embroideryColor: values.embroideryColor || '',
+    };
+    try {
+      await submitLogoFeedback({
+        customeradminlogodescriptionrequestmodel: submitFeedback,
+      });
+      alert('Success');
+      loadLogoList();
+      resetForm();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className='container mx-auto bg-gray-100 px-6 py-6 mt-5 mb-5'>
       <div className='p-6'>
-        {
-          logoDetails && logoDetails.map((res, index) => (
-            <div key={index} className='manage-logo-detail text-gray-500 mb-10 last:mb-0'>
-              <div className='text-2xl text-gray-800 font-bold mb-5'>{res.name}</div>
+        {logoDetails &&
+          logoDetails.map((res, index) => (
+            <div
+              key={index}
+              className='manage-logo-detail text-gray-500 mb-10 last:mb-0'
+            >
+              <div className='text-2xl text-gray-800 font-bold mb-5'>
+                {res.name}
+              </div>
               <div className='border border-neutral-200 grid grid-cols-3 gap-x-6 rounded-md'>
                 <div className='left-side-box col-span-1 p-6 pr-0'>
                   <div className='relative'>
                     <div className=''>
-                      <Image src={res.imageUrl} className='' alt='' />
+                      <Image src={'/' + res.imageUrl} className='' alt='' />
                     </div>
                   </div>
                 </div>
@@ -61,63 +113,115 @@ const CheckLogoApproved = () => {
                       <div className='w-1/3 min-w-44 font-semibold'>
                         Logo uploaded on:
                       </div>
-                      <div className=''>{moment(res.logoDate).format('MMM DD, YYYY')}</div>
+                      <div className=''>
+                        {moment(res.logoDate).format('MMM DD, YYYY')}
+                      </div>
                     </div>
                     <div className='flex items-center gap-2 mb-1'>
-                      <div className='w-1/3 min-w-44 font-semibold'>Logo size:</div>
+                      <div className='w-1/3 min-w-44 font-semibold'>
+                        Logo size:
+                      </div>
                       <div className=''>{res.logoSize}</div>
                     </div>
                     <div className='flex items-center gap-2 mb-1'>
                       <div className='w-1/3 min-w-44 font-semibold'>
                         Embroidery color:
                       </div>
-                      {
-                        res.embroideryColor && res.embroideryColor.split(',').map(color => (
-                          <div key={'color'} className={`w-8 h-8 border-2 hover:border-secondary p-0.5`}
+                      {res.embroideryColor &&
+                        res.embroideryColor.split(',').map((color) => (
+                          <div
+                            key={'color'}
+                            className={`w-8 h-8 border-2 hover:border-secondary p-0.5`}
                             style={{
                               background: color,
-                            }}></div>
-                        ))
-                      }
+                            }}
+                          ></div>
+                        ))}
                     </div>
                     <div className='font-semibold'>Comment:</div>
-                    {
-                      res.isjpeglogo ? <>
-                        <div className="text-gray-500 text-sm">{res.comments.length > 0 ? res.comments[0].message : null}</div>
-                      </> : <>
+                    {res.isjpeglogo ? (
+                      <>
+                        <div className='text-gray-500 text-sm'>
+                          {res.comments.length > 0
+                            ? res.comments[0].message
+                            : null}
+                        </div>
+                      </>
+                    ) : (
+                      <>
                         <div className='overflow-auto max-h-screen border border-neutral-200 mb-4 rounded-md'>
                           <table className='table-auto w-full text-sm text-[#191919]'>
                             <tbody className='text-sm divide-y divide-slate-200'>
-                              {
-                                res.comments.map(comment => (
-                                  <tr key={comment.id}>
-                                    <td className='px-2 first:pl-5 py-3 font-semibold'>
-                                      {comment.senderName}:
-                                    </td>
-                                    <td className='px-2 first:pl-5 py-3'>
-                                      <div className='font-semibold'>{moment(comment.date).format('MMM DD, YYYY')}</div>
-                                      <div className='text-gray-500'>{comment.message}
-                                      </div>
-                                    </td>
-                                  </tr>
-                                ))
-                              }
+                              {res.comments.map((comment) => (
+                                <tr key={comment.id}>
+                                  <td className='px-2 first:pl-5 py-3 font-semibold'>
+                                    {comment.senderName}:
+                                  </td>
+                                  <td className='px-2 first:pl-5 py-3'>
+                                    <div className='font-semibold'>
+                                      {moment(comment.date).format(
+                                        'MMM DD, YYYY',
+                                      )}
+                                    </div>
+                                    <div className='text-gray-500'>
+                                      {comment.message}
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))}
                             </tbody>
                           </table>
                         </div>
-                        {
-                          !res.isApproved && <>
-                            <Formik initialValues={{ comment: '' }} onSubmit={() => { }} validationSchema={validationSchema}>
-                              {({ handleChange, handleBlur, errors }) => (
+                        {!res.isApproved && (
+                          <>
+                            <Formik
+                              initialValues={{
+                                comment: '',
+                                logoImageName: res.name,
+                                logoType: '',
+                                logoSize: res.logoSize,
+                                embroideryColor: res.embroideryColor,
+                              }}
+                              onSubmit={submitFeedback_Fn}
+                              validationSchema={validationSchema}
+                            >
+                              {({
+                                handleChange,
+                                handleBlur,
+                                errors,
+                                values,
+                              }) => (
                                 <Form>
                                   <div className=''>
                                     <textarea
                                       rows={3}
+                                      name='comment'
                                       className='form-input'
                                       placeholder='Your feedback'
                                       onChange={handleChange}
                                       onBlur={handleBlur}
+                                      value={values.comment}
                                     ></textarea>
+                                    <input
+                                      type='hidden'
+                                      name='logoImageName'
+                                      value={values.logoImageName}
+                                    />
+                                    <input
+                                      type='hidden'
+                                      name='logoType'
+                                      value={''}
+                                    />
+                                    <input
+                                      type='hidden'
+                                      name='logoSize'
+                                      value={values.logoSize}
+                                    />
+                                    <input
+                                      type='hidden'
+                                      name='embroideryColor'
+                                      value={values.embroideryColor}
+                                    />
                                     <p className='error'>{errors.comment}</p>
                                   </div>
                                   <div className='flex items-center justify-center mt-4'>
@@ -131,7 +235,10 @@ const CheckLogoApproved = () => {
                                     </div>
                                     <div className='mx-2'>OR</div>
                                     <div className='grow'>
-                                      <button className='btn btn-primary !w-full text-center' onClick={() => { }}>
+                                      <button
+                                        className='btn btn-primary !w-full text-center'
+                                        onClick={() => {}}
+                                      >
                                         Approve your logo
                                       </button>
                                     </div>
@@ -140,17 +247,16 @@ const CheckLogoApproved = () => {
                               )}
                             </Formik>
                           </>
-                        }
+                        )}
                       </>
-                    }
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-          ))
-        }
+          ))}
       </div>
-    </section >
+    </section>
   );
 };
 
