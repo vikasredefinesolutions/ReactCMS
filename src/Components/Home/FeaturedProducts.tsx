@@ -9,8 +9,8 @@ interface _props {
 
 const FeaturedProducts: React.FC<_props> = ({ dataArr }) => {
   return (
-    <section className='mainsection container mx-auto mt-20 featured_items'>
-      <div className='peter-millar-promotional-embroidered-clothing-nw text-center'>
+    <section className='mainsection container mx-auto mt-20 featured_items text-center'>
+      <div className='peter-millar-promotional-embroidered-clothing-nw'>
         {dataArr.featuredproducts_section_title.value ?? ''}
       </div>
       <div>
