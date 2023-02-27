@@ -109,8 +109,19 @@ const Orders: NextPage = () => {
       <section className='container mx-auto mt-5 mb-5'>
         <div className='mx-auto space-y-10 sm:px-4 lg:px-0 pb-2'>
           {orderDetails?.length === 0 && (
-            <div className='text-center mt-20'>
-              <h1>No orders made.</h1>
+            <div className='text-center text-gray-500 tracking-[1.4px] text-[22px]'>
+              <div className='text-2xl md:text-3xl lg:text-title font-title text-color-title mb-2'>
+                Orders is Empty.
+              </div>
+              <div className=''>There's nothing in your Order.</div>
+              <div className=''>
+                Not to worry: we have lots of other great finds.
+              </div>
+              <div className='mt-3'>
+                <a href='' className='btn btn-secondary btn-lg'>
+                  START SHOPPING
+                </a>
+              </div>
             </div>
           )}
           {orderDetails?.map((order, index) => {

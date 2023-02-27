@@ -26,8 +26,8 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
   ) {
     return (
       <div>
-        <div className='text-sm text-gray-600 bg-primary flex flex-wrap justify-between items-center p-2 md:p-0 md:pl-2 my-2'>
-          <span className='text-lg font-bold text-white'>
+        <div className='text-sm text-gray-600 bg-primary flex flex-wrap justify-between items-center px-2.5 py-1.5 my-2.5'>
+          <span className='text-lg font-semibold text-white leading-none'>
             Available Colors:
           </span>
         </div>

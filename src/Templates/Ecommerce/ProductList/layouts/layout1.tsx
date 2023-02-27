@@ -83,8 +83,6 @@ const Layout1 = ({
   brandId,
   sortingType,
 }: list_FnProps) => {
-  // console.log(products);
-
   return (
     <>
       <ProductDetailsPageBanner slug={slug} seType={seType} />
@@ -201,7 +199,48 @@ const Layout1 = ({
                         )}
                       </ul>
                     </div>
-                    <div className='py-24 border-t border-t-gray-300'>
+
+                    <div className='py-4 text-center'>
+                      <div className=''>
+                        <div className='text-sm tracking-[1.4px]'>
+                          You've viewed {products.length} of {totalCount}{' '}
+                          products
+                        </div>
+                        <div className='h-[2px] w-full max-w-[250px] mx-auto bg-[#808080] mt-2'>
+                          <div
+                            className='bg-secondary h-full'
+                            style={{
+                              width: `${(products.length * 100) / totalCount}%`,
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                      {products.length < totalCount && (
+                        <button
+                          onClick={loadMore}
+                          type='submit'
+                          className='mt-4 btn btn-lg btn-secondary !py-5 !text-[22px] !tracking-[1.4px] !font-normal w-full max-w-[550px] mx-auto focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
+                        >
+                          <span className='inline-block w-5 h-5'>
+                            <img
+                              className='max-h-full'
+                              src='/images/load-more-arrow.gif'
+                              alt='gif-img'
+                            />
+                          </span>
+                          <span className=''>LOAD MORE</span>
+                          <span className='inline-block w-5 h-5'>
+                            <img
+                              className='max-h-full'
+                              src='/images/load-more-arrow.gif'
+                              alt='gif-img'
+                            />
+                          </span>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* <div className='py-24 border-t border-t-gray-300'>
                       <div className='text-center'>
                         <div>
                           You've seen {products.length} Products out of{' '}
@@ -227,7 +266,7 @@ const Layout1 = ({
                           Load More
                         </button>
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

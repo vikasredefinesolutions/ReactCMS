@@ -184,6 +184,7 @@ export interface GetlAllProductList {
   productSEName?: string;
   productDisplayOrder?: number;
   attributeOptionName?: string;
+  blackBrandlogo: string;
   ourCost?: number;
 }
 

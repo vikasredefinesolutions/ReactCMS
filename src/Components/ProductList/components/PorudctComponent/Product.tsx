@@ -134,10 +134,10 @@ const ProductComponent = ({
                   <img
                     className='inline-block max-h-full'
                     src={`${config.mediaBaseUrl}/rdc${
-                      product?.brandlogo &&
-                      product?.brandlogo.replace('/rdc', '')
+                      product?.blackBrandlogo &&
+                      product?.blackBrandlogo.replace('/rdc', '')
                     }`}
-                    alt={product.brandlogo}
+                    alt={product.blackBrandlogo}
                   />
                 </div>
               )}

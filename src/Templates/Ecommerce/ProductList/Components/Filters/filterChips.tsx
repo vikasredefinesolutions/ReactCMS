@@ -1,6 +1,7 @@
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { FilterChangeHandler } from '@type/productList.type';
 import { CheckedFilter } from '@type/slug.type';
+import { capitalizeFirstLetter } from 'helpers/common.helper';
 const FilterChips = ({
   checkedFilters,
   clearFilters,
@@ -18,7 +19,7 @@ const FilterChips = ({
           {checkedFilters.map((filter, index) => (
             <li key={index} className=''>
               <a className='btn btn-sm btn-primary !inline-flex items-center !rounded-md gap-x-2 !py-1 !text-sm'>
-                <span>{filter.value}</span>
+                <span>{capitalizeFirstLetter(filter.value)}</span>
                 <span
                   onClick={() => {
                     handleChange(filter.name, filter.value, false);

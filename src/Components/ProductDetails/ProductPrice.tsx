@@ -18,9 +18,9 @@ const ProductPrice: React.FC<_props & { storeCode: string }> = ({
     storeCode === _Store.type16
   ) {
     return (
-      <div className='text-gray-700 pt-1 text-sm'>
-        <span className='font-semibold inline-block w-16'>MSRP </span>
-        <span>
+      <div className='text-black text-sm'>
+        <span className='font-semibold inline-block w-11'>MSRP </span>
+        <span className='ml-1'>
           <Price
             value={undefined}
             prices={{ msrp, salePrice }}

@@ -87,7 +87,7 @@ const Custom: React.FC<_props> = ({ content, title, url }) => {
                 // x-transition:leave="transition ease-in duration-150"
                 // x-transition:leave-start="opacity-100"
                 // x-transition:leave-end="opacity-0"
-                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm'
+                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm  !m-0'
               >
                 <div className='absolute inset-0 top-1/2 bg-white shadow'></div>
                 <div className='relative bg-gray-100 z-50'>
@@ -171,7 +171,7 @@ const Custom: React.FC<_props> = ({ content, title, url }) => {
                 // x-transition:leave="transition ease-in duration-150"
                 // x-transition:leave-start="opacity-100"
                 // x-transition:leave-end="opacity-0"
-                className='absolute top-full left-0 right-0 text-gray-500 shadow sm:text-md font-medium'
+                className='absolute top-full left-0 right-0 text-gray-500 shadow sm:text-md font-medium  !m-0'
               >
                 {/* <!-- <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"></div> --> */}
                 <div className='relative bg-gray-100 z-50'>
@@ -333,7 +333,7 @@ const Custom: React.FC<_props> = ({ content, title, url }) => {
                 // x-transition:leave="transition ease-in duration-150"
                 // x-transition:leave-start="opacity-100"
                 // x-transition:leave-end="opacity-0"
-                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm'
+                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm  !m-0'
               >
                 <div className='absolute inset-0 top-1/2 bg-white shadow'></div>
                 <div className='relative bg-white z-50'>

@@ -16,9 +16,9 @@ const ProductSKU: React.FC<
     storeCode === _Store.type16
   ) {
     return (
-      <div className='text-gray-700 pt-1 text-sm'>
-        <span className='font-semibold inline-block w-16'>SKU </span>
-        <span>: {skuID}</span>
+      <div className='text-black pt-0.5 text-sm'>
+        <span className='font-semibold inline-block w-11'>SKU </span>
+        <span className='ml-1'>: {skuID}</span>
       </div>
     );
   }

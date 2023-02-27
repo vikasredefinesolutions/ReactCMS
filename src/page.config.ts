@@ -33,7 +33,7 @@ export const _Store = {
 export const _StoreDomains = {
   // domain1: 'corporategear',
   // domain1: 'cg.headlessmart.com',
-  domain1: 'cg',
+  domain1: 'cg.redefinecommerce.info',
   domain2: 'gg.headlessmart.com',
   domain3: 'pkhealth.headlessmart.com',
   domain4: 'di.headlessmart.com',
@@ -70,7 +70,7 @@ export const _StoreDomains = {
 
 export const __domain = {
   devMode: false, // for development features.
-  isSiteLive: false,
+  isSiteLive: true,
   localDomain: _StoreDomains.domain1,
   layoutToDisplay: _Store.type1,
 };

@@ -14,7 +14,7 @@ const ProducAvailableSizes: React.FC = () => {
     return (
       <div className='text-lg'>
         <span className='font-semibold'>Available Size(s):</span>
-        <span>{` ${sizes}`}</span>
+        <span className='ml-1.5'>{` ${sizes}`}</span>
       </div>
     );
   }

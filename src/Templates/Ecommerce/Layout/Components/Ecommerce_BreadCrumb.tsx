@@ -1,7 +1,7 @@
 import { paths, __SpecialBreadCrumbsPaths } from '@constants/paths.constant';
 import {
   fetchCategoryByCategoryId,
-  fetchCategoryByproductId
+  fetchCategoryByproductId,
 } from '@services/product.service';
 import ImageComp from 'appComponents/reUsable/Image';
 import { useTypedSelector } from 'hooks';
@@ -89,8 +89,6 @@ const BreadCrumb: React.FC = () => {
   }, [storeId, pageType.type, pageType.slug, router.asPath]);
 
   const aspath = router.asPath.split('?')[0];
-  const pathRoute = aspath.split('/').filter((v) => v.length > 0);
-
   if (breadCrumbs.length === 0 || router.route === '/') {
     return <></>;
   }

@@ -54,12 +54,12 @@ const ProductCompanion: React.FC<_props & { storeCode: string }> = ({
   }
 
   return (
-    <div className='text-lg m-3'>
+    <div className='text-lg mx-3 mt-3'>
       <div className='font-semibold'>Companion Product:</div>
       <div key={name}>
         <button
           onClick={() => goToProduct(seName)}
-          className='text-anchor hover:text-anchor-hover text-sm font-semibold underline'
+          className='text-anchor hover:text-anchor-hover text-[15px] font-semibold underline'
         >
           {name}
         </button>

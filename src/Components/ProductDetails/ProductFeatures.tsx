@@ -10,31 +10,45 @@ const ProductFeatures: React.FC<
     storeCode === _Store.type16
   ) {
     return (
-      <div className='w-full text-center flex justify-center mt-5 py-3'>
-        <div className='w-full max-w-5xl grid grid-cols-1 lg:grid-cols-3'>
-          <div className='flex flex-wrap justify-center items-center border-r border-b border-b-primary lg:border-b-transparent lg:border-r-primary pb-3 lg:pb-0'>
-            <span className='material-icons text-2xl'>local_shipping</span>
-            <span className='ml-2 text-left text-sm uppercase leading-4'>
-              <strong>FREE SHIPPING</strong> <br />
-              To One Location
-            </span>
-          </div>
-          <div className='flex flex-wrap justify-center items-center border-r border-b border-b-primary lg:border-b-transparent lg:border-r-primary py-3 lg:py-0'>
-            <span className='material-icons text-2xl'>style</span>
-            <span className='ml-2 text-left text-sm uppercase leading-4'>
-              <strong>1ST LOGO FREE</strong> <br />
-              UP TO 10,000 STITCHES
-            </span>
-          </div>
-          <div className='flex flex-wrap justify-center items-center pt-3 lg:pt-0'>
-            <span className='material-icons text-2xl'>verified</span>
-            <span className='ml-2 text-left text-sm uppercase leading-4'>
-              <strong>FREE PROOF</strong> <br />
-              ON ALL ORDERS
-            </span>
+      <section className='mainsection text-center text-sm leading-none text-primary'>
+        <div className=''>
+          <div className='mt-5 py-3 text-center'>
+            <div className='block md:inline-block px-6 md:border-r border-slate-800 border-b border-b-black md:border-b-0 last:border-b-0 py-2.5 md:py-0'>
+              <div className='w-full md:w-auto flex flex-wrap justify-center items-center'>
+                <span className='material-icons text-4xl leading-[15px]'>
+                  local_shipping
+                </span>
+                <div className='ml-2 text-left text-[13px] leading-[15px] tracking-[1px]'>
+                  <div className=''>FREE SHIPPING</div>
+                  <div>ORDERS OVER $4K</div>
+                </div>
+              </div>
+            </div>
+            <div className='block md:inline-block px-6 border-b border-b-black md:border-b-0 last:border-b-0 py-2.5 md:py-0'>
+              <div className='w-full md:w-auto flex flex-wrap justify-center items-center'>
+                <span className='material-icons text-4xl leading-[15px]'>
+                  style
+                </span>
+                <div className='ml-2 text-left text-[13px] leading-[15px] tracking-[1px]'>
+                  <div className=''>1ST LOGO FREE</div>
+                  <div>UP TO 10,000 STITCHES</div>
+                </div>
+              </div>
+            </div>
+            <div className='block md:inline-block px-6 md:border-l border-slate-800 border-b border-b-black md:border-b-0 last:border-b-0 py-2.5 md:py-0'>
+              <div className='w-full md:w-auto flex flex-wrap justify-center items-center'>
+                <span className='material-icons text-4xl leading-[15px]'>
+                  verified
+                </span>
+                <div className='ml-2 text-left text-[13px] leading-[15px] tracking-[1px]'>
+                  <div className=''>FREE PROOF</div>
+                  <div>ON ALL ORDERS</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 

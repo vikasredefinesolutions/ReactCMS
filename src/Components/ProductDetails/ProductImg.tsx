@@ -4,7 +4,7 @@ import Wishlist from 'appComponents/ui/Wishlist';
 import { _OtherImage } from 'definations/APIs/colors.res';
 import {
   _FetchTagsName,
-  _ProductDetails
+  _ProductDetails,
 } from 'definations/APIs/productDetail.res';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
@@ -87,9 +87,9 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
       <div
         className={`${
           storeCode === _Store.type21 ? 'lg:col-span-7' : 'col-span-1'
-        } grid grid-cols-12 gap-6`}
+        } grid-cols-12 gap-6 pr-[15px] pt-2`}
       >
-        <div className='col-span-12 border border-slate-200 relative'>
+        <div className='col-span-12 border border-slate-300 relative'>
           {/* Display Image */}
           <div className='main-image max-w-lg mx-auto'>
             <InnerImageZoom
@@ -97,22 +97,22 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
               zoomType={'hover'}
               // alt={selectedImage.label}
               hideHint={true}
-              className='w-full object-center object-cover sm:rounded-lg main_image'
+              className='w-full object-center object-cover sm:rounded-lg main_image max-h'
             />
           </div>
           {/* Images to select */}
-          <div className='sub-image absolute left-2 top-4 w-20 block'>
+          <div className='sub-image absolute left-2 top-4 w-[70px]'>
             {selectedColor?.moreImages
               ?.map((img, index) => ({ ...img, id: index }))
               .map((img) => {
                 const highlight =
                   img.id === selectedImage.id
                     ? 'border-secondary'
-                    : 'border-slate-200 hover:border-secondary';
+                    : 'border-slate-200';
                 return (
                   <div
                     key={img.id + img.imageUrl}
-                    className={`md:border p-1 mb-1 last:mb-0 ${highlight}`}
+                    className={`md:border hover:border-secondary p-1 mb-1 last:mb-0 ${highlight}`}
                     onClick={() => selectImgHandler(img)}
                   >
                     <Image
@@ -125,7 +125,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
               })}
           </div>
           {(storeCode != _Store.type21 || storeCode != _Store.type8) && (
-            <div className='absolute top-1 right-1 text-gray-800 p-1 z-5'>
+            <div className='absolute right-2 top-7 w-6 h-6'>
               <button className=''>
                 <Wishlist
                   {...{

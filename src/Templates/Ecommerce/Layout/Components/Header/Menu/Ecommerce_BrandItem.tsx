@@ -138,7 +138,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                 //     x-transition:leave="transition ease-in duration-150"
                 //     x-transition:leave-start="opacity-100"
                 //     x-transition:leave-end="opacity-0"
-                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm'
+                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm !m-0'
               >
                 <div className='relative bg-gray-100 z-50'>
                   <div className='max-w-7xl mx-auto'>
@@ -354,7 +354,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                 // x-transition:leave="transition ease-in duration-150"
                 // x-transition:leave-start="opacity-100"
                 // x-transition:leave-end="opacity-0"
-                className='absolute top-full left-0 right-0 text-gray-500 shadow sm:text-md font-medium'
+                className='absolute top-full left-0 right-0 text-gray-500 shadow sm:text-md font-medium !m-0'
               >
                 <div className='relative bg-gray-100'>
                   <div className='max-w-4xl mx-auto'>
@@ -516,7 +516,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                 //     x-transition:leave="transition ease-in duration-150"
                 //     x-transition:leave-start="opacity-100"
                 //     x-transition:leave-end="opacity-0"
-                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm'
+                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm  !m-0'
               >
                 <div className='relative bg-gray-200 z-50'>
                   <div className='max-w-7xl mx-auto p-4'>
@@ -653,7 +653,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                 // x-transition:leave="transition ease-in duration-150"
                 // x-transition:leave-start="opacity-100"
                 // x-transition:leave-end="opacity-0"
-                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm'
+                className='absolute top-full left-0 w-screen max-w-screen-sm text-gray-500 sm:text-sm  !m-0'
               >
                 <div className='relative bg-white z-50'>
                   <div className='max-w-7xl mx-auto'>

@@ -22,11 +22,11 @@ const ProductDescription: React.FC<_props & { storeCode: string }> = ({
     storeCode === _Store.type16
   ) {
     return (
-      <div className='m-3'>
+      <div className='m-3 mt-1'>
         <h3 className='font-semibold text-2xl mb-2'>{heading}</h3>
         <div
-          className={`relative text-sm text-gray-700 tracking-widest div_description transition-all pb-4 ${
-            !showExtra && 'max-h-40 h-20 overflow-hidden'
+          className={`relative text-sm text-black tracking-widest div_description transition-all pb-8 ${
+            !showExtra && 'h-32 overflow-hidden'
           }`}
         >
           <div
@@ -42,7 +42,7 @@ const ProductDescription: React.FC<_props & { storeCode: string }> = ({
               } text-center`}
             >
               <button
-                className='text-indigo-500 underline text-sm font-bold'
+                className='text-anchor tracking-normal text-base underline font-bold'
                 onClick={() => setShowExtra((show) => !show)}
               >
                 {showExtra ? 'Read Less' : 'Read More'}

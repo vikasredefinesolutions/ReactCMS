@@ -135,7 +135,7 @@ const SideFilter = ({
                                     key={option.name}
                                     id={option.name}
                                     className='flex items-center !text-black font-bold !no-underline'
-                                    href={`${option.sename}.html`}
+                                    href={`/${option.sename}.html`}
                                   >
                                     <span className='material-icons-outlined'>
                                       {option.subrows
@@ -155,7 +155,7 @@ const SideFilter = ({
                                           {' '}
                                           <Link
                                             key={subrow.name}
-                                            href={`${subrow.sename}.html`}
+                                            href={`/${subrow.sename}.html`}
                                             className='!text-black !no-underline'
                                           >
                                             <span className='material-icons-outlined'>
@@ -196,7 +196,7 @@ const SideFilter = ({
                                       htmlFor={`${option.name}-${ind}`}
                                       className='text-black'
                                     >
-                                      {option.name}
+                                      {capitalizeFirstLetter(option.name)}
                                     </label>
                                   ) : (
                                     <label

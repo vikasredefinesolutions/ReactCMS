@@ -26,14 +26,18 @@ const ProductRequestConsultation: React.FC<{ storeCode: string }> = ({
     const consultationURL = `${paths.REQUEST_CONSULTATION}?productid=${params.productId}&title=Request%20Consultation%20%26%20Proof&Color=${params.color}`;
 
     return (
-      <div className='w-full md:w-1/3 mt-2 md:text-right text-sm font-semibold text-indigo-500'>
-        <button
-          onClick={() => router.push(consultationURL)}
-          className='text-anchor hover:text-anchor-hover underline font-semibold text-indigo-500'
-        >
-          Request Consultation and Proof{' '}
-        </button>
-        &gt;
+      <div className='w-full md:w-1/3 mt-2.5 md:text-right text-sm font-semibold text-anchor'>
+        <div className='inline-flex items-center'>
+          <button
+            onClick={() => router.push(consultationURL)}
+            className='text-anchor hover:text-anchor-hover underline text-[15px]"'
+          >
+            Request Consultation and Proof{' '}
+          </button>
+          <span className='material-icons-outlined leading-none text-xl font-semibold'>
+            chevron_right
+          </span>
+        </div>
       </div>
     );
   }

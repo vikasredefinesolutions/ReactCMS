@@ -18,8 +18,8 @@ const ProductDetails: React.FC<_Props> = ({ product, storeCode }) => {
     storeCode === _Store.type16
   ) {
     return (
-      <div className='container mx-auto mt-6'>
-        <div className='lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start'>
+      <div className='container mx-auto mt-4'>
+        <div className='lg:grid lg:grid-cols-2 lg:items-start'>
           <ProductImg product={product} storeCode={storeCode} />
           <ProductInfo product={product} storeCode={storeCode} />
         </div>

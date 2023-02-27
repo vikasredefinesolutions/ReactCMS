@@ -152,31 +152,42 @@ const Layout1 = ({
                         )}
                       </ul>
                     </div>
-                    {}
-                    <div className='py-24 border-t border-t-gray-300'>
-                      <div className='text-center'>
-                        <div className=''>
-                          You've seen {products.length} Products out of{' '}
-                          {totalCount}
+                    <div className='py-4 text-center'>
+                      <div className=''>
+                        <div className='text-sm tracking-[1.4px]'>
+                          You've viewed {products.length} of {totalCount}{' '}
+                          products
                         </div>
-                        <div className='h-1 w-full max-w-[250px] bg-gray-300 mx-auto mt-3 text-left'>
+                        <div className='h-[2px] w-full max-w-[250px] mx-auto bg-[#808080] mt-2'>
                           <div
-                            className='h-1 inline-block bg-primary'
+                            className='bg-secondary h-full'
                             style={{
                               width: `${(products.length * 100) / totalCount}%`,
                             }}
-                          >
-                            &nbsp;
-                          </div>
+                          ></div>
                         </div>
                       </div>
                       {products.length < totalCount && (
                         <button
                           onClick={loadMore}
                           type='submit'
-                          className='mt-8 w-auto mx-auto bg-white border border-gray-800 py-3 px-24 flex items-center text-center justify-center text-base font-medium text-gray-800 hover:bg-blue-500 hover:border-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
+                          className='mt-4 btn btn-lg btn-secondary !py-5 !text-[22px] !tracking-[1.4px] !font-normal w-full max-w-[550px] mx-auto focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
                         >
-                          View More
+                          <span className='inline-block w-5 h-5'>
+                            <img
+                              className='max-h-full'
+                              src='/images/load-more-arrow.gif'
+                              alt='gif-img'
+                            />
+                          </span>
+                          <span className=''>LOAD MORE</span>
+                          <span className='inline-block w-5 h-5'>
+                            <img
+                              className='max-h-full'
+                              src='/images/load-more-arrow.gif'
+                              alt='gif-img'
+                            />
+                          </span>
                         </button>
                       )}
                     </div>

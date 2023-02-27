@@ -25,19 +25,19 @@ const MyAccountTabs: React.FC = () => {
 
   return (
     <>
-      <section>
+      <section className='pt-7 tracking-[1.4px]'>
         <div className='container mx-auto'>
-          <div className='text-3xl font-primary uppercase text-center'>
+          <div className='pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]'>
             MY ACCOUNT
           </div>
-          <div className='bg-gray-100 mt-5 mb-5 flex justify-center'>
-            <ul className='flex flex-wrap w-full justify-center gap-x-[7px]'>
+          <div className='bg-gray-100 mt-6 flex justify-center'>
+            <ul className='w-full space-x-[7px] max-w-[1330px] mx-auto text-center'>
               {_TABS.map((tab, index) => {
                 if (tab.path === null) {
                   return (
                     <li
                       key={index}
-                      className={`border-t border-transparent hover:border-black text-base font-semibold px-[3%] py-2.5 ${
+                      className={`border-t border-transparent hover:border-black text-base font-semibold text-[#0a1c2b] hover:text-[#0a1c2b] focus:text-[#0a1c2b] px-[3%] py-2.5 whitespace-nowrap inline-block ${
                         tab.path === currentPath ? 'border-black' : ''
                       }`}
                     >
@@ -57,7 +57,7 @@ const MyAccountTabs: React.FC = () => {
                 return (
                   <li
                     key={index}
-                    className={`border-t border-transparent hover:border-black text-base font-semibold px-[3%] py-2.5  ${
+                    className={`border-t border-transparent hover:border-black text-base font-semibold text-[#0a1c2b] hover:text-[#0a1c2b] focus:text-[#0a1c2b] px-[3%] py-2.5 whitespace-nowrap inline-block  ${
                       activeDir ? 'border-black' : ''
                     }`}
                   >

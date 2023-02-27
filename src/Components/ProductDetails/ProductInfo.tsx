@@ -11,7 +11,6 @@ import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
 import React, { useState } from 'react';
-import AskToLogin from './AskToLogin';
 import AvailableColors from './AvailableColors';
 import AvailableInventoryModal from './AvailableInventoryModal';
 import DiscountPrice from './DiscountPrice';
@@ -95,7 +94,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
     storeCode === _Store.type16
   ) {
     return (
-      <div className='col-span-1 mt-4 md:mt-10 px-2 md:px-4 sm:px-0 sm:mt-16 lg:mt-0'>
+      <div className='col-span-1 mt-4 md:mt-10 px-2 md:px-[15px] sm:px-0 sm:mt-16 lg:mt-0'>
         <div className='flex flex-wrap'>
           <div className='w-full md:w-2/3'>
             <h1 className='text-3xl font-semibold text-gray-900'>
@@ -118,26 +117,23 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           <div className='mt-3'>
             <h2 className='sr-only'>Product information</h2>
           </div>
-          <div>
-            <DiscountPricing
-              storeCode={storeCode}
-              showMsrpLine={true}
-              price={{
-                msrp: product.msrp,
-                salePrice: product.salePrice,
-              }}
-            />
-            {!product.isDiscontinue && (
-              <AskToLogin modalHandler={modalHandler} />
-            )}
-          </div>
+          <DiscountPricing
+            storeCode={storeCode}
+            showMsrpLine={true}
+            price={{
+              msrp: product.msrp,
+              salePrice: product.salePrice,
+            }}
+            showLogin={!product.isDiscontinue}
+            modalHandler={modalHandler}
+          />
         </>
 
         {/* AVAILABLE INVENTORY */}
         <div className='m-3'>
           <button
             type='button'
-            className='text-anchor hover:text-anchor-hover text-sm font-semibold underline'
+            className='text-anchor hover:text-anchor-hover text-[15px] font-semibold underline'
             onClick={() => modalHandler('availableInventory')}
           >
             Check Available Inventory
@@ -145,12 +141,12 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
         </div>
 
         {/* AVAILABLE SIZES */}
-        <div className='m-3 flex flex-wrap text-gray-900 justify-between items-center'>
+        <div className='m-3 flex flex-wrap text-gray-900 justify-between items-center gap-2'>
           <ProducAvailableSizes />
           <div>
             <button
               type='button'
-              className='text-anchor hover:text-anchor-hover text-sm font-semibold underline'
+              className='text-anchor text-sm font-semibold underline'
               onClick={() => modalHandler('sizeChart')}
             >
               Size Chart
@@ -173,8 +169,8 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
           heading={'Description'}
         />
 
-        <form className='m-3'>
-          <div className='bg-gray-700'>
+        <form className='mt-6'>
+          <div className='m-3 mt-6'>
             <button
               type='button'
               disabled={product.isDiscontinue}
@@ -182,7 +178,7 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
                 setOpenModal('startOrder');
                 setShowLoader(true);
               }}
-              className='btn btn-xl btn-secondary !flex items-center justify-center w-full uppercase'
+              className='btn btn-xl btn-secondary !flex items-center justify-center lg:!text-3xl w-full uppercase'
             >
               {product.isDiscontinue ? 'Discontinued' : 'START ORDER'}
             </button>
@@ -193,15 +189,15 @@ const ProductInfo: React.FC<_Props> = ({ product, storeCode }) => {
               suggestedProducts={product.suggestedProducts}
             />
           )}
+          <div className='mt-5 text-center'>
+            <button
+              onClick={() => router.push(consultationURL)}
+              className='text-anchor text-lg font-semibold underline'
+            >
+              Or request a free consultation with one of our experts
+            </button>
+          </div>
         </form>
-        <div className='mt-5 text-center'>
-          <button
-            onClick={() => router.push(consultationURL)}
-            className='text-indigo-500 text-lg font-semibold underline'
-          >
-            Or request a free consultation with one of our experts
-          </button>
-        </div>
         <ProductFeatures storeCode={storeCode} />
         <section aria-labelledby='details-heading' className='mt-12'>
           <h2 id='details-heading' className='sr-only'>
