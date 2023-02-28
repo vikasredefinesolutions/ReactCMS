@@ -548,6 +548,7 @@ const ProductLayout2 = ({
           }
         >
           <span className={storeLayout === _Store.type12 ? '' : 'font-bold'}>
+            {storeLayout === _Store.type3 ? 'MSRP ' : null}
             <Price
               value={undefined}
               prices={{
@@ -656,7 +657,8 @@ const ProductLayout2 = ({
               <a>{product.name}</a>
             </Link>
           </div>
-          <div className='mt-4 text-gray-900'>
+          <div className='mt-4 text-gray-900 '>
+            {storeLayout === _Store.type3 ? 'MSRP ' : null}
             <span className='font-bold'>
               <Price
                 value={undefined}

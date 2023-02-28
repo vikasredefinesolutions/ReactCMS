@@ -1,4 +1,4 @@
-@import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css');
+/* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css'); */
 @import url('../src/Assets/css/spinner.css');
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css'); */
 /* @import url('http://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css'); */
@@ -95,7 +95,7 @@
 }
 
 .css-15v22id-MuiAccordionDetails-root {
-  padding: 0 15px !important;
+  padding: 0 15px;
 }
 
 .css-15kjgm {

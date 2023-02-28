@@ -5,6 +5,8 @@ import {
   Typography,
 } from '@mui/material';
 import { FilterChangeHandler, FilterType } from '@type/productList.type';
+import { useTypedSelector } from 'hooks';
+import { _Store } from 'page.config';
 import { Fragment } from 'react';
 
 const FilterLayout3 = ({
@@ -16,6 +18,8 @@ const FilterLayout3 = ({
   handleChange: FilterChangeHandler;
   checkedFilters: any;
 }) => {
+  const storeLayout = useTypedSelector((state) => state.store.layout);
+
   return (
     <>
       {/* <div className="filter-box">
@@ -55,7 +59,11 @@ const FilterLayout3 = ({
                         </div>
                      ))}
             </div> */}
-      <div className='filter-box sidebar'>
+      <div
+        className={`filter-box sidebar ${
+          storeLayout === _Store.type3 ? 'layout3_sidebar' : ''
+        }`}
+      >
         {filters.map((filter, index) => (
           <Accordion key={`panel-header-${index + 1}`}>
             <AccordionSummary
@@ -72,14 +80,14 @@ const FilterLayout3 = ({
               aria-controls={`panel-content-${index + 1}`}
               id={`panel-header-${index + 1}`}
             >
-              <Typography>{filter?.label}</Typography>
+              <Typography className=''>{filter?.label}</Typography>
             </AccordionSummary>
 
-            <AccordionDetails>
+            <AccordionDetails className='!p-0'>
               <ul
                 className={
                   filter.label == 'Color'
-                    ? 'flex flex-wrap items-center gap-x-1.5 gap-y-2'
+                    ? `flex flex-wrap items-center gap-x-1.5 gap-y-2`
                     : 'pb-0 space-y-3'
                 }
               >
@@ -94,9 +102,9 @@ const FilterLayout3 = ({
                       {option.name || option.colorCode ? (
                         filter.label === 'Color' ? (
                           <li
-                            className={`w-8 h-8 border-2 hover:border-secondary p-0.5 ${
+                            className={`w-8 h-8 border-2 hover:border-secondary p-0.5 mr-2 ${
                               checked && 'border-secondary'
-                            }`}
+                            } ${storeLayout === _Store.type3 ? 'mt-2' : ''} `}
                             style={{
                               background: option.colorCode,
                             }}
@@ -105,7 +113,11 @@ const FilterLayout3 = ({
                             }
                           ></li>
                         ) : (
-                          <li className='flex items-center sidebarTextInput'>
+                          <li
+                            className={`flex items-center sidebarTextInput ${
+                              storeLayout === _Store.type3 ? 'mt-2' : ''
+                            } `}
+                          >
                             <input
                               name={filter.label}
                               value={option.name}

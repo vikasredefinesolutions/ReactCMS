@@ -74,7 +74,7 @@ const MenuItems: React.FC<_props> = ({
       return (
         <div className='h-full xl:flex items-center justify-center flex-1'>
           <div className='ml-[10px]'>
-            <div className='h-full flex  space-x-5 relative text-sm'>
+            <div className='h-full flex  space-x-3 xl:space-x-5 header-nav relative text-sm'>
               {menuItems.items_content?.map((menu, index) => {
                 if (menu === null) {
                   return <></>;

@@ -46,7 +46,7 @@ const SubMenuItem: React.FC<_props> = ({
       }
       if (view === 'DESKTOP') {
         return (
-          <li className='flex items-center'>
+          <li className='flex items-center pt-[3px]'>
             <span className='material-icons-outlined text-lg'>
               chevron_right
             </span>

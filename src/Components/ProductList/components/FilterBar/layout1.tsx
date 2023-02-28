@@ -128,7 +128,7 @@ const Layout1FilterBar: React.FC<props> = ({
                       <span
                         className={storeLayout === _Store.type1 ? 'hidden' : ''}
                       >
-                        { SortingMethod.find((method) => method.type === sortingType,)?.name}
+                        Relevance
                       </span>
 
                       <svg

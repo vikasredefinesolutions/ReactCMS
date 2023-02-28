@@ -171,7 +171,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                     )}
                     <div className='border-t first:border-t-0 py-5 px-5'>
                       <div className='flex flex-wrap gap-y-2'>
-                        <ul className='w-full lg:w-1/3'>
+                        <ul className='w-full lg:w-1/3 text-[13px] leading-normal'>
                           {content?.map((brand, index) => {
                             if (index > content.length / 3 + 1) return <></>;
                             return (
@@ -192,7 +192,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                             );
                           })}
                         </ul>
-                        <ul className='w-full lg:w-1/3'>
+                        <ul className='w-full lg:w-1/3 text-[13px] leading-normal'>
                           {content?.map((brand, index) => {
                             if (
                               index >= content.length / 3 + 1 &&
@@ -216,7 +216,7 @@ const Brand: React.FC<_props> = ({ url, title, content, storeCode }) => {
                               );
                           })}
                         </ul>
-                        <ul className='w-full lg:w-1/3'>
+                        <ul className='w-full lg:w-1/3 text-[13px] leading-normal'>
                           {content?.map((brand, index) => {
                             if (index > (content.length / 3) * 2 + 1)
                               return (

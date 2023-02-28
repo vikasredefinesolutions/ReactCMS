@@ -167,7 +167,7 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
               })}
             </div>
           </div>
-          <div className=''>
+          <div className='hidden'>
             <button onClick={() => setShowModal('sizeChart')}>
               <img src='images/size-chart.jpg' alt='' />
             </button>

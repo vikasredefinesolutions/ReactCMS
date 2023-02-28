@@ -1,4 +1,4 @@
-import { paths, __SpecialBreadCrumbsPaths } from '@constants/paths.constant';
+import { __SpecialBreadCrumbsPaths, paths } from '@constants/paths.constant';
 import {
   fetchCategoryByCategoryId,
   fetchCategoryByproductId,
@@ -256,9 +256,7 @@ const BreadCrumb: React.FC = () => {
                       <span className='inline-flex items-center font-medium text-gray-700 hover:text-gray-900'>
                         <div className='flex items-center'>
                           {index > 0 && (
-                            <span className='text-anchor text-[13px]'>
-                              &gt;
-                            </span>
+                            <span className='text-anchor text-[13px]'>/</span>
                           )}
                           <a className='ml-1 text-[13px] text-anchor md:ml-2'>
                             {item.name}

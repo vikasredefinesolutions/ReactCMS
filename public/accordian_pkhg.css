@@ -128,3 +128,8 @@
     flex-direction: column;
   }
 }
+
+/* layout3 sidebar */
+.layout3_sidebar .MuiPaper-root {
+  margin-bottom: 16px !important;
+}

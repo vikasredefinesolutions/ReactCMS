@@ -13,14 +13,13 @@ const ProductColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
 
   if (colors === null) return <></>;
 
-
   if (storeCode === _Store.type3) {
     return (
       <>
-        <div className="w-full flex justify-center text-center gap-2 text-md font-bold mb-2">
+        <div className='w-full flex justify-center text-center gap-2 text-md font-bold mb-2'>
           Available Color:
         </div>
-        <div className="sub-image w-full flex justify-center text-center gap-2 text-xs flex-wrap">
+        <div className='sub-image w-full flex justify-center text-center gap-2 text-xs flex-wrap'>
           {colors.map((product) => {
             const highlight =
               product.attributeOptionId === selectedColor.attributeOptionId
@@ -28,7 +27,7 @@ const ProductColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                 : 'hover:border-primary';
             return (
               <div
-                className="overflow-hidden"
+                className='overflow-hidden'
                 key={product.attributeOptionId}
                 onClick={() => setColor(product)}
               >
@@ -38,10 +37,19 @@ const ProductColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                   <Image
                     src={product.imageUrl}
                     alt={product.altTag}
-                    className="max-h-full mx-auto"
+                    className='max-h-full mx-auto'
                   />
                 </div>
-                <div className="text-primary break-word">{product.name}</div>
+                <div
+                  className={`break-word ${
+                    product.attributeOptionId ===
+                    selectedColor.attributeOptionId
+                      ? 'text-primary'
+                      : ''
+                  }`}
+                >
+                  {product.name}
+                </div>
               </div>
             );
           })}

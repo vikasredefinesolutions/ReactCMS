@@ -32,7 +32,7 @@ const BrandProduct: React.FC<_props> = (props) => {
       <li
         className={`w-full ${
           style === 'Flex' ? '' : 'lg:w-3/12'
-        } relative  text-center`}
+        } relative  text-center px-[15px]`}
         data-id={product.id}
       >
         <div className='border border-gray-200 bg-white border-solid'>
@@ -103,7 +103,7 @@ const BrandProduct: React.FC<_props> = (props) => {
                           src={`${config.baseUrl.media}${option.imageUrl}`}
                           alt=''
                           title=''
-                          className='max-h-full m-auto tesingclassname'
+                          className='max-h-full m-auto'
                           data-option={JSON.stringify(option)}
                         />
                       </li>
