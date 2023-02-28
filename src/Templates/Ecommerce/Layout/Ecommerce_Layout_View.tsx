@@ -61,7 +61,8 @@ const Ecommerce_Layout: React.FC<_props> = ({
         menuItems={useMemo(() => header.menuItems, [header.menuItems])}
       />
 
-      {router.pathname !== '/cart.html' && <BreadCrumb />}
+      {router.pathname !== '/cart.html' &&
+        router.pathname !== '/writereview/writereview' && <BreadCrumb />}
       <div style={{ flexGrow: 1 }}>{children}</div>
       <Footer data={configs.footer} />
     </>

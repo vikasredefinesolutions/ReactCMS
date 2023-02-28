@@ -61,7 +61,7 @@ const ProductComponent = ({
           <div className='relative border border-gray-200 pb-4 w-full'>
             <div className='w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
               <img
-                src={`${config.mediaBaseUrl}${
+                src={`${config.baseUrl.media}${
                   currentProduct && currentProduct.imageName
                 }`}
                 alt=''
@@ -90,7 +90,7 @@ const ProductComponent = ({
               <div className='mt-1 text-center'>
                 <img
                   className='inline-block'
-                  src={`${config.mediaBaseUrl}/rdc${product.brandlogo}`}
+                  src={`${config.baseUrl.media}/rdc${product.brandlogo}`}
                   alt={product.brandlogo}
                   style={{ height: '45px' }}
                 />
@@ -145,7 +145,7 @@ const ProductComponent = ({
                           key={subRow.id}
                         >
                           <img
-                            src={`${config.mediaBaseUrl}${subRow.imageName}`}
+                            src={`${config.baseUrl.media}${subRow.imageName}`}
                             alt=''
                             title=''
                             className='max-h-full m-auto'

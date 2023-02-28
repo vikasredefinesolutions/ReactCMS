@@ -104,7 +104,7 @@ const ProductComponent = ({
               <div className='mt-1'>
                 <img
                   className='inline-block max-h-12'
-                  src={`${config.mediaBaseUrl}/rdc${
+                  src={`${config.baseUrl.media}/rdc${
                     product.brandlogo && product.brandlogo.replace('/rdc', '')
                   }`}
                   alt={product.brandlogo}
@@ -194,7 +194,7 @@ const ProductComponent = ({
                           }}
                         >
                           <img
-                            src={`${config.mediaBaseUrl}${subRow.imageName}`}
+                            src={`${config.baseUrl.media}${subRow.imageName}`}
                             alt=''
                             title=''
                             className='max-h-full m-auto'

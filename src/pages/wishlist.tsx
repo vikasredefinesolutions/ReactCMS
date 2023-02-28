@@ -49,7 +49,7 @@ const Wishlist = () => {
                   <a className='w-full cursor-pointer'>
                     <Image
                       src={
-                        config.mediaBaseUrl + list && list?.colorLogoUrl
+                        config.baseUrl.media + list && list?.colorLogoUrl
                           ? list.colorLogoUrl
                           : ''
                       }

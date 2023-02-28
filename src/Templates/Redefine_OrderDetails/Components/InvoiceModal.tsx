@@ -156,6 +156,14 @@ const InvoiceModal: React.FC<_props> = ({ onClose, order }) => {
                         <Price value={order.billing?.orderTax} />
                       </dd>
                     </div>
+                    <div className='flex items-center justify-between'>
+                      <dt className=''>
+                        <span>Logo Final Total</span>
+                      </dt>
+                      <dd className='font-medium text-gray-900'>
+                        <Price value={order.billing?.logoFinalTotal} />
+                      </dd>
+                    </div>
                     <div className='flex items-center justify-between font-bold'>
                       <dt className=''>
                         <span>Total</span>

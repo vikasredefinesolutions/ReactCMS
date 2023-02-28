@@ -479,7 +479,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                         >
                           <div>
                             <img
-                              src={`${config.mediaBaseUrl}${colour.imageUrl}`}
+                              src={`${config.baseUrl.media}${colour.imageUrl}`}
                               alt=''
                               className='object-center object-cover w-7 h-7'
                             />
@@ -891,7 +891,7 @@ const Corporate_ProductDetails: React.FC<_ProductDetailsProps & _StoreCache> = (
                           }`}
                         >
                           <img
-                            src={`${config.mediaBaseUrl}${colour.imageUrl}`}
+                            src={`${config.baseUrl.media}${colour.imageUrl}`}
                             alt=''
                             className='w-full object-center object-cover'
                           />

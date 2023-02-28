@@ -372,7 +372,7 @@ const CartLayout1 = (props: _Props) => {
                                           ) : (
                                             <img
                                               className='w-14 h-12'
-                                              src={`${config.mediaBaseUrl}${item.logoImagePath}`}
+                                              src={`${config.baseUrl.media}${item.logoImagePath}`}
                                               title=''
                                               alt={item.logoImagePath}
                                             />

@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import getLocation from 'helpers/getLocation';
 import { useActions, useTypedSelector } from 'hooks';
 import { NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
 import uuid from 'react-uuid';
@@ -30,6 +31,8 @@ const ProductReview: NextPage = () => {
     [],
   );
   const [star, setStar] = useState(5);
+  const [comment, setComment] = useState('');
+  const [commentHeading, setCommentHeading] = useState('');
   // const [searchParam] = useSearchParams();
   const { query, back } = useRouter();
   // const productId = searchParam.get('ProductId');
@@ -170,21 +173,34 @@ const ProductReview: NextPage = () => {
         <div className=' pt-4'>
           <div className='flex flex-wrap -mx-3 gap-y-6'>
             <div className='w-full md:w-4/12 lg:w-4/12 px-3'>
-              <div className='w-3/4'>
-                {productdata && (
-                  <Image
-                    src={productdata[0]?.imageUrl || ''}
-                    alt={''}
-                    className={''}
-                  />
-                )}
-              </div>
+              {productdata && (
+                <Link
+                  href={`/${productdata[0].productSEName}.html`}
+                  className=''
+                >
+                  <div className='w-3/4 cursor-pointer'>
+                    <Image
+                      src={productdata[0]?.imageUrl || ''}
+                      alt={''}
+                      className={''}
+                    />
+                  </div>
+                </Link>
+              )}
             </div>
+
             <div className='w-full md:w-8/12 lg:w-5/12 px-3 mt-6'>
               <div className=''>
                 <div className='text-xl md:text-2xl lg:text-sub-title font-sub-title text-color-sub-title'>
                   {productdata && (
-                    <a className=''>{productdata[0]?.productName}</a>
+                    <Link
+                      href={`/${productdata[0].productSEName}.html`}
+                      className=''
+                    >
+                      <a className='cursor-pointer'>
+                        {productdata[0]?.productName}
+                      </a>
+                    </Link>
                   )}
                 </div>
                 <div className='flex items-center gap-2 mt-4'>
@@ -192,7 +208,16 @@ const ProductReview: NextPage = () => {
                   <div className=''>{customerName}</div>
                   <div className=''>|</div>
                   <div className=''>
-                    <a className=''>CLEAR</a>
+                    <a
+                      className=''
+                      onClick={() => {
+                        setComment('');
+                        setCommentHeading('');
+                        setFilesFn([]);
+                      }}
+                    >
+                      CLEAR
+                    </a>
                   </div>
                 </div>
               </div>
@@ -228,7 +253,7 @@ const ProductReview: NextPage = () => {
             <Formik
               onSubmit={submitHandler}
               validationSchema={validationSchema}
-              initialValues={{ comment: '', commentHeading: '' }}
+              initialValues={{ comment, commentHeading }}
               enableReinitialize
             >
               {({
@@ -253,7 +278,10 @@ const ProductReview: NextPage = () => {
                           placeholder='Description For your review'
                           className='form-input'
                           name='comment'
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            (values.comment = e.target.value),
+                              setComment(e.target.value);
+                          }}
                           onBlur={handleBlur}
                           value={values.comment}
                         />
@@ -276,7 +304,10 @@ const ProductReview: NextPage = () => {
                           placeholder='Headline For your review'
                           className='form-input'
                           name='commentHeading'
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            (values.commentHeading = e.target.value),
+                              setCommentHeading(e.target.value);
+                          }}
                           onBlur={handleBlur}
                           value={values.commentHeading}
                         />

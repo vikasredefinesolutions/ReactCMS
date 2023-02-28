@@ -605,7 +605,7 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
                                     ) : (
                                       <img
                                         className='w-14 h-12'
-                                        src={`${config.mediaBaseUrl}${item.logoImagePath}`}
+                                        src={`${config.baseUrl.media}${item.logoImagePath}`}
                                         title=''
                                         alt={item.logoImagePath}
                                       />

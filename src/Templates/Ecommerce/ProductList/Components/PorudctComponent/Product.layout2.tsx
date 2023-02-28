@@ -114,7 +114,7 @@ const ProductLayout2 = ({
                   }}
                 >
                   <img
-                    src={`${config.mediaBaseUrl}${option.imageName}`}
+                    src={`${config.baseUrl.media}${option.imageName}`}
                     alt=''
                     title=''
                     className='max-h-full m-auto'
@@ -215,7 +215,7 @@ const ProductLayout2 = ({
                   }}
                 >
                   <img
-                    src={`${config.mediaBaseUrl}${option.imageName}`}
+                    src={`${config.baseUrl.media}${option.imageName}`}
                     alt=''
                     title=''
                     className='max-h-full m-auto'

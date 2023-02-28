@@ -36,6 +36,7 @@ export type _UserAPIs =
   | 'GetStoreCustomer'
   | 'FetchOrderDetails'
   | 'UpdatePasswordForGuestEmail'
+  | 'GetEmailByResetToken'
   | 'ResetPassword';
 export interface _UserServices {
   service: 'user';
@@ -432,19 +433,25 @@ export const UpdatePasswordForGuestEmail = async (payload: {
 
 export const GetEmailByResetToken = async (payload: {
   token: string;
-}): Promise<any> => {
-  const url = `createNewPasword.json`;
+  storeId: number;
+}): Promise<string | 'INVALID_TOKEN'> => {
+  const url = `StoreCustomer/GetCustomerEmailByToken/${payload.storeId}/${payload.token}.json`;
 
   const response = await CallAPI<any>({
     name: {
       service: 'user',
-      api: 'ResetPassword',
+      api: 'GetEmailByResetToken',
     },
     request: {
       url: url,
       method: 'GET',
     },
   });
+
+  if (response === '') {
+    return 'INVALID_TOKEN';
+  }
+
   return response;
 };
 
@@ -454,7 +461,7 @@ export const ResetPassword = async (payload: {
   newPassword: string;
   reEnterPassword: string;
 }): Promise<any> => {
-  const url = `createNewPasword.json`;
+  const url = `StoreCustomer/CreateNewPassword.json`;
 
   const response = await CallAPI<any>({
     name: {

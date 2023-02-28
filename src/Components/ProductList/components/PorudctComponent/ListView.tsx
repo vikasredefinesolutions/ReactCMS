@@ -139,7 +139,7 @@ const ListView = ({
                   <div className='mt-1'>
                     <img
                       className='inline-block max-h-12'
-                      src={`${config.mediaBaseUrl}/rdc${
+                      src={`${config.baseUrl.media}/rdc${
                         product?.brandlogo &&
                         product?.brandlogo.replace('/rdc', '')
                       }`}

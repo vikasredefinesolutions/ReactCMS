@@ -62,6 +62,25 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
           });
           setCookie(__Cookie.userId, user.id, __Cookie_Expiry.userId);
 
+          const newScript = document.createElement('script');
+          newScript.setAttribute('type', 'text/javascript');
+          const userInfo = {
+            $email: 'thomas.jefferson@example.com',
+            $first_name: 'Thomas',
+            $last_name: 'Jefferson',
+            $phone_number: '23423423',
+            $organization: 'sfasd',
+            $title: '4',
+            $timestamp: new Date(),
+          };
+          const inlineScript = document.createTextNode(
+            `var _learnq = _learnq || [];
+  _learnq.push(${JSON.stringify(['identify', userInfo])}); 
+  `,
+          );
+          newScript.appendChild(inlineScript);
+          document.head.appendChild(newScript);
+
           GetStoreCustomer(+user.id).then((res) => {
             if (res === null) return;
             if (localStorage) {

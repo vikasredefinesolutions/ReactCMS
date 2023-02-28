@@ -216,7 +216,9 @@ const SOM_CustomizeLogoOptions: React.FC<{
                                 key={index}
                                 index={index}
                                 textIndex={values.logos.length}
-                                price={firstLogoFree ? 'FREE' : 6}
+                                price={
+                                  firstLogoFree && index === 0 ? 'FREE' : 6
+                                }
                                 onRemove={() => {
                                   arrayHelpers.remove(index);
                                   product_updateLogoDetails({
@@ -225,12 +227,10 @@ const SOM_CustomizeLogoOptions: React.FC<{
                                   });
                                 }}
                                 title={`${numberToOrdinalString(
-                                  values.logos.length,
+                                  index + 1,
                                 )} Logo (${
-                                  firstLogoFree
+                                  firstLogoFree && index === 0
                                     ? 'FREE'
-                                    : index === 0
-                                    ? showPrice(6)
                                     : showPrice(6)
                                 })`}
                                 id={`${index}-id`}
@@ -249,7 +249,7 @@ const SOM_CustomizeLogoOptions: React.FC<{
                                     values.logos.length + 1,
                                   ),
                                   value: values.logos.length + 1,
-                                  price: values.logos.length === 1 ? 'FREE' : 6,
+                                  price: values.logos.length === 0 ? 'FREE' : 6,
                                 }}
                                 arrayHelpers={arrayHelpers}
                               />

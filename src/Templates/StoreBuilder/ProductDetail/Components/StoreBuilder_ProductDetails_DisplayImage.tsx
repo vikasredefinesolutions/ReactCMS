@@ -57,7 +57,7 @@ const StoreBuilder_ProductDetails_DisplayImage: React.FC<_props> = ({
       <div className='col-span-12 border border-slate-200 relative'>
         <div className='main-image max-w-lg mx-auto'>
           <InnerImageZoom
-            src={config.mediaBaseUrl + selectedImage?.imageUrl}
+            src={config.baseUrl.media + selectedImage?.imageUrl}
             zoomType={'hover'}
             // alt={selectedImage.label}
             hideHint={true}

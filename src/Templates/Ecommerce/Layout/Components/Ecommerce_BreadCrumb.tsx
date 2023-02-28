@@ -20,22 +20,19 @@ const BreadCrumb: React.FC = () => {
   const [breadCrumbs, setBreadCrumbs] = useState<
     { name: string; url: string }[]
   >([]);
+
   const getBreadCrubs = async () => {
     if (isCMSpage) {
       return [
         { name: 'Home', url: '/' },
         { name: pageType.slug, url: `${pageType.slug}.html` },
       ];
-    }
-
-    if (pageType.type === 'brand') {
+    } else if (pageType.type === 'brand') {
       return [
         { name: 'Home', url: '/' },
         { name: pageType.slug, url: `${pageType.slug}.html` },
       ];
-    }
-
-    if (['product', 'category'].includes(pageType.type)) {
+    } else if (['product', 'category'].includes(pageType.type)) {
       const categories = await (pageType.type === 'category'
         ? fetchCategoryByCategoryId
         : fetchCategoryByproductId)(~~pageType.id, storeId || 0);
@@ -80,13 +77,15 @@ const BreadCrumb: React.FC = () => {
     });
 
     if (callBreadCrumbAPI) {
-      getBreadCrubs().then((breadCrumbs) => {
-        setBreadCrumbs(breadCrumbs);
-      });
+      setTimeout(() => {
+        getBreadCrubs().then((breadCrumbs) => {
+          setBreadCrumbs(breadCrumbs);
+        });
+      }, 1000);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storeId, pageType.type, pageType.slug, router.asPath]);
+  }, [router.asPath, pageType.slug]);
 
   const aspath = router.asPath.split('?')[0];
   if (breadCrumbs.length === 0 || router.route === '/') {

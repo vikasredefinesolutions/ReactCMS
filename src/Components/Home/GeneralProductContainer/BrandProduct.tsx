@@ -1,7 +1,7 @@
 import { showcolors } from '@constants/global.constant';
 import {
   GetlAllProductList,
-  GetProductImageOptionList
+  GetProductImageOptionList,
 } from '@type/productList.type';
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
@@ -43,7 +43,7 @@ const BrandProduct: React.FC<_props> = (props) => {
             <div className='w-full overflow-hidden aspect-w-1 aspect-h-1'>
               <ImageComponent
                 src={
-                  config.mediaBaseUrl + currentProduct &&
+                  config.baseUrl.media + currentProduct &&
                   currentProduct?.imageUrl
                     ? currentProduct.imageUrl
                     : ''
@@ -100,7 +100,7 @@ const BrandProduct: React.FC<_props> = (props) => {
                         }}
                       >
                         <img
-                          src={`${config.mediaBaseUrl}${option.imageUrl}`}
+                          src={`${config.baseUrl.media}${option.imageUrl}`}
                           alt=''
                           title=''
                           className='max-h-full m-auto tesingclassname'

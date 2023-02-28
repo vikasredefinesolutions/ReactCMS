@@ -194,7 +194,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
   }
   if (storeLayout === _Store.type3) {
     return (
-      <section className='section'>
+      <section className='section '>
         {(banner[0].brandLogo || banner[0].banner) && (
           <div className='container mx-auto'>
             <div className='text-center py-4 relative px-3 bg-[#0c1a1d] mb-4'>
@@ -203,6 +203,7 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
                   src={banner[0].brandLogo || banner[0].banner}
                   alt={''}
                   className=''
+                  useNextImage={false}
                 />
               </div>
             </div>

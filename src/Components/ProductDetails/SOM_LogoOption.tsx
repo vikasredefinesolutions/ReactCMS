@@ -29,6 +29,7 @@ const SOM_LogoOption: React.FC<_props> = ({
   onRemove: removeHandler,
   editDetails,
 }) => {
+  const { totalQty } = useTypedSelector((state) => state.product.toCheckout);
   const { setShowLoader, showModal, product_updateLogoDetails } = useActions();
   const [logoStatus, setLogoStatus] = useState<null | 'submitted' | 'later'>(
     null,
@@ -79,7 +80,7 @@ const SOM_LogoOption: React.FC<_props> = ({
             src={
               item.image.url.startsWith('images')
                 ? item.image.url
-                : `${config.mediaBaseUrl}${item.image.url}`
+                : `${config.baseUrl.media}${item.image.url}`
             }
             height='60px'
             width='60px'
@@ -120,7 +121,7 @@ const SOM_LogoOption: React.FC<_props> = ({
           filePath: logoFileURL,
           date: JSON.stringify(new Date()),
           price: logoPrice === 'FREE' ? 0 : logoPrice,
-          quantity: 1,
+          quantity: totalQty,
         },
       });
 
@@ -152,7 +153,7 @@ const SOM_LogoOption: React.FC<_props> = ({
               name: selectedLocation!.label,
               value: selectedLocation!.value,
             },
-            quantity: 1,
+            quantity: totalQty,
             price: logoPrice === 'FREE' ? 0 : logoPrice,
             date: JSON.stringify(new Date()),
           },

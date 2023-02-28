@@ -185,7 +185,7 @@ const ProductRecentlyViewed: React.FC<_props> = ({
                                               }`}
                                             >
                                               <img
-                                                src={`${config.mediaBaseUrl}${colour.imageName}`}
+                                                src={`${config.baseUrl.media}${colour.imageName}`}
                                                 alt=''
                                                 className='w-full object-center object-cover w-7 h-7'
                                               />

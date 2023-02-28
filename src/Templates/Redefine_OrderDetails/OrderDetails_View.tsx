@@ -158,18 +158,31 @@ const Redefine_OrderDetails: NextPage = () => {
                     return (
                       <li key={prod.productName} className='p-4 sm:p-6'>
                         <div className='flex flex-wrap justify-between -mx-3 gap-y-4'>
-                          <div className='px-3'>
-                            <div className='lg:flex-shrink-0 sm:w-52 sm:h-52 w-full h-auto overflow-hidden rounded-lg text-center'>
-                              <Image
-                                src={prod.colorImage}
-                                alt=''
-                                className='max-h-full'
-                              />
+                          <Link href={`/${prod.seName}.html`}>
+                            <div className='px-3 cursor-pointer'>
+                              <div className='lg:flex-shrink-0 sm:w-52 sm:h-52 w-full h-auto overflow-hidden rounded-lg text-center 11111'>
+                                <Image
+                                  src={prod.colorImage}
+                                  alt=''
+                                  className='max-h-full'
+                                />
+                              </div>
                             </div>
-                          </div>
+                          </Link>
                           <div className='w-full lg:w-auto lg:flex-1 sm:mt-0 mt-6 text-sm text-center sm:text-left px-3'>
-                            <div className='font-bold text-xl'>
-                              {prod.productName}
+                            <Link
+                              href={`/${prod.seName}.html`}
+                              className='cursor-pointer'
+                            >
+                              <div className='font-bold text-xl cursor-pointer'>
+                                {prod.productName}
+                              </div>
+                            </Link>
+                            <div className='mt-1'>
+                              <span className='font-semibold inline-block '>
+                                SKU :
+                              </span>
+                              <span> {prod?.sku}</span>
                             </div>
                             <div className='mt-1'>
                               <span className='font-semibold'>SIZE : </span>

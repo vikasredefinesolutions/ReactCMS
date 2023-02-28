@@ -122,7 +122,7 @@ const ProductLayout2 = ({
               {/* <div className="mt-1">
                 <img
                   className="inline-block max-h-12"
-                  src={`${config.mediaBaseUrl}/rdc${product.brandlogo.replace(
+                  src={`${config.baseUrl.media}/rdc${product.brandlogo.replace(
                     '/rdc',
                     '',
                   )}`}
@@ -219,7 +219,7 @@ const ProductLayout2 = ({
                           key={subRow.id}
                         >
                           <img
-                            src={`${config.mediaBaseUrl}${subRow.imageName}`}
+                            src={`${config.baseUrl.media}${subRow.imageName}`}
                             alt=''
                             title=''
                             className='max-h-full m-auto'

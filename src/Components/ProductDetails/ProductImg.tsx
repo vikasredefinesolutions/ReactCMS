@@ -38,7 +38,6 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
   const selectedImage = useTypedSelector(
     (state) => state.product.selected.image,
   );
-
   const wishlist = useTypedSelector((state) => state.wishlist.wishListData);
   const customerId = useTypedSelector((state) => state.user.id);
   // const show = useTypedSelector((state) => state.store.display.footer);
@@ -51,7 +50,7 @@ const ProductImg: React.FC<_Props & { storeCode: string }> = ({
 
   useEffect(() => {
     setImage({
-      id: 1,
+      id: 0,
       imageUrl: selectedColor.moreImages[0].imageUrl,
       altTag: selectedColor.moreImages[0].altTag,
     });

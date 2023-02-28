@@ -214,7 +214,7 @@ export const CallCmsAPI = async <T>({
     show: __console[name.service].service[name.api],
   });
 
-  const url = `${config.CMS}${request.url}`;
+  const url = `${config.baseUrl.cms}${request.url}`;
 
   try {
     if (request.method === 'POST') {
@@ -607,7 +607,7 @@ export const generateImageUrl = (
   if (typeof src === 'string') {
     const with_or_without_HTTP = src.includes('http');
     if (with_or_without_HTTP) return src;
-    if (with_or_without_HTTP === false) return `${config.mediaBaseUrl}${src}`;
+    if (with_or_without_HTTP === false) return `${config.baseUrl.media}${src}`;
   }
 
   return __StaticImg.noImageFound;

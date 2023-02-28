@@ -56,7 +56,7 @@ const SelectLocation: React.FC<_props> = ({ setNextStep }) => {
                 className='w-full sm:w-1/2 lg:w-1/4 text-center px-3 flex'
                 onClick={() => {
                   setLocation({
-                    imageUrl: `${config.mediaBaseUrl}${pos.logo.url}`,
+                    imageUrl: `${config.baseUrl.media}${pos.logo.url}`,
                     label: pos.label,
                     value: pos.value,
                   });
@@ -75,7 +75,7 @@ const SelectLocation: React.FC<_props> = ({ setNextStep }) => {
                   <div className=''>
                     <img
                       className='inline-block'
-                      src={`${config.mediaBaseUrl}${pos.logo.url}`}
+                      src={`${config.baseUrl.media}${pos.logo.url}`}
                       alt={pos.label}
                     />
                   </div>

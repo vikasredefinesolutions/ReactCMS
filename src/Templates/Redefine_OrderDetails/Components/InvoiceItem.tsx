@@ -3,6 +3,7 @@ import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
 import { __StaticImg } from 'Assets/images.asset';
 import { StaticImageData } from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const InvoiceItem: React.FC<_MyAcc_OrderProductDetails> = (prod) => {
@@ -11,17 +12,27 @@ const InvoiceItem: React.FC<_MyAcc_OrderProductDetails> = (prod) => {
       key={prod.sku}
       className='flex flex-wrap justify-between -mx-3 gap-y-4'
     >
-      <div className='px-3'>
-        <div className='lg:flex-shrink-0 sm:w-52 sm:h-52 w-full h-auto overflow-hidden rounded-lg text-center'>
-          <Image
-            src={prod.colorImage}
-            alt={`${prod.productName}`}
-            className='max-h-full'
-          />
+      <Link href={`/${prod.seName}.html`}>
+        <div className='px-3 cursor-pointer'>
+          <div className='lg:flex-shrink-0 sm:w-52 sm:h-52 w-full h-auto overflow-hidden rounded-lg text-center'>
+            <Image
+              src={prod.colorImage}
+              alt={`${prod.productName}`}
+              className='max-h-full'
+            />
+          </div>
         </div>
-      </div>
+      </Link>
       <div className='w-full lg:w-auto lg:flex-1 sm:mt-0 mt-6 text-sm text-center sm:text-left px-3'>
-        <div className='font-bold text-xl'>{prod.productName}</div>
+        <Link href={`/${prod.seName}.html`}>
+          <div className='font-bold text-xl  cursor-pointer'>
+            {prod.productName}
+          </div>
+        </Link>
+        <div className='mt-1'>
+          <span className='font-semibold inline-block '>SKU :</span>
+          <span> {prod?.sku}</span>
+        </div>
         <div className='mt-1'>
           <span className='font-semibold'>SIZE : </span>{' '}
           {prod.attributeOptionId}

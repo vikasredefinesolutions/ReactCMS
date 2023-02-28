@@ -157,7 +157,7 @@ const ProductLayout2 = ({
                     }}
                   >
                     <Image
-                      src={`${config.mediaBaseUrl}${option.imageName}`}
+                      src={`${config.baseUrl.media}${option.imageName}`}
                       alt=''
                       className='max-h-full m-auto'
                     />
@@ -282,7 +282,7 @@ const ProductLayout2 = ({
                     }}
                   >
                     <Image
-                      src={`${config.mediaBaseUrl}${option.imageName}`}
+                      src={`${config.baseUrl.media}${option.imageName}`}
                       alt=''
                       className='max-h-full m-auto'
                     />
@@ -402,7 +402,7 @@ const ProductLayout2 = ({
                     }}
                   >
                     <Image
-                      src={`${config.mediaBaseUrl}${option.imageName}`}
+                      src={`${config.baseUrl.media}${option.imageName}`}
                       alt=''
                       className='max-h-full m-auto'
                     />
@@ -502,7 +502,7 @@ const ProductLayout2 = ({
                     }}
                   >
                     <Image
-                      src={`${config.mediaBaseUrl}${option.imageName}`}
+                      src={`${config.baseUrl.media}${option.imageName}`}
                       alt=''
                       className='max-h-full m-auto'
                     />
@@ -590,7 +590,7 @@ const ProductLayout2 = ({
               index < 4 ? (
                 <li
                   key={index}
-                  className={`w-8 h-8 text-center mr-1 border ${
+                  className={`w-8 h-8 text-center mr-1 border-2 ${
                     option.id === currentProduct?.id ? ' border-primary' : ''
                   } hover:border-primary`}
                   onClick={() => {
@@ -603,7 +603,7 @@ const ProductLayout2 = ({
                   }}
                 >
                   <Image
-                    src={`${config.mediaBaseUrl}${option.imageName}`}
+                    src={`${config.baseUrl.media}${option.imageName}`}
                     alt=''
                     className='max-h-full m-auto'
                   />
@@ -613,11 +613,16 @@ const ProductLayout2 = ({
               ),
             )}
           {flag ? (
-            <li className='extra w-8 h-8 text-center border-2xtra'>
-              <span> +</span>
-              {product.getProductImageOptionList &&
-                product.getProductImageOptionList.length - showcolors}
-            </li>
+            <Link
+              href={`${origin}/${product.sename}.html`}
+              className='relative'
+            >
+              <li className='extra w-8 h-8 text-center border-2xtra flex justify-center items-center border-2 text-sm hover:border-primary '>
+                <span> +</span>
+                {product.getProductImageOptionList &&
+                  product.getProductImageOptionList.length - showcolors}
+              </li>
+            </Link>
           ) : null}
         </ul>
       </div>
@@ -690,7 +695,7 @@ const ProductLayout2 = ({
               product.getProductImageOptionList.map((option, index) => (
                 <li
                   key={index}
-                  className={`w-8 h-8 text-center border mr-1${
+                  className={`w-8 h-8 text-center border-2 mr-1${
                     option.id === currentProduct?.id ? ' border-primary' : ''
                   } hover:border-primary`}
                   onClick={() => {
@@ -703,7 +708,7 @@ const ProductLayout2 = ({
                   }}
                 >
                   <Image
-                    src={`${config.mediaBaseUrl}${option.imageName}`}
+                    src={`${config.baseUrl.media}${option.imageName}`}
                     alt=''
                     className='max-h-full m-auto'
                   />

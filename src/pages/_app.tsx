@@ -32,6 +32,7 @@ import { _globalStore } from 'store.global';
 // import '../../styles/output.css';
 
 import { getWishlist } from '@services/wishlist.service';
+import { PageResponseType } from '@type/app.type';
 import Metatags from 'appComponents/reUsable/MetaTags';
 import { _ExpectedSlugProps } from 'Components/Slug/getServerSideProps';
 import '../app.css';
@@ -61,6 +62,7 @@ const RedefineCustomApp = ({
     setShowLoader,
     logInUser,
     updateWishListData,
+    updatePageType,
   } = useActions();
 
   const refreshHandler = () => {
@@ -69,6 +71,7 @@ const RedefineCustomApp = ({
 
   useEffect(() => {
     const handleStart = () => {
+      updatePageType({} as PageResponseType);
       setShowLoader(true);
     };
     const handleComplete = () => {

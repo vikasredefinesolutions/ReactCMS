@@ -1,12 +1,13 @@
-import config from 'api.config';
+import config, { cssApis } from 'api.config';
 import Document, {
   DocumentContext,
   DocumentInitialProps,
   Head,
   Html,
   Main,
-  NextScript
+  NextScript,
 } from 'next/document';
+import { __constant } from 'page.config';
 import { _globalStore } from 'store.global';
 
 let storeId: null | number = null;
@@ -38,105 +39,66 @@ class MyDocument extends Document {
       <Html lang='en'>
         <link
           rel='shortcut icon'
-          href={`${config.mediaBaseUrl}${faviconURL}`}
+          href={`${config.baseUrl.media}${faviconURL}`}
         />
         <Head>
+          {/* -----------------------CSS STYLESHEETS------------------------- */}
           {storeId == 4 && (
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css`}
-            />
+            <link rel='stylesheet' type='text/css' href={cssApis[4]} />
           )}
           {storeId == 5 && (
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css`}
-            />
+            <link rel='stylesheet' type='text/css' href={cssApis[5]} />
           )}
           {storeId == 23 && (
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`}
-            />
+            <link rel='stylesheet' type='text/css' href={cssApis[23]} />
           )}
 
           {storeId == 108 && (
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css`}
-            />
+            <link rel='stylesheet' type='text/css' href={cssApis[108]} />
           )}
           {storeId == 134 && (
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bacarditogo/main.css`}
-            />
+            <link rel='stylesheet' type='text/css' href={cssApis[134]} />
           )}
           {storeId == 135 && (
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bbcprod/main.css`}
-            />
+            <link rel='stylesheet' type='text/css' href={cssApis[135]} />
           )}
           {storeId == 139 && (
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css`}
-            />
+            <link rel='stylesheet' type='text/css' href={cssApis[139]} />
           )}
           {storeId == 27 && (
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`http://ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css`}
-            />
+            <link rel='stylesheet' type='text/css' href={cssApis[27]} />
           )}
           {storeId == 22 && (
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`http://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`}
-            />
+            <link rel='stylesheet' type='text/css' href={cssApis[22]} />
           )}
 
-          {
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/${storeId}.css`}
-            />
-          }
+          {/* ---------------------CUSTOM CSS STYLESHEETS------------------------ */}
 
           <link
-            href='https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone'
             rel='stylesheet'
+            type='text/css'
+            href={`${
+              config.baseUrl.media
+            }/rdc/${1}/store/${storeId}/css/${storeId}.css`}
           />
 
-          {
-            <link
-              rel='stylesheet'
-              type='text/css'
-              href={`https://redefinecommerce.blob.core.windows.net/rdc/${1}/store/${storeId}/css/custom.css`}
-            />
-          }
+          <link
+            rel='stylesheet'
+            type='text/css'
+            href={`${
+              config.baseUrl.media
+            }/rdc/${1}/store/${storeId}/css/custom.css`}
+          />
+
+          {/* -----------------------SLIDER STYLESHEETS------------------------- */}
+
           <link
             rel='stylesheet'
             type='text/css'
             charSet='UTF-8'
             href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css'
           />
-          {/* <link
-            rel='stylesheet'
-            type='text/css'
-            href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css'
-          /> */}
+
           <link
             rel='stylesheet'
             href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css'
@@ -145,23 +107,29 @@ class MyDocument extends Document {
             referrerPolicy='no-referrer'
           />
 
+          {/* -----------------------ICONS------------------------- */}
           <link
-              rel='stylesheet'
-              href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback'
+            href={`${config.baseUrl.googleFonts}icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone`}
+            rel='stylesheet'
           />
           <link
-              rel='stylesheet'
-              href='https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp'
+            rel='stylesheet'
+            href={`${config.baseUrl.googleFonts}css2?family=Inter:wght@400;500;600;700&display=fallback`}
           />
           <link
-              rel='stylesheet'
-              href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,1,-50..200'
+            rel='stylesheet'
+            href={`${config.baseUrl.googleFonts}css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp`}
           />
           <link
-              rel='stylesheet'
-              href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0'
+            rel='stylesheet'
+            href={`${config.baseUrl.googleFonts}css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,1,-50..200`}
+          />
+          <link
+            rel='stylesheet'
+            href={`${config.baseUrl.googleFonts}css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0`}
           />
 
+          {/* -----------------------KLEVU------------------------- */}
           <script
             type='text/javascript'
             dangerouslySetInnerHTML={{
@@ -169,10 +137,19 @@ class MyDocument extends Document {
                 'var klevu_addPageNumberToUrl = true,klevu_addSelectedFiltersToUrl = true; ',
             }}
           ></script>
+
+          {/* -----------------------KLAVIYO------------------------- */}
+          <script
+            type='text/javascript'
+            src={`${config.baseUrl.klaviyo}?company_id=${__constant._document.klaviyoKey}`}
+            async
+          ></script>
         </Head>
         <body className='font-Outfit bg-white'>
           <Main />
           <NextScript />
+
+          {/* -----------------------KLEVU------------------------- */}
           <script
             type='text/javascript'
             dangerouslySetInnerHTML={{

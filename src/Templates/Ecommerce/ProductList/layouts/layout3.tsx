@@ -1,4 +1,5 @@
 import { SpinnerComponent } from 'appComponents/ui/spinner';
+import ProductDetailsPageBanner from 'Components/ProductDetails/Banner';
 import dynamic from 'next/dynamic';
 import { _Store } from 'page.config';
 import { Fragment } from 'react';
@@ -48,9 +49,14 @@ const Layout3 = ({
   clearFilters,
   compareCheckBoxHandler,
   storeLayout,
+  slug,
+  seType,
 }: list_FnProps) => {
   return (
     <>
+      {storeLayout === _Store.type3 && (
+        <ProductDetailsPageBanner slug={slug} seType={seType} />
+      )}
       {storeLayout !== _Store.type10 &&
         storeLayout !== _Store.type5 &&
         storeLayout !== _Store.type8 &&

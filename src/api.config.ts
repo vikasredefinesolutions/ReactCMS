@@ -1,41 +1,57 @@
 export interface _Config {
-  api: {
-    URL: string;
+  baseUrl: {
+    redefine: string;
+    klaviyo: string;
+    googleFonts: string;
+    cms: string;
+    media: string;
   };
-  CLIENT_ID: string;
-  mediaBaseUrl: string;
-  CMS: string;
   imageFolderPath: string;
 }
 
-const dev = {
-  api: {
-    URL: 'https://redefine-front-beta.redefinecommerce.io/',
-  },
-  CLIENT_ID: '',
-  mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
-  imageFolderPath: '/rdc/1/store/4/images/',
-  CMS: 'https://redefine-front-beta.redefinecommerce.io/',
+export const cssApis = {
+  4: `https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css`,
+  5: `https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css`,
+  23: `https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`,
+  108: `https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css`,
+  134: `https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bacarditogo/main.css`,
+  135: `https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bbcprod/main.css`,
+  139: `https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css`,
+  27: `http://ystore.us/HTML/RedefineCommerce/Ecom-front/bain/main.css`,
+  22: `http://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`,
 };
 
-const stage = {
-  api: {
-    URL: 'https://redefine-front-beta.redefinecommerce.io/',
+const dev: _Config = {
+  baseUrl: {
+    redefine: 'https://redefine-front-beta.redefinecommerce.io/',
+    klaviyo: `https://static.klaviyo.com/onsite/js/klaviyo.js`,
+    googleFonts: 'https://fonts.googleapis.com/',
+    cms: 'https://redefine-front-beta.redefinecommerce.io/',
+    media: 'https://redefinecommerce.blob.core.windows.net',
   },
-  CLIENT_ID: '',
-  mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
   imageFolderPath: '/rdc/1/store/4/images/',
-  CMS: 'https://redefine-front-beta.redefinecommerce.io/',
 };
 
-const prod = {
-  api: {
-    URL: 'https://redefine-front-beta.redefinecommerce.io/',
+const stage: _Config = {
+  baseUrl: {
+    redefine: 'https://redefine-front-beta.redefinecommerce.io/',
+    klaviyo: `https://static.klaviyo.com/onsite/js/klaviyo.js`,
+    googleFonts: 'https://fonts.googleapis.com/',
+    cms: 'https://redefine-front-beta.redefinecommerce.io/',
+    media: 'https://redefinecommerce.blob.core.windows.net',
   },
-  CLIENT_ID: '',
-  mediaBaseUrl: 'https://redefinecommerce.blob.core.windows.net',
   imageFolderPath: '/rdc/1/store/4/images/',
-  CMS: 'https://redefine-front-beta.redefinecommerce.io/',
+};
+
+const prod: _Config = {
+  baseUrl: {
+    redefine: 'https://redefine-front-beta.redefinecommerce.io/',
+    klaviyo: `https://static.klaviyo.com/onsite/js/klaviyo.js`,
+    googleFonts: 'https://fonts.googleapis.com/',
+    cms: 'https://redefine-front-beta.redefinecommerce.io/',
+    media: 'https://redefinecommerce.blob.core.windows.net',
+  },
+  imageFolderPath: '/rdc/1/store/4/images/',
 };
 
 let config: _Config;

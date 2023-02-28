@@ -12,7 +12,7 @@ export interface _LogoDetails_IfSubmitted {
   };
   date: string | Date;
   price: number;
-  quantity: 1;
+  quantity: number;
   title: string | null;
   filePath: string | null;
 }
@@ -26,7 +26,7 @@ export interface _LogoDetails_WillSubmitLater {
   };
   date: string;
   price: number;
-  quantity: 1;
+  quantity: number;
 }
 
 export interface _AvailableLocationDetails {

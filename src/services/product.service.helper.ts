@@ -96,7 +96,6 @@ export const singleColor_addToCart_PayloadGenerator = async (
   let cartLogoPersonModel: _CartLogoPersonModel[] = [];
   let cartLogoPersonDetailModels: _CartLogoPersonDetailModel[] = [];
   let cartLinePersonModel: _CartLinePersonModel[] = [];
-
   if (cart.cartItems) {
     shoppingCartItemsDetailModel = cart.cartItems.map((item) => item);
   }
@@ -136,7 +135,7 @@ export const singleColor_addToCart_PayloadGenerator = async (
         id: 0,
         attributeOptionId: item.product.attributeOptionId,
         attributeOptionValue: item.product.attributeOptionValue,
-        price: item.product.price,
+        price: cart.product.price,
         quantity: item.product.qty,
         estimateDate: item.product.date,
         isEmployeeLoginPrice: 0,

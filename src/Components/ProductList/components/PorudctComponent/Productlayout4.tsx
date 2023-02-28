@@ -76,7 +76,7 @@ const Productlayout4 = ({
                     return (
                       <div className={`${ViewTag.tagPosition}`} key={index}>
                         <img
-                          src={`${config.mediaBaseUrl}${ViewTag.imagename}`}
+                          src={`${config.baseUrl.media}${ViewTag.imagename}`}
                           alt=''
                         />
                       </div>
@@ -93,7 +93,7 @@ const Productlayout4 = ({
               {/* <div className='mt-4 mb-2 inline-block'>
                   <img
                     className='inline-block max-h-12'
-                    src={`${config.mediaBaseUrl}/rdc${product.brandlogo.replace(
+                    src={`${config.baseUrl.media}/rdc${product.brandlogo.replace(
                       '/rdc',
                       '',
                     )}`}
@@ -177,7 +177,7 @@ const Productlayout4 = ({
                           }}
                         >
                           <Image
-                            src={`${config.mediaBaseUrl}${subRow.imageName}`}
+                            src={`${config.baseUrl.media}${subRow.imageName}`}
                             alt=''
                             className='max-h-full m-auto'
                           />

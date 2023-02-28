@@ -2,17 +2,20 @@ import { GetServerSideProps, NextPage } from 'next';
 
 import { signupPageMessages } from 'constants/validationMessages';
 import { ErrorMessage, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { paths } from '@constants/paths.constant';
-import { ResetPassword as ResetPasswordAPI } from '@services/user.service';
-import { useActions } from 'hooks';
+import {
+  GetEmailByResetToken,
+  ResetPassword as ResetPasswordAPI,
+} from '@services/user.service';
+import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required(signupPageMessages.password.required),
-  confirmPassword: Yup.string().test(
+  cPassword: Yup.string().test(
     'passwords-match',
     signupPageMessages.confirmPassword.mustMatch,
     function (value) {
@@ -34,28 +37,22 @@ const _initialValues: _ResetPassword_InitialValues = {
 const ResetPassword: NextPage<{ token: string }> = ({ token }) => {
   const router = useRouter();
   const { setShowLoader } = useActions();
-  const [email, setEmail] = useState<
-    null | string | 'Something Went Wrong' | 'TOKEN'
-  >(null);
+  const storeId = useTypedSelector((state) => state.store.id);
+  console.log('token', storeId, token);
 
-  const GetUserEmailAddress = () => {
-    // setShowLoader(true);
-    // GetEmailByResetToken({ token: '23432423' })
-    //   .then(() => {
-    //     setEmail('abhi@redefine.com');
-    //   })
-    //   .catch(() => {
-    //     setEmail('Something Went Wrong');
-    //   })
-    //   .finally(() => {
-    //     setShowLoader(true);
-    //   });
+  const checkTokenValidity = () => {
+    GetEmailByResetToken({ token: token, storeId: storeId! }).then((res) => {
+      if (res === 'INVALID_TOKEN') {
+        router.push(paths.HOME);
+        return;
+      }
+    });
   };
 
   const submitHandler = (values: _ResetPassword_InitialValues) => {
     setShowLoader(true);
     ResetPasswordAPI({
-      emailId: email!,
+      emailId: '', // Don't send email address
       tokenCode: token,
       newPassword: values.password,
       reEnterPassword: values.cPassword,
@@ -70,8 +67,9 @@ const ResetPassword: NextPage<{ token: string }> = ({ token }) => {
   };
 
   useEffect(() => {
-    GetUserEmailAddress();
-  }, []);
+    if (!storeId) return;
+    checkTokenValidity();
+  }, [storeId]);
 
   return (
     <section className='m-6'>

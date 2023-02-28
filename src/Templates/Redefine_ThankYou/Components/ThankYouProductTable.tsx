@@ -70,7 +70,7 @@ const ThankYouProductTable: React.FC<_props> = ({ product }) => {
                   ) : (
                     <img
                       className='w-14 h-12'
-                      src={`${config.mediaBaseUrl}${item.logoImagePath}`}
+                      src={`${config.baseUrl.media}${item.logoImagePath}`}
                       title=''
                       alt={item.logoImagePath}
                     />

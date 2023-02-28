@@ -284,7 +284,7 @@ export const productSlice = createSlice({
     ) => {
       state.selected.image = {
         ...action.payload,
-        imageUrl: `${config.mediaBaseUrl}${action.payload.imageUrl}`,
+        imageUrl: `${config.baseUrl.media}${action.payload.imageUrl}`,
       };
     },
 

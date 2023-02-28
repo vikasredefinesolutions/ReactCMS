@@ -37,6 +37,34 @@ const Ecommerce_ProductDetails_View: React.FC<
   const storeId = useTypedSelector((state) => state.store.id);
   const router = useRouter();
 
+  useEffect(() => {
+    const newScript = document.createElement('script');
+    newScript.setAttribute('type', 'text/javascript');
+
+    const item = {
+      ProductName: 'Winnie the Pooh',
+      ProductID: '1111',
+      SKU: 'WINNIEPOOH',
+      Categories: ['Fiction', 'Children'],
+      ImageURL: 'http://www.example.com/path/to/product/image.png',
+      URL: 'http://www.example.com/path/to/product',
+      Brand: 'Kids Books',
+      Price: 9.99,
+      CompareAtPrice: 14.99,
+    };
+    const inlineScript = document.createTextNode(
+      `var _learnq = _learnq || [];
+      _learnq.push(${JSON.stringify(['track', 'Viewed Product', item])}); 
+      `,
+    );
+    newScript.appendChild(inlineScript);
+    document.head.appendChild(newScript);
+
+    return () => {
+      document.head.removeChild(newScript);
+    };
+  }, []);
+
   // const addParams = () => {
   //   router.query.altview = '1';
   //   router.query.v = 'product-detail';
