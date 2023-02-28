@@ -125,11 +125,9 @@ const Layout1FilterBar: React.FC<props> = ({
                       }`}
                       id='menu-button'
                     >
-                      <span
-                        className={storeLayout === _Store.type1 ? 'hidden' : ''}
-                      >
-                        Relevance
-                      </span>
+                      <span>
+                        { SortingMethod.find((method) => method.type === sortingType,)?.name}
+                    </span>
 
                       <svg
                         className='flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
