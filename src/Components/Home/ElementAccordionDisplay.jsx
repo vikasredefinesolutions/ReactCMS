@@ -51,7 +51,9 @@ const ElementAccordionDisplay = ({ acValues, acClass, acBgColor }) => {
                     backgroundColor: acBgColor,
                   }}
                 >
-                  <div className='text-defaule-text'>{acValue.title}</div>
+                  {/* <div className='text-defaule-text'> */}
+                  {acValue.title}
+                  {/* </div> */}
                   <span className='material-icons-outlined ml-3 pointer-class'>
                     {acValue.openstatus == 'Yes' ? (
                       <>

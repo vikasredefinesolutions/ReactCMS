@@ -4,6 +4,7 @@ import CartLayout3 from 'appComponents/ui/cart/Layouts/Layout3';
 import CartLayout4 from 'appComponents/ui/cart/Layouts/Layout4';
 import CartController from 'Controllers/CartController';
 import { useTypedSelector } from 'hooks';
+import Link from 'next/link';
 import { _Store } from 'page.config';
 
 const Ecommerce_ShoppingCart = () => {
@@ -17,17 +18,25 @@ const Ecommerce_ShoppingCart = () => {
     setShowEdit,
     getPolicyDetails,
     productPolicy,
-    endUserDisplay
+    endUserDisplay,
   } = CartController();
+
   const storeLayout = useTypedSelector((state) => state.store.layout);
   let layout = <></>;
 
   if (cartProducts === null || cartProducts.length < 1) {
     return (
-      <div className='text-center mt-20'>
-        <h1>Your Cart is Empty.</h1>
-        <h5> There's nothing in your cart.</h5>
-        <h5>Not to worry: we have lots of other great finds.</h5>
+      <div className='text-center text-gray-500 tracking-[1.4px] text-[22px] p-5'>
+        <div className='text-2xl md:text-3xl lg:text-title font-title text-color-title mb-2'>
+          Cart is Empty.
+        </div>
+        <div className=''>There's nothing in your Cart.</div>
+        <div className=''>Not to worry: we have lots of other great finds.</div>
+        <div className='mt-3'>
+          <Link href='/' className='btn btn-secondary btn-lg'>
+            <a className='btn btn-secondary btn-lg'>START SHOPPING</a>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -84,7 +93,7 @@ const Ecommerce_ShoppingCart = () => {
           currentCartProduct,
           getPolicyDetails,
           productPolicy,
-          endUserDisplay
+          endUserDisplay,
         }}
       />
     );

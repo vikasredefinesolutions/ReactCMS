@@ -38,7 +38,6 @@ const ResetPassword: NextPage<{ token: string }> = ({ token }) => {
   const router = useRouter();
   const { setShowLoader } = useActions();
   const storeId = useTypedSelector((state) => state.store.id);
-  console.log('token', storeId, token);
 
   const checkTokenValidity = () => {
     GetEmailByResetToken({ token: token, storeId: storeId! }).then((res) => {

@@ -1,10 +1,10 @@
 import { GetlAllProductList } from '@type/productList.type';
+import { ContactUs } from 'Templates/Ecommerce/Layout/Components';
 import { SpinnerComponent } from 'appComponents/ui/spinner';
 import { properties } from 'mock/properties.mock';
 import dynamic from 'next/dynamic';
 import { _Store } from 'page.config';
 import { Fragment } from 'react';
-import { ContactUs } from 'Templates/Ecommerce/Layout/Components';
 import { list_FnProps } from '..';
 
 const ProductComponent = dynamic(
@@ -88,7 +88,7 @@ const Layout1 = ({
       <ProductDetailsPageBanner slug={slug} seType={seType} />
       <section id=''>
         <div className='bg-white'>
-          <div className='container mx-auto px-2 lg:px-0'>
+          <div className='container mx-auto px-2 lg:px-2'>
             <div
               aria-labelledby='products-heading'
               className='mt-8 overflow-hidden'

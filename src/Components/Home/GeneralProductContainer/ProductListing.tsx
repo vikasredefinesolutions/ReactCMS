@@ -4,9 +4,10 @@ import BrandProduct from './BrandProduct';
 
 interface _props {
   brandsData: GetlAllProductList[];
+  brandId: number;
 }
 
-const ProductListing: React.FC<_props> = ({ brandsData }) => {
+const ProductListing: React.FC<_props> = ({ brandsData, brandId }) => {
   const colorChangeHandler = (
     productId: number | undefined,
     seName: string | undefined,
@@ -49,6 +50,7 @@ const ProductListing: React.FC<_props> = ({ brandsData }) => {
                 brandsData?.length > 0 &&
                 brandsData.map((product: GetlAllProductList, index: number) => (
                   <BrandProduct
+                    brandId={brandId}
                     key={index}
                     product={product}
                     colorChangeHandler={colorChangeHandler}

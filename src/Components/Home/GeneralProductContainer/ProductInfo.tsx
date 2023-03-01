@@ -48,7 +48,10 @@ const ProductsInfo: React.FC<_props> = ({ dataArr }) => {
 
   return (
     <>
-      <ProductListing brandsData={brandsData} />
+      <ProductListing
+        brandId={+dataArr?.featuredproducts_selected_brands?.value[0]?.value}
+        brandsData={brandsData}
+      />
     </>
   );
 };

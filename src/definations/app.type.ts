@@ -7,4 +7,5 @@ export type PageResponseType = {
   slug: string;
   store_id: number | string;
   type: string;
+  name: string;
 };

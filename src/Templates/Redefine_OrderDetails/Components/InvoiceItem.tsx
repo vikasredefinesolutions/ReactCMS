@@ -47,17 +47,17 @@ const InvoiceItem: React.FC<_MyAcc_OrderProductDetails> = (prod) => {
               key={item?.attributeOptionId}
               className='flex flex-wrap justify-between -mx-3'
             >
-              <div className='w-1/3 px-3'>
+              <div className='w-1/3 p-3'>
                 <div className='font-semibold'>SIZE</div>
                 <div className=''>{item.attributeOptionId}</div>
               </div>
-              <div className='w-1/3 px-3'>
+              <div className='w-1/3 p-3'>
                 <div className='font-semibold'>PRICE</div>
                 <div className=''>
                   <Price value={item.price} />
                 </div>
               </div>
-              <div className='w-1/3 px-3'>
+              <div className='w-1/3 p-3'>
                 <div className='font-semibold'>QTY</div>
                 <div className=''>{item.qty}</div>
               </div>

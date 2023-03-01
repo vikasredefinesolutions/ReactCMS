@@ -128,6 +128,7 @@ const SideFilter = ({
                                       !checked,
                                     );
                                   }}
+                                  title={option.name}
                                 ></li>
                               ) : filter.label === 'Category' ? (
                                 <li key={ind} className='w-full py-0'>

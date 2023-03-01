@@ -12,20 +12,20 @@ const FlyOutFilter = ({
   closeFilter: (arg: boolean) => void;
 }) => {
   return (
-    <div className="bg-gray-100 fixed top-0 w-80 z-50 h-screen overflow-auto left-0">
-      <div className="border-b border-b-neutral-300 p-2 sticky top-0 left-0 bg-gray-100 flex items-center justify-between">
-        <div className="text-lg font-semibold text-gray-900">Filters</div>
+    <div className='bg-gray-100 fixed top-0 w-80 z-50 h-screen overflow-auto left-0'>
+      <div className='border-b border-b-neutral-300 p-2 sticky top-0 left-0 bg-gray-100 flex items-center justify-between'>
+        <div className='text-lg font-semibold text-gray-900'>Filters</div>
         <button>
           <span
             onClick={() => closeFilter(false)}
-            className="material-icons-outlined"
+            className='material-icons-outlined'
           >
             close
           </span>
         </button>
       </div>
-      <div className="p-4 pt-0">
-        <form className="mt-4 filter-box filter-type">
+      <div className='p-4 pt-0'>
+        <form className='mt-4 filter-box filter-type'>
           <div>
             {/* <div
                             className="text-lg font-medium text-gray-900 hidden lg:block mb-4 uppercase"
@@ -140,17 +140,17 @@ const FlyOutFilter = ({
                 className={`py-4${
                   index === 0 ? '' : ' border-t border-neutral-300'
                 }`}
-                x-data="{ open: true }"
+                x-data='{ open: true }'
               >
                 <button
-                  className="flex items-center justify-between w-full group mb-1"
-                  aria-expanded="true"
+                  className='flex items-center justify-between w-full group mb-1'
+                  aria-expanded='true'
                 >
-                  <div className="text-lg font-medium text-gray-900 hidden lg:block uppercase">
+                  <div className='text-lg font-medium text-gray-900 hidden lg:block uppercase'>
                     {filter.label}
                   </div>
                 </button>
-                <div className="text-sm" x-show="open">
+                <div className='text-sm' x-show='open'>
                   <ul
                     className={
                       filter.label.toLowerCase() === 'color'
@@ -186,21 +186,21 @@ const FlyOutFilter = ({
                                 }
                               ></li>
                             ) : (
-                              <li className="flex items-center">
+                              <li className='flex items-center'>
                                 <input
                                   name={filter.label}
                                   value={option.name}
                                   checked={checked}
-                                  type="checkbox"
+                                  type='checkbox'
                                   onChange={(e) => {
                                     const { name, value, checked } = e.target;
                                     handleChange(name, value, checked);
                                   }}
-                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                  className='h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500'
                                 />
                                 <label
-                                  htmlFor="brandfil-0"
-                                  className="ml-3 text-black text-base"
+                                  htmlFor='brandfil-0'
+                                  className='ml-3 text-black text-base'
                                 >
                                   {option.name} ({option.productCount})
                                 </label>

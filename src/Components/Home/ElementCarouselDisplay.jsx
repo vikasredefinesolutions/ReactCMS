@@ -194,7 +194,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                           padding: '20px',
                         }}
                       >
-                        <div className={`w-full ${image.headline_font_size} lg:text-title font-title  mb-1 text-white`}>
+                        <div className={`w-full pb-2 ${image.headline_font_size} lg:text-title font-title  mb-1 text-white`}>
                           {image.headline}
                         </div>
                         <div className={`w-full ${image.headline1_font_size} font-title  mb-1 text-white`} dangerouslySetInnerHTML={{

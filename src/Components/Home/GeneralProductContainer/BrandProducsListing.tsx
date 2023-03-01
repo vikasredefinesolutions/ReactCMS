@@ -6,6 +6,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import BrandProduct from './BrandProduct';
 
 interface _props {
+  brandId: number;
   brandsData: GetlAllProductList[];
   loading: boolean;
   recentBrand: string;
@@ -13,6 +14,7 @@ interface _props {
 }
 
 const BrandProductListing: React.FC<_props> = ({
+  brandId,
   brandsData,
   loading,
   recentBrand,
@@ -63,6 +65,7 @@ const BrandProductListing: React.FC<_props> = ({
                 ? cacheData[recentBrand].map(
                     (product: GetlAllProductList, index: number) => (
                       <BrandProduct
+                        brandId={brandId}
                         key={index}
                         product={product}
                         colorChangeHandler={colorChangeHandler}

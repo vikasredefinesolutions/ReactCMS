@@ -86,6 +86,10 @@ export interface _Product_UpdateLogoDetails_Actions {
     | {
         type: 'Location_Update_Pending';
         pending: string | null;
+      }
+    | {
+        type: 'Remove_SOM_logo';
+        logoIndex: number;
       };
 }
 

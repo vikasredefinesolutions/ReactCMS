@@ -105,6 +105,7 @@ const ProductsInfoTabs: React.FC<_props> = ({ dataArr }) => {
             <>
               <TabPanel sx={{ p: 0 }} value={brand.value} key={index}>
                 <BrandProductListing
+                  brandId={+brand.value}
                   brandsData={brandsData}
                   loading={loading}
                   recentBrand={value}

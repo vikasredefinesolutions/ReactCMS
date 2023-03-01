@@ -137,7 +137,7 @@ const Home = (props) => {
                   return (
                     <div
                       key={index}
-                      className={`commondiv ${additionalclass} ${
+                      className={`commondiv pt-5 ${additionalclass} ${
                         componentValue.visibility == 'off' ? 'hidden' : ''
                       }`}
                       style={{ background: backgroundDefault }}
@@ -181,7 +181,7 @@ const Home = (props) => {
                                         {componentValue.selectedVal.Title.value}
                                       </div>
                                     )}
-                                    <ul className='mt-4 w-full'>
+                                    <ul className='mt-4 w-full mb-10'>
                                       <ElementAccordionDisplay
                                         acValues={
                                           componentValue.selectedVal

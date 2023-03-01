@@ -5,10 +5,12 @@ import { _ProductColor } from 'definations/APIs/colors.res';
 import { _SizeChartTransformed } from 'definations/APIs/sizeChart.res';
 import { updatedLogosHandler } from './product.slice.helper';
 import {
+  _AvailableLocationDetails,
   _ProductStore,
   _Product_SetValues_Action,
   _Product_UpdateLogoDetails_Actions,
   _Product_UpdateSelectedValeus_Action,
+  _SOM_LogoDetails,
   _UpdateProperties_Action,
 } from './product.slice.types';
 
@@ -148,6 +150,14 @@ export const productSlice = createSlice({
           choosedLogoCompletionPending: null,
         };
         return;
+      }
+
+      if (payload.type === 'Remove_SOM_logo') {
+        if (state.som_logos.details) {
+          const logos = [...state.som_logos.details];
+          logos.splice(payload.logoIndex, 1);
+          state.som_logos.details = logos;
+        }
       }
 
       if (payload.type === 'Update_TotalPrice_ByLogo') {
@@ -935,6 +945,20 @@ export const productSlice = createSlice({
         };
       },
     ) => {
+      state.som_logos.availableOptions = action.payload.availableOptions;
+    },
+    updateSomLogo: (
+      state,
+      action: {
+        payload: {
+          details: _SOM_LogoDetails[] | null;
+          allowNextLogo: boolean;
+          availableOptions: _AvailableLocationDetails[];
+        };
+      },
+    ) => {
+      state.som_logos.details = action.payload.details;
+      state.som_logos.allowNextLogo = action.payload.allowNextLogo;
       state.som_logos.availableOptions = action.payload.availableOptions;
     },
   },

@@ -51,6 +51,19 @@ const SOM_LogoOption: React.FC<_props> = ({
     type: string;
     previewURL: string;
   } | null>(null);
+  const [option, setOption] = useState<
+    {
+      image: {
+        url: string;
+        alt: string;
+      };
+      value: string;
+      price: number;
+      show: boolean;
+      cost: number;
+      label: string;
+    }[]
+  >([]);
 
   useEffect(() => {
     if (editDetails) {
@@ -64,8 +77,8 @@ const SOM_LogoOption: React.FC<_props> = ({
     (state) => state.product.som_logos.availableOptions,
   );
 
-  let option: any = availableOptions?.map((item) => {
-    return {
+  useEffect(() => {
+    const options = availableOptions?.map((item) => ({
       image: {
         url: item.image.url,
         alt: item.image.url,
@@ -73,6 +86,7 @@ const SOM_LogoOption: React.FC<_props> = ({
       value: item.value,
       price: item.price,
       cost: item.cost,
+      show: false,
       label: (
         <div className='flex items-center '>
           <img
@@ -88,10 +102,12 @@ const SOM_LogoOption: React.FC<_props> = ({
           />
           {item.value}
         </div>
-      ),
-    };
-  });
-
+      ) as unknown as string,
+    }));
+    if (options) {
+      setOption(options);
+    }
+  }, [availableOptions]);
   const fileReader = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget?.files === null) return;
     setShowLoader(true);

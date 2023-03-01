@@ -27,7 +27,7 @@ const MyAccountTabs: React.FC = () => {
     <>
       <section className='pt-7 tracking-[1.4px]'>
         <div className='container mx-auto'>
-          <div className='pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]'>
+          <div className='pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]pt-7 tracking-[1.4px] text-center font-bold'>
             MY ACCOUNT
           </div>
           <div className='bg-gray-100 mt-6 flex justify-center'>
@@ -38,7 +38,7 @@ const MyAccountTabs: React.FC = () => {
                     <li
                       key={index}
                       className={`border-t border-transparent hover:border-black text-base font-semibold text-[#0a1c2b] hover:text-[#0a1c2b] focus:text-[#0a1c2b] px-[3%] py-2.5 whitespace-nowrap inline-block ${
-                        tab.path === currentPath ? 'border-black' : ''
+                        tab.path === currentPath ? 'border-black border-t ' : ''
                       }`}
                     >
                       <button
@@ -57,8 +57,8 @@ const MyAccountTabs: React.FC = () => {
                 return (
                   <li
                     key={index}
-                    className={`border-t border-transparent hover:border-black text-base font-semibold text-[#0a1c2b] hover:text-[#0a1c2b] focus:text-[#0a1c2b] px-[3%] py-2.5 whitespace-nowrap inline-block  ${
-                      activeDir ? 'border-black' : ''
+                    className={`border-t hover:border-black text-base font-semibold text-[#0a1c2b] hover:text-[#0a1c2b] focus:text-[#0a1c2b] px-[3%] py-2.5 whitespace-nowrap inline-block  ${
+                      activeDir ? 'border-black ' : ''
                     }`}
                   >
                     <Link href={tab.path}>

@@ -72,5 +72,8 @@
       }
     },
     "version": "detect"
+  },
+  "globals": {
+    "JSX": "readonly"
   }
 }

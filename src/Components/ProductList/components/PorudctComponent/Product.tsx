@@ -286,12 +286,14 @@ const ProductComponent = ({
                         ),
                       )}
                       {flag ? (
-                        <li className='extra w-7 h-7 text-center border-2 hover:border-secondary inset-0 bg-primary text-xs font-semibold flex items-center justify-center text-white'>
-                          <span> +</span>
-                          {product.getProductImageOptionList &&
-                            product.getProductImageOptionList.length -
-                              listing_max_showcolors}
-                        </li>
+                        <Link key={product.id} href={`/${product.sename}.html`}>
+                          <li className='extra w-7 h-7 text-center border-2 hover:border-secondary inset-0 bg-primary text-xs font-semibold flex items-center justify-center text-white cursor-pointer'>
+                            <span> +</span>
+                            {product.getProductImageOptionList &&
+                              product.getProductImageOptionList.length -
+                                listing_max_showcolors}
+                          </li>
+                        </Link>
                       ) : null}
                     </ul>
                   </div>

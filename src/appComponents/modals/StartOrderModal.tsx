@@ -176,6 +176,7 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
                 {/* {customizationEnable && ( */}
                 <SOM_CustomizeLogoOptions
                   editDetails={editDetails?.shoppingCartLogoPersonViewModels}
+                  totalQty={editDetails?.totalQty || 0}
                 />
                 {/* )} */}
                 <CalculativeFigure />

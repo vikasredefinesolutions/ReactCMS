@@ -1,4 +1,5 @@
 import { paths } from '@constants/paths.constant';
+import { _CartItem } from '@type/APIs/cart.res';
 import { _StoreReturnType } from '@type/store.type';
 import Image from 'appComponents/reUsable/Image';
 import ProductAlike from 'Components/ProductDetails/ProductAlike';
@@ -12,10 +13,13 @@ import {
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
 import { conditionalLogV2, __console } from 'helpers/global.console';
+import { useTypedSelector } from 'hooks';
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { _globalStore } from 'store.global';
+import Ecom_RequestConsultation_OrderDetails from 'Templates/Ecommerce/RequestConsultation/Ecom_RequestConsultation_OrderDetails';
 
 const RequestConsultation: NextPage<_RequestConsultationProps> = ({
   details,
@@ -35,21 +39,21 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
     name: 'Request Consultation - Props',
   });
   const router = useRouter();
-
-  if (details === null) {
-    router.push('/');
-    return <>Page do not exist... </>;
-  }
+  const [itemInCart, setItemInCart] = useState<null | _CartItem>(null);
+  const cartItems = useTypedSelector((state) => state.cart.cart);
 
   const HeadTag = (
     <Head>
-      <title>{seo?.pageTitle || details.name}</title>
+      <title>{seo?.pageTitle || details?.name || ''}</title>
       <meta
         name='description'
-        content={seo?.metaDescription || details.description}
+        content={seo?.metaDescription || details?.description || ''}
         key='desc'
       />
-      <meta name='keywords' content={seo?.metaKeywords || details.name} />
+      <meta
+        name='keywords'
+        content={seo?.metaKeywords || details?.name || ''}
+      />
       <link
         rel='stylesheet'
         type='text/css'
@@ -64,28 +68,51 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
     </Head>
   );
 
+  useEffect(() => {
+    const product = cartItems?.find(
+      (item) => details && item.productId === details.id,
+    );
+    if (product) {
+      setItemInCart(product);
+    }
+  }, [cartItems]);
+
+  if (details === null) {
+    router.push('/');
+    return <>Page do not exist... </>;
+  }
+
   return (
-    <section>
+    <section className='container mx-auto'>
       <div className='text-center font-black text-5xl py-5'>
         Request Consultation & Proof
       </div>
-      <div className='container mx-auto border border-gray-300 p-3'>
+      <div className='border border-gray-400 py-3'>
         <>{HeadTag}</>
-        <div className='flex flex-wrap items-center -mx-3'>
-          <div className='w-full lg:w-4/12 px-3 text-center'>
+        <div className='flex flex-wrap -mx-[15px]'>
+          <div className='w-full lg:w-4/12 px-[15px] text-center'>
             <div className=''>
               <Image
                 src={color?.imageUrl || null}
                 alt={details.name}
-                className={''}
+                className={'w-full object-center object-cover sm:rounded-lg'}
               />
             </div>
-            <div className='text-lg md:text-xl lg:text-small-title font-small-title'>
+            <div className='text-black hover:text-black focus:text-black font-base font-bold'>
               <button onClick={() => router.back()}>{details.name}</button>
             </div>
           </div>
-          <RequestConsultationForm productId={details.id} />
-          <RequestFeatures />
+          <RequestConsultationForm
+            productId={details.id}
+            innerHeading={false}
+          />
+          <div className='w-full pl-0 pr-[15px]'>
+            {itemInCart ? (
+              <Ecom_RequestConsultation_OrderDetails item={itemInCart} />
+            ) : (
+              <RequestFeatures />
+            )}
+          </div>
         </div>
         <ProductAlike
           title={'YOU MAY ALSO LIKE'}

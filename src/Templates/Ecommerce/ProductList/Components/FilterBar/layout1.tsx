@@ -118,11 +118,12 @@ const Layout1FilterBar: React.FC<props> = ({
                     <span className='px-2'>Sort </span>
                     <button
                       type='button'
-                      className={`group inline-flex justify-between text-sm font-medium text-gray-700 hover:text-gray-900 w-44 ${
-                        storeLayout === _Store.type1
-                          ? 'bg-gray-100 px-2 py-2'
-                          : ''
-                      }`}
+                      className='group inline-flex items-center justify-between text-[13px] text-white bg-primary w-[245px] px-2 py-1 tracking-[1.4px] leading-none'
+                      // className={`group inline-flex justify-between text-sm font-medium text-gray-700 hover:text-gray-900 w-44 ${
+                      //   storeLayout === _Store.type1
+                      //     ? 'bg-gray-100 px-2 py-2'
+                      //     : ''
+                      // }`}
                       id='menu-button'
                     >
                       <span>
@@ -132,8 +133,11 @@ const Layout1FilterBar: React.FC<props> = ({
                           )?.name
                         }
                       </span>
+                      <span className='material-icons-outlined text-lg leading-none'>
+                        add_circle
+                      </span>
 
-                      <svg
+                      {/* <svg
                         className='flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
                         x-description='Heroicon name: solid/chevron-down'
                         xmlns='http://www.w3.org/2000/svg'
@@ -146,7 +150,7 @@ const Layout1FilterBar: React.FC<props> = ({
                           d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
                           clipRule='evenodd'
                         ></path>
-                      </svg>
+                      </svg> */}
                     </button>
                   </div>
                   <div

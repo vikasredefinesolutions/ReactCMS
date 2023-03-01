@@ -1,4 +1,4 @@
-import { showcolors } from '@constants/global.constant';
+import { showcolors, zeroValue } from '@constants/global.constant';
 import {
   GetlAllProductList,
   GetProductImageOptionList,
@@ -6,11 +6,14 @@ import {
 import config from 'api.config';
 import ImageComponent from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
+import Wishlist from 'appComponents/ui/Wishlist';
 import ProductBoxController from 'Components/ProductList/components/PorudctComponent/ProductBox.controller';
+import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface _props {
+  brandId: number;
   product: GetlAllProductList;
   colorChangeHandler: (
     productId: number | undefined,
@@ -21,12 +24,26 @@ interface _props {
 }
 
 const BrandProduct: React.FC<_props> = (props) => {
+  const [wishListId, setWishListId] = useState<number>(0);
+  const [wishlistPresent, setWishlistPresent] = useState<boolean>(false);
   const { product, colorChangeHandler, style } = props;
   const { currentProduct, origin, setCurrentProduct } = ProductBoxController({
     product,
     colorChangeHandler,
   });
+  const customerId = useTypedSelector((state) => state.user.id);
+  const wishListData = useTypedSelector((state) => state.wishlist.wishListData);
   let flag: boolean = false;
+  useEffect(() => {
+    if (customerId) {
+      wishListData.map((item) => {
+        if (item.productId === product?.id) {
+          setWishlistPresent(true);
+          setWishListId(item.id);
+        }
+      });
+    }
+  }, [customerId, wishListData]);
   return (
     <>
       <li
@@ -56,6 +73,26 @@ const BrandProduct: React.FC<_props> = (props) => {
               />
             </div>
           </Link>
+          <div className='absolute top-5 right-5 text-gray-800 p-1 z-25'>
+            <button className=''>
+              <Wishlist
+                {...{
+                  productId:
+                    product && product?.productId
+                      ? product?.productId
+                      : zeroValue,
+                  name: product?.productName ? product.productName : '',
+                  color: currentProduct?.colorName
+                    ? currentProduct?.colorName
+                    : '',
+                  price: product.salePrice,
+                  wishlistId: wishListId,
+                }}
+                iswishlist={wishlistPresent}
+                brandId={props.brandId}
+              />
+            </button>
+          </div>
           <div className='mt-6 pb-4'>
             <div className='hover:text-primary text-lg test'>
               <Link
@@ -112,12 +149,14 @@ const BrandProduct: React.FC<_props> = (props) => {
                     ),
                 )}
               {flag ? (
-                <li className='extra w-8 h-8 text-center border-2xtra'>
-                  <span> +</span>
-                  {product &&
-                    product?.moreImages &&
-                    product.moreImages.length - showcolors}
-                </li>
+                <Link key={product.id} href={`/${product.productSEName}.html`}>
+                  <li className='extra w-7 h-7 text-center border-2 hover:border-secondary inset-0 bg-primary text-xs font-semibold flex items-center justify-center text-white cursor-pointer'>
+                    <span> +</span>
+                    {product &&
+                      product?.moreImages &&
+                      product.moreImages.length - showcolors}
+                  </li>
+                </Link>
               ) : null}
             </ul>
           </div>

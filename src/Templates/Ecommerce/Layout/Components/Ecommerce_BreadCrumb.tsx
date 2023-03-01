@@ -1,9 +1,10 @@
-import { __SpecialBreadCrumbsPaths, paths } from '@constants/paths.constant';
+import { paths, __SpecialBreadCrumbsPaths } from '@constants/paths.constant';
 import {
   fetchCategoryByCategoryId,
   fetchCategoryByproductId,
 } from '@services/product.service';
 import ImageComp from 'appComponents/reUsable/Image';
+import { capitalizeFirstLetter } from 'helpers/common.helper';
 import { useTypedSelector } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -25,12 +26,18 @@ const BreadCrumb: React.FC = () => {
     if (isCMSpage) {
       return [
         { name: 'Home', url: '/' },
-        { name: pageType.slug, url: `${pageType.slug}.html` },
+        {
+          name: capitalizeFirstLetter(pageType?.name || ''),
+          url: `${pageType.slug}.html`,
+        },
       ];
     } else if (pageType.type === 'brand') {
       return [
         { name: 'Home', url: '/' },
-        { name: pageType.slug, url: `${pageType.slug}.html` },
+        {
+          name: capitalizeFirstLetter(pageType?.name || ''),
+          url: `${pageType.slug}.html`,
+        },
       ];
     } else if (['product', 'category'].includes(pageType.type)) {
       const categories = await (pageType.type === 'category'

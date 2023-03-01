@@ -59,7 +59,7 @@ const _RequestConsultationInitials: _RequestConsultation = {
 
 const RequestConsultationForm: React.FC<{
   productId: number;
-  innerHeading?: boolean;
+  innerHeading: boolean;
 }> = ({ productId, innerHeading = false }) => {
   const router = useRouter();
   const [captchaVerified, setverifiedRecaptch] = useState<
@@ -145,7 +145,9 @@ const RequestConsultationForm: React.FC<{
 
   return (
     <div
-      className={innerHeading ? 'w-full bg-white p-3' : 'w-full lg:w-4/12 px-3'}
+      className={
+        innerHeading ? 'w-full bg-white p-3' : 'w-full lg:w-4/12 px-[15px]'
+      }
     >
       {formSubmitted && <Ecommerce_RequestSubmitted />}
       {!formSubmitted && (
@@ -168,11 +170,13 @@ const RequestConsultationForm: React.FC<{
                   className={
                     innerHeading
                       ? 'flex flex-wrap  gap-y-4 border'
-                      : 'flex flex-wrap -mx-3 gap-y-4'
+                      : 'flex flex-wrap gap-y-4'
                   }
                 >
                   <div
-                    className={innerHeading ? 'w-full p-3 pb-0' : 'w-full px-3'}
+                    className={
+                      innerHeading ? 'w-full p-3 pb-0' : '"w-full px-[15px]"'
+                    }
                   >
                     <div className='bg-gray-100 flex flex-wrap items-center justify-between p-1'>
                       <div className={innerHeading ? 'font-bold' : ''}>
@@ -183,7 +187,7 @@ const RequestConsultationForm: React.FC<{
                       </div>
                     </div>
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <RequestInput
                       placeHolder={'First Name'}
                       name={'firstName'}
@@ -194,7 +198,7 @@ const RequestConsultationForm: React.FC<{
                       className={'form-input'}
                     />
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <RequestInput
                       placeHolder={'Last Name'}
                       name={'lastName'}
@@ -205,7 +209,7 @@ const RequestConsultationForm: React.FC<{
                       className={'form-input'}
                     />
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <RequestInput
                       placeHolder={'Company'}
                       name={'companyName'}
@@ -216,7 +220,7 @@ const RequestConsultationForm: React.FC<{
                       className={'form-input'}
                     />
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <RequestInput
                       placeHolder={'Email'}
                       name={'email'}
@@ -227,7 +231,7 @@ const RequestConsultationForm: React.FC<{
                       className={'form-input'}
                     />
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <RequestInput
                       placeHolder={'Phone'}
                       name={'phone'}
@@ -238,7 +242,7 @@ const RequestConsultationForm: React.FC<{
                       className={'form-input'}
                     />
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <RequestSelect
                       placeHolder={'Select Prefered Contact Method'}
                       name={'preferedContactMethod'}
@@ -256,7 +260,7 @@ const RequestConsultationForm: React.FC<{
                       required={true}
                     />
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <RequestInput
                       placeHolder={'Desired Quantity'}
                       name={'desiredQty'}
@@ -267,12 +271,12 @@ const RequestConsultationForm: React.FC<{
                       className={'form-input'}
                     />
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <div className='bg-gray-100 flex flex-wrap items-center justify-between p-2'>
                       <div className=''>Optional Information</div>
                     </div>
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <div className='flex flex-wrap items-center justify-between'>
                       <div className=''>In Hand Date </div>
                       <div className=''>
@@ -300,7 +304,7 @@ const RequestConsultationForm: React.FC<{
                       </div>
                     </div>
                   </div>
-                  <div className='w-full px-3' x-data='{ open:false}'>
+                  <div className='w-full px-[15px]' x-data='{ open:false}'>
                     <div className='flex flex-wrap items-center justify-between'>
                       <div className=''>Provide Logo (Optional)</div>
                       {!showLogo && (
@@ -346,7 +350,7 @@ const RequestConsultationForm: React.FC<{
                       </div>
                     )}
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <div className=''>
                       <textarea
                         placeholder='Message here'
@@ -357,7 +361,7 @@ const RequestConsultationForm: React.FC<{
                       ></textarea>
                     </div>
                   </div>
-                  <div className='w-full px-3'>
+                  <div className='w-full px-[15px]'>
                     <ReCAPTCHA
                       className='pt-4 first:pt-0'
                       sitekey={process.env.NEXT_PUBLIC_RECAPTCHASITEKEY || ''}
@@ -367,12 +371,12 @@ const RequestConsultationForm: React.FC<{
                       <p className='text-rose-500'>Captcha is not valid !</p>
                     )}
                   </div>
-                  <div className='w-full px-3 text-center'>
+                  <div className='w-full px-[15px] text-center'>
                     <button
                       type='submit'
                       className={
                         storeLayout === _Store.type1
-                          ? ' w-full btn-secondary !block text-center mb-2 font-bold py-1'
+                          ? 'w-full btn-secondary !block text-center mb-2 font-bold py-1'
                           : 'btn btn-xl w-full btn-secondary !block text-center mb-4'
                       }
                     >

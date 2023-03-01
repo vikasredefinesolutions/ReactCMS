@@ -41,12 +41,7 @@ const ContactUs: React.FC = () => {
             <div className='w-full md:grid md:grid-cols-1 md:gap-6 mb-6'>
               <div className='flex justify-center'>
                 <Link href='/' title=''>
-                  <Image
-                    alt=''
-                    src='/images/pk-footer-logo.png'
-                    width='214px'
-                    height='100px'
-                  />
+                  <Image alt='' src='/images/pk-footer-logo.png' />
                 </Link>
               </div>
             </div>
@@ -211,7 +206,7 @@ const ContactUs: React.FC = () => {
     return (
       <section className='mainsection container mx-auto pt-20 pb-20'>
         <div className='w-full max-w-3xl mx-auto'>
-          <div className='text-lg md:text-xl lg:text-small-title font-small-title text-center mb-8'>
+          <div className='text-lg md:text-xl lg:text-small-title font-semibold text-center mb-8'>
             Our approach as an extension of your brand is to help maintain and
             build your brand equity with the right partners in the corporate
             marketplace.

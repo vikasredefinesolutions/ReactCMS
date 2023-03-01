@@ -247,7 +247,7 @@ export const FetchColors = async ({
 }): Promise<_ProductColor[] | null> => {
   let url = '';
   if (isAttributeSaparateProduct === true) {
-    url = `https://redefine-front-staging.azurewebsites.net/StoreProduct/getproductattributecolorbyseparation/${productId}/${storeId}.json`;
+    url = `StoreProduct/getproductattributecolorbyseparation/${productId}/${storeId}.json`;
   } else {
     url = `StoreProduct/getproductattributecolor/${productId}.json`;
   }

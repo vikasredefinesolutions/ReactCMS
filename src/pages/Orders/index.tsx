@@ -1,9 +1,9 @@
 import { paths } from '@constants/paths.constant';
 import { FetchOrderDetails, FetchOrderIds } from '@services/user.service';
 import {
-  ShoppingCartItemDetailsViewModel,
   _MyAcc_OrderBillingDetails,
   _MyAcc_OrderProductDetails,
+  ShoppingCartItemDetailsViewModel,
 } from '@type/APIs/user.res';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
@@ -15,6 +15,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { ContactUs } from 'Templates/Ecommerce/Layout/Components';
 
 type _OrderDetails = Array<{
   billing: _MyAcc_OrderBillingDetails | null;
@@ -147,7 +148,7 @@ const Orders: NextPage = () => {
                       <dd className='mt-1 text-gray-900'>
                         <time>
                           {moment(order?.billing?.orderDate).format(
-                            'DD-MM-YYYY',
+                            'MM/DD/YYYY',
                           )}
                         </time>
                       </dd>
@@ -274,6 +275,7 @@ const Orders: NextPage = () => {
           })}
         </div>
       </section>
+      <ContactUs />
     </>
   );
 };

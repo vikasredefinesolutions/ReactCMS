@@ -6,6 +6,7 @@ import { generateImageUrl, numberToOrdinalString } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import { logoPositions } from 'mock/startModal.mock';
 import React, { useEffect, useState } from 'react';
+import { _SOM_LogoDetails } from 'redux/slices/product.slice.types';
 import NextLogoButton from './NextLogoButton';
 import SOM_LogoOption from './SOM_LogoOption';
 
@@ -37,14 +38,17 @@ export type logoDetailsAr = Array<LogoDetails>;
 
 const SOM_CustomizeLogoOptions: React.FC<{
   editDetails: _CI_ShoppingCartLogoPersonViewModel[] | undefined;
-}> = ({ editDetails }) => {
-  const { product_updateLogoDetails, updateLogoEditDetails } = useActions();
+  totalQty: number;
+}> = ({ editDetails, totalQty }) => {
+  const { product_updateLogoDetails, updateSomLogo } = useActions();
   const [nowOrLater, setNowOrLater] = useState<'later' | 'now'>('later');
   const [firstLogoFree, setFirstLogoFree] = useState<Boolean>(true);
   const { currency } = useTypedSelector((state) => state.store);
   const [logoLocation, setLogoLocation] = useState<_LogoLocationDetail[] | []>(
     [],
   );
+
+  const logos = useTypedSelector((state) => state.product.som_logos);
   const id = useTypedSelector((state) => state.product.product.id);
   const [logoEditDetails, setLogoEditDetails] =
     useState<logoDetailsAr | null>();
@@ -65,6 +69,7 @@ const SOM_CustomizeLogoOptions: React.FC<{
   useEffect(() => {
     if (editDetails && logoLocation) {
       let isLater = false;
+      const som_logoDetails: _SOM_LogoDetails[] = [];
       const details = editDetails.map((res) => {
         let logoStatus: LogoStatus = '';
         let fileToUpload: FileToUpload = null;
@@ -73,8 +78,32 @@ const SOM_CustomizeLogoOptions: React.FC<{
           isLater = true;
         } else if (res.logoName === 'Add Logo Later') {
           logoStatus = 'later';
+          som_logoDetails.push({
+            date: new Date().toString(),
+            location: {
+              imageUrl: res.logoPositionImage,
+              name: res.logoLocation || '',
+              value: res.logoLocation || '',
+            },
+            price: res.logoPrice,
+            quantity: 5,
+            status: 'WILL SUBMIT LATER',
+          });
           setNowOrLater('now');
         } else {
+          som_logoDetails.push({
+            date: new Date().toString(),
+            filePath: res.logoImagePath,
+            location: {
+              imageUrl: res.logoPositionImage,
+              name: res.logoLocation || '',
+              value: res.logoLocation || '',
+            },
+            price: res.logoPrice / totalQty,
+            quantity: totalQty,
+            status: 'LOGO SUBMITTED',
+            title: res.name,
+          });
           logoStatus = 'submitted';
           setNowOrLater('now');
           // eslint-disable-next-line no-useless-escape
@@ -108,18 +137,28 @@ const SOM_CustomizeLogoOptions: React.FC<{
         setInitialValues(new Array(details.length).fill(''));
         setLogoEditDetails(details);
         logoNowOrLaterHandler('now');
-        // updateLogoEditDetails({
-        //   availableOptions: logoLocation?.map((logo) => ({
-        //     image: {
-        //       url: logo.image,
-        //       alt: logo.image,
-        //     },
-        //     label: logo.name,
-        //     value: logo.name,
-        //     price: logo.price,
-        //     cost: logo.cost,
-        //   })),
-        // });
+        updateSomLogo({
+          details: som_logoDetails.length > 0 ? som_logoDetails : null,
+          allowNextLogo: logoLocation.length > som_logoDetails.length,
+          availableOptions: logoLocation
+            .filter((logo) =>
+              som_logoDetails.findIndex(
+                (detail) => detail.location.name === logo.name,
+              ) > -1
+                ? 0
+                : 1,
+            )
+            .map((logo) => ({
+              image: {
+                url: logo.image,
+                alt: logo.image,
+              },
+              label: logo.name,
+              value: logo.name,
+              price: logo.price,
+              cost: logo.cost,
+            })),
+        });
       }
     }
   }, [editDetails, logoLocation]);
@@ -217,10 +256,18 @@ const SOM_CustomizeLogoOptions: React.FC<{
                                 index={index}
                                 textIndex={values.logos.length}
                                 price={
-                                  firstLogoFree && index === 0 ? 'FREE' : 6
+                                  firstLogoFree && index === 0
+                                    ? 'FREE'
+                                    : logoLocation[index]
+                                    ? logoLocation[index].price
+                                    : 0
                                 }
                                 onRemove={() => {
                                   arrayHelpers.remove(index);
+                                  product_updateLogoDetails({
+                                    type: 'Remove_SOM_logo',
+                                    logoIndex: index,
+                                  });
                                   product_updateLogoDetails({
                                     type: 'Allow_Next_Logo',
                                     allow: true,
@@ -231,7 +278,11 @@ const SOM_CustomizeLogoOptions: React.FC<{
                                 )} Logo (${
                                   firstLogoFree && index === 0
                                     ? 'FREE'
-                                    : showPrice(6)
+                                    : showPrice(
+                                        logoLocation[index]
+                                          ? logoLocation[index].price
+                                          : 0,
+                                      )
                                 })`}
                                 id={`${index}-id`}
                                 name={`${index}-name`}
@@ -249,7 +300,7 @@ const SOM_CustomizeLogoOptions: React.FC<{
                                     values.logos.length + 1,
                                   ),
                                   value: values.logos.length + 1,
-                                  price: values.logos.length === 0 ? 'FREE' : 6,
+                                  price: values.logos.length === 0 ? 'FREE' : 0,
                                 }}
                                 arrayHelpers={arrayHelpers}
                               />
