@@ -122,7 +122,8 @@ export const updateSetProperties = (element) => {
       if(buttonId !== '')
       {
         x.querySelectorAll('#'+buttonId)[0].className = className;
-        x.querySelectorAll('#'+buttonId+'Parent')[0].className = pmClassName;
+        if(x.querySelectorAll('#'+buttonId+'Parent').length > 0)
+          x.querySelectorAll('#'+buttonId+'Parent')[0].className = pmClassName;
       }
     //      let elProperties;
     Object.entries(element.selectedVal).map(([key, value]) => {
