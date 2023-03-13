@@ -43,8 +43,8 @@ class MyDocument extends Document {
         />
         <Head>
           {/* -----------------------CSS STYLESHEETS------------------------- */}
-          {storeId == 4 && (
-            <link rel='stylesheet' type='text/css' href={cssApis[4]} />
+          {storeId == 1 && (
+            <link rel='stylesheet' type='text/css' href={cssApis[1]} />
           )}
           {storeId == 5 && (
             <link rel='stylesheet' type='text/css' href={cssApis[5]} />
