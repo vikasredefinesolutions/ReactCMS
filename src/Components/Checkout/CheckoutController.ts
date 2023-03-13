@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { StoreLayout } from '@constants/enum';
+import { PaymentMethod, StoreLayout } from '@constants/enum';
 import { __Cookie, __Cookie_Expiry } from '@constants/global.constant';
 import { OrderDefaultObject } from '@constants/order.constant';
 import { paths } from '@constants/paths.constant';
@@ -9,6 +9,7 @@ import {
   placeOrder as PlaceOrderService,
   updateCartByNewUserId,
 } from '@services/cart.service';
+import { Klaviyo_PlaceOrder } from '@services/klaviyo.service';
 import {
   getCustomerAllowBalance,
   getPaymentOption,
@@ -257,10 +258,16 @@ const CheckoutController = () => {
       cardVarificationCode: cardDetails.cardVarificationCode,
       cardExpirationMonth: cardDetails.cardExpirationMonth,
       cardExpirationYear: cardDetails.cardExpirationYear,
+      isCreditLimit: false,
+      paymentMethod: PaymentMethod.CREDITCARD,
+      paymentGateway: PaymentMethod.CHARGELOGIC,
     };
 
     const purchaseOrderObj = {
       AuthorizationPNREF: purchaseOrder,
+      isCreditLimit: false,
+      paymentMethod: PaymentMethod.PREPAYMENT,
+      paymentGateway: PaymentMethod.PREPAYMENT,
     };
 
     const orderModel = {
@@ -273,7 +280,12 @@ const CheckoutController = () => {
             storeCredit: creditBalance,
           }
         : {}),
-      paymentMethod,
+      ...(useBalance && totalPrice === creditBalance
+        ? {
+            paymentMethod: PaymentMethod.PREPAYMENT,
+            paymentGateway: PaymentMethod.PREPAYMENT,
+          }
+        : {}),
       storeID: storeId,
       customerID: custId,
       firstName: customer?.firstname || billingAdress?.firstname,
@@ -319,6 +331,10 @@ const CheckoutController = () => {
       logoutClearCart();
       deleteCookie(__Cookie.tempCustomerId);
       const res = await PlaceOrderService(order);
+      await Klaviyo_PlaceOrder({
+        orderNumber: res.id,
+      });
+
       router.push(`${paths.THANK_YOU}?orderNumber=${res.id}`);
     } catch (error) {
       console.log(error);

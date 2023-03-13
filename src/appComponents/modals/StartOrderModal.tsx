@@ -173,12 +173,12 @@ const Ecommerce_StartOrderModal: React.FC<_props> = (props) => {
 
                 {/* -------------------------------------------INVENTORY TABLE ------------------------------------------ */}
                 <SizePriceQtyTable editDetails={getEditDetails()} />
-                {/* {customizationEnable && ( */}
-                <SOM_CustomizeLogoOptions
-                  editDetails={editDetails?.shoppingCartLogoPersonViewModels}
-                  totalQty={editDetails?.totalQty || 0}
-                />
-                {/* )} */}
+                {customizationEnable && (
+                  <SOM_CustomizeLogoOptions
+                    editDetails={editDetails?.shoppingCartLogoPersonViewModels}
+                    totalQty={editDetails?.totalQty || 0}
+                  />
+                )}
                 <CalculativeFigure />
 
                 <div className=''>

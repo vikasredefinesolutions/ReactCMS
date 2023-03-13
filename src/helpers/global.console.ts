@@ -148,6 +148,12 @@ export const __console: __Console = {
       FetchCartDetails: false,
     },
   },
+  Klaviyo: {
+    service: {
+      Klaviyo_PlaceOrder: false,
+      Klaviyo_BackInStock: false,
+    },
+  },
 };
 
 const Error = {

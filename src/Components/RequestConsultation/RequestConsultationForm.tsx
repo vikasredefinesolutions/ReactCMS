@@ -123,8 +123,9 @@ const RequestConsultationForm: React.FC<{
   };
 
   const fileReader = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget === null || event.currentTarget.files === null)
+    if (event.currentTarget === null || event.currentTarget.files === null) {
       return;
+    }
     setShowLoader(true);
 
     const logoFileURL = await UploadImage({
@@ -179,10 +180,14 @@ const RequestConsultationForm: React.FC<{
                     }
                   >
                     <div className='bg-gray-100 flex flex-wrap items-center justify-between p-1'>
-                      <div className={innerHeading ? 'font-bold' : ''}>
+                      <div
+                        className={
+                          innerHeading ? 'font-bold' : 'font-bold text-lg'
+                        }
+                      >
                         Contact Information
                       </div>
-                      <div className='text-red-500 text-xs'>
+                      <div className='text-red-500 text-xs font-bold'>
                         All fields marked * are required.
                       </div>
                     </div>
@@ -273,7 +278,9 @@ const RequestConsultationForm: React.FC<{
                   </div>
                   <div className='w-full px-[15px]'>
                     <div className='bg-gray-100 flex flex-wrap items-center justify-between p-2'>
-                      <div className=''>Optional Information</div>
+                      <div className='font-bold text-lg'>
+                        Optional Information
+                      </div>
                     </div>
                   </div>
                   <div className='w-full px-[15px]'>
@@ -376,7 +383,7 @@ const RequestConsultationForm: React.FC<{
                       type='submit'
                       className={
                         storeLayout === _Store.type1
-                          ? 'w-full btn-secondary !block text-center mb-2 font-bold py-1'
+                          ? 'btn btn-xl btn-secondary !block text-center mb-4 !text-[26px] !font-bold w-full'
                           : 'btn btn-xl w-full btn-secondary !block text-center mb-4'
                       }
                     >
@@ -384,7 +391,7 @@ const RequestConsultationForm: React.FC<{
                     </button>
                     <button
                       type='button'
-                      className='text-center text-anchorr font-bold text-xl'
+                      className='text-center text-anchor text-xl font-semibold'
                       onClick={() => router.back()}
                     >
                       Cancel

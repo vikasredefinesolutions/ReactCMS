@@ -65,9 +65,10 @@ const CartSummary = ({ title }: { title: string }) => {
                     value={coupon}
                     className='peer placeholder:opacity-0 block w-full bg-transparent pt-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200 pr-10 relative z-10'
                   />
+                  <span className='absolute right-0 top-1.5'>+</span>
                   <label
                     htmlFor='Promo_code'
-                    className='absolute duration-300 -top-3 -z-1 origin-0 text-base bg-white peer-focus:-top-3 peer-placeholder-shown:top-2'
+                    className='absolute duration-300 -top-3 -z-1 origin-0 text-base bg-white peer-focus:-top-3 peer-placeholder-shown:top-2 uppercase'
                   >
                     Promo code
                   </label>

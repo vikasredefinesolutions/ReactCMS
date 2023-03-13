@@ -30,9 +30,9 @@ const ProductRequestConsultation: React.FC<{ storeCode: string }> = ({
         <div className='inline-flex items-center'>
           <button
             onClick={() => router.push(consultationURL)}
-            className='text-anchor hover:text-anchor-hover underline text-[15px]"'
+            className='text-anchor hover:text-anchor-hover underline text-[15px] font-semibold'
           >
-            Request Consultation and Proof{' '}
+            Request Consultation & Proof{' '}
           </button>
           <span className='material-icons-outlined leading-none text-xl font-semibold'>
             chevron_right

@@ -170,6 +170,7 @@ export interface _ProductStore {
   product: {
     id: number | null;
     sizes: string;
+    sku: string;
     discounts: _ProductDiscountTable | null;
     sizeChart: _SizeChartTransformed | null;
     inventory: null | _ProductInventoryTransfomed;
@@ -222,8 +223,18 @@ export interface _UpdateSelectedValue_Reset_All {
   type: 'RESET_ALL';
 }
 
+export interface _UPDATE_BASIC_PRODUCT_DETAILS {
+  type: 'BASIC_PRODUCT_DETAILS';
+  prop: {
+    sku?: string;
+  };
+}
+
 export interface _Product_UpdateSelectedValeus_Action {
-  payload: _UpdateSelectedValue_Color | _UpdateSelectedValue_Reset_All;
+  payload:
+    | _UpdateSelectedValue_Color
+    | _UpdateSelectedValue_Reset_All
+    | _UPDATE_BASIC_PRODUCT_DETAILS;
 }
 
 export interface _Product_SetValues_Action {

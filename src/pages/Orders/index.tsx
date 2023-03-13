@@ -1,9 +1,10 @@
+import { Order } from '@constants/message';
 import { paths } from '@constants/paths.constant';
 import { FetchOrderDetails, FetchOrderIds } from '@services/user.service';
 import {
+  ShoppingCartItemDetailsViewModel,
   _MyAcc_OrderBillingDetails,
   _MyAcc_OrderProductDetails,
-  ShoppingCartItemDetailsViewModel,
 } from '@type/APIs/user.res';
 import Image from 'appComponents/reUsable/Image';
 import Price from 'appComponents/reUsable/Price';
@@ -112,15 +113,13 @@ const Orders: NextPage = () => {
           {orderDetails?.length === 0 && (
             <div className='text-center text-gray-500 tracking-[1.4px] text-[22px]'>
               <div className='text-2xl md:text-3xl lg:text-title font-title text-color-title mb-2'>
-                Orders is Empty.
+                {Order.emptyOrderList}
               </div>
-              <div className=''>There's nothing in your Order.</div>
-              <div className=''>
-                Not to worry: we have lots of other great finds.
-              </div>
+              <div className=''>{Order.nothingInOrderList}</div>
+              <div className=''>{Order.notToWorry}</div>
               <div className='mt-3'>
-                <a href='' className='btn btn-secondary btn-lg'>
-                  START SHOPPING
+                <a href={paths.HOME} className='btn btn-secondary btn-lg'>
+                  {Order.startShoppingButton}
                 </a>
               </div>
             </div>
@@ -135,7 +134,7 @@ const Orders: NextPage = () => {
                   <div className='flex-1 grid grid-cols-2 gap-x-6 text-sm sm:col-span-4 sm:grid-cols-4 lg:col-span-2'>
                     <div>
                       <dt className='text-gray-900 font-semibold uppercase'>
-                        ORDER NUMBER
+                        {Order.orderNumber}
                       </dt>
                       <dd className='mt-1 text-gray-900'>
                         {order?.billing?.id}
@@ -143,7 +142,7 @@ const Orders: NextPage = () => {
                     </div>
                     <div className='hidden sm:block'>
                       <dt className='text-gray-900 font-semibold uppercase'>
-                        DATE OF ORDER
+                        {Order.dateOfOrder}
                       </dt>
                       <dd className='mt-1 text-gray-900'>
                         <time>
@@ -155,7 +154,7 @@ const Orders: NextPage = () => {
                     </div>
                     <div>
                       <dt className='text-gray-900 font-semibold uppercase'>
-                        TOTAL PRICE
+                        {Order.totalPrice}
                       </dt>
                       <dd className='mt-1 font-semibold text-gray-900'>
                         <Price value={order?.billing?.orderTotal} />
@@ -163,7 +162,7 @@ const Orders: NextPage = () => {
                     </div>
                     <div>
                       <dt className='text-gray-900 font-semibold uppercase'>
-                        ORDER STATUS
+                        {Order.orderStatus}
                       </dt>
                       <dd className='mt-1 text-gray-900'>
                         {order?.billing?.orderStatus}
@@ -173,9 +172,9 @@ const Orders: NextPage = () => {
                   <div className='hidden lg:col-span-2 lg:flex lg:items-center lg:justify-end lg:space-x-4'>
                     <button
                       onClick={() => viewDetailsHandler(order?.billing?.id)}
-                      className='btn btn-primary'
+                      className='btn btn-secondary btn-xl'
                     >
-                      <span>View Order Details</span>
+                      <span>{Order.viewOrderDetails}</span>
                     </button>
                   </div>
                 </div>
@@ -202,12 +201,12 @@ const Orders: NextPage = () => {
                           </Link>
                           <div className='mt-1'>
                             <span className='font-semibold inline-block '>
-                              SKU :
+                              {Order.productSku}
                             </span>
                             <span> {prod?.sku}</span>
                           </div>
                           <div className='mt-1'>
-                            <span className='font-semibold'>SIZE : </span>{' '}
+                            <span className='font-semibold'>{Order.size}</span>{' '}
                             {mergeAllSizes(
                               prod.shoppingCartItemDetailsViewModels,
                             )}
@@ -243,14 +242,16 @@ const Orders: NextPage = () => {
                           )}
                           <div className='mt-4 flex flex-wrap justify-between -mx-3'>
                             <div className='w-full lg:w-1/2 px-3'>
-                              <div className='font-semibold'>UNIT TOTAL</div>
+                              <div className='font-semibold'>
+                                {Order.unitTotal}
+                              </div>
                               <div className=''>
                                 <Price value={prod.totalPrice} />
                               </div>
                             </div>
                             <div className='w-full lg:w-1/2 px-3'>
                               <div className='font-semibold'>
-                                ESTIMATED PRICE
+                                {Order.estimatePrice}
                               </div>
                               <div className=''>
                                 <Price value={prod.totalPrice} />
@@ -263,7 +264,7 @@ const Orders: NextPage = () => {
                             href={`${paths.WRITE_A_REVIEW}?ProductId=${prod.productId}&attributeId=${prod.attributeOptionId}`}
                             className='btn btn-primary !w-48 text-center'
                           >
-                            Write A Review
+                            {Order.reviewMessage}
                           </Link>
                         </div>
                       </div>

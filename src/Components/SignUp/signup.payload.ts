@@ -69,7 +69,7 @@ export interface _Signup_Payload {
 export const signup_payload: _Signup_Payload = {
   showIndustries: false,
   id: 0,
-  gender: '',
+  gender: 'Male',
   details: '',
   rowVersion: '',
   location: '',

@@ -27,7 +27,7 @@ const MyAccountTabs: React.FC = () => {
     <>
       <section className='pt-7 tracking-[1.4px]'>
         <div className='container mx-auto'>
-          <div className='pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]pt-7 tracking-[1.4px]pt-7 tracking-[1.4px] text-center font-bold'>
+          <div className='text-center text-4xl tracking-[1.4px] '>
             MY ACCOUNT
           </div>
           <div className='bg-gray-100 mt-6 flex justify-center'>

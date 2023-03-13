@@ -1,5 +1,5 @@
-import { SpinnerComponent } from 'appComponents/ui/spinner';
 import ProductDetailsPageBanner from 'Components/ProductDetails/Banner';
+import { SpinnerComponent } from 'appComponents/ui/spinner';
 import dynamic from 'next/dynamic';
 import { _Store } from 'page.config';
 import { Fragment } from 'react';
@@ -51,6 +51,7 @@ const Layout3 = ({
   storeLayout,
   slug,
   seType,
+  sortingType,
 }: list_FnProps) => {
   return (
     <>
@@ -93,6 +94,7 @@ const Layout3 = ({
                     setProductView,
                     productView,
                     setShowFilter,
+                    sortingType: sortingType || 0,
                   }}
                 />
                 <div className=''>

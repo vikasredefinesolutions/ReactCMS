@@ -1,4 +1,6 @@
+import { paths } from '@constants/paths.constant';
 import { useActions, useTypedSelector } from 'hooks';
+import Link from 'next/link';
 import { _Store, __domain } from 'page.config';
 import React from 'react';
 
@@ -98,14 +100,16 @@ const Ecommerce_NotificationBar: React.FC = () => {
                 <>
                   <span className='text-center text-capitalize cursor-pointer'>
                     Employee logged in
-                    <a
+                    <Link
+                      href={paths.HOME}
                       className='ml-1'
-                      href='http://localhost:3000'
                       style={{ color: '#7BC24E' }}
                       onClick={() => employeeClear()}
                     >
-                      (LogOut)
-                    </a>
+                      <a className='ml-1' style={{ color: '#7BC24E' }}>
+                        (LogOut)
+                      </a>
+                    </Link>
                   </span>
                   <span className='p-l-5 p-r-5'>|</span>
                 </>

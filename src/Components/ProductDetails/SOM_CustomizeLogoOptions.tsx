@@ -2,11 +2,11 @@ import { FetchLogoLocationByProductId } from '@services/product.service';
 import { _CI_ShoppingCartLogoPersonViewModel } from '@type/APIs/cart.res';
 import { _LogoLocationDetail } from '@type/APIs/productDetail.res';
 import { FieldArray, Form, Formik } from 'formik';
-import { generateImageUrl, numberToOrdinalString } from 'helpers/common.helper';
+import { numberToOrdinalString } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import { logoPositions } from 'mock/startModal.mock';
 import React, { useEffect, useState } from 'react';
-import { _SOM_LogoDetails } from 'redux/slices/product.slice.types';
+import LogoSetterToStore from './LogoSetterToStore';
 import NextLogoButton from './NextLogoButton';
 import SOM_LogoOption from './SOM_LogoOption';
 
@@ -41,6 +41,8 @@ const SOM_CustomizeLogoOptions: React.FC<{
   totalQty: number;
 }> = ({ editDetails, totalQty }) => {
   const { product_updateLogoDetails, updateSomLogo } = useActions();
+  const { getDetailsLogo } = LogoSetterToStore();
+
   const [nowOrLater, setNowOrLater] = useState<'later' | 'now'>('later');
   const [firstLogoFree, setFirstLogoFree] = useState<Boolean>(true);
   const { currency } = useTypedSelector((state) => state.store);
@@ -68,97 +70,17 @@ const SOM_CustomizeLogoOptions: React.FC<{
 
   useEffect(() => {
     if (editDetails && logoLocation) {
-      let isLater = false;
-      const som_logoDetails: _SOM_LogoDetails[] = [];
-      const details = editDetails.map((res) => {
-        let logoStatus: LogoStatus = '';
-        let fileToUpload: FileToUpload = null;
-        if (res.logoName === 'Customize Later') {
-          setNowOrLater('later');
-          isLater = true;
-        } else if (res.logoName === 'Add Logo Later') {
-          logoStatus = 'later';
-          som_logoDetails.push({
-            date: new Date().toString(),
-            location: {
-              imageUrl: res.logoPositionImage,
-              name: res.logoLocation || '',
-              value: res.logoLocation || '',
-            },
-            price: res.logoPrice,
-            quantity: 5,
-            status: 'WILL SUBMIT LATER',
-          });
-          setNowOrLater('now');
-        } else {
-          som_logoDetails.push({
-            date: new Date().toString(),
-            filePath: res.logoImagePath,
-            location: {
-              imageUrl: res.logoPositionImage,
-              name: res.logoLocation || '',
-              value: res.logoLocation || '',
-            },
-            price: res.logoPrice / totalQty,
-            quantity: totalQty,
-            status: 'LOGO SUBMITTED',
-            title: res.name,
-          });
-          logoStatus = 'submitted';
-          setNowOrLater('now');
-          // eslint-disable-next-line no-useless-escape
-          const filename = res.logoImagePath.replace(/^.*[\\\/]/, '');
-          fileToUpload = {
-            name: filename,
-            type: filename.split('.').pop() as string,
-            previewURL: generateImageUrl(res.logoImagePath, false) as string,
-          };
-        }
-
-        const selectedLocation = {
-          label: res.logoLocation || '',
-          value: res.logoLocation || '',
-          image: {
-            url: res.logoPositionImage || '',
-            alt: res.logoLocation || '',
-          },
-          show: true,
-          price: res.logoPrice,
-          cost: res.logoPrice,
-        };
-
-        return {
-          logoStatus,
-          fileToUpload,
-          selectedLocation,
-        };
-      });
-      if (!isLater) {
+      const { isLater, details } = getDetailsLogo(
+        editDetails,
+        logoLocation,
+        totalQty,
+      );
+      if (isLater) {
+        setNowOrLater('later');
+      } else {
+        setNowOrLater('now');
         setInitialValues(new Array(details.length).fill(''));
         setLogoEditDetails(details);
-        logoNowOrLaterHandler('now');
-        updateSomLogo({
-          details: som_logoDetails.length > 0 ? som_logoDetails : null,
-          allowNextLogo: logoLocation.length > som_logoDetails.length,
-          availableOptions: logoLocation
-            .filter((logo) =>
-              som_logoDetails.findIndex(
-                (detail) => detail.location.name === logo.name,
-              ) > -1
-                ? 0
-                : 1,
-            )
-            .map((logo) => ({
-              image: {
-                url: logo.image,
-                alt: logo.image,
-              },
-              label: logo.name,
-              value: logo.name,
-              price: logo.price,
-              cost: logo.cost,
-            })),
-        });
       }
     }
   }, [editDetails, logoLocation]);
@@ -201,6 +123,11 @@ const SOM_CustomizeLogoOptions: React.FC<{
 
   return (
     <div className='mb-6'>
+      <div className='text-sm text-gray-900 bg-primary flex flex-wrap justify-between items-center p-2 md:p-0 md:pl-2 mt-5 mb-2'>
+        <span className='text-lg font-semibold text-white'>
+          Customize Your Order:
+        </span>
+      </div>
       <div className=''>
         <label
           htmlFor='logo_later'
@@ -215,6 +142,7 @@ const SOM_CustomizeLogoOptions: React.FC<{
             id='logo_later'
             checked={nowOrLater === 'later'}
             onChange={() => logoNowOrLaterHandler('later')}
+            className='mr-3'
           />
           Customize Logo Later with Dedicated Account Specialist
         </label>
@@ -231,6 +159,7 @@ const SOM_CustomizeLogoOptions: React.FC<{
             id='logo_now'
             checked={nowOrLater === 'now'}
             onChange={() => logoNowOrLaterHandler('now')}
+            className='mr-3'
           />
           Customize Logo Now
         </label>

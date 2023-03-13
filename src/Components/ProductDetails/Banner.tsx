@@ -59,7 +59,10 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
             <div className='items-center p-4 xl:p-16 xl:px-20 bg-gray-100'>
               <div className='flex flex-wrap items-center gap-y-10 -mx-5'>
                 <div className='w-full lg:w-1/2 flex gap-2 h-full justify-around px-5'>
-                  <div className='w-5/12 bg-white shadow flex items-center justify-center'>
+                  <div
+                    title={`${isbrand ? banner[0].name : ''}`}
+                    className='w-5/12 bg-white shadow flex items-center justify-center'
+                  >
                     {banner[0] && (banner[0].brandLogo || banner[0].banner) ? (
                       <Image
                         className='object-cover'
@@ -135,7 +138,6 @@ const ProductDetailsPageBanner: React.FC<_props> = (props) => {
             </div>
           </div>
         </section>
-        {/* <section className='mainsection text-center text-sm leading-none'></section> */}
 
         {/* <Features /> */}
         {showModal === 'login' && <LoginModal modalHandler={setShowModal} />}

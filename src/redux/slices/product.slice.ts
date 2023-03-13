@@ -49,6 +49,7 @@ const initialState: _ProductStore = {
     sizeChart: null,
     inventory: null,
     sizes: '',
+    sku: '',
     colors: null,
     brand: null,
     id: null,
@@ -109,6 +110,11 @@ export const productSlice = createSlice({
       state,
       { payload }: _Product_UpdateSelectedValeus_Action,
     ) => {
+      if (payload.type === 'BASIC_PRODUCT_DETAILS') {
+        state.product.sku = payload.prop?.sku || state.product.sku;
+        return;
+      }
+
       if (payload.type === 'COLOR') {
         state.selected.color = payload.data;
         return;

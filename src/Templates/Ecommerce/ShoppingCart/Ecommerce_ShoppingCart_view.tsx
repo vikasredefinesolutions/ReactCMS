@@ -1,3 +1,4 @@
+import { Cart } from '@constants/message';
 import CartLayout1 from 'appComponents/ui/cart/Layouts/Layout1';
 import CartLayout2 from 'appComponents/ui/cart/Layouts/Layout2';
 import CartLayout3 from 'appComponents/ui/cart/Layouts/Layout3';
@@ -28,13 +29,15 @@ const Ecommerce_ShoppingCart = () => {
     return (
       <div className='text-center text-gray-500 tracking-[1.4px] text-[22px] p-5'>
         <div className='text-2xl md:text-3xl lg:text-title font-title text-color-title mb-2'>
-          Cart is Empty.
+          {Cart.emptyCart}
         </div>
-        <div className=''>There's nothing in your Cart.</div>
-        <div className=''>Not to worry: we have lots of other great finds.</div>
+        <div className=''>{Cart.nothingInCart}</div>
+        <div className=''>{Cart.notToWorry}</div>
         <div className='mt-3'>
           <Link href='/' className='btn btn-secondary btn-lg'>
-            <a className='btn btn-secondary btn-lg'>START SHOPPING</a>
+            <a className='btn btn-secondary btn-lg'>
+              {Cart.startShoppingButton}
+            </a>
           </Link>
         </div>
       </div>

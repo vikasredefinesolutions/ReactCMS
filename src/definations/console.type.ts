@@ -6,6 +6,7 @@ import { _FooterAPIs } from '@services/footer.service';
 import { _GiftCardAPIs } from '@services/gift.service';
 import { _HeaderAPIs } from '@services/header.service';
 import { _HomeAPIs } from '@services/home.service';
+import { _KlaviyoAPIs } from '@services/klaviyo.service';
 import { _LogoAPIs } from '@services/logo.service';
 import { _ProducDetailAPIs } from '@services/product.service';
 import { _SlugAPIs } from '@services/slug.service';
@@ -81,4 +82,7 @@ export interface __Console {
     service: Record<_ShoppingCartAPIs, boolean>;
   };
   Logo: { service: Record<_LogoAPIs, boolean> };
+  Klaviyo: {
+    service: Record<_KlaviyoAPIs, boolean>;
+  };
 }

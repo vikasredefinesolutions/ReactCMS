@@ -23,7 +23,7 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
   showLogin,
 }) => {
   const [showMsg, setShowMsg] = useState(false);
-
+  const customerId = useTypedSelector((state) => state.user.id);
   const { minQty } = useTypedSelector((state) => state.product.toCheckout);
   const unitUnits = minQty > 1 ? 'units' : 'unit';
   const showMinQuantity = minQty > 0;
@@ -148,7 +148,7 @@ const DiscountPricing: React.FC<_props & { storeCode: string }> = ({
               </button>
             ) : null}
           </div>
-          {showMsrpLine && (
+          {!customerId && showMsrpLine && (
             <div className='text-sm text-gray-900 flex flex-wrap justify-between items-center mt-4'>
               <p className='flex items-start leading-none'>
                 <span className='leading-none text-lg font-semibold mr-1'>

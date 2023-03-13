@@ -6,7 +6,12 @@ import { getWishlist } from '@services/wishlist.service';
 import { paths, queryParam } from 'constants/paths.constant';
 import { _modals } from 'definations/product.type';
 import { Form, Formik } from 'formik';
-import { deleteCookie, extractCookies, setCookie } from 'helpers/common.helper';
+import {
+  deleteCookie,
+  extractCookies,
+  KlaviyoScriptTag,
+  setCookie,
+} from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import { _Store } from 'page.config';
@@ -62,25 +67,6 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
           });
           setCookie(__Cookie.userId, user.id, __Cookie_Expiry.userId);
 
-          const newScript = document.createElement('script');
-          newScript.setAttribute('type', 'text/javascript');
-          const userInfo = {
-            $email: 'thomas.jefferson@example.com',
-            $first_name: 'Thomas',
-            $last_name: 'Jefferson',
-            $phone_number: '23423423',
-            $organization: 'sfasd',
-            $title: '4',
-            $timestamp: new Date(),
-          };
-          const inlineScript = document.createTextNode(
-            `var _learnq = _learnq || [];
-  _learnq.push(${JSON.stringify(['identify', userInfo])}); 
-  `,
-          );
-          newScript.appendChild(inlineScript);
-          document.head.appendChild(newScript);
-
           GetStoreCustomer(+user.id).then((res) => {
             if (res === null) return;
             if (localStorage) {
@@ -94,6 +80,18 @@ const LoginModal: React.FC<_Props> = ({ modalHandler }) => {
                 deleteCookie(__Cookie.tempCustomerId);
               }
             }
+
+            const userInfo = {
+              $email: res.email,
+              $first_name: res.firstname,
+              $last_name: res.lastName,
+              $phone_number: '',
+              $organization: res.companyName,
+              $title: 'title',
+              $timestamp: new Date(),
+            };
+
+            KlaviyoScriptTag(['identify', userInfo]);
             updateCustomer({ customer: res });
             getWishlist(res.id).then((wishListResponse) => {
               updateWishListData(wishListResponse);

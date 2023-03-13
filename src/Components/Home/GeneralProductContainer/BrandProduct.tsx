@@ -37,7 +37,7 @@ const BrandProduct: React.FC<_props> = (props) => {
   useEffect(() => {
     if (customerId) {
       wishListData.map((item) => {
-        if (item.productId === product?.id) {
+        if (item.productId === product?.productId) {
           setWishlistPresent(true);
           setWishListId(item.id);
         }
@@ -98,7 +98,7 @@ const BrandProduct: React.FC<_props> = (props) => {
               <Link
                 href={`${origin}/${product.productSEName}.html?v=product-detail&altview=1`}
               >
-                <a className='relative text-sm'>{product.productName}</a>
+                <a className='relative text-sm h-11'>{product.productName}</a>
               </Link>
             </div>
             <div className='mt-3 text-gray-900'>
@@ -114,8 +114,7 @@ const BrandProduct: React.FC<_props> = (props) => {
               </span>
             </div>
             <ul role='list' className='flex items-center justify-center mt-2'>
-              {product &&
-                product?.moreImages &&
+              {product?.moreImages &&
                 product?.moreImages.map(
                   (option: GetProductImageOptionList, index: number) =>
                     index < showcolors ? (

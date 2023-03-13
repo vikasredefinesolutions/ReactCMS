@@ -1,5 +1,6 @@
 import { CustomizeLater } from '@constants/global.constant';
 import { FetchCartDetails } from '@services/cart.service';
+import { fetchCategoryByproductId } from '@services/product.service';
 import { CartProducts } from '@type/APIs/cart.res';
 import config from 'api.config';
 import ForgotModal from 'appComponents/modals/ForgotModal';
@@ -11,11 +12,12 @@ import CartSummary from 'Components/CartSummary/CartSummary';
 import PaymentOption from 'Components/Checkout/components/PaymentOption';
 import { seoTags as seoDetails } from 'constants/seo.constant';
 import { Formik, FormikProps } from 'formik';
+import { KlaviyoScriptTag } from 'helpers/common.helper';
 import { useTypedSelector } from 'hooks';
 import _ from 'lodash';
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
 import { _Store } from 'page.config';
-import { createRef, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import CheckoutController from '../Components/Checkout/CheckoutController';
 import AddressPopupLayout1 from '../Components/Checkout/components/AdressPopup/AdressPopupLayout1';
 const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
@@ -65,6 +67,7 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
   const billing = createRef();
   const [showReviewOrder, setShowReviewOrder] = useState(false);
   const storeLayout = useTypedSelector((state) => state.store.layout);
+  const { id: storeId, pageType } = useTypedSelector((state) => state.store);
 
   const handleReviewOrder = async () => {
     if (!isLoggedIn) {
@@ -92,6 +95,81 @@ const Checkout: NextPage<{ cartDetails: CartProducts | null }> = (props) => {
       setShowReviewOrder(!showReviewOrder);
     }
   };
+
+  const getAllCategories = async (
+    cartDetails: CartProducts,
+  ): Promise<{
+    all: string[];
+    individual: Array<string[]>;
+  }> => {
+    const individual: Array<string[]> = [];
+    const allCat: string[] = [];
+
+    const categoriesToFetch = cartDetails.map((item) => {
+      return fetchCategoryByproductId(+pageType.id, storeId!);
+    });
+
+    await Promise.allSettled(categoriesToFetch).then((values) => {
+      values.forEach((value, index) => {
+        const categories = value.status === 'fulfilled' ? value.value : null;
+        if (categories && categories.length > 0) {
+          individual[index] = categories[0].name.split(' > ');
+          allCat.push(...individual[index]);
+        }
+      });
+    });
+
+    function removeDuplicates(arr: string[]) {
+      return arr.filter((item, index) => arr.indexOf(item) === index);
+    }
+
+    return {
+      all: removeDuplicates(allCat),
+      individual: individual,
+    };
+  };
+
+  const track_startedCheckout = async (cartDetails: CartProducts) => {
+    const categories = await getAllCategories(cartDetails);
+    const item = {
+      $event_id: new Date().valueOf(),
+      $value: cartDetails
+        ?.reduce((total, item) => total + item.totalPrice, 0)
+        .toFixed(2),
+      ItemNames: cartDetails?.map((item) => item.productName),
+      CheckoutURL: `${window.location.href}`,
+      Categories: categories.all,
+      Items: cartDetails?.map((item, index) => {
+        return {
+          ProductID: item.productId,
+          SKU: item.sku,
+          ProductName: item.productName,
+          Quantity: item.totalQty,
+          ItemPrice: item.totalPrice / item.totalQty,
+          RowTotal: item.totalPrice,
+          ProductURL: `${window.location.host}/${item.seName}`,
+          ImageURL: `${config.baseUrl.media}/${item.colorImage}`,
+          ProductCategories: categories.individual[index],
+          ProductColorName: item.attributeOptionValue,
+          ProductSizes: item.shoppingCartItemDetailsViewModels.map((itm) => {
+            return {
+              size: itm.attributeOptionValue,
+              qty: itm.qty,
+              price: itm.price / itm.qty,
+              total: itm.price,
+            };
+          }),
+        };
+      }),
+    };
+    KlaviyoScriptTag(['track', 'Started Checkout', item]);
+  };
+
+  useEffect(() => {
+    if (cartDetails) {
+      track_startedCheckout(cartDetails);
+    }
+  }, [cartDetails]);
 
   return (
     <>

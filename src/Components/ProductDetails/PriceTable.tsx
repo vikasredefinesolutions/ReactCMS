@@ -1,4 +1,5 @@
 import { FetchDiscountTablePrices } from '@services/product.service';
+import { SubRow } from '@type/APIs/discountTable.res';
 import Price from 'appComponents/reUsable/Price';
 import { c_getSeName } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
@@ -13,6 +14,14 @@ const QtyPriceTable: React.FC<{ storeCode: string }> = ({ storeCode }) => {
     (state) => state.product.selected.color,
   );
   const { discounts } = useTypedSelector((state) => state.product.product);
+
+  const fillEmptySpaces = (arr: SubRow[]): 'empty'[] | null => {
+    return arr.length < 6
+      ? new Array(6 - arr.length).fill('empty')
+      : arr.length >= 7 && arr.length < 12
+      ? new Array(12 - arr.length).fill('empty')
+      : null;
+  };
 
   useEffect(() => {
     if (
@@ -45,26 +54,39 @@ const QtyPriceTable: React.FC<{ storeCode: string }> = ({ storeCode }) => {
     return (
       <>
         {customerId !== null && (
-          <div className='bg-gray-100 flex flex-wrap text-center border border-gray-300'>
-            <div className='hidden md:block text-left'>
-              <div className='p-1 px-2 border-r border-b border-gray-300 font-semibold'>
+          <div className='bg-gray-100 flex flex-wrap text-center border border-gray-300 text-sm'>
+            <div className='hidden md:block text-left md:w-1/6'>
+              <div className='p-1 px-2 border-b border-gray-300 font-semibold'>
                 Quantity:
               </div>
-              <div className='p-1 px-2 border-r border-gray-300 font-semibold'>
+              <div className='p-1 px-2 border-gray-300 font-semibold'>
                 Price:
               </div>
             </div>
-            <div className='flex flex-wrap text-center grow'>
-              {discounts?.subRows?.map((column) => (
-                <div className='sm:w-1/5' key={column.discountPrice}>
-                  <div className='p-1 px-2 border-b border-gray-300'>
-                    {column.displayQuantity}
+            <div className='flex flex-wrap text-center grow md:w-5/6'>
+              {discounts?.subRows?.map((column, index) => {
+                return (
+                  <div className='md:w-1/6' key={column.discountPrice}>
+                    <div className='p-1 px-2 border-b border-gray-300'>
+                      {column.displayQuantity}
+                    </div>
+                    <div className='p-1 px-2'>
+                      <Price value={column.discountPrice} />
+                    </div>
                   </div>
-                  <div className='p-1 px-2'>
-                    <Price value={column.discountPrice} />
-                  </div>
-                </div>
-              ))}
+                );
+              })}
+              {discounts?.subRows &&
+                fillEmptySpaces(discounts.subRows)?.map((elem, index) => {
+                  return (
+                    <div className='md:w-1/6' key={index}>
+                      <div className='p-1 px-2 border-b border-gray-300'>
+                        &nbsp;
+                      </div>
+                      <div className='p-1 px-2'></div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         )}

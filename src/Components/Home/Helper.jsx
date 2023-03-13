@@ -6,6 +6,124 @@ import * as dynamicFunctions from './DynamicFunction';
 export const updateSetProperties = (element) => {
   let x = document.getElementById('div' + element.no);
   if (element.selectedVal != undefined && element.selectedVal != '') {
+    let elProperties;
+      let buttonId = '';
+      let className = '';
+      let pmClassName = '';
+      Object.entries(element.selectedVal).map(([key, value]) => {
+        
+        if(value.type == 'btn_size')
+        {
+          buttonId = key.replace('_size', '');
+          className += ' ' + value.value;
+        }
+
+        if(value.type == 'btn_alignment')
+        {
+          buttonId = key.replace('_alignment', '');
+          pmClassName += ' ' + value.value;
+        }
+
+
+        if(value.type == 'btn_transform')
+        {
+          buttonId = key.replace('_text_transform', '');
+          className += ' ' + value.value;
+        }
+
+        if(value.type == 'btn_link')
+        {
+          buttonId = key.replace('_link', '');
+          if(x.querySelectorAll('#'+buttonId).length > 0)
+          {
+            x.querySelectorAll('#'+buttonId)[0].href = value.value;
+          }
+        }
+
+        if(value.type == 'btn_style')
+        {
+          buttonId = key.replace('_style', '');
+          className += ' ' + value.value;
+        }
+
+        if(value.type == 'btn_size')
+        {
+          buttonId = key.replace('_size', '');
+          className += ' ' + value.value;
+        }
+
+        if(value.type == 'btn_link_target')
+        {
+          buttonId = key.replace('_window', '');
+          if(x.querySelectorAll('#'+buttonId).length > 0)
+          {
+            x.querySelectorAll('#'+buttonId)[0].target = value.value;
+          }
+        }                  
+
+
+        if(value.type == 'btn_display')
+        {
+          if(value.value == 'No')
+          {
+            buttonId = key.replace('_display', '');
+            if(x.querySelectorAll('#'+buttonId).length > 0)
+            {
+              x.querySelectorAll('#'+buttonId)[0].remove();
+            }
+              
+          }
+        }
+
+        /* Padding & Margin Code for Button Text */
+        if(value.type == 'btn_left_padding')
+        {
+          buttonId = key.replace('_left_padding', '');
+          pmClassName += ' pl-[' + value.value +'px]';
+        }
+        if(value.type == 'btn_top_padding')
+        {
+          buttonId = key.replace('_top_padding', '');
+          pmClassName += ' pt-[' + value.value +'px]';
+        }
+        if(value.type == 'btn_right_padding')
+        {
+          buttonId = key.replace('_right_padding', '');
+          pmClassName += ' pr-[' + value.value +'px]';
+        }
+        if(value.type == 'btn_bottom_padding')
+        {
+          buttonId = key.replace('_bottom_padding', '');
+          pmClassName += ' pb-[' + value.value +'px]';
+        }
+        if(value.type == 'btn_left_margin')
+        {
+          buttonId = key.replace('_left_margin', '');
+          pmClassName += ' ml-[' + value.value +'px]';
+        }
+        if(value.type == 'btn_top_margin')
+        {
+          buttonId = key.replace('_top_margin', '');
+          pmClassName += ' mt-[' + value.value +'px]';
+        }
+        if(value.type == 'btn_right_margin')
+        {
+          buttonId = key.replace('_right_margin', '');
+          pmClassName += ' mr-[' + value.value +'px]';
+        }
+        if(value.type == 'btn_bottom_margin')
+        {
+          buttonId = key.replace('_bottom_margin', '');
+          pmClassName += ' mb-[' + value.value +'px]';
+        }
+
+      });
+
+      if(buttonId !== '')
+      {
+        x.querySelectorAll('#'+buttonId)[0].className = className;
+        x.querySelectorAll('#'+buttonId+'Parent')[0].className = pmClassName;
+      }
     //      let elProperties;
     Object.entries(element.selectedVal).map(([key, value]) => {
       if (typeof element.properties === 'string') {
@@ -16,6 +134,24 @@ export const updateSetProperties = (element) => {
         if (x.querySelectorAll('#' + key).length > 0) {
           x.querySelectorAll('#' + key)[0].innerHTML = value.value;
         }
+      }
+
+      if(value.type === 'finalclass')
+      {
+        let propName = key.replace('_final_class', '');
+       
+        if(value.value !== '' && x.querySelectorAll('#'+propName).length > 0)
+        {
+          x.querySelectorAll('#'+propName)[0].className = value.value;
+        }
+      }
+
+
+      if(value.type == 'fontcolor')
+      {
+        let propName = key.replace('_font_color', '');
+        if(x.querySelectorAll('#'+propName).length > 0)
+          x.querySelectorAll('#'+propName)[0].style = 'color: '+value.value;
       }
 
       if (value.type == 'transform') {
@@ -164,56 +300,56 @@ export const updateSetProperties = (element) => {
         }
       }
 
-      if (value.type == 'btn_size') {
-        let propName = key.replace('_size', '');
-        if (x.querySelectorAll('#' + propName).length > 0) {
-          x.querySelectorAll('#' + propName)[0].classList.add(value.value);
-        }
-      }
+      // if (value.type == 'btn_size') {
+      //   let propName = key.replace('_size', '');
+      //   if (x.querySelectorAll('#' + propName).length > 0) {
+      //     x.querySelectorAll('#' + propName)[0].classList.add(value.value);
+      //   }
+      // }
 
-      if (value.type == 'btn_transform') {
-        let propName = key.replace('_text_transform', '');
-        if (x.querySelectorAll('#' + propName).length > 0) {
-          x.querySelectorAll('#' + propName)[0].classList.add(value.value);
-        }
-      }
+      // if (value.type == 'btn_transform') {
+      //   let propName = key.replace('_text_transform', '');
+      //   if (x.querySelectorAll('#' + propName).length > 0) {
+      //     x.querySelectorAll('#' + propName)[0].classList.add(value.value);
+      //   }
+      // }
 
-      if (value.type == 'btn_link') {
-        let propName = key.replace('_link', '');
-        if (x.querySelectorAll('#' + propName).length > 0) {
-          x.querySelectorAll('#' + propName)[0].href = value.value;
-        }
-      }
+      // if (value.type == 'btn_link') {
+      //   let propName = key.replace('_link', '');
+      //   if (x.querySelectorAll('#' + propName).length > 0) {
+      //     x.querySelectorAll('#' + propName)[0].href = value.value;
+      //   }
+      // }
 
-      if (value.type == 'btn_style') {
-        let propName = key.replace('_style', '');
-        if (x.querySelectorAll('#' + propName).length > 0) {
-          x.querySelectorAll('#' + propName)[0].classList.add(value.value);
-        }
-      }
+      // if (value.type == 'btn_style') {
+      //   let propName = key.replace('_style', '');
+      //   if (x.querySelectorAll('#' + propName).length > 0) {
+      //     x.querySelectorAll('#' + propName)[0].classList.add(value.value);
+      //   }
+      // }
 
-      if (value.type == 'btn_size') {
-        let propName = key.replace('_size', '');
-        if (x.querySelectorAll('#' + propName).length > 0) {
-          x.querySelectorAll('#' + propName)[0].classList.add(value.value);
-        }
-      }
+      // if (value.type == 'btn_size') {
+      //   let propName = key.replace('_size', '');
+      //   if (x.querySelectorAll('#' + propName).length > 0) {
+      //     x.querySelectorAll('#' + propName)[0].classList.add(value.value);
+      //   }
+      // }
 
-      if (value.type == 'btn_link_target') {
-        let propName = key.replace('_window', '');
-        if (x.querySelectorAll('#' + propName).length > 0) {
-          x.querySelectorAll('#' + propName)[0].target = value.value;
-        }
-      }
+      // if (value.type == 'btn_link_target') {
+      //   let propName = key.replace('_window', '');
+      //   if (x.querySelectorAll('#' + propName).length > 0) {
+      //     x.querySelectorAll('#' + propName)[0].target = value.value;
+      //   }
+      // }
 
-      if (value.type == 'btn_display') {
-        if (value.value == 'No') {
-          let propName = key.replace('_display', '');
-          if (x.querySelectorAll('#' + propName).length > 0) {
-            x.querySelectorAll('#' + propName)[0].remove();
-          }
-        }
-      }
+      // if (value.type == 'btn_display') {
+      //   if (value.value == 'No') {
+      //     let propName = key.replace('_display', '');
+      //     if (x.querySelectorAll('#' + propName).length > 0) {
+      //       x.querySelectorAll('#' + propName)[0].remove();
+      //     }
+      //   }
+      // }
 
       if (value.type == 'accordion' && key != 'FullAccordion') {
         // loop for accordion ittem

@@ -4,9 +4,11 @@ import ElementCarouselDisplay from 'Components/Home/ElementCarouselDisplay';
 import { useActions, useTypedSelector } from 'hooks';
 import { useEffect, useState } from 'react';
 import FeaturedProducts from '../../Components/Home/FeaturedProducts';
+import SocialShare from '../../Components/Home/SocialShare';
 
 import DIHomePage from '../../Components/Home/DIHomePage';
 import * as helper from '../../Components/Home/Helper';
+
 const Home = (props) => {
   const pageData = props.props?.pageData;
   const [componentHtml, setComponentHtml] = useState([]);
@@ -33,7 +35,7 @@ const Home = (props) => {
       setComponentHtml(pageData?.components);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pageData]);
 
   // const getPageData = (pageId) => {
   //   const requestOptions = {
@@ -86,6 +88,86 @@ const Home = (props) => {
     return 'none';
   };
 
+    const loadBackgroundDefaultStyle = (element) => {
+      
+      if (element.selectedVal != undefined) {
+        if (Object.keys(element.selectedVal).length > 0) {
+          const bgPropertyName = 'bg';
+
+          let attributes;
+          Object.entries(element.selectedVal).map(
+            ([key, value]) => {
+              
+              if (key == bgPropertyName+'_bg_style')
+              {
+                attributes = value;
+              } 
+            }
+          );
+
+
+          if (attributes != undefined && Object.keys(attributes).length > 0) {
+              if(attributes.value === 'fullbg')
+              {
+                  return 'outer';
+              }
+              else
+              {
+                  return 'inner';
+              }
+          }
+        }
+
+        return 'outer';
+      }
+      return 'outer';
+  }
+
+  const loadBackgroundImageClass = (element) => {
+      
+      if (element.selectedVal != undefined) {
+        if (Object.keys(element.selectedVal).length > 0) {
+          const bgPropertyName = 'bg';
+
+          let attributes;
+          Object.entries(element.selectedVal).map(
+            ([key, value]) => {
+              
+              if (key == bgPropertyName)
+              {
+                attributes = value;
+              } 
+            }
+          );
+
+          let bgType = '';
+          
+          if (attributes != undefined && Object.keys(attributes).length > 0) {
+            if (attributes.type == 'image') {
+              bgType = 'image';
+            }
+          }
+          if(bgType === 'image')
+          {
+            let imageClass = '';
+            
+            if('bg_bg_image_style' in element.selected_Values)
+            {
+              imageClass += ' ' + element.selected_Values.bg_bg_image_style.value;                                                          
+            }
+            if('bg_bg_image_position' in element.selected_Values)
+            {
+              imageClass += ' ' + element.selected_Values.bg_bg_image_position.value;                                                          
+            }
+            return imageClass;
+          }
+        }
+
+        return '';
+      }
+      return '';
+  }
+
   useEffect(() => {
     componentHtml?.map((element, index) => {
       //let x = ReactDOM.findDOMNode(refArray.current[element.uid]);
@@ -96,7 +178,6 @@ const Home = (props) => {
   }, [componentHtml]);
 
   const storeTypeId = useTypedSelector((state) => state.store.storeTypeId);
-
   return (
     <>
       {storeId === 22 &&
@@ -121,31 +202,73 @@ const Home = (props) => {
                       componentValue.selectedVal,
                     );
                   }
-                  const backgroundDefault =
-                    loadBackgroundDefault(componentValue);
-
-                  let additionalclass = '';
-                  if (
-                    componentValue.selectedVal &&
-                    Object.keys(componentValue.selectedVal).includes(
-                      'additionalclass',
-                    )
-                  ) {
-                    additionalclass =
-                      componentValue.selectedVal.additionalclass.value;
+                  if (typeof componentValue.properties == 'string') {
+                    componentValue.properties = JSON.parse(
+                      componentValue.properties,
+                    );
                   }
+                  
+                  const backgroundDefault = loadBackgroundDefault(componentValue);
+                  const backgroundStyle = loadBackgroundDefaultStyle(componentValue);
+                  const backgroundImageClass = loadBackgroundImageClass(componentValue);
+                  let additionalclass = '';
+                  if(componentValue.selectedVal && 'additionalclass' in componentValue.selectedVal)
+                  {
+                      additionalclass = componentValue.selectedVal.additionalclass.value;                                                          
+                  }
+                  if(componentValue.selectedVal && 'container' in componentValue.selectedVal)
+                  {
+                      additionalclass += ' ' + componentValue.selectedVal.container.value;                                                          
+                  }
+                  if(componentValue.selectedVal && 'container_left_padding' in componentValue.selectedVal)
+                  {
+                      additionalclass += ' ' + 'pl-['+componentValue.selectedVal.container_left_padding.value+'px]';                                                          
+                  }
+                  if(componentValue.selectedVal && 'container_top_padding' in componentValue.selectedVal)
+                  {
+                      additionalclass += ' ' + 'pt-['+componentValue.selectedVal.container_top_padding.value+'px]';                                                          
+                  }
+                  if(componentValue.selectedVal && 'container_right_padding' in componentValue.selectedVal)
+                  {
+                      additionalclass += ' ' + 'pr-['+componentValue.selectedVal.container_right_padding.value+'px]';                                                            
+                  }
+                  if(componentValue.selectedVal && 'container_bottom_padding' in componentValue.selectedVal)
+                  {
+                      additionalclass += ' ' + 'pb-['+componentValue.selectedVal.container_bottom_padding.value+'px]';                                                            
+                  }
+                  if(componentValue.selectedVal && 'container_left_margin' in componentValue.selectedVal)
+                  {
+                      additionalclass += ' ' + 'ml-['+componentValue.selectedVal.container_left_margin.value+'px]';                                                            
+                  }
+                  if(componentValue.selectedVal && 'container_top_margin' in componentValue.selectedVal)
+                  {
+                      additionalclass += ' ' + 'mt-['+componentValue.selectedVal.container_top_margin.value+'px]';                                                            
+                  }
+                  if(componentValue.selectedVal && 'container_right_margin' in componentValue.selectedVal)
+                  {
+                      additionalclass += ' ' + 'mr-['+componentValue.selectedVal.container_right_margin.value+'px]';                                                            
+                  }
+                  if(componentValue.selectedVal && 'container_bottom_margin' in componentValue.selectedVal)
+                  {
+                      additionalclass += ' ' + 'mb-['+componentValue.selectedVal.container_bottom_margin.value+'px]';                                                          
+                  }
+
+                  
                   return (
                     <div
                       key={index}
-                      className={`commondiv pt-5 ${additionalclass} ${
-                        componentValue.visibility == 'off' ? 'hidden' : ''
-                      }`}
-                      style={{ background: backgroundDefault }}
+                      className={`w-full mx-auto ${componentValue.visibility == 'off' ? 'hidden' : ''} ${backgroundStyle === 'outer' ? backgroundImageClass : ''}`} style={{ background: backgroundStyle === 'outer' ? backgroundDefault : 'none' }} 
                       id={`div${componentValue.no}`}
                       // ref={ref => {
                       //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
                       // }}
                     >
+                    <section className={`mx-auto ${additionalclass} ${backgroundStyle === 'inner' ? backgroundImageClass : ''}`} style={{ background: backgroundStyle === 'inner' ? backgroundDefault : 'none' }} >
+                            
+                     {Object.keys(componentValue.properties).includes(
+                        'socialshare',
+                      ) ? (<><SocialShare /> </>) : ( <>
+                      
                       {Object.keys(componentValue.selectedVal).includes(
                         'featuredproducts_section_title',
                       ) ||
@@ -153,7 +276,7 @@ const Home = (props) => {
                         'featuredproducts_product_count',
                       ) ? (
                         <>
-                          <FeaturedProducts
+                         <FeaturedProducts
                             dataArr={componentValue.selectedVal}
                           />
                         </>
@@ -203,6 +326,7 @@ const Home = (props) => {
                               ) : (
                                 <>
                                   <div
+                                    className={componentValue.uuid}
                                     dangerouslySetInnerHTML={{
                                       __html: componentValue.html,
                                     }}
@@ -212,7 +336,9 @@ const Home = (props) => {
                             </>
                           )}
                         </>
-                      )}
+                      )} </>)
+                    }
+                    </section>
                     </div>
                   );
 

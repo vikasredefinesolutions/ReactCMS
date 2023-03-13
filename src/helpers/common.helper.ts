@@ -7,8 +7,10 @@ import { _FooterServices } from '@services/footer.service';
 import { _GiftCardService } from '@services/gift.service';
 import { _HeaderServices } from '@services/header.service';
 import { _HomeServices } from '@services/home.service';
+import { _KlaviyoServices } from '@services/klaviyo.service';
 import { _LogoApiService } from '@services/logo.service';
 import { _ProductDetailService } from '@services/product.service';
+import { personalization } from '@services/product.service.helper';
 import { _RequestConsultationService } from '@services/requestConsultation.service';
 import { _SlugServices } from '@services/slug.service';
 import { _UserServices } from '@services/user.service';
@@ -27,7 +29,10 @@ import { StaticImageData } from 'next/image';
 import router from 'next/router';
 import { __domain } from 'page.config';
 import { ParsedUrlQuery } from 'querystring';
-import getLocation from './getLocation';
+import {
+  _LogoDetails_IfSubmitted,
+  _SOM_LogoDetails,
+} from 'redux/slices/product.slice.types';
 import { conditionalLog, conditionalLogV2, __console } from './global.console';
 
 //////////////////////////////////////////////////////////////////////
@@ -203,7 +208,8 @@ export const CallCmsAPI = async <T>({
     | _RedefineAppServices
     | _SlugServices
     | _HomeServices
-    | _UserServices;
+    | _UserServices
+    | _KlaviyoServices;
   request: _GET | _POST;
 }): Promise<T | null> => {
   conditionalLogV2({
@@ -276,7 +282,8 @@ export const CallAPI = async <T>({
     | _CacheApiServices
     | _FooterServices
     | _RequestConsultationService
-    | _LogoApiService;
+    | _LogoApiService
+    | _KlaviyoServices;
   request: _GET | _POST;
 }) => {
   conditionalLogV2({
@@ -479,10 +486,10 @@ type _Props = {
     totalQty: number;
   };
   shoppingCartItemId?: number;
+  logos?: _SOM_LogoDetails[];
 };
 
 export const getAddToCartObject = async (product: _Props) => {
-  const location = await getLocation();
   const tempCustId = extractCookies(
     __Cookie.tempCustomerId,
     'browserCookie',
@@ -497,11 +504,48 @@ export const getAddToCartObject = async (product: _Props) => {
     shoppingCartItemId,
     storeId,
     isEmployeeLoggedIn,
+    logos,
   } = product;
   const { totalPrice, totalQty } = total;
+  let cartLogoPersonModel: CartLogoPersonModel[] = [];
+  let cartLogoPersonDetailModels: CartLogoPersonDetailModel[] = [];
 
-  const cartLogoPersonModel: CartLogoPersonModel[] = [];
-  const cartLogoPersonDetailModels: CartLogoPersonDetailModel[] = [];
+  // if (logos.length > 0) {
+  if (
+    !logos ||
+    logos.length === 0 ||
+    (logos[0].status as string) === 'Customize Logo'
+  ) {
+    cartLogoPersonDetailModels = [
+      {
+        ...personalization.defaultLogoDetail,
+        colorImagePath: productDetails.color.imageUrl,
+        logoNames: 'Customize Logo',
+      },
+    ];
+  } else {
+    cartLogoPersonDetailModels = (
+      logos as unknown as _LogoDetails_IfSubmitted[]
+    ).map((logo) => {
+      return {
+        ...personalization.defaultLogoDetail,
+        logoPrice: logo.price,
+        logoQty: totalQty,
+        logoFile: logo.filePath || '',
+        logoTotal: totalQty * logo.price,
+        logoLocation: logo.location.name,
+        colorImagePath: productDetails.color.imageUrl,
+        logoNames:
+          logo.filePath === '' ? 'Add Logo Later' : logo.filePath || '',
+        price: logo.price,
+        logoDate: new Date(logo.date),
+        logoPositionImage: logo.location.imageUrl,
+        originalLogoFilePath: logo.filePath || '',
+      };
+    });
+  }
+
+  // }
 
   sizeQtys?.map((res) => {
     cartLogoPersonModel.push({
@@ -515,43 +559,25 @@ export const getAddToCartObject = async (product: _Props) => {
       isEmployeeLoginPrice: 0,
     });
 
-    // location: `${location.city}, ${location.state}, ${location.country_name}, ${location.postal}`,
-    //       logoTotal: 0,
-    //       colorImagePath: 'string',
-    //       logoUniqueId: 'string',
-    //       price: 0,
-    //       logoFile: 'string',
-    //       LogoLocation: 'string',
-    //       LogoPositionImage: 'string',
-    //       logoColors: 'string',
-    //       logoNotes: 'string',
-    //       logoDate: new Date(),
-    //       logoNames: 'string',
-    //       digitalPrice: 0,
-    //       logoPositionImagePath: 'string',
-    //       oldFilePath: 'string',
-    //       originalLogoFilePath: 'string',
-
-    cartLogoPersonDetailModels.push({
-      logoPrice: 0,
-      logoQty: 0,
-      logoFile: '',
-      logoLocation: '',
-      logoTotal: 0,
-      colorImagePath: '',
-      logoUniqueId: '',
-      price: 0,
-      logoColors: '',
-      logoNotes: '',
-      logoDate: new Date(),
-      logoNames: '',
-      digitalPrice: 0,
-      logoPositionImage: '',
-      oldFilePath: '',
-      originalLogoFilePath: '',
-    });
+    //   cartLogoPersonDetailModels.push({
+    //     logoPrice: 0,
+    //     logoQty: 0,
+    //     logoFile: '',
+    //     logoLocation: '',
+    //     logoTotal: 0,
+    //     colorImagePath: '',
+    //     logoUniqueId: '',
+    //     price: 0,
+    //     logoColors: '',
+    //     logoNotes: '',
+    //     logoDate: new Date(),
+    //     logoNames: '',
+    //     digitalPrice: 0,
+    //     logoPositionImage: '',
+    //     oldFilePath: '',
+    //     originalLogoFilePath: '',
+    //   });
   });
-
   const cartObject = {
     addToCartModel: {
       customerId:
@@ -584,7 +610,6 @@ export const getAddToCartObject = async (product: _Props) => {
           attributeOptionId: productDetails.color.attributeOptionId,
         },
       ],
-      cartLogoPersonDetailModel: [],
       cartLogoPersonModel: cartLogoPersonModel,
       cartLogoPersonDetailModels: cartLogoPersonDetailModels, // for corporate it will be []
       cartLinePersonModels: [],
@@ -639,6 +664,7 @@ var special = [
   'eighteenth',
   'nineteenth',
 ];
+
 var deca = [
   'twent',
   'thirt',
@@ -657,4 +683,38 @@ export const numberToOrdinalString = (n: number) => {
   return capitalizeFirstLetter(
     deca[Math.floor(n / 10) - 2] + 'y-' + special[n % 10],
   );
+};
+
+export const KlaviyoScriptTag = (data: any) => {
+  const newScript = document.createElement('script');
+  newScript.setAttribute('type', 'text/javascript');
+
+  const inlineScript = document.createTextNode(
+    `var _learnq = _learnq || [];
+_learnq.push(${JSON.stringify(data)}); 
+`,
+  );
+  newScript.appendChild(inlineScript);
+  document.head.appendChild(newScript);
+};
+
+export const getPrice = ({
+  loggedIn,
+  msrp = 0,
+  salePrice = 0,
+}: {
+  loggedIn: boolean;
+  msrp: number;
+  salePrice: number;
+}) => {
+  let priceToDisplay = msrp;
+
+  if (loggedIn && salePrice < msrp) {
+    priceToDisplay = salePrice;
+  }
+
+  if (isNaN(priceToDisplay)) {
+    priceToDisplay = 0;
+  }
+  return priceToDisplay;
 };

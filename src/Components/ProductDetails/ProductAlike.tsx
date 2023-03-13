@@ -96,6 +96,7 @@ const ProductAlike: React.FC<_props> = ({
                                   <div>
                                     {/* Issue: Using functional components as child of <Link/> causes ref-warnings */}
                                     <Image
+                                      title={product.name}
                                       src={product.image}
                                       alt={product.name}
                                       className='w-auto h-auto max-h-max'
@@ -112,6 +113,7 @@ const ProductAlike: React.FC<_props> = ({
                                   className='relative underline min-h-[48px]'
                                 >
                                   <div
+                                    title={product.name}
                                     className={`${
                                       storeCode === _Store.type2
                                         ? 'w-full text-xl mb-3 h-14'

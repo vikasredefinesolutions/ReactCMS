@@ -75,19 +75,20 @@ const ProductComponent = ({
           : 'text-center flex'
       }
     >
-      <div className='h-hull w-full'>
+      <div className='h-full w-full'>
         <div className='flex text-center lg:w-auto h-full'>
           <div
             className={
               storeLayout === _Store.type27
                 ? 'relative pb-4 w-full'
-                : 'relative border border-gray-200 pb-4 w-full'
+                : 'relative border border-gray-200 p-5 w-full'
             }
           >
             <div className='w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
               <Link href={`/${product.sename}.html?v=product-detail&altview=1`}>
                 <a className='w-full bg-white rounded-md overflow-hidden aspect-w-1 aspect-h-1'>
                   <ImageComponent
+                    title={`${product.name}`}
                     src={
                       currentProduct?.imageName ? currentProduct.imageName : ''
                     }
@@ -102,7 +103,7 @@ const ProductComponent = ({
               {storeLayout === _Store.type27 ? (
                 <></>
               ) : (
-                <div className='absolute top-5 right-5 text-gray-800 p-1 z-25'>
+                <div className='absolute top-1 right-1 text-gray-800 p-1 z-25'>
                   <button className=''>
                     <Wishlist
                       {...{
@@ -122,7 +123,7 @@ const ProductComponent = ({
                 </div>
               )}
             </div>
-            <div className='mt-2 relative'>
+            <div className='mt-5 relative'>
               {/* <div className="text-sm absolute -top-4 left-0 right-0">
                 <span className="w-2.5 h-2.5 bg-rose-500 inline-block rounded-full mr-1"></span>
                 Available Ofline
@@ -130,7 +131,7 @@ const ProductComponent = ({
               {storeLayout === _Store.type27 ? (
                 <></>
               ) : (
-                <div className='mt-1 text-center h-12 h-[35px]'>
+                <div className='text-center h-[35px]'>
                   <img
                     className='inline-block max-h-full'
                     src={`${config.baseUrl.media}/rdc${
@@ -157,15 +158,16 @@ const ProductComponent = ({
               </div> */}
 
               {storeLayout === _Store.type1 ? (
-                <div>
+                <div title={product.name} className='mt-[15px]'>
                   <Link key={product.id} href={`/${product.sename}.html`}>
-                    <a className='text-anchor px-3 hover:text-anchor-hover underline h-11 text-ellipsis overflow-hidden line-clamp-2 text-[13px] tracking-[1.4px]'>
+                    <a className='mt-2.5 text-anchor px-3 hover:text-anchor-hover underline h-11 text-ellipsis overflow-hidden line-clamp-2 text-[13px] tracking-[1.4px] '>
                       {product.name}
                     </a>
                   </Link>
                 </div>
               ) : (
                 <div
+                  title={product.name}
                   className={`${
                     storeLayout === _Store.type27
                       ? 'mt-1 h-10 overflow-hidden text-sm text-anchor tracking-wider hover:text-primary-hover'
@@ -175,7 +177,10 @@ const ProductComponent = ({
                   } text-[13px] tracking-[1.4px]`}
                 >
                   <Link key={product.id} href={`/${product.sename}.html`}>
-                    <a className='relative underline min-h-[48px]'>
+                    <a
+                      className='relative underline min-h-[48px]'
+                      title={product.name}
+                    >
                       {product.name}
                     </a>
                   </Link>
@@ -202,9 +207,7 @@ const ProductComponent = ({
                     ? 'mt-4 text-default text-xl'
                     : storeLayout === _Store.type21
                     ? 'mt-3 text-black text-base tracking-wider font-semibold'
-                    : `mt-2 text-black text-base tracking-wider ${
-                        storeLayout === _Store.type1 ? 'font-semibold' : ''
-                      }`
+                    : `mt-[5px] text-black text-base tracking-wider font-semibold`
                 }
               >
                 {storeLayout === _Store.type27 ? <></> : <>MSRP </>}
@@ -253,7 +256,7 @@ const ProductComponent = ({
                   <div className='w-full h-12'>
                     <ul
                       role='list'
-                      className='flex items-center mt-2 justify-center space-x-1 testlayoutclass w-full'
+                      className='flex items-center mt-[15px] justify-center space-x-1 testlayoutclass w-full'
                     >
                       {product.getProductImageOptionList.map((subRow, index) =>
                         index < listing_max_showcolors ? (
@@ -273,7 +276,10 @@ const ProductComponent = ({
                             }}
                             key={subRow.id}
                           >
-                            <div className='w-7 h-7'>
+                            <div
+                              className='w-7 h-7'
+                              title={`${subRow.colorName}`}
+                            >
                               <Image
                                 src={`${config.baseUrl.media}${subRow.imageName}`}
                                 alt=''

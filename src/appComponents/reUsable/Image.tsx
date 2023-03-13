@@ -15,6 +15,7 @@ interface _props {
   cKey?: number | string;
   useNextImage?: boolean;
   layout?: 'intrinsic' | 'fill' | 'responsive';
+  title?: string;
 }
 
 // 'fill' => Will the fill parent element width and height
@@ -32,6 +33,7 @@ const Image: React.FC<_props> = ({
   layout = 'responsive',
   isStatic = false,
   useNextImage = true,
+  title,
 }) => {
   const imageUrl = generateImageUrl(src, isStatic);
 
@@ -39,6 +41,7 @@ const Image: React.FC<_props> = ({
     return (
       <div style={{ width: '100%' }} className={className}>
         <NextImage
+          title={title}
           src={imageUrl}
           alt={alt || ''}
           width={width || 1}

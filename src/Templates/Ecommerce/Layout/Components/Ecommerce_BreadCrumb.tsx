@@ -105,9 +105,13 @@ const BreadCrumb: React.FC = () => {
     storeLayout === _Store.type16
   ) {
     return (
-      <div id='' className='my-3 px-2 lg:px-0'>
+      <div id='' className='breadcrumb-main my-3 px-2 lg:px-0 '>
         <div className='container mx-auto'>
-          <div className='flex flex-wrap justify-between py-1 border-b border-b-gray-300'>
+          <div
+            className={`flex flex-wrap justify-between py-1 ${
+              pageType.type === 'product' ? 'border-b border-b-gray-300' : ''
+            }`}
+          >
             <nav
               className='flex flex-wrap items-center text-sm py-2 lg:py-0'
               aria-label='Breadcrumb'
@@ -246,7 +250,7 @@ const BreadCrumb: React.FC = () => {
 
   if (storeLayout === _Store.type3) {
     return (
-      <div id='' className='px-2 lg:px-0'>
+      <div id='' className='px-2 lg:px-0 '>
         <div className='container mx-auto'>
           <div className='flex flex-wrap justify-between py-1 border-b border-gray-200'>
             <nav

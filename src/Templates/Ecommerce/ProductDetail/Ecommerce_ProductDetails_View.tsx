@@ -6,10 +6,12 @@ import { _Store } from 'page.config';
 import React, { useEffect, useState } from 'react';
 
 import {
+  fetchCategoryByproductId,
   FetchInventoryById,
   FetchProductRecentlyViewed,
   InsertProductRecentlyViewed,
 } from '@services/product.service';
+import { CategoriesByPid } from '@type/APIs/category.res';
 import { _StoreCache } from '@type/slug.type';
 import ProductAlike from 'Components/ProductDetails/ProductAlike';
 import ProductFeatures from 'Components/ProductDetails/ProductFeatures';
@@ -19,6 +21,7 @@ import {
   _ProductDetailsProps,
   _ProductsRecentlyViewedResponse,
 } from 'definations/APIs/productDetail.res';
+import { KlaviyoScriptTag } from 'helpers/common.helper';
 import getLocation from 'helpers/getLocation';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -26,50 +29,73 @@ import { useRouter } from 'next/router';
 const Ecommerce_ProductDetails_View: React.FC<
   _ProductDetailsProps & _StoreCache
 > = (product) => {
-  const { store_productDetails, setColor, setShowLoader, product_storeData } =
-    useActions();
+  const {
+    store_productDetails,
+    setColor,
+    setShowLoader,
+    product_storeData,
+    product_UpdateSelectedValues,
+  } = useActions();
 
+  const { id: storeId, pageType } = useTypedSelector((state) => state.store);
+  const customerId = useTypedSelector((state) => state.user.id);
+  const router = useRouter();
   const [recentlyViewedProduct, setRecentlyViewedProduct] = useState<
     Array<_ProductsRecentlyViewedResponse>
   >([]);
 
-  const customerId = useTypedSelector((state) => state.user.id);
-  const storeId = useTypedSelector((state) => state.store.id);
-  const router = useRouter();
+  const getCategoriesArr = (): string[] => {
+    let categories: CategoriesByPid = [];
+    let categoryArr: string[] = [];
+
+    fetchCategoryByproductId(+pageType.id, storeId!).then((res) => {
+      categories = res;
+    });
+    if (categories.length > 0) {
+      categoryArr = categories[0].name.split(' > ');
+    }
+    return categoryArr;
+  };
 
   useEffect(() => {
-    const newScript = document.createElement('script');
-    newScript.setAttribute('type', 'text/javascript');
+    if (product.details && storeId && pageType.id) {
+      product_UpdateSelectedValues({
+        type: 'BASIC_PRODUCT_DETAILS',
+        prop: {
+          sku: product.details.sku,
+        },
+      });
 
-    const item = {
-      ProductName: 'Winnie the Pooh',
-      ProductID: '1111',
-      SKU: 'WINNIEPOOH',
-      Categories: ['Fiction', 'Children'],
-      ImageURL: 'http://www.example.com/path/to/product/image.png',
-      URL: 'http://www.example.com/path/to/product',
-      Brand: 'Kids Books',
-      Price: 9.99,
-      CompareAtPrice: 14.99,
-    };
-    const inlineScript = document.createTextNode(
-      `var _learnq = _learnq || [];
-      _learnq.push(${JSON.stringify(['track', 'Viewed Product', item])}); 
-      `,
-    );
-    newScript.appendChild(inlineScript);
-    document.head.appendChild(newScript);
+      const categories = getCategoriesArr();
+      const item = {
+        ProductName: product.details.name,
+        ProductID: product.details.id,
+        SKU: product.details.sku,
+        Categories: categories,
+        ImageURL: product.colors && product.colors[0].imageUrl,
+        URL: window.location.href,
+        Brand: product.details.brandName,
+        Price: product.details.salePrice,
+        CompareAtPrice: product.details.msrp,
+      };
+      const viewedItem = {
+        Title: item.ProductName,
+        ItemId: item.ProductID,
+        Categories: item.Categories,
+        ImageUrl: item.ImageURL,
+        Url: item.URL,
+        Metadata: {
+          Brand: item.Brand,
+          Price: item.Price,
+          CompareAtPrice: item.CompareAtPrice,
+        },
+      };
 
-    return () => {
-      document.head.removeChild(newScript);
-    };
-  }, []);
+      KlaviyoScriptTag(['track', 'Viewed Product', item]);
+      KlaviyoScriptTag(['trackViewedItem', viewedItem]);
+    }
+  }, [storeId, pageType.id]);
 
-  // const addParams = () => {
-  //   router.query.altview = '1';
-  //   router.query.v = 'product-detail';
-  //   router.push(router);
-  // };
   useEffect(() => {
     if (product.details) {
       store_productDetails({
@@ -172,6 +198,8 @@ const Ecommerce_ProductDetails_View: React.FC<
       <meta name='keywords' content={_SEO.keywords} />
     </Head>
   );
+
+  // console.log('single product destails page ', product);
 
   if (product.storeCode === _Store.type1) {
     return (

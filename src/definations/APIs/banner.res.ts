@@ -6,6 +6,7 @@ export interface Welcome {
 }
 
 export interface _BannerRes {
+  name: string;
   id: number;
   brandLogo: string | null;
   description: string;

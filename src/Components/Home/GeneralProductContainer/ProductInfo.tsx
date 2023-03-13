@@ -3,6 +3,10 @@ import { useTypedSelector } from 'hooks';
 import React, { useEffect, useState } from 'react';
 
 // ** MUI Imports
+import {
+  fallbackStoreId,
+  maximumItemsForFetch,
+} from '@constants/global.constant';
 import { styled } from '@mui/material/styles';
 import MuiTab from '@mui/material/Tab';
 import { FetchDataByBrand } from '@services/brand.service';
@@ -33,8 +37,9 @@ const ProductsInfo: React.FC<_props> = ({ dataArr }) => {
   const fetchBrandData = async () => {
     let body = {
       brandId: +dataArr?.featuredproducts_selected_brands?.value[0]?.value,
-      storeId: storeId ?? 4,
-      maximumItemsForFetch: +dataArr?.featuredproducts_product_count?.value,
+      storeId: storeId ?? fallbackStoreId,
+      maximumItemsForFetch:
+        dataArr.featuredproducts_product_count?.value ?? maximumItemsForFetch,
       tagName: 'featured',
     };
     const data = await FetchDataByBrand(body);
@@ -44,7 +49,7 @@ const ProductsInfo: React.FC<_props> = ({ dataArr }) => {
   // Fetching products by brand
   useEffect(() => {
     fetchBrandData();
-  }, []);
+  }, [dataArr]);
 
   return (
     <>

@@ -1,11 +1,18 @@
 import { __Cookie } from '@constants/global.constant';
+import { paths } from '@constants/paths.constant';
 import { AddItemsToTheCart } from '@services/cart.service';
+import { fetchCategoryByproductId } from '@services/product.service';
 import {
   logoCartItems_Generator,
   singleColor_addToCart_PayloadGenerator,
 } from '@services/product.service.helper';
+import config from 'api.config';
 import MsgContainer from 'appComponents/modals/MsgContainer';
-import { extractCookies, setCookie } from 'helpers/common.helper';
+import {
+  extractCookies,
+  KlaviyoScriptTag,
+  setCookie,
+} from 'helpers/common.helper';
 import { highLightError } from 'helpers/global.console';
 import { useActions, useTypedSelector } from 'hooks';
 import React, { useState } from 'react';
@@ -27,14 +34,25 @@ const SOM_ActionsHandler: React.FC<_props> = ({
   const [showRequiredModal, setShowRequiredModal] = useState<
     'quantity' | 'logo' | null
   >(null);
+  const pageType = useTypedSelector((state) => state.store.pageType);
   const { id: storeId } = useTypedSelector((state) => state.store);
   const loggedIN_userId = useTypedSelector((state) => state.user.id);
-  const { selected, toCheckout, som_logos } = useTypedSelector(
+  const { selected, toCheckout, som_logos, product } = useTypedSelector(
     (state) => state.product,
   );
+  console.log('selected', selected, toCheckout, som_logos, product);
   const isEmployeeLoggedIn = useTypedSelector(
     (state) => state.employee.loggedIn,
   );
+
+  const getCategoriesArr = async (): Promise<string[]> => {
+    let categoriesArr: string[] = [];
+    const categories = await fetchCategoryByproductId(~~pageType.id, storeId!);
+    if (categories.length > 0) {
+      categoriesArr = categories[0].name.split(' > ');
+    }
+    return categoriesArr;
+  };
 
   const tempCustId = extractCookies(
     __Cookie.tempCustomerId,
@@ -57,8 +75,41 @@ const SOM_ActionsHandler: React.FC<_props> = ({
     return message;
   };
 
+  const addItemToKlaviyo = async () => {
+    const categories = await getCategoriesArr();
+    const item = {
+      $value: toCheckout.totalPrice,
+      AddedItemProductName: product.name,
+      AddedItemColorName: selected.color.name,
+      AddedItemProductID: product.id,
+      AddedItemSKU: product.sku,
+      AddedItemCategories: categories,
+      AddedItemImageURL: `${config.baseUrl.media}${selected.color.imageUrl}`,
+      AddedItemURL: window.location.href,
+      AddedItemPrice: toCheckout.price,
+      AddedItemQuantity: toCheckout.totalQty,
+      ItemNames: [product.name],
+      CheckoutURL: paths.CHECKOUT,
+      Items: {
+        ProductID: product.id,
+        SKU: product.sku,
+        ProductName: product.name,
+        Quantity: toCheckout.totalQty,
+        ItemPrice: toCheckout.price,
+        RowTotal: toCheckout.totalPrice,
+        ProductURL: window.location.href,
+        ImageURL: selected.color.imageUrl,
+        ProductCategories: categories,
+        ColorName: selected.color.name,
+        Sizes: toCheckout.sizeQtys,
+      },
+    };
+
+    KlaviyoScriptTag(['track', 'Added to Cart', item]);
+  };
+
   const addToCartHandler = async () => {
-    if (!toCheckout.allowAddToCart) {
+    if (!toCheckout.allowAddToCart && !isEmployeeLoggedIn) {
       setShowRequiredModal('quantity');
       return;
     }
@@ -118,6 +169,8 @@ const SOM_ActionsHandler: React.FC<_props> = ({
 
     try {
       const guestId = await AddItemsToTheCart(cartPayload);
+      await addItemToKlaviyo();
+
       let guest_OR_loggedIN_userID = loggedIN_userId;
 
       if (!loggedIN_userId) {

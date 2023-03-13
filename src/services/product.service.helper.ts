@@ -33,7 +33,7 @@ const _default_shoppingCartItemModel: _ShoppingCartItemModel = {
   isEmployeeLoginPrice: 0,
 };
 
-const personalization: {
+export const personalization: {
   defaultLogo: _CartLogoPersonModel;
   defaultLogoDetail: _CartLogoPersonDetailModel;
   defaultLine: _CartLinePersonModel;

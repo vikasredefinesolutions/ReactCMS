@@ -84,7 +84,11 @@ const SideFilter = ({
                           : 'text-[16px] font-semibold text-gray-900 block uppercase'
                       } `}
                     >
-                      {filter.label}
+                      {filter.label === 'Color'
+                        ? 'Select Color'
+                        : filter.label === 'Size'
+                        ? 'Select Size'
+                        : filter.label}
                     </div>
                   </AccordionSummary>
                   <AccordionDetails

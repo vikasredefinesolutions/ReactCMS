@@ -38,15 +38,13 @@ export const FetchProductsDetail = async (params: {
       expectedProps.productsDetail &&
       expectedProps.productsDetail.length > 0
     ) {
-      const colorsToFetch = await expectedProps.productsDetail!.map(
-        (product) => {
-          return FetchColors({
-            productId: product.productId,
-            storeId: params.storeId,
-            isAttributeSaparateProduct: params.isAttributeSaparateProduct,
-          });
-        },
-      );
+      const colorsToFetch = expectedProps.productsDetail!.map((product) => {
+        return FetchColors({
+          productId: product.productId,
+          storeId: params.storeId,
+          isAttributeSaparateProduct: params.isAttributeSaparateProduct,
+        });
+      });
 
       await Promise.allSettled(colorsToFetch).then((values) =>
         values.forEach((value, index) => {
@@ -58,20 +56,18 @@ export const FetchProductsDetail = async (params: {
         }),
       );
 
-      const sizesToFetch = await expectedProps.productsColor!.map(
-        (color, index) => {
-          const attributeOptionIds = (color &&
-            color.map((clr) => clr.attributeOptionId)) || [0];
+      const sizesToFetch = expectedProps.productsColor!.map((color, index) => {
+        const attributeOptionIds = (color &&
+          color.map((clr) => clr.attributeOptionId)) || [0];
 
-          return FetchInventoryById({
-            productId:
-              (expectedProps.productsDetail &&
-                expectedProps.productsDetail[index].productId) ||
-              0,
-            attributeOptionId: [...attributeOptionIds],
-          });
-        },
-      );
+        return FetchInventoryById({
+          productId:
+            (expectedProps.productsDetail &&
+              expectedProps.productsDetail[index].productId) ||
+            0,
+          attributeOptionId: [...attributeOptionIds],
+        });
+      });
 
       await Promise.allSettled(sizesToFetch).then((values) =>
         values.forEach((value, index) => {

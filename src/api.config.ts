@@ -2,6 +2,7 @@ export interface _Config {
   baseUrl: {
     redefine: string;
     klaviyo: string;
+    klaviyo2: string;
     googleFonts: string;
     cms: string;
     media: string;
@@ -25,6 +26,7 @@ const dev: _Config = {
   baseUrl: {
     redefine: 'https://redefine-front-beta.redefinecommerce.io/',
     klaviyo: `https://static.klaviyo.com/onsite/js/klaviyo.js`,
+    klaviyo2: 'https://a.klaviyo.com/',
     googleFonts: 'https://fonts.googleapis.com/',
     cms: 'https://redefine-front-beta.redefinecommerce.io/',
     media: 'https://redefinecommerce.blob.core.windows.net',
@@ -36,6 +38,7 @@ const stage: _Config = {
   baseUrl: {
     redefine: 'https://redefine-front-beta.redefinecommerce.io/',
     klaviyo: `https://static.klaviyo.com/onsite/js/klaviyo.js`,
+    klaviyo2: 'https://a.klaviyo.com/',
     googleFonts: 'https://fonts.googleapis.com/',
     cms: 'https://redefine-front-beta.redefinecommerce.io/',
     media: 'https://redefinecommerce.blob.core.windows.net',
@@ -47,6 +50,8 @@ const prod: _Config = {
   baseUrl: {
     redefine: 'https://redefine-front-beta.redefinecommerce.io/',
     klaviyo: `https://static.klaviyo.com/onsite/js/klaviyo.js`,
+    klaviyo2: 'https://a.klaviyo.com/',
+
     googleFonts: 'https://fonts.googleapis.com/',
     cms: 'https://redefine-front-beta.redefinecommerce.io/',
     media: 'https://redefinecommerce.blob.core.windows.net',

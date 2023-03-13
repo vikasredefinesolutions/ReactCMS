@@ -1,17 +1,24 @@
 import { CustomizeLater } from '@constants/global.constant';
 import { CommanMessage } from '@constants/successErrorMessages.constant';
 import { addToCart } from '@services/cart.service';
+
+import { FetchLogoLocationByProductId } from '@services/product.service';
 import { _CartItem } from '@type/APIs/cart.res';
 import { _ProductColor } from '@type/APIs/colors.res';
 import { _ProductInventoryTransfomed } from '@type/APIs/inventory.res';
-import { _ProductDetails } from '@type/APIs/productDetail.res';
+import {
+  _LogoLocationDetail,
+  _ProductDetails,
+} from '@type/APIs/productDetail.res';
 import config from 'api.config';
 import AddOTFItemNo from 'appComponents/modals/AddOTFItems';
 import StartOrderModal from 'appComponents/modals/StartOrderModal';
 import ImageComponent from 'appComponents/reUsable/Image';
 import CartSummary from 'Components/CartSummary/CartSummary';
+import LogoSetterToStore from 'Components/ProductDetails/LogoSetterToStore';
 import { getAddToCartObject } from 'helpers/common.helper';
 import { useActions, useTypedSelector } from 'hooks';
+import { logoPositions } from 'mock/startModal.mock';
 import Link from 'next/link';
 import { _Store } from 'page.config';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
@@ -44,11 +51,13 @@ const CartLayout1 = (props: _Props) => {
     currentCartProduct,
   } = props;
   const { fetchCartDetails, setShowLoader, showModal } = useActions();
+  const { getDetailsLogo } = LogoSetterToStore();
+
   const { id: storeId, layout: storeLayout } = useTypedSelector(
     (state) => state.store,
   );
   const userId = useTypedSelector((state) => state.user.id);
-
+  const logos = useTypedSelector((state) => state.product.som_logos.details);
   const isEmployeeLoggedIn = useTypedSelector(
     (state) => state.employee.loggedIn,
   );
@@ -118,7 +127,20 @@ const CartLayout1 = (props: _Props) => {
               price: price,
             };
           });
-
+          let logoLocation: _LogoLocationDetail[] = [];
+          const res = await FetchLogoLocationByProductId({
+            productId: cartProduct.productId,
+          });
+          if (res) {
+            res?.subRow && res?.subRow?.length > 0
+              ? (logoLocation = res?.subRow)
+              : (logoLocation = logoPositions);
+          }
+          const { som_logoDetails } = await getDetailsLogo(
+            cartProduct.shoppingCartLogoPersonViewModels,
+            logoLocation,
+            cartProduct.totalQty,
+          );
           const cartObject = await getAddToCartObject({
             userId: userId || 0,
             note: '',
@@ -139,6 +161,7 @@ const CartLayout1 = (props: _Props) => {
               totalQty,
             },
             shoppingCartItemId: cartProduct.shoppingCartItemsId,
+            logos: som_logoDetails,
           });
 
           try {

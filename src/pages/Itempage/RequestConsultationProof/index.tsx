@@ -12,7 +12,7 @@ import {
   _ProductsAlike,
   _ProductSEO,
 } from 'definations/APIs/productDetail.res';
-import { conditionalLogV2, __console } from 'helpers/global.console';
+import { __console, conditionalLogV2 } from 'helpers/global.console';
 import { useTypedSelector } from 'hooks';
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
 import Head from 'next/head';
@@ -26,6 +26,7 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
   color,
   alike,
   seo,
+  store,
 }) => {
   conditionalLogV2({
     data: {
@@ -90,7 +91,7 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
       <div className='border border-gray-400 py-3'>
         <>{HeadTag}</>
         <div className='flex flex-wrap -mx-[15px]'>
-          <div className='w-full lg:w-4/12 px-[15px] text-center'>
+          <div className='w-full lg:w-4/12 px-3 text-center'>
             <div className=''>
               <Image
                 src={color?.imageUrl || null}
@@ -98,15 +99,20 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
                 className={'w-full object-center object-cover sm:rounded-lg'}
               />
             </div>
-            <div className='text-black hover:text-black focus:text-black font-base font-bold'>
-              <button onClick={() => router.back()}>{details.name}</button>
+            <div>
+              <button
+                className='text-black hover:text-black focus:text-black font-base font-bold'
+                onClick={() => router.back()}
+              >
+                {details.name}
+              </button>
             </div>
           </div>
           <RequestConsultationForm
             productId={details.id}
             innerHeading={false}
           />
-          <div className='w-full pl-0 pr-[15px]'>
+          <div className='w-full lg:w-4/12 pl-0 pr-[15px]'>
             {itemInCart ? (
               <Ecom_RequestConsultation_OrderDetails item={itemInCart} />
             ) : (
@@ -114,12 +120,12 @@ const RequestConsultation: NextPage<_RequestConsultationProps> = ({
             )}
           </div>
         </div>
-        <ProductAlike
-          title={'YOU MAY ALSO LIKE'}
-          products={alike}
-          storeCode={''}
-        />
       </div>
+      <ProductAlike
+        title={'YOU MAY ALSO LIKE'}
+        products={alike}
+        storeCode={store.code}
+      />
     </section>
   );
 };
@@ -148,6 +154,7 @@ interface _RequestConsultationProps {
   color: null | _ProductColor;
   alike: null | _ProductsAlike[];
   seo: null | _ProductSEO;
+  store: any;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -198,6 +205,7 @@ export const getServerSideProps: GetServerSideProps = async (
           ...expectedProps.store,
           storeId: _globalStore.storeId,
           isAttributeSaparateProduct: _globalStore.isAttributeSaparateProduct,
+          code: _globalStore.code,
         };
       }
 
@@ -257,6 +265,7 @@ export const getServerSideProps: GetServerSideProps = async (
       color: expectedProps.color,
       alike: expectedProps.alike,
       seo: expectedProps.seo,
+      store: expectedProps.store,
     },
   };
 };

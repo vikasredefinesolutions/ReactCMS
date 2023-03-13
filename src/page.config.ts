@@ -33,9 +33,9 @@ export const _Store = {
 export const _StoreDomains = {
   // domain1: 'corporategear',
   // domain1: 'cg.headlessmart.com',
-  domain1: 'cg',
-  domain2: 'gg.headlessmart.com',
-  domain3: 'pkhealth.headlessmart.com',
+  domain1: 'cg.redefinecommerce.info',
+  domain2: 'gg.redefinecommerce.info',
+  domain3: 'pkhealth.redefinecommerce.info',
   domain4: 'di.headlessmart.com',
   domain5: 'https://bacardi.headlessmart.com',
   domain6: 'bacarditogo.headlessmart.com', // CLOSED

@@ -124,11 +124,11 @@ const UserAddress = () => {
               <li className='font-semibold'>
                 <button
                   onClick={() => setShowTab('S')}
-                  className={`tab py-2 px-2 block btn  ${
+                  className={`tab py-2 px-2 block btn-lg  ${
                     showTab === 'B'
                       ? 'btn-secondary border-spacing-0'
                       : 'btn-secondary-hover '
-                  } border-0`}
+                  } border-0 uppercase`}
                   style={{ borderWidth: '0px' }}
                 >
                   Shipping Address
@@ -136,12 +136,12 @@ const UserAddress = () => {
               </li>
               <li className='font-semibold'>
                 <button
-                  onClick={() => setShowTab('b')}
-                  className={`tab py-2 px-2 block btn ${
+                  onClick={() => setShowTab('B')}
+                  className={`tab py-2 px-2 block btn-lg ${
                     showTab === 'S'
                       ? 'btn-secondary border-spacing-0'
                       : 'btn-secondary-hover'
-                  }`}
+                  } uppercase`}
                   style={{ borderWidth: '0px' }}
                 >
                   Billing Address
@@ -228,13 +228,13 @@ const UserAddress = () => {
                 </div>
                 <div className='mt-4 text-center'>
                   <button
-                    className='btn btn-primary'
+                    className='btn btn-lg btn-secondary'
                     type='button'
                     data-modal-toggle='AddNewAddress'
                     onClick={() => setShowAddresss(showTab)}
                   >
                     Add {showTab === 'S' ? 'Shipping' : 'Billing'} Address
-                    <i className='fa fa-plus ml-1' aria-hidden='true'></i>
+                    {/* <i className='fa fa-plus ml-1' aria-hidden='true'></i> */}
                   </button>
                 </div>
               </div>

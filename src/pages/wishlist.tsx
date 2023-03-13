@@ -63,20 +63,24 @@ const Wishlist = () => {
                     <Link
                       key={list.productId}
                       href={`${origin}/${list.seName}.html?v=product-detail&altview=1`}
-                      className='relative underline min-h-[48px]'
                     >
-                      <a>{list.productName}</a>
+                      <a className='relative underline min-h-[48px] h-11'>
+                        {list.productName}
+                      </a>
                     </Link>
                   </h3>
                   <div className='text-default-text mt-2'>
                     {/* ${list.price} */}
-                    <Price
-                      value={undefined}
-                      prices={{
-                        msrp: list.price,
-                        salePrice: list.price,
-                      }}
-                    />
+                    <span>Price : </span>
+                    <span className='font-semibold'>
+                      <Price
+                        value={undefined}
+                        prices={{
+                          msrp: list.price,
+                          salePrice: list.price,
+                        }}
+                      />
+                    </span>
                   </div>
                   <div className='flex justify-center items-center gap-2 mt-2'>
                     <div className='btn btn-secondary !py-1 text-center'>

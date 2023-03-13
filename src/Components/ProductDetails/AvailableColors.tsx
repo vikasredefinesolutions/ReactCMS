@@ -49,14 +49,16 @@ const AvailableColors: React.FC<{ storeCode: string }> = ({ storeCode }) => {
                   className={`border-2 ${highlight} hover:border-secondary mb-1 last:mb-0`}
                 >
                   <Image
+                    title={`${product.name}`}
                     src={product.imageUrl}
                     alt={product.altTag}
                     className='w-full object-center object-cover'
                   />
                 </div>
                 <div
-                  className=''
+                  className='text-anchor hover:text-anchor-hover'
                   style={{ lineHeight: 1.25, wordWrap: 'break-word' }}
+                  onClick={() => setColor(product)}
                 >
                   {product.name}
                 </div>

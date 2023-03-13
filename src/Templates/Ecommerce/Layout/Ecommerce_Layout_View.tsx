@@ -1,6 +1,5 @@
 import { _Footer } from '@type/APIs/footer.res';
 import * as _AppController from 'Controllers/_AppController.async';
-import { cLog } from 'helpers/global.console';
 import { useTypedSelector } from 'hooks';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -36,7 +35,6 @@ const Ecommerce_Layout: React.FC<_props> = ({
   useEffect(() => {
     if (!header.menuItems && storeId) {
       _AppController.fetchMenuItems(storeId).then((res) => {
-        cLog('mccs', '');
         setHeader((last) => ({
           ...last,
           menuItems: res,

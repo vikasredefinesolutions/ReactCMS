@@ -48,33 +48,33 @@ const _SignupSchema = Yup.object().shape({
       return this.parent.password === value;
     },
   ),
-  storeCustomerAddress: Yup.array()
-    .of(
-      Yup.object().shape({
-        address1: Yup.string().required(
-          signupPageMessages.storeCustomerAddress.address1.required,
-        ),
-        address2: Yup.string().required(
-          signupPageMessages.storeCustomerAddress.address2.required,
-        ),
-        city: Yup.string().required(
-          signupPageMessages.storeCustomerAddress.city.required,
-        ),
-        state: Yup.string().required(
-          signupPageMessages.storeCustomerAddress.state.required,
-        ),
-        postalCode: Yup.string().required(
-          signupPageMessages.storeCustomerAddress.postalCode.required,
-        ),
-        phone: Yup.string().required(
-          signupPageMessages.storeCustomerAddress.phone.required,
-        ),
-        countryName: Yup.string().required(
-          signupPageMessages.storeCustomerAddress.countryName.required,
-        ),
-      }),
-    )
-    .min(1),
+  // storeCustomerAddress: Yup.array()
+  //   .of(
+  //     Yup.object().shape({
+  //       address1: Yup.string().required(
+  //         signupPageMessages.storeCustomerAddress.address1.required,
+  //       ),
+  //       address2: Yup.string().required(
+  //         signupPageMessages.storeCustomerAddress.address2.required,
+  //       ),
+  //       city: Yup.string().required(
+  //         signupPageMessages.storeCustomerAddress.city.required,
+  //       ),
+  //       state: Yup.string().required(
+  //         signupPageMessages.storeCustomerAddress.state.required,
+  //       ),
+  //       postalCode: Yup.string().required(
+  //         signupPageMessages.storeCustomerAddress.postalCode.required,
+  //       ),
+  //       phone: Yup.string().required(
+  //         signupPageMessages.storeCustomerAddress.phone.required,
+  //       ),
+  //       countryName: Yup.string().required(
+  //         signupPageMessages.storeCustomerAddress.countryName.required,
+  //       ),
+  //     }),
+  //   )
+  //   .min(1),
 });
 
 const _SignupSchemaWithOrganization = Yup.object().shape({
@@ -394,9 +394,9 @@ const SignUp: NextPage = () => {
                     required={false}
                   />
                 )}
-                <div className='w-full lg:w-full px-3'>
-                  <button type='submit' className='btn btn-primary'>
-                    Submit
+                <div className='w-full lg:w-full px-3 flex justify-center'>
+                  <button type='submit' className='btn-lg btn-secondary'>
+                    SUBMIT
                   </button>
                 </div>
               </div>
@@ -806,7 +806,10 @@ const SignUp: NextPage = () => {
   }
 
   return (
-    <section className='container mx-auto  my-6 '>
+    <section
+      className='container my-6'
+      style={{ maxWidth: '1000px', margin: '0 auto' }}
+    >
       <div className='block mx-auto text-3xl item-centre uppercase mb-7 text-center font-medium '>
         <h1 className=''>Create New Customer Account</h1>
       </div>

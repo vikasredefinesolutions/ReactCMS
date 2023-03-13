@@ -1,5 +1,5 @@
 import { ErrorMessage, Form, Formik } from 'formik';
-import { useActions } from 'hooks';
+import { useActions, useTypedSelector } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
@@ -22,6 +22,9 @@ const SelectOrInput: React.FC<_props> = ({
   price,
   defaultQty,
 }) => {
+  const isEmployeeLoggedIn = useTypedSelector(
+    (state) => state.employee.loggedIn,
+  );
   const { updateQuantities, updatePrice } = useActions();
   const [email, setEmail] = useState<null | 'SENT'>(null);
   const [inputOrSelect, setInputOrSelect] = useState<{
@@ -105,7 +108,7 @@ const SelectOrInput: React.FC<_props> = ({
     }
   }, [defaultQty]);
 
-  if (qty <= 0) {
+  if (qty <= 0 && !isEmployeeLoggedIn) {
     return (
       <>
         {email === 'SENT' ? (
@@ -161,16 +164,21 @@ const SelectOrInput: React.FC<_props> = ({
             onChange={selectQtyHandler}
           >
             <option value='0'>0</option>
-            {qty > 0 ? <option value='1'>1</option> : ''}
-            {qty > 1 ? <option value='2'>2</option> : ''}
-            {qty > 2 ? <option value='3'>3</option> : ''}
-            {qty > 3 ? <option value='4'>4</option> : ''}
-            {qty > 4 ? <option value='5'>5</option> : ''}
-            {qty > 5 ? <option value='6'>6</option> : ''}
-            {qty > 6 ? <option value='7'>7</option> : ''}
-            {qty > 7 ? <option value='8'>8</option> : ''}
-            {qty > 8 ? <option value='9'>9</option> : ''}
-            {qty > 9 ? <option value='10+'>10+</option> : ''}
+            {new Array(9)
+              .fill('')
+              .map((_, index) =>
+                qty > index || isEmployeeLoggedIn ? (
+                  <option value={index + 1}>{index + 1}</option>
+                ) : (
+                  ''
+                ),
+              )}
+
+            {qty > 9 || isEmployeeLoggedIn ? (
+              <option value='10+'>10+</option>
+            ) : (
+              ''
+            )}
           </select>
         </div>
       )}
@@ -186,7 +194,7 @@ const SelectOrInput: React.FC<_props> = ({
                   <input
                     type='number'
                     name='itemCount'
-                    max={qty}
+                    max={isEmployeeLoggedIn ? '' : qty}
                     value={values.itemCount}
                     onFocus={() =>
                       setInputOrSelect((state) => ({
