@@ -93,7 +93,7 @@ class MyDocument extends Document {
             type='text/css'
             href={`${
               config.baseUrl.media
-            }/rdc/${1}/store/${storeId}/css/custom.css`}
+            }/rdcbeta/${1}/store/${storeId}/css/custom.css`}
           />
 
           {/* -----------------------SLIDER STYLESHEETS------------------------- */}
