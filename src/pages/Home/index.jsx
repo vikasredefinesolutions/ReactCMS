@@ -220,6 +220,10 @@ const Home = (props) => {
                   {
                       additionalclass += ' ' + componentValue.selectedVal.container.value;                                                          
                   }
+                  else
+                  {
+                    additionalclass += " container mx-auto ";
+                  }
                   if(componentValue.selectedVal && 'container_left_padding' in componentValue.selectedVal)
                   {
                       additionalclass += ' ' + 'pl-['+componentValue.selectedVal.container_left_padding.value+'px]';                                                          
