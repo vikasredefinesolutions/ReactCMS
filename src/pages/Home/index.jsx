@@ -301,24 +301,17 @@ const Home = (props) => {
                                   <section className='mainsection container mx-auto mt-6  overflow-hidden'>
                                     {componentValue?.selectedVal?.Title && (
                                       <div class='text-box-h2 mb-4' id='Title'>
-                                        {componentValue.selectedVal.Title.value}
+                                        {componentValue.selectedVal.Title.value ?? ''}
                                       </div>
                                     )}
                                     <ul className='mt-4 w-full mb-10'>
                                       <ElementAccordionDisplay
+                                       selected_Values={componentValue.selectedVal} 
                                         acValues={
                                           componentValue.selectedVal
                                             .FullAccordion.value
                                         }
-                                        acClass={
-                                          componentValue.selectedVal
-                                            ?.FullAccordion_accordion_class
-                                            ?.value
-                                        }
-                                        acBgColor={
-                                          componentValue.selectedVal
-                                            ?.FullAccordion_ac_background?.value
-                                        }
+                                       
                                       />
                                     </ul>
                                   </section>

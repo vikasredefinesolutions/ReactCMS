@@ -45,7 +45,7 @@ const ProductsInfoTabs: React.FC<_props> = ({ dataArr }) => {
   const fetchBrandData = async () => {
     let body = {
       brandId: value,
-      storeId: storeId ?? 4,
+      storeId: storeId ?? 1,
       maximumItemsForFetch: dataArr.featuredproducts_product_count.value,
       tagName: 'featured',
     };

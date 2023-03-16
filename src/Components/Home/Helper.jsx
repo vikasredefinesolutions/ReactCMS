@@ -118,10 +118,11 @@ export const updateSetProperties = (element) => {
         }
 
       });
-
+      
       if(buttonId !== '')
       {
-        x.querySelectorAll('#'+buttonId)[0].className = className;
+        if(x.querySelectorAll('#'+buttonId).length > 0)
+          x.querySelectorAll('#'+buttonId)[0].className = className;
         if(x.querySelectorAll('#'+buttonId+'Parent').length > 0)
           x.querySelectorAll('#'+buttonId+'Parent')[0].className = pmClassName;
       }
@@ -163,20 +164,28 @@ export const updateSetProperties = (element) => {
       }
 
       if (value.type == 'image') {
-        if (x.querySelectorAll('#' + key).length > 0) {
-          if (x.querySelectorAll('#' + key + '_img').length > 0) {
-            x.querySelectorAll('#' + key + '_img')[0].src = value.value;
-          } else {
-            x.querySelectorAll('#' + key)[0].innerHTML =
-              '<a href="javascript:void(0)" id="' +
-              key +
-              '_img_link"><img id="' +
-              key +
-              '_img" className="" src="' +
-              value.value +
-              '" alt="" title="" /> </a>';
-          }
-        }
+        if(x.querySelectorAll('#'+key).length > 0)
+            {
+              if(x.querySelectorAll('#'+key+'_img').length > 0)
+              {
+                x.querySelectorAll('#'+key+'_img')[0].src = value.value;
+              }
+              else
+              {
+                let classAlign = '';
+                let imageSize = '';
+                if(Object.keys(element.selectedVal).includes(key+'_image_position'))
+                {
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_position') { classAlign = valueq.value; } }) 
+                }
+                if(Object.keys(element.selectedVal).includes(key+'_image_size'))
+                {
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_size') { imageSize = valueq.value; } }) 
+                }
+                x.querySelectorAll('#'+key)[0].className = classAlign;
+                x.querySelectorAll('#'+key)[0].innerHTML = '<a href="javascript:void(0)" class="inline-block" id="'+key+'_img_link"><img id="'+key+'_img" class="'+imageSize+'" src="'+value.value+'" alt="" title="" /> </a>';
+              }
+            }
       }
 
       if (value.type == 'alt') {
@@ -202,7 +211,8 @@ export const updateSetProperties = (element) => {
 
       if (value.type == 'fontsize') {
         let propname = key.replace('_font_size', '');
-        x.querySelectorAll('#' + propname)[0].classList.add(value.value);
+        if(x.querySelectorAll('#'+propname).length > 0)
+              x.querySelectorAll('#'+propname)[0].classList.add(value.value);
 
         if (element.properties.TextAppearance != null) {
           if (element.properties.TextAppearance.fields != undefined) {
@@ -355,7 +365,7 @@ export const updateSetProperties = (element) => {
       if (value.type == 'accordion' && key != 'FullAccordion') {
         // loop for accordion ittem
         let ourComponetiNString = ReactDOMServer.renderToStaticMarkup(
-          <ElementAccordionDisplay acValues={value.value} />,
+          <ElementAccordionDisplay selected_Values={element.selected_Values}  acValues={value.value} />
         );
         if (x.querySelectorAll('#' + value.type).length > 0) {
           x.querySelectorAll('#' + value.type)[0].innerHTML =
@@ -540,45 +550,45 @@ export const updateSetProperties = (element) => {
     }
 
     if (textDisplay && imgDisplay) {
-      //from here code is pending
-      if (
-        Object.keys(element.selectedVal).includes(
-          'ElementConfiguration_Image_position',
-        )
-      ) {
-        // check if image position is Left Right
-        x.querySelectorAll('#left-section')[0].classList.remove('lg:order-2');
-        x.querySelectorAll('#right-section')[0].classList.remove('lg:order-1');
-        x.querySelectorAll('#left-section')[0].classList.remove('lg:order-1');
-        x.querySelectorAll('#right-section')[0].classList.remove('lg:order-2');
+      if(Object.keys(element.selectedVal).includes('ElementConfiguration_Image_position'))
+          {
+          // check if image position is Left Right 
+              x.querySelectorAll('#left-section')[0].classList.remove('lg:order-2');
+              x.querySelectorAll('#right-section')[0].classList.remove('lg:order-1');
+              x.querySelectorAll('#left-section')[0].classList.remove('lg:order-1');
+              x.querySelectorAll('#right-section')[0].classList.remove('lg:order-2');
+            if(element.selectedVal.ElementConfiguration_Image_position.value == 'Left')
+              {
+                layoutAdjust = true;
+                x.querySelectorAll('#left-section')[0].classList.add('lg:order-1');
+                x.querySelectorAll('#right-section')[0].classList.add('lg:order-2');
 
-        if (
-          element.selectedVal.ElementConfiguration_Image_position.value ==
-          'Left'
-        ) {
-          layoutAdjust = true;
-          x.querySelectorAll('#left-section')[0].classList.add('lg:order-1');
-          x.querySelectorAll('#right-section')[0].classList.add('lg:order-2');
-        } else if (
-          element.selectedVal.ElementConfiguration_Image_position.value ==
-          'Right'
-        ) {
-          layoutAdjust = true;
-          x.querySelectorAll('#left-section')[0].classList.add('lg:order-2');
-          x.querySelectorAll('#right-section')[0].classList.add('lg:order-1');
-        } else if (
-          element.selectedVal.ElementConfiguration_Image_position.value == 'Top'
-        ) {
-          x.querySelectorAll('#left-section')[0].classList.add('lg:order-2');
-          x.querySelectorAll('#right-section')[0].classList.add('lg:order-1');
-        } else if (
-          element.selectedVal.ElementConfiguration_Image_position.value ==
-          'Bottom'
-        ) {
-          x.querySelectorAll('#left-section')[0].classList.add('lg:order-1');
-          x.querySelectorAll('#right-section')[0].classList.add('lg:order-2');
-        }
-      }
+              }
+              else if(element.selectedVal.ElementConfiguration_Image_position.value === 'Right')
+              {
+                layoutAdjust = true;
+                x.querySelectorAll('#left-section')[0].classList.add('lg:order-2');
+                x.querySelectorAll('#right-section')[0].classList.add('lg:order-1');
+
+              }
+              else if(element.selectedVal.ElementConfiguration_Image_position.value === 'Bottom')
+              {
+                removeWidthClass(x);
+
+                x.querySelectorAll('#left-section')[0].classList.add('lg:order-2');
+                x.querySelectorAll('#right-section')[0].classList.add('lg:order-1');
+
+              }
+              else if(element.selectedVal.ElementConfiguration_Image_position.value === 'Top')
+              {
+                removeWidthClass(x);
+                
+                x.querySelectorAll('#left-section')[0].classList.add('lg:order-1');
+                x.querySelectorAll('#right-section')[0].classList.add('lg:order-2');
+              }
+
+
+          }
 
       if (layoutAdjust && Object.keys(element.selectedVal).includes('Layout')) {
         let layout = element.selectedVal.Layout;

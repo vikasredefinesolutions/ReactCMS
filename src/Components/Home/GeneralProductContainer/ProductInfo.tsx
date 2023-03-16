@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 // ** MUI Imports
 import {
   fallbackStoreId,
-  maximumItemsForFetch,
+  maximumItemsForFetch
 } from '@constants/global.constant';
 import { styled } from '@mui/material/styles';
 import MuiTab from '@mui/material/Tab';

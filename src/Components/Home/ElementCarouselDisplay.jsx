@@ -194,14 +194,8 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                           padding: '20px',
                         }}
                       >
-                        <div className={`w-full pb-2 ${image.headline_font_size} lg:text-title font-title  mb-1 text-white`}>
-                          {image.headline}
-                        </div>
-                        <div className={`w-full ${image.headline1_font_size} font-title  mb-1 text-white`} dangerouslySetInnerHTML={{
-                                      __html: image.headline1,
-                                    }}>
-                          
-                        </div>
+                        <div className={image.headline1_class ?? ''} style={{ color: image.font_color ?? '' }}>{image.headline}</div>
+                                <div className={image.headline2_class ?? ''} style={{ color: image.font_color1 ?? '' }}>{image.headline1}</div>
                         {image.button_display == 'Yes' && (
                           <>
                             <div className='pt-5' title={image.button_text}>

@@ -1849,10 +1849,6 @@ select{
   --tw-border-opacity: 1;
   border-color: rgb(249 250 251 / var(--tw-border-opacity));
 }
-.border-black{
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
 .border-slate-300{
   --tw-border-opacity: 1;
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
@@ -1860,6 +1856,10 @@ select{
 .border-green-300{
   --tw-border-opacity: 1;
   border-color: rgb(134 239 172 / var(--tw-border-opacity));
+}
+.border-black{
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 .border-\[\#cdde00\]{
   --tw-border-opacity: 1;
@@ -1924,6 +1924,9 @@ select{
 .border-b-gray-300{
   --tw-border-opacity: 1;
   border-bottom-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+.border-b-\[\'\+tmpTitleBorderSize\+\'px\]{
+  border-bottom-color: '+tmpTitleBorderSize+'px;
 }
 .border-r-gray-300{
   --tw-border-opacity: 1;
@@ -3095,9 +3098,6 @@ select{
 }
 .peer:focus ~ .peer-focus\:-top-3{
   top: -0.75rem;
-}
-.hover\:border-0:hover{
-  border-width: 0px;
 }
 .hover\:border-secondary:hover{
   border-color: var(--tw-theme-btn-secondary-color);

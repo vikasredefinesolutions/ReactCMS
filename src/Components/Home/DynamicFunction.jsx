@@ -211,20 +211,31 @@ export const multipleImages = (dataArr, selectedObj) => {
             }
             //fontSize = item.Headline_font_size ?? '';
 
+            let themeClass = '';
+            let fontColor = '';
+            if(selectedObj.selectedVal.Headline_final_class != undefined)
+            {
+              themeClass = selectedObj.selectedVal.Headline_final_class.value;
+            }
+            if(selectedObj.selectedVal.Headline_font_color != undefined)
+            {
+              fontColor = selectedObj.selectedVal.Headline_font_color.value;
+            }
+
           if(item.Headline != undefined && item.Headline != '' && item.Headline != null)
           {
 
                 if(textPos != 'top' && textPos != 'bottom' && textPos != '')
                 {
-                    clName = 'flex relative w-full text-white';
-                    headLine += '<div class="flex items-center absolute '+fontSize+' inset-0 p-1 lg:p-4 text-white justify-center">';
-                    headLine += '<div class="" style="background: rgba('+bgColor+','+bgOpacity+'); padding: 20px;">';
-                    headLine += '<div class="pb-2 text-center">'+item.Headline+'</div>';
-                    headLine += '<div>';
-                    headLine += buttonHTML;
-                    headLine += '</div>';
-                    headLine += '</div>';
-                    headLine += '</div>';
+                  clName = 'flex relative w-full text-white';
+                  headLine += '<div class="flex items-center absolute  inset-0 p-1 lg:p-4 text-white justify-center">';
+                  headLine += '<div class="" style="background: rgba('+bgColor+','+bgOpacity+'); padding: 20px;">';
+                  headLine += '<div class="pb-2 '+ themeClass+ '" style="color:'+fontColor+'">'+item.Headline+'</div>';
+                  headLine += '<div>';
+                  headLine += buttonHTML;
+                  headLine += '</div>';
+                  headLine += '</div>';
+                  headLine += '</div>';
                 }
                 else
                 {

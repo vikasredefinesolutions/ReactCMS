@@ -6,7 +6,7 @@ Modified By: <Modified By Name>
 Modified Date: <Modified Date> */
 //import { useEffect, useState } from 'react';
 
-const ElementAccordionDisplay = ({ acValues, acClass, acBgColor }) => {
+const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
   const iconArr = {
     keyboard_arrow_up: 'keyboard_arrow_down',
     keyboard_arrow_down: 'keyboard_arrow_up',
@@ -39,18 +39,65 @@ const ElementAccordionDisplay = ({ acValues, acClass, acBgColor }) => {
       {acValues.length > 0 && (
         <>
           {acValues.map((acValue, index) => {
+
+                let tmpTitleBg;
+                let tmpTitleBgOption;
+                let tmpTitleBorderType;
+                let tmpTitleBorderColor;
+                let tmpTitleBorderSize;
+                let titleClass;
+                let descClass;
+                let liClass;
+
+                if(selected_Values !== undefined)
+                {
+                  Object.entries(selected_Values).map(([key, value]) => {
+                      if (key == 'FullAccordion_title_bg') {
+                          tmpTitleBg = value.value;
+                      }
+                      if (key == 'FullAccordion_title_bg_option') {
+                          tmpTitleBgOption = value.value;
+                      }
+                      if (key == 'FullAccordion_title_border_type') {
+                          tmpTitleBorderType = value.value;
+                      }
+                      if (key == 'FullAccordion_title_border_color') {
+                          tmpTitleBorderColor = value.value;
+                      }
+                      if (key == 'FullAccordion_title_border_size') {
+                          tmpTitleBorderSize = value.value;
+                      }
+                      if(key == 'AccordionTitle_final_class')
+                      {
+                          titleClass = value.value;
+                      }
+                      if(key == 'AccordionDescription_final_class')
+                      {
+                          descClass = value.value;
+                      }
+                      if(key == 'AccordionContainer_final_class')
+                      {
+                          liClass = value.value;
+                      }
+                  })
+                }
+
+
+                let liStyle = '';
+                let titleStyle = '';
+                if(tmpTitleBorderType === 'box')
+                  liClass += ' border-'+tmpTitleBorderSize;
+                else if(tmpTitleBorderType === 'single')
+                  liClass += ' border-b-['+tmpTitleBorderSize+'px]';
+
+                if(tmpTitleBgOption === 'Color')
+                  titleStyle += 'background: '+tmpTitleBg+'; ';
+                if(tmpTitleBorderColor !== '')
+                  liStyle += 'border-color: '+tmpTitleBorderColor+'; ';
+                  
             return (
-              <li
-                key={index}
-                className={`mb-4 last:mb-0 hasarr clonnable border-b border-black ${acClass}`}
-                onClick={showHideAccordion}
-              >
-                <button
-                  className='w-full flex justify-between items-center text-left font-bold font-heading px-2 py-4 border-0 hover:border-0'
-                  style={{
-                    backgroundColor: acBgColor,
-                  }}
-                >
+              <li className={`mb-4 last:mb-0 ${liClass}`} style={{ borderColor: tmpTitleBorderColor }} onClick={showHideAccordion} key={index} >
+                <button className={`w-full flex justify-between ${titleClass}`} style={{ background: tmpTitleBg }}>
                   {/* <div className='text-defaule-text'> */}
                   {acValue.title}
                   {/* </div> */}
