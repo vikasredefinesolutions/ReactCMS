@@ -30,13 +30,13 @@ export const numberingdiv = (dataArr, selectedObj) => {
   if (dataArr?.length) {
     let count = 1;
     dataArr.forEach(function (item) {
-      strHTML += '<div className="flex items-start mb-6">';
+      strHTML += '<div class="flex items-start mb-6">';
       strHTML +=
-        '<div className="mr-10 flex-shrink-0 flex justify-center items-center w-12 h-12 rounded-full bg-gray-500 text-gray-50 font-bold font-heading">' +
+        '<div class="mr-10 flex-shrink-0 flex justify-center items-center w-12 h-12 rounded-full bg-gray-500 text-gray-50 font-bold font-heading">' +
         count +
         '</div>';
-      strHTML += '<div className="max-w-xs">';
-      strHTML += '<div className="text-box-p leading-loose">';
+      strHTML += '<div class="max-w-xs">';
+      strHTML += '<div class="text-box-p leading-loose">';
       strHTML += item.Description;
       strHTML += '</div>';
       strHTML += '</div>';
@@ -55,12 +55,12 @@ export const boximage = (dataArr, selectedObj) => {
       else if (item.colcount == 3) className = 'lg:w-1/3';
       else className = 'lg:w-1/4';
       strHTML +=
-        '<div className="w-full ' + className + ' px-3 md:w-1/3 mt-6">';
+        '<div class="w-full ' + className + ' px-3 md:w-1/3 mt-6">';
       // strHTML += '<div className="flex justify-center pb-5">';
       // strHTML += '<div className="btn-primary rounded-full w-10 h-10 flex justify-center items-center text-base text-white font-semibold">'+item.index+'</div>';
       // strHTML += '</div>';
 
-      strHTML += '<div className="border border-gray-50 px-2 py-2">';
+      strHTML += '<div class="border border-gray-50 px-2 py-2">';
       let clName = 'flex justify-center';
       let aprData = {};
       let textPos = 'bottom';
@@ -78,8 +78,8 @@ export const boximage = (dataArr, selectedObj) => {
         item.Button_text != '' &&
         item.Button_text != null
       ) {
-        buttonHTML += '<div className="mt-5 mb-5">';
-        buttonHTML += '<a target="" href="' + item.Button_link + '" className="' + item.Button_size + ' ' + item.Button_style + '">';
+        buttonHTML += '<div class="mt-5 mb-5">';
+        buttonHTML += '<a target="" href="' + item.Button_link + '" class="' + item.Button_size + ' ' + item.Button_style + '">';
         buttonHTML += item.Button_text;
         buttonHTML += '</a>';
         buttonHTML += '</div>';
@@ -106,20 +106,20 @@ export const boximage = (dataArr, selectedObj) => {
         if (textPos != 'top' && textPos != 'bottom') {
           clName = 'flex relative w-full text-white';
           headLine +=
-            '<div className="flex items-center absolute ' +
+            '<div class="flex items-center absolute ' +
             fontSize +
             ' inset-0 p-1 lg:p-4 text-white justify-center">';
-          headLine += '<div className="" style="background: rgba(' + bgColor + ',' + bgOpacity + '); padding: 20px;">';
-          headLine += '<div className="pb-2">' + item.Headline + '</div>';
+          headLine += '<div class="" style="background: rgba(' + bgColor + ',' + bgOpacity + '); padding: 20px;">';
+          headLine += '<div class="pb-2">' + item.Headline + '</div>';
           headLine += '<div>';
           headLine += buttonHTML;
           headLine += '</div>';
           headLine += '</div>';
           headLine += '</div>';
         } else {
-          headLine += '<div className="text-center bg-white w-full">';
+          headLine += '<div class="text-center bg-white w-full">';
           headLine +=
-            '<div className="text-base p-4">' + item.Headline + '</div>';
+            '<div class="text-base p-4">' + item.Headline + '</div>';
           headLine += '</div>';
         }
       }
@@ -129,10 +129,10 @@ export const boximage = (dataArr, selectedObj) => {
       }
 
       if (item.Image !== undefined) {
-        strHTML += '<div className="' + clName + '">';
+        strHTML += '<div class="' + clName + '">';
         strHTML += '<a title="' + item.Image_link + '">';
         strHTML +=
-          '<img className="w-full isinput img-editable alttitle" src="' +
+          '<img class="w-full isinput img-editable alttitle" src="' +
           item.Image +
           '"/>';
         strHTML += '</a>';
