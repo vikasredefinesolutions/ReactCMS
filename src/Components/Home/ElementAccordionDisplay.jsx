@@ -118,12 +118,11 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                   </span>
                 </button>
                 <div
-                  className={`text-defaule-text px-2 mt-2 pb-4 ac-description ${
+                  className={`ac-description ${
                     acValue.openstatus != 'Yes' ? 'hidden' : ''
-                  }`}
+                  } ${descClass}`}
                 >
                   <div
-                    className='text-defaule-text mt-2'
                     dangerouslySetInnerHTML={{ __html: acValue.desc }}
                   ></div>
                 </div>
