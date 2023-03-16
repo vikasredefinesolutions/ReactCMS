@@ -222,7 +222,7 @@ const Home = (props) => {
                   }
                   else
                   {
-                    additionalclass += " container mx-auto ";
+                    additionalclass += ' container mx-auto ';
                   }
                   if(componentValue.selectedVal && 'container_left_padding' in componentValue.selectedVal)
                   {
