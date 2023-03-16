@@ -218,6 +218,9 @@ const Home = (props) => {
                   }
                   if(componentValue.selectedVal && 'container' in componentValue.selectedVal)
                   {
+                    if(componentValue.selectedVal.container.value == 'w-full')
+                      additionalclass += ' container-fluid'; 
+                    else
                       additionalclass += ' ' + componentValue.selectedVal.container.value;                                                          
                   }
                   else
@@ -267,7 +270,7 @@ const Home = (props) => {
                       //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
                       // }}
                     >
-                    <section className={`mx-auto ${additionalclass} ${backgroundStyle === 'inner' ? backgroundImageClass : ''}`} style={{ background: backgroundStyle === 'inner' ? backgroundDefault : 'none' }} >
+                    <section className={`${additionalclass} ${backgroundStyle === 'inner' ? backgroundImageClass : ''}`} style={{ background: backgroundStyle === 'inner' ? backgroundDefault : 'none' }} >
                             
                      {Object.keys(componentValue.properties).includes(
                         'socialshare',
