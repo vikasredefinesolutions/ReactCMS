@@ -97,7 +97,7 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                   
             return (
               <li className={`mb-4 last:mb-0 ${liClass}`} style={{ borderColor: tmpTitleBorderColor }} onClick={showHideAccordion} key={index} >
-                <button className={`w-full flex justify-between ${titleClass}`} style={{ background: tmpTitleBg }}>
+                <button className={`w-full flex justify-between ${titleClass}`} style={{ background: tmpTitleBgOption === 'Color' ? tmpTitleBg : '' }}>
                   {/* <div className='text-defaule-text'> */}
                   {acValue.title}
                   {/* </div> */}
