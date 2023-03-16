@@ -221,7 +221,7 @@ const Home = (props) => {
                     if(componentValue.selectedVal.container.value == 'w-full')
                       additionalclass += ' container-fluid'; 
                     else
-                      additionalclass += ' ' + componentValue.selectedVal.container.value;                                                          
+                      additionalclass += ' ' + componentValue.selectedVal.container.value + ' mx-auto ';                                                          
                   }
                   else
                   {
@@ -305,7 +305,7 @@ const Home = (props) => {
                                 'FullAccordion',
                               ) ? (
                                 <>
-                                  <section className='mainsection container mx-auto mt-6  overflow-hidden'>
+                                  
                                     {componentValue?.selectedVal?.Title && (
                                       <div class='text-box-h2 mb-4' id='Title'>
                                         {componentValue.selectedVal.Title.value ?? ''}
@@ -321,7 +321,7 @@ const Home = (props) => {
                                        
                                       />
                                     </ul>
-                                  </section>
+                                 
                                 </>
                               ) : (
                                 <>
