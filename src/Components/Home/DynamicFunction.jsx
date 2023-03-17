@@ -97,6 +97,16 @@ export const boximage = (dataArr, selectedObj) => {
           bgColor = aprData.text_bg_color;
         }
       }
+      let themeClass = '';
+      let fontColor = '';
+      if(selectedObj.selectedVal.Headline_final_class != undefined)
+      {
+          themeClass = selectedObj.selectedVal.Headline_final_class.value;
+      }
+      if(selectedObj.selectedVal.Headline_font_color != undefined)
+      {
+          fontColor = selectedObj.selectedVal.Headline_font_color.value;
+      }
 
       if (
         item.Headline !== undefined &&
@@ -110,7 +120,7 @@ export const boximage = (dataArr, selectedObj) => {
             fontSize +
             ' inset-0 p-1 lg:p-4 text-white justify-center">';
           headLine += '<div class="" style="background: rgba(' + bgColor + ',' + bgOpacity + '); padding: 20px;">';
-          headLine += '<div class="pb-2">' + item.Headline + '</div>';
+          headLine += '<div class="'+themeClass+'" style="color:'+fontColor+'">'+item.Headline+'</div>';
           headLine += '<div>';
           headLine += buttonHTML;
           headLine += '</div>';
@@ -118,8 +128,7 @@ export const boximage = (dataArr, selectedObj) => {
           headLine += '</div>';
         } else {
           headLine += '<div class="text-center bg-white w-full">';
-          headLine +=
-            '<div class="text-base p-4">' + item.Headline + '</div>';
+          headLine += '<div class="'+themeClass+'" style="color:'+fontColor+'">'+item.Headline+'</div>';
           headLine += '</div>';
         }
       }

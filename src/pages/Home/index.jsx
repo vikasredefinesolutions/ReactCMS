@@ -270,7 +270,7 @@ const Home = (props) => {
                       //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
                       // }}
                     >
-                    <section className={`${additionalclass} ${backgroundStyle === 'inner' ? backgroundImageClass : ''}`} style={{ background: backgroundStyle === 'inner' ? backgroundDefault : 'none' }} >
+                    <section className={`flex flex-wrap ${additionalclass} ${backgroundStyle === 'inner' ? backgroundImageClass : ''}`} style={{ background: backgroundStyle === 'inner' ? backgroundDefault : 'none' }} >
                             
                      {Object.keys(componentValue.properties).includes(
                         'socialshare',
