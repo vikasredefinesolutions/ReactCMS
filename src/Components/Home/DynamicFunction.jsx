@@ -78,11 +78,13 @@ export const boximage = (dataArr, selectedObj) => {
         item.Button_text != '' &&
         item.Button_text != null
       ) {
-        buttonHTML += '<div class="mt-5 mb-5">';
-        buttonHTML += '<a target="" href="' + item.Button_link + '" class="' + item.Button_size + ' ' + item.Button_style + '">';
-        buttonHTML += item.Button_text;
-        buttonHTML += '</a>';
-        buttonHTML += '</div>';
+          let btnClass = item.Button_class;
+                buttonHTML += '<div class="mt-5 mb-5 '+item.Button_alignment+'">';
+                buttonHTML += '<a target="" href="'+item.Button_link+'" class="'+btnClass+'">';
+                buttonHTML += item.Button_text;
+                buttonHTML += '</a>'
+                buttonHTML += '</div>';
+       
       }
 
       //flex items-center absolute text-3xl inset-0 p-1 lg:p-4 text-white justify-center
@@ -197,8 +199,9 @@ export const multipleImages = (dataArr, selectedObj) => {
         if(item.Button_display != undefined && item.Button_display == 'Yes' && item.Button_text !== '' && item.Button_text !== null)
         {
           
-            buttonHTML = '<div class="mt-5 mb-5 text-center">';
-            buttonHTML += '<a target="" href="'+item.Button_link+'" class="'+item.Button_size+' '+item.Button_style+'">';
+            let btnClass = item.Button_class;
+            buttonHTML += '<div class="mt-5 mb-5 '+item.Button_alignment+'">';
+            buttonHTML += '<a target="" href="'+item.Button_link+'" class="'+btnClass+'">';
             buttonHTML += item.Button_text;
             buttonHTML += '</a>'
             buttonHTML += '</div>';
