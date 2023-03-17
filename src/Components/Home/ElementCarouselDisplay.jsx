@@ -204,7 +204,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
                                 target={
                                   image.button_link_window ? '_blank' : ''
                                 }
-                                className={`btn ${image.button_text_transform} ${image.button_size} ${image.button_style}`}
+                                className={`${image.button_class}`}
                                 rel='noreferrer'
                               >
                                 {image.button_text}
