@@ -555,8 +555,8 @@ export const updateSetProperties = (element) => {
         'ElementConfiguration_final_class',
       )
     ) {
-      //  if(element.selectedVal.ElementConfiguration_final_class.value.trim() !== '')
-      //     x.querySelectorAll('#right-section')[0].classList.add(element.selectedVal.ElementConfiguration_final_class.value.trim());
+       if(element.selectedVal.ElementConfiguration_final_class.value.trim() !== '')
+          x.querySelectorAll('#right-section')[0].className = element.selectedVal.ElementConfiguration_final_class.value.trim();
         
       
     }

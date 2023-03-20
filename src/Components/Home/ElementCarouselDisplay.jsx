@@ -57,7 +57,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
 
   return (
     <>
-      <section className='mainsection container mx-auto'>
+     
         {Object.keys(bannerArr).length > 0 && bannerArr.images != null && (
           <Carousel
             renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
@@ -220,7 +220,7 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
             })}
           </Carousel>
         )}
-      </section>
+      
     </>
   );
 };
