@@ -10,6 +10,7 @@ export const updateSetProperties = (element) => {
       let buttonId = '';
       let className = '';
       let pmClassName = '';
+      console.log(element.selectedVal);
       Object.entries(element.selectedVal).map(([key, value]) => {
         
         if(value.type == 'btn_size')
@@ -547,6 +548,17 @@ export const updateSetProperties = (element) => {
         x.querySelectorAll('#right-section')[0].classList.add('hidden');
         removeWidthClass(x, 'Left');
       }
+    }
+
+    if (
+      Object.keys(element.selectedVal).includes(
+        'ElementConfiguration_final_class',
+      )
+    ) {
+      if(element.selectedVal.ElementConfiguration_final_class.value !== '')
+         x.querySelectorAll('#right-section')[0].classList.add(element.selectedVal.ElementConfiguration_final_class.value.trim());
+        
+      
     }
 
     if (textDisplay && imgDisplay) {
