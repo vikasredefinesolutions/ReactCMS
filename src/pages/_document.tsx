@@ -5,7 +5,7 @@ import Document, {
   Head,
   Html,
   Main,
-  NextScript,
+  NextScript
 } from 'next/document';
 import { __constant } from 'page.config';
 import { _globalStore } from 'store.global';

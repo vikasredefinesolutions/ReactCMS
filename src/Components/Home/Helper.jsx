@@ -79,42 +79,42 @@ export const updateSetProperties = (element) => {
         if(value.type == 'btn_left_padding')
         {
           buttonId = key.replace('_left_padding', '');
-          pmClassName += ' pl-[' + value.value +'px]';
+          className += ' pl-[' + value.value +'px]';
         }
         if(value.type == 'btn_top_padding')
         {
           buttonId = key.replace('_top_padding', '');
-          pmClassName += ' pt-[' + value.value +'px]';
+          className += ' pt-[' + value.value +'px]';
         }
         if(value.type == 'btn_right_padding')
         {
           buttonId = key.replace('_right_padding', '');
-          pmClassName += ' pr-[' + value.value +'px]';
+          className += ' pr-[' + value.value +'px]';
         }
         if(value.type == 'btn_bottom_padding')
         {
           buttonId = key.replace('_bottom_padding', '');
-          pmClassName += ' pb-[' + value.value +'px]';
+          className += ' pb-[' + value.value +'px]';
         }
         if(value.type == 'btn_left_margin')
         {
           buttonId = key.replace('_left_margin', '');
-          pmClassName += ' ml-[' + value.value +'px]';
+          className += ' ml-[' + value.value +'px]';
         }
         if(value.type == 'btn_top_margin')
         {
           buttonId = key.replace('_top_margin', '');
-          pmClassName += ' mt-[' + value.value +'px]';
+          className += ' mt-[' + value.value +'px]';
         }
         if(value.type == 'btn_right_margin')
         {
           buttonId = key.replace('_right_margin', '');
-          pmClassName += ' mr-[' + value.value +'px]';
+          className += ' mr-[' + value.value +'px]';
         }
         if(value.type == 'btn_bottom_margin')
         {
           buttonId = key.replace('_bottom_margin', '');
-          pmClassName += ' mb-[' + value.value +'px]';
+          className += ' mb-[' + value.value +'px]';
         }
 
       });
@@ -723,25 +723,25 @@ export const displayClass = (divid, classArr, x) => {
 export const displaySection = (obj, side, x) => {
   let strHTML = '';
   if (obj.contentType == 'Image') {
-    strHTML += '<div className="flex">';
+    strHTML += '<div class="flex">';
     strHTML +=
       '<a title="' +
       obj.image_alt +
       '" href="' +
       obj.image_link +
-      '" className="hrefurl no-underline">';
+      '" class="hrefurl no-underline">';
     strHTML +=
-      '<img className="w-full" src="' +
+      '<img class="w-full" src="' +
       obj.image +
       '" alt="' +
       obj.image_alt +
       '" title="' +
       obj.image_alt +
       '">';
-    strHTML += '<div className="text-center w-full bg-gray-50">';
+    strHTML += '<div class="text-center w-full bg-gray-50">';
     if (obj.headline != '' && obj.headline != null)
       strHTML +=
-        '<div className="text-base font-semibold p-4">' +
+        '<div class="text-base font-semibold p-4">' +
         obj.headline +
         '</div>';
     strHTML += '</div>';
@@ -750,11 +750,11 @@ export const displaySection = (obj, side, x) => {
     strHTML += '</a>';
     strHTML += '</div>';
   } else {
-    strHTML += '<div className="p-4 lg:p-8 flex w-full items-center">';
-    strHTML += '<div className="w-full">';
-    strHTML += '<div className="text-sub-title">' + obj.headline + '</div>';
+    strHTML += '<div class="p-4 lg:p-8 flex w-full items-center">';
+    strHTML += '<div class="w-full">';
+    strHTML += '<div class="text-sub-title">' + obj.headline + '</div>';
     strHTML +=
-      '<div className="text-default-text mt-2">' + obj.description + '</div>';
+      '<div class="text-default-text mt-2">' + obj.description + '</div>';
     strHTML += '</div>';
     strHTML += '</div>';
   }
