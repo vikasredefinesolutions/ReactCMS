@@ -2009,6 +2009,9 @@ select{
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
+.bg-\[\]{
+  background-color: ;
+}
 .bg-slate-400{
   --tw-bg-opacity: 1;
   background-color: rgb(148 163 184 / var(--tw-bg-opacity));
@@ -3147,6 +3150,9 @@ select{
 .hover\:bg-indigo-600:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
+}
+.hover\:bg-\[\]:hover{
+  background-color: ;
 }
 .hover\:bg-\[\#f18a00\]:hover{
   --tw-bg-opacity: 1;

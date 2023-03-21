@@ -48,7 +48,7 @@ export const numberingdiv = (dataArr, selectedObj) => {
 
 export const multipleBrands = (dataArr, selectedObj) => {
 
-  let strHTML = "";
+  let strHTML = '';
   console.log(dataArr);
   if(dataArr.length > 0)
   {
