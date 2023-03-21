@@ -46,6 +46,38 @@ export const numberingdiv = (dataArr, selectedObj) => {
   return strHTML;
 };
 
+export const multipleBrands = (dataArr, selectedObj) => {
+
+  let strHTML = "";
+  console.log(dataArr);
+  if(dataArr.length > 0)
+  {
+          let cnt = 1;
+      dataArr.forEach(function (item) {
+          
+          if(item.Image !== undefined)
+          {
+              strHTML += '<div class="w-full lg:w-1/4 px-3 mt-3 mb-3">';
+              strHTML += '<div class="border bg-[] hover:bg-[] relative" style="background-color: #003a70;">';
+              strHTML += '<div class="flex justify-center items-center">';
+              strHTML += '<a title="'+item.Image_link+'">';
+              strHTML += '<img class="w-full mx-auto" src="'+item.Image+'"/>';
+              strHTML += '</a>';
+              strHTML += '</div>';
+              strHTML += '</div>';
+              strHTML += '</div>';
+          }
+
+          
+          
+      }
+      );
+      
+  }
+  return strHTML;
+}
+
+
 export const boximage = (dataArr, selectedObj) => {
   let strHTML = '';
   if (dataArr.length > 0) {
