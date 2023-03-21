@@ -10,26 +10,52 @@ export const updateSetProperties = (element) => {
       let buttonId = '';
       let className = '';
       let pmClassName = '';
-      console.log(element.selectedVal);
+      let count = 0;
+      let Button_className = '';
+      let Button1_className = '';
+      let Button2_className = '';
+
+
+      let Button_parent;
+      let Button1_parent;
+      let Button2_parent;
+      
       Object.entries(element.selectedVal).map(([key, value]) => {
         
         if(value.type == 'btn_size')
         {
           buttonId = key.replace('_size', '');
-          className += ' ' + value.value;
+
+          if(buttonId === 'Button')
+            Button_className += ' '+value.value;
+          else if(buttonId === 'Button1')
+            Button1_className += ' '+value.value;
+          else if(buttonId === 'Button2')
+            Button2_className += ' '+value.value;
         }
 
         if(value.type == 'btn_alignment')
         {
           buttonId = key.replace('_alignment', '');
-          pmClassName += ' ' + value.value;
+          if(buttonId === 'Button')
+            Button_parent += ' '+value.value;
+          else if(buttonId === 'Button1')
+            Button1_parent += ' '+value.value;
+          else if(buttonId === 'Button2')
+            Button2_parent += ' '+value.value;
+          
         }
 
 
         if(value.type == 'btn_transform')
         {
           buttonId = key.replace('_text_transform', '');
-          className += ' ' + value.value;
+          if(buttonId === 'Button')
+            Button_className += ' '+value.value;
+          else if(buttonId === 'Button1')
+            Button1_className += ' '+value.value;
+          else if(buttonId === 'Button2')
+            Button2_className += ' '+value.value;
         }
 
         if(value.type == 'btn_link')
@@ -44,14 +70,24 @@ export const updateSetProperties = (element) => {
         if(value.type == 'btn_style')
         {
           buttonId = key.replace('_style', '');
-          className += ' ' + value.value;
+          if(buttonId === 'Button')
+            Button_className += ' '+value.value;
+          else if(buttonId === 'Button1')
+            Button1_className += ' '+value.value;
+          else if(buttonId === 'Button2')
+            Button2_className += ' '+value.value;
         }
 
-        if(value.type == 'btn_size')
-        {
-          buttonId = key.replace('_size', '');
-          className += ' ' + value.value;
-        }
+        // if(value.type == 'btn_size')
+        // {
+        //   buttonId = key.replace('_size', '');
+        //   if(buttonId === 'Button')
+        //     Button_className += ' '+value.value;
+        //   else if(buttonId === 'Button1')
+        //     Button1_className += ' '+value.value;
+        //   else if(buttonId === 'Button2')
+        //     Button2_className += ' '+value.value;
+        // }
 
         if(value.type == 'btn_link_target')
         {
@@ -80,53 +116,117 @@ export const updateSetProperties = (element) => {
         if(value.type == 'btn_left_padding')
         {
           buttonId = key.replace('_left_padding', '');
-          className += ' pl-[' + value.value +'px]';
+          if(buttonId === 'Button')
+            Button_className += ' pl-[' + value.value +'px]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' pl-[' + value.value +'px]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' pl-[' + value.value +'px]';
         }
         if(value.type == 'btn_top_padding')
         {
           buttonId = key.replace('_top_padding', '');
-          className += ' pt-[' + value.value +'px]';
+          if(buttonId === 'Button')
+            Button_className += ' pt-[' + value.value +'px]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' pt-[' + value.value +'px]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' pt-[' + value.value +'px]';
         }
         if(value.type == 'btn_right_padding')
         {
           buttonId = key.replace('_right_padding', '');
-          className += ' pr-[' + value.value +'px]';
+          if(buttonId === 'Button')
+            Button_className += ' pr-[' + value.value +'px]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' pr-[' + value.value +'px]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' pr-[' + value.value +'px]';
         }
         if(value.type == 'btn_bottom_padding')
         {
           buttonId = key.replace('_bottom_padding', '');
-          className += ' pb-[' + value.value +'px]';
+          if(buttonId === 'Button')
+            Button_className += ' pb-[' + value.value +'px]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' pb-[' + value.value +'px]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' pb-[' + value.value +'px]';
         }
         if(value.type == 'btn_left_margin')
         {
           buttonId = key.replace('_left_margin', '');
-          className += ' ml-[' + value.value +'px]';
+          if(buttonId === 'Button')
+            Button_className += ' ml-[' + value.value +'px]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' ml-[' + value.value +'px]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' ml-[' + value.value +'px]';
         }
         if(value.type == 'btn_top_margin')
         {
           buttonId = key.replace('_top_margin', '');
-          className += ' mt-[' + value.value +'px]';
+          if(buttonId === 'Button')
+            Button_className += ' mt-[' + value.value +'px]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' mt-[' + value.value +'px]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' mt-[' + value.value +'px]';
         }
         if(value.type == 'btn_right_margin')
         {
           buttonId = key.replace('_right_margin', '');
-          className += ' mr-[' + value.value +'px]';
+          if(buttonId === 'Button')
+            Button_className += ' mr-[' + value.value +'px]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' mr-[' + value.value +'px]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' mr-[' + value.value +'px]';
+
         }
         if(value.type == 'btn_bottom_margin')
         {
           buttonId = key.replace('_bottom_margin', '');
-          className += ' mb-[' + value.value +'px]';
+          if(buttonId === 'Button')
+            Button_className += ' mb-[' + value.value +'px]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' mb-[' + value.value +'px]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' mb-[' + value.value +'px]';
+
         }
 
       });
       
-      if(buttonId !== '')
-      {
-        if(x.querySelectorAll('#'+buttonId).length > 0)
-          x.querySelectorAll('#'+buttonId)[0].className = className;
-        if(x.querySelectorAll('#'+buttonId+'Parent').length > 0)
-          x.querySelectorAll('#'+buttonId+'Parent')[0].className = pmClassName;
-      }
+     if(x.querySelectorAll('#Button').length > 0)
+     {
+        x.querySelectorAll('#Button')[0].className = Button_className;
+        if(x.querySelectorAll('#Button_parent').length > 0)
+        {
+            x.querySelectorAll('#Button')[0].className = Button_parent;
+        }
+     }
+
+     if(x.querySelectorAll('#Button1').length > 0)
+     {
+        x.querySelectorAll('#Button1')[0].className = Button1_className;
+        if(x.querySelectorAll('#Button1_parent').length > 0)
+        {
+            x.querySelectorAll('#Button1')[0].className = Button1_parent;
+        }
+     }
+
+     if(x.querySelectorAll('#Button2').length > 0)
+     {
+        x.querySelectorAll('#Button2')[0].className = Button2_className;
+        if(x.querySelectorAll('#Button2_parent').length > 0)
+        {
+            x.querySelectorAll('#Button2')[0].className = Button2_parent;
+        }
+     }
+      
+   
+      
     //      let elProperties;
     Object.entries(element.selectedVal).map(([key, value]) => {
       if (typeof element.properties === 'string') {

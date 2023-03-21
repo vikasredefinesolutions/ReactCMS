@@ -12,5 +12,8 @@
   "todo-tree.tree.scanMode": "workspace only",
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
   }
 }
