@@ -248,27 +248,27 @@ export const updateSetProperties = (element) => {
      if(x.querySelectorAll('#Button').length > 0)
      {
         x.querySelectorAll('#Button')[0].className = Button_className;
-        if(x.querySelectorAll('#Button_parent').length > 0)
+        if(x.querySelectorAll('#ButtonParent').length > 0)
         {
-            x.querySelectorAll('#Button_parent')[0].className = Button_parent;
+            x.querySelectorAll('#ButtonParent')[0].className = Button_parent;
         }
      }
 
      if(x.querySelectorAll('#Button1').length > 0)
      {
         x.querySelectorAll('#Button1')[0].className = Button1_className;
-        if(x.querySelectorAll('#Button1_parent').length > 0)
+        if(x.querySelectorAll('#Button1Parent').length > 0)
         {
-            x.querySelectorAll('#Button1_parent')[0].className = Button1_parent;
+            x.querySelectorAll('#Button1Parent')[0].className = Button1_parent;
         }
      }
 
      if(x.querySelectorAll('#Button2').length > 0)
      {
         x.querySelectorAll('#Button2')[0].className = Button2_className;
-        if(x.querySelectorAll('#Button2_parent').length > 0)
+        if(x.querySelectorAll('#Button2Parent').length > 0)
         {
-            x.querySelectorAll('#Button2_parent')[0].className = Button2_parent;
+            x.querySelectorAll('#Button2Parent')[0].className = Button2_parent;
         }
      }
       
