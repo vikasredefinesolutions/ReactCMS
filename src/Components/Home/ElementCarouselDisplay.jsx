@@ -163,7 +163,8 @@ const handleTransition= ()=>{
             showArrows={showArrow}
             showIndicators={showIndicators}
             showThumbs={true}
-            onChange={handleTransition}
+            animationHandler="fade"
+            transitionTime="700"
           >
             {bannerArr.images.map((image) => {
               return (
@@ -239,3 +240,5 @@ const handleTransition= ()=>{
 };
 
 export default ElementCarouselDisplay;
+
+

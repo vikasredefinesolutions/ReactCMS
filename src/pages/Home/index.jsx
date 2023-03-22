@@ -151,13 +151,13 @@ const Home = (props) => {
           {
             let imageClass = '';
             
-            if('bg_bg_image_style' in element.selected_Values)
+            if('bg_bg_image_style' in element.selectedVal)
             {
-              imageClass += ' ' + element.selected_Values.bg_bg_image_style.value;                                                          
+              imageClass += ' ' + element.selectedVal.bg_bg_image_style.value;                                                          
             }
-            if('bg_bg_image_position' in element.selected_Values)
+            if('bg_bg_image_position' in element.selectedVal)
             {
-              imageClass += ' ' + element.selected_Values.bg_bg_image_position.value;                                                          
+              imageClass += ' ' + element.selectedVal.bg_bg_image_position.value;                                                          
             }
             return imageClass;
           }
