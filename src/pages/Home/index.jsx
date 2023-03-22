@@ -76,7 +76,7 @@ const Home = (props) => {
           if (attributes.type == 'color') {
             return attributes.value;
           } else if (attributes.type == 'image') {
-            return 'url("' + attributes.value + '")';
+            return 'url(\'' + attributes.value + '\')';
           } else if (attributes.type == 'none') {
             return 'none';
           }
@@ -86,6 +86,34 @@ const Home = (props) => {
       return 'none';
     }
     return 'none';
+  };
+
+  const loadBackgroundType = (element) => {
+    if (element.selectedVal != undefined) {
+      if (Object.keys(element.selectedVal).length > 0) {
+        const bgPropertyName = 'bg';
+        // Object.keys(JSON.parse(element.properties)).find(
+        //   (key) => JSON.parse(element.properties)[key] === 'background',
+        // );
+
+        let attributes;
+        Object.entries(element.selectedVal).map(([key, value]) => {
+          if (key == bgPropertyName) {
+            attributes = value;
+          }
+        });
+
+        if (attributes != undefined && Object.keys(attributes).length > 0) {
+          return attributes.type;
+        }
+        else {
+          return '';
+        }
+      }
+
+      return '';
+    }
+    return '';
   };
 
     const loadBackgroundDefaultStyle = (element) => {
@@ -264,13 +292,15 @@ const Home = (props) => {
                   return (
                     <div
                       key={index}
-                      className={`w-full mx-auto ${componentValue.visibility == 'off' ? 'hidden' : ''} ${backgroundStyle === 'outer' ? backgroundImageClass : ''}`} style={{ background: backgroundStyle === 'outer' ? backgroundDefault : 'none' }} 
+                      className={`w-full mx-auto ${componentValue.visibility == 'off' ? 'hidden' : ''} ${backgroundStyle === 'outer' ? backgroundImageClass : ''}`} 
+                      
+                      style={ loadBackgroundType(componentValue) == 'image' ? { backgroundImage: backgroundStyle === 'outer' ? backgroundDefault : 'none' } : { background: backgroundStyle === 'outer' ? backgroundDefault : 'none' }}
                       id={`div${componentValue.no}`}
                       // ref={ref => {
                       //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
                       // }}
                     >
-                    <section className={`${additionalclass} ${backgroundStyle === 'inner' ? backgroundImageClass : ''}`} style={{ background: backgroundStyle === 'inner' ? backgroundDefault : 'none' }} >
+                    <section className={`${additionalclass} ${backgroundStyle === 'inner' ? backgroundImageClass : ''}`} style={ loadBackgroundType(componentValue) == 'image' ? { backgroundImage: backgroundStyle === 'inner' ? backgroundDefault : 'none' } : { background: backgroundStyle === 'inner' ? backgroundDefault : 'none' }} >
                             
                      {Object.keys(componentValue.properties).includes(
                         'socialshare',
