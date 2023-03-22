@@ -250,7 +250,7 @@ export const updateSetProperties = (element) => {
         x.querySelectorAll('#Button')[0].className = Button_className;
         if(x.querySelectorAll('#Button_parent').length > 0)
         {
-            x.querySelectorAll('#Button')[0].className = Button_parent;
+            x.querySelectorAll('#Button_parent')[0].className = Button_parent;
         }
      }
 
@@ -259,7 +259,7 @@ export const updateSetProperties = (element) => {
         x.querySelectorAll('#Button1')[0].className = Button1_className;
         if(x.querySelectorAll('#Button1_parent').length > 0)
         {
-            x.querySelectorAll('#Button1')[0].className = Button1_parent;
+            x.querySelectorAll('#Button1_parent')[0].className = Button1_parent;
         }
      }
 
@@ -268,7 +268,7 @@ export const updateSetProperties = (element) => {
         x.querySelectorAll('#Button2')[0].className = Button2_className;
         if(x.querySelectorAll('#Button2_parent').length > 0)
         {
-            x.querySelectorAll('#Button2')[0].className = Button2_parent;
+            x.querySelectorAll('#Button2_parent')[0].className = Button2_parent;
         }
      }
       
