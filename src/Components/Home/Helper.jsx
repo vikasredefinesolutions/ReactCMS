@@ -212,11 +212,11 @@ export const updateSetProperties = (element) => {
         {
           buttonId = key.replace('_font_size', '');
           if(buttonId === 'Button')
-            Button_className += ' text-[' + value.value+'px\]';
+            Button_className += ' text-[' + value.value+'px]';
           else if(buttonId === 'Button1')
-            Button1_className += ' text-[' + value.value+'px\]';
+            Button1_className += ' text-[' + value.value+'px]';
           else if(buttonId === 'Button2')
-            Button2_className += ' text-[' + value.value+'px\]';
+            Button2_className += ' text-[' + value.value+'px]';
 
 
         }
@@ -236,11 +236,11 @@ export const updateSetProperties = (element) => {
         {
           buttonId = key.replace('_line_height', '');
           if(buttonId === 'Button')
-            Button_className += ' leading-[' + value.value+'px\]';
+            Button_className += ' leading-[' + value.value+'px]';
           else if(buttonId === 'Button1')
-            Button1_className += ' leading-[' + value.value+'px\]';
+            Button1_className += ' leading-[' + value.value+'px]';
           else if(buttonId === 'Button2')
-            Button2_className += ' leading-[' + value.value+'px\]';
+            Button2_className += ' leading-[' + value.value+'px]';
         }
 
       });
