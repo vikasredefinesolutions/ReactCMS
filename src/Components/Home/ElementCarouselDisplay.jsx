@@ -5,10 +5,12 @@ Created Date: 17th September 2022
 Modified By: <Modified By Name>
 Modified Date: <Modified Date> */
 
+import { useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.css';
 
 const ElementCarouselDisplay = ({ bannerArr }) => {
+  const [transition, setTransition ] = useState('width-carousel');
   const showArrow =
     bannerArr.showArrow != undefined
       ? bannerArr.showArrow == 'On'
@@ -54,6 +56,16 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
         ? true
         : false
       : true;
+
+      
+
+const handleTransition= ()=>{
+    setTransition('width-carousel fade-in-image')
+
+    setTimeout(()=>{
+        setTransition('width-carousel')
+    }, 2000)
+}
 
   return (
     <>
@@ -147,10 +159,11 @@ const ElementCarouselDisplay = ({ bannerArr }) => {
             showStatus={showStatus}
             stopOnHover={stopOnHover}
             infiniteLoop={infiniteLoop}
-            autoPlay={false}
+            autoPlay={autoPlay}
             showArrows={showArrow}
             showIndicators={showIndicators}
-            showThumbs={showThumb}
+            showThumbs={true}
+            onChange={handleTransition}
           >
             {bannerArr.images.map((image) => {
               return (

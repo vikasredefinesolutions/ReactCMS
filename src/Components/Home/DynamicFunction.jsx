@@ -85,9 +85,9 @@ export const boximage = (dataArr, selectedObj) => {
       let className;
       if (item.colcount == 2) className = 'lg:w-1/2';
       else if (item.colcount == 3) className = 'lg:w-1/3';
-      else className = 'lg:w-1/4';
+      else className = 'md:w-1/2 lg:w-1/4';
       strHTML +=
-        '<div class="w-full ' + className + ' px-3 md:w-1/3 mt-6">';
+        '<div class="w-full ' + className + ' px-3  mt-6">';
       // strHTML += '<div className="flex justify-center pb-5">';
       // strHTML += '<div className="btn-primary rounded-full w-10 h-10 flex justify-center items-center text-base text-white font-semibold">'+item.index+'</div>';
       // strHTML += '</div>';

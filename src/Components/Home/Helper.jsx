@@ -196,6 +196,53 @@ export const updateSetProperties = (element) => {
 
         }
 
+        
+        if(value.type == 'btn_font_family')
+        {
+          buttonId = key.replace('_font_family', '');
+          if(buttonId === 'Button')
+            Button_className += ' ' + value.value;
+          else if(buttonId === 'Button1')
+            Button1_className += ' ' + value.value;
+          else if(buttonId === 'Button2')
+            Button2_className += ' ' + value.value;
+        }
+
+        if(value.type == 'btn_font_size')
+        {
+          buttonId = key.replace('_font_size', '');
+          if(buttonId === 'Button')
+            Button_className += ' text-[' + value.value+'px\]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' text-[' + value.value+'px\]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' text-[' + value.value+'px\]';
+
+
+        }
+
+        if(value.type == 'btn_font_weight')
+        {
+          buttonId = key.replace('_font_weight', '');
+          if(buttonId === 'Button')
+            Button_className += ' ' + value.value;
+          else if(buttonId === 'Button1')
+            Button1_className += ' ' + value.value;
+          else if(buttonId === 'Button2')
+            Button2_className += ' ' + value.value;
+        }
+        
+        if(value.type == 'btn_line_height')
+        {
+          buttonId = key.replace('_line_height', '');
+          if(buttonId === 'Button')
+            Button_className += ' leading-[' + value.value+'px\]';
+          else if(buttonId === 'Button1')
+            Button1_className += ' leading-[' + value.value+'px\]';
+          else if(buttonId === 'Button2')
+            Button2_className += ' leading-[' + value.value+'px\]';
+        }
+
       });
       
      if(x.querySelectorAll('#Button').length > 0)
@@ -638,17 +685,7 @@ export const updateSetProperties = (element) => {
       }
     }
 
-    if (
-      Object.keys(element.selectedVal).includes(
-        'ElementConfiguration_Text_display',
-      )
-    ) {
-      if (element.selectedVal.ElementConfiguration_Text_display.value == 'No') {
-        textDisplay = false;
-        x.querySelectorAll('#right-section')[0].classList.add('hidden');
-        removeWidthClass(x, 'Left');
-      }
-    }
+    
 
     if (
       Object.keys(element.selectedVal).includes(
@@ -659,6 +696,19 @@ export const updateSetProperties = (element) => {
           x.querySelectorAll('#right-section')[0].className = element.selectedVal.ElementConfiguration_final_class.value.trim();
         
       
+    }
+
+    if (
+      Object.keys(element.selectedVal).includes(
+        'ElementConfiguration_Text_display',
+      )
+    ) {
+      
+      if (element.selectedVal.ElementConfiguration_Text_display.value === 'No') {
+       textDisplay = false;
+        x.querySelectorAll('#right-section')[0].classList.add('hidden');
+        removeWidthClass(x, 'Left');
+      }
     }
 
     if (textDisplay && imgDisplay) {
