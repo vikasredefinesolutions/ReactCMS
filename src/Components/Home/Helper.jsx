@@ -436,8 +436,11 @@ export const updateSetProperties = (element) => {
       }
 
       if (value.type == 'Youtube') {
-        if (x.querySelectorAll('#' + key).length > 0) {
-          x.querySelectorAll('#' + key)[0].innerHTML =
+        let ky = key.replace('_video', '');
+
+        if (x.querySelectorAll('#' + ky).length > 0) {
+          
+          x.querySelectorAll('#' + ky)[0].innerHTML =
             '<iframe className="w-full aspect-video" src="https://www.youtube.com/embed/' +
             value.value +
             '?rel=0" allow="autoplay; encrypted-media" frameBorder="0"></iframe>';
@@ -445,8 +448,10 @@ export const updateSetProperties = (element) => {
       }
 
       if (value.type == 'Vimeo') {
-        if (x.querySelectorAll('#' + key).length > 0) {
-          x.querySelectorAll('#' + key)[0].innerHTML =
+        let ky = key.replace('_video', '');
+
+        if (x.querySelectorAll('#' + ky).length > 0) {
+          x.querySelectorAll('#' + ky)[0].innerHTML =
             '<iframe src="https://player.vimeo.com/video/' +
             value.value +
             '?background=1" frameBorder="0" allow="autoplay; fullscreen" allowfullscreen="" style="" className="w-full aspect-video"></iframe>';
