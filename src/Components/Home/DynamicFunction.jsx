@@ -58,7 +58,7 @@ export const multipleBrands = (dataArr, selectedObj) => {
           if(item.Image !== undefined)
           {
               strHTML += '<div class="w-full lg:w-1/4 px-3 mt-3 mb-3">';
-              strHTML += '<div class="border bg-[] hover:bg-[] relative" style="background-color: #003a70;">';
+              strHTML += '<div class="border bg-[] hover:bg-[] relative" style="background-color:'+(item.BgColor ? item.BgColor : '#003a70')+' ">';
               strHTML += '<div class="flex justify-center items-center">';
               strHTML += '<a title="'+item.Image_link+'">';
               strHTML += '<img class="w-full mx-auto" src="'+item.Image+'"/>';
