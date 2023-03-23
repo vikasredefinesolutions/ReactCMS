@@ -74,7 +74,7 @@ const handleTransition= ()=>{
           <Carousel
             renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
               hasPrev && (
-                <div className='absolute top-1/2 -translate-y-1/2 left-4 z-10 flex items-center'>
+                <div className='absolute top-1/2 -translate-y-1/2 left-4 z-10 flex items-center' style={{ zIndex: '10000'}}>
                   {arrowType === 'Arrow1' && (
                     <button
                       onClick={clickHandler}
@@ -96,7 +96,7 @@ const handleTransition= ()=>{
                   {arrowType === 'Arrow2' && (
                     <button
                       onClick={clickHandler}
-                      className='bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'
+                      className='bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'  style={{ zIndex: '10000'}}
                     >
                       <svg
                         viewBox='0 0 20 20'
@@ -116,7 +116,7 @@ const handleTransition= ()=>{
             }
             renderArrowNext={(clickHandler, hasNext, labelNext) =>
               hasNext && (
-                <div className='absolute top-1/2 -translate-y-1/2 right-4 z-10 flex items-center'>
+                <div className='absolute top-1/2 -translate-y-1/2 right-4 z-10 flex items-center' style={{ zIndex: '10000'}}>
                   {arrowType === 'Arrow1' && (
                     <button
                       onClick={clickHandler}
@@ -138,7 +138,7 @@ const handleTransition= ()=>{
                   {arrowType === 'Arrow2' && (
                     <button
                       onClick={clickHandler}
-                      className='bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'
+                      className='bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'  style={{ zIndex: '10000'}}
                     >
                       <svg
                         viewBox='0 0 20 20'
@@ -174,6 +174,7 @@ const handleTransition= ()=>{
                       <img src={image.image_url} alt='corousel' />
                     ) : (
                       <>
+                     
                         {image.video_type == 'Youtube' ? (
                           <iframe
                             className='w-full aspect-video'
@@ -208,8 +209,16 @@ const handleTransition= ()=>{
                           padding: '20px',
                         }}
                       >
-                        <div className={image.headline1_class ?? ''} style={{ color: image.font_color ?? '' }}>{image.headline}</div>
-                                <div className={image.headline2_class ?? ''} style={{ color: image.font_color1 ?? '' }}>{image.headline1}</div>
+                      {image.headline !== "" && <div className={image.headline1_class ?? ''} style={{ color: image.font_color ?? '' }} dangerouslySetInnerHTML={{
+                              __html:
+                                  image.headline
+                                }}></div>
+                    }
+                  {image.headline1 !== "" && <div className={image.headline2_class ?? ''} style={{ color: image.font_color1 ?? '' }} dangerouslySetInnerHTML={{
+                    __html:
+                        image.headline1
+                    }}></div> 
+                  }
                         {image.button_display == 'Yes' && (
                           <>
                             <div className='pt-5' title={image.button_text}>
