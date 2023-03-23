@@ -209,12 +209,12 @@ const handleTransition= ()=>{
                           padding: '20px',
                         }}
                       >
-                      {image.headline !== "" && <div className={image.headline1_class ?? ''} style={{ color: image.font_color ?? '' }} dangerouslySetInnerHTML={{
+                      {image.headline !== '' && <div className={image.headline1_class ?? ''} style={{ color: image.font_color ?? '' }} dangerouslySetInnerHTML={{
                               __html:
                                   image.headline
                                 }}></div>
                     }
-                  {image.headline1 !== "" && <div className={image.headline2_class ?? ''} style={{ color: image.font_color1 ?? '' }} dangerouslySetInnerHTML={{
+                  {image.headline1 !== '' && <div className={image.headline2_class ?? ''} style={{ color: image.font_color1 ?? '' }} dangerouslySetInnerHTML={{
                     __html:
                         image.headline1
                     }}></div> 
