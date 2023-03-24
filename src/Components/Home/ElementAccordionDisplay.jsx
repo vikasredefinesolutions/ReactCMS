@@ -48,6 +48,8 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                 let titleClass;
                 let descClass;
                 let liClass;
+                let titleColor;
+                let descColor;
 
                 if(selected_Values !== undefined)
                 {
@@ -79,6 +81,14 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                       {
                           liClass = value.value;
                       }
+                      if(key == 'AccordionDescription_font_color')
+                      {
+                          descColor = value.value;
+                      }
+                      if(key == 'AccordionTitle_font_color')
+                      {
+                          titleColor = value.value;
+                      }
                   })
                 }
 
@@ -97,7 +107,7 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                   
             return (
               <li className={`mb-4 last:mb-0 ${liClass}`} style={{ borderColor: tmpTitleBorderColor }} onClick={showHideAccordion} key={index} >
-                <button className={`w-full flex justify-between ${titleClass}`} style={{ background: tmpTitleBgOption === 'Color' ? tmpTitleBg : '' }}>
+                <button className={`w-full flex justify-between ${titleClass}`} style={{ background: tmpTitleBgOption === 'Color' ? tmpTitleBg : '', color: titleColor}}>
                   {/* <div className='text-defaule-text'> */}
                   {acValue.title}
                   {/* </div> */}
@@ -120,7 +130,7 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                 <div
                   className={`ac-description ${
                     acValue.openstatus != 'Yes' ? 'hidden' : ''
-                  } ${descClass}`}
+                  } ${descClass}`}  style={{color: descColor}}
                 >
                   <div
                     dangerouslySetInnerHTML={{ __html: acValue.desc }}

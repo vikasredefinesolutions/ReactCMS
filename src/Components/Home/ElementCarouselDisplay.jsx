@@ -74,7 +74,7 @@ const handleTransition= ()=>{
           <Carousel
             renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
               hasPrev && (
-                <div className='absolute top-1/2 -translate-y-1/2 left-4 z-10 flex items-center' style={{ zIndex: '10000'}}>
+                <div className='absolute top-1/2 -translate-y-1/2 left-4 z-10 flex items-center' style={{ zIndex: '39'}}>
                   {arrowType === 'Arrow1' && (
                     <button
                       onClick={clickHandler}
@@ -96,7 +96,7 @@ const handleTransition= ()=>{
                   {arrowType === 'Arrow2' && (
                     <button
                       onClick={clickHandler}
-                      className='bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'  style={{ zIndex: '10000'}}
+                      className='bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'  style={{ zIndex: '39'}}
                     >
                       <svg
                         viewBox='0 0 20 20'
@@ -116,7 +116,7 @@ const handleTransition= ()=>{
             }
             renderArrowNext={(clickHandler, hasNext, labelNext) =>
               hasNext && (
-                <div className='absolute top-1/2 -translate-y-1/2 right-4 z-10 flex items-center' style={{ zIndex: '10000'}}>
+                <div className='absolute top-1/2 -translate-y-1/2 right-4 z-10 flex items-center' style={{ zIndex: '39'}}>
                   {arrowType === 'Arrow1' && (
                     <button
                       onClick={clickHandler}
@@ -138,7 +138,7 @@ const handleTransition= ()=>{
                   {arrowType === 'Arrow2' && (
                     <button
                       onClick={clickHandler}
-                      className='bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'  style={{ zIndex: '10000'}}
+                      className='bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none'  style={{ zIndex: '39'}}
                     >
                       <svg
                         viewBox='0 0 20 20'
@@ -167,7 +167,9 @@ const handleTransition= ()=>{
             transitionTime="700"
           >
             {bannerArr.images.map((image) => {
+              
               return (
+              
                 <div key={image} className='relative'>
                   <div className='overflow-hidden'>
                     {image.image_or_video == 'Image' ? (
@@ -221,6 +223,7 @@ const handleTransition= ()=>{
                   }
                         {image.button_display == 'Yes' && (
                           <>
+                          
                             <div className='pt-5' title={image.button_text}>
                               <a
                                 href={image.button_link}
