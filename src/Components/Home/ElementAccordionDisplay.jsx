@@ -132,7 +132,7 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                     acValue.openstatus != 'Yes' ? 'hidden' : ''
                   } ${descClass}`}  style={{color: descColor}}
                 >
-                  <div
+                  <div className="text-descrition"
                     dangerouslySetInnerHTML={{ __html: acValue.desc }}
                   ></div>
                 </div>
