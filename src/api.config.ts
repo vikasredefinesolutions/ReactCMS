@@ -11,7 +11,7 @@ export interface _Config {
 }
 
 export const cssApis = {
-  1: `https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/maincopy.css`,
+  1: `https://ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/main.css`,
   5: `https://ystore.us/HTML/RedefineCommerce/Ecom-front/pkhealthgear/main.css`,
   23: `https://ystore.us/HTML/RedefineCommerce/Ecom-front/gamedaygear/main.css`,
   108: `https://ystore.us/HTML/RedefineCommerce/Ecom-front/usaa/main.css`,
