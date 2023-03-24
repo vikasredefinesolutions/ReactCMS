@@ -330,8 +330,10 @@ export const updateSetProperties = (element) => {
                 {
                   Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_size') { imageSize = valueq.value; } }) 
                 }
+                if(imageSize == '')
+                  imageSize = 'max-w-none';
                 x.querySelectorAll('#'+key)[0].className = classAlign;
-                x.querySelectorAll('#'+key)[0].innerHTML = '<a href="javascript:void(0)" class="inline-block" id="'+key+'_img_link"><img id="'+key+'_img" class="'+imageSize+'" src="'+value.value+'" alt="" title="" /> </a>';
+                x.querySelectorAll('#'+key)[0].innerHTML = '<a href="javascript:void(0)" class="inline-block group" id="'+key+'_img_link"><img id="'+key+'_img" class="'+imageSize+' transition-all duration-700 ease-in scale-100 group-hover:transition-all group-hover:duration-700 group-hover:ease-in group-hover:scale-105" src="'+value.value+'" alt="" title="" /> </a>';
               }
             }
       }
@@ -348,7 +350,7 @@ export const updateSetProperties = (element) => {
               key +
               '_img_link"><img id="' +
               key +
-              '_img" className="" src="" alt="' +
+              '_img" class="max-w-none" src="" alt="' +
               value.value +
               '" title="' +
               value.value +
@@ -430,7 +432,7 @@ export const updateSetProperties = (element) => {
               key +
               '_img_link"><img id="' +
               key +
-              '_img" className="" src=""/> </a>';
+              '_img" className="max-w-none" src=""/> </a>';
           }
         }
       }
@@ -441,7 +443,7 @@ export const updateSetProperties = (element) => {
         if (x.querySelectorAll('#' + ky).length > 0) {
           
           x.querySelectorAll('#' + ky)[0].innerHTML =
-            '<iframe className="w-full aspect-video" src="https://www.youtube.com/embed/' +
+            '<iframe class="w-full aspect-video" src="https://www.youtube.com/embed/' +
             value.value +
             '?rel=0" allow="autoplay; encrypted-media" frameBorder="0"></iframe>';
         }
@@ -454,7 +456,7 @@ export const updateSetProperties = (element) => {
           x.querySelectorAll('#' + ky)[0].innerHTML =
             '<iframe src="https://player.vimeo.com/video/' +
             value.value +
-            '?background=1" frameBorder="0" allow="autoplay; fullscreen" allowfullscreen="" style="" className="w-full aspect-video"></iframe>';
+            '?background=1" frameBorder="0" allow="autoplay; fullscreen" allowfullscreen="" style="" class="w-full aspect-video"></iframe>';
         }
       }
 
