@@ -3,6 +3,14 @@ import ElementAccordionDisplay from 'Components/Home/ElementAccordionDisplay';
 import * as ReactDOMServer from 'react-dom/server';
 import * as dynamicFunctions from './DynamicFunction';
 
+export const assignMultipleClass = (classArr, obj) => {
+  let tmpVal = classArr.split(' ');
+  
+  tmpVal.forEach(el => {
+    obj.classList.add(el);
+  });   
+}
+
 export const updateSetProperties = (element) => {
   let x = document.getElementById('div' + element.no);
   if (element.selectedVal != undefined && element.selectedVal != '') {
@@ -212,11 +220,11 @@ export const updateSetProperties = (element) => {
         {
           buttonId = key.replace('_font_size', '');
           if(buttonId === 'Button')
-            Button_className += ' text-[' + value.value+'px]';
+            Button_className += ' ' + value.value;
           else if(buttonId === 'Button1')
-            Button1_className += ' text-[' + value.value+'px]';
+            Button1_className += ' ' + value.value;
           else if(buttonId === 'Button2')
-            Button2_className += ' text-[' + value.value+'px]';
+            Button2_className += ' ' + value.value;
 
 
         }
@@ -322,6 +330,85 @@ export const updateSetProperties = (element) => {
               {
                 let classAlign = '';
                 let imageSize = '';
+                let effectClass = '';
+                let alt = '';
+                let link = '';
+
+
+
+                if(Object.keys(element.selectedVal).includes(key+'_alt'))
+                {
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_alt') { alt += valueq.value; } })  
+                }
+                if(Object.keys(element.selectedVal).includes(key+'_link'))
+                {
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_link') { link += valueq.value; } })  
+                }
+
+                if(Object.keys(element.selectedVal).includes(key+'_transition_duration'))
+                {
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_transition_duration') { effectClass += valueq.value + ' group-hover:'+ valueq.value; } }) 
+                }
+                if(Object.keys(element.selectedVal).includes(key+'_ease_option'))
+                {
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_ease_option') { effectClass += ' ' + valueq.value + ' group-hover:'+ valueq.value; } }) 
+                }
+                if(Object.keys(element.selectedVal).includes(key+'_transition_effect'))
+                {
+                  let effectType = '';
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_transition_effect') { effectType = valueq.value; } }) 
+                  if(effectType === 'scale')
+                  {
+                    if(Object.keys(element.selectedVal).includes(key+'_scale_option_start'))
+                    {
+                      Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_scale_option_start') { effectClass += ' scale-'+valueq.value; } }) 
+                    }
+                    if(Object.keys(element.selectedVal).includes(key+'_scale_option_end'))
+                    {
+                      Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_scale_option_end') { effectClass += ' group-hover:scale-'+valueq.value; } }) 
+                    }
+                  }
+                  else if(effectType === 'fade')
+                  {
+                      if(Object.keys(element.selectedVal).includes(key+'_fade_opacity_start'))
+                      {
+                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_fade_opacity_start') { effectClass += ' '+valueq.value; } }) 
+                      }
+                      if(Object.keys(element.selectedVal).includes(key+'_fade_opacity_end'))
+                      {
+                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_fade_opacity_end') { effectClass += ' group-hover:'+valueq.value; } }) 
+                      }
+                  }
+                  else if(effectType === 'skew')
+                  {
+                      if(Object.keys(element.selectedVal).includes(key+'_skew_position'))
+                      {
+                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_skew_position') { effectClass += '  group-hover:'+valueq.value; } }) 
+                      }
+                  }
+                  else if(effectType === 'rotate')
+                  {
+                      if(Object.keys(element.selectedVal).includes(key+'_rotate_position'))
+                      {
+                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_rotate_position') { effectClass += '  group-hover:'+valueq.value; } }) 
+                      }
+                  }
+                  else if(effectType === 'translate')
+                  {
+                      if(Object.keys(element.selectedVal).includes(key+'_translate_position'))
+                      {
+                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_translate_position') { effectClass += '  group-hover:'+valueq.value; } }) 
+                      }
+                  }
+                }
+                
+                if(effectClass !== '')
+                {
+                  effectClass = 'transition-all group-hover:transition-all ' + effectClass;
+                }
+                
+                
+
                 if(Object.keys(element.selectedVal).includes(key+'_image_position'))
                 {
                   Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_position') { classAlign = valueq.value; } }) 
@@ -331,38 +418,39 @@ export const updateSetProperties = (element) => {
                   Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_size') { imageSize = valueq.value; } }) 
                 }
                 if(imageSize == '')
-                  imageSize = 'max-w-none';
+                  imageSize = '';
                 x.querySelectorAll('#'+key)[0].className = classAlign;
-                x.querySelectorAll('#'+key)[0].innerHTML = '<a href="javascript:void(0)" class="inline-block group" id="'+key+'_img_link"><img id="'+key+'_img" class="'+imageSize+' transition-all duration-700 ease-in scale-100 group-hover:transition-all group-hover:duration-700 group-hover:ease-in group-hover:scale-105" src="'+value.value+'" alt="" title="" /> </a>';
+                x.querySelectorAll('#'+key)[0].innerHTML = '<a href="'+link+'" class="inline-block group" id="'+key+'_img_link"><img id="'+key+'_img" class="'+imageSize+' '+ effectClass +'" src="'+value.value+'" alt="'+alt+'" title="'+alt+'" /> </a>';
               }
             }
       }
 
-      if (value.type == 'alt') {
-        //let propname = key.replace("_alt", "");
-        if (x.querySelectorAll('#' + key).length > 0) {
-          if (x.querySelectorAll('#' + key + '_img').length > 0) {
-            x.querySelectorAll('#' + key + '_img')[0].alt = value.value;
-            x.querySelectorAll('#' + key + '_img')[0].title = value.value;
-          } else {
-            x.querySelectorAll('#' + key)[0].innerHTML =
-              '<a href="javascript:void(0)" id="' +
-              key +
-              '_img_link"><img id="' +
-              key +
-              '_img" class="max-w-none" src="" alt="' +
-              value.value +
-              '" title="' +
-              value.value +
-              '" /> </a>';
-          }
-        }
-      }
-
+      // if (value.type == 'alt') {
+      //   //let propname = key.replace("_alt", "");
+      //   if (x.querySelectorAll('#' + key).length > 0) {
+      //     if (x.querySelectorAll('#' + key + '_img').length > 0) {
+      //       x.querySelectorAll('#' + key + '_img')[0].alt = value.value;
+      //       x.querySelectorAll('#' + key + '_img')[0].title = value.value;
+      //     } else {
+      //       x.querySelectorAll('#' + key)[0].innerHTML =
+      //         '<a href="javascript:void(0)" id="' +
+      //         key +
+      //         '_img_link"><img id="' +
+      //         key +
+      //         '_img" class="max-w-none" src="" alt="' +
+      //         value.value +
+      //         '" title="' +
+      //         value.value +
+      //         '" /> </a>';
+      //     }
+      //   }
+      // }
       if (value.type == 'fontsize') {
         let propname = key.replace('_font_size', '');
-        if(x.querySelectorAll('#'+propname).length > 0)
-              x.querySelectorAll('#'+propname)[0].classList.add(value.value);
+        if(x.querySelectorAll('#'+propname).length > 0 && isNaN(value.value))
+        {
+          assignMultipleClass(value.value, x.querySelectorAll('#'+propname)[0]);
+        }
 
         if (element.properties.TextAppearance != null) {
           if (element.properties.TextAppearance.fields != undefined) {
@@ -420,22 +508,22 @@ export const updateSetProperties = (element) => {
         }
       }
 
-      if (value.type == 'link') {
-        if (x.querySelectorAll('#' + key).length > 0) {
-          if (x.querySelectorAll('#' + key + '_img_link').length > 0) {
-            x.querySelectorAll('#' + key + '_img_link')[0].href = value.value;
-          } else {
-            x.querySelectorAll('#' + key)[0].innerHTML =
-              '<a href="' +
-              value.value +
-              '" id="' +
-              key +
-              '_img_link"><img id="' +
-              key +
-              '_img" className="max-w-none" src=""/> </a>';
-          }
-        }
-      }
+      // if (value.type == 'link') {
+      //   if (x.querySelectorAll('#' + key).length > 0) {
+      //     if (x.querySelectorAll('#' + key + '_img_link').length > 0) {
+      //       x.querySelectorAll('#' + key + '_img_link')[0].href = value.value;
+      //     } else {
+      //       x.querySelectorAll('#' + key)[0].innerHTML =
+      //         '<a href="' +
+      //         value.value +
+      //         '" id="' +
+      //         key +
+      //         '_img_link"><img id="' +
+      //         key +
+      //         '_img" className="max-w-none" src=""/> </a>';
+      //     }
+      //   }
+      // }
 
       if (value.type == 'Youtube') {
         let ky = key.replace('_video', '');

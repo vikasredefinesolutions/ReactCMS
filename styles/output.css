@@ -1439,6 +1439,9 @@ select{
 .max-w-4xl{
   max-width: 56rem;
 }
+.max-w-none{
+  max-width: none;
+}
 .max-w-sm{
   max-width: 24rem;
 }
@@ -3086,6 +3089,11 @@ select{
 .group:hover .group-hover\:text-gray-500{
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+.group:hover .group-hover\:transition-all{
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 .peer:-moz-placeholder-shown ~ .peer-placeholder-shown\:top-2{
   top: 0.5rem;
