@@ -361,11 +361,11 @@ export const updateSetProperties = (element) => {
                   {
                     if(Object.keys(element.selectedVal).includes(key+'_scale_option_start'))
                     {
-                      Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_scale_option_start') { effectClass += ' scale-'+valueq.value; } }) 
+                      Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_scale_option_start') { effectClass += ' '+valueq.value; } }) 
                     }
                     if(Object.keys(element.selectedVal).includes(key+'_scale_option_end'))
                     {
-                      Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_scale_option_end') { effectClass += ' group-hover:scale-'+valueq.value; } }) 
+                      Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_scale_option_end') { effectClass += ' group-hover:'+valueq.value; } }) 
                     }
                   }
                   else if(effectType === 'fade')
