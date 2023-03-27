@@ -417,9 +417,10 @@ export const updateSetProperties = (element) => {
                 {
                   Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_size') { imageSize = valueq.value; } }) 
                 }
+                
                 if(Object.keys(element.selectedVal).includes(key+"_image_style"))
                 {
-                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+"_image_style") { imageStyle = valueq.value; } }) 
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+"_image_style") { imageStyle = valueq.value; } })
                   if(imageStyle === 'Round')
                   {
                       if(Object.keys(element.selectedVal).includes(key+"_image_roundsize"))
@@ -429,6 +430,7 @@ export const updateSetProperties = (element) => {
                       }
                   }
                 }
+
                 if(imageSize == '')
                   imageSize = 'max-w-none';
                 x.querySelectorAll('#'+key)[0].className = classAlign;
