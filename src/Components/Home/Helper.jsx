@@ -424,7 +424,7 @@ export const updateSetProperties = (element) => {
                   {
                       if(Object.keys(element.selectedVal).includes(key+"_image_roundsize"))
                       {
-                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+"_image_roundsize") { imgClass = 'rounded-['+valueq.value+'px]'; } }) 
+                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+"_image_roundsize") { imgClass = 'rounded-['+valueq.value+'px]'; } })
                         
                       }
                   }
