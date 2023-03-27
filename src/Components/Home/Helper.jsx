@@ -333,8 +333,8 @@ export const updateSetProperties = (element) => {
                 let effectClass = '';
                 let alt = '';
                 let link = '';
-
-
+                let imageStyle = '';
+                let imgClass = '';
 
                 if(Object.keys(element.selectedVal).includes(key+'_alt'))
                 {
@@ -417,10 +417,22 @@ export const updateSetProperties = (element) => {
                 {
                   Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_size') { imageSize = valueq.value; } }) 
                 }
+                if(Object.keys(element.selectedVal).includes(key+"_image_style"))
+                {
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+"_image_style") { imageStyle = valueq.value; } }) 
+                  if(imageStyle === 'Round')
+                  {
+                      if(Object.keys(element.selectedVal).includes(key+"_image_roundsize"))
+                      {
+                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+"_image_roundsize") { imgClass = 'rounded-['+valueq.value+'px]'; } }) 
+                        
+                      }
+                  }
+                }
                 if(imageSize == '')
-                  imageSize = '';
+                  imageSize = 'max-w-none';
                 x.querySelectorAll('#'+key)[0].className = classAlign;
-                x.querySelectorAll('#'+key)[0].innerHTML = '<a href="'+link+'" class="inline-block group" id="'+key+'_img_link"><img id="'+key+'_img" class="'+imageSize+' '+ effectClass +'" src="'+value.value+'" alt="'+alt+'" title="'+alt+'" /> </a>';
+                x.querySelectorAll('#'+key)[0].innerHTML = '<a href="'+link+'" class="inline-block group" id="'+key+'_img_link"><img id="'+key+'_img" class="'+imageSize+' '+ effectClass +' ' + imgClass+ '" src="'+value.value+'" alt="'+alt+'" title="'+alt+'" /> </a>';
               }
             }
       }
