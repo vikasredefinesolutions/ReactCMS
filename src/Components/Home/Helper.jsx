@@ -865,20 +865,16 @@ export const updateSetProperties = (element) => {
 
           }
 
-      if (layoutAdjust && Object.keys(element.selectedVal).includes('Layout')) {
-        let layout = element.selectedVal.Layout;
-        removeWidthClass(x);
-        if (layout == '50-50') {
-          x.querySelectorAll('#left-section')[0].classList.add('lg:w-1/2');
-          x.querySelectorAll('#right-section')[0].classList.add('lg:w-1/2');
-        } else if (layout == '33-66') {
-          x.querySelectorAll('#left-section')[0].classList.add('lg:w-1/3');
-          x.querySelectorAll('#right-section')[0].classList.add('lg:w-2/3');
-        } else if (layout == '25-75') {
-          x.querySelectorAll('#left-section')[0].classList.add('lg:w-1/4');
-          x.querySelectorAll('#right-section')[0].classList.add('lg:w-3/4');
-        }
-      }
+          if(layoutAdjust || Object.keys(element.selectedVal).includes('Layout'))
+          {
+              let layout = element.selectedVal.Layout.value;
+              removeWidthClass(x);
+              x.querySelectorAll('#left-section')[0].classList.remove('w-full');
+              x.querySelectorAll('#left-section')[0].classList.add('lg:w-['+layout+'%]');
+              x.querySelectorAll('#right-section')[0].classList.remove('w-full');
+              x.querySelectorAll('#right-section')[0].classList.add('lg:w-['+(100-layout)+'%]');
+          }
+
     }
   }
 };

@@ -230,7 +230,7 @@ const handleTransition= ()=>{
                                 target={
                                   image.button_link_window ? '_blank' : ''
                                 }
-                                className={`${image.button_class}`}
+                                className={`${image.button_class}`} style={{ boxShadow: image?.button_box_shadow}}
                                 rel='noreferrer'
                               >
                                 {image.button_text}

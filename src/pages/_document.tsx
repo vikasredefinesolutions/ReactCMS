@@ -84,7 +84,7 @@ class MyDocument extends Document {
            <link
             rel='stylesheet'
             type='text/css'
-            href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/tailwin-css.css`}
+            href={`https://www.ystore.us/HTML/RedefineCommerce/Ecom-front/corporategear/tailwin-css-29.css`}
           />
           
 
