@@ -418,14 +418,14 @@ export const updateSetProperties = (element) => {
                   Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_size') { imageSize = valueq.value; } }) 
                 }
                 
-                if(Object.keys(element.selectedVal).includes(key+"_image_style"))
+                if(Object.keys(element.selectedVal).includes(key+'_image_style'))
                 {
-                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+"_image_style") { imageStyle = valueq.value; } })
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_style') { imageStyle = valueq.value; } })
                   if(imageStyle === 'Round')
                   {
-                      if(Object.keys(element.selectedVal).includes(key+"_image_roundsize"))
+                      if(Object.keys(element.selectedVal).includes(key+'_image_roundsize'))
                       {
-                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+"_image_roundsize") { imgClass = 'rounded-['+valueq.value+'px]'; } })
+                        Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_roundsize') { imgClass = 'rounded-['+valueq.value+'px]'; } })
                         
                       }
                   }
@@ -434,7 +434,6 @@ export const updateSetProperties = (element) => {
                 if(imageSize == '')
                   imageSize = 'max-w-none';
 
-                  console.log("TTT",imgClass);
                 x.querySelectorAll('#'+key)[0].className = classAlign;
                 x.querySelectorAll('#'+key)[0].innerHTML = '<a href="'+link+'" class="inline-block group" id="'+key+'_img_link"><img id="'+key+'_img" class="'+imageSize+' '+ effectClass +' ' + imgClass+ '" src="'+value.value+'" alt="'+alt+'" title="'+alt+'" /> </a>';
               }
@@ -467,7 +466,7 @@ export const updateSetProperties = (element) => {
         {
           assignMultipleClass(value.value, x.querySelectorAll('#'+propname)[0]);
         }
-console.log(element.selectedVal);
+
         // if (element.properties.TextAppearance != null) {
          
         //   if (element.properties.TextAppearance.fields != undefined) {
