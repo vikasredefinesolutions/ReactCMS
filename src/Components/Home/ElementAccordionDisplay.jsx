@@ -50,7 +50,7 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                 let liClass;
                 let titleColor;
                 let descColor;
-
+                let tmpBorderRadius;
                 if(selected_Values !== undefined)
                 {
                   Object.entries(selected_Values).map(([key, value]) => {
@@ -89,6 +89,10 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                       {
                           titleColor = value.value;
                       }
+                      if(key == 'FullAccordion_border_radius')
+                      {
+                          tmpBorderRadius = value.value;
+                      }
                   })
                 }
 
@@ -99,6 +103,10 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                   liClass += ' border-'+tmpTitleBorderSize;
                 else if(tmpTitleBorderType === 'single')
                   liClass += ' border-b-['+tmpTitleBorderSize+'px]';
+
+
+                if(tmpBorderRadius !== "")
+                  liClass += " rounded-[" + tmpBorderRadius + "px]";
 
                 if(tmpTitleBgOption === 'Color')
                   titleStyle += 'background: '+tmpTitleBg+'; ';

@@ -3755,6 +3755,12 @@ select{
   .lg\:w-5\/6{
     width: 83.333333%;
   }
+  .lg\:w-\[\'\+layout\+\'\%\]{
+    width: '+layout+'%;
+  }
+  .lg\:w-\[\'\+\(100-layout\)\+\'\%\]{
+    width: '+(100-layout)+'%;
+  }
   .lg\:w-6\/12{
     width: 50%;
   }
