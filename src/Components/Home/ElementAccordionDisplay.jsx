@@ -39,83 +39,84 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
       {acValues.length > 0 && (
         <>
           {acValues.map((acValue, index) => {
-
-                let tmpTitleBg;
-                let tmpTitleBgOption;
-                let tmpTitleBorderType;
-                let tmpTitleBorderColor;
-                let tmpTitleBorderSize;
-                let titleClass;
-                let descClass;
-                let liClass;
-                let titleColor;
-                let descColor;
-                let tmpBorderRadius;
-                if(selected_Values !== undefined)
-                {
-                  Object.entries(selected_Values).map(([key, value]) => {
-                      if (key == 'FullAccordion_title_bg') {
-                          tmpTitleBg = value.value;
-                      }
-                      if (key == 'FullAccordion_title_bg_option') {
-                          tmpTitleBgOption = value.value;
-                      }
-                      if (key == 'FullAccordion_title_border_type') {
-                          tmpTitleBorderType = value.value;
-                      }
-                      if (key == 'FullAccordion_title_border_color') {
-                          tmpTitleBorderColor = value.value;
-                      }
-                      if (key == 'FullAccordion_title_border_size') {
-                          tmpTitleBorderSize = value.value;
-                      }
-                      if(key == 'AccordionTitle_final_class')
-                      {
-                          titleClass = value.value;
-                      }
-                      if(key == 'AccordionDescription_final_class')
-                      {
-                          descClass = value.value;
-                      }
-                      if(key == 'AccordionContainer_final_class')
-                      {
-                          liClass = value.value;
-                      }
-                      if(key == 'AccordionDescription_font_color')
-                      {
-                          descColor = value.value;
-                      }
-                      if(key == 'AccordionTitle_font_color')
-                      {
-                          titleColor = value.value;
-                      }
-                      if(key == 'FullAccordion_border_radius')
-                      {
-                          tmpBorderRadius = value.value;
-                      }
-                  })
+            let tmpTitleBg;
+            let tmpTitleBgOption;
+            let tmpTitleBorderType;
+            let tmpTitleBorderColor;
+            let tmpTitleBorderSize;
+            let titleClass;
+            let descClass;
+            let liClass;
+            let titleColor;
+            let descColor;
+            let tmpBorderRadius;
+            if (selected_Values !== undefined) {
+              Object.entries(selected_Values).map(([key, value]) => {
+                if (key == 'FullAccordion_title_bg') {
+                  tmpTitleBg = value.value;
                 }
+                if (key == 'FullAccordion_title_bg_option') {
+                  tmpTitleBgOption = value.value;
+                }
+                if (key == 'FullAccordion_title_border_type') {
+                  tmpTitleBorderType = value.value;
+                }
+                if (key == 'FullAccordion_title_border_color') {
+                  tmpTitleBorderColor = value.value;
+                }
+                if (key == 'FullAccordion_title_border_size') {
+                  tmpTitleBorderSize = value.value;
+                }
+                if (key == 'AccordionTitle_final_class') {
+                  titleClass = value.value;
+                }
+                if (key == 'AccordionDescription_final_class') {
+                  descClass = value.value;
+                }
+                if (key == 'AccordionContainer_final_class') {
+                  liClass = value.value;
+                }
+                if (key == 'AccordionDescription_font_color') {
+                  descColor = value.value;
+                }
+                if (key == 'AccordionTitle_font_color') {
+                  titleColor = value.value;
+                }
+                if (key == 'FullAccordion_border_radius') {
+                  tmpBorderRadius = value.value;
+                }
+              });
+            }
 
+            let liStyle = '';
+            let titleStyle = '';
+            if (tmpTitleBorderType === 'box')
+              liClass += ' border-' + tmpTitleBorderSize;
+            else if (tmpTitleBorderType === 'single')
+              liClass += ' border-b-[' + tmpTitleBorderSize + 'px]';
 
-                let liStyle = '';
-                let titleStyle = '';
-                if(tmpTitleBorderType === 'box')
-                  liClass += ' border-'+tmpTitleBorderSize;
-                else if(tmpTitleBorderType === 'single')
-                  liClass += ' border-b-['+tmpTitleBorderSize+'px]';
+            if (tmpBorderRadius !== '')
+              liClass += ' rounded-[' + tmpBorderRadius + 'px]';
 
+            if (tmpTitleBgOption === 'Color')
+              titleStyle += 'background: ' + tmpTitleBg + '; ';
+            if (tmpTitleBorderColor !== '')
+              liStyle += 'border-color: ' + tmpTitleBorderColor + '; ';
 
-                if(tmpBorderRadius !== "")
-                  liClass += " rounded-[" + tmpBorderRadius + "px]";
-
-                if(tmpTitleBgOption === 'Color')
-                  titleStyle += 'background: '+tmpTitleBg+'; ';
-                if(tmpTitleBorderColor !== '')
-                  liStyle += 'border-color: '+tmpTitleBorderColor+'; ';
-                  
             return (
-              <li className={`mb-4 last:mb-0 ${liClass}`} style={{ borderColor: tmpTitleBorderColor }} onClick={showHideAccordion} key={index} >
-                <button className={`w-full flex justify-between ${titleClass}`} style={{ background: tmpTitleBgOption === 'Color' ? tmpTitleBg : '', color: titleColor}}>
+              <li
+                className={`mb-4 last:mb-0 ${liClass}`}
+                style={{ borderColor: tmpTitleBorderColor }}
+                onClick={showHideAccordion}
+                key={index}
+              >
+                <button
+                  className={`w-full flex justify-between ${titleClass}`}
+                  style={{
+                    background: tmpTitleBgOption === 'Color' ? tmpTitleBg : '',
+                    color: titleColor,
+                  }}
+                >
                   {/* <div className='text-defaule-text'> */}
                   {acValue.title}
                   {/* </div> */}
@@ -138,9 +139,11 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
                 <div
                   className={`ac-description ${
                     acValue.openstatus != 'Yes' ? 'hidden' : ''
-                  } ${descClass}`}  style={{color: descColor}}
+                  } ${descClass}`}
+                  style={{ color: descColor }}
                 >
-                  <div className="text-descrition"
+                  <div
+                    className='text-descrition'
                     dangerouslySetInnerHTML={{ __html: acValue.desc }}
                   ></div>
                 </div>
