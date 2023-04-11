@@ -198,7 +198,7 @@ const handleTransition= ()=>{
                       // justify-start justify-end justify-center
                     }
                     <div
-                      className={`flex ${image.text_hpos ? image.text_hpos : ''} ${image.text_vpos ? image.text_vpos : ''} absolute ${
+                      className={`flex ${image.text_hpos ? image.text_hpos : ''} ${image.text_vpos ? image.text_vpos : ''} w-full absolute ${
                         image.headline_font_size
                       } inset-0 p-1 lg:p-4 text-white`}
                     >
