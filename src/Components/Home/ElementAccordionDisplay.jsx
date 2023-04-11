@@ -91,7 +91,7 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
             let liStyle = '';
             let titleStyle = '';
             if (tmpTitleBorderType === 'box')
-              liClass += ' border-' + tmpTitleBorderSize;
+              liClass += ' border-[' + tmpTitleBorderSize+'px]';
             else if (tmpTitleBorderType === 'single')
               liClass += ' border-b-[' + tmpTitleBorderSize + 'px]';
 
@@ -104,23 +104,22 @@ const ElementAccordionDisplay = ({ selected_Values, acValues }) => {
               liStyle += 'border-color: ' + tmpTitleBorderColor + '; ';
 
             return (
-              <li
-                className={`mb-4 last:mb-0 ${liClass}`}
+                <li  key={index}
+                className={`mb-4 overflow-hidden last:mb-0 ${liClass}`}
                 style={{ borderColor: tmpTitleBorderColor }}
                 onClick={showHideAccordion}
-                key={index}
               >
                 <button
-                  className={`w-full flex justify-between ${titleClass}`}
+                  className={`w-full flex justify-between items-center ${titleClass} pointer-events-none`}
                   style={{
                     background: tmpTitleBgOption === 'Color' ? tmpTitleBg : '',
                     color: titleColor,
                   }}
                 >
                   {/* <div className='text-defaule-text'> */}
-                  {acValue.title}
+                  <div className="text-defaule-text pointer-events-none">{acValue.title}</div>
                   {/* </div> */}
-                  <span className='material-icons-outlined ml-3 pointer-class'>
+                  <span className='material-icons-outlined ml-3 pointer-class pointer-events-none'>
                     {acValue.openstatus == 'Yes' ? (
                       <>
                         {acValue.icon == 'caret'

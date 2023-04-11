@@ -240,6 +240,7 @@ const Home = (props) => {
                   const backgroundStyle = loadBackgroundDefaultStyle(componentValue);
                   const backgroundImageClass = loadBackgroundImageClass(componentValue);
                   let additionalclass = '';
+                  let innerDivClass = '';
                   if(componentValue.selectedVal && 'additionalclass' in componentValue.selectedVal)
                   {
                       additionalclass = componentValue.selectedVal.additionalclass.value;                                                          
@@ -257,35 +258,35 @@ const Home = (props) => {
                   }
                   if(componentValue.selectedVal && 'container_left_padding' in componentValue.selectedVal)
                   {
-                      additionalclass += ' ' + 'pl-['+componentValue.selectedVal.container_left_padding.value+'px]';                                                          
+                      innerDivClass += ' ' + 'pl-['+componentValue.selectedVal.container_left_padding.value+'px]';                                                          
                   }
                   if(componentValue.selectedVal && 'container_top_padding' in componentValue.selectedVal)
                   {
-                      additionalclass += ' ' + 'pt-['+componentValue.selectedVal.container_top_padding.value+'px]';                                                          
+                      innerDivClass += ' ' + 'pt-['+componentValue.selectedVal.container_top_padding.value+'px]';                                                          
                   }
                   if(componentValue.selectedVal && 'container_right_padding' in componentValue.selectedVal)
                   {
-                      additionalclass += ' ' + 'pr-['+componentValue.selectedVal.container_right_padding.value+'px]';                                                            
+                      innerDivClass += ' ' + 'pr-['+componentValue.selectedVal.container_right_padding.value+'px]';                                                            
                   }
                   if(componentValue.selectedVal && 'container_bottom_padding' in componentValue.selectedVal)
                   {
-                      additionalclass += ' ' + 'pb-['+componentValue.selectedVal.container_bottom_padding.value+'px]';                                                            
+                      innerDivClass += ' ' + 'pb-['+componentValue.selectedVal.container_bottom_padding.value+'px]';                                                            
                   }
                   if(componentValue.selectedVal && 'container_left_margin' in componentValue.selectedVal)
                   {
-                      additionalclass += ' ' + 'ml-['+componentValue.selectedVal.container_left_margin.value+'px]';                                                            
+                      innerDivClass += ' ' + 'ml-['+componentValue.selectedVal.container_left_margin.value+'px]';                                                            
                   }
                   if(componentValue.selectedVal && 'container_top_margin' in componentValue.selectedVal)
                   {
-                      additionalclass += ' ' + 'mt-['+componentValue.selectedVal.container_top_margin.value+'px]';                                                            
+                      innerDivClass += ' ' + 'mt-['+componentValue.selectedVal.container_top_margin.value+'px]';                                                            
                   }
                   if(componentValue.selectedVal && 'container_right_margin' in componentValue.selectedVal)
                   {
-                      additionalclass += ' ' + 'mr-['+componentValue.selectedVal.container_right_margin.value+'px]';                                                            
+                      innerDivClass += ' ' + 'mr-['+componentValue.selectedVal.container_right_margin.value+'px]';                                                            
                   }
                   if(componentValue.selectedVal && 'container_bottom_margin' in componentValue.selectedVal)
                   {
-                      additionalclass += ' ' + 'mb-['+componentValue.selectedVal.container_bottom_margin.value+'px]';                                                          
+                      innerDivClass += ' ' + 'mb-['+componentValue.selectedVal.container_bottom_margin.value+'px]';                                                          
                   }
 
                   
@@ -300,74 +301,81 @@ const Home = (props) => {
                       //     refArray.current[componentValue.uid] = ref; // took this from your guide's example.
                       // }}
                     >
-                    <section className={`${additionalclass} ${backgroundStyle === 'inner' ? backgroundImageClass : ''}`} style={ loadBackgroundType(componentValue) == 'image' ? { backgroundImage: backgroundStyle === 'inner' ? backgroundDefault : 'none' } : { background: backgroundStyle === 'inner' ? backgroundDefault : 'none' }} >
-                            
-                     {Object.keys(componentValue.properties).includes(
-                        'socialshare',
-                      ) ? (<><SocialShare /> </>) : ( <>
-                      
-                      {Object.keys(componentValue.selectedVal).includes(
-                        'featuredproducts_section_title',
-                      ) ||
-                      Object.keys(componentValue.selectedVal).includes(
-                        'featuredproducts_product_count',
-                      ) ? (
-                        <>
-                         <FeaturedProducts
-                            dataArr={componentValue.selectedVal}
-                          />
-                        </>
-                      ) : (
-                        <>
+                    <section className={`${additionalclass}`} >
+                     <div className={`${innerDivClass} ${backgroundStyle === 'inner' ? backgroundImageClass : ''}`} style={ loadBackgroundType(componentValue) == 'image' ? { backgroundImage: backgroundStyle === 'inner' ? backgroundDefault : 'none' } : { background: backgroundStyle === 'inner' ? backgroundDefault : 'none' }} >     
+                     {Object.keys(componentValue.properties).includes('PlainText') ? (<>
+                      <div dangerouslySetInnerHTML={{ __html: componentValue.selectedVal?.PlainText.value }} />
+                     </>) : ( <>
+                        {Object.keys(componentValue.properties).includes(
+                            'socialshare',
+                          ) ? (<><SocialShare /> </>) : ( <>
+                          
                           {Object.keys(componentValue.selectedVal).includes(
-                            'carousel',
+                            'featuredproducts_section_title',
+                          ) ||
+                          Object.keys(componentValue.selectedVal).includes(
+                            'featuredproducts_product_count',
                           ) ? (
                             <>
-                              <ElementCarouselDisplay
-                                bannerArr={
-                                  componentValue.selectedVal.carousel.value
-                                }
+                            <FeaturedProducts
+                                dataArr={componentValue.selectedVal}
                               />
                             </>
                           ) : (
                             <>
                               {Object.keys(componentValue.selectedVal).includes(
-                                'FullAccordion',
+                                'carousel',
                               ) ? (
                                 <>
-                                  
-                                    {componentValue?.selectedVal?.Title && (
-                                      <div class='text-box-h2 mb-4' id='Title'>
-                                        {componentValue.selectedVal.Title.value ?? ''}
-                                      </div>
-                                    )}
-                                    <ul className='mt-4 w-full mb-10'>
-                                      <ElementAccordionDisplay
-                                       selected_Values={componentValue.selectedVal} 
-                                        acValues={
-                                          componentValue.selectedVal
-                                            .FullAccordion.value
-                                        }
-                                       
-                                      />
-                                    </ul>
-                                 
+                                  <ElementCarouselDisplay
+                                    bannerArr={
+                                      componentValue.selectedVal.carousel.value
+                                    }
+                                  />
                                 </>
                               ) : (
                                 <>
-                                  <div
-                                    className={componentValue.uuid}
-                                    dangerouslySetInnerHTML={{
-                                      __html: componentValue.html,
-                                    }}
-                                  ></div>
+                                  {Object.keys(componentValue.selectedVal).includes(
+                                    'FullAccordion',
+                                  ) ? (
+                                    <>
+                                      
+                                        {componentValue?.selectedVal?.Title && (
+                                          <div class='text-box-h2 mb-4' id='Title'>
+                                            {componentValue.selectedVal.Title.value ?? ''}
+                                          </div>
+                                        )}
+                                        <ul className='w-full'>
+                                          <ElementAccordionDisplay
+                                          selected_Values={componentValue.selectedVal} 
+                                            acValues={
+                                              componentValue.selectedVal
+                                                .FullAccordion.value
+                                            }
+                                          
+                                          />
+                                        </ul>
+                                    
+                                    </>
+                                  ) : (
+                                    <>
+                                      <div
+                                        className={componentValue.uuid}
+                                        dangerouslySetInnerHTML={{
+                                          __html: componentValue.html,
+                                        }}
+                                      ></div>
+                                    </>
+                                  )}
                                 </>
                               )}
                             </>
-                          )}
+                          )} </>)
+                        }
                         </>
-                      )} </>)
-                    }
+                        )
+                      }
+                    </div>  
                     </section>
                     </div>
                   );

@@ -261,222 +261,266 @@ export const updateSetProperties = (element) => {
       }
 
       if (value.type == 'image') {
-        if (x.querySelectorAll('#' + key).length > 0) {
-          if (x.querySelectorAll('#' + key + '_img').length > 0) {
-            x.querySelectorAll('#' + key + '_img')[0].src = value.value;
-          } else {
-            let classAlign = '';
-            let imageSize = '';
-            let effectClass = '';
-            let alt = '';
-            let link = '';
-            let imageStyle = '';
-            let imgClass = '';
+        if(x.querySelectorAll('#'+key).length > 0)
+            {
 
-            if (Object.keys(element.selectedVal).includes(key + '_alt')) {
-              Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                if (keyq == key + '_alt') {
-                  alt += valueq.value;
-                }
-              });
-            }
-            if (Object.keys(element.selectedVal).includes(key + '_link')) {
-              Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                if (keyq == key + '_link') {
-                  link += valueq.value;
-                }
-              });
-            }
+              let classAlign = '';
+              let imageSize = '';
+              let effectClass = '';
+              let alt = '';
+              let link = '';
+              let imageStyle = '';
+              let imgClass = '';
 
-            if (
-              Object.keys(element.selectedVal).includes(
-                key + '_transition_duration',
-              )
-            ) {
-              Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                if (keyq == key + '_transition_duration') {
-                  effectClass += valueq.value + ' group-hover:' + valueq.value;
+              let objName={};
+
+              Object.entries(element.properties).map(([keyq, valueq]) => {
+                if (keyq == key) {
+                  objName = valueq;
                 }
               });
-            }
-            if (
-              Object.keys(element.selectedVal).includes(key + '_ease_option')
-            ) {
-              Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                if (keyq == key + '_ease_option') {
-                  effectClass +=
-                    ' ' + valueq.value + ' group-hover:' + valueq.value;
-                }
-              });
-            }
-            if (
-              Object.keys(element.selectedVal).includes(
-                key + '_transition_effect',
-              )
-            ) {
-              let effectType = '';
-              Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                if (keyq == key + '_transition_effect') {
-                  effectType = valueq.value;
-                }
-              });
-              if (effectType === 'scale') {
-                if (
-                  Object.keys(element.selectedVal).includes(
-                    key + '_scale_option_start',
-                  )
-                ) {
-                  Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                    if (keyq == key + '_scale_option_start') {
-                      effectClass += ' ' + valueq.value;
-                    }
-                  });
-                }
-                if (
-                  Object.keys(element.selectedVal).includes(
-                    key + '_scale_option_end',
-                  )
-                ) {
-                  Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                    if (keyq == key + '_scale_option_end') {
-                      effectClass += ' group-hover:' + valueq.value;
-                    }
-                  });
-                }
-              } else if (effectType === 'fade') {
-                if (
-                  Object.keys(element.selectedVal).includes(
-                    key + '_fade_opacity_start',
-                  )
-                ) {
-                  Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                    if (keyq == key + '_fade_opacity_start') {
-                      effectClass += ' ' + valueq.value;
-                    }
-                  });
-                }
-                if (
-                  Object.keys(element.selectedVal).includes(
-                    key + '_fade_opacity_end',
-                  )
-                ) {
-                  Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                    if (keyq == key + '_fade_opacity_end') {
-                      effectClass += ' group-hover:' + valueq.value;
-                    }
-                  });
-                }
-              } else if (effectType === 'skew') {
-                if (
-                  Object.keys(element.selectedVal).includes(
-                    key + '_skew_position',
-                  )
-                ) {
-                  Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                    if (keyq == key + '_skew_position') {
-                      effectClass += '  group-hover:' + valueq.value;
-                    }
-                  });
-                }
-              } else if (effectType === 'rotate') {
-                if (
-                  Object.keys(element.selectedVal).includes(
-                    key + '_rotate_position',
-                  )
-                ) {
-                  Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                    if (keyq == key + '_rotate_position') {
-                      effectClass += '  group-hover:' + valueq.value;
-                    }
-                  });
-                }
-              } else if (effectType === 'translate') {
-                if (
-                  Object.keys(element.selectedVal).includes(
-                    key + '_translate_position',
-                  )
-                ) {
-                  Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                    if (keyq == key + '_translate_position') {
-                      effectClass += '  group-hover:' + valueq.value;
-                    }
-                  });
+              
+              if (Object.keys(element.selectedVal).includes(key + '_alt')) {
+                Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                  if (keyq == key + '_alt') {
+                    alt += valueq.value;
+                  }
+                });
+              }
+             
+              if (Object.keys(element.selectedVal).includes(key + '_link')) {
+                Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                  if (keyq == key + '_link') {
+                    link += valueq.value;
+                  }
+                });
+              }
+  
+              if (
+                Object.keys(element.selectedVal).includes(
+                  key + '_transition_duration',
+                )
+              ) {
+                Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                  if (keyq == key + '_transition_duration') {
+                    effectClass += 'duration-'+valueq.value + ' group-hover:duration-' + valueq.value;
+                  }
+                });
+              }
+              if (
+                Object.keys(element.selectedVal).includes(key + '_ease_option')
+              ) {
+                Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                  if (keyq == key + '_ease_option') {
+                    effectClass +=
+                      ' ' + valueq.value + ' group-hover:' + valueq.value;
+                  }
+                });
+              }
+              if (
+                Object.keys(element.selectedVal).includes(
+                  key + '_transition_effect',
+                )
+              ) {
+                let effectType = '';
+                Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                  if (keyq == key + '_transition_effect') {
+                    effectType = valueq.value;
+                  }
+                });
+                if (effectType === 'scale') {
+                  if (
+                    Object.keys(element.selectedVal).includes(
+                      key + '_scale_option_start',
+                    )
+                  ) {
+                    Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                      if (keyq == key + '_scale_option_start') {
+                        effectClass += ' ' + valueq.value;
+                      }
+                    });
+                  }
+                  if (
+                    Object.keys(element.selectedVal).includes(
+                      key + '_scale_option_end',
+                    )
+                  ) {
+                    Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                      if (keyq == key + '_scale_option_end') {
+                        effectClass += ' group-hover:' + valueq.value;
+                      }
+                    });
+                  }
+                } else if (effectType === 'fade') {
+                  if (
+                    Object.keys(element.selectedVal).includes(
+                      key + '_fade_opacity_start',
+                    )
+                  ) {
+                    Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                      if (keyq == key + '_fade_opacity_start') {
+                        effectClass += ' ' + valueq.value;
+                      }
+                    });
+                  }
+                  if (
+                    Object.keys(element.selectedVal).includes(
+                      key + '_fade_opacity_end',
+                    )
+                  ) {
+                    Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                      if (keyq == key + '_fade_opacity_end') {
+                        effectClass += ' group-hover:' + valueq.value;
+                      }
+                    });
+                  }
+                } else if (effectType === 'skew') {
+                  if (
+                    Object.keys(element.selectedVal).includes(
+                      key + '_skew_position',
+                    )
+                  ) {
+                    Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                      if (keyq == key + '_skew_position') {
+                        effectClass += '  group-hover:' + valueq.value;
+                      }
+                    });
+                  }
+                } else if (effectType === 'rotate') {
+                  if (
+                    Object.keys(element.selectedVal).includes(
+                      key + '_rotate_position',
+                    )
+                  ) {
+                    Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                      if (keyq == key + '_rotate_position') {
+                        effectClass += '  group-hover:' + valueq.value;
+                      }
+                    });
+                  }
+                } else if (effectType === 'translate') {
+                  if (
+                    Object.keys(element.selectedVal).includes(
+                      key + '_translate_position',
+                    )
+                  ) {
+                    Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                      if (keyq == key + '_translate_position') {
+                        effectClass += '  group-hover:' + valueq.value;
+                      }
+                    });
+                  }
                 }
               }
-            }
-
-            if (effectClass !== '') {
-              effectClass =
-                'transition-all group-hover:transition-all ' + effectClass;
-            }
-
-            if (
-              Object.keys(element.selectedVal).includes(key + '_image_position')
-            ) {
-              Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                if (keyq == key + '_image_position') {
-                  classAlign = valueq.value;
-                }
-              });
-            }
-            if (
-              Object.keys(element.selectedVal).includes(key + '_image_size')
-            ) {
-              Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                if (keyq == key + '_image_size') {
-                  imageSize = valueq.value;
-                }
-              });
-            }
-
-            if (
-              Object.keys(element.selectedVal).includes(key + '_image_style')
-            ) {
-              Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                if (keyq == key + '_image_style') {
-                  imageStyle = valueq.value;
-                }
-              });
-              if (imageStyle === 'Round') {
+  
+              if (effectClass !== '') {
+                effectClass =
+                  'transition-all group-hover:transition-all ' + effectClass;
+              }
+  
+             
+              if(objName.ImageAsBG !== undefined)
+              {
+                
+                x.querySelectorAll('#' + key)[0].innerHTML = '<div class="absolute inset-0 bg-cover '+effectClass+'" style="background-image: url(\''+value.value+'\')"></div>';
+              }
+              else
+              {
                 if (
-                  Object.keys(element.selectedVal).includes(
-                    key + '_image_roundsize',
-                  )
+                  Object.keys(element.selectedVal).includes(key + '_image_position')
                 ) {
                   Object.entries(element.selectedVal).map(([keyq, valueq]) => {
-                    if (keyq == key + '_image_roundsize') {
-                      imgClass = 'rounded-[' + valueq.value + 'px]';
+                    if (keyq == key + '_image_position') {
+                      classAlign = valueq.value;
                     }
                   });
                 }
+                if (
+                  Object.keys(element.selectedVal).includes(key + '_image_size')
+                ) {
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                    if (keyq == key + '_image_size') {
+                      imageSize = valueq.value;
+                    }
+                  });
+                }
+    
+                if (
+                  Object.keys(element.selectedVal).includes(key + '_image_style')
+                ) {
+                  Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                    if (keyq == key + '_image_style') {
+                      imageStyle = valueq.value;
+                    }
+                  });
+                  if (imageStyle === 'Round') {
+                    if (
+                      Object.keys(element.selectedVal).includes(
+                        key + '_image_roundsize',
+                      )
+                    ) {
+                      Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+                        if (keyq == key + '_image_roundsize') {
+                          imgClass = 'rounded-[' + valueq.value + 'px]';
+                        }
+                      });
+                    }
+                  }
+                }
+                  if(x.querySelectorAll('#'+key+'_img').length > 0)
+                  {
+                    x.querySelectorAll('#'+key+'_img')[0].src = value.value;
+                  }
+                  else
+                  {
+                    
+                    if(Object.keys(element.selectedVal).includes(key+'_image_position'))
+                    {
+                      Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_position') { classAlign = valueq.value; } }) 
+                    }
+                    if(Object.keys(element.selectedVal).includes(key+'_image_style'))
+                    {
+                      Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_style') { imageStyle = valueq.value; } }) 
+                      if(imageStyle === 'Round')
+                      {
+                          if(Object.keys(element.selectedVal).includes(key+'_image_roundsize'))
+                          {
+                            Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_roundsize') { imgClass = 'rounded-['+valueq.value+'px]'; } }) 
+                            
+                          }
+                      }
+                    }
+                    if(Object.keys(element.selectedVal).includes(key+'_image_size'))
+                    {
+                      Object.entries(element.selectedVal).map(([keyq, valueq]) => { if(keyq == key+'_image_size') { imageSize = valueq.value; } }) 
+                    }
+                    // if(imageSize == '')
+                    //   imageSize = 'max-w-none';
+                    x.querySelectorAll('#' + key)[0].className = classAlign;
+                    x.querySelectorAll('#' + key)[0].innerHTML =
+                      '<a href="' +
+                      link +
+                      '" class="inline-block group" id="' +
+                      key +
+                      '_img_link"><img id="' +
+                      key +
+                      '_img" class="' +
+                      imageSize +
+                      ' ' +
+                      effectClass +
+                      ' ' +
+                      imgClass +
+                      '" src="' +
+                      value.value +
+                      '" alt="' +
+                      alt +
+                      '" title="' +
+                      alt +
+                      '" /> </a>';
+                  }
               }
+              
             }
-
-            //if (imageSize == '') imageSize = 'max-w-none';
-
-            x.querySelectorAll('#' + key)[0].className = classAlign;
-            x.querySelectorAll('#' + key)[0].innerHTML =
-              '<a href="' +
-              link +
-              '" class="inline-block group" id="' +
-              key +
-              '_img_link"><img id="' +
-              key +
-              '_img" class="' +
-              imageSize +
-              ' ' +
-              effectClass +
-              ' ' +
-              imgClass +
-              '" src="' +
-              value.value +
-              '" alt="' +
-              alt +
-              '" title="' +
-              alt +
-              '" /> </a>';
-          }
-        }
       }
 
       // if (value.type == 'alt') {
@@ -540,6 +584,13 @@ export const updateSetProperties = (element) => {
         // }
       }
 
+      
+      if(value.type === 'width')
+      {
+        if(value.value)
+          x.querySelectorAll('#'+key)[0].classList.add(value.value);
+      }
+      
       if (value.type == 'appearance') {
         let propname = value.value;
         if (element.properties.TextAppearance?.fields != undefined) {
@@ -547,25 +598,25 @@ export const updateSetProperties = (element) => {
           let textBgColor = propname.text_bg_color ?? '';
           let bgOpacity = propname.bg_opacity ?? '1';
           let fontSize = propname.font_size ?? '';
-          let textPos = propname.text_pos ?? 'center';
-          if (textPos === '') textPos = 'center';
+          let textPos = propname.text_pos ?? '';
+          let textHPos = propname.text_hpos ?? '';
+          let textVPos = propname.text_vpos ?? '';
+          let sectionWidth = propname.section_width ?? '';
 
-          fields.forEach((el) => {
-            if (x.querySelectorAll('#' + el + '_pos').length > 0) {
-              x.querySelectorAll('#' + el + '_pos')[0].className =
-                'flex items-center absolute ' +
-                fontSize +
-                ' inset-0 p-1 lg:p-4 text-white justify-' +
-                textPos;
-              x.querySelectorAll('#' + el + '_bg')[0].style =
-                'background: rgb(' +
-                textBgColor +
-                ', ' +
-                bgOpacity +
-                '); padding: 20px';
-              x.querySelectorAll('#' + el)[0].className = 'pb-2';
+          fields.forEach(el => {
+            if(x.querySelectorAll('#'+el+'_pos').length > 0) {
+              if(textHPos)
+                x.querySelectorAll('#'+el+'_pos')[0].className = 'flex absolute '+fontSize+' inset-0 p-1 lg:p-4 text-white '+textHPos+' '+textVPos;
+              else
+                x.querySelectorAll('#'+el+'_pos')[0].className = 'flex items-center absolute '+fontSize+' inset-0 p-1 lg:p-4 text-white justify-'+textPos;
+
+              if(sectionWidth)
+                x.querySelectorAll('#'+el+'_bg')[0].classList.add(sectionWidth);
+              x.querySelectorAll('#'+el+'_bg')[0].style = 'background: rgb('+textBgColor+', '+bgOpacity+'); padding: 20px';
+              x.querySelectorAll('#'+el)[0].className = 'pb-2';
             }
-          });
+          });   
+
         }
       }
 
@@ -586,25 +637,41 @@ export const updateSetProperties = (element) => {
       //   }
       // }
 
-      if (value.type == 'Youtube') {
-        let ky = key.replace('_video', '');
-
-        if (x.querySelectorAll('#' + ky).length > 0) {
-          x.querySelectorAll('#' + ky)[0].innerHTML =
-            '<iframe class="w-full aspect-video" src="https://www.youtube.com/embed/' +
-            value.value +
-            '?rel=0" allow="autoplay; encrypted-media" frameBorder="0"></iframe>';
+      if(value.type == 'Youtube')
+      {
+        let iorvideo;
+        let kn = key.replace('_video', '');
+        Object.entries(element.selectedVal).map(([keyq, valueq]) => {
+          if (keyq == kn+'_image_or_video') {
+            iorvideo = valueq.value;
+          }
+        });
+        
+        if(iorvideo && iorvideo === 'Video')
+        {
+          if(x.querySelectorAll('#'+kn).length > 0)
+          {
+            x.querySelectorAll('#'+kn)[0].innerHTML = '<iframe class="w-full aspect-video" src="https://www.youtube.com/embed/'+value.value+'?rel=0" allow="autoplay; encrypted-media" frameborder="0"></iframe>'
+          }
         }
       }
 
-      if (value.type == 'Vimeo') {
-        let ky = key.replace('_video', '');
-
-        if (x.querySelectorAll('#' + ky).length > 0) {
-          x.querySelectorAll('#' + ky)[0].innerHTML =
-            '<iframe src="https://player.vimeo.com/video/' +
-            value.value +
-            '?background=1" frameBorder="0" allow="autoplay; fullscreen" allowfullscreen="" style="" class="w-full aspect-video"></iframe>';
+      if(value.type == 'Vimeo')
+      {
+        let iorvideo;
+        let kn = key.replace('_video', '');
+          
+        Object.entries(element.properties).map(([keyq, valueq]) => {
+          if (keyq == kn+'_image_or_video') {
+            iorvideo = valueq.value;
+          }
+        });
+        if(iorvideo && iorvideo === 'Video')
+        {
+         if(x.querySelectorAll('#'+kn).length > 0)
+          {
+            x.querySelectorAll('#'+kn)[0].innerHTML = '<iframe src="https://player.vimeo.com/video/'+value.value+'?background=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="" style="" class="w-full aspect-video"></iframe>';
+          }
         }
       }
 
@@ -1064,8 +1131,7 @@ export const displaySection = (obj, side, x) => {
       '">';
     strHTML += '<div class="text-center w-full bg-gray-50">';
     if (obj.headline != '' && obj.headline != null)
-      strHTML +=
-        '<div class="text-base font-semibold p-4">' + obj.headline + '</div>';
+      strHTML += '<div class="'+obj?.headline_class+'" style="color: '+obj?.fontColor+'">' + obj.headline + '</div>';
     strHTML += '</div>';
 
     //strHTML += '</div>';
@@ -1074,7 +1140,7 @@ export const displaySection = (obj, side, x) => {
   } else {
     strHTML += '<div class="p-4 lg:p-8 flex w-full items-center">';
     strHTML += '<div class="w-full">';
-    strHTML += '<div class="text-sub-title">' + obj.headline + '</div>';
+    strHTML += '<div class="'+obj?.headline_class+'" style="color: '+obj?.fontColor+'">' + obj.headline + '</div>';
     strHTML +=
       '<div class="text-default-text mt-2">' + obj.description + '</div>';
     strHTML += '</div>';

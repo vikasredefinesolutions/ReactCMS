@@ -743,6 +743,9 @@ select{
   white-space: nowrap;
   border-width: 0;
 }
+.pointer-events-none{
+  pointer-events: none;
+}
 .collapse{
   visibility: collapse;
 }
@@ -1048,9 +1051,6 @@ select{
 .mb-\[\'\+componentValue\.selectedVal\.container_bottom_margin\.value\+\'px\]{
   margin-bottom: '+componentValue.selectedVal.container bottom margin.value+'px;
 }
-.mb-10{
-  margin-bottom: 2.5rem;
-}
 .ml-\[35px\]{
   margin-left: 35px;
 }
@@ -1080,6 +1080,9 @@ select{
 }
 .-mr-2{
   margin-right: -0.5rem;
+}
+.mb-10{
+  margin-bottom: 2.5rem;
 }
 .ml-1{
   margin-left: 0.25rem;
@@ -1754,6 +1757,9 @@ select{
 .rounded-sm{
   border-radius: 0.125rem;
 }
+.rounded-\[\'\+valueq\.value\+\'px\]{
+  border-radius: '+valueq.value+'px;
+}
 .\!rounded-md{
   border-radius: 0.375rem !important;
 }
@@ -2147,6 +2153,9 @@ select{
 .bg-contain{
   background-size: contain;
 }
+.bg-cover{
+  background-size: cover;
+}
 .bg-center{
   background-position: center;
 }
@@ -2531,11 +2540,6 @@ select{
 .text-\[22px\]{
   font-size: 22px;
 }
-.text-sub-title{
-  font-size: var(--tw-theme-sub-title-font-size);
-  line-height: 2.25rem;
-  letter-spacing: var(--tw-theme-sub-title-font-letter-spacing);
-}
 .text-\[16px\]{
   font-size: 16px;
 }
@@ -2548,6 +2552,11 @@ select{
 }
 .\!text-\[26px\]{
   font-size: 26px !important;
+}
+.text-sub-title{
+  font-size: var(--tw-theme-sub-title-font-size);
+  line-height: 2.25rem;
+  letter-spacing: var(--tw-theme-sub-title-font-letter-spacing);
 }
 .text-\[40px\]{
   font-size: 40px;
@@ -2749,9 +2758,6 @@ select{
 .text-primary{
   color: var(--tw-theme-btn-primary-color);
 }
-.text-sub-title{
-  color: var(--tw-theme-sub-title-color);
-}
 .text-gray-200{
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
@@ -2787,6 +2793,9 @@ select{
 .text-yellow-400{
   --tw-text-opacity: 1;
   color: rgb(250 204 21 / var(--tw-text-opacity));
+}
+.text-sub-title{
+  color: var(--tw-theme-sub-title-color);
 }
 .text-\[\#006CD1\]{
   --tw-text-opacity: 1;

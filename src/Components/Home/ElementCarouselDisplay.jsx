@@ -182,14 +182,14 @@ const handleTransition= ()=>{
                             className='w-full aspect-video'
                             src={`https://www.youtube.com/embed/${image.video_url}?rel=0`}
                             allow='autoplay; encrypted-media'
-                            frameBorder='0'
+                          
                           ></iframe>
                         ) : (
                           <iframe
                             className='p-0 w-full aspect-[7/3]'
                             src={`https://player.vimeo.com/video/${image.video_url}?autoplay=1&loop=1&background=1&muted=1`}
                             allow='autoplay'
-                            frameBorder='0'
+                          
                           ></iframe>
                         )}
                       </>
@@ -198,25 +198,23 @@ const handleTransition= ()=>{
                       // justify-start justify-end justify-center
                     }
                     <div
-                      className={`flex items-center absolute ${
+                      className={`flex ${image.text_hpos ? image.text_hpos : ''} ${image.text_vpos ? image.text_vpos : ''} absolute ${
                         image.headline_font_size
-                      } inset-0 p-1 lg:p-4 justify-${
-                        image.text_pos ? image.text_pos : 'center'
-                      } text-white`}
+                      } inset-0 p-1 lg:p-4 text-white`}
                     >
                       <div
-                        className=''
+                        className={`${image.headline_width ? image.headline_width : ''}`} 
                         style={{
                           background: `rgb(${image.text_bg_color}, ${image.bg_opacity})`,
                           padding: '20px',
                         }}
                       >
-                      {image.headline !== '' && <div className={image.headline1_class ?? ''} style={{ color: image.font_color ?? '', textShadow: image.headline1_box_shadow ?? '' }} dangerouslySetInnerHTML={{
+                      {image.headline1_display  && <div className={image.headline1_class ?? ''} style={{ color: image.font_color ?? '', textShadow: image.headline1_box_shadow ?? '' }} dangerouslySetInnerHTML={{
                               __html:
                                   image.headline
                                 }}></div>
                     }
-                  {image.headline1 !== '' && <div className={image.headline2_class ?? ''} style={{ color: image.font_color1 ?? '', textShadow: image.headline2_box_shadow ?? '' }} dangerouslySetInnerHTML={{
+                  {image.headline2_display && <div className={image.headline2_class ?? ''} style={{ color: image.font_color1 ?? '', textShadow: image.headline2_box_shadow ?? '' }} dangerouslySetInnerHTML={{
                     __html:
                         image.headline1
                     }}></div> 
@@ -224,7 +222,7 @@ const handleTransition= ()=>{
                         {image.button_display == 'Yes' && (
                           <>
                           
-                            <div className='pt-5' title={image.button_text}>
+                          <div className={`pt-5 ${image?.button_text_alignment}`} title={image.button_text}>
                               <a
                                 href={image.button_link}
                                 target={
