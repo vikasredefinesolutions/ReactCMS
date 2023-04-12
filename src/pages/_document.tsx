@@ -46,6 +46,9 @@ class MyDocument extends Document {
           {storeId == 1 && (
             <link rel='stylesheet' type='text/css' href={cssApis[1]} />
           )}
+           {storeId == 21 && (
+            <link rel='stylesheet' type='text/css' href={cssApis[21]} />
+          )}
           {storeId == 5 && (
             <link rel='stylesheet' type='text/css' href={cssApis[5]} />
           )}
