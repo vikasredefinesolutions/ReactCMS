@@ -60,7 +60,7 @@ export const multipleBrands = (dataArr, selectedObj) => {
               strHTML += '<div class="w-full lg:w-1/4 px-3 mt-3 mb-3">';
               strHTML += '<div class="border bg-[] hover:bg-[] relative" style="background-color:'+(item.BgColor ? item.BgColor : '#003a70')+' ">';
               strHTML += '<div class="flex justify-center items-center">';
-              strHTML += '<a title="'+item.Image_link+'">';
+              strHTML += '<a href="'+item.Image_link+'">';
               strHTML += '<img class="w-full mx-auto" src="'+item.Image+'"/>';
               strHTML += '</a>';
               strHTML += '</div>';
@@ -99,9 +99,12 @@ export const boximage = (dataArr, selectedObj) => {
       let headLine = '';
       let textBg = 'text-center bg-white w-full';
 
-      let fontSize = 'text-base';
+      let fontSize = "text-base";
       let bgOpacity = 1;
-      let bgColor = '';
+      let bgColor = "";
+      let textHPos = '';
+      let textVPos = '';
+      let sectionWidth = '';
 
       var buttonHTML = '';
       if (
@@ -122,14 +125,15 @@ export const boximage = (dataArr, selectedObj) => {
       //flex items-center absolute text-3xl inset-0 p-1 lg:p-4 text-white justify-center
       //console.log("ARD", selectedObj.selectedVal);
       if (selectedObj.selectedVal.TextAppearance != undefined) {
+       
         aprData = selectedObj.selectedVal.TextAppearance.value;
-
-        if (aprData.text_pos != undefined) {
-          textPos = aprData.text_pos;
-          fontSize = aprData.font_size;
-          bgOpacity = aprData.bg_opacity;
-          bgColor = aprData.text_bg_color;
-        }
+        textPos  = aprData.text_pos ?? '';
+        fontSize = aprData.font_size ?? '';
+        bgOpacity = aprData.bg_opacity ?? '';
+        bgColor = aprData.text_bg_color ?? '';
+        textHPos = aprData.text_hpos ?? '';
+        textVPos = aprData.text_vpos ?? '';
+        sectionWidth = aprData.sectionWidth ?? ''; 
       }
       let themeClass = '';
       let fontColor = '';
@@ -147,24 +151,16 @@ export const boximage = (dataArr, selectedObj) => {
         item.Headline !== '' &&
         item.Headline !== null
       ) {
-        if (textPos != 'top' && textPos != 'bottom') {
-          clName = 'flex relative w-full text-white';
+        clName = 'flex relative w-full text-white';
           headLine +=
-            '<div class="flex items-center absolute ' +
-            fontSize +
-            ' inset-0 p-1 lg:p-4 text-white justify-center">';
-          headLine += '<div class="" style="background: rgba(' + bgColor + ',' + bgOpacity + '); padding: 20px;">';
+            '<div class="flex absolute ' + textHPos + ' ' + textVPos + ' inset-0 p-1 lg:p-4 text-white">';
+          headLine += '<div class="'+sectionWidth + '" style="background: rgba(' + bgColor + ',' + bgOpacity + '); padding: 20px;">';
           headLine += '<div class="'+themeClass+'" style="color:'+fontColor+'">'+item.Headline+'</div>';
           headLine += '<div>';
           headLine += buttonHTML;
           headLine += '</div>';
           headLine += '</div>';
           headLine += '</div>';
-        } else {
-          headLine += '<div class="text-center bg-white w-full">';
-          headLine += '<div class="'+themeClass+'" style="color:'+fontColor+'">'+item.Headline+'</div>';
-          headLine += '</div>';
-        }
       }
 
       if (textPos == 'top') {
