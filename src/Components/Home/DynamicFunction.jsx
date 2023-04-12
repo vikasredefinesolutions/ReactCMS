@@ -99,9 +99,9 @@ export const boximage = (dataArr, selectedObj) => {
       let headLine = '';
       let textBg = 'text-center bg-white w-full';
 
-      let fontSize = "text-base";
+      let fontSize = 'text-base';
       let bgOpacity = 1;
-      let bgColor = "";
+      let bgColor = '';
       let textHPos = '';
       let textVPos = '';
       let sectionWidth = '';
